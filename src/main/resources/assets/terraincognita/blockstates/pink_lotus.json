@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "terraincognita:block/pink_lotus"
+      },
+      {
+        "model": "terraincognita:block/pink_lotus",
+        "y": 90
+      },
+      {
+        "model": "terraincognita:block/pink_lotus",
+        "y": 180
+      },
+      {
+        "model": "terraincognita:block/pink_lotus",
+        "y": 270
+      }
+    ]
+  }
+}

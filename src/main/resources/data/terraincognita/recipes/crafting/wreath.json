@@ -1,0 +1,9 @@
+{
+  "type": "terraincognita:flower_band",
+  "conditions": [
+    {
+      "type": "cuneiform:config",
+      "config": "terraincognita:flower_band"
+    }
+  ]
+}

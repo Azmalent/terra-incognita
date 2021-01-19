@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "terraincognita:fiddlehead",
+          "conditions": [
+            {
+              "type": "cuneiform:config",
+              "config": "terraincognita:fiddlehead"
+            }
+          ],
+          "weight": 20
+        },
+        {
+          "type": "empty",
+          "weight": 80
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ]
+    }
+  ]
+}

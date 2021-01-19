@@ -1,0 +1,72 @@
+{
+  "variants": {
+    "lilypads=1": [
+      {
+        "model": "terraincognita:block/small_lilypad_1"
+      },
+      {
+        "model": "terraincognita:block/small_lilypad_1",
+        "y": 90
+      },
+      {
+        "model": "terraincognita:block/small_lilypad_1",
+        "y": 180
+      },
+      {
+        "model": "terraincognita:block/small_lilypad_1",
+        "y": 270
+      }
+    ],
+    "lilypads=2": [
+      {
+        "model": "terraincognita:block/small_lilypad_2"
+      },
+      {
+        "model": "terraincognita:block/small_lilypad_2",
+        "y": 90
+      },
+      {
+        "model": "terraincognita:block/small_lilypad_2",
+        "y": 180
+      },
+      {
+        "model": "terraincognita:block/small_lilypad_2",
+        "y": 270
+      }
+    ],
+    "lilypads=3": [
+      {
+        "model": "terraincognita:block/small_lilypad_3"
+      },
+      {
+        "model": "terraincognita:block/small_lilypad_3",
+        "y": 90
+      },
+      {
+        "model": "terraincognita:block/small_lilypad_3",
+        "y": 180
+      },
+      {
+        "model": "terraincognita:block/small_lilypad_3",
+        "y": 270
+      }
+    ],
+    "lilypads=4": [
+      {
+        "model": "terraincognita:block/small_lilypad_4"
+      },
+      {
+        "model": "terraincognita:block/small_lilypad_4",
+        "y": 90
+      },
+      {
+        "model": "terraincognita:block/small_lilypad_4",
+        "y": 180
+      },
+      {
+        "model": "terraincognita:block/small_lilypad_4",
+        "y": 270
+      }
+    ]
+  }
+}

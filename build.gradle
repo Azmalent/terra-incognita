@@ -1,0 +1,138 @@
+buildscript {
+    repositories {
+        maven { url = 'https://files.minecraftforge.net/maven' }
+        maven { url = 'https://repo.spongepowered.org/maven' }
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+        classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-SNAPSHOT'
+    }
+}
+
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'org.spongepowered.mixin'
+
+ext.configFile = file('gradle.properties')
+ext.config = parseConfig(configFile)
+
+group = "azmalent.${modid}"
+archivesBaseName = modid
+version = "${minecraft_version}-${mod_version}"
+
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
+
+println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
+
+minecraft {
+    mappings channel: mappings_channel, version: mappings_version
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+
+    runs {
+        client {
+            workingDirectory project.file('run')
+            arg "-mixin.config=terraincognita.mixins.json"
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+
+            mods {
+                terraincognita {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        server {
+            workingDirectory project.file('run')
+            arg "-mixin.config=terraincognita.mixins.json"
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+
+            mods {
+                terraincognita {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        data {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+
+            args '--mod', 'examplemod', '--all', '--output', file('src/generated/resources/')
+
+            mods {
+                terraincognita {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
+}
+
+jar {
+    manifest {
+        attributes([
+                "Specification-Title": "${modid}",
+                "Specification-Vendor": "azmalent",
+                "Specification-Version": "1", // We are version 1 of ourselves
+                "Implementation-Title": "${modid}",
+                "Implementation-Version": "${mod_version}",
+                "Implementation-Vendor": "azmalent",
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+
+                'TweakClass': 'org.spongepowered.asm.launch.MixinTweaker',
+                "MixinConfigs": "${modid}.mixins.json",
+                'FMLCorePluginContainsFMLMod': 'true',
+                'ForceLoadAsMod': 'true'
+        ])
+    }
+}
+
+repositories {
+    maven {
+        url = "https://www.cursemaven.com"
+    }
+}
+
+dependencies {
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+    compile fileTree(dir: 'libs', include: '*.jar')
+    
+    compileOnly "curse.maven:quark-243121:${quark_file_id}"
+    compileOnly "curse.maven:simply-tea-268373:${simply_tea_file_id}"
+}
+
+processResources {
+    from(sourceSets.main.resources.srcDirs) {
+        include 'META-INF/mods.toml'
+
+        expand 'mod_name': mod_name, 'mod_version': project.version,
+                'minecraft_version': minecraft_version, 'minecraft_version_range': minecraft_version_range,
+                'fml_min': fml_min, 'forge_version': forge_version,
+                'cuneiform_version': cuneiform_version
+    }
+
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'META-INF/mods.toml'
+    }
+}
+
+sourceSets {
+    main {
+        output.resourcesDir = output.classesDir
+        ext.refMap = "terraincognita.mixins.refmap.json"
+    }
+}
+
+static def parseConfig(File config) {
+    config.withReader {
+        def prop = new Properties()
+        prop.load(it)
+        return (new ConfigSlurper().parse(prop))
+    }
+}
+
+jar.finalizedBy('reobfJar')

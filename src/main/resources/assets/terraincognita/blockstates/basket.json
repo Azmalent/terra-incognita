@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "terraincognita:block/basket"
+    },
+    "facing=east": {
+      "model": "terraincognita:block/basket",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "terraincognita:block/basket",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "terraincognita:block/basket",
+      "y": 270
+    }
+  }
+}

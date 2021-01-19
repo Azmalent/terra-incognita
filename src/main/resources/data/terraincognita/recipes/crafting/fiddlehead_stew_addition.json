@@ -1,0 +1,9 @@
+{
+  "type": "terraincognita:fiddlehead_suspicious_stew_addition",
+  "conditions": [
+    {
+      "type": "cuneiform:config",
+      "config": "terraincognita:fiddlehead"
+    }
+  ]
+}

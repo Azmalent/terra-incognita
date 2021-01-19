@@ -1,0 +1,25 @@
+{
+    "item.dandelion_puff.blow": {
+        "category": "players",
+        "subtitle": "subtitle.terraincognita.blow",
+        "sounds":[
+            "terraincognita:blow"
+        ]
+    },
+
+    "block.caltrops.throw": {
+        "category": "blocks",
+        "subtitle": "subtitle.terraincognita.caltrops_throw",
+        "sounds":[
+            "terraincognita:caltrops"
+        ]
+    },
+
+    "block.caltrops.place": {
+        "category": "blocks",
+        "subtitle": "subtitles.block.generic.place",
+        "sounds":[
+            {"name": "terraincognita:caltrops", "pitch": 1.2}
+        ]
+    }
+}

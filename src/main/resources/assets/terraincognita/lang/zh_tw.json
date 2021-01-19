@@ -1,0 +1,41 @@
+{
+	"itemGroup.terraIncognitaTab": "Terra Incognita", 
+
+	"block.terraincognita.dandelion_puff": "結籽蒲公英",
+	"block.terraincognita.potted_dandelion_puff": "盆中的結籽蒲公英",
+	"block.terraincognita.forget_me_not": "勿忘我",
+	"block.terraincognita.potted_forget_me_not": "盆中的勿忘我",
+	"block.terraincognita.marigold": "萬壽菊",
+	"block.terraincognita.potted_marigold": "盆中的萬壽菊",
+	"block.terraincognita.edelweiss": "雪絨花",
+	"block.terraincognita.potted_edelweiss": "盆中的雪絨花",
+	"block.terraincognita.blue_iris": "藍色鳶尾花",
+	"block.terraincognita.potted_blue_iris": "盆中的藍色鳶尾花",
+	"block.terraincognita.purple_iris": "紫色鳶尾花",
+	"block.terraincognita.potted_purple_iris": "盆中的紫色鳶尾花",
+	"block.terraincognita.fireweed": "柳蘭花",
+	"block.terraincognita.potted_fireweed": "盆中的柳蘭花",
+	"block.terraincognita.arctic_poppy": "極地罌粟",
+	"block.terraincognita.potted_arctic_poppy": "盆中的極地罌粟",
+	"block.terraincognita.small_lilypad": "小型荷葉",
+	"block.terraincognita.pink_lotus": "粉色荷花",
+	"block.terraincognita.white_lotus": "白色荷花",
+	"block.terraincognita.yellow_lotus": "黃色荷花",
+	"block.terraincognita.caltrops": "蒺藜",
+
+	"item.terraincognita.taffy": "太妃糖",
+	"item.terraincognita.notch_carrot": "附魔金胡蘿蔔",
+	"item.terraincognita.fiddlehead": "過貓",
+	"item.terraincognita.berry_sorbet": "漿果冰糕",
+	"item.terraincognita.flower_band": "花冠",
+	"item.terraincognita.fireweed_teabag": "柳蘭花茶包",
+	"item.terraincognita.fireweed_tea_cup": "柳蘭花茶",
+
+	"biome.terraincognita.tundra": "苔原",
+	"biome.terraincognita.rocky_tundra": "石化苔原",
+
+	"effect.terraincognita.sticky_mouth": "黏牙",
+
+	"subtitle.terraincognita.blow": "蒲公英籽飛散",
+	"subtitle.terraincognita.caltrops_throw": "蒺藜擲出"
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "result": {
+    "item": "terraincognita:berry_sorbet"
+  },
+  "ingredients": [
+    {"item": "minecraft:bowl"},
+    {"item": "minecraft:sweet_berries"},
+    {"item": "minecraft:sugar"},
+    {"item": "minecraft:snowball"}
+  ],
+  "conditions": [
+    {
+      "type": "cuneiform:config",
+      "config": "terraincognita:sorbet"
+    }
+  ]
+}

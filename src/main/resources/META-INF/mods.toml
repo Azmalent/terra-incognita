@@ -1,0 +1,48 @@
+modLoader="javafml"
+loaderVersion="[${fml_min},)"
+license="GPL v3.0"
+
+[[mods]]
+modId="terraincognita"
+version="${mod_version}"
+displayName="${mod_name}"
+logoFile="terraincognita.png"
+authors="Azmalent"
+description='''
+An expansion focusing on nature and exploration.
+'''
+
+[[dependencies.terraincognita]]
+    modId="forge"
+    mandatory=true
+    versionRange="[${forge_version},)"
+    # An ordering relationship for the dependency - BEFORE or AFTER required if the relationship is not mandatory
+    ordering="NONE"
+    # Side this dependency is applied on - BOTH, CLIENT or SERVER
+    side="BOTH"
+
+[[dependencies.terraincognita]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="${minecraft_version_range}"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.terraincognita]]
+    modId="cuneiform"
+    mandatory=true
+    versionRange="[${cuneiform_version},)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.terraincognita]]
+    modId="quark"
+    mandatory=false
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.terraincognita]]
+    modId="simplytea"
+    mandatory=false
+    ordering="AFTER"
+    side="BOTH"

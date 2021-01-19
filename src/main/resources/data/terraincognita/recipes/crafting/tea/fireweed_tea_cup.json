@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "result": {
+    "item": "terraincognita:fireweed_tea_cup"
+  },
+  "ingredients": [
+    {"item": "simplytea:cup"},
+    {"item": "terraincognita:fireweed_teabag"},
+    {"item": "simplytea:teapot_hot"}
+  ],
+  "conditions": [
+    {
+      "type": "forge:and",
+      "values": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "simplytea"
+        },
+        {
+          "type": "cuneiform:config",
+          "config": "terraincognita:fireweed"
+        }
+      ]
+    }
+  ]
+}
