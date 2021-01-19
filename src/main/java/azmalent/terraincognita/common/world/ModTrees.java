@@ -11,7 +11,7 @@ public class ModTrees {
     public static ConfiguredFeature<?, ?> SPRUCE_BUSH = Feature.TREE.withConfiguration(
         (new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.SPRUCE_LOG.getDefaultState()),
             new SimpleBlockStateProvider(Blocks.SPRUCE_LEAVES.getDefaultState()),
-            new BushFoliagePlacer(FeatureSpread.func_242252_a(1), FeatureSpread.func_242252_a(1), 2),
+            new BushFoliagePlacer(FeatureSpread.func_242252_a(2), FeatureSpread.func_242252_a(1), 2),
             new StraightTrunkPlacer(1, 0, 0),
             new TwoLayerFeature(0, 0, 0))).func_236702_a_(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES).build()
     ).chance(4);
@@ -19,7 +19,7 @@ public class ModTrees {
     public static ConfiguredFeature<?, ?> DWARF_BIRCH = Feature.TREE.withConfiguration(
         (new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.BIRCH_LOG.getDefaultState()),
             new SimpleBlockStateProvider(Blocks.BIRCH_LEAVES.getDefaultState()),
-            new BushFoliagePlacer(FeatureSpread.func_242252_a(1), FeatureSpread.func_242252_a(1), 2),
+            new BushFoliagePlacer(FeatureSpread.func_242252_a(2), FeatureSpread.func_242252_a(1), 2),
             new StraightTrunkPlacer(2, 0, 0),
             new TwoLayerFeature(0, 0, 0))).func_236702_a_(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES).build()
     ).chance(4);

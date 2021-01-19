@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Biome.class)
 public class BiomeMixin {
-    @Inject(at = @At("HEAD"), method = "getGrassColor(DD)I", cancellable = true)
+    @Inject(method = "getGrassColor", at = @At("HEAD"), cancellable = true)
     private void getGrassColor(double x, double z, CallbackInfoReturnable<Integer> cir) {
         Biome self = (Biome) (Object) this;
         ResourceLocation id = self.getRegistryName();

@@ -12,7 +12,7 @@
   "conditions": [
     {
       "type": "cuneiform:config",
-      "config": "terraincognita:edelweiss"
+      "config": "terraincognita:alpine_flowers"
     }
   ]
 }

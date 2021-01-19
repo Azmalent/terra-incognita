@@ -6,7 +6,8 @@
   "package": "azmalent.terraincognita.mixin",
   "mixins": [
     "FlowersFeatureMixin",
-    "FoxEntityTypeMixin"
+    "FoxEntityTypeMixin",
+    "GrassBlockMixin"
   ],
   "client": [
     "BiomeMixin"

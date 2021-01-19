@@ -16,7 +16,7 @@ public class ModFeatures {
     public static RegistryObject<ReedsFeature> REEDS;
 
     static {
-        if (TIConfig.Flora.edelweiss.get()) EDELWEISS = FEATURES.register("edelweiss", EdelweissFeature::new);
+        if (TIConfig.Flora.alpineFlowers.get()) EDELWEISS = FEATURES.register("edelweiss", EdelweissFeature::new);
         if (TIConfig.Flora.reeds.get()) REEDS = FEATURES.register("reeds", ReedsFeature::new);
     }
 }

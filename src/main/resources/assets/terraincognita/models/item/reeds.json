@@ -1,3 +1,6 @@
 {
-  "parent": "terraincognita:block/reeds"
-} 
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "terraincognita:item/reeds"
+  }
+}

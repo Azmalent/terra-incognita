@@ -4,31 +4,23 @@ import azmalent.cuneiform.lib.util.BiomeUtil;
 import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.init.ModBiomes;
-import azmalent.terraincognita.common.world.ModTrees;
 import azmalent.terraincognita.common.world.ModVegetation;
-import net.minecraft.entity.EntityClassification;
-import net.minecraft.entity.EntityType;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.*;
-import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.feature.Features;
-import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 
-import static azmalent.cuneiform.lib.util.BiomeUtil.hasAllTypes;
 import static azmalent.cuneiform.lib.util.BiomeUtil.hasAnyType;
 import static net.minecraftforge.common.BiomeDictionary.Type.*;
 import static net.minecraftforge.common.BiomeDictionary.hasType;
 
 public class BiomeHandler {
     public static void registerListeners() {
-        MinecraftForge.EVENT_BUS.addListener(EventPriority.HIGH, BiomeHandler::addCustomFeatures);
         MinecraftForge.EVENT_BUS.addListener(EventPriority.HIGH, BiomeHandler::addFeaturesToCustomBiomes);
-        MinecraftForge.EVENT_BUS.addListener(EventPriority.HIGH, BiomeHandler::applyVanillaBiomeTweaks);
+        MinecraftForge.EVENT_BUS.addListener(BiomeHandler::applyVanillaBiomeTweaks);
+        MinecraftForge.EVENT_BUS.addListener(EventPriority.LOW, BiomeHandler::addCustomFeatures);
     }
 
     public static void addCustomFeatures(BiomeLoadingEvent event) {
@@ -42,21 +34,28 @@ public class BiomeHandler {
             case SWAMP:
                 ModVegetation.addVegetation(event, ModVegetation.SMALL_LILYPADS);
                 ModVegetation.addVegetation(event, ModVegetation.REEDS);
-            case PLAINS: case FOREST:
-                if (!cold) ModVegetation.addVegetation(event, ModVegetation.FORGET_ME_NOT);
+                if (!cold) {
+                    ModVegetation.addVegetation(event, ModVegetation.SWAMP_FLOWERS);
+                }
                 break;
-            case SAVANNA: case DESERT:
-                ModVegetation.addVegetation(event, ModVegetation.MARIGOLD);
+            case SAVANNA:
+                ModVegetation.addVegetation(event, ModVegetation.SAVANNA_FLOWERS);
+                break;
+            case DESERT:
+                ModVegetation.addVegetation(event, ModVegetation.DESERT_MARIGOLDS);
                 break;
             case EXTREME_HILLS:
-                if (!hot) ModVegetation.addVegetation(event, ModVegetation.EDELWEISS);
+                if (!hot) {
+                    ModVegetation.addVegetation(event, ModVegetation.ALPINE_FLOWERS);
+                    ModVegetation.addVegetation(event, ModVegetation.EDELWEISS);
+                }
                 break;
             case JUNGLE:
-                ModVegetation.addVegetation(event, ModVegetation.IRIS);
+                ModVegetation.addVegetation(event, ModVegetation.JUNGLE_FLOWERS);
                 ModVegetation.addVegetation(event, ModVegetation.LOTUS);
                 break;
             case TAIGA: case ICY:
-                ModVegetation.addVegetation(event, ModVegetation.FIREWEED);
+                ModVegetation.addVegetation(event, ModVegetation.ARCTIC_FLOWERS);
                 break;
         }
     }

@@ -12,7 +12,7 @@
   "conditions": [
     {
       "type": "cuneiform:config",
-      "config": "terraincognita:forget_me_not"
+      "config": "terraincognita:swamp_flowers"
     }
   ]
 }

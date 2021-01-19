@@ -33,7 +33,7 @@ public abstract class FlowersFeatureMixin<TConfig extends IFeatureConfig> {
     @Shadow public abstract boolean isValidPosition(IWorld iWorld, BlockPos blockPos, TConfig config);
 
     //TODO: use @Redirect
-    @Inject(method = "generate(Lnet/minecraft/world/ISeedReader;Lnet/minecraft/world/gen/ChunkGenerator;Ljava/util/Random;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/world/gen/feature/IFeatureConfig;)Z", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "generate", at = @At("HEAD"), cancellable = true)
     void generate(ISeedReader reader, ChunkGenerator chunkGenerator, Random rand, BlockPos centerPos, TConfig config, CallbackInfoReturnable<Boolean> cir) {
         BlockState blockState = this.getFlowerToPlace(rand, centerPos, config);
         boolean success = false;
@@ -47,7 +47,7 @@ public abstract class FlowersFeatureMixin<TConfig extends IFeatureConfig> {
                         flower = ModBlocks.DANDELION_PUFF.getBlock().getDefaultState();
                     }
                 }
-                else if (flower.isIn(Blocks.POPPY) && TIConfig.Flora.arcticPoppy.get()) {
+                else if (flower.isIn(Blocks.POPPY) && TIConfig.Flora.arcticFlowers.get()) {
                     if (reader.getBiome(pos).getCategory() == Biome.Category.ICY) {
                         flower = ModBlocks.ARCTIC_POPPY.getBlock().getDefaultState();
                     }

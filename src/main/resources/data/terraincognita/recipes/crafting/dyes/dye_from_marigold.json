@@ -12,7 +12,7 @@
   "conditions": [
     {
       "type": "cuneiform:config",
-      "config": "terraincognita:marigold"
+      "config": "terraincognita:savanna_flowers"
     }
   ]
 }

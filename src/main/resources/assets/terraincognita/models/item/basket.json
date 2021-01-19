@@ -1,3 +1,6 @@
 {
-  "parent": "terraincognita:block/basket"
-} 
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "terraincognita:item/basket"
+  }
+}

@@ -1,13 +1,16 @@
 {
   "replace": false,
   "values": [
+    "terraincognita:alpine_pink",
     "terraincognita:arctic_poppy",
     "terraincognita:blue_iris",
+    "terraincognita:blue_lupin",
     "terraincognita:dandelion_puff",
     "terraincognita:edelweiss",
     "terraincognita:fireweed",
     "terraincognita:forget_me_not",
     "terraincognita:marigold",
-    "terraincognita:purple_iris"
+    "terraincognita:purple_iris",
+    "terraincognita:rockfoil"
   ]
 }

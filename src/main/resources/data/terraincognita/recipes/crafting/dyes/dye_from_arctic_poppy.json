@@ -12,7 +12,7 @@
   "conditions": [
     {
       "type": "cuneiform:config",
-      "config": "terraincognita:arctic_poppy"
+      "config": "terraincognita:arctic_flowers"
     }
   ]
 }

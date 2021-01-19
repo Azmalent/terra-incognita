@@ -2,19 +2,18 @@ package azmalent.terraincognita.common.block.plants;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.FlowerBlock;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraftforge.common.Tags;
 
-public class EdelweissBlock extends FlowerBlock {
-    public EdelweissBlock() {
-        super(Effects.HASTE, 200, Properties.from(Blocks.AZURE_BLUET));
+public class RockfoilBlock extends AlpineFlowerBlock {
+    public RockfoilBlock() {
+        super(Effects.JUMP_BOOST, 120, Properties.from(Blocks.DANDELION));
     }
 
     @Override
     protected boolean isValidGround(BlockState state, IBlockReader world, BlockPos pos) {
-        return state.isIn(Tags.Blocks.GRAVEL) || super.isValidGround(state, world, pos);
+        return state.isIn(Tags.Blocks.STONE) || super.isValidGround(state, world, pos);
     }
 }

@@ -54,48 +54,47 @@ public class TIConfig extends CommonConfigFile {
         @Comment("Chance to replace a vanilla dandelion with a dandelion puff during generation.")
         public static DoubleOption dandelionPuffChance = new DoubleOption(0.5, 0, 1);
 
-        @Name("Forget-me-not Enabled")
-        @Comment("Forget-me-not is a light blue flower found in warm and temperate plains, swamps and forests.")
-        public static BooleanOption forgetMeNot = new BooleanOption(true, "forget_me_not");
-
-        @Name("Marigold Enabled")
-        @Comment({"Marigold is a large orange flower found in biomes such as savannas, deserts and mesas.",
-            "It is unique in that it can grow on sand, but only if there is water nearby."})
-        public static BooleanOption marigold = new BooleanOption(true, "marigold");
-
-        @Name("Edelweiss Enabled")
-        @Comment("Edelweiss is a small white flower found high in temperate and cold mountains. It is so hardy it can grow on gravel.")
-        public static BooleanOption edelweiss = new BooleanOption(true, "edelweiss");
-
-        @Name("Minimum Altitude for Edelweiss")
-        @Comment("Minimum Y level where edelweiss can generate in the mountains.")
-        public static IntOption edelweissMinimumY = new IntOption(80, 64, 128);
-
-        @Name("Iris Enabled")
-        @Comment("Iris is a majestic flower found in jungles. It comes in blue and purple colors.")
-        public static BooleanOption iris = new BooleanOption(true, "iris");
+        @Name("Swamp Flowers Enabled")
+        @Comment("Adds forget-me-not to temperate and hot swamps.")
+        public static BooleanOption swampFlowers = new BooleanOption(true, "swamp_flowers");
 
         @Name("Small Lilypads Enabled")
         @Comment("Small lilypads can be found in swamps. They can be stacked up to 4, like sea pickles.")
         public static BooleanOption smallLilypad = new BooleanOption(true);
 
-        @Name("Lotus Enabled")
-        @Comment("Lotus is a beautiful aquatic flower found in jungles. It comes in yellow, pink and white colors.")
-        public static BooleanOption lotus = new BooleanOption(true, "lotus");
-
-        @Name("Fireweed Enabled")
-        @Comment("Fireweed is a purple flower found in cold biomes.")
-        public static BooleanOption fireweed = new BooleanOption(true, "fireweed");
-
-        @Name("Arctic Poppy Enabled")
-        @Comment("Arctic poppy is a yellow variant of poppy that replaces vanilla poppies in tundra biomes.")
-        public static BooleanOption arcticPoppy = new BooleanOption(true, "arctic_poppy");
-
-        @Name("Reeds and Wicker Enabled")
+        @Name("Reeds Enabled")
         @Comment({"Reeds are a sugarcane-like plant that can be found in swamps. They can be grown in the same way as sugar cane, or, alternatively, in one block deep water.",
             "Reeds can be crafted into a variety of decorative wicker blocks and baskets.",
             "Flower baskets can store 9 stacks of flowers and will automatically collect them if you hold it while picking up flowers."})
         public static BooleanOption reeds = new BooleanOption(true, "reeds");
+
+        @Name("Savanna Flowers Enabled")
+        @Comment({"Marigold is a large orange flower found in biomes such as savannas and deserts.",
+            "It is unique in that it can grow on sand, but only if there is water nearby."})
+        public static BooleanOption savannaFlowers = new BooleanOption(true, "savanna_flowers");
+
+        @Name("Jungle Flowers Enabled")
+        @Comment("Adds blue and purple irises to jungles.")
+        public static BooleanOption jungleFlowers = new BooleanOption(true, "jungle_flowers");
+
+        @Name("Lotus Enabled")
+        @Comment("Lotus is a beautiful aquatic flower found in jungles. It comes in yellow, pink and white colors.")
+        public static BooleanOption lotus = new BooleanOption(true, "lotus");
+
+        @Name("Alpine Flowers Enabled")
+        @Comment({"Adds edelweiss, alpine pink and rockfoil to temperate and cold mountain biomes.",
+                "All of these flowers can grow on gravel, and rockfoil can grow on stone as well.",
+                "Edelweiss has a minimum altitude requirement to generate."})
+        public static BooleanOption alpineFlowers = new BooleanOption(true, "alpine_flowers");
+
+        @Name("Minimum Altitude for Edelweiss")
+        @Comment("Minimum Y level where edelweiss can generate in the mountains.")
+        public static IntOption edelweissMinimumY = new IntOption(90, 64, 128);
+
+        @Name("Arctic Flowers Enabled")
+        @Comment({"Adds fireweed to taiga and tundra biomes.",
+        "Also adds arctic poppies that replace vanilla poppies in tundras."})
+        public static BooleanOption arcticFlowers = new BooleanOption(true, "arctic_flowers");
 
         @Name("Wreaths Enabled")
         @Comment({"Wreath is a cosmetic headdress crafted with 4 small flowers of any kind in any shape.",
@@ -114,25 +113,20 @@ public class TIConfig extends CommonConfigFile {
     }
 
     public static class Biomes extends Category {
-        @Name("Tundra Variants")
         @Comment("Adds snowless and rocky tundra biomes.")
         public static BooleanOption tundraVariants = new BooleanOption(true);
     }
 
     public static class Tweaks extends Category {
-        @Name("Better Tundras")
         @Comment("Adds foxes, sheep, berry bushes, birches and shrubs to tundras to make them less lackluster.")
         public static BooleanOption betterTundras = new BooleanOption(true);
 
-        @Name("Additional Compostables")
         @Comment("Adds composting recipes for dead bushes, bamboo, poisonous potatoes and chorus fruits/flowers.")
         public static BooleanOption additionalCompostables = new BooleanOption(true);
 
-        @Name("Bonemeal Lilypad Growing")
         @Comment("Allows growing lilypads by using bonemeal in shallow water pools.")
         public static BooleanOption bonemealLilypadGrowing = new BooleanOption(true);
 
-        @Name("Wither Rose Generation")
         @Comment("If enabled, wither roses will generate naturally in Soul Sand Valleys.")
         public static BooleanOption witherRoseGeneration = new BooleanOption(true);
     }

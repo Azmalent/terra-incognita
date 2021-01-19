@@ -17,11 +17,13 @@ import net.minecraft.world.gen.feature.*;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 
 public class ModVegetation {
-    public static ConfiguredFeature<?, ?> FORGET_ME_NOT;
+    public static ConfiguredFeature<?, ?> SWAMP_FLOWERS;
+    public static ConfiguredFeature<?, ?> ALPINE_FLOWERS;
     public static ConfiguredFeature<?, ?> EDELWEISS;
-    public static ConfiguredFeature<?, ?> MARIGOLD;
-    public static ConfiguredFeature<?, ?> IRIS;
-    public static ConfiguredFeature<?, ?> FIREWEED;
+    public static ConfiguredFeature<?, ?> SAVANNA_FLOWERS;
+    public static ConfiguredFeature<?, ?> DESERT_MARIGOLDS;
+    public static ConfiguredFeature<?, ?> JUNGLE_FLOWERS;
+    public static ConfiguredFeature<?, ?> ARCTIC_FLOWERS;
     public static ConfiguredFeature<?, ?> WITHER_ROSE;
     public static ConfiguredFeature<?, ?> LOTUS;
     public static ConfiguredFeature<?, ?> SMALL_LILYPADS;
@@ -76,26 +78,41 @@ public class ModVegetation {
     }
 
     public static void configureFeatures() {
-        if (TIConfig.Flora.forgetMeNot.get())   FORGET_ME_NOT = initFlowerFeature(ModBlocks.FORGET_ME_NOT, 32);
-        if (TIConfig.Flora.fireweed.get())      FIREWEED = initFlowerFeature(ModBlocks.FIREWEED, 48);
+        if (TIConfig.Flora.swampFlowers.get())   {
+            SWAMP_FLOWERS = initFlowerFeature(ModBlocks.FORGET_ME_NOT, 32);
+        }
 
-        if (TIConfig.Flora.edelweiss.get()) {
+        if (TIConfig.Flora.arcticFlowers.get())  {
+            ARCTIC_FLOWERS = initFlowerFeature(ModBlocks.FIREWEED, 32);
+        }
+
+        if (TIConfig.Flora.alpineFlowers.get()) {
             BlockClusterFeatureConfig config = createConfig(ModBlocks.EDELWEISS, 48);
             EDELWEISS = ModFeatures.EDELWEISS.get().withConfiguration(config)
                 .withPlacement(Features.Placements.VEGETATION_PLACEMENT)
                 .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).func_242731_b(4);
+
+            WeightedBlockStateProvider provider = new WeightedBlockStateProvider();
+            provider.addWeightedBlockstate(ModBlocks.ALPINE_PINK.getBlock().getDefaultState(), 1);
+            provider.addWeightedBlockstate(ModBlocks.ROCKFOIL.getBlock().getDefaultState(), 1);
+            ALPINE_FLOWERS = initFlowerFeature(provider, 32);
         }
 
-        if (TIConfig.Flora.marigold.get()) {
-            MARIGOLD = initFlowerFeature(ModBlocks.MARIGOLD, 32);
+        if (TIConfig.Flora.savannaFlowers.get()) {
+            WeightedBlockStateProvider provider = new WeightedBlockStateProvider();
+            provider.addWeightedBlockstate(ModBlocks.MARIGOLD.getBlock().getDefaultState(), 1);
+            provider.addWeightedBlockstate(ModBlocks.BLUE_LUPIN.getBlock().getDefaultState(), 1);
+            SAVANNA_FLOWERS = initFlowerFeature(provider, 32);
+
+            DESERT_MARIGOLDS = initFlowerFeature(ModBlocks.MARIGOLD, 24);
         }
 
-        if (TIConfig.Flora.iris.get()) {
+        if (TIConfig.Flora.jungleFlowers.get()) {
             WeightedBlockStateProvider provider = new WeightedBlockStateProvider();
             provider.addWeightedBlockstate(ModBlocks.BLUE_IRIS.getBlock().getDefaultState(), 1);
             provider.addWeightedBlockstate(ModBlocks.PURPLE_IRIS.getBlock().getDefaultState(), 1);
 
-            IRIS = initFlowerFeature(provider, 64);
+            JUNGLE_FLOWERS = initFlowerFeature(provider, 64);
         }
 
         if (TIConfig.Flora.smallLilypad.get()) {
@@ -124,7 +141,7 @@ public class ModVegetation {
         }
 
         if (TIConfig.Tweaks.witherRoseGeneration.get()) {
-            WITHER_ROSE = initFlowerFeature(Blocks.WITHER_ROSE.getDefaultState(), 64);
+            WITHER_ROSE = initFlowerFeature(Blocks.WITHER_ROSE.getDefaultState(), 128);
         }
     }
 }

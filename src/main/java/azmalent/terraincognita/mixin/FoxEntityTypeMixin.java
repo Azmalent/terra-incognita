@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @Mixin(FoxEntity.Type.class)
 public class FoxEntityTypeMixin {
-    @Inject(at = @At("HEAD"), method = "func_242325_a(Ljava/util/Optional;)Lnet/minecraft/entity/passive/FoxEntity$Type;", cancellable = true)
+    @Inject(method = "func_242325_a", at = @At("HEAD"), cancellable = true)
     private static void getTypeByBiome(Optional<RegistryKey<Biome>> biome, CallbackInfoReturnable<FoxEntity.Type> cir) {
         if (biome.isPresent() && BiomeDictionary.hasType(biome.get(), BiomeDictionary.Type.SNOWY)) {
             cir.setReturnValue(FoxEntity.Type.SNOW);

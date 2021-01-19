@@ -4,28 +4,32 @@ import azmalent.cuneiform.lib.util.BiomeUtil;
 import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.common.block.plants.SmallLilypadBlock;
 import azmalent.terraincognita.common.init.ModBlocks;
+import azmalent.terraincognita.common.world.ModVegetation;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.IGrowable;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.gen.feature.FlowersFeature;
+import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.BonemealEvent;
 
 import java.util.Random;
 
+import static azmalent.cuneiform.lib.util.BiomeUtil.hasAnyType;
+import static net.minecraftforge.common.BiomeDictionary.Type.*;
+import static net.minecraftforge.common.BiomeDictionary.hasType;
+
 public class BonemealHandler {
     private static final int MAX_LILYPAD_GROWING_DEPTH = 4;
 
     public static void registerListeners() {
-        if (!ModBlocks.FLOWERS.isEmpty()) {
-            MinecraftForge.EVENT_BUS.addListener(BonemealHandler::onBonemeal);
-        }
-
         if (TIConfig.Tweaks.bonemealLilypadGrowing.get()) {
             MinecraftForge.EVENT_BUS.addListener(BonemealHandler::onBonemealUnderwater);
         }
@@ -86,9 +90,5 @@ public class BonemealHandler {
                 }
             }
         }
-    }
-
-    public static void onBonemeal(BonemealEvent event) {
-        //TODO
     }
 }

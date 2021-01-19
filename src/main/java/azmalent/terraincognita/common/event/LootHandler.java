@@ -47,17 +47,18 @@ public class LootHandler {
 
         if (TIConfig.Food.taffy.get() && TAFFY_WEIGHTS.containsKey(tableName)) {
             int weight = TAFFY_WEIGHTS.get(tableName);
-            event.getTable().pools.get(0).lootEntries.add(
-                    ItemLootEntry.builder(ModItems.TAFFY.get())
-                            .acceptFunction(SetCount.builder(RandomValueRange.of(1.0F, 4.0F)))
-                            .weight(weight)
-                            .build()
+            LootPool pool = LootUtil.getPoolByIndex(event.getTable(), 0);
+            LootUtil.addEntry(pool, ItemLootEntry.builder(ModItems.TAFFY.get())
+                .acceptFunction(SetCount.builder(RandomValueRange.of(1.0F, 4.0F)))
+                .weight(weight)
+                .build()
             );
         }
 
         if (TIConfig.Food.notchCarrot.get() && NOTCH_CARROT_WEIGHTS.containsKey(tableName)) {
             int weight = NOTCH_CARROT_WEIGHTS.get(tableName);
-            event.getTable().pools.get(0).lootEntries.add(ItemLootEntry.builder(ModItems.NOTCH_CARROT.get()).weight(weight).build());
+            LootPool pool = LootUtil.getPoolByIndex(event.getTable(), 0);
+            LootUtil.addEntry(pool, ItemLootEntry.builder(ModItems.NOTCH_CARROT.get()).weight(weight).build());
         }
     }
 }
