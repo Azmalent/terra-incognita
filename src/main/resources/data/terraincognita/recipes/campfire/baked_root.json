@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "ingredient": {
+    "item": "terraincognita:clayed_root"
+  },
+  "result": "terraincognita:baked_root",
+  "experience": 0.35,
+  "cookingtime": 600,
+  "conditions": [
+    {
+      "type": "cuneiform:config",
+      "config": "terraincognita:roots"
+    },
+    {
+      "type": "cuneiform:config",
+      "config": "terraincognita:baked_roots"
+    }
+  ]
+}

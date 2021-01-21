@@ -22,6 +22,8 @@ public class ModItems {
     public static RegistryObject<TaffyItem> TAFFY;
     public static RegistryObject<NotchCarrotItem> NOTCH_CARROT;
     public static RegistryObject<Item> FIDDLEHEAD;
+    public static RegistryObject<Item> CLAYED_ROOT;
+    public static RegistryObject<Item> BAKED_ROOT;
     public static RegistryObject<Item> BERRY_SORBET;
     public static RegistryObject<FlowerBandItem> FLOWER_BAND;
 
@@ -35,6 +37,11 @@ public class ModItems {
 
         if (TIConfig.Food.fiddlehead.get()) {
             FIDDLEHEAD = ITEMS.register("fiddlehead", () -> new Item(props().food(ModFoods.FIDDLEHEAD)));
+        }
+
+        if (TIConfig.Food.bakedRoots.get()) {
+            CLAYED_ROOT = ITEMS.register("clayed_root", () -> new Item(props()));
+            BAKED_ROOT = ITEMS.register("baked_root", () -> new Item(props().food(ModFoods.BAKED_ROOT)));
         }
 
         if (TIConfig.Food.berrySorbet.get()) {

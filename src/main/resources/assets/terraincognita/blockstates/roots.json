@@ -1,0 +1,15 @@
+{
+  "variants": {
+    "": [
+    	{
+      		"model": "terraincognita:block/roots"
+      	},
+      	{
+      		"model": "terraincognita:block/roots_alt"
+     	},
+      	{
+      		"model": "terraincognita:block/roots_alt2"
+     	}
+    ]
+  }
+}

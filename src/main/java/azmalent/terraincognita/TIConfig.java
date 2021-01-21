@@ -27,6 +27,11 @@ public class TIConfig extends CommonConfigFile {
         })
         public static BooleanOption fiddlehead = new BooleanOption(true, "fiddlehead");
 
+        @Name("Baked Root Enabled")
+        @Comment({"Baked root can be made by covering a root with clay and cooking it on a campfire.",
+            "It gives 15 seconds of Haste when eaten."})
+        public static BooleanOption bakedRoots = new BooleanOption(true, "baked_roots");
+
         @Name("Taffy Enabled")
         @Comment("Taffy is a food item that can only be found in dungeons. " +
                 "It restores some health, but also makes your mouth sticky, reducing eating speed with every taffy eaten.")
@@ -36,8 +41,9 @@ public class TIConfig extends CommonConfigFile {
         @Comment("How much half hearts are healed when eating a taffy.")
         public static IntOption taffyHealing = new IntOption(3, 2, 8);
 
-        @Name("Notch Carrot Enabled")
-        @Comment("Enchanted golden carrot grants 2 minutes of Absorption IV and Speed II, and 10 minutes of Night Vision when eaten.")
+        @Name("Enchanted Golden Carrot Enabled")
+        @Comment({"Enchanted golden carrot grants 30 seconds of Regeneration II, 2 minutes of Absorption IV, 5 minutes of Speed II and 10 minutes of Night Vision when eaten.",
+            "It can be found in dungeon loot with the same rarity as enchanted golden apples."})
         public static BooleanOption notchCarrot = new BooleanOption(true);
 
         @Name("Berry Sorbet Enabled")
@@ -100,6 +106,12 @@ public class TIConfig extends CommonConfigFile {
         @Comment({"Wreath is a cosmetic headdress crafted with 4 small flowers of any kind in any shape.",
             "The color of the wreath depends on the flowers you used to craft it."})
         public static BooleanOption flowerBand = new BooleanOption(true, "flower_band");
+
+        @Name("Roots Enabled")
+        @Comment({"Roots can be found on dirt cave ceilings and overhangs in most biomes.",
+            "They can be collected with shears. You can grow more roots by using bonemeal on one.",
+            "Roots can be crafted into brown dye."})
+        public static BooleanOption roots = new BooleanOption(true, "roots");
     }
 
     public static class Tools extends Category {

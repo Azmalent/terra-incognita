@@ -15,7 +15,7 @@ public class ModRenderLayers {
     public static void init() {
         FLOWERS.forEach(ModRenderLayers::setCutoutRender);
         setCutoutRender(REEDS);
-        setCutoutRender(PINK_LOTUS, WHITE_LOTUS, YELLOW_LOTUS, SMALL_LILYPAD, CALTROPS);
+        setCutoutRender(PINK_LOTUS, WHITE_LOTUS, YELLOW_LOTUS, SMALL_LILYPAD, CALTROPS, ROOTS);
     }
 
     private static void setCutoutRender(BlockEntry... blockEntries) {

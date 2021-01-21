@@ -14,6 +14,6 @@ public class RockfoilBlock extends AlpineFlowerBlock {
 
     @Override
     protected boolean isValidGround(BlockState state, IBlockReader world, BlockPos pos) {
-        return state.isIn(Tags.Blocks.STONE) || super.isValidGround(state, world, pos);
+        return state.isIn(Tags.Blocks.STONE) || state.isIn(Tags.Blocks.COBBLESTONE) || super.isValidGround(state, world, pos);
     }
 }

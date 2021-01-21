@@ -76,29 +76,30 @@ public class ModBlocks {
     }
 
     public static final List<PottablePlantEntry> FLOWERS;
-    public static PottablePlantEntry DANDELION_PUFF = makePlant("dandelion_puff", () -> new FlowerBlock(Effects.SATURATION, 6, Properties.from(Blocks.AZURE_BLUET)), DandelionPuffItem::new, Flora.dandelionPuff);
-    public static PottablePlantEntry MARIGOLD       = makePlant("marigold", MarigoldBlock::new, Flora.savannaFlowers);
-    public static PottablePlantEntry BLUE_LUPIN     = makeFlower("blue_lupin", Effects.RESISTANCE, 120, Blocks.CORNFLOWER, Flora.savannaFlowers);
-    public static PottablePlantEntry EDELWEISS      = makePlant("edelweiss", () -> new AlpineFlowerBlock(Effects.HASTE, 200, Properties.from(Blocks.AZURE_BLUET)), Flora.alpineFlowers);
-    public static PottablePlantEntry ALPINE_PINK    = makePlant("alpine_pink", () -> new AlpineFlowerBlock(Effects.SLOWNESS, 160, Properties.from(Blocks.PINK_TULIP)), Flora.alpineFlowers);
-    public static PottablePlantEntry ROCKFOIL       = makePlant("rockfoil", RockfoilBlock::new, Flora.alpineFlowers);
-    public static PottablePlantEntry FORGET_ME_NOT  = makeFlower("forget_me_not", Effects.SLOWNESS, 160, Blocks.AZURE_BLUET, Flora.swampFlowers);
-    public static PottablePlantEntry BLUE_IRIS      = makeFlower("blue_iris", Effects.INVISIBILITY, 160, Blocks.CORNFLOWER, Flora.jungleFlowers);
-    public static PottablePlantEntry PURPLE_IRIS    = makeFlower("purple_iris", Effects.INVISIBILITY, 160, Blocks.ALLIUM, Flora.jungleFlowers);
-    public static PottablePlantEntry FIREWEED       = makeFlower("fireweed", Effects.SPEED, 160, Blocks.ALLIUM, Flora.arcticFlowers);
-    public static PottablePlantEntry ARCTIC_POPPY   = makeFlower("arctic_poppy", Effects.NIGHT_VISION, 100, Blocks.DANDELION, Flora.arcticFlowers);
+    public static final PottablePlantEntry DANDELION_PUFF = makePlant("dandelion_puff", () -> new FlowerBlock(Effects.SATURATION, 6, Properties.from(Blocks.AZURE_BLUET)), DandelionPuffItem::new, Flora.dandelionPuff);
+    public static final PottablePlantEntry MARIGOLD       = makePlant("marigold", MarigoldBlock::new, Flora.savannaFlowers);
+    public static final PottablePlantEntry BLUE_LUPIN     = makeFlower("blue_lupin", Effects.RESISTANCE, 120, Blocks.CORNFLOWER, Flora.savannaFlowers);
+    public static final PottablePlantEntry EDELWEISS      = makePlant("edelweiss", () -> new AlpineFlowerBlock(Effects.HASTE, 200, Properties.from(Blocks.AZURE_BLUET)), Flora.alpineFlowers);
+    public static final PottablePlantEntry ALPINE_PINK    = makePlant("alpine_pink", () -> new AlpineFlowerBlock(Effects.SLOWNESS, 160, Properties.from(Blocks.PINK_TULIP)), Flora.alpineFlowers);
+    public static final PottablePlantEntry ROCKFOIL       = makePlant("rockfoil", RockfoilBlock::new, Flora.alpineFlowers);
+    public static final PottablePlantEntry FORGET_ME_NOT  = makeFlower("forget_me_not", Effects.SLOWNESS, 160, Blocks.AZURE_BLUET, Flora.swampFlowers);
+    public static final PottablePlantEntry BLUE_IRIS      = makeFlower("blue_iris", Effects.INVISIBILITY, 160, Blocks.CORNFLOWER, Flora.jungleFlowers);
+    public static final PottablePlantEntry PURPLE_IRIS    = makeFlower("purple_iris", Effects.INVISIBILITY, 160, Blocks.ALLIUM, Flora.jungleFlowers);
+    public static final PottablePlantEntry FIREWEED       = makeFlower("fireweed", Effects.SPEED, 160, Blocks.ALLIUM, Flora.arcticFlowers);
+    public static final PottablePlantEntry ARCTIC_POPPY   = makeFlower("arctic_poppy", Effects.NIGHT_VISION, 100, Blocks.DANDELION, Flora.arcticFlowers);
 
-    public static List<BlockEntry> LOTUSES;
-    public static BlockEntry PINK_LOTUS   = makeLotus("pink_lotus");
-    public static BlockEntry WHITE_LOTUS  = makeLotus("white_lotus");
-    public static BlockEntry YELLOW_LOTUS = makeLotus("yellow_lotus");
-    public static BlockEntry SMALL_LILYPAD = HELPER.newBuilder("small_lilypad", SmallLilypadBlock::new).withBlockItem(SmallLilypadItem::new).buildIf(Flora.smallLilypad);
+    public static final List<BlockEntry> LOTUSES;
+    public static final BlockEntry PINK_LOTUS   = makeLotus("pink_lotus");
+    public static final BlockEntry WHITE_LOTUS  = makeLotus("white_lotus");
+    public static final BlockEntry YELLOW_LOTUS = makeLotus("yellow_lotus");
+    public static final BlockEntry SMALL_LILYPAD = HELPER.newBuilder("small_lilypad", SmallLilypadBlock::new).withBlockItem(SmallLilypadItem::new).buildIf(Flora.smallLilypad);
 
-    public static PottablePlantEntry REEDS = makePlant("reeds", ReedsBlock::new, Flora.reeds);
+    public static final PottablePlantEntry REEDS = makePlant("reeds", ReedsBlock::new, Flora.reeds);
+    public static final BlockEntry ROOTS = HELPER.newBuilder("roots", RootsBlock::new).buildIf(Flora.roots);
 
-    public static BlockEntry CALTROPS = HELPER.newBuilder("caltrops", CaltropsBlock::new).withBlockItem(CaltropsItem::new).buildIf(Tools.caltrops);
-    public static BlockEntry BASKET = HELPER.newBuilder("basket", BasketBlock::new).withBlockItem(BasketItem::new).buildIf(Flora.reeds);
-    public static BlockEntry WICKER_MAT = HELPER.newBuilder("wicker_mat", WickerMatBlock::new).buildIf(Flora.reeds);
+    public static final BlockEntry CALTROPS = HELPER.newBuilder("caltrops", CaltropsBlock::new).withBlockItem(CaltropsItem::new).buildIf(Tools.caltrops);
+    public static final BlockEntry BASKET = HELPER.newBuilder("basket", BasketBlock::new).withBlockItem(BasketItem::new).buildIf(Flora.reeds);
+    public static final BlockEntry WICKER_MAT = HELPER.newBuilder("wicker_mat", WickerMatBlock::new).buildIf(Flora.reeds);
 
     static {
         FLOWERS = CollectionUtil.nonNullList(DANDELION_PUFF, FORGET_ME_NOT, MARIGOLD, BLUE_LUPIN, EDELWEISS, ALPINE_PINK, ROCKFOIL, BLUE_IRIS, PURPLE_IRIS, FIREWEED, ARCTIC_POPPY);

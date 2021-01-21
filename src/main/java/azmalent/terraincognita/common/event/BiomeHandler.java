@@ -30,6 +30,10 @@ public class BiomeHandler {
         boolean cold = hasType(biome, COLD);
         boolean hot = hasType(biome, HOT);
 
+        if (!hasAnyType(biome, SANDY, WASTELAND)) {
+            ModVegetation.addVegetation(event, ModVegetation.ROOTS);
+        }
+
         switch (event.getCategory()) {
             case SWAMP:
                 ModVegetation.addVegetation(event, ModVegetation.SMALL_LILYPADS);

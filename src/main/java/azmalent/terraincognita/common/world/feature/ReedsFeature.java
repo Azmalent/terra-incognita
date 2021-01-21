@@ -19,7 +19,7 @@ public class ReedsFeature extends Feature<NoFeatureConfig> {
     private final static int X_SPREAD = 4;
     private final static int Y_SPREAD = 2;
     private final static int Z_SPREAD = 4;
-    private final static int TRIES = 30;
+    private final static int TRIES = 5;
 
     public ReedsFeature() {
         super(NoFeatureConfig.field_236558_a_);
@@ -30,7 +30,7 @@ public class ReedsFeature extends Feature<NoFeatureConfig> {
         BlockPos.Mutable nextPos = new BlockPos.Mutable();
         boolean success = false;
 
-        for(int i = 0; i < TRIES; ++i) {
+        for(int i = 0; i < TRIES; i++) {
             nextPos.setAndOffset(centerPos, rand.nextInt(X_SPREAD + 1) - rand.nextInt(X_SPREAD + 1), rand.nextInt(Y_SPREAD + 1) - rand.nextInt(Y_SPREAD + 1), rand.nextInt(Z_SPREAD + 1) - rand.nextInt(Z_SPREAD + 1));
             if (!reader.isAirBlock(nextPos.up())) {
                 continue;
@@ -38,7 +38,7 @@ public class ReedsFeature extends Feature<NoFeatureConfig> {
 
             int height = 2 + rand.nextInt(rand.nextInt(3) + 1);
             for (int j = 0; j < height; j++) {
-                nextPos.offset(Direction.UP, j);
+                nextPos.setY(nextPos.getY() + j);
 
                 boolean isWater = reader.getFluidState(nextPos).getFluid() == Fluids.WATER;
                 BlockState reeds = ModBlocks.REEDS.getBlock().getDefaultState().with(ReedsBlock.WATERLOGGED, isWater);

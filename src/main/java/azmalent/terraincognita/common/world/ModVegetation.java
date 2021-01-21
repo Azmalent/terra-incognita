@@ -17,6 +17,17 @@ import net.minecraft.world.gen.feature.*;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 
 public class ModVegetation {
+    public static class Configs {
+        public static BlockClusterFeatureConfig SWAMP_FLOWERS;
+        public static BlockClusterFeatureConfig ALPINE_FLOWERS;
+        public static BlockClusterFeatureConfig EDELWEISS;
+        public static BlockClusterFeatureConfig SAVANNA_FLOWERS;
+        public static BlockClusterFeatureConfig DESERT_MARIGOLDS;
+        public static BlockClusterFeatureConfig JUNGLE_FLOWERS;
+        public static BlockClusterFeatureConfig ARCTIC_FLOWERS;
+        public static BlockClusterFeatureConfig WITHER_ROSE;
+    }
+
     public static ConfiguredFeature<?, ?> SWAMP_FLOWERS;
     public static ConfiguredFeature<?, ?> ALPINE_FLOWERS;
     public static ConfiguredFeature<?, ?> EDELWEISS;
@@ -28,6 +39,7 @@ public class ModVegetation {
     public static ConfiguredFeature<?, ?> LOTUS;
     public static ConfiguredFeature<?, ?> SMALL_LILYPADS;
     public static ConfiguredFeature<?, ?> REEDS;
+    public static ConfiguredFeature<?, ?> ROOTS;
 
     public static void addVegetation(BiomeLoadingEvent event, ConfiguredFeature feature) {
         if (feature != null) {
@@ -48,22 +60,6 @@ public class ModVegetation {
         return new BlockClusterFeatureConfig.Builder(provider, SimpleBlockPlacer.PLACER).tries(tries).build();
     }
 
-    private static ConfiguredFeature<?, ?> initFlowerFeature(PottablePlantEntry flower, int tries) {
-        return initFlowerFeature(flower.getBlock().getDefaultState(), tries);
-    }
-
-    private static ConfiguredFeature<?, ?> initFlowerFeature(BlockState blockState, int tries) {
-        SimpleBlockStateProvider provider = new SimpleBlockStateProvider(blockState);
-        return initFlowerFeature(provider, tries);
-    }
-
-    private static ConfiguredFeature<?, ?> initFlowerFeature(BlockStateProvider provider, int tries) {
-        BlockClusterFeatureConfig config = new BlockClusterFeatureConfig.Builder(provider, SimpleBlockPlacer.PLACER)
-                .tries(tries).build();
-
-        return initFlowerFeature(config);
-    }
-
     private static ConfiguredFeature<?, ?> initFlowerFeature(BlockClusterFeatureConfig config) {
         return Feature.FLOWER.withConfiguration(config)
                 .withPlacement(Features.Placements.VEGETATION_PLACEMENT)
@@ -79,32 +75,37 @@ public class ModVegetation {
 
     public static void configureFeatures() {
         if (TIConfig.Flora.swampFlowers.get())   {
-            SWAMP_FLOWERS = initFlowerFeature(ModBlocks.FORGET_ME_NOT, 32);
+            Configs.SWAMP_FLOWERS = createConfig(ModBlocks.FORGET_ME_NOT, 32);
+            SWAMP_FLOWERS = initFlowerFeature(Configs.SWAMP_FLOWERS);
         }
 
         if (TIConfig.Flora.arcticFlowers.get())  {
-            ARCTIC_FLOWERS = initFlowerFeature(ModBlocks.FIREWEED, 32);
+            Configs.ARCTIC_FLOWERS = createConfig(ModBlocks.FIREWEED, 32);
+            ARCTIC_FLOWERS = initFlowerFeature(Configs.ARCTIC_FLOWERS);
         }
 
         if (TIConfig.Flora.alpineFlowers.get()) {
-            BlockClusterFeatureConfig config = createConfig(ModBlocks.EDELWEISS, 48);
-            EDELWEISS = ModFeatures.EDELWEISS.get().withConfiguration(config)
-                .withPlacement(Features.Placements.VEGETATION_PLACEMENT)
-                .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).func_242731_b(4);
+            Configs.EDELWEISS = createConfig(ModBlocks.EDELWEISS, 48);
+            EDELWEISS = ModFeatures.EDELWEISS.get().withConfiguration(Configs.EDELWEISS).withPlacement(Features.Placements.VEGETATION_PLACEMENT).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).func_242731_b(4);
 
             WeightedBlockStateProvider provider = new WeightedBlockStateProvider();
             provider.addWeightedBlockstate(ModBlocks.ALPINE_PINK.getBlock().getDefaultState(), 1);
             provider.addWeightedBlockstate(ModBlocks.ROCKFOIL.getBlock().getDefaultState(), 1);
-            ALPINE_FLOWERS = initFlowerFeature(provider, 32);
+
+            Configs.ALPINE_FLOWERS = new BlockClusterFeatureConfig.Builder(provider, SimpleBlockPlacer.PLACER).tries(32).func_227317_b_().build();
+            ALPINE_FLOWERS = ModFeatures.ALPINE_FLOWERS.get().withConfiguration(Configs.ALPINE_FLOWERS).withPlacement(Features.Placements.VEGETATION_PLACEMENT).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).func_242731_b(4);
         }
 
         if (TIConfig.Flora.savannaFlowers.get()) {
             WeightedBlockStateProvider provider = new WeightedBlockStateProvider();
             provider.addWeightedBlockstate(ModBlocks.MARIGOLD.getBlock().getDefaultState(), 1);
             provider.addWeightedBlockstate(ModBlocks.BLUE_LUPIN.getBlock().getDefaultState(), 1);
-            SAVANNA_FLOWERS = initFlowerFeature(provider, 32);
 
-            DESERT_MARIGOLDS = initFlowerFeature(ModBlocks.MARIGOLD, 24);
+            Configs.SAVANNA_FLOWERS = createConfig(provider, 32);
+            SAVANNA_FLOWERS = initFlowerFeature(Configs.SAVANNA_FLOWERS);
+
+            Configs.DESERT_MARIGOLDS = createConfig(ModBlocks.MARIGOLD, 24);
+            DESERT_MARIGOLDS = initFlowerFeature(Configs.DESERT_MARIGOLDS);
         }
 
         if (TIConfig.Flora.jungleFlowers.get()) {
@@ -112,7 +113,8 @@ public class ModVegetation {
             provider.addWeightedBlockstate(ModBlocks.BLUE_IRIS.getBlock().getDefaultState(), 1);
             provider.addWeightedBlockstate(ModBlocks.PURPLE_IRIS.getBlock().getDefaultState(), 1);
 
-            JUNGLE_FLOWERS = initFlowerFeature(provider, 64);
+            Configs.JUNGLE_FLOWERS = createConfig(provider, 64);
+            JUNGLE_FLOWERS = initFlowerFeature(Configs.JUNGLE_FLOWERS);
         }
 
         if (TIConfig.Flora.smallLilypad.get()) {
@@ -136,12 +138,18 @@ public class ModVegetation {
         }
 
         if (TIConfig.Flora.reeds.get()) {
-            REEDS = ModFeatures.REEDS.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG)
-                .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).func_242732_c(4);
+            REEDS = ModFeatures.REEDS.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Features.Placements.PATCH_PLACEMENT).func_242731_b(20).chance(8);
+        }
+
+        if (TIConfig.Flora.roots.get()) {
+            SimpleBlockStateProvider provider = new SimpleBlockStateProvider(ModBlocks.ROOTS.getBlock().getDefaultState());
+            BlockClusterFeatureConfig config = new BlockClusterFeatureConfig.Builder(provider, SimpleBlockPlacer.PLACER).tries(60).xSpread(4).ySpread(16).zSpread(4).func_227317_b_().build();
+            ROOTS = Feature.RANDOM_PATCH.withConfiguration(config).withPlacement(Features.Placements.PATCH_PLACEMENT).func_242731_b(20);
         }
 
         if (TIConfig.Tweaks.witherRoseGeneration.get()) {
-            WITHER_ROSE = initFlowerFeature(Blocks.WITHER_ROSE.getDefaultState(), 128);
+            Configs.WITHER_ROSE = createConfig(Blocks.WITHER_ROSE.getDefaultState(), 128);
+            WITHER_ROSE = initFlowerFeature(Configs.WITHER_ROSE);
         }
     }
 }
