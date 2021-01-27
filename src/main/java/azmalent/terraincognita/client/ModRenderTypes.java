@@ -1,19 +1,22 @@
 package azmalent.terraincognita.client;
 
 import azmalent.cuneiform.lib.registry.BlockEntry;
-import azmalent.terraincognita.common.init.ModBiomes;
-import azmalent.terraincognita.common.init.ModBlocks;
+import azmalent.terraincognita.TIConfig;
+import net.minecraft.client.renderer.RenderState;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import static azmalent.terraincognita.common.init.ModBlocks.*;
+import static net.minecraft.client.renderer.RenderState.*;
 
 @OnlyIn(Dist.CLIENT)
-public class ModRenderLayers {
+public class ModRenderTypes {
     public static void init() {
-        FLOWERS.forEach(ModRenderLayers::setCutoutRender);
+        FLOWERS.forEach(ModRenderTypes::setCutoutRender);
         setCutoutRender(REEDS);
         setCutoutRender(PINK_LOTUS, WHITE_LOTUS, YELLOW_LOTUS, SMALL_LILYPAD, CALTROPS, ROOTS);
     }

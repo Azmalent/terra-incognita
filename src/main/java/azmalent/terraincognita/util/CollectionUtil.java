@@ -7,7 +7,7 @@ import java.util.List;
 
 public class CollectionUtil {
     @SafeVarargs
-    public static <T> List<T> nonNullList(T... values) {
+    public static <T> List<T> filterNotNull(T... values) {
         List<T> list = new ArrayList<>();
         for (T t : Lists.newArrayList(values)) {
             if (t != null) {

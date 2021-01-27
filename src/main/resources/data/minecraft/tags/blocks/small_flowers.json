@@ -1,19 +1,21 @@
 {
   "replace": false,
   "values": [
-    "terraincognita:alpine_pink",
-    "terraincognita:arctic_poppy",
-    "terraincognita:blue_iris",
-    "terraincognita:blue_lupin",
-    "terraincognita:dandelion_puff",
-    "terraincognita:edelweiss",
-    "terraincognita:fireweed",
-    "terraincognita:forget_me_not",
-    "terraincognita:marigold",
-    "terraincognita:purple_iris",
-    "terraincognita:rockfoil",
-    "terraincognita:pink_lotus",
-    "terraincognita:white_lotus",
-    "terraincognita:yellow_lotus"
+    {"id": "terraincognita:alpine_pink", "required": false},
+    {"id": "terraincognita:arctic_poppy", "required": false},
+    {"id": "terraincognita:blue_iris", "required": false},
+    {"id": "terraincognita:blue_lupin", "required": false},
+    {"id": "terraincognita:chicory", "required": false},
+    {"id": "terraincognita:dandelion_puff", "required": false},
+    {"id": "terraincognita:edelweiss", "required": false},
+    {"id": "terraincognita:fireweed", "required": false},
+    {"id": "terraincognita:forget_me_not", "required": false},
+    {"id": "terraincognita:gentian", "required": false},
+    {"id": "terraincognita:marigold", "required": false},
+    {"id": "terraincognita:purple_iris", "required": false},
+    {"id": "terraincognita:rockfoil", "required": false},
+    {"id": "terraincognita:pink_lotus", "required": false},
+    {"id": "terraincognita:white_lotus", "required": false},
+    {"id": "terraincognita:yellow_lotus", "required": false}
   ]
 }

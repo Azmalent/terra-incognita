@@ -58,6 +58,7 @@ minecraft {
 
         data {
             workingDirectory project.file('run')
+            arg "-mixin.config=terraincognita.mixins.json"
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
 
@@ -93,6 +94,17 @@ jar {
 
 repositories {
     maven {
+        // location of the maven that hosts JEI files
+        name = "Progwml6 maven"
+        url = "https://dvs1.progwml6.com/files/maven/"
+    }
+    maven {
+        // location of a maven mirror for JEI files, as a fallback
+        name = "ModMaven"
+        url = "https://modmaven.k-4u.nl"
+    }
+    maven {
+        name = "CurseMaven"
         url = "https://www.cursemaven.com"
     }
 }
@@ -100,7 +112,8 @@ repositories {
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     compile fileTree(dir: 'libs', include: '*.jar')
-    
+
+    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}:api")
     compileOnly "curse.maven:quark-243121:${quark_file_id}"
     compileOnly "curse.maven:simply-tea-268373:${simply_tea_file_id}"
 }

@@ -1,16 +1,17 @@
 {
   "replace": false,
   "values": [
-    "terraincognita:potted_alpine_pink",
-    "terraincognita:potted_arctic_poppy",
-    "terraincognita:potted_blue_iris",
-    "terraincognita:potted_blue_lupin",
-    "terraincognita:potted_dandelion_puff",
-    "terraincognita:potted_edelweiss",
-    "terraincognita:potted_fireweed",
-    "terraincognita:potted_forget_me_not",
-    "terraincognita:potted_marigold",
-    "terraincognita:potted_purple_iris",
-    "terraincognita:potted_rockfoil"
+    {"id": "terraincognita:potted_alpine_pink", "required": false},
+    {"id": "terraincognita:potted_arctic_poppy", "required": false},
+    {"id": "terraincognita:potted_blue_iris", "required": false},
+    {"id": "terraincognita:potted_blue_lupin", "required": false},
+    {"id": "terraincognita:potted_chicory", "required": false},
+    {"id": "terraincognita:potted_dandelion_puff", "required": false},
+    {"id": "terraincognita:potted_edelweiss", "required": false},
+    {"id": "terraincognita:potted_fireweed", "required": false},
+    {"id": "terraincognita:potted_forget_me_not", "required": false},
+    {"id": "terraincognita:potted_marigold", "required": false},
+    {"id": "terraincognita:potted_purple_iris", "required": false},
+    {"id": "terraincognita:potted_rockfoil", "required": false}
   ]
 }

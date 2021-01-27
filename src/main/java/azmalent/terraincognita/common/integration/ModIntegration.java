@@ -1,8 +1,8 @@
-package azmalent.terraincognita.integration;
+package azmalent.terraincognita.common.integration;
 
 import azmalent.cuneiform.lib.compat.ModProxy;
-import azmalent.terraincognita.integration.quark.IQuarkIntegration;
-import azmalent.terraincognita.integration.simplytea.ISimplyTeaIntegration;
+import azmalent.terraincognita.common.integration.quark.IQuarkIntegration;
+import azmalent.terraincognita.common.integration.simplytea.ISimplyTeaIntegration;
 
 public class ModIntegration {
     @ModProxy("quark")

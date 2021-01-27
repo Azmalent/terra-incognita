@@ -1,17 +1,23 @@
 package azmalent.terraincognita.common.event;
 
 import azmalent.terraincognita.TIConfig;
-import azmalent.terraincognita.common.init.*;
-import azmalent.terraincognita.util.FlowerColorMap;
+import azmalent.terraincognita.common.init.ModBiomes;
+import azmalent.terraincognita.common.init.ModEffects;
+import azmalent.terraincognita.common.init.ModItems;
+import azmalent.terraincognita.common.init.ModRecipes;
+import azmalent.terraincognita.common.item.block.BasketItem;
 import azmalent.terraincognita.common.world.ModVegetation;
+import azmalent.terraincognita.util.ColorUtil;
 import net.minecraft.entity.merchant.villager.VillagerTrades;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ICraftingRecipe;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.potion.EffectInstance;
 import net.minecraftforge.client.event.RecipesUpdatedEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
+import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.village.WandererTradesEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -27,8 +33,12 @@ public class EventHandler {
             MinecraftForge.EVENT_BUS.addListener(EventHandler::onPlayerUseItem);
         }
 
-        if (TIConfig.Flora.flowerBand.get()) {
+        if (TIConfig.Flora.wreath.get()) {
             MinecraftForge.EVENT_BUS.addListener(EventHandler::onUpdateRecipes);
+        }
+
+        if (TIConfig.Flora.reeds.get()) {
+            MinecraftForge.EVENT_BUS.addListener(EventHandler::onItemPickup);
         }
 
         BiomeHandler.registerListeners();
@@ -51,7 +61,7 @@ public class EventHandler {
 
     public static void onUpdateRecipes(RecipesUpdatedEvent event) {
         for (ICraftingRecipe recipe : event.getRecipeManager().getRecipesForType(IRecipeType.CRAFTING)) {
-            FlowerColorMap.getFlowerColorFromRecipe(recipe);
+            ColorUtil.saveFlowerDyeRecipe(recipe);
         }
     }
 
@@ -63,6 +73,14 @@ public class EventHandler {
         if (effect != null && event.getItem().isFood()) {
             int multiplier = 2 << effect.getAmplifier();
             event.setDuration(event.getDuration() * multiplier);
+        }
+    }
+
+    public static void onItemPickup(EntityItemPickupEvent event) {
+        PlayerEntity player = event.getPlayer();
+        ItemStack basket = BasketItem.getBasketInHand(player);
+        if (basket != null) {
+            BasketItem.handleAutopickup(basket, event);
         }
     }
 }

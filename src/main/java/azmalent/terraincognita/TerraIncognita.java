@@ -4,12 +4,13 @@ import azmalent.cuneiform.lib.compat.ModCompatUtil;
 import azmalent.terraincognita.client.event.ClientEventHandler;
 import azmalent.terraincognita.common.event.EventHandler;
 import azmalent.terraincognita.common.init.*;
-import azmalent.terraincognita.integration.ModIntegration;
+import azmalent.terraincognita.common.integration.ModIntegration;
 import azmalent.terraincognita.proxy.ClientProxy;
 import azmalent.terraincognita.proxy.CommonProxy;
 import azmalent.terraincognita.proxy.IProxy;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
@@ -36,21 +37,26 @@ public class TerraIncognita {
         TIConfig.init();
 
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-        ModBlocks.BLOCKS.register(bus);
-        ModItems.ITEMS.register(bus);
-        ModEntities.ENTITIES.register(bus);
         ModBiomes.BIOMES.register(bus);
-        ModFeatures.FEATURES.register(bus);
+        ModBlocks.BLOCKS.register(bus);
         ModContainers.CONTAINERS.register(bus);
         ModEffects.EFFECTS.register(bus);
+        ModEntities.ENTITIES.register(bus);
+        ModFeatures.FEATURES.register(bus);
+        ModItems.ITEMS.register(bus);
+        ModParticles.PARTICLES.register(bus);
         ModRecipes.RECIPES.register(bus);
         ModSounds.SOUNDS.register(bus);
-        ModParticles.PARTICLES.register(bus);
+        ModTileEntities.TILE_ENTITIES.register(bus);
 
         ModCompatUtil.initModProxies(ModIntegration.class, MODID);
         ModIntegration.SIMPLY_TEA.register(bus);
 
         EventHandler.registerListeners();
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> ClientEventHandler::registerListeners);
+    }
+
+    public static ResourceLocation prefix(String name) {
+        return new ResourceLocation(MODID, name);
     }
 }

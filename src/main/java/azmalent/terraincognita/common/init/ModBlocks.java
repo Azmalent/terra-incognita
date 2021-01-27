@@ -18,6 +18,7 @@ import azmalent.terraincognita.util.CollectionUtil;
 import net.minecraft.block.AbstractBlock.Properties;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.LilyPadItem;
@@ -81,6 +82,7 @@ public class ModBlocks {
     public static final PottablePlantEntry BLUE_LUPIN     = makeFlower("blue_lupin", Effects.RESISTANCE, 120, Blocks.CORNFLOWER, Flora.savannaFlowers);
     public static final PottablePlantEntry EDELWEISS      = makePlant("edelweiss", () -> new AlpineFlowerBlock(Effects.HASTE, 200, Properties.from(Blocks.AZURE_BLUET)), Flora.alpineFlowers);
     public static final PottablePlantEntry ALPINE_PINK    = makePlant("alpine_pink", () -> new AlpineFlowerBlock(Effects.SLOWNESS, 160, Properties.from(Blocks.PINK_TULIP)), Flora.alpineFlowers);
+    public static final PottablePlantEntry GENTIAN        = makePlant("gentian", () -> new AlpineFlowerBlock(Effects.WEAKNESS, 180, Properties.from(Blocks.CORNFLOWER)), Flora.alpineFlowers);
     public static final PottablePlantEntry ROCKFOIL       = makePlant("rockfoil", RockfoilBlock::new, Flora.alpineFlowers);
     public static final PottablePlantEntry FORGET_ME_NOT  = makeFlower("forget_me_not", Effects.SLOWNESS, 160, Blocks.AZURE_BLUET, Flora.swampFlowers);
     public static final PottablePlantEntry BLUE_IRIS      = makeFlower("blue_iris", Effects.INVISIBILITY, 160, Blocks.CORNFLOWER, Flora.jungleFlowers);
@@ -98,12 +100,15 @@ public class ModBlocks {
     public static final BlockEntry ROOTS = HELPER.newBuilder("roots", RootsBlock::new).buildIf(Flora.roots);
 
     public static final BlockEntry CALTROPS = HELPER.newBuilder("caltrops", CaltropsBlock::new).withBlockItem(CaltropsItem::new).buildIf(Tools.caltrops);
-    public static final BlockEntry BASKET = HELPER.newBuilder("basket", BasketBlock::new).withBlockItem(BasketItem::new).buildIf(Flora.reeds);
+    public static final BlockEntry BASKET = HELPER.newBuilder("basket", BasketBlock::new).withBlockItem(BasketItem::new).buildIf(Tools.basket);
     public static final BlockEntry WICKER_MAT = HELPER.newBuilder("wicker_mat", WickerMatBlock::new).buildIf(Flora.reeds);
 
+    public static final BlockEntry APPLE_PLANKS = HELPER.newBuilder("apple_planks", Properties.from(Blocks.OAK_PLANKS)).build();
+    public static final BlockEntry HAZELNUT_PLANKS = HELPER.newBuilder("hazelnut_planks", Properties.from(Blocks.BIRCH_PLANKS)).build();
+
     static {
-        FLOWERS = CollectionUtil.nonNullList(DANDELION_PUFF, FORGET_ME_NOT, MARIGOLD, BLUE_LUPIN, EDELWEISS, ALPINE_PINK, ROCKFOIL, BLUE_IRIS, PURPLE_IRIS, FIREWEED, ARCTIC_POPPY);
-        LOTUSES = CollectionUtil.nonNullList(WHITE_LOTUS, PINK_LOTUS, YELLOW_LOTUS);
+        FLOWERS = CollectionUtil.filterNotNull(DANDELION_PUFF, FORGET_ME_NOT, MARIGOLD, BLUE_LUPIN, EDELWEISS, ALPINE_PINK, ROCKFOIL, GENTIAN, BLUE_IRIS, PURPLE_IRIS, FIREWEED, ARCTIC_POPPY);
+        LOTUSES = CollectionUtil.filterNotNull(WHITE_LOTUS, PINK_LOTUS, YELLOW_LOTUS);
     }
 
     private static PottablePlantEntry makeFlower(String id, Effect effect, int duration, Block propertyBase, BooleanOption condition) {

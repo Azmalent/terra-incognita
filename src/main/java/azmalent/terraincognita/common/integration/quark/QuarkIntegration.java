@@ -1,4 +1,4 @@
-package azmalent.terraincognita.integration.quark;
+package azmalent.terraincognita.common.integration.quark;
 
 import azmalent.cuneiform.lib.compat.ModProxyImpl;
 import azmalent.terraincognita.TerraIncognita;

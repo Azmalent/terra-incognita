@@ -1,4 +1,4 @@
-package azmalent.terraincognita.integration.simplytea;
+package azmalent.terraincognita.common.integration.simplytea;
 
 import azmalent.cuneiform.lib.compat.ModProxyDummy;
 import azmalent.cuneiform.lib.compat.ModProxyImpl;

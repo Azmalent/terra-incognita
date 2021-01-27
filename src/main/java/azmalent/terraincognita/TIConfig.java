@@ -38,7 +38,7 @@ public class TIConfig extends CommonConfigFile {
         public static BooleanOption taffy = new BooleanOption(true);
 
         @Name("Taffy Healing Amount")
-        @Comment("How much half hearts are healed when eating a taffy.")
+        @Comment("How many half hearts are healed when eating a taffy.")
         public static IntOption taffyHealing = new IntOption(3, 2, 8);
 
         @Name("Enchanted Golden Carrot Enabled")
@@ -70,13 +70,12 @@ public class TIConfig extends CommonConfigFile {
 
         @Name("Reeds Enabled")
         @Comment({"Reeds are a sugarcane-like plant that can be found in swamps. They can be grown in the same way as sugar cane, or, alternatively, in one block deep water.",
-            "Reeds can be crafted into a variety of decorative wicker blocks and baskets.",
-            "Flower baskets can store 9 stacks of flowers and will automatically collect them if you hold it while picking up flowers."})
+            "Reeds can be crafted into a variety of decorative wicker blocks and baskets."})
         public static BooleanOption reeds = new BooleanOption(true, "reeds");
 
         @Name("Savanna Flowers Enabled")
-        @Comment({"Marigold is a large orange flower found in biomes such as savannas and deserts.",
-            "It is unique in that it can grow on sand, but only if there is water nearby."})
+        @Comment({"Adds marigolds and blue lupins to savannas.",
+            "Marigolds are unique in that they can grow on sand, but only if there is water nearby. They will spawn in deserts when these conditions are met."})
         public static BooleanOption savannaFlowers = new BooleanOption(true, "savanna_flowers");
 
         @Name("Jungle Flowers Enabled")
@@ -105,7 +104,7 @@ public class TIConfig extends CommonConfigFile {
         @Name("Wreaths Enabled")
         @Comment({"Wreath is a cosmetic headdress crafted with 4 small flowers of any kind in any shape.",
             "The color of the wreath depends on the flowers you used to craft it."})
-        public static BooleanOption flowerBand = new BooleanOption(true, "flower_band");
+        public static BooleanOption wreath = new BooleanOption(true, "flower_band");
 
         @Name("Roots Enabled")
         @Comment({"Roots can be found on dirt cave ceilings and overhangs in most biomes.",
@@ -122,6 +121,11 @@ public class TIConfig extends CommonConfigFile {
             "Caltrops will be flushed away by flowing water.",
             "You can right click caltrops with an empty hand to pick them up."})
         public static BooleanOption caltrops = new BooleanOption(true, "caltrops");
+
+        @Name("Basket Enabled")
+        @Comment({"Basket is a portable container crafted from swamp reeds. It can be placed or opened from inventory.",
+            "Baskets have 9 slots and can only store flowers, saplings, mushrooms and berries by default (governed by #terraincognita:basket_storable item tag)"})
+        public static BooleanOption basket = new BooleanOption(true, "basket");
     }
 
     public static class Biomes extends Category {

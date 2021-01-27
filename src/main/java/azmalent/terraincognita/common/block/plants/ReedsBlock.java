@@ -44,8 +44,8 @@ public class ReedsBlock extends SugarCaneBlock implements IWaterLoggable {
     @Nullable
     public BlockState getStateForPlacement(BlockItemUseContext context) {
         FluidState fluidState = context.getWorld().getFluidState(context.getPos());
-        boolean isWater = fluidState.getFluid() == Fluids.WATER;
-        return super.getStateForPlacement(context).with(WATERLOGGED, isWater);
+        boolean waterlogged = fluidState.getFluid() == Fluids.WATER;
+        return super.getStateForPlacement(context).with(WATERLOGGED, waterlogged);
     }
 
     public FluidState getFluidState(BlockState state) {

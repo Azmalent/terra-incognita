@@ -5,19 +5,20 @@ import net.minecraft.item.*;
 import net.minecraft.item.crafting.ICraftingRecipe;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.Tags;
 
 import java.util.List;
 import java.util.Map;
 
-public class FlowerColorMap {
+public class ColorUtil {
     private static Map<Item, DyeItem> FLOWER_COLORS = Maps.newHashMap();
 
-    public static DyeItem getFlowerColor(Item flower) {
+    public static DyeItem getDyeFromFlower(Item flower) {
         return FLOWER_COLORS.getOrDefault(flower, (DyeItem) Items.WHITE_DYE);
     }
 
-    public static void getFlowerColorFromRecipe(ICraftingRecipe recipe) {
+    public static void saveFlowerDyeRecipe(ICraftingRecipe recipe) {
         List<Ingredient> ingredients = recipe.getIngredients();
         if (ingredients.size() != 1) return;
 
@@ -31,5 +32,21 @@ public class FlowerColorMap {
                 FLOWER_COLORS.put(input, dye);
             }
         }
+    }
+
+    public static int lerp(float t, int color1, int color2) {
+        float r1 = ((color1 >> 16) & 255) / 255f;
+        float g1 = ((color1 >> 8) & 255) / 255f;
+        float b1 = (color1 & 255) / 255f;
+
+        float r2 = ((color2 >> 16) & 255) / 255f;
+        float g2 = ((color2 >> 8) & 255) / 255f;
+        float b2 = (color2 & 255) / 255f;
+
+        int r = (int) (MathHelper.lerp(t, r1, r2) * 255);
+        int g = (int) (MathHelper.lerp(t, g1, g2) * 255);
+        int b = (int) (MathHelper.lerp(t, b1, b2) * 255);
+
+        return(((r << 8) + g) << 8) + b;
     }
 }

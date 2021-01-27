@@ -4,39 +4,40 @@ import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.recipe.FiddleheadSuspiciousStewAdditionRecipe;
 import azmalent.terraincognita.common.recipe.FiddleheadSuspiciousStewRecipe;
-import azmalent.terraincognita.common.recipe.FlowerBandRecipe;
+import azmalent.terraincognita.common.recipe.WreathRecipe;
 import net.minecraft.block.ComposterBlock;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.item.crafting.SpecialRecipe;
 import net.minecraft.item.crafting.SpecialRecipeSerializer;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+
+import java.util.function.Function;
 
 public class ModRecipes {
     public static DeferredRegister<IRecipeSerializer<?>> RECIPES = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, TerraIncognita.MODID);
 
     public static RegistryObject<SpecialRecipeSerializer<?>> FIDDLEHEAD_SUSPICIOUS_STEW;
     public static RegistryObject<SpecialRecipeSerializer<?>> FIDDLEHEAD_SUSPICIOUS_STEW_ADDITION;
-    public static RegistryObject<SpecialRecipeSerializer<?>> FLOWER_BAND;
+    public static RegistryObject<SpecialRecipeSerializer<?>> WREATH;
 
     static {
         if (TIConfig.Food.fiddlehead.get()) {
-            FIDDLEHEAD_SUSPICIOUS_STEW = RECIPES.register("fiddlehead_suspicious_stew",
-                () -> new SpecialRecipeSerializer<>(FiddleheadSuspiciousStewRecipe::new)
-            );
-            FIDDLEHEAD_SUSPICIOUS_STEW_ADDITION = RECIPES.register("fiddlehead_suspicious_stew_addition",
-                () -> new SpecialRecipeSerializer<>(FiddleheadSuspiciousStewAdditionRecipe::new)
-            );
+            FIDDLEHEAD_SUSPICIOUS_STEW = registerRecipe("fiddlehead_suspicious_stew", FiddleheadSuspiciousStewRecipe::new);
+            FIDDLEHEAD_SUSPICIOUS_STEW_ADDITION = registerRecipe("fiddlehead_suspicious_stew_addition", FiddleheadSuspiciousStewAdditionRecipe::new);;
         }
 
-        if (TIConfig.Flora.flowerBand.get()) {
-            FLOWER_BAND = RECIPES.register("flower_band",
-                () -> new SpecialRecipeSerializer<>(FlowerBandRecipe::new)
-            );
+        if (TIConfig.Flora.wreath.get()) {
+            WREATH = registerRecipe("flower_band", WreathRecipe::new);
         }
     }
 
+    private static RegistryObject<SpecialRecipeSerializer<?>> registerRecipe(String id, Function<ResourceLocation, SpecialRecipe> constructor) {
+        return RECIPES.register(id, () -> new SpecialRecipeSerializer<>(constructor));
+    }
 
     public static void registerComposterRecipes() {
         if (TIConfig.Tweaks.additionalCompostables.get()) {

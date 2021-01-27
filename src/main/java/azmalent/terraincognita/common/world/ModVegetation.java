@@ -91,6 +91,7 @@ public class ModVegetation {
             WeightedBlockStateProvider provider = new WeightedBlockStateProvider();
             provider.addWeightedBlockstate(ModBlocks.ALPINE_PINK.getBlock().getDefaultState(), 1);
             provider.addWeightedBlockstate(ModBlocks.ROCKFOIL.getBlock().getDefaultState(), 1);
+            provider.addWeightedBlockstate(ModBlocks.GENTIAN.getBlock().getDefaultState(), 1);
 
             Configs.ALPINE_FLOWERS = new BlockClusterFeatureConfig.Builder(provider, SimpleBlockPlacer.PLACER).tries(32).func_227317_b_().build();
             ALPINE_FLOWERS = ModFeatures.ALPINE_FLOWERS.get().withConfiguration(Configs.ALPINE_FLOWERS).withPlacement(Features.Placements.VEGETATION_PLACEMENT).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).func_242731_b(4);

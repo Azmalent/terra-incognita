@@ -4,6 +4,7 @@ import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.inventory.BasketContainer;
 import net.minecraft.inventory.container.ContainerType;
+import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.network.IContainerFactory;
 import net.minecraftforge.registries.DeferredRegister;
@@ -16,7 +17,7 @@ public class ModContainers {
 
     static {
         if (TIConfig.Flora.reeds.get()) {
-            BASKET = CONTAINERS.register("basket", () -> new ContainerType<>((IContainerFactory<BasketContainer>) BasketContainer::new));
+            BASKET = CONTAINERS.register("basket", () -> IForgeContainerType.create(BasketContainer::new));
         }
     }
 }

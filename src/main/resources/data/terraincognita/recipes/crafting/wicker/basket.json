@@ -17,6 +17,10 @@
     {
       "type": "cuneiform:config",
       "config": "terraincognita:reeds"
+    },
+    {
+      "type": "cuneiform:config",
+      "config": "terraincognita:basket"
     }
   ]
 }

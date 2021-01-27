@@ -2,7 +2,7 @@ package azmalent.terraincognita.common.init;
 
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.TIConfig;
-import azmalent.terraincognita.common.item.FlowerBandItem;
+import azmalent.terraincognita.common.item.WreathItem;
 import azmalent.terraincognita.common.item.ModFoods;
 import azmalent.terraincognita.common.item.NotchCarrotItem;
 import azmalent.terraincognita.common.item.TaffyItem;
@@ -25,7 +25,7 @@ public class ModItems {
     public static RegistryObject<Item> CLAYED_ROOT;
     public static RegistryObject<Item> BAKED_ROOT;
     public static RegistryObject<Item> BERRY_SORBET;
-    public static RegistryObject<FlowerBandItem> FLOWER_BAND;
+    public static RegistryObject<WreathItem> WREATH;
 
     private static Item.Properties props() {
         return new Item.Properties().group(TerraIncognita.TAB);
@@ -48,7 +48,7 @@ public class ModItems {
             BERRY_SORBET = ITEMS.register("berry_sorbet", () -> new SoupItem(props().food(ModFoods.BERRY_SORBET)));
         }
 
-        if (TIConfig.Flora.flowerBand.get()) FLOWER_BAND = ITEMS.register("flower_band", FlowerBandItem::new);
+        if (TIConfig.Flora.wreath.get()) WREATH = ITEMS.register("flower_band", WreathItem::new);
     }
 
     @OnlyIn(Dist.CLIENT)

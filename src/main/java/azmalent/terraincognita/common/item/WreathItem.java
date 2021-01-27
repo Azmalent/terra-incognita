@@ -18,10 +18,10 @@ import net.minecraftforge.common.util.Constants;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class FlowerBandItem extends DyeableArmorItem {
+public class WreathItem extends DyeableArmorItem {
     private static int DEFAULT_COLOR = DyeColor.YELLOW.getColorValue();
 
-    public FlowerBandItem() {
+    public WreathItem() {
         super(FlowerMaterial.INSTANCE, EquipmentSlotType.HEAD, new Item.Properties().group(TerraIncognita.TAB));
     }
 

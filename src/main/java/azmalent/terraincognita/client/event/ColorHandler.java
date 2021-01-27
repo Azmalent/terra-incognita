@@ -41,8 +41,8 @@ public class ColorHandler {
             }, ModBlocks.SMALL_LILYPAD.getItem());
         }
 
-        if (TIConfig.Flora.flowerBand.get()) {
-            colors.register((stack, index) -> index > 0 ? -1 : ModItems.FLOWER_BAND.get().getColor(stack), ModItems.FLOWER_BAND.get());
+        if (TIConfig.Flora.wreath.get()) {
+            colors.register((stack, index) -> index > 0 ? -1 : ModItems.WREATH.get().getColor(stack), ModItems.WREATH.get());
         }
     }
 }

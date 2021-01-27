@@ -36,6 +36,12 @@ An expansion focusing on nature and exploration.
     side="BOTH"
 
 [[dependencies.terraincognita]]
+    modId="jei"
+    mandatory=false
+    ordering="AFTER"
+    side="CLIENT"
+
+[[dependencies.terraincognita]]
     modId="quark"
     mandatory=false
     ordering="AFTER"
