@@ -163,12 +163,6 @@ public class BasketBlock extends HorizontalBlock implements IWaterLoggable {
     }
 
     @Override
-    public ItemStack getItem(IBlockReader worldIn, BlockPos pos, BlockState state) {
-        BasketTileEntity basket = (BasketTileEntity) worldIn.getTileEntity(pos);
-        return basket.saveToStack();
-    }
-
-    @Override
     public boolean hasComparatorInputOverride(BlockState state) {
         return true;
     }

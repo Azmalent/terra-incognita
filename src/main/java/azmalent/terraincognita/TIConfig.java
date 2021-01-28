@@ -124,7 +124,8 @@ public class TIConfig extends CommonConfigFile {
 
         @Name("Basket Enabled")
         @Comment({"Basket is a portable container crafted from swamp reeds. It can be placed or opened from inventory.",
-            "Baskets have 9 slots and can only store flowers, saplings, mushrooms and berries by default (governed by #terraincognita:basket_storable item tag)"})
+            "Baskets have 9 slots and can only store flowers, saplings, mushrooms and berries by default (governed by #terraincognita:basket_storable item tag)",
+            "When you have a basket in your hand, it will automatically collect compatible items."})
         public static BooleanOption basket = new BooleanOption(true, "basket");
     }
 

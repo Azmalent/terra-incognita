@@ -81,7 +81,7 @@ public class ModBiomes {
 
             CUSTOM_GRASS_MODIFIERS.put(ROCKY_TUNDRA.getId(), (x, z) -> {
                 double d0 = Biome.INFO_NOISE.noiseAt(x * 0.0225D, z * 0.0225D, false);
-                return d0 < -0.1D ? 0x9a3539 : 0xB46438;
+                return d0 < -0.1D ? 0xAA3539 : 0xB46438;
             });
         }
 

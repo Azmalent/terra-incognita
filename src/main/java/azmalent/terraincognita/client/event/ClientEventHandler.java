@@ -4,11 +4,21 @@ import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.client.ModRenderTypes;
 import azmalent.terraincognita.client.gui.BasketContainerScreen;
 import azmalent.terraincognita.common.init.*;
+import azmalent.terraincognita.common.inventory.BasketStackHandler;
+import azmalent.terraincognita.common.item.block.BasketItem;
+import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.client.MainWindow;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScreenManager;
+import net.minecraft.client.renderer.ItemRenderer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.RenderTooltipEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -26,13 +36,7 @@ public class ClientEventHandler {
         bus.addListener(ColorHandler::registerItemColorHandlers);
         bus.addListener(ModParticles::registerParticleFactories);
 
-        if (TIConfig.Flora.wreath.get()) {
-            MinecraftForge.EVENT_BUS.addListener(ClientEventHandler::removeDyedWreathTooltip);
-        }
-
-        if (TIConfig.Flora.reeds.get()) {
-            MinecraftForge.EVENT_BUS.addListener(ClientEventHandler::renderBasketTooltip);
-        }
+        TooltipHandler.registerListeners();
     }
 
     public static void clientSetup(FMLClientSetupEvent event) {
@@ -42,31 +46,8 @@ public class ClientEventHandler {
             ModItems.registerPropertyOverrides();
         });
 
-        ScreenManager.registerFactory(ModContainers.BASKET.get(), BasketContainerScreen::new);
-    }
-
-    public static void removeDyedWreathTooltip(ItemTooltipEvent event) {
-        if (event.getItemStack().getItem() != ModItems.WREATH.get() || event.getFlags().isAdvanced()) {
-            return;
+        if (TIConfig.Tools.basket.get()) {
+            ScreenManager.registerFactory(ModContainers.BASKET.get(), BasketContainerScreen::new);
         }
-
-        List<ITextComponent> tooltip = event.getToolTip();
-        for (ITextComponent line : tooltip) {
-            if (line instanceof TranslationTextComponent) {
-                String key = ((TranslationTextComponent) line).getKey();
-                if (key.equals("item.dyed")) {
-                    tooltip.remove(line);
-                    return;
-                }
-            }
-        }
-    }
-
-    public static void renderBasketTooltip(ItemTooltipEvent event) {
-        if (event.getItemStack().getItem() != ModBlocks.BASKET.getItem()) {
-            return;
-        }
-
-        //TODO
     }
 }

@@ -5,6 +5,7 @@
     "#minecraft:saplings",
     "#forge:mushrooms",
     "minecraft:sweet_berries",
-    {"id": "autumnity:foul_berries", "required": false}
+    {"id": "autumnity:foul_berries", "required": false},
+    {"id": "upgrade_aquatic:mulberry", "required": false}
   ]
 }

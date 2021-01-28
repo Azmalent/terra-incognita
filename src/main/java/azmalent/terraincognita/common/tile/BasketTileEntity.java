@@ -60,7 +60,7 @@ public class BasketTileEntity extends TileEntity implements INamedContainerProvi
         ItemStack stack = new ItemStack(ModBlocks.BASKET.getBlock());
         BasketStackHandler itemHandler = BasketItem.getStackHandler(stack);
         if (itemHandler != null) {
-            itemHandler.setContents(stackHandler.getContents().clone());
+            itemHandler.setContents(stackHandler.getContents());
         }
 
         if (customName != null) {
@@ -104,12 +104,7 @@ public class BasketTileEntity extends TileEntity implements INamedContainerProvi
             NonNullList<ItemStack> items = NonNullList.withSize(BasketContainer.SIZE, ItemStack.EMPTY);
             ItemStackHelper.loadAllItems(tag, items);
 
-            ItemStack[] itemsArray = new ItemStack[BasketContainer.SIZE];
-            for (int i = 0; i < BasketContainer.SIZE; i++) {
-                itemsArray[i] = items.get(i);
-            }
-
-            stackHandler.setContents(itemsArray);
+            stackHandler.setContents(items);
         }
 
         if (tag.contains("display", Constants.NBT.TAG_COMPOUND)) {

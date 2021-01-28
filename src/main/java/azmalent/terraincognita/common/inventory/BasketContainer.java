@@ -8,12 +8,13 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.items.SlotItemHandler;
 
 public class BasketContainer extends Container {
-    private static final int WIDTH = 3;
-    private static final int HEIGHT = 3;
+    public static final int WIDTH = 3;
+    public static final int HEIGHT = 3;
     public static final int SIZE = WIDTH * HEIGHT;
 
     private static final int HOTBAR_SLOT_COUNT = 9;

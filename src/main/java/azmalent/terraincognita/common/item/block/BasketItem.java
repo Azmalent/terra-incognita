@@ -2,6 +2,7 @@ package azmalent.terraincognita.common.item.block;
 
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.capability.BasketCapabilityProvider;
+import azmalent.terraincognita.common.data.ModItemTags;
 import azmalent.terraincognita.common.init.ModBlocks;
 import azmalent.terraincognita.common.inventory.BasketContainer;
 import azmalent.terraincognita.common.inventory.BasketStackHandler;
@@ -22,6 +23,7 @@ import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemHandlerHelper;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -76,25 +78,6 @@ public class BasketItem extends BlockItem {
         return null;
     }
 
-    public static void handleAutopickup(ItemStack basket, EntityItemPickupEvent event) {
-        //TODO: autopickup
-    }
-
-    /**
-     * Ensure that our capability is sent to the client when transmitted over the network.
-     * Not needed if you don't need the capability information on the client
-     *
-     * Note that this will sometimes be applied multiple times, the following MUST
-     * be supported:
-     *   Item item = stack.getItem();
-     *   NBTTagCompound nbtShare1 = item.getShareTag(stack);
-     *   stack.readShareTag(nbtShare1);
-     *   NBTTagCompound nbtShare2 = item.getShareTag(stack);
-     *   assert nbtShare1.equals(nbtShare2);
-     *
-     * @param stack The stack to send the NBT tag for
-     * @return The NBT tag
-     */
     @Nullable
     @Override
     public CompoundNBT getShareTag(ItemStack stack) {

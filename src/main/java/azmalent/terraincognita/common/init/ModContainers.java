@@ -16,7 +16,7 @@ public class ModContainers {
     public static RegistryObject<ContainerType<BasketContainer>> BASKET;
 
     static {
-        if (TIConfig.Flora.reeds.get()) {
+        if (TIConfig.Tools.basket.get()) {
             BASKET = CONTAINERS.register("basket", () -> IForgeContainerType.create(BasketContainer::new));
         }
     }
