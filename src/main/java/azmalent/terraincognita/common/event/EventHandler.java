@@ -3,12 +3,10 @@ package azmalent.terraincognita.common.event;
 import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.data.ModItemTags;
-import azmalent.terraincognita.common.init.ModBiomes;
-import azmalent.terraincognita.common.init.ModEffects;
-import azmalent.terraincognita.common.init.ModItems;
-import azmalent.terraincognita.common.init.ModRecipes;
+import azmalent.terraincognita.common.init.*;
 import azmalent.terraincognita.common.inventory.BasketStackHandler;
 import azmalent.terraincognita.common.item.block.BasketItem;
+import azmalent.terraincognita.common.world.ModTrees;
 import azmalent.terraincognita.common.world.ModVegetation;
 import azmalent.terraincognita.util.ColorUtil;
 import net.minecraft.entity.item.ItemEntity;
@@ -28,6 +26,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.village.WandererTradesEvent;
+import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -52,18 +51,22 @@ public class EventHandler {
             MinecraftForge.EVENT_BUS.addListener(EventHandler::onItemPickup);
         }
 
+        MinecraftForge.EVENT_BUS.addListener(FuelHandler::getBurnTime);
+        MinecraftForge.EVENT_BUS.addListener(LootHandler::onLoadLootTable);
         BiomeHandler.registerListeners();
-        LootHandler.registerListeners();
         BonemealHandler.registerListeners();
     }
 
     public static void setup(FMLCommonSetupEvent event) {
-        event.enqueueWork(() -> {
-            ModVegetation.configureFeatures();
-            ModBiomes.registerBiomes();
-            ModBiomes.registerBiomeTypes();
-            ModRecipes.registerComposterRecipes();
-        });
+        event.enqueueWork(ModVegetation::configureFeatures);
+        event.enqueueWork(ModTrees::configureFeatures);
+        event.enqueueWork(ModBiomes::registerBiomes);
+        event.enqueueWork(ModBiomes::registerBiomeTypes);
+
+        ModBlocks.initStripping();
+        ModBlocks.initFlammability();
+        FuelHandler.initFuelValues();
+        ModRecipes.registerComposterRecipes();
     }
 
     public static void onSetupTrades(WandererTradesEvent event) {
@@ -93,19 +96,18 @@ public class EventHandler {
         }
 
         ItemEntity itemEntity = event.getItem();
-        ItemStack stack = itemEntity.getItem();
+        ItemStack stack = itemEntity.getItem().copy();
         PlayerEntity player = event.getPlayer();
         ItemStack basket = BasketItem.getBasketInHand(player);
 
-        if (basket != null && stack.getItem().isIn(ModItemTags.BASKET_STORABLE) && !stack.isEmpty()) {
+        if (basket != null && !stack.isEmpty() && stack.getItem().isIn(ModItemTags.BASKET_STORABLE)) {
             BasketStackHandler stackHandler = BasketItem.getStackHandler(basket);
-            ItemStack remainingStack = ItemHandlerHelper.insertItemStacked(stackHandler, stack.copy(), false);
+            ItemStack remainingStack = ItemHandlerHelper.insertItemStacked(stackHandler, stack, false);
 
             int numPickedUp = stack.getCount() - remainingStack.getCount();
-            TerraIncognita.LOGGER.info("Picked up " + numPickedUp + " items");
             if (numPickedUp > 0) {
                 event.setCanceled(true);
-                stack.shrink(numPickedUp);
+                itemEntity.getItem().shrink(numPickedUp);
 
                 if (!itemEntity.isSilent()) {
                     itemEntity.world.playSound(player, player.getPosX(), player.getPosY(), player.getPosZ(),

@@ -1,0 +1,6 @@
+{
+  "parent": "terraincognita:block/apple_big",
+  "textures": {
+    "cross": "terraincognita:block/unripe_apple"
+  }
+}

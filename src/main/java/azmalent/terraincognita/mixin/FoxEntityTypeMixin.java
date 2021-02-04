@@ -14,6 +14,7 @@ import java.util.Optional;
 
 @Mixin(FoxEntity.Type.class)
 public class FoxEntityTypeMixin {
+    @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
     @Inject(method = "func_242325_a", at = @At("HEAD"), cancellable = true)
     private static void getTypeByBiome(Optional<RegistryKey<Biome>> biome, CallbackInfoReturnable<FoxEntity.Type> cir) {
         if (biome.isPresent() && BiomeDictionary.hasType(biome.get(), BiomeDictionary.Type.SNOWY)) {

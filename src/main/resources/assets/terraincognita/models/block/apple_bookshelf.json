@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_column",
+  "textures": {
+    "end": "terraincognita:block/apple_planks",
+    "side": "terraincognita:block/apple_bookshelf"
+  }
+}

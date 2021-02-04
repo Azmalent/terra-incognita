@@ -20,7 +20,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.BiomeManager;
-import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -142,7 +141,7 @@ public class ModBiomes {
         DefaultBiomeFeatures.withSparseBerries(builder);
 
         builder.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.BIRCH.chance(8));
-        builder.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModTrees.SPRUCE_BUSH);
+        builder.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModTrees.SPRUCE_SHRUB);
         builder.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModTrees.DWARF_BIRCH);
     }
 

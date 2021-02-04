@@ -5,12 +5,16 @@
   "refmap": "terraincognita.mixins.refmap.json",
   "package": "azmalent.terraincognita.mixin",
   "mixins": [
+    "BirchTreeMixin",
     "FlowersFeatureMixin",
     "FoxEntityTypeMixin",
-    "GrassBlockMixin"
+    "GrassBlockMixin",
+    "OakTreeMixin",
+    "accessor.BoatEntityAccessor",
+    "accessor.FireBlockAccessor"
   ],
   "client": [
-    "BiomeMixin"
+    "client.BiomeMixin"
   ],
   "injectors": {
     "defaultRequire": 1

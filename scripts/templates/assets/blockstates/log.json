@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "$MODID:block/$TYPE_log_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "$MODID:block/$TYPE_log"
+    },
+    "axis=z": {
+      "model": "$MODID:block/$TYPE_log_horizontal",
+      "x": 90
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "terraincognita:block/apple_fruit_green"
+    },
+    "age=1": {
+      "model": "terraincognita:block/apple_fruit_green"
+    },
+    "age=2": {
+      "model": "terraincognita:block/apple_fruit_green"
+    },
+    "age=3": {
+      "model": "terraincognita:block/apple_fruit_green"
+    },
+    "age=4": {
+      "model": "terraincognita:block/apple_fruit_unripe"
+    },
+    "age=5": {
+      "model": "terraincognita:block/apple_fruit_unripe"
+    },
+    "age=6": {
+      "model": "terraincognita:block/apple_fruit_unripe"
+    },
+    "age=7": {
+      "model": "terraincognita:block/apple_fruit_ripe"
+    }
+  }
+}

@@ -1,7 +1,10 @@
 package azmalent.terraincognita.common.init;
 
+import azmalent.cuneiform.lib.registry.BlockEntry;
 import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.TerraIncognita;
+import azmalent.terraincognita.common.init.blocksets.PottablePlantEntry;
+import azmalent.terraincognita.common.init.blocksets.TIWoodType;
 import azmalent.terraincognita.common.recipe.FiddleheadSuspiciousStewAdditionRecipe;
 import azmalent.terraincognita.common.recipe.FiddleheadSuspiciousStewRecipe;
 import azmalent.terraincognita.common.recipe.WreathRecipe;
@@ -39,6 +42,18 @@ public class ModRecipes {
         return RECIPES.register(id, () -> new SpecialRecipeSerializer<>(constructor));
     }
 
+    public static void registerCompostable(BlockEntry blockEntry, float value) {
+        if (blockEntry != null) {
+            ComposterBlock.CHANCES.put(blockEntry.getItem(), value);
+        }
+    }
+
+    public static void registerCompostable(PottablePlantEntry plantEntry, float value) {
+        if (plantEntry != null) {
+            ComposterBlock.CHANCES.put(plantEntry.getItem(), value);
+        }
+    }
+
     public static void registerComposterRecipes() {
         if (TIConfig.Tweaks.additionalCompostables.get()) {
             ComposterBlock.CHANCES.put(Items.DEAD_BUSH, 0.3f);
@@ -49,22 +64,21 @@ public class ModRecipes {
             ComposterBlock.CHANCES.put(Items.CHORUS_FLOWER, 1.0f);
         }
 
-        for (ModBlocks.PottablePlantEntry flower : ModBlocks.FLOWERS) {
-            ComposterBlock.CHANCES.put(flower.getItem(), 0.65f);
+        for (PottablePlantEntry flower : ModBlocks.FLOWERS) {
+            registerCompostable(flower, 0.65f);
         }
 
-        if (TIConfig.Flora.lotus.get()) {
-            ComposterBlock.CHANCES.put(ModBlocks.PINK_LOTUS.getItem(), 0.65f);
-            ComposterBlock.CHANCES.put(ModBlocks.WHITE_LOTUS.getItem(), 0.65f);
-            ComposterBlock.CHANCES.put(ModBlocks.YELLOW_LOTUS.getItem(), 0.65f);
+        registerCompostable(ModBlocks.PINK_LOTUS, 0.65f);
+        registerCompostable(ModBlocks.WHITE_LOTUS, 0.65f);
+        registerCompostable(ModBlocks.YELLOW_LOTUS, 0.65f);
+        registerCompostable(ModBlocks.SMALL_LILYPAD, 0.3f);
+        registerCompostable(ModBlocks.REEDS, 0.5f);
+
+        for (TIWoodType woodType : ModBlocks.WoodTypes.VALUES) {
+            registerCompostable(woodType.SAPLING, 0.3f);
+            registerCompostable(woodType.LEAVES, 0.3f);
         }
 
-        if (TIConfig.Flora.smallLilypad.get()) {
-            ComposterBlock.CHANCES.put(ModBlocks.SMALL_LILYPAD.getItem(), 0.3f);
-        }
-
-        if (TIConfig.Flora.reeds.get()) {
-            ComposterBlock.CHANCES.put(ModBlocks.REEDS.getItem(), 0.5f);
-        }
+        registerCompostable(ModBlocks.WoodTypes.APPLE.BLOSSOMING_LEAVES, 0.3f);
     }
 }

@@ -1,0 +1,31 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"apple": "terraincognita:block/apple_fruit_green",
+		"particle": "#apple"
+	},
+	"elements": [
+		{
+			"from": [6, 9, 6],
+			"to": [10, 13, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [12, 7, 8]},
+			"faces": {
+				"north": {"uv": [0, 4, 4, 8], "texture": "#apple"},
+				"east": {"uv": [0, 4, 4, 8], "texture": "#apple"},
+				"south": {"uv": [0, 4, 4, 8], "texture": "#apple"},
+				"west": {"uv": [0, 4, 4, 8], "texture": "#apple"},
+				"up": {"uv": [4, 0, 8, 4], "texture": "#apple"},
+				"down": {"uv": [4, 4, 8, 8], "texture": "#apple"}
+			}
+		},
+		{
+			"from": [7, 13, 8],
+			"to": [9, 16, 8],
+			"rotation": {"angle": 0, "axis": "y", "origin": [15, 21, 15]},
+			"faces": {
+				"north": {"uv": [0, 0, 2, 3], "texture": "#apple"},
+				"south": {"uv": [0, 0, 2, 3], "texture": "#apple"}
+			}
+		}
+	]
+}

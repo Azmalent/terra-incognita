@@ -1,0 +1,17 @@
+{
+  "type": "terraincognita:remove_oak_apples",
+  "conditions": [
+    {
+      "condition": "block_state_property",
+      "block":"minecraft:oak_leaves"
+    },
+    {
+      "condition": "cuneiform:config",
+      "config": "terraincognita:apple"
+    },
+    {
+      "condition": "cuneiform:config",
+      "config": "terraincognita:remove_oak_apples"
+    }
+  ]
+}

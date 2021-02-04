@@ -38,10 +38,6 @@ public class LootHandler {
         NOTCH_CARROT_WEIGHTS.put(LootTables.CHESTS_WOODLAND_MANSION, 2);
     }
 
-    public static void registerListeners() {
-        MinecraftForge.EVENT_BUS.addListener(LootHandler::onLoadLootTable);
-    }
-
     public static void onLoadLootTable(LootTableLoadEvent event) {
         ResourceLocation tableName = event.getName();
 

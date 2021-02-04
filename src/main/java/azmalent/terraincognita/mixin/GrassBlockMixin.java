@@ -23,8 +23,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 import java.util.Random;
 
-import static net.minecraftforge.common.BiomeDictionary.Type.COLD;
-import static net.minecraftforge.common.BiomeDictionary.Type.HOT;
+import static net.minecraftforge.common.BiomeDictionary.Type.*;
 
 @Mixin(GrassBlock.class)
 public class GrassBlockMixin {
@@ -35,29 +34,30 @@ public class GrassBlockMixin {
         boolean hot = BiomeDictionary.hasType(biomeKey, HOT);
 
         float f = rand.nextFloat();
-        switch (biome.getCategory()) {
-            case SWAMP:
-                if (f < 0.33 && !cold) return ModVegetation.Configs.SWAMP_FLOWERS;
-                break;
-            case SAVANNA:
-                if (f < 0.33) return ModVegetation.Configs.SAVANNA_FLOWERS;
-                break;
-            case DESERT:
-                if (f < 0.66) return ModVegetation.Configs.DESERT_MARIGOLDS;
-                break;
-            case EXTREME_HILLS:
-                if (f < 0.33 && pos.getY() >= TIConfig.Flora.edelweissMinimumY.get() && !hot) {
-                    return ModVegetation.Configs.EDELWEISS;
-                } else if (f < 0.66) {
-                    return ModVegetation.Configs.ALPINE_FLOWERS;
-                }
-                break;
-            case JUNGLE:
-                if (f < 0.66) return ModVegetation.Configs.JUNGLE_FLOWERS;
-                break;
-            case TAIGA: case ICY:
-                if (f < 0.33) return ModVegetation.Configs.ARCTIC_FLOWERS;
-                break;
+        if (f < 0.33) {
+            switch (biome.getCategory()) {
+                case PLAINS:
+                    return ModVegetation.Configs.FIELD_FLOWERS;
+                case SWAMP:
+                    if (!cold) return ModVegetation.Configs.SWAMP_FLOWERS;
+                    break;
+                case SAVANNA:
+                    return ModVegetation.Configs.SAVANNA_FLOWERS;
+                case DESERT:
+                    return ModVegetation.Configs.DESERT_MARIGOLDS;
+                case EXTREME_HILLS:
+                    if (!hot) {
+                        if (pos.getY() >= TIConfig.Flora.edelweissMinimumY.get() && f < 0.165) {
+                            return ModVegetation.Configs.EDELWEISS;
+                        }
+
+                        return ModVegetation.Configs.ALPINE_FLOWERS;
+                    }
+                case JUNGLE:
+                    return ModVegetation.Configs.JUNGLE_FLOWERS;
+                case TAIGA: case ICY:
+                    return ModVegetation.Configs.ARCTIC_FLOWERS;
+            }
         }
 
         return null;

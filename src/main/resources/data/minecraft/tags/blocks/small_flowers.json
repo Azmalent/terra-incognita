@@ -3,6 +3,7 @@
   "values": [
     {"id": "terraincognita:alpine_pink", "required": false},
     {"id": "terraincognita:arctic_poppy", "required": false},
+    {"id": "terraincognita:black_iris", "required": false},
     {"id": "terraincognita:blue_iris", "required": false},
     {"id": "terraincognita:blue_lupin", "required": false},
     {"id": "terraincognita:chicory", "required": false},
@@ -11,11 +12,13 @@
     {"id": "terraincognita:fireweed", "required": false},
     {"id": "terraincognita:forget_me_not", "required": false},
     {"id": "terraincognita:gentian", "required": false},
+    {"id": "terraincognita:magenta_snapdragon", "required": false},
     {"id": "terraincognita:marigold", "required": false},
     {"id": "terraincognita:purple_iris", "required": false},
+    {"id": "terraincognita:red_snapdragon", "required": false},
     {"id": "terraincognita:rockfoil", "required": false},
-    {"id": "terraincognita:pink_lotus", "required": false},
-    {"id": "terraincognita:white_lotus", "required": false},
-    {"id": "terraincognita:yellow_lotus", "required": false}
+    {"id": "terraincognita:yarrow", "required": false},
+    {"id": "terraincognita:yellow_snapdragon", "required": false},
+    "#terraincognita:lotuses"
   ]
 }

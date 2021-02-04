@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "terraincognita:block/apple_log",
+    "side": "terraincognita:block/apple_log"
+  }
+}

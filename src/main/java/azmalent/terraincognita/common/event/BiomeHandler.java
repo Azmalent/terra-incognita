@@ -4,6 +4,7 @@ import azmalent.cuneiform.lib.util.BiomeUtil;
 import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.init.ModBiomes;
+import azmalent.terraincognita.common.world.ModTrees;
 import azmalent.terraincognita.common.world.ModVegetation;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
@@ -13,6 +14,7 @@ import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 
 import static azmalent.cuneiform.lib.util.BiomeUtil.hasAnyType;
+import static azmalent.terraincognita.common.world.ModVegetation.*;
 import static net.minecraftforge.common.BiomeDictionary.Type.*;
 import static net.minecraftforge.common.BiomeDictionary.hasType;
 
@@ -31,35 +33,42 @@ public class BiomeHandler {
         boolean hot = hasType(biome, HOT);
 
         if (!hasAnyType(biome, SANDY, WASTELAND)) {
-            ModVegetation.addVegetation(event, ModVegetation.ROOTS);
+            addVegetation(event, ROOTS);
         }
 
         switch (event.getCategory()) {
+        	case PLAINS:
+				addVegetation(event, FIELD_FLOWERS);
+        		break;
+        	case FOREST:
+        		if (hot) {
+        			addVegetation(event, JUNGLE_FLOWERS, LOTUS);
+        		} else if (cold) {
+                    addVegetation(event, ARCTIC_FLOWERS);
+                }
+        		break;
             case SWAMP:
-                ModVegetation.addVegetation(event, ModVegetation.SMALL_LILYPADS);
-                ModVegetation.addVegetation(event, ModVegetation.REEDS);
+                addVegetation(event, SMALL_LILYPADS, REEDS);
                 if (!cold) {
-                    ModVegetation.addVegetation(event, ModVegetation.SWAMP_FLOWERS);
+                    addVegetation(event, SWAMP_FLOWERS);
                 }
                 break;
             case SAVANNA:
-                ModVegetation.addVegetation(event, ModVegetation.SAVANNA_FLOWERS);
+                addVegetation(event, SAVANNA_FLOWERS);
                 break;
             case DESERT:
-                ModVegetation.addVegetation(event, ModVegetation.DESERT_MARIGOLDS);
+                addVegetation(event, DESERT_MARIGOLDS);
                 break;
             case EXTREME_HILLS:
                 if (!hot) {
-                    ModVegetation.addVegetation(event, ModVegetation.ALPINE_FLOWERS);
-                    ModVegetation.addVegetation(event, ModVegetation.EDELWEISS);
+                    addVegetation(event, ALPINE_FLOWERS, EDELWEISS);
                 }
                 break;
             case JUNGLE:
-                ModVegetation.addVegetation(event, ModVegetation.JUNGLE_FLOWERS);
-                ModVegetation.addVegetation(event, ModVegetation.LOTUS);
+                addVegetation(event, JUNGLE_FLOWERS, LOTUS);
                 break;
             case TAIGA: case ICY:
-                ModVegetation.addVegetation(event, ModVegetation.ARCTIC_FLOWERS);
+                addVegetation(event, ARCTIC_FLOWERS);
                 break;
         }
     }
@@ -91,8 +100,11 @@ public class BiomeHandler {
             ModBiomes.addExtraTundraFeatures(event.getGeneration());
             ModBiomes.addExtraTundraSpawns(event.getSpawns());
         }
+        else if (biome == Biomes.FLOWER_FOREST) {
+            addVegetation(event, ModTrees.FANCY_BIRCH_BEES_002.chance(16));
+        }
         else if (biome == Biomes.SOUL_SAND_VALLEY) {
-            ModVegetation.addVegetation(event, ModVegetation.WITHER_ROSE);
+            addVegetation(event, WITHER_ROSE);
         }
     }
 }

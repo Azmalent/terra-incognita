@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "$MODID:$TEXTURE_SOURCE"
+    }
+  },
+  "result": {
+    "item": "$MODID:$BLOCK",
+    "count": 4
+  },
+  "conditions": [
+    {
+      "type": "cuneiform:config",
+      "config": "$MODID:$CONDITION"
+    }
+  ]
+}

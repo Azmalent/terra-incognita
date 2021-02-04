@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "$MODID:block/$BLOCK",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "$MODID:block/$BLOCK"
+    },
+    "facing=south": {
+      "model": "$MODID:block/$BLOCK",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "$MODID:block/$BLOCK",
+      "y": 270
+    }
+  }
+}

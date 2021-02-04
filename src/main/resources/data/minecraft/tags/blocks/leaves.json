@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    {"id": "terraincognita:apple_leaves", "required": false},
+    {"id": "terraincognita:blossoming_apple_leaves", "required": false}
+  ]
+}

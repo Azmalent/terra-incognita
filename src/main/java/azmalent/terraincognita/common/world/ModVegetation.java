@@ -3,8 +3,8 @@ package azmalent.terraincognita.common.world;
 import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.common.block.plants.SmallLilypadBlock;
 import azmalent.terraincognita.common.init.ModBlocks;
-import azmalent.terraincognita.common.init.ModBlocks.PottablePlantEntry;
 import azmalent.terraincognita.common.init.ModFeatures;
+import azmalent.terraincognita.common.init.blocksets.PottablePlantEntry;
 import com.google.common.collect.Sets;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -18,6 +18,7 @@ import net.minecraftforge.event.world.BiomeLoadingEvent;
 
 public class ModVegetation {
     public static class Configs {
+        public static BlockClusterFeatureConfig FIELD_FLOWERS;
         public static BlockClusterFeatureConfig SWAMP_FLOWERS;
         public static BlockClusterFeatureConfig ALPINE_FLOWERS;
         public static BlockClusterFeatureConfig EDELWEISS;
@@ -28,6 +29,7 @@ public class ModVegetation {
         public static BlockClusterFeatureConfig WITHER_ROSE;
     }
 
+    public static ConfiguredFeature<?, ?> FIELD_FLOWERS;
     public static ConfiguredFeature<?, ?> SWAMP_FLOWERS;
     public static ConfiguredFeature<?, ?> ALPINE_FLOWERS;
     public static ConfiguredFeature<?, ?> EDELWEISS;
@@ -41,9 +43,11 @@ public class ModVegetation {
     public static ConfiguredFeature<?, ?> REEDS;
     public static ConfiguredFeature<?, ?> ROOTS;
 
-    public static void addVegetation(BiomeLoadingEvent event, ConfiguredFeature feature) {
-        if (feature != null) {
-            event.getGeneration().withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, feature);
+    public static void addVegetation(BiomeLoadingEvent event, ConfiguredFeature<?, ?>... features) {
+        for (ConfiguredFeature<?, ?> feature : features) {
+            if (feature != null) {
+                event.getGeneration().withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, feature);
+            }
         }
     }
 
@@ -74,7 +78,16 @@ public class ModVegetation {
     }
 
     public static void configureFeatures() {
-        if (TIConfig.Flora.swampFlowers.get())   {
+		if (TIConfig.Flora.fieldFlowers.get()) {
+            WeightedBlockStateProvider provider = new WeightedBlockStateProvider();
+            provider.addWeightedBlockstate(ModBlocks.CHICORY.getBlock().getDefaultState(), 2);
+            provider.addWeightedBlockstate(ModBlocks.YARROW.getBlock().getDefaultState(), 1);
+
+            Configs.FIELD_FLOWERS = createConfig(provider, 32);
+            FIELD_FLOWERS = initFlowerFeature(Configs.FIELD_FLOWERS);
+        }
+    
+        if (TIConfig.Flora.swampFlowers.get()) {
             Configs.SWAMP_FLOWERS = createConfig(ModBlocks.FORGET_ME_NOT, 32);
             SWAMP_FLOWERS = initFlowerFeature(Configs.SWAMP_FLOWERS);
         }
@@ -99,8 +112,11 @@ public class ModVegetation {
 
         if (TIConfig.Flora.savannaFlowers.get()) {
             WeightedBlockStateProvider provider = new WeightedBlockStateProvider();
-            provider.addWeightedBlockstate(ModBlocks.MARIGOLD.getBlock().getDefaultState(), 1);
-            provider.addWeightedBlockstate(ModBlocks.BLUE_LUPIN.getBlock().getDefaultState(), 1);
+            provider.addWeightedBlockstate(ModBlocks.MARIGOLD.getBlock().getDefaultState(), 2);
+            provider.addWeightedBlockstate(ModBlocks.BLUE_LUPIN.getBlock().getDefaultState(), 3);
+            provider.addWeightedBlockstate(ModBlocks.RED_SNAPDRAGON.getBlock().getDefaultState(), 1);
+            provider.addWeightedBlockstate(ModBlocks.YELLOW_SNAPDRAGON.getBlock().getDefaultState(), 1);
+            provider.addWeightedBlockstate(ModBlocks.MAGENTA_SNAPDRAGON.getBlock().getDefaultState(), 1);
 
             Configs.SAVANNA_FLOWERS = createConfig(provider, 32);
             SAVANNA_FLOWERS = initFlowerFeature(Configs.SAVANNA_FLOWERS);
@@ -113,6 +129,7 @@ public class ModVegetation {
             WeightedBlockStateProvider provider = new WeightedBlockStateProvider();
             provider.addWeightedBlockstate(ModBlocks.BLUE_IRIS.getBlock().getDefaultState(), 1);
             provider.addWeightedBlockstate(ModBlocks.PURPLE_IRIS.getBlock().getDefaultState(), 1);
+            provider.addWeightedBlockstate(ModBlocks.BLACK_IRIS.getBlock().getDefaultState(), 1);
 
             Configs.JUNGLE_FLOWERS = createConfig(provider, 64);
             JUNGLE_FLOWERS = initFlowerFeature(Configs.JUNGLE_FLOWERS);

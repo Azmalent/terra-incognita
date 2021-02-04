@@ -27,6 +27,8 @@ public class ModItems {
     public static RegistryObject<Item> BERRY_SORBET;
     public static RegistryObject<WreathItem> WREATH;
 
+    public static RegistryObject<BoatItem> APPLE_BOAT;
+
     private static Item.Properties props() {
         return new Item.Properties().group(TerraIncognita.TAB);
     }

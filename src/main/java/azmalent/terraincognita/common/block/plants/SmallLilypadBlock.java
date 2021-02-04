@@ -17,8 +17,9 @@ import javax.annotation.Nullable;
 public class SmallLilypadBlock extends LilyPadBlock {
     public static final IntegerProperty LILYPADS = IntegerProperty.create("lilypads", 1, 4);
 
-    private static final VoxelShape SINGLE_LILYPAD_SHAPE = makeCuboidShape(3, 0, 3, 12, 1.5, 12);
-    private static final VoxelShape MULTIPLE_LILYPAD_SHAPE = makeCuboidShape(1, 0, 1, 14, 1.5, 14);
+    private static final VoxelShape SINGLE_LILYPAD_SHAPE = makeCuboidShape(4, 0, 4, 12, 1.5, 12);
+    private static final VoxelShape TWO_LILYPAD_SHAPE = makeCuboidShape(2, 0, 2, 14, 1.5, 14);
+    private static final VoxelShape MULTIPLE_LILYPAD_SHAPE = makeCuboidShape(1, 0, 1, 15, 1.5, 15);
 
     public SmallLilypadBlock() {
         super(Properties.from(Blocks.LILY_PAD));
@@ -32,7 +33,8 @@ public class SmallLilypadBlock extends LilyPadBlock {
 
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader reader, BlockPos blockPos, ISelectionContext context) {
-        return state.get(LILYPADS) == 1 ? SINGLE_LILYPAD_SHAPE : MULTIPLE_LILYPAD_SHAPE;
+        int n = state.get(LILYPADS);
+       	return n == 1 ? SINGLE_LILYPAD_SHAPE : (n == 2 ? TWO_LILYPAD_SHAPE : MULTIPLE_LILYPAD_SHAPE);
     }
 
     @Nullable

@@ -7,6 +7,7 @@ import azmalent.cuneiform.lib.config.annotations.Name;
 import azmalent.cuneiform.lib.config.options.BooleanOption;
 import azmalent.cuneiform.lib.config.options.DoubleOption;
 import azmalent.cuneiform.lib.config.options.IntOption;
+import jdk.nashorn.api.scripting.ScriptObjectMirror;
 
 import java.util.Random;
 
@@ -59,6 +60,10 @@ public class TIConfig extends CommonConfigFile {
         @Name("Dandelion Puff Ratio")
         @Comment("Chance to replace a vanilla dandelion with a dandelion puff during generation.")
         public static DoubleOption dandelionPuffChance = new DoubleOption(0.5, 0, 1);
+
+        @Name("Field Flowers Enabled")
+        @Comment("Adds chicory, yarrow and snapdragon to plains.")
+        public static BooleanOption fieldFlowers = new BooleanOption(true, "field_flowers");
 
         @Name("Swamp Flowers Enabled")
         @Comment("Adds forget-me-not to temperate and hot swamps.")
@@ -132,6 +137,16 @@ public class TIConfig extends CommonConfigFile {
     public static class Biomes extends Category {
         @Comment("Adds snowless and rocky tundra biomes.")
         public static BooleanOption tundraVariants = new BooleanOption(true);
+    }
+
+    public static class Trees extends Category {
+        public static BooleanOption bigBirches = new BooleanOption(true);
+        public static BooleanOption bigOaks = new BooleanOption(true);
+
+        @Name("Apple Tree Enabled")
+        public static BooleanOption apple = new BooleanOption(true, "apple");
+
+        public static BooleanOption disableAppleDropFromOaks = new BooleanOption(true, "remove_oak_apples");
     }
 
     public static class Tweaks extends Category {

@@ -44,12 +44,14 @@ public class TerraIncognita {
         ModEntities.ENTITIES.register(bus);
         ModFeatures.FEATURES.register(bus);
         ModItems.ITEMS.register(bus);
+        ModLootModifiers.LOOT_MODIFIERS.register(bus);
         ModParticles.PARTICLES.register(bus);
         ModRecipes.RECIPES.register(bus);
         ModSounds.SOUNDS.register(bus);
         ModTileEntities.TILE_ENTITIES.register(bus);
 
         ModCompatUtil.initModProxies(ModIntegration.class, MODID);
+        ModIntegration.QUARK.register(bus);
         ModIntegration.SIMPLY_TEA.register(bus);
 
         EventHandler.registerListeners();

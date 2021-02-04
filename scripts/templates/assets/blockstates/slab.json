@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "$MODID:block/$TYPE_slab"
+    },
+    "type=double": {
+      "model": "$MODID:block/$TYPE_planks"
+    },
+    "type=top": {
+      "model": "$MODID:block/$TYPE_slab_top"
+    }
+  }
+}

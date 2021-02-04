@@ -1,0 +1,7 @@
+{
+  "parent": "quark:block/ladder_but_not_the_vanilla_one_so_resourcepacks_dont_override_it",
+  "textures": {
+    "particle": "$MODID:block/$TYPE_ladder",
+    "texture": "$MODID:block/$TYPE_ladder"
+  }
+}
