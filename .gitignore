@@ -173,3 +173,5 @@ run/
 
 # End of https://www.toptal.com/developers/gitignore/api/forgegradle
 
+**/__pycache__/
+.mypy_cache

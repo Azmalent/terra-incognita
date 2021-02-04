@@ -1,8 +1,8 @@
 {
     "parent": "quark:block/vertical_slab",
     "textures": {
-        "bottom": "$MODID:block/$TEXTURE_SOURCE",
-        "top": "$MODID:block/$TEXTURE_SOURCE",
-        "side": "$MODID:block/$TEXTURE_SOURCE"
+        "bottom": "$MODID:block/$BASE_BLOCK",
+        "top": "$MODID:block/$BASE_BLOCK",
+        "side": "$MODID:block/$BASE_BLOCK"
     }
 }

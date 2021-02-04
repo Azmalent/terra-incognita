@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/fence_post",
   "textures": {
-    "texture": "$MODID:block/$BLOCK"
+    "texture": "$MODID:block/$BASE_BLOCK"
   }
 }

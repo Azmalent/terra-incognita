@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "terraincognita:apple_planks"
+    }
+  ],
+  "result": {
+    "item": "terraincognita:apple_button",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "cuneiform:config",
+      "config": "terraincognita:apple"
+    }
+  ]
+}

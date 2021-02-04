@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/fence_side",
   "textures": {
-    "texture": "$MODID:block/$TYPE_planks"
+    "texture": "$MODID:block/$BASE_BLOCK"
   }
 }

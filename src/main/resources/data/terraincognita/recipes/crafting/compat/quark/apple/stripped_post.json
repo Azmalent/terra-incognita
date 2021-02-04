@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "F",
+    "F",
+    "F"
+  ],
+  "key": {
+    "F": {
+      "item": "terraincognita:stripped_apple_wood"
+    }
+  },
+  "result": {
+    "item": "terraincognita:stripped_apple_post",
+    "count": 8
+  },
+  "conditions": {
+    "type": "forge:and",
+    "values": [
+      {
+        "type": "forge:mod_loaded",
+        "modid": "quark"
+      },
+      {
+        "type": "cuneiform:config",
+        "config": "terraincognita:apple"
+      }
+    ]
+  }
+}

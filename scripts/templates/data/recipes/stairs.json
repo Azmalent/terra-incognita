@@ -7,7 +7,7 @@
   ],
   "key": {
     "#": {
-      "item": "$MODID:$TEXTURE_SOURCE"
+      "item": "$MODID:$BASE_BLOCK"
     }
   },
   "result": {

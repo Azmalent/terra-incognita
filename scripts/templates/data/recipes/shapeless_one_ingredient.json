@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "$MODID:$INGREDIENT"
+    }
+  ],
+  "result": {
+    "item": "$MODID:$OUTPUT",
+    "count": $COUNT
+  },
+  "conditions": [
+    {
+      "type": "cuneiform:config",
+      "config": "$MODID:$CONDITION"
+    }
+  ]
+}

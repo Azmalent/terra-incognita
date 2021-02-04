@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    {"id": "$MODID:$TYPE_log", "required": false},
+    {"id": "$MODID:stripped_$TYPE_log", "required": false},
+    {"id": "$MODID:$TYPE_wood", "required": false},
+    {"id": "$MODID:stripped_$TYPE_wood", "required": false}
+  ]
+}

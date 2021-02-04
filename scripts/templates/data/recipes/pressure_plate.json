@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "$MODID:$BASE_BLOCK"
+    }
+  },
+  "result": {
+    "item": "$MODID:$BLOCK"
+  },
+  "conditions": [
+    {
+      "type": "cuneiform:config",
+      "config": "$MODID:$CONDITION"
+    }
+  ]
+}

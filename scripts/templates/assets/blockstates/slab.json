@@ -4,7 +4,7 @@
       "model": "$MODID:block/$TYPE_slab"
     },
     "type=double": {
-      "model": "$MODID:block/$TYPE_planks"
+      "model": "$MODID:block/$BASE_BLOCK"
     },
     "type=top": {
       "model": "$MODID:block/$TYPE_slab_top"

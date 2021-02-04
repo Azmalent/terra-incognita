@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "$MODID:$TYPE_wood"
+    }
+  ],
+  "result": {
+    "item": "$MODID:$TYPE_planks",
+    "count": 4
+  },
+  "conditions": [
+    {
+      "type": "cuneiform:config",
+      "config": "$MODID:$TYPE"
+    }
+  ]
+}
