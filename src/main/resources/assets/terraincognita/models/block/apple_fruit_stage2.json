@@ -1,6 +1,6 @@
 {
   "parent": "terraincognita:block/apple_fruit_big",
   "textures": {
-    "apple": "terraincognita:block/apple_fruit_unripe"
+    "apple": "terraincognita:block/apple_fruit_stage2"
   }
 }

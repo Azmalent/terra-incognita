@@ -9,13 +9,13 @@
           "conditions": [
             {
               "condition": "minecraft:block_state_property",
-              "block": "terraincognita:apple_door",
+              "block": "$MODID:$BLOCK",
               "properties": {
                 "half": "lower"
               }
             }
           ],
-          "name": "terraincognita:apple_door"
+          "name": "$MODID:$BLOCK"
         }
       ],
       "conditions": [

@@ -9,7 +9,6 @@ import net.minecraft.world.gen.feature.AbstractFeatureSizeType;
 import net.minecraft.world.gen.feature.BaseTreeFeatureConfig;
 import net.minecraft.world.gen.foliageplacer.FoliagePlacer;
 import net.minecraft.world.gen.treedecorator.TreeDecorator;
-import net.minecraft.world.gen.trunkplacer.AbstractTrunkPlacer;
 
 import java.util.List;
 

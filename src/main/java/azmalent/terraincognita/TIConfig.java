@@ -140,12 +140,10 @@ public class TIConfig extends CommonConfigFile {
     }
 
     public static class Trees extends Category {
-        public static BooleanOption bigBirches = new BooleanOption(true);
-        public static BooleanOption bigOaks = new BooleanOption(true);
-
-        @Name("Apple Tree Enabled")
+        @Name("Apple Trees Enabled")
         public static BooleanOption apple = new BooleanOption(true, "apple");
 
+        @SuppressWarnings("unused")
         public static BooleanOption disableAppleDropFromOaks = new BooleanOption(true, "remove_oak_apples");
     }
 

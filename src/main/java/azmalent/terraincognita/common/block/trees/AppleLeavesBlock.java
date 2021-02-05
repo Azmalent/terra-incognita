@@ -1,6 +1,5 @@
 package azmalent.terraincognita.common.block.trees;
 
-import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.init.ModBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -26,11 +25,13 @@ public class AppleLeavesBlock extends LeavesBlock {
         BlockPos down = pos.down();
 
         BlockState apple = ModBlocks.WoodTypes.APPLE.FRUIT.getBlock().getDefaultState();
-        if (worldIn.isAirBlock(down) && ForgeHooks.onCropsGrowPre(worldIn, down, apple, random.nextInt(26) == 0)) {
+        if (worldIn.isAirBlock(down) && ForgeHooks.onCropsGrowPre(worldIn, down, apple, random.nextInt(100) == 0)) {
             worldIn.setBlockState(down, apple, 2);
             ForgeHooks.onCropsGrowPost(worldIn, down, apple);
         }
 
-        super.randomTick(state, worldIn, pos, random);
+        if (super.ticksRandomly(state)) {
+            super.randomTick(state, worldIn, pos, random);
+        }
     }
 }

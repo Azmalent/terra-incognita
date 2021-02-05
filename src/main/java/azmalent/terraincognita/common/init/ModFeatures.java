@@ -16,7 +16,6 @@ public class ModFeatures {
     public static RegistryObject<AlpineFlowerFeature> ALPINE_FLOWERS;
     public static RegistryObject<AlpineFlowerFeature> EDELWEISS;
     public static RegistryObject<ReedsFeature> REEDS;
-    public static RegistryObject<HugeTreeFeature> HUGE_TREE;
 
     static {
         if (TIConfig.Flora.alpineFlowers.get()) {
@@ -24,6 +23,5 @@ public class ModFeatures {
             EDELWEISS = FEATURES.register("edelweiss", () -> new AlpineFlowerFeature(TIConfig.Flora.edelweissMinimumY.get()));
         }
         if (TIConfig.Flora.reeds.get()) REEDS = FEATURES.register("reeds", ReedsFeature::new);
-        if (TIConfig.Trees.bigOaks.get() || TIConfig.Trees.bigBirches.get()) HUGE_TREE = FEATURES.register("huge_tree", HugeTreeFeature::new);
     }
 }

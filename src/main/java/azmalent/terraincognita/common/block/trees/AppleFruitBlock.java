@@ -55,7 +55,7 @@ public class AppleFruitBlock extends Block {
 
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return state.get(AGE) < 4 ? SMALL_SHAPE : BIG_SHAPE;
+        return state.get(AGE) < 2 ? SMALL_SHAPE : BIG_SHAPE;
     }
 
     @Override
@@ -100,7 +100,7 @@ public class AppleFruitBlock extends Block {
 
     @Override
     public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
-        if (ForgeHooks.onCropsGrowPre(worldIn, pos, state, random.nextInt(26) == 0)) {
+        if (ForgeHooks.onCropsGrowPre(worldIn, pos, state, random.nextInt(25) == 0)) {
             worldIn.setBlockState(pos, state.with(AGE,state.get(AGE) + 1), 2);
             ForgeHooks.onCropsGrowPost(worldIn, pos, state);
         }

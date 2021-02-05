@@ -61,7 +61,6 @@ public class EventHandler {
         event.enqueueWork(ModVegetation::configureFeatures);
         event.enqueueWork(ModTrees::configureFeatures);
         event.enqueueWork(ModBiomes::registerBiomes);
-        event.enqueueWork(ModBiomes::registerBiomeTypes);
 
         ModBlocks.initStripping();
         ModBlocks.initFlammability();

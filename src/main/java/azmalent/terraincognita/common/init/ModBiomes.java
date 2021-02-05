@@ -92,20 +92,16 @@ public class ModBiomes {
     public static void registerBiomes() {
         if (TIConfig.Biomes.tundraVariants.get()) {
             registerBiome(BiomeManager.BiomeType.ICY, TUNDRA, 5);
-            registerBiome(BiomeManager.BiomeType.ICY, ROCKY_TUNDRA, 2);
-        }
-    }
-
-    public static void registerBiomeTypes() {
-        if (TIConfig.Biomes.tundraVariants.get()) {
             BiomeDictionary.addTypes(BiomeUtil.getBiomeKey(TUNDRA.getId()), Type.COLD, Type.WASTELAND, Type.OVERWORLD);
+
+            registerBiome(BiomeManager.BiomeType.ICY, ROCKY_TUNDRA, 2);
             BiomeDictionary.addTypes(BiomeUtil.getBiomeKey(ROCKY_TUNDRA.getId()), Type.COLD, Type.WASTELAND, Type.OVERWORLD);
         }
     }
 
     private static void registerBiome(BiomeManager.BiomeType type, RegistryObject<Biome> biome, int weight) {
         RegistryKey<Biome> key = BiomeUtil.getBiomeKey(biome.getId());
-        BiomeManager.addBiome(BiomeManager.BiomeType.ICY, new BiomeManager.BiomeEntry(key, weight));
+        BiomeManager.addBiome(type, new BiomeManager.BiomeEntry(key, weight));
     }
 
     public static void addTundraFeatures(BiomeGenerationSettings.Builder builder) {
@@ -140,7 +136,7 @@ public class ModBiomes {
     public static void addExtraTundraFeatures(BiomeGenerationSettings.Builder builder) {
         DefaultBiomeFeatures.withSparseBerries(builder);
 
-        builder.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.BIRCH.chance(8));
+        builder.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModTrees.RARE_BIRCHES);
         builder.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModTrees.SPRUCE_SHRUB);
         builder.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModTrees.DWARF_BIRCH);
     }

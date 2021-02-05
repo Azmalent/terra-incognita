@@ -160,7 +160,7 @@ def make_wood_type(type):
     copy_blockstate('door', door, variables)
     copy_block_model('door', door, variables, block_model_suffixes=['_bottom', '_bottom_hinge', '_top', '_top_hinge'])
     copy_item_model('item', door, {'item': door})
-    drop_itself(door, variables)
+    copy_loot_table('double_block', door, variables)
     copy_crafting_recipe('door', type + '/door', variables)
     add_to_item_and_block_tags('wooden_doors', '%s:%s' % (MODID, door))
 

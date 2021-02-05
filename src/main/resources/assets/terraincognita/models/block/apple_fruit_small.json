@@ -1,7 +1,6 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"apple": "terraincognita:block/apple_fruit_green",
 		"particle": "#apple"
 	},
 	"elements": [

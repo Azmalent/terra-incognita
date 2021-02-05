@@ -1,28 +1,28 @@
 {
   "variants": {
     "age=0": {
-      "model": "terraincognita:block/apple_fruit_green"
+      "model": "terraincognita:block/apple_fruit_stage0"
     },
     "age=1": {
-      "model": "terraincognita:block/apple_fruit_green"
+      "model": "terraincognita:block/apple_fruit_stage0"
     },
     "age=2": {
-      "model": "terraincognita:block/apple_fruit_green"
+      "model": "terraincognita:block/apple_fruit_stage1"
     },
     "age=3": {
-      "model": "terraincognita:block/apple_fruit_green"
+      "model": "terraincognita:block/apple_fruit_stage1"
     },
     "age=4": {
-      "model": "terraincognita:block/apple_fruit_unripe"
+      "model": "terraincognita:block/apple_fruit_stage2"
     },
     "age=5": {
-      "model": "terraincognita:block/apple_fruit_unripe"
+      "model": "terraincognita:block/apple_fruit_stage3"
     },
     "age=6": {
-      "model": "terraincognita:block/apple_fruit_unripe"
+      "model": "terraincognita:block/apple_fruit_stage3"
     },
     "age=7": {
-      "model": "terraincognita:block/apple_fruit_ripe"
+      "model": "terraincognita:block/apple_fruit_stage4"
     }
   }
 }
