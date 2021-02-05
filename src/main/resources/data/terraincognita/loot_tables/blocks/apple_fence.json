@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "terraincognita:apple_fence_inventory"
+          "name": "terraincognita:apple_fence"
         }
       ],
       "conditions": [

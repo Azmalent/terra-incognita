@@ -9,7 +9,7 @@
       "item": "terraincognita:apple_leaves"
     },
     "W": {
-      "tag": "#MODID:apple_logs"
+      "tag": "terraincognita:apple_logs"
     }
   },
   "result": {

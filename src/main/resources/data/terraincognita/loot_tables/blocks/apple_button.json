@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "terraincognita:apple_button_inventory"
+          "name": "terraincognita:apple_button"
         }
       ],
       "conditions": [

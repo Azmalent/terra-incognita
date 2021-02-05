@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "terraincognita:apple_hedge_post"
+          "name": "terraincognita:apple_hedge"
         }
       ],
       "conditions": [

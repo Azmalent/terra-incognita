@@ -9,7 +9,7 @@
       "item": "$MODID:$TYPE_leaves"
     },
     "W": {
-      "tag": "#MODID:$TYPE_logs"
+      "tag": "$MODID:$TYPE_logs"
     }
   },
   "result": {

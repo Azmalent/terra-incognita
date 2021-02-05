@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "terraincognita:apple_trapdoor_bottom"
+          "name": "terraincognita:apple_trapdoor"
         }
       ],
       "conditions": [
