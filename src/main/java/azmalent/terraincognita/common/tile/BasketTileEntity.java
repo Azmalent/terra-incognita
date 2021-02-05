@@ -20,6 +20,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.util.Constants;
 
 import javax.annotation.Nonnull;
@@ -127,7 +128,7 @@ public class BasketTileEntity extends TileEntity implements INamedContainerProvi
     @Override
     public ITextComponent getDisplayName() {
         assert ModBlocks.BASKET != null;
-        return customName != null ? customName : ModBlocks.BASKET.getBlock().getTranslatedName();
+        return customName != null ? customName : new TranslationTextComponent(ModBlocks.BASKET.getBlock().getTranslationKey());
     }
 
     @Nullable
