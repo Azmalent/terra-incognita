@@ -73,6 +73,7 @@ public class ModRecipes {
         registerCompostable(ModBlocks.YELLOW_LOTUS, 0.65f);
         registerCompostable(ModBlocks.SMALL_LILYPAD, 0.3f);
         registerCompostable(ModBlocks.REEDS, 0.5f);
+        registerCompostable(ModBlocks.ROOTS, 0.5f);
 
         for (TIWoodType woodType : ModBlocks.WoodTypes.VALUES) {
             registerCompostable(woodType.SAPLING, 0.3f);

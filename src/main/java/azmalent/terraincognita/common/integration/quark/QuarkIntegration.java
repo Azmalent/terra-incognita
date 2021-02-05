@@ -6,6 +6,7 @@ import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.client.event.ColorHandler;
 import azmalent.terraincognita.common.event.FuelHandler;
 import azmalent.terraincognita.common.init.ModBlocks;
+import azmalent.terraincognita.common.init.ModRecipes;
 import com.google.common.collect.Sets;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.client.renderer.RenderType;
@@ -58,7 +59,10 @@ public class QuarkIntegration implements IQuarkIntegration {
         
             set.initFuelValues(FuelHandler.fuelValues);
             set.initFlammability();
+            ModRecipes.registerCompostable(set.LEAF_CARPET, 0.2f);
         }
+
+        ModRecipes.registerCompostable(BLOSSOMING_APPLE_LEAF_CARPET, 0.2f);
     }
 
     @OnlyIn(Dist.CLIENT)

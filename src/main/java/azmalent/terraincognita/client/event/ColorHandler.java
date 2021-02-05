@@ -19,7 +19,7 @@ import net.minecraftforge.client.event.ColorHandlerEvent;
 public class ColorHandler {
     public static final int LILYPAD_WORLD_COLOR = 2129968;
     public static final int LILYPAD_INVENTORY_COLOR = 2129968;
-    public static final int APPLE_LEAVES_COLOR = 0x95BA6C;
+    public static final int APPLE_LEAVES_COLOR = 0x739D14;
 
     public static void registerBlockColorHandlers(ColorHandlerEvent.Block event) {
         BlockColors colors = event.getBlockColors();

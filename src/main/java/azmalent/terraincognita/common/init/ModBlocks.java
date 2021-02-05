@@ -26,6 +26,7 @@ import azmalent.terraincognita.common.item.block.DandelionPuffItem;
 import azmalent.terraincognita.common.item.block.SmallLilypadItem;
 import azmalent.terraincognita.mixin.accessor.FireBlockAccessor;
 import azmalent.terraincognita.util.CollectionUtil;
+import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import net.minecraft.block.AbstractBlock.Properties;
 import net.minecraft.block.Block;
@@ -53,6 +54,8 @@ import java.util.stream.Collectors;
 public class ModBlocks {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, TerraIncognita.MODID);
     public static final BlockRegistryHelper HELPER = new BlockRegistryHelper(BLOCKS, ModItems.ITEMS, TerraIncognita.TAB);
+
+    public static final Map<Block, Block> STRIPPING_MAP = Maps.newHashMap();
 
     public static class WoodTypes {
         public static AppleWoodType APPLE;
@@ -144,8 +147,8 @@ public class ModBlocks {
 
     public static void initStripping() {
         for (TIWoodType woodType : WoodTypes.VALUES) {
-            AxeItem.BLOCK_STRIPPING_MAP.put(woodType.LOG.getBlock(), woodType.STRIPPED_LOG.getBlock());
-            AxeItem.BLOCK_STRIPPING_MAP.put(woodType.WOOD.getBlock(), woodType.STRIPPED_WOOD.getBlock());
+            STRIPPING_MAP.put(woodType.LOG.getBlock(), woodType.STRIPPED_LOG.getBlock());
+            STRIPPING_MAP.put(woodType.WOOD.getBlock(), woodType.STRIPPED_WOOD.getBlock());
         }
     }
 

@@ -28,7 +28,7 @@ public class ModRenderLayers {
         ModIntegration.QUARK.initRenderLayers();
     }
 
-    private static void setCutoutRender(BlockEntry... blockEntries) {
+    public static void setCutoutRender(BlockEntry... blockEntries) {
         for (BlockEntry blockEntry : blockEntries) {
             if (blockEntry != null) {
                 RenderTypeLookup.setRenderLayer(blockEntry.getBlock(), RenderType.getCutout());
@@ -36,7 +36,7 @@ public class ModRenderLayers {
         }
     }
 
-    private static void setCutoutRender(PottablePlantEntry... plants) {
+    public static void setCutoutRender(PottablePlantEntry... plants) {
         for (PottablePlantEntry plant : plants) {
             if (plant != null) {
                 RenderTypeLookup.setRenderLayer(plant.getBlock(), RenderType.getCutout());

@@ -103,6 +103,7 @@ def make_wood_type(type):
         wood = variables['block'] = prefix + type + '_wood'
         copy_blockstate_and_models('wood', wood, variables)
         drop_itself(wood, variables)
+        copy_crafting_recipe('wood', '%s/%swood' % (type, prefix), {'type': type, 'log': log, 'wood': wood})
 
         post = prefix + type + '_post'
         variables = {'type': prefix + type, 'block': post, 'ingredient': wood}

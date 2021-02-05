@@ -16,7 +16,6 @@ import net.minecraft.block.trees.Tree;
 import net.minecraft.client.renderer.Atlases;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.client.renderer.model.RenderMaterial;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.BoatItem;
@@ -50,7 +49,7 @@ public class TIWoodType {
     public final BlockEntry PRESSURE_PLATE;
     public final RegistryObject<Item> BOAT;
 
-    public final RenderMaterial SIGN_MATERIAL;
+    public final ResourceLocation SIGN_TEXTURE;
     public final ResourceLocation BOAT_TEXTURE;
 
     @SuppressWarnings({"ConstantConditions", "deprecation"})
@@ -75,7 +74,7 @@ public class TIWoodType {
         PRESSURE_PLATE = ModBlocks.HELPER.newBuilder(id + "_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, AbstractBlock.Properties.create(Material.WOOD, woodColor).doesNotBlockMovement().hardnessAndResistance(0.5F).sound(SoundType.WOOD))).buildIf(condition);
         BOAT = ModItems.ITEMS.register(id + "_boat", () -> new TIBoatItem(this));
 
-        SIGN_MATERIAL = new RenderMaterial(Atlases.SIGN_ATLAS, TerraIncognita.prefix("entity/signs/" + name + ".png"));
+        SIGN_TEXTURE = TerraIncognita.prefix("entity/signs/" + name + ".png");
         BOAT_TEXTURE = TerraIncognita.prefix("textures/entity/boat/" + name + ".png");
     }
 
