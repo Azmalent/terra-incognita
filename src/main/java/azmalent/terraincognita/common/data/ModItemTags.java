@@ -12,5 +12,5 @@ public class ModItemTags {
 
     public static final ITag.INamedTag<Item> BASKET_STORABLE = createTag("basket_storable");
 
-    public static final ITag.INamedTag<Item> APPLE_WOOD = createTag("apple_wood");
+    public static final ITag.INamedTag<Item> APPLE_LOGS = createTag("apple_logs");
 }

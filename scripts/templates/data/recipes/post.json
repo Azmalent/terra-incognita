@@ -14,17 +14,19 @@
     "item": "$MODID:$BLOCK",
     "count": 8
   },
-  "conditions": {
-    "type": "forge:and",
-    "values": [
-      {
-        "type": "forge:mod_loaded",
-        "modid": "quark"
-      },
-      {
-        "type": "cuneiform:config",
-        "config": "$MODID:$TYPE"
-      }
-    ]
-  }
+  "conditions": [
+	  {
+	    "type": "forge:and",
+	    "values": [
+	      {
+	        "type": "forge:mod_loaded",
+	        "modid": "quark"
+	      },
+	      {
+	        "type": "cuneiform:config",
+	        "config": "$MODID:$TYPE"
+	      }
+	    ]
+	  }
+  ]
 }

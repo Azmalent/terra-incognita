@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "tag": "terraincognita:apple_wood"
+      "tag": "terraincognita:apple_logs"
     }
   ],
   "result": {

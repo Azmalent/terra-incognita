@@ -59,6 +59,11 @@ public class AppleFruitBlock extends Block {
     }
 
     @Override
+    public OffsetType getOffsetType() {
+        return OffsetType.XZ;
+    }
+
+    @Override
     public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
         BlockState up = worldIn.getBlockState(pos.up());
         return up.isIn(ModBlocks.WoodTypes.APPLE.LEAVES.getBlock()) || up.isIn(ModBlocks.WoodTypes.APPLE.BLOSSOMING_LEAVES.getBlock());

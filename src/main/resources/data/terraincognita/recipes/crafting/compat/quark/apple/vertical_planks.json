@@ -14,17 +14,19 @@
     "item": "terraincognita:vertical_apple_planks",
     "count": 3
   },
-  "conditions": {
-    "type": "forge:and",
-    "values": [
-      {
-        "type": "forge:mod_loaded",
-        "modid": "quark"
-      },
-      {
-        "type": "cuneiform:config",
-        "config": "terraincognita:apple"
-      }
-    ]
-  }
+  "conditions": [
+	  {
+	    "type": "forge:and",
+	    "values": [
+	      {
+	        "type": "forge:mod_loaded",
+	        "modid": "quark"
+	      },
+	      {
+	        "type": "cuneiform:config",
+	        "config": "terraincognita:apple"
+	      }
+	    ]
+	  }
+  ]
 } 

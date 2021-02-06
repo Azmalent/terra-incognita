@@ -12,6 +12,6 @@ public class ModBlockTags {
         return BlockTags.makeWrapperTag(TerraIncognita.prefix(name).toString());
     }
 
-    public static final ITag.INamedTag<Block> APPLE_WOOD = createTag("apple_wood");
+    public static final ITag.INamedTag<Block> APPLE_LOGS = createTag("apple_logs");
     public static final ITag.INamedTag<Block> LOTUSES = createTag("lotuses");
 }

@@ -1,21 +1,21 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "###",
-    "XXX",
-    "###"
+    "# #",
+    "#W#",
+    "# #"
   ],
   "key": {
     "#": {
-      "item": "terraincognita:apple_planks"
+      "tag": "forge:rods/wooden"
     },
-    "X": {
-      "item": "minecraft:book"
+    "W": {
+      "item": "terraincognita:apple_planks"
     }
   },
   "result": {
-    "item": "terraincognita:apple_bookshelf",
-    "count": 1
+    "item": "terraincognita:apple_ladder",
+    "count": 4
   },
   "conditions": [
 	  {

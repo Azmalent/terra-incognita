@@ -106,14 +106,14 @@ def make_wood_type(type):
         copy_crafting_recipe('wood', '%s/%swood' % (type, prefix), {'type': type, 'log': log, 'wood': wood})
 
         post = prefix + type + '_post'
-        variables = {'type': prefix + type, 'block': post, 'ingredient': wood}
+        variables = {'type': type, 'block': post, 'ingredient': wood}
         copy_blockstate_and_models('post', post, variables)
         drop_itself(post, variables)
         copy_crafting_recipe('post', 'compat/quark/%s/%spost' % (type, prefix), variables)
 
-    copy_block_tag('wood', type + '_wood', variables)
-    copy_item_tag('wood', type + '_wood', variables)
-    add_to_item_and_block_tags('logs_that_burn', '#%s:%s_wood' % (MODID, type))
+    copy_block_tag('wood', type + '_logs', variables)
+    copy_item_tag('wood', type + '_logs', variables)
+    add_to_item_and_block_tags('logs_that_burn', '#%s:%s_logs' % (MODID, type))
 
     # Planks, vertical planks, stairs and slabs
     planks = type + '_planks'
@@ -186,7 +186,7 @@ def make_wood_type(type):
     copy_block_model('ladder', ladder, variables)
     copy_item_model('flat_block', ladder, variables)
     drop_itself(ladder, variables)
-    copy_crafting_recipe('bookshelf', 'compat/quark/%s/bookshelf' % type, variables)
+    copy_crafting_recipe('ladder', 'compat/quark/%s/ladder' % type, variables)
     add_to_item_and_block_tags('ladders', '%s:%s' % (MODID, ladder), namespace='quark')
     add_to_block_tag('climbable', '%s:%s' % (MODID, ladder))
 
