@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "terraincognita:block/white_rhododendron_bottom"
+    },
+    "half=upper": {
+      "model": "terraincognita:block/white_rhododendron_top"
+    }
+  }
+}

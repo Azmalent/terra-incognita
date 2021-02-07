@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_farmland",
+  "textures": {
+    "dirt": "terraincognita:block/peat",
+    "top": "terraincognita:block/tilled_peat"
+  }
+}

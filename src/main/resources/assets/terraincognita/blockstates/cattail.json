@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "terraincognita:block/cattail_bottom"
+    },
+    "half=upper": {
+      "model": "terraincognita:block/cattail_top"
+    }
+  }
+}

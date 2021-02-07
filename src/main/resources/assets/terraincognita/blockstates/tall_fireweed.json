@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "terraincognita:block/tall_fireweed_bottom"
+    },
+    "half=upper": {
+      "model": "terraincognita:block/tall_fireweed_top"
+    }
+  }
+}
