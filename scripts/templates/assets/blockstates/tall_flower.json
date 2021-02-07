@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "$MODID:block/$BLOCK_bottom"
+    },
+    "half=upper": {
+      "model": "$MODID:block/$BLOCK_top"
+    }
+  }
+}

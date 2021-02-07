@@ -100,7 +100,7 @@ def copy_blockstate(template, out_file, variables):
     copy_asset('blockstates', template, out_file, variables)
 
 
-def copy_block_model(template, out_file, variables, block_model_suffixes=[]):
+def copy_block_model(template, out_file, variables, block_model_suffixes=['']):
     for suffix in block_model_suffixes:
         copy_asset('models/block', template + suffix, out_file + suffix, variables)
 
@@ -109,7 +109,7 @@ def copy_item_model(template, out_file, variables):
     copy_asset('models/item', template, out_file, variables)
 
 
-def copy_blockstate_and_models(template, out_file, variables, block_model_suffixes=[], item_model_suffix=''):
+def copy_blockstate_and_models(template, out_file, variables, block_model_suffixes=[''], item_model_suffix=''):
     copy_blockstate(template, out_file, variables)
     copy_block_model(template, out_file, variables, block_model_suffixes=block_model_suffixes)
 

@@ -28,12 +28,28 @@ def make_flower(name, dye_color, condition):
     make_pottable_plant(name)
     copy_crafting_recipe('shapeless_one_ingredient', 'dyes/dye_from_' + name, {
         'ingredient': name,
-        'color': 'minecraft:%s_dye' % dye_color,
+        'output': 'minecraft:%s_dye' % dye_color,
         'count': '1',
         'condition': condition
     })
 
     add_to_item_and_block_tags('small_flowers', '%s:%s' % (MODID, name))
+
+
+def make_tall_flower(name, dye_color, condition):
+    copy_blockstate('tall_flower', name, {'block': name})
+    copy_block_model('bush', name + '_top', {'block': name + '_top'})
+    copy_block_model('bush', name + '_bottom', {'block': name + '_bottom'})
+    copy_item_model('flat_block', name, {'block': name + '_top'})
+    copy_loot_table('double_block', name, {'block': name})
+    copy_crafting_recipe('shapeless_one_ingredient', 'dyes/dye_from_' + name, {
+        'ingredient': name,
+        'output': 'minecraft:%s_dye' % dye_color,
+        'count': '2',
+        'condition': condition
+    })
+
+    add_to_item_and_block_tags('tall_flowers', '%s:%s' % (MODID, name))
 
 
 def make_stairs_and_slabs(type, base_block, condition):
@@ -59,7 +75,7 @@ def make_stairs_and_slabs(type, base_block, condition):
 
 def make_button(type, base_block, condition):
     block = type + '_button'
-    variables = {'type': type, 'block': block, 'base_block': base_block, 'ingredient': base_block, 'output': block,
+    variables = {'type': type, 'block': block, 'base_block': base_block, 'ingredient': base_block, 'output': '%s:%s' % (MODID, block),
             'count': '1', 'condition': condition}
     copy_blockstate_and_models('button', block, variables, block_model_suffixes=['', '_inventory', '_pressed'])
     drop_itself(block, variables)

@@ -6,7 +6,7 @@
     }
   ],
   "result": {
-    "item": "$MODID:$OUTPUT",
+    "item": "$OUTPUT",
     "count": $COUNT
   },
   "conditions": [
