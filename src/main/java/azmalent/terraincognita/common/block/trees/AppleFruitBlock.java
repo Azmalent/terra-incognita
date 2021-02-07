@@ -26,6 +26,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
@@ -55,7 +56,8 @@ public class AppleFruitBlock extends Block {
 
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return state.get(AGE) < 2 ? SMALL_SHAPE : BIG_SHAPE;
+        Vector3d offset = state.getOffset(worldIn, pos);
+        return (state.get(AGE) < 2 ? SMALL_SHAPE : BIG_SHAPE).withOffset(offset.x, offset.y, offset.z);
     }
 
     @Override
