@@ -12,10 +12,11 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraftforge.common.IPlantable;
+import net.minecraftforge.common.PlantType;
 
 public abstract class HangingPlantBlock extends Block implements IPlantable {
-    public HangingPlantBlock(Properties properties) {
-        super(properties);
+    public HangingPlantBlock() {
+        super(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().zeroHardnessAndResistance().sound(SoundType.PLANT));
     }
 
     @Override
@@ -23,7 +24,7 @@ public abstract class HangingPlantBlock extends Block implements IPlantable {
         return true;
     }
 
-    protected abstract boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos);
+    protected abstract boolean isValidGround(BlockState state, BlockState ground, IBlockReader worldIn, BlockPos groundPos);
 
     @Override
     public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
@@ -32,12 +33,10 @@ public abstract class HangingPlantBlock extends Block implements IPlantable {
 
     @Override
     public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
-        BlockPos up = pos.up();
-        if (state.getBlock() == this) {
-            return worldIn.getBlockState(up).canSustainPlant(worldIn, up, Direction.DOWN, this);
-        }
+        if (pos.getY() >= 255) return false;
 
-        return this.isValidGround(worldIn.getBlockState(up), worldIn, up);
+        BlockPos up = pos.up();
+        return this.isValidGround(state, worldIn.getBlockState(up), worldIn, up);
     }
 
     @Override
@@ -50,5 +49,10 @@ public abstract class HangingPlantBlock extends Block implements IPlantable {
         BlockState state = world.getBlockState(pos);
         if (state.getBlock() != this) return getDefaultState();
         return state;
+    }
+
+    @Override
+    public PlantType getPlantType(IBlockReader world, BlockPos pos) {
+        return PlantType.CAVE;
     }
 }
