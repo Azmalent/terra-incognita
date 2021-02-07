@@ -55,7 +55,7 @@ public class ModRecipes {
     }
 
     public static void registerComposterRecipes() {
-        if (TIConfig.Tweaks.additionalCompostables.get()) {
+        if (TIConfig.Misc.additionalCompostables.get()) {
             ComposterBlock.CHANCES.put(Items.DEAD_BUSH, 0.3f);
             ComposterBlock.CHANCES.put(Items.BAMBOO, 0.65f);
             ComposterBlock.CHANCES.put(Items.POISONOUS_POTATO, 0.65f);
@@ -68,12 +68,15 @@ public class ModRecipes {
             registerCompostable(flower, 0.65f);
         }
 
+        registerCompostable(ModBlocks.WATER_FLAG, 0.65f);
+
         registerCompostable(ModBlocks.PINK_LOTUS, 0.65f);
         registerCompostable(ModBlocks.WHITE_LOTUS, 0.65f);
         registerCompostable(ModBlocks.YELLOW_LOTUS, 0.65f);
-        registerCompostable(ModBlocks.SMALL_LILYPAD, 0.3f);
+        registerCompostable(ModBlocks.SMALL_LILY_PAD, 0.3f);
         registerCompostable(ModBlocks.REEDS, 0.5f);
         registerCompostable(ModBlocks.ROOTS, 0.5f);
+        registerCompostable(ModBlocks.MOSS, 0.3f);
 
         for (TIWoodType woodType : ModBlocks.WoodTypes.VALUES) {
             registerCompostable(woodType.SAPLING, 0.3f);

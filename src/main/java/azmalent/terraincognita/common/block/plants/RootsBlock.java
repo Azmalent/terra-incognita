@@ -1,14 +1,11 @@
 package azmalent.terraincognita.common.block.plants;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.IGrowable;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.material.MaterialColor;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -19,19 +16,20 @@ import java.util.Random;
 public class RootsBlock extends HangingPlantBlock implements IGrowable {
 	public static final VoxelShape SHAPE = makeCuboidShape(3, 6, 3, 13, 16, 13);
 
-    public RootsBlock() {
-        super(Block.Properties.create(Material.PLANTS, MaterialColor.BROWN).doesNotBlockMovement().zeroHardnessAndResistance().sound(SoundType.PLANT));
-    }
-
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader reader, BlockPos blockPos, ISelectionContext context) {
-    	return SHAPE;
+        Vector3d offset = state.getOffset(reader, blockPos);
+        return SHAPE.withOffset(offset.x, offset.y, offset.z);
     }
-    
 
     @Override
-    protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
-        return state.isIn(Tags.Blocks.DIRT);
+    protected boolean isValidGround(BlockState state, BlockState ground, IBlockReader worldIn, BlockPos groundPos) {
+        return ground.isIn(Tags.Blocks.DIRT);
+    }
+
+    @Override
+    public OffsetType getOffsetType() {
+        return OffsetType.XZ;
     }
 
     @Override

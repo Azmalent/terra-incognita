@@ -31,11 +31,6 @@ public class QuarkIntegration implements IQuarkIntegration {
     private Set<QuarkWoodBlockSet> WOOD_BLOCK_SETS = Sets.newHashSet();
 
     @Override
-    public boolean isLoaded() {
-        return true;
-    }
-
-    @Override
     public boolean matchesItemSearch(ItemStack stack) {
         return ChestSearchingModule.namesMatch(stack);
     }

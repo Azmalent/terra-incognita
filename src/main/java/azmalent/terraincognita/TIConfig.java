@@ -11,6 +11,7 @@ import jdk.nashorn.api.scripting.ScriptObjectMirror;
 
 import java.util.Random;
 
+@SuppressWarnings("unused")
 public class TIConfig extends CommonConfigFile {
     protected TIConfig() {
         super(TerraIncognita.MODID);
@@ -62,11 +63,11 @@ public class TIConfig extends CommonConfigFile {
         public static DoubleOption dandelionPuffChance = new DoubleOption(0.5, 0, 1);
 
         @Name("Field Flowers Enabled")
-        @Comment("Adds chicory, yarrow and snapdragon to plains.")
+        @Comment("Adds chicory and yarrow to plains.")
         public static BooleanOption fieldFlowers = new BooleanOption(true, "field_flowers");
 
         @Name("Swamp Flowers Enabled")
-        @Comment("Adds forget-me-not to temperate and hot swamps.")
+        @Comment("Adds forget-me-not and water flag to temperate and hot swamps.")
         public static BooleanOption swampFlowers = new BooleanOption(true, "swamp_flowers");
 
         @Name("Small Lilypads Enabled")
@@ -79,12 +80,12 @@ public class TIConfig extends CommonConfigFile {
         public static BooleanOption reeds = new BooleanOption(true, "reeds");
 
         @Name("Savanna Flowers Enabled")
-        @Comment({"Adds marigolds and blue lupins to savannas.",
+        @Comment({"Adds marigolds, blue lupines and snapdragons to savannas.",
             "Marigolds are unique in that they can grow on sand, but only if there is water nearby. They will spawn in deserts when these conditions are met."})
         public static BooleanOption savannaFlowers = new BooleanOption(true, "savanna_flowers");
 
         @Name("Jungle Flowers Enabled")
-        @Comment("Adds blue and purple irises to jungles.")
+        @Comment("Adds blue, black and purple irises to jungles.")
         public static BooleanOption jungleFlowers = new BooleanOption(true, "jungle_flowers");
 
         @Name("Lotus Enabled")
@@ -92,7 +93,7 @@ public class TIConfig extends CommonConfigFile {
         public static BooleanOption lotus = new BooleanOption(true, "lotus");
 
         @Name("Alpine Flowers Enabled")
-        @Comment({"Adds edelweiss, alpine pink and rockfoil to temperate and cold mountain biomes.",
+        @Comment({"Adds edelweiss, alpine pink, rockfoil and gentian to temperate and cold mountain biomes.",
                 "All of these flowers can grow on gravel, and rockfoil can grow on stone as well.",
                 "Edelweiss has a minimum altitude requirement to generate."})
         public static BooleanOption alpineFlowers = new BooleanOption(true, "alpine_flowers");
@@ -116,6 +117,9 @@ public class TIConfig extends CommonConfigFile {
             "They can be collected with shears. You can grow more roots by using bonemeal on one.",
             "Roots can be crafted into brown dye."})
         public static BooleanOption roots = new BooleanOption(true, "roots");
+
+        @Name("Hanging Moss Enabled")
+        public static BooleanOption hangingMoss = new BooleanOption(true, "hanging_moss");
     }
 
     public static class Tools extends Category {
@@ -143,11 +147,20 @@ public class TIConfig extends CommonConfigFile {
         @Name("Apple Trees Enabled")
         public static BooleanOption apple = new BooleanOption(true, "apple");
 
-        @SuppressWarnings("unused")
         public static BooleanOption disableAppleDropFromOaks = new BooleanOption(true, "remove_oak_apples");
     }
 
-    public static class Tweaks extends Category {
+    public static class Misc extends Category {
+        @Name("Peat Enabled")
+        @Comment({
+            "Peat is a block found underwater in swamps with the same frequency as clay.",
+            "It can be tilled and used to plant crops, which will grow faster than on regular farmland.",
+            "One peat block can also be used as fuel to smelt 16 items."
+        })
+        public static BooleanOption peat = new BooleanOption(true);
+
+        public static DoubleOption peatGrowthRateBonus = new DoubleOption(0.5, 0, 1);
+
         @Comment("Adds foxes, sheep, berry bushes, birches and shrubs to tundras to make them less lackluster.")
         public static BooleanOption betterTundras = new BooleanOption(true);
 

@@ -5,7 +5,6 @@
   "refmap": "terraincognita.mixins.refmap.json",
   "package": "azmalent.terraincognita.mixin",
   "mixins": [
-    "AxeItemMixin",
     "FlowersFeatureMixin",
     "FoxEntityTypeMixin",
     "GrassBlockMixin",

@@ -1,5 +1,7 @@
 package azmalent.terraincognita.common.block.plants;
 
+import azmalent.terraincognita.TIConfig;
+import azmalent.terraincognita.common.init.ModBlocks;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
@@ -61,6 +63,7 @@ public class ReedsBlock extends SugarCaneBlock implements IWaterLoggable {
         return super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     public boolean isValidPosition(BlockState state, IWorldReader world, BlockPos pos) {
         BlockPos up = pos.up();
@@ -72,7 +75,7 @@ public class ReedsBlock extends SugarCaneBlock implements IWaterLoggable {
         BlockState soil = world.getBlockState(down);
         if (soil.getBlock() == this || soil.canSustainPlant(world, down, Direction.UP, this)) return true;
 
-        if (soil.isIn(Blocks.GRASS_BLOCK) || soil.isIn(Blocks.DIRT) || soil.isIn(Blocks.COARSE_DIRT) || soil.isIn(Blocks.PODZOL) || soil.isIn(Blocks.SAND) || soil.isIn(Blocks.RED_SAND)) {
+        if (soil.isIn(Blocks.GRASS_BLOCK) || soil.isIn(Blocks.DIRT) || soil.isIn(Blocks.COARSE_DIRT) || soil.isIn(Blocks.PODZOL) || soil.isIn(Blocks.SAND) || soil.isIn(Blocks.RED_SAND) || TIConfig.Misc.peat.get() && soil.isIn(ModBlocks.PEAT.getBlock())) {
             if (state.get(WATERLOGGED)) {
                 return true;
             }

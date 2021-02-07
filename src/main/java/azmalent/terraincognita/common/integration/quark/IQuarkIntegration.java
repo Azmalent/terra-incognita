@@ -1,20 +1,11 @@
 package azmalent.terraincognita.common.integration.quark;
 
 import azmalent.cuneiform.lib.compat.ModProxyDummy;
-import azmalent.cuneiform.lib.config.options.BooleanOption;
-import azmalent.cuneiform.lib.registry.BlockEntry;
-import azmalent.cuneiform.lib.registry.BlockRegistryHelper;
-import net.minecraft.block.material.MaterialColor;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 
-import java.util.Map;
-
 public interface IQuarkIntegration {
-    boolean isLoaded();
-
     boolean matchesItemSearch(ItemStack stack);
 
     void register(IEventBus bus);
@@ -26,10 +17,6 @@ public interface IQuarkIntegration {
 
     @ModProxyDummy("quark")
     class Dummy implements IQuarkIntegration {
-        @Override
-        public boolean isLoaded() {
-            return false;
-        }
 
         @Override
         public boolean matchesItemSearch(ItemStack stack) {

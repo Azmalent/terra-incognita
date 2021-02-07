@@ -15,6 +15,10 @@ public class FuelHandler {
         for (TIWoodType woodType : ModBlocks.WoodTypes.VALUES) {
             initWoodFuelValues(woodType);
         }
+
+        if (ModBlocks.PEAT != null) {
+            fuelValues.put(ModBlocks.PEAT.getItem(), 3200);
+        }
     }
 
     private static void initWoodFuelValues(TIWoodType woodType) {

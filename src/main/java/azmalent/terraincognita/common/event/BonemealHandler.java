@@ -19,7 +19,7 @@ public class BonemealHandler {
     private static final int MAX_LILYPAD_GROWING_DEPTH = 4;
 
     public static void registerListeners() {
-        if (TIConfig.Tweaks.bonemealLilypadGrowing.get()) {
+        if (TIConfig.Misc.bonemealLilypadGrowing.get()) {
             MinecraftForge.EVENT_BUS.addListener(BonemealHandler::onBonemealUnderwater);
         }
     }
@@ -44,7 +44,7 @@ public class BonemealHandler {
         if (f < 0.5 && isJungle && TIConfig.Flora.lotus.get()) {
             blockState = ModBlocks.LOTUSES.get(rand.nextInt(3)).getBlock().getDefaultState();
         } else if (f < 0.5 && !isJungle && TIConfig.Flora.smallLilypad.get()) {
-            blockState = ModBlocks.SMALL_LILYPAD.getBlock().getDefaultState().with(SmallLilypadBlock.LILYPADS, 1 + rand.nextInt(4));
+            blockState = ModBlocks.SMALL_LILY_PAD.getBlock().getDefaultState().with(SmallLilypadBlock.LILYPADS, 1 + rand.nextInt(4));
         }
         else blockState = Blocks.LILY_PAD.getDefaultState();
 

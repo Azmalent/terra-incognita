@@ -1,7 +1,6 @@
 package azmalent.terraincognita.client;
 
 import azmalent.cuneiform.lib.registry.BlockEntry;
-import azmalent.terraincognita.common.init.ModBlocks;
 import azmalent.terraincognita.common.init.blocksets.PottablePlantEntry;
 import azmalent.terraincognita.common.init.blocksets.TIWoodType;
 import azmalent.terraincognita.common.integration.ModIntegration;
@@ -16,8 +15,10 @@ import static azmalent.terraincognita.common.init.ModBlocks.*;
 public class ModRenderLayers {
     public static void init() {
         FLOWERS.forEach(ModRenderLayers::setCutoutRender);
+        TALL_PLANTS.forEach(ModRenderLayers::setCutoutRender);
+        LOTUSES.forEach(ModRenderLayers::setCutoutRender);
         setCutoutRender(REEDS);
-        setCutoutRender(PINK_LOTUS, WHITE_LOTUS, YELLOW_LOTUS, SMALL_LILYPAD, CALTROPS, ROOTS);
+        setCutoutRender(SMALL_LILY_PAD, CALTROPS, ROOTS, MOSS);
 
         for (TIWoodType woodType : WoodTypes.VALUES) {
             woodType.initRenderLayers();

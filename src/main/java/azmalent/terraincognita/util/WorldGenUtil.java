@@ -17,4 +17,12 @@ public class WorldGenUtil {
     public static void addVegetation(BiomeLoadingEvent event, ConfiguredFeature<?, ?>... features) {
         addVegetation(event.getGeneration(), features);
     }
+
+    public static void addOre(BiomeLoadingEvent event, ConfiguredFeature<?, ?>... features) {
+        for (ConfiguredFeature<?, ?> feature : features) {
+            if (feature != null) {
+                event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, feature);
+            }
+        }
+    }
 }
