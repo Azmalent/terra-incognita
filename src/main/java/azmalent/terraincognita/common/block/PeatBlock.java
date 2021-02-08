@@ -1,5 +1,6 @@
 package azmalent.terraincognita.common.block;
 
+import azmalent.terraincognita.TIConfig;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -44,7 +45,9 @@ public class PeatBlock extends Block {
         }
 
         if (plant.getBlock() instanceof IGrowable && plant.ticksRandomly()) {
-            plant.randomTick(world, pos, random);
+        	if (random.nextDouble() < TIConfig.Misc.peatGrowthRateBonus.get()) {
+            	plant.randomTick(world, pos, random);
+            }
         }
     }
 

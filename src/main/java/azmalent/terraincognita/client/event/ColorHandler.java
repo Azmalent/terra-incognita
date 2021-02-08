@@ -49,8 +49,6 @@ public class ColorHandler {
                 ModBlocks.WoodTypes.APPLE.LEAVES.getBlock(), ModBlocks.WoodTypes.APPLE.BLOSSOMING_LEAVES.getBlock()
             );
         }
-
-        ModIntegration.QUARK.registerBlockColorHandlers(event);
     }
 
     public static void registerItemColorHandlers(ColorHandlerEvent.Item event) {
@@ -73,7 +71,5 @@ public class ColorHandler {
         if (TIConfig.Flora.wreath.get()) {
             colors.register((stack, index) -> index > 0 ? -1 : ModItems.WREATH.get().getColor(stack), ModItems.WREATH.get());
         }
-
-        ModIntegration.QUARK.registerItemColorHandlers(event);
     }
 }

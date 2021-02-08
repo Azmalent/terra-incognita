@@ -19,16 +19,17 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class ModEntities {
     public static DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, TerraIncognita.MODID);
 
+    public static final RegistryObject<EntityType<TIBoatEntity>> BOAT = register("boat",
+        EntityType.Builder.<TIBoatEntity>create(TIBoatEntity::new, EntityClassification.MISC).size(1.375F, 0.5625F).setCustomClientFactory(TIBoatEntity::new).trackingRange(10)
+    );
+
     private static <TEntity extends Entity> RegistryObject register(String id, EntityType.Builder<TEntity> builder) {
         return ENTITIES.register(id, () -> builder.build(TerraIncognita.prefix(id).toString()));
     }
 
-    public static final RegistryObject<EntityType<TIBoatEntity>> BOAT = null;//register("boat",
-//        EntityType.Builder.<TIBoatEntity>create(TIBoatEntity::new, EntityClassification.MISC).size(1.375F, 0.5625F).trackingRange(10)
-//    );
-
     @OnlyIn(Dist.CLIENT)
     public static void registerRenderers() {
-        //RenderingRegistry.registerEntityRenderingHandler(BOAT.get(), BoatRenderer::new);
+        TerraIncognita.LOGGER.info("Registering entity renderers");
+        RenderingRegistry.registerEntityRenderingHandler(BOAT.get(), TIBoatRenderer::new);
     }
 }

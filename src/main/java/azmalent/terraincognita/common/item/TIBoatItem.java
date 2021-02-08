@@ -22,11 +22,11 @@ import java.util.function.Predicate;
 
 public class TIBoatItem extends Item {
     private static final Predicate<Entity> field_219989_a = EntityPredicates.NOT_SPECTATING.and(Entity::canBeCollidedWith);
-    private final TIWoodType type;
+    public final TIWoodType woodType;
 
     public TIBoatItem(TIWoodType woodType) {
         super(new Item.Properties().maxStackSize(1).group(ItemGroup.TRANSPORTATION));
-        this.type = woodType;
+        this.woodType = woodType;
     }
 
     /**
@@ -55,7 +55,7 @@ public class TIBoatItem extends Item {
 
             if (raytraceresult.getType() == RayTraceResult.Type.BLOCK) {
                 TIBoatEntity boat = new TIBoatEntity(worldIn, raytraceresult.getHitVec().x, raytraceresult.getHitVec().y, raytraceresult.getHitVec().z);
-                boat.setWoodType(this.type);
+                boat.setWoodType(this.woodType);
                 boat.rotationYaw = playerIn.rotationYaw;
                 if (!worldIn.hasNoCollisions(boat, boat.getBoundingBox().grow(-0.1D))) {
                     return ActionResult.resultFail(itemstack);

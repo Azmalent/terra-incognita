@@ -29,11 +29,6 @@ public class TIConfig extends CommonConfigFile {
         })
         public static BooleanOption fiddlehead = new BooleanOption(true, "fiddlehead");
 
-        @Name("Baked Root Enabled")
-        @Comment({"Baked root can be made by covering a root with clay and cooking it on a campfire.",
-            "It gives 15 seconds of Haste when eaten."})
-        public static BooleanOption bakedRoots = new BooleanOption(true, "baked_roots");
-
         @Name("Taffy Enabled")
         @Comment("Taffy is a food item that can only be found in dungeons. " +
                 "It restores some health, but also makes your mouth sticky, reducing eating speed with every taffy eaten.")
@@ -114,8 +109,8 @@ public class TIConfig extends CommonConfigFile {
 
         @Name("Roots Enabled")
         @Comment({"Roots can be found on dirt cave ceilings and overhangs in most biomes.",
-            "They can be collected with shears. You can grow more roots by using bonemeal on one.",
-            "Roots can be crafted into brown dye."})
+            "They can be collected with shears. You can spread roots by using bonemeal on one.",
+            "Roots can be crafted into brown dye or covered in clay and baked on a campfire. Baked roots grant 15 seconds of Haste when eaten."})
         public static BooleanOption roots = new BooleanOption(true, "roots");
 
         @Name("Hanging Moss Enabled")
@@ -159,7 +154,7 @@ public class TIConfig extends CommonConfigFile {
         })
         public static BooleanOption peat = new BooleanOption(true);
 
-        public static DoubleOption peatGrowthRateBonus = new DoubleOption(0.5, 0, 1);
+        public static DoubleOption peatGrowthRateBonus = new DoubleOption(0.25, 0, 1);
 
         @Comment("Adds foxes, sheep, berry bushes, birches and shrubs to tundras to make them less lackluster.")
         public static BooleanOption betterTundras = new BooleanOption(true);

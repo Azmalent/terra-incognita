@@ -198,7 +198,7 @@ def make_wood_type(type):
     add_to_block_tag('bookshelves', '%s:%s' % (MODID, bookshelf), namespace='forge')
 
     ladder = variables['block'] = type + '_ladder'
-    copy_block_model('rotatable', ladder, variables)
+    copy_blockstate('rotatable', ladder, variables)
     copy_block_model('ladder', ladder, variables)
     copy_item_model('flat_block', ladder, variables)
     drop_itself(ladder, variables)
@@ -209,5 +209,14 @@ def make_wood_type(type):
     boat = type + '_boat'
     copy_item_model('item', boat, {'item': boat})
     add_to_item_tag('boats', '%s:%s' % (MODID, boat))
+    copy_crafting_recipe('boat', '%s/boat' % type, variables)
 
-    # TODO: signs
+    sign = type + '_sign'
+    wall_sign = type + '_wall_sign'
+    copy_blockstate('simple_blockstate', sign, {'block': sign})
+    copy_blockstate('simple_blockstate', wall_sign, {'block': sign})
+    copy_block_model('sign', sign, {'type': type})
+    copy_item_model('item', sign, {'item': sign})
+    copy_crafting_recipe('sign', '%s/sign' % type, variables)
+    add_to_block_tag('standing_signs', '%s:%s' % (MODID, sign))
+    add_to_block_tag('wall_signs', '%s:%s' % (MODID, wall_sign))

@@ -2,10 +2,14 @@ package azmalent.terraincognita.common.init;
 
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.TIConfig;
+import azmalent.terraincognita.common.data.ModBlockTags;
+import azmalent.terraincognita.common.dispenser.TIBoatDispenserBehavior;
+import azmalent.terraincognita.common.init.blocksets.TIWoodType;
 import azmalent.terraincognita.common.item.WreathItem;
 import azmalent.terraincognita.common.item.ModFoods;
 import azmalent.terraincognita.common.item.NotchCarrotItem;
 import azmalent.terraincognita.common.item.TaffyItem;
+import net.minecraft.block.DispenserBlock;
 import net.minecraft.item.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -41,7 +45,7 @@ public class ModItems {
             FIDDLEHEAD = ITEMS.register("fiddlehead", () -> new Item(props().food(ModFoods.FIDDLEHEAD)));
         }
 
-        if (TIConfig.Food.bakedRoots.get()) {
+        if (TIConfig.Flora.roots.get()) {
             CLAYED_ROOT = ITEMS.register("clayed_root", () -> new Item(props()));
             BAKED_ROOT = ITEMS.register("baked_root", () -> new Item(props().food(ModFoods.BAKED_ROOT)));
         }
@@ -51,6 +55,13 @@ public class ModItems {
         }
 
         if (TIConfig.Flora.wreath.get()) WREATH = ITEMS.register("flower_band", WreathItem::new);
+    }
+
+    public static void registerDispenserBehaviors() {
+        TIBoatDispenserBehavior boatBehavior = new TIBoatDispenserBehavior();
+        ModBlocks.WoodTypes.VALUES.forEach((type) -> {
+            DispenserBlock.registerDispenseBehavior(type.BOAT.get(), boatBehavior);
+        });
     }
 
     @OnlyIn(Dist.CLIENT)

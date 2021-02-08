@@ -12,7 +12,9 @@
     "accessor.FireBlockAccessor"
   ],
   "client": [
-    "client.BiomeMixin"
+    "client.AtlasesMixin",
+    "client.BiomeMixin",
+    "client.SignRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -1,6 +1,7 @@
 package azmalent.terraincognita.common.block.plants;
 
 import azmalent.terraincognita.TerraIncognita;
+import azmalent.terraincognita.common.data.ModBlockTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.IGrowable;
@@ -72,8 +73,7 @@ public class HangingMossBlock extends HangingPlantBlock implements IGrowable {
             return ground.get(VARIANT) != Variant.BOTTOM;
         }
 
-        return ground.isSolidSide(worldIn, groundPos, Direction.DOWN)
-            && (ground.isIn(Tags.Blocks.DIRT) || ground.getMaterial() == Material.WOOD || ground.getMaterial() == Material.ROCK);
+        return ground.isSolidSide(worldIn, groundPos, Direction.DOWN) && ground.isIn(ModBlockTags.MOSS_PLACEABLE_ON);
     }
 
     @Nullable

@@ -3,6 +3,8 @@ package azmalent.terraincognita.common.init.blocksets;
 import azmalent.cuneiform.lib.config.options.BooleanOption;
 import azmalent.cuneiform.lib.registry.BlockEntry;
 import azmalent.terraincognita.TerraIncognita;
+import azmalent.terraincognita.common.block.signs.TIStandingSignBlock;
+import azmalent.terraincognita.common.block.signs.TIWallSignBlock;
 import azmalent.terraincognita.common.init.ModBlocks;
 import azmalent.terraincognita.common.init.ModItems;
 import azmalent.terraincognita.common.item.TIBoatItem;
@@ -15,6 +17,8 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.SignItem;
 import net.minecraft.item.TallBlockItem;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
@@ -37,8 +41,8 @@ public class TIWoodType {
     public final BlockEntry SLAB;
     public final BlockEntry FENCE;
     public final BlockEntry FENCE_GATE;
-/*    public final BlockEntry SIGN;
-    public final BlockEntry WALL_SIGN;*/
+    public final BlockEntry WALL_SIGN;
+    public final BlockEntry STANDING_SIGN;
     public final BlockEntry DOOR;
     public final BlockEntry TRAPDOOR;
     public final BlockEntry BUTTON;
@@ -64,13 +68,15 @@ public class TIWoodType {
         SLAB = ModBlocks.HELPER.newBuilder(id + "_slab", () -> new SlabBlock(Block.Properties.from(PLANKS.getBlock()))).buildIf(condition);
         FENCE = ModBlocks.HELPER.newBuilder(id + "_fence", () -> new FenceBlock(Block.Properties.create(Material.WOOD, woodColor).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD))).buildIf(condition);
         FENCE_GATE = ModBlocks.HELPER.newBuilder(id + "_fence_gate", () -> new FenceGateBlock(Block.Properties.create(Material.WOOD, woodColor).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD))).buildIf(condition);
+        WALL_SIGN = ModBlocks.HELPER.newBuilder(id + "_wall_sign", () -> new TIWallSignBlock(woodColor, this)).withoutItemForm().buildIf(condition);
+        STANDING_SIGN = ModBlocks.HELPER.newBuilder(id + "_sign", () -> new TIStandingSignBlock(woodColor, this)).withBlockItem((block) -> new SignItem(new Item.Properties().maxStackSize(16).group(TerraIncognita.TAB), block, this.WALL_SIGN.getBlock())).buildIf(condition);
         DOOR = ModBlocks.HELPER.newBuilder(id + "_door", () -> new DoorBlock(Block.Properties.create(Material.WOOD, woodColor).hardnessAndResistance(3.0F).sound(SoundType.WOOD).notSolid())).withBlockItem(block -> new TallBlockItem(block, new Item.Properties().group(TerraIncognita.TAB))).buildIf(condition);
         TRAPDOOR = ModBlocks.HELPER.newBuilder(id + "_trapdoor", () -> new TrapDoorBlock(Block.Properties.create(Material.WOOD, woodColor).hardnessAndResistance(3.0F).sound(SoundType.WOOD).notSolid().setAllowsSpawn((state, reader, pos, entity) -> false))).buildIf(condition);
         BUTTON = ModBlocks.HELPER.newBuilder(id + "_button", () -> new WoodButtonBlock(Block.Properties.from(Blocks.OAK_BUTTON))).buildIf(condition);
         PRESSURE_PLATE = ModBlocks.HELPER.newBuilder(id + "_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, AbstractBlock.Properties.create(Material.WOOD, woodColor).doesNotBlockMovement().hardnessAndResistance(0.5F).sound(SoundType.WOOD))).buildIf(condition);
         BOAT = ModItems.ITEMS.register(id + "_boat", () -> new TIBoatItem(this));
 
-        SIGN_TEXTURE = TerraIncognita.prefix("entity/signs/" + name + ".png");
+        SIGN_TEXTURE = TerraIncognita.prefix("entity/sign/" + name);
         BOAT_TEXTURE = TerraIncognita.prefix("textures/entity/boat/" + name + ".png");
     }
 

@@ -1,5 +1,6 @@
 package azmalent.terraincognita.common.entity;
 
+import azmalent.cuneiform.lib.registry.BlockEntry;
 import azmalent.terraincognita.common.init.ModBlocks;
 import azmalent.terraincognita.common.init.ModEntities;
 import azmalent.terraincognita.common.init.blocksets.TIWoodType;
@@ -17,9 +18,14 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.Constants;
+import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.network.FMLPlayMessages;
 import net.minecraftforge.fml.network.NetworkHooks;
 
@@ -66,6 +72,13 @@ public class TIBoatEntity extends BoatEntity {
     }
 
     @Override
+    @OnlyIn(Dist.CLIENT)
+    public ITextComponent getName() {
+        ITextComponent customName = getCustomName();
+        return customName != null ? customName : new TranslationTextComponent("entity.minecraft.boat");
+    }
+
+    @Override
     protected void updateFallState(double y, boolean onGroundIn, BlockState state, BlockPos pos) {
         BoatEntityAccessor accessor = (BoatEntityAccessor) this;
 
@@ -73,7 +86,7 @@ public class TIBoatEntity extends BoatEntity {
         if (!this.isPassenger()) {
             if (onGroundIn) {
                 if (this.fallDistance > 3.0F) {
-                    if (accessor.getStatus() != BoatEntity.Status.ON_LAND) {
+                    if (accessor.getStatus() != TIBoatEntity.Status.ON_LAND) {
                         this.fallDistance = 0.0F;
                         return;
                     }
@@ -83,7 +96,7 @@ public class TIBoatEntity extends BoatEntity {
                         this.remove();
                         if (this.world.getGameRules().getBoolean(GameRules.DO_ENTITY_DROPS)) {
                             for (int i = 0; i < 3; ++i) {
-                                this.entityDropItem(this.getWoodType().PLANKS.getItem());
+                                this.entityDropItem(this.getPlanks());
                             }
 
                             for (int j = 0; j < 2; ++j) {
@@ -100,9 +113,19 @@ public class TIBoatEntity extends BoatEntity {
         }
     }
 
+    private Item getPlanks() {
+        BlockEntry planks = getWoodType().PLANKS;
+        if (planks != null) return planks.getItem();
+
+        return Items.OAK_PLANKS;
+    }
+
     @Override
     public Item getItemBoat() {
-        return this.getWoodType().BOAT.get();
+        RegistryObject<Item> boat = this.getWoodType().BOAT;
+        if (boat != null) return boat.get();
+
+        return Items.OAK_BOAT;
     }
 
     public void setWoodType(TIWoodType type) {

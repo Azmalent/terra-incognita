@@ -12,9 +12,6 @@ public interface IQuarkIntegration {
 
     void initRenderLayers();
 
-    void registerBlockColorHandlers(ColorHandlerEvent.Block event);
-    void registerItemColorHandlers(ColorHandlerEvent.Item event);
-
     @ModProxyDummy("quark")
     class Dummy implements IQuarkIntegration {
 
@@ -32,15 +29,5 @@ public interface IQuarkIntegration {
         public void initRenderLayers() {
 
         }
-
-            @Override
-            public void registerBlockColorHandlers(ColorHandlerEvent.Block event) {
-
-            }
-
-            @Override
-            public void registerItemColorHandlers(ColorHandlerEvent.Item event) {
-
-            }
-        }
+    }
 }

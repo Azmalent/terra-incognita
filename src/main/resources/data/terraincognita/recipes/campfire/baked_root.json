@@ -10,10 +10,6 @@
     {
       "type": "cuneiform:config",
       "config": "terraincognita:roots"
-    },
-    {
-      "type": "cuneiform:config",
-      "config": "terraincognita:baked_roots"
     }
   ]
 }

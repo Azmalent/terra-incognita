@@ -3,9 +3,6 @@ package azmalent.terraincognita.common.world;
 import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.init.ModBlocks;
-import azmalent.terraincognita.common.init.ModFeatures;
-import azmalent.terraincognita.common.world.feature.config.HugeTreeFeatureConfig;
-import com.google.common.collect.ImmutableList;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.WorldGenRegistries;
@@ -15,11 +12,7 @@ import net.minecraft.world.gen.blockstateprovider.WeightedBlockStateProvider;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.foliageplacer.BlobFoliagePlacer;
 import net.minecraft.world.gen.foliageplacer.BushFoliagePlacer;
-import net.minecraft.world.gen.foliageplacer.FancyFoliagePlacer;
-import net.minecraft.world.gen.trunkplacer.FancyTrunkPlacer;
 import net.minecraft.world.gen.trunkplacer.StraightTrunkPlacer;
-
-import java.util.OptionalInt;
 
 public class ModTrees {
     public static class Configs {

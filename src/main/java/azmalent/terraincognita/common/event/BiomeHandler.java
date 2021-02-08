@@ -42,13 +42,16 @@ public class BiomeHandler {
 
     public static void addCustomFeatures(BiomeLoadingEvent event) {
         RegistryKey<Biome> biome = BiomeUtil.getBiomeKey(event.getName());
-        if (hasAnyType(biome, END, NETHER, VOID, OCEAN, BEACH)) return;
+        if (hasAnyType(biome, END, NETHER, VOID, OCEAN, BEACH, DEAD)) return;
 
         boolean cold = hasType(biome, COLD);
         boolean hot = hasType(biome, HOT);
 
-        if (!hasAnyType(biome, SANDY, WASTELAND)) {
+        if (!hasAnyType(biome, SANDY, MESA, WASTELAND)) {
             WorldGenUtil.addVegetation(event, ModVegetation.ROOTS);
+            if (!hasAnyType(biome, COLD, SAVANNA, DRY)) {
+                WorldGenUtil.addVegetation(event, ModVegetation.MOSS);
+            }
         }
 
         switch (event.getCategory()) {

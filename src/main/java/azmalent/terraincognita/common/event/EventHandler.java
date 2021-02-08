@@ -35,6 +35,8 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.items.ItemHandlerHelper;
 
+import javax.naming.directory.ModificationItem;
+
 public class EventHandler {
     public static void registerListeners() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -65,6 +67,7 @@ public class EventHandler {
         event.enqueueWork(ModOres::configureFeatures);
         event.enqueueWork(ModBiomes::registerBiomes);
 
+        ModItems.registerDispenserBehaviors();
         ModBlocks.initTilling();
         ModBlocks.initStripping();
         ModBlocks.initFlammability();
