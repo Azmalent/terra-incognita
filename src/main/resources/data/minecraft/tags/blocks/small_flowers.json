@@ -19,6 +19,6 @@
 	{"id": "terraincognita:rockfoil", "required": false},
 	{"id": "terraincognita:yarrow", "required": false},
 	{"id": "terraincognita:yellow_snapdragon", "required": false},
-  	"#terraincognita:lotuses"
+	"#terraincognita:lotuses"
   ]
 }

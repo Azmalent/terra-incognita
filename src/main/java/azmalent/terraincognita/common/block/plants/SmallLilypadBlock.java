@@ -12,6 +12,7 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class SmallLilypadBlock extends LilyPadBlock {
@@ -31,6 +32,7 @@ public class SmallLilypadBlock extends LilyPadBlock {
         builder.add(LILYPADS);
     }
 
+    @Nonnull
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader reader, BlockPos blockPos, ISelectionContext context) {
         int n = state.get(LILYPADS);

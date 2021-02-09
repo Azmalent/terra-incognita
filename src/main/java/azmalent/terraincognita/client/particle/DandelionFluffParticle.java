@@ -14,6 +14,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 @OnlyIn(Dist.CLIENT)
@@ -32,6 +33,7 @@ public class DandelionFluffParticle extends SpriteTexturedParticle {
         particleGravity = 0.05f;
     }
 
+    @Nonnull
     @Override
     public IParticleRenderType getRenderType() {
         return IParticleRenderType.PARTICLE_SHEET_LIT;
@@ -53,7 +55,7 @@ public class DandelionFluffParticle extends SpriteTexturedParticle {
 
         @Nullable
         @Override
-        public Particle makeParticle(BasicParticleType data, ClientWorld worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+        public Particle makeParticle(@Nonnull BasicParticleType data, @Nonnull ClientWorld worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
             DandelionFluffParticle particle = new DandelionFluffParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed);
             particle.selectSpriteRandomly(sprite);
             return particle;

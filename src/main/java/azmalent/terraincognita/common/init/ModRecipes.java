@@ -3,8 +3,7 @@ package azmalent.terraincognita.common.init;
 import azmalent.cuneiform.lib.registry.BlockEntry;
 import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.TerraIncognita;
-import azmalent.terraincognita.common.init.blocksets.PottablePlantEntry;
-import azmalent.terraincognita.common.init.blocksets.TIWoodType;
+import azmalent.terraincognita.common.block.blocksets.PottablePlantEntry;
 import azmalent.terraincognita.common.recipe.FiddleheadSuspiciousStewAdditionRecipe;
 import azmalent.terraincognita.common.recipe.FiddleheadSuspiciousStewRecipe;
 import azmalent.terraincognita.common.recipe.WreathRecipe;
@@ -55,7 +54,7 @@ public class ModRecipes {
     }
 
     public static void registerComposterRecipes() {
-        if (TIConfig.Tweaks.additionalCompostables.get()) {
+        if (TIConfig.Misc.additionalCompostables.get()) {
             ComposterBlock.CHANCES.put(Items.DEAD_BUSH, 0.3f);
             ComposterBlock.CHANCES.put(Items.BAMBOO, 0.65f);
             ComposterBlock.CHANCES.put(Items.POISONOUS_POTATO, 0.65f);
@@ -64,22 +63,19 @@ public class ModRecipes {
             ComposterBlock.CHANCES.put(Items.CHORUS_FLOWER, 1.0f);
         }
 
-        for (PottablePlantEntry flower : ModBlocks.FLOWERS) {
-            registerCompostable(flower, 0.65f);
-        }
-
-        registerCompostable(ModBlocks.PINK_LOTUS, 0.65f);
-        registerCompostable(ModBlocks.WHITE_LOTUS, 0.65f);
-        registerCompostable(ModBlocks.YELLOW_LOTUS, 0.65f);
-        registerCompostable(ModBlocks.SMALL_LILYPAD, 0.3f);
+        ModBlocks.FLOWERS.forEach(flower -> registerCompostable(flower, 0.65f));
+        ModBlocks.TALL_FLOWERS.forEach(flower -> registerCompostable(flower, 0.65f));
+        ModBlocks.LOTUSES.forEach(lotus -> registerCompostable(lotus, 0.65f));
+        registerCompostable(ModBlocks.SMALL_LILY_PAD, 0.3f);
         registerCompostable(ModBlocks.REEDS, 0.5f);
         registerCompostable(ModBlocks.ROOTS, 0.5f);
+        registerCompostable(ModBlocks.HANGING_MOSS, 0.3f);
 
-        for (TIWoodType woodType : ModBlocks.WoodTypes.VALUES) {
+        ModWoodTypes.VALUES.forEach(woodType -> {
             registerCompostable(woodType.SAPLING, 0.3f);
             registerCompostable(woodType.LEAVES, 0.3f);
-        }
+        });
 
-        registerCompostable(ModBlocks.WoodTypes.APPLE.BLOSSOMING_LEAVES, 0.3f);
+        registerCompostable(ModWoodTypes.APPLE.BLOSSOMING_LEAVES, 0.3f);
     }
 }

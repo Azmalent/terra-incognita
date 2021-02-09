@@ -1,5 +1,7 @@
 package azmalent.terraincognita.common.block.plants;
 
+import azmalent.terraincognita.TIConfig;
+import azmalent.terraincognita.common.init.ModBlocks;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
@@ -18,6 +20,7 @@ import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Random;
 
@@ -48,12 +51,14 @@ public class ReedsBlock extends SugarCaneBlock implements IWaterLoggable {
         return super.getStateForPlacement(context).with(WATERLOGGED, waterlogged);
     }
 
+    @Nonnull
     public FluidState getFluidState(BlockState state) {
         return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
     }
 
+    @Nonnull
     @Override
-    public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
+    public BlockState updatePostPlacement(BlockState stateIn, @Nonnull Direction facing, @Nonnull BlockState facingState, @Nonnull IWorld worldIn, @Nonnull BlockPos currentPos, @Nonnull BlockPos facingPos) {
         if (stateIn.get(WATERLOGGED)) {
             worldIn.getPendingFluidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickRate(worldIn));
         }
@@ -61,6 +66,7 @@ public class ReedsBlock extends SugarCaneBlock implements IWaterLoggable {
         return super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     public boolean isValidPosition(BlockState state, IWorldReader world, BlockPos pos) {
         BlockPos up = pos.up();
@@ -72,7 +78,7 @@ public class ReedsBlock extends SugarCaneBlock implements IWaterLoggable {
         BlockState soil = world.getBlockState(down);
         if (soil.getBlock() == this || soil.canSustainPlant(world, down, Direction.UP, this)) return true;
 
-        if (soil.isIn(Blocks.GRASS_BLOCK) || soil.isIn(Blocks.DIRT) || soil.isIn(Blocks.COARSE_DIRT) || soil.isIn(Blocks.PODZOL) || soil.isIn(Blocks.SAND) || soil.isIn(Blocks.RED_SAND)) {
+        if (soil.isIn(Blocks.GRASS_BLOCK) || soil.isIn(Blocks.DIRT) || soil.isIn(Blocks.COARSE_DIRT) || soil.isIn(Blocks.PODZOL) || soil.isIn(Blocks.SAND) || soil.isIn(Blocks.RED_SAND) || TIConfig.Misc.peat.get() && soil.isIn(ModBlocks.PEAT.getBlock())) {
             if (state.get(WATERLOGGED)) {
                 return true;
             }

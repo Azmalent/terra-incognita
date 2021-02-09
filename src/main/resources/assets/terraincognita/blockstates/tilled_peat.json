@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "moisture=0": {
+      "model": "terraincognita:block/tilled_peat"
+    },
+    "moisture=1": {
+      "model": "terraincognita:block/tilled_peat"
+    },
+    "moisture=2": {
+      "model": "terraincognita:block/tilled_peat"
+    },
+    "moisture=3": {
+      "model": "terraincognita:block/tilled_peat"
+    },
+    "moisture=4": {
+      "model": "terraincognita:block/tilled_peat"
+    },
+    "moisture=5": {
+      "model": "terraincognita:block/tilled_peat"
+    },
+    "moisture=6": {
+      "model": "terraincognita:block/tilled_peat"
+    },
+    "moisture=7": {
+      "model": "terraincognita:block/tilled_peat_moist"
+    }
+  }
+}

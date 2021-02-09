@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    " X "
+  ],
+  "key": {
+    "#": {
+      "item": "$MODID:$TYPE_planks"
+    },
+    "X": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "$MODID:$TYPE_sign",
+    "count": 3
+  },
+  "conditions": [
+    {
+      "type": "cuneiform:config",
+      "config": "$MODID:$TYPE"
+    }
+  ]
+}

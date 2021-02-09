@@ -26,7 +26,7 @@ public class LeafCarpetBlock extends Block {
     }
 
     @Override
-    public boolean isReplaceable(BlockState state, BlockItemUseContext useContext) {
+    public boolean isReplaceable(BlockState state, @Nonnull BlockItemUseContext useContext) {
         return true;
     }
 

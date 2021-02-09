@@ -3,7 +3,7 @@ package azmalent.terraincognita.common.init;
 import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.world.feature.AlpineFlowerFeature;
-import azmalent.terraincognita.common.world.feature.HugeTreeFeature;
+import azmalent.terraincognita.common.world.feature.HangingMossFeature;
 import azmalent.terraincognita.common.world.feature.ReedsFeature;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraftforge.fml.RegistryObject;
@@ -16,12 +16,20 @@ public class ModFeatures {
     public static RegistryObject<AlpineFlowerFeature> ALPINE_FLOWERS;
     public static RegistryObject<AlpineFlowerFeature> EDELWEISS;
     public static RegistryObject<ReedsFeature> REEDS;
+    public static RegistryObject<HangingMossFeature> MOSS;
 
     static {
         if (TIConfig.Flora.alpineFlowers.get()) {
             ALPINE_FLOWERS = FEATURES.register("alpine_flowers", () -> new AlpineFlowerFeature(64));
             EDELWEISS = FEATURES.register("edelweiss", () -> new AlpineFlowerFeature(TIConfig.Flora.edelweissMinimumY.get()));
         }
-        if (TIConfig.Flora.reeds.get()) REEDS = FEATURES.register("reeds", ReedsFeature::new);
+
+        if (TIConfig.Flora.reeds.get()) {
+            REEDS = FEATURES.register("reeds", ReedsFeature::new);
+        }
+
+        if (TIConfig.Flora.hangingMoss.get()) {
+            MOSS = FEATURES.register("hanging_moss", HangingMossFeature::new);
+        }
     }
 }

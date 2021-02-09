@@ -12,6 +12,8 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.items.SlotItemHandler;
 
+import javax.annotation.Nonnull;
+
 public class BasketContainer extends Container {
     public static final int WIDTH = 3;
     public static final int HEIGHT = 3;
@@ -71,6 +73,7 @@ public class BasketContainer extends Container {
         }
     }
 
+    @Nonnull
     @Override
     public ItemStack transferStackInSlot(PlayerEntity player, int index) {
         Slot sourceSlot = inventorySlots.get(index);
@@ -101,7 +104,7 @@ public class BasketContainer extends Container {
     }
 
     @Override
-    public boolean canInteractWith(PlayerEntity player) {
+    public boolean canInteractWith(@Nonnull PlayerEntity player) {
         return heldStack.isEmpty() || player.getHeldItemMainhand() == heldStack || player.getHeldItemOffhand() == heldStack;
     }
 }

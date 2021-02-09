@@ -28,6 +28,7 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 @SuppressWarnings("deprecation")
@@ -42,6 +43,7 @@ public class BasketBlock extends HorizontalBlock implements IWaterLoggable {
         setDefaultState(stateContainer.getBaseState().with(FACING, Direction.NORTH).with(WATERLOGGED, false));
     }
 
+    @Nonnull
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext context) {
         return SHAPE;
@@ -53,11 +55,13 @@ public class BasketBlock extends HorizontalBlock implements IWaterLoggable {
         builder.add(FACING, WATERLOGGED);
     }
 
+    @Nonnull
     @Override
     public BlockState rotate(BlockState state, Rotation rot) {
         return state.with(FACING, rot.rotate(state.get(FACING)));
     }
 
+    @Nonnull
     @Override
     public BlockState mirror(BlockState state, Mirror mirror) {
         return state.rotate(mirror.toRotation(state.get(FACING)));
@@ -70,6 +74,7 @@ public class BasketBlock extends HorizontalBlock implements IWaterLoggable {
         return this.getDefaultState().with(WATERLOGGED, waterlogged).with(FACING, context.getPlacementHorizontalFacing().getOpposite());
     }
 
+    @Nonnull
     @Override
     public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
         if (stateIn.get(WATERLOGGED)) {
@@ -79,11 +84,13 @@ public class BasketBlock extends HorizontalBlock implements IWaterLoggable {
         return super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
     }
 
+    @Nonnull
     @Override
     public FluidState getFluidState(BlockState state) {
         return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
     }
 
+    @Nonnull
     @Override
     public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
         if (world.isRemote) {
@@ -131,7 +138,7 @@ public class BasketBlock extends HorizontalBlock implements IWaterLoggable {
     }
 
     @Override
-    public void onReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean isMoving) {
+    public void onReplaced(BlockState state, @Nonnull World world, @Nonnull BlockPos pos, BlockState newState, boolean isMoving) {
         if (!state.isIn(newState.getBlock())) {
             if (world.getTileEntity(pos) instanceof BasketTileEntity) {
                 world.updateComparatorOutputLevel(pos, state.getBlock());
@@ -142,7 +149,7 @@ public class BasketBlock extends HorizontalBlock implements IWaterLoggable {
     }
 
     @Override
-    public void onBlockHarvested(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+    public void onBlockHarvested(World world, @Nonnull BlockPos pos, BlockState state, @Nonnull PlayerEntity player) {
         if (!world.isRemote) {
             assert ModBlocks.BASKET != null;
 

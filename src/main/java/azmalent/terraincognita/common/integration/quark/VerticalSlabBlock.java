@@ -46,11 +46,13 @@ public class VerticalSlabBlock extends Block implements IWaterLoggable {
         setDefaultState(getDefaultState().with(TYPE, VerticalSlabType.NORTH).with(WATERLOGGED, false));
     }
 
+    @Nonnull
     @Override
     public BlockState rotate(BlockState state, Rotation rot) {
         return state.get(TYPE) == VerticalSlabType.DOUBLE ? state : state.with(TYPE, VerticalSlabType.fromDirection(rot.rotate(state.get(TYPE).direction)));
     }
 
+    @Nonnull
     @Override
     public BlockState mirror(BlockState state, Mirror mirrorIn) {
         return state.get(TYPE) == VerticalSlabType.DOUBLE ? state : state.with(TYPE, VerticalSlabType.fromDirection(state.get(TYPE).direction.getOpposite()));

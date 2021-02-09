@@ -11,11 +11,13 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.Tags;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class RootsBlock extends HangingPlantBlock implements IGrowable {
 	public static final VoxelShape SHAPE = makeCuboidShape(3, 6, 3, 13, 16, 13);
 
+    @Nonnull
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader reader, BlockPos blockPos, ISelectionContext context) {
         Vector3d offset = state.getOffset(reader, blockPos);
@@ -27,23 +29,24 @@ public class RootsBlock extends HangingPlantBlock implements IGrowable {
         return ground.isIn(Tags.Blocks.DIRT);
     }
 
+    @Nonnull
     @Override
     public OffsetType getOffsetType() {
         return OffsetType.XZ;
     }
 
     @Override
-    public boolean canGrow(IBlockReader world, BlockPos pos, BlockState blockState, boolean isClient) {
+    public boolean canGrow(@Nonnull IBlockReader world, @Nonnull BlockPos pos, @Nonnull BlockState blockState, boolean isClient) {
         return true;
     }
 
     @Override
-    public boolean canUseBonemeal(World world, Random random, BlockPos pos, BlockState state) {
+    public boolean canUseBonemeal(@Nonnull World world, @Nonnull Random random, @Nonnull BlockPos pos, @Nonnull BlockState state) {
         return true;
     }
 
     @Override
-    public void grow(ServerWorld world, Random random, BlockPos pos, BlockState state) {
+    public void grow(@Nonnull ServerWorld world, @Nonnull Random random, @Nonnull BlockPos pos, @Nonnull BlockState state) {
         BlockState roots = this.getDefaultState();
 
         for(int i = 0; i < 4; i++) {

@@ -12,7 +12,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.feature.Features;
 import net.minecraft.world.gen.feature.structure.StructureFeatures;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilders;
 import net.minecraftforge.api.distmarker.Dist;
@@ -40,7 +39,7 @@ public class ModBiomes {
             MobSpawnInfo.Builder spawns = (new MobSpawnInfo.Builder()).withCreatureSpawnProbability(0.07F);
             DefaultBiomeFeatures.withSnowyBiomeMobs(spawns);
 
-            if (TIConfig.Tweaks.betterTundras.get()) {
+            if (TIConfig.Misc.betterTundras.get()) {
                 addExtraTundraSpawns(spawns);
             }
 
@@ -123,7 +122,7 @@ public class ModBiomes {
         DefaultBiomeFeatures.withSugarCaneAndPumpkins(builder);
         DefaultBiomeFeatures.withLavaAndWaterSprings(builder);
 
-        if (TIConfig.Tweaks.betterTundras.get()) {
+        if (TIConfig.Misc.betterTundras.get()) {
             addExtraTundraFeatures(builder);
         }
     }

@@ -24,8 +24,10 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+@SuppressWarnings("ConstantConditions")
 public class CaltropsBlock extends Block {
     private static final VoxelShape SHAPE = makeCuboidShape(0, 0, 0, 15, 4, 15);
     private static final float BREAK_CHANCE = 0.2f;
@@ -47,11 +49,12 @@ public class CaltropsBlock extends Block {
         }
     }
 
+    @Nonnull
     @Override
     @SuppressWarnings("deprecation")
     public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
         if (!world.isRemote && player.getHeldItem(hand).isEmpty()) {
-            ItemStack stack = new ItemStack(ModBlocks.CALTROPS.getItem());
+            ItemStack stack = ModBlocks.CALTROPS.makeStack();
 
             if (player.addItemStackToInventory(stack)) {
                 float pitch = (player.getRNG().nextFloat() - player.getRNG().nextFloat()) * 0.7F + 1.0F;
@@ -65,6 +68,7 @@ public class CaltropsBlock extends Block {
         return super.onBlockActivated(state, world, pos, player, hand, hit);
     }
 
+    @Nonnull
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         return SHAPE;

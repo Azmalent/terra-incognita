@@ -5,6 +5,7 @@ import azmalent.terraincognita.client.event.ClientEventHandler;
 import azmalent.terraincognita.common.event.EventHandler;
 import azmalent.terraincognita.common.init.*;
 import azmalent.terraincognita.common.integration.ModIntegration;
+import azmalent.terraincognita.network.NetworkHandler;
 import azmalent.terraincognita.proxy.ClientProxy;
 import azmalent.terraincognita.proxy.CommonProxy;
 import azmalent.terraincognita.proxy.IProxy;
@@ -53,6 +54,8 @@ public class TerraIncognita {
         ModCompatUtil.initModProxies(ModIntegration.class, MODID);
         ModIntegration.QUARK.register(bus);
         ModIntegration.SIMPLY_TEA.register(bus);
+
+        NetworkHandler.registerMessages();
 
         EventHandler.registerListeners();
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> ClientEventHandler::registerListeners);

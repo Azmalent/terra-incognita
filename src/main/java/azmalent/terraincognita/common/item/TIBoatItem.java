@@ -1,7 +1,7 @@
 package azmalent.terraincognita.common.item;
 
-import azmalent.terraincognita.common.entity.TIBoatEntity;
-import azmalent.terraincognita.common.init.blocksets.TIWoodType;
+import azmalent.terraincognita.common.entity.ModBoatEntity;
+import azmalent.terraincognita.common.block.blocksets.ModWoodType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -17,23 +17,25 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.function.Predicate;
 
 public class TIBoatItem extends Item {
     private static final Predicate<Entity> field_219989_a = EntityPredicates.NOT_SPECTATING.and(Entity::canBeCollidedWith);
-    private final TIWoodType type;
+    public final ModWoodType woodType;
 
-    public TIBoatItem(TIWoodType woodType) {
+    public TIBoatItem(ModWoodType woodType) {
         super(new Item.Properties().maxStackSize(1).group(ItemGroup.TRANSPORTATION));
-        this.type = woodType;
+        this.woodType = woodType;
     }
 
     /**
      * Called to trigger the item's "innate" right click behavior. To handle when this item is used on a Block, see
      * {@link #onItemUse}.
      */
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
+    @Nonnull
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, @Nonnull Hand handIn) {
         ItemStack itemstack = playerIn.getHeldItem(handIn);
         RayTraceResult raytraceresult = rayTrace(worldIn, playerIn, RayTraceContext.FluidMode.ANY);
         if (raytraceresult.getType() == RayTraceResult.Type.MISS) {
@@ -46,7 +48,7 @@ public class TIBoatItem extends Item {
                 Vector3d vector3d1 = playerIn.getEyePosition(1.0F);
 
                 for(Entity entity : list) {
-                    AxisAlignedBB axisalignedbb = entity.getBoundingBox().grow((double)entity.getCollisionBorderSize());
+                    AxisAlignedBB axisalignedbb = entity.getBoundingBox().grow(entity.getCollisionBorderSize());
                     if (axisalignedbb.contains(vector3d1)) {
                         return ActionResult.resultPass(itemstack);
                     }
@@ -54,8 +56,8 @@ public class TIBoatItem extends Item {
             }
 
             if (raytraceresult.getType() == RayTraceResult.Type.BLOCK) {
-                TIBoatEntity boat = new TIBoatEntity(worldIn, raytraceresult.getHitVec().x, raytraceresult.getHitVec().y, raytraceresult.getHitVec().z);
-                boat.setWoodType(this.type);
+                ModBoatEntity boat = new ModBoatEntity(worldIn, raytraceresult.getHitVec().x, raytraceresult.getHitVec().y, raytraceresult.getHitVec().z);
+                boat.setWoodType(this.woodType);
                 boat.rotationYaw = playerIn.rotationYaw;
                 if (!worldIn.hasNoCollisions(boat, boat.getBoundingBox().grow(-0.1D))) {
                     return ActionResult.resultFail(itemstack);
