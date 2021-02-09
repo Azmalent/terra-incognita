@@ -8,16 +8,18 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 
+import javax.annotation.Nonnull;
+
 public class FlowerMaterial implements IArmorMaterial {
     public static FlowerMaterial INSTANCE = new FlowerMaterial();
 
     @Override
-    public int getDurability(EquipmentSlotType equipmentSlotType) {
+    public int getDurability(@Nonnull EquipmentSlotType equipmentSlotType) {
         return 64;
     }
 
     @Override
-    public int getDamageReductionAmount(EquipmentSlotType equipmentSlotType) {
+    public int getDamageReductionAmount(@Nonnull EquipmentSlotType equipmentSlotType) {
         return 0;
     }
 
@@ -26,16 +28,19 @@ public class FlowerMaterial implements IArmorMaterial {
         return 10;
     }
 
+    @Nonnull
     @Override
     public SoundEvent getSoundEvent() {
         return SoundEvents.ITEM_ARMOR_EQUIP_GENERIC;
     }
 
+    @Nonnull
     @Override
     public Ingredient getRepairMaterial() {
         return Ingredient.fromTag(ItemTags.FLOWERS);
     }
 
+    @Nonnull
     @Override
     public String getName() {
         return TerraIncognita.MODID + ":flowers";

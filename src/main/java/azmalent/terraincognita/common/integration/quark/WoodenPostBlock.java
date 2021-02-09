@@ -22,6 +22,8 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
 
+import javax.annotation.Nonnull;
+
 //Copied from Quark WoodPostBlock with minor edits
 public class WoodenPostBlock extends Block implements IWaterLoggable {
     private static final VoxelShape SHAPE_X = Block.makeCuboidShape(0F, 6F, 6F, 16F, 10F, 10F);
@@ -61,6 +63,7 @@ public class WoodenPostBlock extends Block implements IWaterLoggable {
         }
     }
 
+    @Nonnull
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         switch(state.get(AXIS)) {
@@ -86,7 +89,7 @@ public class WoodenPostBlock extends Block implements IWaterLoggable {
    	}
 
     @Override
-    public boolean propagatesSkylightDown(BlockState state, IBlockReader reader, BlockPos pos) {
+    public boolean propagatesSkylightDown(BlockState state, @Nonnull IBlockReader reader, @Nonnull BlockPos pos) {
         return !state.get(WATERLOGGED);
     }
 
@@ -125,6 +128,7 @@ public class WoodenPostBlock extends Block implements IWaterLoggable {
         }
     }
 
+    @Nonnull
     @Override
     public FluidState getFluidState(BlockState state) {
         return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : Fluids.EMPTY.getDefaultState();

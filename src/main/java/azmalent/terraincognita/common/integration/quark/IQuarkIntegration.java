@@ -6,14 +6,18 @@ import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 
 public interface IQuarkIntegration {
-    boolean matchesItemSearch(ItemStack stack);
-
     void register(IEventBus bus);
 
-    void initRenderLayers();
+    boolean matchesItemSearch(ItemStack stack);
+
+    boolean canEditSign(ItemStack heldStack);
 
     @ModProxyDummy("quark")
     class Dummy implements IQuarkIntegration {
+        @Override
+        public void register(IEventBus bus) {
+
+        }
 
         @Override
         public boolean matchesItemSearch(ItemStack stack) {
@@ -21,13 +25,8 @@ public interface IQuarkIntegration {
         }
 
         @Override
-        public void register(IEventBus bus) {
-
-        }
-
-        @Override
-        public void initRenderLayers() {
-
+        public boolean canEditSign(ItemStack heldStack) {
+            return false;
         }
     }
 }

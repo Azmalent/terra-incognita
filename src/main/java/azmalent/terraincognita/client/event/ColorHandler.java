@@ -3,7 +3,7 @@ package azmalent.terraincognita.client.event;
 import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.common.init.ModBlocks;
 import azmalent.terraincognita.common.init.ModItems;
-import azmalent.terraincognita.common.integration.ModIntegration;
+import azmalent.terraincognita.common.init.ModWoodTypes;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.ItemColors;
@@ -18,7 +18,8 @@ import net.minecraftforge.client.event.ColorHandlerEvent;
 public class ColorHandler {
     public static final int LILYPAD_WORLD_COLOR = 2129968;
     public static final int LILYPAD_INVENTORY_COLOR = 2129968;
-    public static final int APPLE_LEAVES_COLOR = 0x739D14;
+    public static final int APPLE_LEAVES_COLOR = 0x73AD14;
+    public static final int MOSS_COLOR = 0x5AAD41;
 
     public static void registerBlockColorHandlers(ColorHandlerEvent.Block event) {
         BlockColors colors = event.getBlockColors();
@@ -44,9 +45,13 @@ public class ColorHandler {
             );
         }
 
+        if (TIConfig.Flora.hangingMoss.get()) {
+            colors.register((state, reader, pos, color) -> MOSS_COLOR, ModBlocks.HANGING_MOSS.getBlock());
+        }
+
         if (TIConfig.Trees.apple.get()) {
             colors.register((state, reader, pos, color) -> APPLE_LEAVES_COLOR,
-                ModBlocks.WoodTypes.APPLE.LEAVES.getBlock(), ModBlocks.WoodTypes.APPLE.BLOSSOMING_LEAVES.getBlock()
+                    ModWoodTypes.APPLE.LEAVES.getBlock(), ModWoodTypes.APPLE.BLOSSOMING_LEAVES.getBlock()
             );
         }
     }
@@ -64,7 +69,7 @@ public class ColorHandler {
 
         if (TIConfig.Trees.apple.get()) {
             colors.register((stack, index) -> index > 0 ? -1 : APPLE_LEAVES_COLOR,
-                ModBlocks.WoodTypes.APPLE.LEAVES.getItem(), ModBlocks.WoodTypes.APPLE.BLOSSOMING_LEAVES.getItem()
+                ModWoodTypes.APPLE.LEAVES.getItem(), ModWoodTypes.APPLE.BLOSSOMING_LEAVES.getItem()
             );
         }
 

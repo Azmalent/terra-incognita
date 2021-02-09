@@ -1,7 +1,8 @@
 package azmalent.terraincognita.common.event;
 
 import azmalent.terraincognita.common.init.ModBlocks;
-import azmalent.terraincognita.common.init.blocksets.TIWoodType;
+import azmalent.terraincognita.common.init.ModWoodTypes;
+import azmalent.terraincognita.common.block.blocksets.ModWoodType;
 import com.google.common.collect.Maps;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
@@ -12,16 +13,16 @@ public class FuelHandler {
     public static Map<Item, Integer> fuelValues = Maps.newHashMap();
 
     public static void initFuelValues() {
-        for (TIWoodType woodType : ModBlocks.WoodTypes.VALUES) {
+        for (ModWoodType woodType : ModWoodTypes.VALUES) {
             initWoodFuelValues(woodType);
         }
 
         if (ModBlocks.PEAT != null) {
-            fuelValues.put(ModBlocks.PEAT.getItem(), 3200);
+            fuelValues.put(ModBlocks.PEAT.getItem(), 2400);
         }
     }
 
-    private static void initWoodFuelValues(TIWoodType woodType) {
+    private static void initWoodFuelValues(ModWoodType woodType) {
         if (woodType.isEnabled()) {
             fuelValues.put(woodType.LOG.getItem(), 300);
             fuelValues.put(woodType.STRIPPED_LOG.getItem(), 300);

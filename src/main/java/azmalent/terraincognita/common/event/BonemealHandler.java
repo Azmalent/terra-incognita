@@ -15,6 +15,7 @@ import net.minecraftforge.event.entity.player.BonemealEvent;
 
 import java.util.Random;
 
+@SuppressWarnings("ConstantConditions")
 public class BonemealHandler {
     private static final int MAX_LILYPAD_GROWING_DEPTH = 4;
 

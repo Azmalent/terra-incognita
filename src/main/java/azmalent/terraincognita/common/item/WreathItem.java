@@ -15,6 +15,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
@@ -25,6 +26,7 @@ public class WreathItem extends DyeableArmorItem {
         super(FlowerMaterial.INSTANCE, EquipmentSlotType.HEAD, new Item.Properties().group(TerraIncognita.TAB));
     }
 
+    @Nonnull
     @Override
     public ItemStack getDefaultInstance() {
         ItemStack stack = new ItemStack(this);
@@ -33,7 +35,7 @@ public class WreathItem extends DyeableArmorItem {
     }
 
     @Override
-    public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
+    public void fillItemGroup(@Nonnull ItemGroup group, @Nonnull NonNullList<ItemStack> items) {
         if (this.isInGroup(group)) {
             for (DyeColor color : DyeColor.values()) {
                 ItemStack stack = new ItemStack(this);
@@ -44,7 +46,7 @@ public class WreathItem extends DyeableArmorItem {
     }
 
     @Override
-    public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
+    public boolean getIsRepairable(ItemStack toRepair, @Nonnull ItemStack repair) {
         return false;
     }
 

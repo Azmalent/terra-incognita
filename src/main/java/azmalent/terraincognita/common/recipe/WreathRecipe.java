@@ -11,6 +11,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class WreathRecipe extends SpecialRecipe {
     }
 
     @Override
-    public boolean matches(CraftingInventory inv, World worldIn) {
+    public boolean matches(CraftingInventory inv, @Nonnull World worldIn) {
         int numFlowers = 0;
 
         for (int i = 0; i < inv.getSizeInventory(); i++) {
@@ -47,6 +48,7 @@ public class WreathRecipe extends SpecialRecipe {
         return false;
     }
 
+    @Nonnull
     @Override
     public ItemStack getCraftingResult(CraftingInventory inv) {
         List<DyeItem> dyes = new ArrayList<>();
@@ -66,11 +68,13 @@ public class WreathRecipe extends SpecialRecipe {
         return width >= 2 && height >= 2;
     }
 
+    @Nonnull
     @Override
     public ItemStack getRecipeOutput() {
         return DUMMY;
     }
 
+    @Nonnull
     @Override
     public IRecipeSerializer<?> getSerializer() {
         return ModRecipes.WREATH.get();

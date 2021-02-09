@@ -13,6 +13,7 @@ import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class ReedsFeature extends Feature<NoFeatureConfig> {
@@ -25,7 +26,7 @@ public class ReedsFeature extends Feature<NoFeatureConfig> {
         super(NoFeatureConfig.field_236558_a_);
     }
 
-    public boolean generate(ISeedReader reader, ChunkGenerator generator, Random rand, BlockPos pos, NoFeatureConfig config) {
+    public boolean generate(ISeedReader reader, @Nonnull ChunkGenerator generator, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull NoFeatureConfig config) {
         BlockPos centerPos = reader.getHeight(Heightmap.Type.WORLD_SURFACE_WG, pos);
         BlockPos.Mutable nextPos = new BlockPos.Mutable();
         boolean success = false;

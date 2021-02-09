@@ -5,6 +5,8 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.gen.feature.BlockClusterFeatureConfig;
 import net.minecraft.world.gen.feature.DefaultFlowersFeature;
 
+import javax.annotation.Nonnull;
+
 public class AlpineFlowerFeature extends DefaultFlowersFeature {
     private int minHeight;
 
@@ -14,7 +16,7 @@ public class AlpineFlowerFeature extends DefaultFlowersFeature {
     }
 
     @Override
-    public boolean isValidPosition(IWorld world, BlockPos pos, BlockClusterFeatureConfig config) {
+    public boolean isValidPosition(IWorld world, @Nonnull BlockPos pos, BlockClusterFeatureConfig config) {
         return world.canBlockSeeSky(pos) && (pos.getY() >= minHeight) && super.isValidPosition(world, pos, config);
     }
 }

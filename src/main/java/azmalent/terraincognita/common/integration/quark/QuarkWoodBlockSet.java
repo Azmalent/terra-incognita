@@ -2,6 +2,7 @@ package azmalent.terraincognita.common.integration.quark;
 
 import azmalent.cuneiform.lib.registry.BlockEntry;
 import azmalent.cuneiform.lib.registry.BlockRegistryHelper;
+import azmalent.cuneiform.lib.registry.BlockRenderType;
 import azmalent.terraincognita.common.init.ModBlocks;
 import azmalent.terraincognita.mixin.accessor.FireBlockAccessor;
 import net.minecraft.block.Block;
@@ -30,11 +31,11 @@ public class QuarkWoodBlockSet {
         VERTICAL_PLANKS = helper.newBuilder("vertical_" + id + "_planks", Block.Properties.create(Material.WOOD, woodColor).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)).build();
         VERTICAL_SLAB = helper.newBuilder(id + "_vertical_slab", () -> new VerticalSlabBlock(Block.Properties.create(Material.WOOD, woodColor).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD))).build();
         BOOKSHELF = helper.newBuilder(id + "_bookshelf", Block.Properties.create(Material.WOOD, woodColor).hardnessAndResistance(1.5F).sound(SoundType.WOOD)).build();
-        LADDER = helper.newBuilder(id + "_ladder", () -> new LadderBlock(Block.Properties.from(Blocks.LADDER))).build();
+        LADDER = helper.newBuilder(id + "_ladder", () -> new LadderBlock(Block.Properties.from(Blocks.LADDER))).withRenderType(BlockRenderType.CUTOUT).build();
         POST = helper.newBuilder(id + "_post", () -> new WoodenPostBlock(barkColor)).build();
         STRIPPED_POST = helper.newBuilder("stripped_" + id + "_post", () -> new WoodenPostBlock(woodColor)).build();
-        HEDGE = helper.newBuilder(id + "_hedge", () -> new HedgeBlock(woodColor)).build();
-        LEAF_CARPET = ModBlocks.HELPER.newBuilder(id + "_leaf_carpet", LeafCarpetBlock::new).build();
+        HEDGE = helper.newBuilder(id + "_hedge", () -> new HedgeBlock(woodColor)).withRenderType(BlockRenderType.CUTOUT_MIPPED).build();
+        LEAF_CARPET = ModBlocks.HELPER.newBuilder(id + "_leaf_carpet", LeafCarpetBlock::new).withRenderType(BlockRenderType.CUTOUT_MIPPED).build();
     }
 
     public void initFuelValues(Map<Item, Integer> fuelValues) {
@@ -52,14 +53,6 @@ public class QuarkWoodBlockSet {
         fire.TI_SetFireInfo(POST.getBlock(), 5, 20);
         fire.TI_SetFireInfo(STRIPPED_POST.getBlock(), 5, 20);
         fire.TI_SetFireInfo(HEDGE.getBlock(), 5, 20);
-    }
-
-    public void initRenderLayers() {
-        RenderTypeLookup.setRenderLayer(LADDER.getBlock(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(POST.getBlock(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(STRIPPED_POST.getBlock(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(HEDGE.getBlock(), RenderType.getCutoutMipped());
-        RenderTypeLookup.setRenderLayer(LEAF_CARPET.getBlock(), RenderType.getCutoutMipped());
     }
 }
 

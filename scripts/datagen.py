@@ -102,7 +102,7 @@ def make_wood_type(type):
     add_to_item_and_block_tags('leaves', '%s:%s' % (MODID, leaves))
 
     leaf_carpet = type + '_leaf_carpet'
-    variables = {'type': type, 'block': leaf_carpet}
+    variables = {'type': type, 'block': leaf_carpet, 'condition': type}
     copy_blockstate('simple_blockstate', leaf_carpet, variables)
     copy_block_model('leaf_carpet', leaf_carpet, variables)
     copy_item_model('block', leaf_carpet, variables)
@@ -188,6 +188,35 @@ def make_wood_type(type):
     copy_crafting_recipe('trapdoor', type + '/trapdoor', variables)
     add_to_item_and_block_tags('wooden_trapdoors', '%s:%s' % (MODID, trapdoor))
 
+    # Chests and signs
+    chest = variables['block'] = type + '_chest'
+    copy_blockstate('simple_blockstate', chest, variables)
+    copy_block_model('plank_particles', chest, {'type': type})
+    copy_item_model('chest', chest, variables)
+    copy_loot_table('named_tile_entity', chest, variables)
+    copy_crafting_recipe('chest', type + '/chest', variables)
+    copy_crafting_recipe('chest_from_logs', type + '/chest_from_logs', variables)
+    add_to_block_tag('chests/wooden', '%s:%s' % (MODID, chest), namespace='forge')
+
+    trapped_chest = type + '_trapped_chest'
+    copy_blockstate('simple_blockstate', trapped_chest, variables)
+    copy_block_model('plank_particles', trapped_chest, variables)
+    copy_item_model('trapped_chest', trapped_chest, variables)
+    copy_loot_table('named_tile_entity', trapped_chest, {'block': trapped_chest, 'condition': type})
+    copy_crafting_recipe('trapped_chest', type + '/trapped_chest', variables)
+    add_to_block_tag('chests/trapped', '%s:%s' % (MODID, trapped_chest), namespace='forge')
+
+    sign = variables['block'] = type + '_sign'
+    wall_sign = type + '_wall_sign'
+    copy_blockstate('simple_blockstate', sign, variables)
+    copy_blockstate('simple_blockstate', wall_sign, variables)
+    copy_block_model('plank_particles', sign, variables)
+    copy_item_model('item', sign, {'item': sign})
+    copy_crafting_recipe('sign', '%s/sign' % type, variables)
+    drop_itself(sign, variables)
+    add_to_block_tag('standing_signs', '%s:%s' % (MODID, sign))
+    add_to_block_tag('wall_signs', '%s:%s' % (MODID, wall_sign))
+
     # Other stuff
     bookshelf = variables['block'] = type + '_bookshelf'
     copy_blockstate('simple_blockstate', bookshelf, variables)
@@ -210,13 +239,3 @@ def make_wood_type(type):
     copy_item_model('item', boat, {'item': boat})
     add_to_item_tag('boats', '%s:%s' % (MODID, boat))
     copy_crafting_recipe('boat', '%s/boat' % type, variables)
-
-    sign = type + '_sign'
-    wall_sign = type + '_wall_sign'
-    copy_blockstate('simple_blockstate', sign, {'block': sign})
-    copy_blockstate('simple_blockstate', wall_sign, {'block': sign})
-    copy_block_model('sign', sign, {'type': type})
-    copy_item_model('item', sign, {'item': sign})
-    copy_crafting_recipe('sign', '%s/sign' % type, variables)
-    add_to_block_tag('standing_signs', '%s:%s' % (MODID, sign))
-    add_to_block_tag('wall_signs', '%s:%s' % (MODID, wall_sign))

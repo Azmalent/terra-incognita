@@ -10,9 +10,12 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import javax.annotation.Nonnull;
+
 @JeiPlugin
 @OnlyIn(Dist.CLIENT)
 public class JEIPlugin implements IModPlugin {
+    @Nonnull
     @Override
     public ResourceLocation getPluginUid() {
         return TerraIncognita.prefix("jei");

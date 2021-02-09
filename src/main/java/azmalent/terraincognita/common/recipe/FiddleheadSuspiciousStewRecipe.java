@@ -14,6 +14,8 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+
 public class FiddleheadSuspiciousStewRecipe extends SpecialRecipe {
     private static ItemStack DUMMY = new ItemStack(Items.SUSPICIOUS_STEW, 1);
 
@@ -22,7 +24,7 @@ public class FiddleheadSuspiciousStewRecipe extends SpecialRecipe {
     }
 
     @Override
-    public boolean matches(CraftingInventory inv, World worldIn) {
+    public boolean matches(CraftingInventory inv, @Nonnull World worldIn) {
         boolean flower = false;
         boolean redMushroom = false;
         boolean brownMushroom = false;
@@ -52,6 +54,7 @@ public class FiddleheadSuspiciousStewRecipe extends SpecialRecipe {
         return flower && brownMushroom && redMushroom && bowl && fiddlehead;
     }
 
+    @Nonnull
     @Override
     public ItemStack getCraftingResult(CraftingInventory inv) {
         ItemStack stew = new ItemStack(Items.SUSPICIOUS_STEW, 1);
@@ -81,11 +84,13 @@ public class FiddleheadSuspiciousStewRecipe extends SpecialRecipe {
         return width * height >= 5;
     }
 
+    @Nonnull
     @Override
     public ItemStack getRecipeOutput() {
         return DUMMY;
     }
 
+    @Nonnull
     @Override
     public IRecipeSerializer<?> getSerializer() {
         return ModRecipes.FIDDLEHEAD_SUSPICIOUS_STEW.get();

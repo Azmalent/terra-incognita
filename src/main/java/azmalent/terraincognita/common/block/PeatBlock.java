@@ -16,9 +16,11 @@ import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.PlantType;
 import net.minecraftforge.common.ToolType;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Random;
 
+@SuppressWarnings("deprecation")
 public class PeatBlock extends Block {
     public PeatBlock() {
         super(Properties.from(Blocks.DIRT).tickRandomly());
@@ -31,28 +33,28 @@ public class PeatBlock extends Block {
     }
 
     @Override
-    public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+    public void randomTick(@Nonnull BlockState state, @Nonnull ServerWorld world, @Nonnull BlockPos pos, @Nonnull Random random) {
         super.randomTick(state, world, pos, random);
 
-        BlockState plant = world.getBlockState(pos.up());
+        BlockPos plantPos = pos.up();
+        BlockState plant = world.getBlockState(plantPos);
         if (plant.getBlock() instanceof SugarCaneBlock || plant.isIn(Blocks.BAMBOO)) {
-            BlockPos top = pos.up();
-            while (world.getBlockState(top.up()).getBlock() == plant.getBlock()) {
-                top = top.up();
+            while (world.getBlockState(plantPos.up()).getBlock() == plant.getBlock()) {
+                plantPos = plantPos.up();
             }
 
-            plant = world.getBlockState(top);
+            plant = world.getBlockState(plantPos);
         }
 
         if (plant.getBlock() instanceof IGrowable && plant.ticksRandomly()) {
         	if (random.nextDouble() < TIConfig.Misc.peatGrowthRateBonus.get()) {
-            	plant.randomTick(world, pos, random);
+            	plant.randomTick(world, plantPos, random);
             }
         }
     }
 
     @Override
-    public boolean canSustainPlant(BlockState state, IBlockReader world, BlockPos pos, Direction facing, IPlantable plant) {
+    public boolean canSustainPlant(@Nonnull BlockState state, @Nonnull IBlockReader world, BlockPos pos, @Nonnull Direction facing, IPlantable plant) {
         if (plant.getPlantType(world, pos) == PlantType.PLAINS) {
             return true;
         }
@@ -67,6 +69,6 @@ public class PeatBlock extends Block {
             }
         }
 
-        return super.canSustainPlant(state, world, pos, facing, plant);
+        return Blocks.DIRT.canSustainPlant(state, world, pos, facing, plant);
     }
 }

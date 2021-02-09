@@ -2,9 +2,7 @@ package azmalent.terraincognita.common.init;
 
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.TIConfig;
-import azmalent.terraincognita.common.data.ModBlockTags;
-import azmalent.terraincognita.common.dispenser.TIBoatDispenserBehavior;
-import azmalent.terraincognita.common.init.blocksets.TIWoodType;
+import azmalent.terraincognita.common.item.dispenser.TIBoatDispenserBehavior;
 import azmalent.terraincognita.common.item.WreathItem;
 import azmalent.terraincognita.common.item.ModFoods;
 import azmalent.terraincognita.common.item.NotchCarrotItem;
@@ -31,8 +29,6 @@ public class ModItems {
     public static RegistryObject<Item> BERRY_SORBET;
     public static RegistryObject<WreathItem> WREATH;
 
-    public static RegistryObject<BoatItem> APPLE_BOAT;
-
     private static Item.Properties props() {
         return new Item.Properties().group(TerraIncognita.TAB);
     }
@@ -54,17 +50,20 @@ public class ModItems {
             BERRY_SORBET = ITEMS.register("berry_sorbet", () -> new SoupItem(props().food(ModFoods.BERRY_SORBET)));
         }
 
-        if (TIConfig.Flora.wreath.get()) WREATH = ITEMS.register("flower_band", WreathItem::new);
+        if (TIConfig.Flora.wreath.get()) {
+            WREATH = ITEMS.register("flower_band", WreathItem::new);
+        }
     }
 
     public static void registerDispenserBehaviors() {
         TIBoatDispenserBehavior boatBehavior = new TIBoatDispenserBehavior();
-        ModBlocks.WoodTypes.VALUES.forEach((type) -> {
+        ModWoodTypes.VALUES.forEach((type) -> {
             DispenserBlock.registerDispenseBehavior(type.BOAT.get(), boatBehavior);
         });
     }
 
     @OnlyIn(Dist.CLIENT)
+    @SuppressWarnings("ConstantConditions")
     public static void registerPropertyOverrides() {
         ItemModelsProperties.registerProperty(Items.SUSPICIOUS_STEW, new ResourceLocation("fiddlehead"), (stack, world, livingEntity) ->
             stack.hasTag() && stack.getTag().contains("fiddlehead") ? 1 : 0

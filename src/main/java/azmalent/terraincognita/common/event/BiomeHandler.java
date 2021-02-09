@@ -7,7 +7,7 @@ import azmalent.terraincognita.common.init.ModBiomes;
 import azmalent.terraincognita.common.world.ModOres;
 import azmalent.terraincognita.common.world.ModTrees;
 import azmalent.terraincognita.common.world.ModVegetation;
-import azmalent.terraincognita.util.WorldGenUtil;
+import azmalent.terraincognita.common.world.WorldGenUtil;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.*;
@@ -25,6 +25,7 @@ public class BiomeHandler {
         MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, BiomeHandler::applyVanillaBiomeTweaks);
         MinecraftForge.EVENT_BUS.addListener(EventPriority.LOW,    BiomeHandler::addCustomFeatures);
     }
+
     public static void initCustomBiomes(BiomeLoadingEvent event) {
         ResourceLocation id = event.getName();
         if (!id.getNamespace().equals(TerraIncognita.MODID)) {
@@ -50,7 +51,7 @@ public class BiomeHandler {
         if (!hasAnyType(biome, SANDY, MESA, WASTELAND)) {
             WorldGenUtil.addVegetation(event, ModVegetation.ROOTS);
             if (!hasAnyType(biome, COLD, SAVANNA, DRY)) {
-                WorldGenUtil.addVegetation(event, ModVegetation.MOSS);
+                WorldGenUtil.addVegetation(event, ModVegetation.HANGING_MOSS);
             }
         }
 
@@ -62,7 +63,7 @@ public class BiomeHandler {
                 if (hot) {
                     WorldGenUtil.addVegetation(event, ModVegetation.JUNGLE_FLOWERS, ModVegetation.LOTUS);
                 } else if (cold) {
-                    WorldGenUtil.addVegetation(event, ModVegetation.ARCTIC_FLOWERS, ModVegetation.ARCTIC_TALL_FLOWERS);
+                    WorldGenUtil.addVegetation(event, ModVegetation.ARCTIC_FLOWERS);
                 }
                 else {
                     WorldGenUtil.addVegetation(event, ModTrees.RARE_APPLE);
@@ -71,9 +72,7 @@ public class BiomeHandler {
             case SWAMP:
                 WorldGenUtil.addVegetation(event, ModVegetation.SMALL_LILYPADS, ModVegetation.REEDS);
                 WorldGenUtil.addOre(event, ModOres.PEAT);
-                if (!cold) {
-                    WorldGenUtil.addVegetation(event, ModVegetation.SWAMP_FLOWERS, ModVegetation.SWAMP_TALL_FLOWERS);
-                }
+                if (!cold) WorldGenUtil.addVegetation(event, ModVegetation.SWAMP_FLOWERS);
                 break;
             case SAVANNA:
                 WorldGenUtil.addVegetation(event, ModVegetation.SAVANNA_FLOWERS);
@@ -82,15 +81,13 @@ public class BiomeHandler {
                 WorldGenUtil.addVegetation(event, ModVegetation.DESERT_MARIGOLDS);
                 break;
             case EXTREME_HILLS:
-                if (!hot) {
-                    WorldGenUtil.addVegetation(event, ModVegetation.ALPINE_FLOWERS, ModVegetation.EDELWEISS);
-                }
+                if (!hot) WorldGenUtil.addVegetation(event, ModVegetation.ALPINE_FLOWERS);
                 break;
             case JUNGLE:
                 WorldGenUtil.addVegetation(event, ModVegetation.JUNGLE_FLOWERS, ModVegetation.LOTUS);
                 break;
             case TAIGA: case ICY:
-                WorldGenUtil.addVegetation(event, ModVegetation.ARCTIC_FLOWERS, ModVegetation.ARCTIC_TALL_FLOWERS);
+                WorldGenUtil.addVegetation(event, ModVegetation.ARCTIC_FLOWERS);
                 break;
         }
     }

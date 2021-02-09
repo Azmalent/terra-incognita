@@ -18,6 +18,7 @@ import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.PlantType;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 @SuppressWarnings("ConstantConditions")
@@ -31,12 +32,13 @@ public class TilledPeatBlock extends FarmlandBlock {
     }
 
     @Override
-    public boolean canSustainPlant(BlockState state, IBlockReader world, BlockPos pos, Direction facing, IPlantable plant) {
-        return (plant.getPlantType(world, pos.offset(facing)) == PlantType.CROP) || super.canSustainPlant(state, world, pos, facing, plant);
+    public boolean canSustainPlant(@Nonnull BlockState state, @Nonnull IBlockReader world, BlockPos pos, @Nonnull Direction facing, IPlantable plant) {
+        PlantType type = plant.getPlantType(world, pos.offset(facing));
+        return (type == PlantType.CROP) || (type == PlantType.PLAINS) || super.canSustainPlant(state, world, pos, facing, plant);
     }
 
     @Override
-    public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand) {
+    public void tick(BlockState state, @Nonnull ServerWorld worldIn, @Nonnull BlockPos pos, Random rand) {
         if (!state.isValidPosition(worldIn, pos)) {
             turnToPeat(state, worldIn, pos);
         }
@@ -48,8 +50,7 @@ public class TilledPeatBlock extends FarmlandBlock {
         if (moisture > 0 && hasCrops(world, pos)) {
             BlockState crop = world.getBlockState(pos.up());
             if (crop.ticksRandomly() && random.nextDouble() < TIConfig.Misc.peatGrowthRateBonus.get()) {
-                crop.randomTick(world, pos, random);
-                TerraIncognita.LOGGER.info("Boosted crop growth!");
+                crop.randomTick(world, pos.up(), random);
             }
         }
 
@@ -67,7 +68,7 @@ public class TilledPeatBlock extends FarmlandBlock {
     }
 
     @Override
-    public void onFallenUpon(World worldIn, BlockPos pos, Entity entityIn, float fallDistance) {
+    public void onFallenUpon(World worldIn, @Nonnull BlockPos pos, Entity entityIn, float fallDistance) {
         if (!worldIn.isRemote && ForgeHooks.onFarmlandTrample(worldIn, pos, Blocks.DIRT.getDefaultState(), fallDistance, entityIn)) {
             turnToPeat(worldIn.getBlockState(pos), worldIn, pos);
         }

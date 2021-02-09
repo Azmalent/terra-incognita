@@ -21,9 +21,11 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.Tags;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Random;
 
+@SuppressWarnings("deprecation")
 public class HangingMossBlock extends HangingPlantBlock implements IGrowable {
     public enum Variant implements IStringSerializable {
         SINGLE("single"), TOP("top"), BOTTOM("bottom");
@@ -34,6 +36,7 @@ public class HangingMossBlock extends HangingPlantBlock implements IGrowable {
             this.name = name;
         }
 
+        @Nonnull
         @Override
         public String getString() {
             return name;
@@ -61,10 +64,10 @@ public class HangingMossBlock extends HangingPlantBlock implements IGrowable {
         builder.add(VARIANT);
     }
 
+    @Nonnull
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext context) {
-        Vector3d offset = state.getOffset(world, pos);
-        return (state.get(VARIANT) == Variant.TOP ? TOP_SHAPE : BOTTOM_SHAPE).withOffset(offset.x, offset.y, offset.z);
+        return state.get(VARIANT) == Variant.TOP ? TOP_SHAPE : BOTTOM_SHAPE;
     }
 
     @Override
@@ -111,22 +114,17 @@ public class HangingMossBlock extends HangingPlantBlock implements IGrowable {
     }
 
     @Override
-    public OffsetType getOffsetType() {
-        return OffsetType.XZ;
-    }
-
-    @Override
-    public boolean canGrow(IBlockReader world, BlockPos pos, BlockState blockState, boolean isClient) {
+    public boolean canGrow(@Nonnull IBlockReader world, @Nonnull BlockPos pos, @Nonnull BlockState blockState, boolean isClient) {
         return true;
     }
 
     @Override
-    public boolean canUseBonemeal(World world, Random random, BlockPos pos, BlockState state) {
+    public boolean canUseBonemeal(@Nonnull World world, @Nonnull Random random, @Nonnull BlockPos pos, @Nonnull BlockState state) {
         return true;
     }
 
     @Override
-    public void grow(ServerWorld world, Random random, BlockPos pos, BlockState state) {
+    public void grow(@Nonnull ServerWorld world, @Nonnull Random random, @Nonnull BlockPos pos, BlockState state) {
         int numAttempts = 4;
 
         if (state.get(VARIANT) == Variant.SINGLE && world.isAirBlock(pos.down()) && random.nextBoolean()) {

@@ -3,6 +3,7 @@ package azmalent.terraincognita.common.world;
 import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.init.ModBlocks;
+import azmalent.terraincognita.common.init.ModWoodTypes;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.WorldGenRegistries;
@@ -46,10 +47,10 @@ public class ModTrees {
 
     public static void configureFeatures() {
         if (TIConfig.Trees.apple.get()) {
-            SimpleBlockStateProvider logProvider = new SimpleBlockStateProvider(ModBlocks.WoodTypes.APPLE.LOG.getBlock().getDefaultState());
+            SimpleBlockStateProvider logProvider = new SimpleBlockStateProvider(ModWoodTypes.APPLE.LOG.getBlock().getDefaultState());
             WeightedBlockStateProvider leavesProvider = new WeightedBlockStateProvider();
-            leavesProvider.addWeightedBlockstate(ModBlocks.WoodTypes.APPLE.LEAVES.getBlock().getDefaultState(), 1);
-            leavesProvider.addWeightedBlockstate(ModBlocks.WoodTypes.APPLE.BLOSSOMING_LEAVES.getBlock().getDefaultState(), 1);
+            leavesProvider.addWeightedBlockstate(ModWoodTypes.APPLE.LEAVES.getBlock().getDefaultState(), 1);
+            leavesProvider.addWeightedBlockstate(ModWoodTypes.APPLE.BLOSSOMING_LEAVES.getBlock().getDefaultState(), 1);
 
             BaseTreeFeatureConfig.Builder builder = (new BaseTreeFeatureConfig.Builder(logProvider, leavesProvider, new BlobFoliagePlacer(FeatureSpread.func_242252_a(2), FeatureSpread.func_242252_a(0), 3), new StraightTrunkPlacer(6, 2, 0), new TwoLayerFeature(1, 0, 1))).setIgnoreVines();
             APPLE = register("apple_tree", Feature.TREE.withConfiguration(builder.build()));

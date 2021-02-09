@@ -58,7 +58,7 @@ public class BasketTileEntity extends TileEntity implements INamedContainerProvi
     public ItemStack saveToStack() {
         assert ModBlocks.BASKET != null;
 
-        ItemStack stack = new ItemStack(ModBlocks.BASKET.getBlock());
+        ItemStack stack = ModBlocks.BASKET.makeStack();
         BasketStackHandler itemHandler = BasketItem.getStackHandler(stack);
         if (itemHandler != null) {
             itemHandler.setContents(stackHandler.getContents());
@@ -71,6 +71,7 @@ public class BasketTileEntity extends TileEntity implements INamedContainerProvi
         return stack;
     }
 
+    @Nonnull
     @Override
     public CompoundNBT write(CompoundNBT tag) {
         super.write(tag);
@@ -118,13 +119,14 @@ public class BasketTileEntity extends TileEntity implements INamedContainerProvi
     }
 
     @Override
-    public boolean isUsableByPlayer(PlayerEntity player) {
+    public boolean isUsableByPlayer(@Nonnull PlayerEntity player) {
         if (world.getTileEntity(pos) != this) return false;
 
         final double MAXIMUM_DISTANCE_SQ = 8.0 * 8.0;
         return player.getDistanceSq(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5) < MAXIMUM_DISTANCE_SQ;
     }
 
+    @Nonnull
     @Override
     public ITextComponent getDisplayName() {
         assert ModBlocks.BASKET != null;
@@ -152,16 +154,19 @@ public class BasketTileEntity extends TileEntity implements INamedContainerProvi
         return stackHandler.isEmpty();
     }
 
+    @Nonnull
     @Override
     public ItemStack getStackInSlot(int i) {
         return stackHandler.getStackInSlot(i);
     }
 
+    @Nonnull
     @Override
     public ItemStack decrStackSize(int i, int amount) {
         return stackHandler.extractItem(i, amount, false);
     }
 
+    @Nonnull
     @Override
     public ItemStack removeStackFromSlot(int i) {
         int limit = stackHandler.getSlotLimit(i);
@@ -169,7 +174,7 @@ public class BasketTileEntity extends TileEntity implements INamedContainerProvi
     }
 
     @Override
-    public void setInventorySlotContents(int i, ItemStack itemStack) {
+    public void setInventorySlotContents(int i, @Nonnull ItemStack itemStack) {
         stackHandler.setStackInSlot(i, itemStack);
     }
 
@@ -181,8 +186,9 @@ public class BasketTileEntity extends TileEntity implements INamedContainerProvi
     }
 
     //ISidedInventory implementation
+    @Nonnull
     @Override
-    public int[] getSlotsForFace(Direction side) {
+    public int[] getSlotsForFace(@Nonnull Direction side) {
         return SLOTS;
     }
 
@@ -192,7 +198,7 @@ public class BasketTileEntity extends TileEntity implements INamedContainerProvi
     }
 
     @Override
-    public boolean canExtractItem(int index, ItemStack stack, Direction direction) {
+    public boolean canExtractItem(int index, @Nonnull ItemStack stack, @Nonnull Direction direction) {
         return true;
     }
 }

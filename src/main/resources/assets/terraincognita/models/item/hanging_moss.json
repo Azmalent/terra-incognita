@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "terraincognita:block/hanging_moss_single"
+    "layer0": "terraincognita:item/hanging_moss"
   }
 }

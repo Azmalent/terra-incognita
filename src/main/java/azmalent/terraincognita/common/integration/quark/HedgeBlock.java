@@ -18,6 +18,8 @@ import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.PlantType;
 import vazkii.quark.content.building.module.HedgesModule;
 
+import javax.annotation.Nonnull;
+
 public class HedgeBlock extends FenceBlock {
     public static final BooleanProperty EXTEND = BooleanProperty.create("extend");
 
@@ -27,12 +29,12 @@ public class HedgeBlock extends FenceBlock {
     }
 
     @Override
-    public boolean canConnect(BlockState state, boolean isSideSolid, Direction direction) {
+    public boolean canConnect(BlockState state, boolean isSideSolid, @Nonnull Direction direction) {
         return state.getBlock().isIn(HedgesModule.hedgesTag);
     }
 
     @Override
-    public boolean canSustainPlant(BlockState state, IBlockReader world, BlockPos pos, Direction facing, IPlantable plantable) {
+    public boolean canSustainPlant(@Nonnull BlockState state, @Nonnull IBlockReader world, BlockPos pos, @Nonnull Direction facing, IPlantable plantable) {
         return facing == Direction.UP && !state.get(WATERLOGGED) && plantable.getPlantType(world, pos) == PlantType.PLAINS;
     }
 
@@ -47,8 +49,9 @@ public class HedgeBlock extends FenceBlock {
                 .with(EXTEND, downState.getBlock() instanceof HedgeBlock);
     }
 
+    @Nonnull
     @Override
-    public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
+    public BlockState updatePostPlacement(BlockState stateIn, Direction facing, @Nonnull BlockState facingState, @Nonnull IWorld worldIn, @Nonnull BlockPos currentPos, @Nonnull BlockPos facingPos) {
         if (stateIn.get(WATERLOGGED)) {
             worldIn.getPendingFluidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickRate(worldIn));
         }

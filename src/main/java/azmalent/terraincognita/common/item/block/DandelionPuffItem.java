@@ -19,6 +19,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class DandelionPuffItem extends BlockItem {
@@ -26,6 +27,7 @@ public class DandelionPuffItem extends BlockItem {
         super(blockIn, new Item.Properties().group(TerraIncognita.TAB));
     }
 
+    @Nonnull
     @Override
     public UseAction getUseAction(ItemStack stack) {
         return UseAction.BLOCK;
@@ -36,8 +38,9 @@ public class DandelionPuffItem extends BlockItem {
         return 100;
     }
 
+    @Nonnull
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, @Nonnull Hand handIn) {
         ItemStack stack = playerIn.getHeldItem(handIn);
         playerIn.setActiveHand(handIn);
         return new ActionResult<>(ActionResultType.SUCCESS, stack);
@@ -72,8 +75,9 @@ public class DandelionPuffItem extends BlockItem {
         onItemUseFinish(stack, worldIn, entityLiving);
     }
 
+    @Nonnull
     @Override
-    public ItemStack onItemUseFinish(ItemStack stack, World worldIn, LivingEntity entityLiving) {
+    public ItemStack onItemUseFinish(@Nonnull ItemStack stack, World worldIn, @Nonnull LivingEntity entityLiving) {
         if (!worldIn.isRemote && entityLiving instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity) entityLiving;
             player.addStat(Stats.ITEM_USED.get(this));

@@ -1,5 +1,5 @@
 {
-  "parent": "block/cross",
+  "parent": "block/tinted_cross",
   "textures": {
     "cross": "terraincognita:block/hanging_moss_top"
   }

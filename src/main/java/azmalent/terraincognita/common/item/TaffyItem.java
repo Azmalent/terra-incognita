@@ -13,6 +13,8 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+
 public class TaffyItem extends Item {
     private static int DURATION = 30;
 
@@ -20,6 +22,7 @@ public class TaffyItem extends Item {
         super(new Item.Properties().group(TerraIncognita.TAB).food(ModFoods.TAFFY));
     }
 
+    @Nonnull
     @Override
     public Rarity getRarity(ItemStack stack) {
         return Rarity.UNCOMMON;
@@ -30,8 +33,9 @@ public class TaffyItem extends Item {
         return 16;
     }
 
+    @Nonnull
     @Override
-    public ItemStack onItemUseFinish(ItemStack stack, World worldIn, LivingEntity entityLiving) {
+    public ItemStack onItemUseFinish(@Nonnull ItemStack stack, World worldIn, @Nonnull LivingEntity entityLiving) {
         if (!worldIn.isRemote && entityLiving instanceof ServerPlayerEntity) {
             ServerPlayerEntity player = (ServerPlayerEntity) entityLiving;
             EffectInstance effect = player.getActivePotionEffect(ModEffects.STICKY_MOUTH.get());

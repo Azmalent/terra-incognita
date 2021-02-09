@@ -19,6 +19,7 @@ import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.Tags;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class WaterloggableTallFlowerBlock extends TallFlowerBlock implements IWaterLoggable {
@@ -81,7 +82,7 @@ public class WaterloggableTallFlowerBlock extends TallFlowerBlock implements IWa
     }
 
     @Override
-    public void onBlockHarvested(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+    public void onBlockHarvested(World world, @Nonnull BlockPos pos, @Nonnull BlockState state, @Nonnull PlayerEntity player) {
         if (!world.isRemote) {
             if (player.isCreative()) {
                 if (state.get(HALF) == DoubleBlockHalf.UPPER) {
@@ -106,13 +107,15 @@ public class WaterloggableTallFlowerBlock extends TallFlowerBlock implements IWa
         return state.get(HALF) == DoubleBlockHalf.LOWER && !state.get(BlockStateProperties.WATERLOGGED) && fluid == Fluids.WATER;
     }
 
+    @Nonnull
     @Override
     public FluidState getFluidState(BlockState state) {
         return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
     }
 
+    @Nonnull
     @Override
-    public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
+    public BlockState updatePostPlacement(BlockState stateIn, Direction facing, @Nonnull BlockState facingState, @Nonnull IWorld worldIn, @Nonnull BlockPos currentPos, @Nonnull BlockPos facingPos) {
         if (stateIn.get(WATERLOGGED)) {
             worldIn.getPendingFluidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickRate(worldIn));
         }
