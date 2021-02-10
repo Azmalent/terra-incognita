@@ -71,7 +71,7 @@ public class BiomeHandler {
                 break;
             case SWAMP:
                 WorldGenUtil.addVegetation(event, ModVegetation.SMALL_LILYPADS, ModVegetation.REEDS);
-                WorldGenUtil.addOre(event, ModOres.PEAT);
+                WorldGenUtil.addOre(event, ModOres.PEAT_DISK);
                 if (!cold) WorldGenUtil.addVegetation(event, ModVegetation.SWAMP_FLOWERS);
                 break;
             case SAVANNA:

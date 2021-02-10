@@ -7,6 +7,7 @@
 	{"id": "terraincognita:potted_black_iris", "required": false},
 	{"id": "terraincognita:potted_blue_iris", "required": false},
 	{"id": "terraincognita:potted_blue_lupin", "required": false},
+	{"id": "terraincognita:potted_cattail", "required": false},
 	{"id": "terraincognita:potted_chicory", "required": false},
 	{"id": "terraincognita:potted_dandelion_puff", "required": false},
 	{"id": "terraincognita:potted_edelweiss", "required": false},
@@ -17,6 +18,9 @@
 	{"id": "terraincognita:potted_purple_iris", "required": false},
 	{"id": "terraincognita:potted_red_snapdragon", "required": false},
 	{"id": "terraincognita:potted_rockfoil", "required": false},
+	{"id": "terraincognita:potted_tall_fireweed", "required": false},
+  	{"id": "terraincognita:potted_water_flag", "required": false},
+	{"id": "terraincognita:potted_white_rhododendron", "required": false},
 	{"id": "terraincognita:potted_yarrow", "required": false},
 	{"id": "terraincognita:potted_yellow_snapdragon", "required": false}
   ]

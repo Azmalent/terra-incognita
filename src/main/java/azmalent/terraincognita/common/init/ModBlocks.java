@@ -56,11 +56,10 @@ public class ModBlocks {
     public static final PottablePlantEntry DWARF_FIREWEED = makeFlower("fireweed", Effects.SPEED, 160, Blocks.WITHER_ROSE, Flora.arcticFlowers);
     public static final PottablePlantEntry ARCTIC_POPPY   = makeFlower("arctic_poppy", Effects.NIGHT_VISION, 100, Blocks.DANDELION, Flora.arcticFlowers);
 
-    public static final List<BlockEntry> TALL_FLOWERS;
-    public static final BlockEntry CATTAIL            = makeWaterloggableTallFlower("cattail", Flora.swampFlowers);
-    public static final BlockEntry WATER_FLAG         = makeWaterloggableTallFlower("water_flag", Flora.swampFlowers);
-    public static final BlockEntry TALL_FIREWEED      = makeTallFlower("tall_fireweed", Flora.arcticFlowers);
-    public static final BlockEntry WHITE_RHODODENDRON = makeTallFlower("white_rhododendron", Flora.arcticFlowers);
+    public static final PottablePlantEntry CATTAIL            = makeWaterloggableTallPlant("cattail", Flora.swampFlowers);
+    public static final PottablePlantEntry WATER_FLAG         = makeWaterloggableTallPlant("water_flag", Flora.swampFlowers);
+    public static final PottablePlantEntry TALL_FIREWEED      = makeTallPlant("tall_fireweed", Flora.arcticFlowers);
+    public static final PottablePlantEntry WHITE_RHODODENDRON = makeTallPlant("white_rhododendron", Flora.arcticFlowers);
 
     public static final List<BlockEntry> LOTUSES;
     public static final BlockEntry PINK_LOTUS   = makeLotus("pink_lotus");
@@ -84,10 +83,7 @@ public class ModBlocks {
 
         FLOWERS = CollectionUtil.filterNotNull(
             DANDELION_PUFF, CHICORY, YARROW, MARIGOLD, BLUE_LUPINE, RED_SNAPDRAGON, YELLOW_SNAPDRAGON, MAGENTA_SNAPDRAGON, EDELWEISS,
-            ALPINE_PINK, SAXIFRAGE, GENTIAN, FORGET_ME_NOT, BLUE_IRIS, PURPLE_IRIS, BLACK_IRIS, DWARF_FIREWEED, ARCTIC_POPPY
-        );
-
-        TALL_FLOWERS = CollectionUtil.filterNotNull(
+            ALPINE_PINK, SAXIFRAGE, GENTIAN, FORGET_ME_NOT, BLUE_IRIS, PURPLE_IRIS, BLACK_IRIS, DWARF_FIREWEED, ARCTIC_POPPY,
             CATTAIL, WATER_FLAG, TALL_FIREWEED, WHITE_RHODODENDRON
         );
 
@@ -111,13 +107,15 @@ public class ModBlocks {
         return makePottablePlant(id, () -> new FlowerBlock(effect, duration, Properties.from(propertyBase)), condition);
     }
 
-    private static BlockEntry makeTallFlower(String id, BooleanOption condition) {
+    private static PottablePlantEntry makeTallPlant(String id, BooleanOption condition) {
         Function<Block, BlockItem> blockItemConstructor = block -> new TallBlockItem(block, new Item.Properties().group(TerraIncognita.TAB));
-        return HELPER.newBuilder(id, () -> new TallFlowerBlock(Properties.from(Blocks.ROSE_BUSH))).withBlockItem(blockItemConstructor).withRenderType(BlockRenderType.CUTOUT).buildIf(condition);
+        BlockEntry plant = HELPER.newBuilder(id, () -> new TallFlowerBlock(Properties.from(Blocks.ROSE_BUSH))).withBlockItem(blockItemConstructor).withRenderType(BlockRenderType.CUTOUT).buildIf(condition);
+        return new PottablePlantEntry(id, plant);
     }
 
-    private static BlockEntry makeWaterloggableTallFlower(String id, BooleanOption condition) {
-        return HELPER.newBuilder(id, WaterloggableTallFlowerBlock::new).withBlockItem(block -> new TallBlockItem(block, new Item.Properties().group(TerraIncognita.TAB))).withRenderType(BlockRenderType.CUTOUT).buildIf(condition);
+    private static PottablePlantEntry makeWaterloggableTallPlant(String id, BooleanOption condition) {
+        BlockEntry plant = HELPER.newBuilder(id, WaterloggableTallFlowerBlock::new).withBlockItem(block -> new TallBlockItem(block, new Item.Properties().group(TerraIncognita.TAB))).withRenderType(BlockRenderType.CUTOUT).buildIf(condition);
+        return new PottablePlantEntry(id, plant);
     }
 
     private static BlockEntry makeLotus(String id) {
@@ -125,20 +123,16 @@ public class ModBlocks {
         return HELPER.newBuilder(id, () -> new LilyPadBlock(Properties.from(Blocks.LILY_PAD))).withBlockItem(blockItemConstructor).withRenderType(BlockRenderType.CUTOUT).buildIf(Flora.lotus);
     }
 
-    public static void initTilling() {
-        HoeItem.HOE_LOOKUP = Maps.newHashMap(HoeItem.HOE_LOOKUP);
-
-        if (Misc.peat.get()) {
-            HoeItem.HOE_LOOKUP.put(ModBlocks.PEAT.getBlock(), ModBlocks.TILLED_PEAT.getBlock().getDefaultState());
-        }
-    }
-
-    public static void initStripping() {
+    public static void initToolInteractions() {
         AxeItem.BLOCK_STRIPPING_MAP = Maps.newHashMap(AxeItem.BLOCK_STRIPPING_MAP);
-
         for (ModWoodType woodType : ModWoodTypes.VALUES) {
             AxeItem.BLOCK_STRIPPING_MAP.put(woodType.LOG.getBlock(), woodType.STRIPPED_LOG.getBlock());
             AxeItem.BLOCK_STRIPPING_MAP.put(woodType.WOOD.getBlock(), woodType.STRIPPED_WOOD.getBlock());
+        }
+
+        HoeItem.HOE_LOOKUP = Maps.newHashMap(HoeItem.HOE_LOOKUP);
+        if (Misc.peat.get()) {
+            HoeItem.HOE_LOOKUP.put(ModBlocks.PEAT.getBlock(), ModBlocks.TILLED_PEAT.getBlock().getDefaultState());
         }
     }
 

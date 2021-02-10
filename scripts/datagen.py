@@ -51,6 +51,11 @@ def make_tall_flower(name, dye_color, condition):
 
     add_to_item_and_block_tags('tall_flowers', '%s:%s' % (MODID, name))
 
+    potted_name = variables['block'] = 'potted_' + name
+    copy_blockstate('simple_blockstate', potted_name, variables)
+    copy_loot_table('potted_bush', potted_name, variables)
+    add_to_block_tag('flower_pots', '%s:%s' % (MODID, potted_name))
+
 
 def make_stairs_and_slabs(type, base_block, condition):
     block = type + '_stairs'

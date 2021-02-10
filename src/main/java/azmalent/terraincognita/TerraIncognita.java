@@ -50,6 +50,7 @@ public class TerraIncognita {
         ModRecipes.RECIPES.register(bus);
         ModSounds.SOUNDS.register(bus);
         ModTileEntities.TILE_ENTITIES.register(bus);
+        ModTreeDecorators.TREE_DECORATORS.register(bus);
 
         ModCompatUtil.initModProxies(ModIntegration.class, MODID);
         ModIntegration.QUARK.register(bus);

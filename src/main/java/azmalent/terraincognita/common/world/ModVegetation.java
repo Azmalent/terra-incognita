@@ -104,8 +104,8 @@ public class ModVegetation {
 
         if (TIConfig.Flora.swampFlowers.get()) {
             Configs.SWAMP_FLOWERS = createConfig(ModBlocks.FORGET_ME_NOT, 32);
-            Configs.CATTAILS = (new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(ModBlocks.CATTAIL.getDefaultState()), new DoublePlantBlockPlacer())).tries(48).func_227317_b_().requiresWater().replaceable().build();
-            Configs.WATER_FLAG = (new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(ModBlocks.WATER_FLAG.getDefaultState()), new DoublePlantBlockPlacer())).tries(24).func_227317_b_().requiresWater().replaceable().build();
+            Configs.CATTAILS = (new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(ModBlocks.CATTAIL.getBlock().getDefaultState()), new DoublePlantBlockPlacer())).tries(48).func_227317_b_().requiresWater().replaceable().build();
+            Configs.WATER_FLAG = (new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(ModBlocks.WATER_FLAG.getBlock().getDefaultState()), new DoublePlantBlockPlacer())).tries(24).func_227317_b_().requiresWater().replaceable().build();
 
             List<ConfiguredRandomFeatureList> chances = Lists.newArrayList(
                 initFlowerFeature(Configs.SWAMP_FLOWERS).withChance(0.3f),
