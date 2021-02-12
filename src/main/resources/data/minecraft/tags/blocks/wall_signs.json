@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-	{"id": "terraincognita:apple_wall_sign", "required": false}
+	{"id": "terraincognita:apple_wall_sign", "required": false},
+	{"id": "terraincognita:hazel_wall_sign", "required": false}
   ]
 }

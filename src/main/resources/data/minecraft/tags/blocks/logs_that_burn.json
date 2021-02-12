@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-	"#terraincognita:apple_logs"
+	"#terraincognita:apple_logs",
+	"#terraincognita:hazel_logs"
   ]
 }

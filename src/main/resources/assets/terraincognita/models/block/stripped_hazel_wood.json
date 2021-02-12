@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "terraincognita:block/stripped_hazel_wood",
+    "side": "terraincognita:block/stripped_hazel_wood"
+  }
+}
