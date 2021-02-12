@@ -1,6 +1,5 @@
 package azmalent.terraincognita.client.renderer.tile;
 
-import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.block.signs.AbstractModSignBlock;
 import azmalent.terraincognita.common.block.signs.ModStandingSignBlock;
 import azmalent.terraincognita.common.block.signs.ModWallSignBlock;
@@ -13,9 +12,11 @@ import net.minecraft.block.WoodType;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.Atlases;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.model.Model;
+import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.client.renderer.model.RenderMaterial;
 import net.minecraft.client.renderer.texture.NativeImage;
-import net.minecraft.client.renderer.tileentity.SignTileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.util.IReorderingProcessor;
@@ -30,7 +31,7 @@ import java.util.List;
 @OnlyIn(Dist.CLIENT)
 public class ModSignRenderer extends TileEntityRenderer<ModSignTileEntity> {
     /** The ModelSign instance for use in this renderer */
-    private final SignTileEntityRenderer.SignModel model = new SignTileEntityRenderer.SignModel();
+    private final SignModel model = new SignModel();
 
     public ModSignRenderer(TileEntityRendererDispatcher rendererDispatcherIn) {
         super(rendererDispatcherIn);
@@ -60,17 +61,18 @@ public class ModSignRenderer extends TileEntityRenderer<ModSignTileEntity> {
         this.model.signBoard.render(matrixStackIn, ivertexbuilder, combinedLightIn, combinedOverlayIn);
         this.model.signStick.render(matrixStackIn, ivertexbuilder, combinedLightIn, combinedOverlayIn);
         matrixStackIn.pop();
+
         FontRenderer fontrenderer = this.renderDispatcher.getFontRenderer();
-        float f2 = 0.010416667F;
-        matrixStackIn.translate(0.0D, (double)0.33333334F, (double)0.046666667F);
-        matrixStackIn.scale(0.010416667F, -0.010416667F, 0.010416667F);
+        float scale = 0.010416667F;
+        matrixStackIn.translate(0.0D, 0.33333334F, (double)0.046666667F);
+        matrixStackIn.scale(scale, -scale, scale);
+
         int i = tileEntityIn.getTextColor().getTextColor();
-        double d0 = 0.4D;
-        int j = (int)((double)NativeImage.getRed(i) * 0.4D);
-        int k = (int)((double)NativeImage.getGreen(i) * 0.4D);
-        int l = (int)((double)NativeImage.getBlue(i) * 0.4D);
+        double multiplier = 0.4D;
+        int j = (int)((double)NativeImage.getRed(i) * multiplier);
+        int k = (int)((double)NativeImage.getGreen(i) * multiplier);
+        int l = (int)((double)NativeImage.getBlue(i) * multiplier);
         int i1 = NativeImage.getCombined(0, l, k, j);
-        int j1 = 20;
 
         for(int k1 = 0; k1 < 4; ++k1) {
             IReorderingProcessor ireorderingprocessor = tileEntityIn.func_242686_a(k1, (p_243502_1_) -> {
@@ -79,7 +81,7 @@ public class ModSignRenderer extends TileEntityRenderer<ModSignTileEntity> {
             });
             if (ireorderingprocessor != null) {
                 float f3 = (float)(-fontrenderer.func_243245_a(ireorderingprocessor) / 2);
-                fontrenderer.func_238416_a_(ireorderingprocessor, f3, (float)(k1 * 10 - 20), i1, false, matrixStackIn.getLast().getMatrix(), bufferIn, false, 0, combinedLightIn);
+                fontrenderer.func_238416_a_(ireorderingprocessor, f3, (float)(k1 * 10 - 20), i1, false, matrixStackIn.getLast().getMatrix(), bufferIn, false, 0, tileEntityIn.isGlowing() ? 15728880 : combinedLightIn);
             }
         }
 
@@ -93,5 +95,23 @@ public class ModSignRenderer extends TileEntityRenderer<ModSignTileEntity> {
         }
 
         return Atlases.getSignMaterial(WoodType.OAK);
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public static final class SignModel extends Model {
+        public final ModelRenderer signBoard = new ModelRenderer(64, 32, 0, 0);
+        public final ModelRenderer signStick;
+
+        public SignModel() {
+            super(RenderType::getEntityCutoutNoCull);
+            this.signBoard.addBox(-12.0F, -14.0F, -1.0F, 24.0F, 12.0F, 2.0F, 0.0F);
+            this.signStick = new ModelRenderer(64, 32, 0, 14);
+            this.signStick.addBox(-1.0F, -2.0F, -1.0F, 2.0F, 14.0F, 2.0F, 0.0F);
+        }
+
+        public void render(MatrixStack p_225598_1_, IVertexBuilder p_225598_2_, int p_225598_3_, int p_225598_4_, float p_225598_5_, float p_225598_6_, float p_225598_7_, float p_225598_8_) {
+            this.signBoard.render(p_225598_1_, p_225598_2_, p_225598_3_, p_225598_4_, p_225598_5_, p_225598_6_, p_225598_7_, p_225598_8_);
+            this.signStick.render(p_225598_1_, p_225598_2_, p_225598_3_, p_225598_4_, p_225598_5_, p_225598_6_, p_225598_7_, p_225598_8_);
+        }
     }
 }

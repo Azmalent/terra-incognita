@@ -1,13 +1,18 @@
 package azmalent.terraincognita.network.message;
 
+import azmalent.terraincognita.client.ClientHandler;
 import azmalent.terraincognita.common.tile.ModSignTileEntity;
+import azmalent.terraincognita.network.NetworkHandler;
+import net.minecraft.block.BlockState;
+import net.minecraft.client.world.ClientWorld;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.DyeColor;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.network.NetworkDirection;
+import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.network.NetworkEvent;
 
 import java.util.function.Supplier;
@@ -49,19 +54,45 @@ public final class UpdateSignMessage {
     @SuppressWarnings("ConstantConditions")
     public static void handle(final UpdateSignMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
         NetworkEvent.Context context = contextSupplier.get();
-        context.enqueueWork(() -> {
-            if (context.getDirection() == NetworkDirection.PLAY_TO_SERVER) {
-                World world = context.getSender().getEntityWorld();
-                TileEntity te = world.getTileEntity(message.pos);
-                if (te instanceof ModSignTileEntity) {
-                    ModSignTileEntity sign = (ModSignTileEntity) te;
-                    for (int i = 0; i < 4; i++) {
-                        sign.setText(i, message.lines[i]);
+        if (context.getDirection().getReceptionSide() == LogicalSide.SERVER) {
+            context.enqueueWork(() -> {
+                ServerPlayerEntity player = context.getSender();
+                player.markPlayerActive();
+
+                ServerWorld world = player.getServerWorld();
+                if (world.isAreaLoaded(message.pos, 1)) {
+                    TileEntity te = world.getTileEntity(message.pos);
+                    if (te instanceof ModSignTileEntity) {
+                        ModSignTileEntity sign = (ModSignTileEntity) te;
+                        for (int i = 0; i < 4; i++) {
+                            sign.setText(i, message.lines[i]);
+                        }
+
+                        sign.markDirty();
+                        sign.setTextColor(DyeColor.byId(message.color));
+                        world.notifyBlockUpdate(message.pos, sign.getBlockState(), sign.getBlockState(), 3);
+
+                        NetworkHandler.sendToAllPlayers(message);
                     }
-                    sign.setTextColor(DyeColor.byId(message.color));
                 }
-            }
-        });
+            });
+        }
+        else {
+            context.enqueueWork(() -> {
+                ClientWorld world = ClientHandler.getWorld();
+                if (world.isAreaLoaded(message.pos, 1)) {
+                    TileEntity te = world.getTileEntity(message.pos);
+                    if (te instanceof ModSignTileEntity) {
+                        ModSignTileEntity sign = (ModSignTileEntity) te;
+                        for (int i = 0; i < 4; i++) {
+                            sign.setText(i, message.lines[i]);
+                        }
+
+                        sign.setTextColor(DyeColor.byId(message.color));
+                    }
+                }
+            });
+        }
 
         context.setPacketHandled(true);
     }

@@ -52,3 +52,9 @@ An expansion focusing on nature and exploration.
     mandatory=false
     ordering="AFTER"
     side="BOTH"
+
+[[dependencies.terraincognita]]
+    modId="upgrade_aquatic"
+    mandatory=false
+    ordering="AFTER"
+    side="BOTH"

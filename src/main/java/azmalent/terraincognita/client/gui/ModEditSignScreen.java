@@ -5,7 +5,6 @@ import azmalent.terraincognita.common.block.signs.ModStandingSignBlock;
 import azmalent.terraincognita.common.tile.ModSignTileEntity;
 import azmalent.terraincognita.network.NetworkHandler;
 import azmalent.terraincognita.network.message.UpdateSignMessage;
-import azmalent.terraincognita.network.message.UpdateTEMessage;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -26,14 +25,12 @@ import net.minecraft.client.renderer.model.RenderMaterial;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.tileentity.SignTileEntityRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.network.play.client.CUpdateSignPacket;
 import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.network.NetworkEvent;
 
 import javax.annotation.Nonnull;
 
@@ -82,9 +79,6 @@ public class ModEditSignScreen extends Screen {
         if (connection != null) {
             UpdateSignMessage signMessage = new UpdateSignMessage(sign.getPos(), sign.signText, sign.getTextColor().getId());
             NetworkHandler.sendToServer(signMessage);
-
-            UpdateTEMessage teMessage = new UpdateTEMessage(sign.getPos(), sign.write(sign.getUpdateTag()));
-            NetworkHandler.sendToServer(teMessage);
         }
 
         this.sign.setEditable(true);

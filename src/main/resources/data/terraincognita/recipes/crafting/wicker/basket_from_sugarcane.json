@@ -6,7 +6,7 @@
   ],
   "key": {
     "R": {
-      "item": "terraincognita:reeds"
+      "item": "minecraft:sugar_cane"
     }
   },
   "result": {
@@ -18,8 +18,11 @@
       "type": "forge:and",
       "values": [
         {
-          "type": "cuneiform:config",
-          "config": "terraincognita:reeds"
+          "type": "forge:not",
+          "value": {
+            "type": "cuneiform:config",
+            "config": "terraincognita:reeds"
+          }
         },
         {
           "type": "cuneiform:config",

@@ -36,6 +36,7 @@ public class ModSignTileEntity extends TileEntity {
     private PlayerEntity player;
     private final IReorderingProcessor[] renderText;
     private DyeColor textColor;
+    private boolean glowing;
 
     public ModSignTileEntity() {
         super(ModTileEntities.SIGN.get());
@@ -43,6 +44,7 @@ public class ModSignTileEntity extends TileEntity {
         this.isEditable = true;
         this.renderText = new IReorderingProcessor[4];
         this.textColor = DyeColor.BLACK;
+        this.glowing = false;
     }
 
     @Nonnull
@@ -56,6 +58,7 @@ public class ModSignTileEntity extends TileEntity {
         }
 
         compound.putString("Color", this.textColor.getTranslationKey());
+        compound.putBoolean("Glowing", this.glowing);
         return compound;
     }
 
@@ -64,6 +67,7 @@ public class ModSignTileEntity extends TileEntity {
         this.isEditable = false;
         super.read(state, nbt);
         this.textColor = DyeColor.byTranslationKey(nbt.getString("Color"), DyeColor.BLACK);
+        this.glowing = nbt.getBoolean("Glowing");
 
         for(int i = 0; i < 4; ++i) {
             String s = nbt.getString("Text" + (i + 1));
@@ -91,6 +95,21 @@ public class ModSignTileEntity extends TileEntity {
     public void setText(int line, ITextComponent signText) {
         this.signText[line] = signText;
         this.renderText[line] = null;
+    }
+
+    public boolean isGlowing() {
+        return glowing;
+    }
+
+    public boolean setGlowing(boolean value) {
+        if (glowing != value) {
+            glowing = value;
+            markDirty();
+            this.world.notifyBlockUpdate(pos, getBlockState(), getBlockState(), 3);
+            return true;
+        }
+
+        return false;
     }
 
     @Nullable

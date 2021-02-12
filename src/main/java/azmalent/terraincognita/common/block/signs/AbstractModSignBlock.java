@@ -4,8 +4,8 @@ import azmalent.terraincognita.common.block.blocksets.ModWoodType;
 import azmalent.terraincognita.common.integration.ModIntegration;
 import azmalent.terraincognita.common.tile.ModSignTileEntity;
 import azmalent.terraincognita.network.NetworkHandler;
-import azmalent.terraincognita.network.message.EditSignMessage;
 import azmalent.terraincognita.network.message.UpdateSignMessage;
+import azmalent.terraincognita.network.message.s2c.S2CEditSignMessage;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
@@ -59,7 +59,7 @@ public abstract class AbstractModSignBlock extends AbstractSignBlock {
                 boolean setColor = sign.setTextColor(((DyeItem) heldStack.getItem()).getDyeColor());
                 if (setColor) {
                     UpdateSignMessage message = new UpdateSignMessage(pos, sign.signText, sign.getTextColor().getId());
-                    NetworkHandler.sendToServer(message);
+                    NetworkHandler.sendToAllPlayers(message);
 
                     if (!player.isCreative()) {
                         heldStack.shrink(1);
@@ -67,7 +67,7 @@ public abstract class AbstractModSignBlock extends AbstractSignBlock {
                 }
             } else {
                 if (canEdit && !this.doesSignHaveCommand(sign) && ModIntegration.QUARK.canEditSign(heldStack) && !player.isSneaking()) {
-                    NetworkHandler.sendTo((ServerPlayerEntity) player, new EditSignMessage(pos));
+                    NetworkHandler.sendToPlayer((ServerPlayerEntity) player, new S2CEditSignMessage(pos));
                     return ActionResultType.SUCCESS;
                 }
             }

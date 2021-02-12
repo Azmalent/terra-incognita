@@ -19,7 +19,7 @@
 	{"id": "terraincognita:potted_red_snapdragon", "required": false},
 	{"id": "terraincognita:potted_rockfoil", "required": false},
 	{"id": "terraincognita:potted_tall_fireweed", "required": false},
-  	{"id": "terraincognita:potted_water_flag", "required": false},
+	{"id": "terraincognita:potted_water_flag", "required": false},
 	{"id": "terraincognita:potted_white_rhododendron", "required": false},
 	{"id": "terraincognita:potted_yarrow", "required": false},
 	{"id": "terraincognita:potted_yellow_snapdragon", "required": false}

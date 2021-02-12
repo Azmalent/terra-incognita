@@ -5,6 +5,7 @@ import azmalent.terraincognita.common.block.trees.AppleTree;
 import azmalent.terraincognita.common.block.blocksets.AppleWoodType;
 import azmalent.terraincognita.common.block.blocksets.ModWoodType;
 import azmalent.terraincognita.util.CollectionUtil;
+import com.google.common.collect.Lists;
 import net.minecraft.block.material.MaterialColor;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public class ModWoodTypes {
     public static Map<String, ModWoodType> VALUES_BY_NAME;
 
     public static void init() {
-        VALUES = CollectionUtil.filterNotNull(APPLE);
+        VALUES = Lists.newArrayList(APPLE).stream().filter(ModWoodType::isEnabled).collect(Collectors.toList());
         VALUES_BY_NAME = VALUES.stream().collect(Collectors.toMap(type -> type.name, type -> type));
     }
 

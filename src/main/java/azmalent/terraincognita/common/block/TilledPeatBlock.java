@@ -1,7 +1,6 @@
 package azmalent.terraincognita.common.block;
 
 import azmalent.terraincognita.TIConfig;
-import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.init.ModBlocks;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
@@ -33,8 +32,7 @@ public class TilledPeatBlock extends FarmlandBlock {
 
     @Override
     public boolean canSustainPlant(@Nonnull BlockState state, @Nonnull IBlockReader world, BlockPos pos, @Nonnull Direction facing, IPlantable plant) {
-        PlantType type = plant.getPlantType(world, pos.offset(facing));
-        return (type == PlantType.CROP) || (type == PlantType.PLAINS) || super.canSustainPlant(state, world, pos, facing, plant);
+        return Blocks.FARMLAND.canSustainPlant(state, world, pos, facing, plant);
     }
 
     @Override

@@ -15,6 +15,7 @@ import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.gen.blockplacer.DoublePlantBlockPlacer;
 import net.minecraft.world.gen.blockplacer.SimpleBlockPlacer;
 import net.minecraft.world.gen.blockstateprovider.BlockStateProvider;
+import net.minecraft.world.gen.blockstateprovider.PlainFlowerBlockStateProvider;
 import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.blockstateprovider.WeightedBlockStateProvider;
 import net.minecraft.world.gen.feature.*;
@@ -24,7 +25,6 @@ import java.util.function.Supplier;
 
 public class ModVegetation {
     public static class Configs {
-        public static BlockClusterFeatureConfig FIELD_FLOWERS;
         public static BlockClusterFeatureConfig SWAMP_FLOWERS;
         public static BlockClusterFeatureConfig CATTAILS;
         public static BlockClusterFeatureConfig WATER_FLAG;
@@ -38,7 +38,6 @@ public class ModVegetation {
         public static BlockClusterFeatureConfig WITHER_ROSE;
     }
 
-    public static ConfiguredFeature<?, ?> FIELD_FLOWERS;
     public static ConfiguredFeature<?, ?> SWAMP_FLOWERS;
     public static ConfiguredFeature<?, ?> ALPINE_FLOWERS;
     public static ConfiguredFeature<?, ?> SAVANNA_FLOWERS;
@@ -94,12 +93,11 @@ public class ModVegetation {
     @SuppressWarnings("ConstantConditions")
     public static void configureFeatures() {
 		if (TIConfig.Flora.fieldFlowers.get()) {
-            WeightedBlockStateProvider provider = new WeightedBlockStateProvider();
-            provider.addWeightedBlockstate(ModBlocks.CHICORY.getBlock().getDefaultState(), 2);
-            provider.addWeightedBlockstate(ModBlocks.YARROW.getBlock().getDefaultState(), 1);
+            List<BlockState> flowers = Lists.newArrayList(PlainFlowerBlockStateProvider.COMMON_FLOWERS);
+            flowers.add(ModBlocks.CHICORY.getBlock().getDefaultState());
+            flowers.add(ModBlocks.YARROW.getBlock().getDefaultState());
 
-            Configs.FIELD_FLOWERS = createConfig(provider, 16);
-            FIELD_FLOWERS = register("field_flowers", initFlowerFeature(Configs.FIELD_FLOWERS));
+            PlainFlowerBlockStateProvider.COMMON_FLOWERS = flowers.toArray(new BlockState[0]);
         }
 
         if (TIConfig.Flora.swampFlowers.get()) {

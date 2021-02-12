@@ -57,7 +57,7 @@ public class BiomeHandler {
 
         switch (event.getCategory()) {
             case PLAINS:
-                WorldGenUtil.addVegetation(event, ModVegetation.FIELD_FLOWERS, ModTrees.RARE_APPLE);
+                WorldGenUtil.addVegetation(event, ModTrees.RARE_APPLE);
                 break;
             case FOREST:
                 if (hot) {

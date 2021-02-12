@@ -3,7 +3,7 @@ package azmalent.terraincognita.common.item.block;
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.block.blocksets.ModWoodType;
 import azmalent.terraincognita.network.NetworkHandler;
-import azmalent.terraincognita.network.message.EditSignMessage;
+import azmalent.terraincognita.network.message.s2c.S2CEditSignMessage;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -25,7 +25,7 @@ public class ModSignItem extends WallOrFloorItem {
     protected boolean onBlockPlaced(BlockPos pos, World worldIn, @Nullable PlayerEntity player, ItemStack stack, BlockState state) {
         boolean flag = super.onBlockPlaced(pos, worldIn, player, stack, state);
         if (!flag && player instanceof ServerPlayerEntity) {
-            NetworkHandler.sendTo((ServerPlayerEntity) player, new EditSignMessage(pos));
+            NetworkHandler.sendToPlayer((ServerPlayerEntity) player, new S2CEditSignMessage(pos));
         }
 
         return flag;

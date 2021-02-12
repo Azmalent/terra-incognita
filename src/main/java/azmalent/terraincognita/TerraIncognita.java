@@ -7,7 +7,7 @@ import azmalent.terraincognita.common.init.*;
 import azmalent.terraincognita.common.integration.ModIntegration;
 import azmalent.terraincognita.network.NetworkHandler;
 import azmalent.terraincognita.proxy.ClientProxy;
-import azmalent.terraincognita.proxy.CommonProxy;
+import azmalent.terraincognita.proxy.ServerProxy;
 import azmalent.terraincognita.proxy.IProxy;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -32,7 +32,7 @@ public class TerraIncognita {
         }
     };
 
-    public static final IProxy PROXY = DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> CommonProxy::new);
+    public static final IProxy PROXY = DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> ServerProxy::new);
 
     public TerraIncognita() {
         TIConfig.init();
@@ -55,6 +55,7 @@ public class TerraIncognita {
         ModCompatUtil.initModProxies(ModIntegration.class, MODID);
         ModIntegration.QUARK.register(bus);
         ModIntegration.SIMPLY_TEA.register(bus);
+        ModIntegration.UPGRADE_AQUATIC.register(bus);
 
         NetworkHandler.registerMessages();
 
