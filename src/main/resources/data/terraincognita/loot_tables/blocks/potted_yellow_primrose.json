@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "terraincognita:potted_yellow_primrose"
+          "name": "terraincognita:yellow_primrose"
         }
       ],
       "conditions": [

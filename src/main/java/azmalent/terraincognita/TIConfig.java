@@ -58,11 +58,15 @@ public class TIConfig extends CommonConfigFile {
         public static DoubleOption dandelionPuffChance = new DoubleOption(0.5).inRange(0, 1);
 
         @Name("Field Flowers Enabled")
-        @Comment("Adds chicory and yarrow to plains.")
+        @Comment("Adds chicory, yarrow and daffodils to plains. Daffodils are rare, but they can also be found in flower forests.")
         public static BooleanOption fieldFlowers = new BooleanOption(true).withFlag("field_flowers");
 
+		@Name("Forest Flowers Enabled")
+        @Comment("Adds bluebells, primroses and foxglove to forests. These flowers can also be found in flower forests.")
+        public static BooleanOption forestFlowers = new BooleanOption(true).withFlag("forest_flowers");
+
         @Name("Swamp Flowers Enabled")
-        @Comment("Adds forget-me-not, cattails and water flags to temperate and hot swamps.")
+        @Comment("Adds forget-me-not, globeflower, cattails and water flags to temperate and hot swamps.")
         public static BooleanOption swampFlowers = new BooleanOption(true).withFlag("swamp_flowers");
 
         @Name("Small Lilypads Enabled")
@@ -127,7 +131,7 @@ public class TIConfig extends CommonConfigFile {
         public static BooleanOption caltrops = new BooleanOption(true).withFlag("caltrops");
 
         @Name("Basket Enabled")
-        @Comment({"Basket is a portable container crafted from swamp reeds. It can be placed or opened from inventory.",
+        @Comment({"Basket is a portable container crafted from swamp reeds (or sugar cane if reeds are disabled). It can be placed or opened from inventory.",
             "Baskets have 9 slots and can only store flowers, saplings, mushrooms and berries by default (governed by #terraincognita:basket_storable item tag)",
             "When you have a basket in your hand, it will automatically collect compatible items."})
         public static BooleanOption basket = new BooleanOption(true).withFlag("basket");
@@ -143,15 +147,16 @@ public class TIConfig extends CommonConfigFile {
         public static BooleanOption apple = new BooleanOption(true).withFlag("apple");
 
         public static BooleanOption disableAppleDropFromOaks = new BooleanOption(true).withFlag("remove_oak_apples");
+
+        @Name("Hazel Trees Enabled")
+        public static BooleanOption hazel = new BooleanOption(true).withFlag("hazel");
     }
 
     public static class Misc extends Category {
         @Name("Peat Enabled")
-        @Comment({
-            "Peat is a block found underwater in swamps similar to clay.",
+        @Comment({"Peat is a block found underwater in swamps similar to clay.",
             "It can be tilled and used to plant crops, which will grow faster than on regular farmland.",
-            "One peat block can also be used as fuel to smelt 12 items."
-        })
+            "One peat block can also be used as fuel to smelt 12 items."})
         public static BooleanOption peat = new BooleanOption(true);
 
         public static DoubleOption peatGrowthRateBonus = new DoubleOption(0.25).inRange(0, 1);

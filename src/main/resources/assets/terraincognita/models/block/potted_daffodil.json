@@ -1,6 +1,6 @@
 {
   "parent": "block/flower_pot_cross",
   "textures": {
-    "plant": "terraincognita:block/potted_daffodil"
+    "plant": "terraincognita:block/daffodil"
   }
 }

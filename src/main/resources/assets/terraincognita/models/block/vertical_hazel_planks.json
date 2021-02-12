@@ -1,6 +1,6 @@
 {
-  "parent": "block/cube_all",
+  "parent": "quark:block/vertical_planks",
   "textures": {
-    "all": "terraincognita:block/vertical_hazel_planks"
+    "all": "terraincognita:block/hazel_planks"
   }
 }

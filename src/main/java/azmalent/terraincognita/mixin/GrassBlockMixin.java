@@ -11,6 +11,7 @@ import net.minecraft.util.RegistryKey;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.gen.feature.BlockClusterFeatureConfig;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.FlowersFeature;
@@ -30,12 +31,15 @@ public class GrassBlockMixin {
     private static BlockClusterFeatureConfig getCustomFlowerConfig(Random rand, IWorldReader world, BlockPos pos) {
         Biome biome = world.getBiome(pos);
         RegistryKey<Biome> biomeKey = BiomeUtil.getBiomeKey(biome);
-        boolean cold = BiomeDictionary.hasType(biomeKey, COLD);
-        boolean hot = BiomeDictionary.hasType(biomeKey, HOT);
 
-        float f = rand.nextFloat();
-        if (f < 0.33) {
+        if (biomeKey != Biomes.FLOWER_FOREST && rand.nextFloat() < 0.33) {
+            boolean cold = BiomeDictionary.hasType(biomeKey, COLD);
+            boolean hot = BiomeDictionary.hasType(biomeKey, HOT);
+
             switch (biome.getCategory()) {
+                case FOREST:
+                    if (!cold && !hot) return ModVegetation.Configs.FOREST_FLOWERS;
+                    break;
                 case SWAMP:
                     if (!cold) return ModVegetation.Configs.SWAMP_FLOWERS;
                     break;

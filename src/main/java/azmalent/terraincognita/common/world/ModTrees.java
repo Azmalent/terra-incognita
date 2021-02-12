@@ -2,7 +2,6 @@ package azmalent.terraincognita.common.world;
 
 import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.TerraIncognita;
-import azmalent.terraincognita.common.init.ModBlocks;
 import azmalent.terraincognita.common.init.ModWoodTypes;
 import azmalent.terraincognita.common.world.treedecorator.AppleTreeDecorator;
 import com.google.common.collect.Lists;
@@ -40,7 +39,9 @@ public class ModTrees {
     public static final ConfiguredFeature<BaseTreeFeatureConfig, ?> RARE_BIRCHES = register("rare_birches", Features.BIRCH.chance(8));
 
     public static ConfiguredFeature<BaseTreeFeatureConfig, ?> APPLE;
-    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> RARE_APPLE;
+    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> NATURAL_APPLE;
+
+	public static ConfiguredFeature<BaseTreeFeatureConfig, ?> HAZEL;
 
     @SuppressWarnings("unchecked")
     private static <T extends IFeatureConfig> ConfiguredFeature<T, ?> register(String id, ConfiguredFeature feature) {
@@ -56,7 +57,15 @@ public class ModTrees {
 
             BaseTreeFeatureConfig.Builder builder = (new BaseTreeFeatureConfig.Builder(logProvider, leavesProvider, new BlobFoliagePlacer(FeatureSpread.func_242252_a(2), FeatureSpread.func_242252_a(0), 3), new StraightTrunkPlacer(6, 2, 0), new TwoLayerFeature(1, 0, 1))).setIgnoreVines();
             APPLE = register("apple_tree", Feature.TREE.withConfiguration(builder.build()));
-            RARE_APPLE = register("rare_apple_trees", Feature.TREE.withConfiguration(builder.setDecorators(Lists.newArrayList(AppleTreeDecorator.INSTANCE)).build()).chance(32));
+            NATURAL_APPLE = register("rare_apple_trees", Feature.TREE.withConfiguration(builder.setDecorators(Lists.newArrayList(AppleTreeDecorator.INSTANCE)).build()).chance(32));
+        }
+
+        if (TIConfig.Trees.hazel.get()) {
+            SimpleBlockStateProvider logProvider = new SimpleBlockStateProvider(ModWoodTypes.HAZEL.LOG.getDefaultState());
+            SimpleBlockStateProvider leavesProvider = new SimpleBlockStateProvider(ModWoodTypes.HAZEL.LEAVES.getDefaultState());
+            
+            BaseTreeFeatureConfig.Builder builder = (new BaseTreeFeatureConfig.Builder(logProvider, leavesProvider, new BlobFoliagePlacer(FeatureSpread.func_242252_a(2), FeatureSpread.func_242252_a(0), 3), new StraightTrunkPlacer(6, 2, 0), new TwoLayerFeature(1, 0, 1))).setIgnoreVines();
+            HAZEL = register("hazel_tree", Feature.TREE.withConfiguration(builder.build()));
         }
     }
 }

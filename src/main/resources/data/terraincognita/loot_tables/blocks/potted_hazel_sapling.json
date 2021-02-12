@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "terraincognita:potted_hazel_sapling"
+          "name": "terraincognita:hazel_sapling"
         }
       ],
       "conditions": [

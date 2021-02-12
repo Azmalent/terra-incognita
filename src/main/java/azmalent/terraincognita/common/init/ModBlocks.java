@@ -36,10 +36,16 @@ public class ModBlocks {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, TerraIncognita.MODID);
     public static final BlockRegistryHelper HELPER = new BlockRegistryHelper(BLOCKS, ModItems.ITEMS, TerraIncognita.TAB);
 
-    public static final List<PottablePlantEntry> FLOWERS;
+        public static final List<PottablePlantEntry> FLOWERS;
     public static final PottablePlantEntry DANDELION_PUFF = makePottablePlant("dandelion_puff", () -> new FlowerBlock(Effects.SATURATION, 6, Properties.from(Blocks.AZURE_BLUET)), DandelionPuffItem::new, Flora.dandelionPuff);
     public static final PottablePlantEntry CHICORY        = makeFlower("chicory", Effects.SPEED, 160, Blocks.BLUE_ORCHID, Flora.fieldFlowers);
     public static final PottablePlantEntry YARROW         = makeFlower("yarrow", Effects.NIGHT_VISION, 100, Blocks.WHITE_TULIP, Flora.fieldFlowers);
+    public static final PottablePlantEntry DAFFODIL       = makeFlower("daffodil", Effects.BLINDNESS, 160, Blocks.WHITE_TULIP, Flora.fieldFlowers);
+    public static final PottablePlantEntry BLUEBELL       = makeFlower("bluebell", Effects.REGENERATION, 120, Blocks.CORNFLOWER, Flora.forestFlowers);
+    public static final PottablePlantEntry YELLOW_PRIMROSE = makeFlower("yellow_primrose", Effects.STRENGTH, 120, Blocks.DANDELION, Flora.forestFlowers);
+    public static final PottablePlantEntry PINK_PRIMROSE   = makeFlower("pink_primrose", Effects.STRENGTH, 120, Blocks.PINK_TULIP, Flora.forestFlowers);
+    public static final PottablePlantEntry PURPLE_PRIMROSE = makeFlower("purple_primrose", Effects.STRENGTH, 120, Blocks.ALLIUM, Flora.forestFlowers);
+    public static final PottablePlantEntry FOXGLOVE       = makeFlower("foxglove", Effects.POISON, 240, Blocks.PINK_TULIP, Flora.forestFlowers);
     public static final PottablePlantEntry MARIGOLD       = makePottablePlant("marigold", MarigoldBlock::new, Flora.savannaFlowers);
     public static final PottablePlantEntry BLUE_LUPINE    = makeFlower("blue_lupin", Effects.RESISTANCE, 120, Blocks.CORNFLOWER, Flora.savannaFlowers);
     public static final PottablePlantEntry RED_SNAPDRAGON     = makeFlower("red_snapdragon", Effects.RESISTANCE, 120, Blocks.POPPY, Flora.savannaFlowers);
@@ -50,6 +56,7 @@ public class ModBlocks {
     public static final PottablePlantEntry ALPINE_PINK    = makePottablePlant("alpine_pink", () -> new AlpineFlowerBlock(Effects.SLOWNESS, 160, Properties.from(Blocks.PINK_TULIP)), Flora.alpineFlowers);
     public static final PottablePlantEntry GENTIAN        = makePottablePlant("gentian", () -> new AlpineFlowerBlock(Effects.WEAKNESS, 180, Properties.from(Blocks.CORNFLOWER)), Flora.alpineFlowers);
     public static final PottablePlantEntry FORGET_ME_NOT  = makeFlower("forget_me_not", Effects.SLOWNESS, 160, Blocks.BLUE_ORCHID, Flora.swampFlowers);
+    public static final PottablePlantEntry GLOBEFLOWER    = makeFlower("globeflower", Effects.RESISTANCE, 120, Blocks.ORANGE_TULIP, Flora.swampFlowers);
     public static final PottablePlantEntry BLUE_IRIS      = makeFlower("blue_iris", Effects.INVISIBILITY, 160, Blocks.CORNFLOWER, Flora.jungleFlowers);
     public static final PottablePlantEntry PURPLE_IRIS    = makeFlower("purple_iris", Effects.INVISIBILITY, 160, Blocks.ALLIUM, Flora.jungleFlowers);
     public static final PottablePlantEntry BLACK_IRIS     = makeFlower("black_iris", Effects.INVISIBILITY, 160, Blocks.ALLIUM, Flora.jungleFlowers);
@@ -82,9 +89,9 @@ public class ModBlocks {
         ModWoodTypes.init();
 
         FLOWERS = CollectionUtil.filterNotNull(
-            DANDELION_PUFF, CHICORY, YARROW, MARIGOLD, BLUE_LUPINE, RED_SNAPDRAGON, YELLOW_SNAPDRAGON, MAGENTA_SNAPDRAGON, EDELWEISS,
-            ALPINE_PINK, SAXIFRAGE, GENTIAN, FORGET_ME_NOT, BLUE_IRIS, PURPLE_IRIS, BLACK_IRIS, DWARF_FIREWEED, ARCTIC_POPPY,
-            CATTAIL, WATER_FLAG, TALL_FIREWEED, WHITE_RHODODENDRON
+            DANDELION_PUFF, CHICORY, YARROW, DAFFODIL, BLUEBELL, YELLOW_PRIMROSE, PINK_PRIMROSE, PURPLE_PRIMROSE, FOXGLOVE,
+            MARIGOLD, BLUE_LUPINE, RED_SNAPDRAGON, YELLOW_SNAPDRAGON, MAGENTA_SNAPDRAGON, EDELWEISS, ALPINE_PINK, SAXIFRAGE, 
+            GENTIAN, FORGET_ME_NOT, BLUE_IRIS, PURPLE_IRIS, BLACK_IRIS, DWARF_FIREWEED, ARCTIC_POPPY
         );
 
         LOTUSES = CollectionUtil.filterNotNull(WHITE_LOTUS, PINK_LOTUS, YELLOW_LOTUS);

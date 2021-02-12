@@ -4,19 +4,15 @@ import azmalent.cuneiform.lib.compat.ModProxyImpl;
 import azmalent.cuneiform.lib.registry.BlockEntry;
 import azmalent.cuneiform.lib.registry.BlockRenderType;
 import azmalent.terraincognita.TIConfig;
-import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.client.event.ColorHandler;
 import azmalent.terraincognita.common.event.FuelHandler;
 import azmalent.terraincognita.common.init.ModBlocks;
 import azmalent.terraincognita.common.init.ModRecipes;
 import azmalent.terraincognita.mixin.accessor.FireBlockAccessor;
 import com.google.common.collect.Sets;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.LanternBlock;
+import net.minecraft.block.*;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.item.ItemStack;
@@ -29,8 +25,6 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import vazkii.quark.base.module.ModuleLoader;
-import vazkii.quark.content.building.block.WoodPostBlock;
-import vazkii.quark.content.building.module.WoodenPostsModule;
 import vazkii.quark.content.client.module.ChestSearchingModule;
 import vazkii.quark.content.tweaks.module.SignEditingModule;
 
@@ -42,6 +36,9 @@ public class QuarkIntegration implements IQuarkIntegration {
     private BlockEntry BLOSSOMING_APPLE_LEAF_CARPET;
     private BlockEntry BLOSSOMING_APPLE_HEDGE;
 
+    private QuarkWoodBlockSet HAZEL;
+    private BlockEntry HAZELNUT_SACK;
+    
     private Set<QuarkWoodBlockSet> WOOD_BLOCK_SETS = Sets.newHashSet();
 
     @Override
@@ -60,6 +57,13 @@ public class QuarkIntegration implements IQuarkIntegration {
             WOOD_BLOCK_SETS.add(APPLE);
         }
 
+        if (TIConfig.Trees.hazel.get()) {
+            HAZEL = new QuarkWoodBlockSet(ModBlocks.HELPER, "hazel", MaterialColor.WOOD, MaterialColor.BROWN);
+            HAZELNUT_SACK = ModBlocks.HELPER.newBuilder("hazelnut_sack", Block.Properties.create(Material.WOOL, MaterialColor.BROWN).hardnessAndResistance(0.5F).sound(SoundType.CLOTH)).build();
+
+            WOOD_BLOCK_SETS.add(HAZEL);
+        }
+
         bus.addListener(this::setup);
 
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
@@ -69,6 +73,8 @@ public class QuarkIntegration implements IQuarkIntegration {
     }
 
     public void setup(FMLCommonSetupEvent event) {
+        FireBlockAccessor fire = (FireBlockAccessor) Blocks.FIRE;
+
         for (QuarkWoodBlockSet set : WOOD_BLOCK_SETS) {
 			WoodenPostBlock post = (WoodenPostBlock) set.POST.getBlock();
 			post.strippedBlock = set.STRIPPED_POST.getBlock();
@@ -80,8 +86,12 @@ public class QuarkIntegration implements IQuarkIntegration {
         }
 
         if (TIConfig.Trees.apple.get()) {
-            FireBlockAccessor fire = (FireBlockAccessor) Blocks.FIRE;
             fire.TI_SetFireInfo(BLOSSOMING_APPLE_HEDGE.getBlock(), 5, 20);
+        }
+
+        if (TIConfig.Trees.hazel.get()) {
+            fire.TI_SetFireInfo(HAZELNUT_SACK.getBlock(), 5, 20);
+            ModRecipes.registerCompostable(HAZELNUT_SACK, 1);
         }
 
         ModRecipes.registerCompostable(BLOSSOMING_APPLE_LEAF_CARPET, 0.2f);

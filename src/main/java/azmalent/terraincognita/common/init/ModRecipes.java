@@ -8,6 +8,7 @@ import azmalent.terraincognita.common.recipe.FiddleheadSuspiciousStewAdditionRec
 import azmalent.terraincognita.common.recipe.FiddleheadSuspiciousStewRecipe;
 import azmalent.terraincognita.common.recipe.WreathRecipe;
 import net.minecraft.block.ComposterBlock;
+import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.SpecialRecipe;
@@ -41,6 +42,12 @@ public class ModRecipes {
         return RECIPES.register(id, () -> new SpecialRecipeSerializer<>(constructor));
     }
 
+    public static void registerCompostable(RegistryObject<? extends Item> item, float value) {
+        if (item != null) {
+            ComposterBlock.CHANCES.put(item.get(), value);
+        }
+    }
+
     public static void registerCompostable(BlockEntry blockEntry, float value) {
         if (blockEntry != null) {
             ComposterBlock.CHANCES.put(blockEntry.getItem(), value);
@@ -69,6 +76,8 @@ public class ModRecipes {
         registerCompostable(ModBlocks.REEDS, 0.5f);
         registerCompostable(ModBlocks.ROOTS, 0.5f);
         registerCompostable(ModBlocks.HANGING_MOSS, 0.3f);
+        registerCompostable(ModItems.FIDDLEHEAD, 0.65f);
+        registerCompostable(ModItems.WREATH, 1);
 
         ModWoodTypes.VALUES.forEach(woodType -> {
             registerCompostable(woodType.SAPLING, 0.3f);
@@ -76,5 +85,6 @@ public class ModRecipes {
         });
 
         registerCompostable(ModWoodTypes.APPLE.BLOSSOMING_LEAVES, 0.3f);
+        registerCompostable(ModWoodTypes.HAZEL.HAZELNUT_ITEM, 0.3f);
     }
 }

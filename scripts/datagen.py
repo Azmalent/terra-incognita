@@ -20,7 +20,7 @@ def make_pottable_plant(name):
     potted_name = variables['block'] = 'potted_' + name
     copy_blockstate('simple_blockstate', potted_name, variables)
     copy_block_model('potted_bush', potted_name, variables)
-    copy_loot_table('potted_bush', potted_name, variables)
+    copy_loot_table('potted_bush', potted_name, {**variables, 'block': name})
     add_to_block_tag('flower_pots', '%s:%s' % (MODID, potted_name))
 
 

@@ -1,6 +1,6 @@
 {
   "parent": "block/flower_pot_cross",
   "textures": {
-    "plant": "terraincognita:block/potted_purple_primrose"
+    "plant": "terraincognita:block/purple_primrose"
   }
 }
