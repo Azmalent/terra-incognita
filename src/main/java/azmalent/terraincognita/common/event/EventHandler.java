@@ -1,7 +1,6 @@
 package azmalent.terraincognita.common.event;
 
 import azmalent.terraincognita.TIConfig;
-import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.data.ModItemTags;
 import azmalent.terraincognita.common.init.*;
 import azmalent.terraincognita.common.inventory.BasketStackHandler;
@@ -13,12 +12,9 @@ import azmalent.terraincognita.util.ColorUtil;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.merchant.villager.VillagerTrades;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.item.crafting.ICraftingRecipe;
 import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.network.play.server.SCollectItemPacket;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
@@ -26,16 +22,12 @@ import net.minecraftforge.client.event.RecipesUpdatedEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
-import net.minecraftforge.event.entity.player.UseHoeEvent;
 import net.minecraftforge.event.village.WandererTradesEvent;
-import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.items.ItemHandlerHelper;
-
-import javax.naming.directory.ModificationItem;
 
 public class EventHandler {
     public static void registerListeners() {
@@ -68,8 +60,7 @@ public class EventHandler {
         event.enqueueWork(ModBiomes::registerBiomes);
 
         ModItems.registerDispenserBehaviors();
-        ModBlocks.initTilling();
-        ModBlocks.initStripping();
+        ModBlocks.initToolInteractions();
         ModBlocks.initFlammability();
         FuelHandler.initFuelValues();
         ModRecipes.registerComposterRecipes();

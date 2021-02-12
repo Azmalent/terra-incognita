@@ -55,20 +55,6 @@ public class PeatBlock extends Block {
 
     @Override
     public boolean canSustainPlant(@Nonnull BlockState state, @Nonnull IBlockReader world, BlockPos pos, @Nonnull Direction facing, IPlantable plant) {
-        if (plant.getPlantType(world, pos) == PlantType.PLAINS) {
-            return true;
-        }
-
-        if (plant.getPlantType(world, pos) == PlantType.BEACH) {
-            for (Direction direction : Direction.Plane.HORIZONTAL) {
-                BlockPos neighbor = pos.offset(direction);
-                FluidState fluidState = world.getFluidState(neighbor);
-                if (fluidState.isTagged(FluidTags.WATER) || world.getBlockState(neighbor).isIn(Blocks.FROSTED_ICE)) {
-                    return true;
-                }
-            }
-        }
-
         return Blocks.DIRT.canSustainPlant(state, world, pos, facing, plant);
     }
 }

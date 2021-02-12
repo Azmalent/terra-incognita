@@ -4,7 +4,7 @@ import azmalent.cuneiform.lib.config.options.BooleanOption;
 import azmalent.cuneiform.lib.registry.BlockEntry;
 import azmalent.cuneiform.lib.registry.BlockRenderType;
 import azmalent.terraincognita.TerraIncognita;
-import azmalent.terraincognita.client.renderer.ModISTER;
+import azmalent.terraincognita.client.renderer.ModChestISTER;
 import azmalent.terraincognita.common.block.chests.ModChestBlock;
 import azmalent.terraincognita.common.block.chests.ModTrappedChestBlock;
 import azmalent.terraincognita.common.block.signs.ModStandingSignBlock;
@@ -76,8 +76,8 @@ public class ModWoodType {
         TRAPDOOR = ModBlocks.HELPER.newBuilder(id + "_trapdoor", () -> new TrapDoorBlock(Block.Properties.create(Material.WOOD, woodColor).hardnessAndResistance(3.0F).sound(SoundType.WOOD).notSolid().setAllowsSpawn((state, reader, pos, entity) -> false))).withRenderType(BlockRenderType.CUTOUT).buildIf(condition);
         BUTTON = ModBlocks.HELPER.newBuilder(id + "_button", () -> new WoodButtonBlock(Block.Properties.from(Blocks.OAK_BUTTON))).buildIf(condition);
         PRESSURE_PLATE = ModBlocks.HELPER.newBuilder(id + "_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, AbstractBlock.Properties.create(Material.WOOD, woodColor).doesNotBlockMovement().hardnessAndResistance(0.5F).sound(SoundType.WOOD))).buildIf(condition);
-        CHEST = ModBlocks.HELPER.newBuilder(id +  "_chest", () -> new ModChestBlock(this, woodColor)).withBlockItemProperties(new Item.Properties().group(TerraIncognita.TAB).setISTER(() -> ModISTER::forNormalChest)).buildIf(condition);
-        TRAPPED_CHEST = ModBlocks.HELPER.newBuilder(id +  "_trapped_chest", () -> new ModTrappedChestBlock(this, woodColor)).withBlockItemProperties(new Item.Properties().group(TerraIncognita.TAB).setISTER(() -> ModISTER::forTrappedChest)).buildIf(condition);
+        CHEST = ModBlocks.HELPER.newBuilder(id +  "_chest", () -> new ModChestBlock(this, woodColor)).withBlockItemProperties(new Item.Properties().group(TerraIncognita.TAB).setISTER(() -> ModChestISTER::forNormalChest)).buildIf(condition);
+        TRAPPED_CHEST = ModBlocks.HELPER.newBuilder(id +  "_trapped_chest", () -> new ModTrappedChestBlock(this, woodColor)).withBlockItemProperties(new Item.Properties().group(TerraIncognita.TAB).setISTER(() -> ModChestISTER::forTrappedChest)).buildIf(condition);
         BOAT = condition.get() ? ModItems.ITEMS.register(id + "_boat", () -> new TIBoatItem(this)) : null;
 
         SIGN_TEXTURE = TerraIncognita.prefix("entity/sign/" + name);

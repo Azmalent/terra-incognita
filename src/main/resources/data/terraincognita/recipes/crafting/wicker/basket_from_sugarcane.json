@@ -1,0 +1,34 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "R R",
+    "RRR"
+  ],
+  "key": {
+    "R": {
+      "item": "minecraft:sugar_cane"
+    }
+  },
+  "result": {
+    "item": "terraincognita:basket",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "forge:and",
+      "values": [
+        {
+          "type": "forge:not",
+          "value": {
+            "type": "cuneiform:config",
+            "config": "terraincognita:reeds"
+          }
+        },
+        {
+          "type": "cuneiform:config",
+          "config": "terraincognita:basket"
+        }
+      ]
+    }
+  ]
+}

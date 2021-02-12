@@ -15,12 +15,17 @@
   },
   "conditions": [
     {
-      "type": "cuneiform:config",
-      "config": "terraincognita:reeds"
-    },
-    {
-      "type": "cuneiform:config",
-      "config": "terraincognita:basket"
+      "type": "forge:and",
+      "values": [
+        {
+          "type": "cuneiform:config",
+          "config": "terraincognita:reeds"
+        },
+        {
+          "type": "cuneiform:config",
+          "config": "terraincognita:basket"
+        }
+      ]
     }
   ]
 }

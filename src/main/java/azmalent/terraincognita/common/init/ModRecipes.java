@@ -64,7 +64,6 @@ public class ModRecipes {
         }
 
         ModBlocks.FLOWERS.forEach(flower -> registerCompostable(flower, 0.65f));
-        ModBlocks.TALL_FLOWERS.forEach(flower -> registerCompostable(flower, 0.65f));
         ModBlocks.LOTUSES.forEach(lotus -> registerCompostable(lotus, 0.65f));
         registerCompostable(ModBlocks.SMALL_LILY_PAD, 0.3f);
         registerCompostable(ModBlocks.REEDS, 0.5f);

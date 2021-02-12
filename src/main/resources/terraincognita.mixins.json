@@ -8,8 +8,10 @@
     "FlowersFeatureMixin",
     "FoxEntityTypeMixin",
     "GrassBlockMixin",
+    "LanternBlockMixin",
     "accessor.BoatEntityAccessor",
-    "accessor.FireBlockAccessor"
+    "accessor.FireBlockAccessor",
+    "accessor.TreeDecoratorTypeAccessor"
   ],
   "client": [
     "client.BiomeMixin"

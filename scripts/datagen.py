@@ -36,7 +36,7 @@ def make_flower(name, dye_color, condition):
     add_to_item_and_block_tags('small_flowers', '%s:%s' % (MODID, name))
 
 
-def make_tall_flower(name, dye_color, condition):
+def make_tall_flower(name, dye_color, condition, custom_potted_texture=False):
     copy_blockstate('tall_flower', name, {'block': name})
     copy_block_model('bush', name + '_top', {'block': name + '_top'})
     copy_block_model('bush', name + '_bottom', {'block': name + '_bottom'})
@@ -50,6 +50,12 @@ def make_tall_flower(name, dye_color, condition):
     })
 
     add_to_item_and_block_tags('tall_flowers', '%s:%s' % (MODID, name))
+
+    potted_name = variables['block'] = 'potted_' + name
+    copy_blockstate('simple_blockstate', potted_name, variables)
+    copy_block_model('potted_bush', potted_name, {'block': (potted_name if custom_potted_texture else name + '_top')})
+    copy_loot_table('potted_bush', potted_name, variables)
+    add_to_block_tag('flower_pots', '%s:%s' % (MODID, potted_name))
 
 
 def make_stairs_and_slabs(type, base_block, condition):
@@ -196,7 +202,8 @@ def make_wood_type(type):
     copy_loot_table('named_tile_entity', chest, variables)
     copy_crafting_recipe('chest', type + '/chest', variables)
     copy_crafting_recipe('chest_from_logs', type + '/chest_from_logs', variables)
-    add_to_block_tag('chests/wooden', '%s:%s' % (MODID, chest), namespace='forge')
+    add_to_item_and_block_tags('chests/wooden', '%s:%s' % (MODID, chest), namespace='forge')
+    add_to_item_tag('boatable_chests', '%s:%s' % (MODID, chest), namespace='quark')
 
     trapped_chest = type + '_trapped_chest'
     copy_blockstate('simple_blockstate', trapped_chest, variables)
@@ -204,7 +211,7 @@ def make_wood_type(type):
     copy_item_model('trapped_chest', trapped_chest, variables)
     copy_loot_table('named_tile_entity', trapped_chest, {'block': trapped_chest, 'condition': type})
     copy_crafting_recipe('trapped_chest', type + '/trapped_chest', variables)
-    add_to_block_tag('chests/trapped', '%s:%s' % (MODID, trapped_chest), namespace='forge')
+    add_to_item_and_block_tags('chests/trapped', '%s:%s' % (MODID, trapped_chest), namespace='forge')
 
     sign = variables['block'] = type + '_sign'
     wall_sign = type + '_wall_sign'

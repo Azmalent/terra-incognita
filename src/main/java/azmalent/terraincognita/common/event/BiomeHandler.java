@@ -57,7 +57,7 @@ public class BiomeHandler {
 
         switch (event.getCategory()) {
             case PLAINS:
-                WorldGenUtil.addVegetation(event, ModVegetation.FIELD_FLOWERS, ModTrees.RARE_APPLE);
+                WorldGenUtil.addVegetation(event, ModTrees.RARE_APPLE);
                 break;
             case FOREST:
                 if (hot) {
@@ -71,7 +71,7 @@ public class BiomeHandler {
                 break;
             case SWAMP:
                 WorldGenUtil.addVegetation(event, ModVegetation.SMALL_LILYPADS, ModVegetation.REEDS);
-                WorldGenUtil.addOre(event, ModOres.PEAT);
+                WorldGenUtil.addOre(event, ModOres.PEAT_DISK);
                 if (!cold) WorldGenUtil.addVegetation(event, ModVegetation.SWAMP_FLOWERS);
                 break;
             case SAVANNA:

@@ -27,7 +27,6 @@ public class ModEntities {
 
     @OnlyIn(Dist.CLIENT)
     public static void registerRenderers() {
-        TerraIncognita.LOGGER.info("Registering entity renderers");
         RenderingRegistry.registerEntityRenderingHandler(BOAT.get(), ModBoatRenderer::new);
     }
 }

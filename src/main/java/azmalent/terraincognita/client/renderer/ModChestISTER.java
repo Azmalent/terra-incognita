@@ -1,12 +1,10 @@
 package azmalent.terraincognita.client.renderer;
 
-import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.client.renderer.tile.ModChestRenderer;
 import azmalent.terraincognita.common.block.chests.ModChestBlock;
 import azmalent.terraincognita.common.tile.ModChestTileEntity;
 import azmalent.terraincognita.common.tile.ModTrappedChestTileEntity;
 import com.mojang.blaze3d.matrix.MatrixStack;
-import net.minecraft.block.Block;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer;
@@ -21,19 +19,19 @@ import javax.annotation.Nonnull;
 import java.util.function.Supplier;
 
 @OnlyIn(Dist.CLIENT)
-public class ModISTER<T extends TileEntity> extends ItemStackTileEntityRenderer {
+public class ModChestISTER<T extends TileEntity> extends ItemStackTileEntityRenderer {
     private final Supplier<ModChestTileEntity> chestSupplier;
 
-    public ModISTER(Supplier<ModChestTileEntity> chestSupplier) {
+    public ModChestISTER(Supplier<ModChestTileEntity> chestSupplier) {
         this.chestSupplier = chestSupplier;
     }
 
-    public static ModISTER<ModChestTileEntity> forNormalChest() {
-        return new ModISTER<>(ModChestTileEntity::new);
+    public static ModChestISTER<ModChestTileEntity> forNormalChest() {
+        return new ModChestISTER<>(ModChestTileEntity::new);
     }
 
-    public static ModISTER<ModTrappedChestTileEntity> forTrappedChest() {
-        return new ModISTER<>(ModTrappedChestTileEntity::new);
+    public static ModChestISTER<ModTrappedChestTileEntity> forTrappedChest() {
+        return new ModChestISTER<>(ModTrappedChestTileEntity::new);
     }
 
     @Override

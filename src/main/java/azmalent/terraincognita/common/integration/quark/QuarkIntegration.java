@@ -4,19 +4,24 @@ import azmalent.cuneiform.lib.compat.ModProxyImpl;
 import azmalent.cuneiform.lib.registry.BlockEntry;
 import azmalent.cuneiform.lib.registry.BlockRenderType;
 import azmalent.terraincognita.TIConfig;
+import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.client.event.ColorHandler;
 import azmalent.terraincognita.common.event.FuelHandler;
 import azmalent.terraincognita.common.init.ModBlocks;
 import azmalent.terraincognita.common.init.ModRecipes;
 import azmalent.terraincognita.mixin.accessor.FireBlockAccessor;
 import com.google.common.collect.Sets;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.LanternBlock;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IWorldReader;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ColorHandlerEvent;
@@ -24,6 +29,8 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import vazkii.quark.base.module.ModuleLoader;
+import vazkii.quark.content.building.block.WoodPostBlock;
+import vazkii.quark.content.building.module.WoodenPostsModule;
 import vazkii.quark.content.client.module.ChestSearchingModule;
 import vazkii.quark.content.tweaks.module.SignEditingModule;
 
@@ -101,5 +108,10 @@ public class QuarkIntegration implements IQuarkIntegration {
     @Override
     public boolean canEditSign(ItemStack heldStack) {
         return ModuleLoader.INSTANCE.isModuleEnabled(SignEditingModule.class) && (!SignEditingModule.requiresEmptyHand || heldStack.isEmpty());
+    }
+
+    @Override
+    public boolean canLanternConnect(BlockState state, IWorldReader worldIn, BlockPos pos) {
+        return state.get(LanternBlock.HANGING) && worldIn.getBlockState(pos.up()).getBlock() instanceof WoodenPostBlock;
     }
 }

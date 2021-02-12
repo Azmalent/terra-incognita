@@ -36,8 +36,6 @@ public class GrassBlockMixin {
         float f = rand.nextFloat();
         if (f < 0.33) {
             switch (biome.getCategory()) {
-                case PLAINS:
-                    return ModVegetation.Configs.FIELD_FLOWERS;
                 case SWAMP:
                     if (!cold) return ModVegetation.Configs.SWAMP_FLOWERS;
                     break;

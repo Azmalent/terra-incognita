@@ -34,8 +34,13 @@ public class ModItems {
     }
 
     static {
-        if (TIConfig.Food.taffy.get()) TAFFY = ITEMS.register("taffy", TaffyItem::new);
-        if (TIConfig.Food.notchCarrot.get()) NOTCH_CARROT = ITEMS.register("notch_carrot", NotchCarrotItem::new);
+        if (TIConfig.Food.taffy.get()) {
+        	TAFFY = ITEMS.register("taffy", TaffyItem::new);
+       	}
+
+        if (TIConfig.Food.notchCarrot.get()) {
+        	NOTCH_CARROT = ITEMS.register("notch_carrot", NotchCarrotItem::new);
+       	}
 
         if (TIConfig.Food.fiddlehead.get()) {
             FIDDLEHEAD = ITEMS.register("fiddlehead", () -> new Item(props().food(ModFoods.FIDDLEHEAD)));
@@ -57,8 +62,8 @@ public class ModItems {
 
     public static void registerDispenserBehaviors() {
         TIBoatDispenserBehavior boatBehavior = new TIBoatDispenserBehavior();
-        ModWoodTypes.VALUES.forEach((type) -> {
-            DispenserBlock.registerDispenseBehavior(type.BOAT.get(), boatBehavior);
+        ModWoodTypes.VALUES.forEach(woodType -> {
+            DispenserBlock.registerDispenseBehavior(woodType.BOAT.get(), boatBehavior);
         });
     }
 

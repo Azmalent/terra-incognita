@@ -14,6 +14,8 @@ import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class HangingMossFeature extends Feature<NoFeatureConfig> {
+    private static final int MIN_VERTICAL_SPACE = 3;
+
     private static final int MIN_Y = 40;
     private static final int MAX_Y = 96;
 
@@ -42,17 +44,15 @@ public class HangingMossFeature extends Feature<NoFeatureConfig> {
                 continue;
             }
 
-            if (reader.isAirBlock(nextPos) && moss.isValidPosition(reader, nextPos)) {
-                if (isEnoughVerticalSpace(reader, pos)) {
-                    if (rand.nextBoolean()) {
-                        reader.setBlockState(nextPos, moss, 2);
-                    } else {
-                        reader.setBlockState(nextPos, moss.with(HangingMossBlock.VARIANT, HangingMossBlock.Variant.TOP), 2);
-                        reader.setBlockState(nextPos.down(), moss.with(HangingMossBlock.VARIANT, HangingMossBlock.Variant.BOTTOM), 2);
-                    }
-
-                    success = true;
+            if (isEnoughVerticalSpace(reader, nextPos) && moss.isValidPosition(reader, nextPos)) {
+                if (rand.nextBoolean()) {
+                    reader.setBlockState(nextPos, moss, 2);
+                } else {
+                    reader.setBlockState(nextPos, moss.with(HangingMossBlock.VARIANT, HangingMossBlock.Variant.TOP), 2);
+                    reader.setBlockState(nextPos.down(), moss.with(HangingMossBlock.VARIANT, HangingMossBlock.Variant.BOTTOM), 2);
                 }
+
+                success = true;
             }
         }
 
@@ -60,7 +60,7 @@ public class HangingMossFeature extends Feature<NoFeatureConfig> {
     }
 
     private boolean isEnoughVerticalSpace(ISeedReader reader, BlockPos pos) {
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < MIN_VERTICAL_SPACE; i++) {
             if (!reader.isAirBlock(pos.down(i))) {
                 return false;
             }
