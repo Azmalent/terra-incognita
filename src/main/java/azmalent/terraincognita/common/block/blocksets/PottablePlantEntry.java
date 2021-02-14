@@ -16,7 +16,7 @@ public final class PottablePlantEntry {
     @SuppressWarnings("deprecation")
     public PottablePlantEntry(String id, BlockEntry plant) {
         this.plant = plant;
-        potted = ModBlocks.HELPER.newBuilder("potted_" + id, () -> new FlowerPotBlock(plant.getBlock(), AbstractBlock.Properties.create(Material.MISCELLANEOUS).zeroHardnessAndResistance().notSolid())).withoutItemForm().withRenderType(BlockRenderType.CUTOUT).build();
+        potted = ModBlocks.HELPER.newBuilder("potted_" + id, () -> new FlowerPotBlock(plant.getBlock(), Block.Properties.create(Material.MISCELLANEOUS).zeroHardnessAndResistance().notSolid())).withoutItemForm().withRenderType(BlockRenderType.CUTOUT).buildIf(plant != null);
     }
 
     public Block getBlock() {
