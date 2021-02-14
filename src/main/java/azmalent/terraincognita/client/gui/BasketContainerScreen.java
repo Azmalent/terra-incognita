@@ -10,10 +10,13 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nonnull;
 import java.awt.*;
 
+@OnlyIn(Dist.CLIENT)
 public class BasketContainerScreen extends ContainerScreen<BasketContainer> {
     private static final ResourceLocation TEXTURE = TerraIncognita.prefix("textures/gui/basket.png");
 

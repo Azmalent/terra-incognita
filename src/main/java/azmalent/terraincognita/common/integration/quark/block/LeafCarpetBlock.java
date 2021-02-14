@@ -1,4 +1,4 @@
-package azmalent.terraincognita.common.integration.quark;
+package azmalent.terraincognita.common.integration.quark.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

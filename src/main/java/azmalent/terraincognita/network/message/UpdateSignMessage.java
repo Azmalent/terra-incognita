@@ -3,7 +3,6 @@ package azmalent.terraincognita.network.message;
 import azmalent.terraincognita.client.ClientHandler;
 import azmalent.terraincognita.common.tile.ModSignTileEntity;
 import azmalent.terraincognita.network.NetworkHandler;
-import net.minecraft.block.BlockState;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.DyeColor;
@@ -11,6 +10,7 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.network.NetworkEvent;
@@ -32,12 +32,12 @@ public final class UpdateSignMessage {
         this.color = color;
     }
 
-    public static void encode(final UpdateSignMessage packet, PacketBuffer buffer) {
-        buffer.writeBlockPos(packet.pos);
+    public static void encode(final UpdateSignMessage message, PacketBuffer buffer) {
+        buffer.writeBlockPos(message.pos);
         for (int i = 0; i < 4; i++) {
-            buffer.writeTextComponent(packet.lines[i]);
+            buffer.writeTextComponent(message.lines[i]);
         }
-        buffer.writeInt(packet.color);
+        buffer.writeInt(message.color);
     }
 
     public static UpdateSignMessage decode(PacketBuffer buffer) {
@@ -79,7 +79,7 @@ public final class UpdateSignMessage {
         }
         else {
             context.enqueueWork(() -> {
-                ClientWorld world = ClientHandler.getWorld();
+                World world = ClientHandler.getWorld();
                 if (world.isAreaLoaded(message.pos, 1)) {
                     TileEntity te = world.getTileEntity(message.pos);
                     if (te instanceof ModSignTileEntity) {

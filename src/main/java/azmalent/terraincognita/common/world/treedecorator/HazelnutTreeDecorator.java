@@ -18,24 +18,24 @@ import java.util.Random;
 import java.util.Set;
 
 @SuppressWarnings("ConstantConditions")
-public class AppleTreeDecorator extends TreeDecorator {
-    public static final AppleTreeDecorator INSTANCE = new AppleTreeDecorator();
-    public static final Codec<AppleTreeDecorator> CODEC = Codec.unit(() -> INSTANCE);
+public class HazelnutTreeDecorator extends TreeDecorator {
+    public static final HazelnutTreeDecorator INSTANCE = new HazelnutTreeDecorator();
+    public static final Codec<HazelnutTreeDecorator> CODEC = Codec.unit(() -> INSTANCE);
 
     @Nonnull
     @Override
     protected TreeDecoratorType<?> func_230380_a_() {
-        return ModTreeDecorators.APPLES.get();
+        return ModTreeDecorators.HAZELNUTS.get();
     }
 
     @Override
     public void func_225576_a_(@Nonnull ISeedReader seedReader, @Nonnull Random rand, @Nonnull List<BlockPos> logPositions, @Nonnull List<BlockPos> leafPositions, @Nonnull Set<BlockPos> p_225576_5_, @Nonnull MutableBoundingBox boundingBox) {
-        BlockState apple = ModBlocks.APPLE.getDefaultState();
+        BlockState hazelnut = ModBlocks.HAZELNUT.getDefaultState();
 
         leafPositions.forEach((pos) -> {
             BlockPos down = pos.down();
-            if (Feature.isAirAt(seedReader, down) && apple.isValidPosition(seedReader, down) && rand.nextFloat() < 0.25f) {
-                this.func_227423_a_(seedReader, down, apple.with(AbstractFruitBlock.AGE, rand.nextInt(8)), p_225576_5_, boundingBox);
+            if (Feature.isAirAt(seedReader, down) && hazelnut.isValidPosition(seedReader, down) && rand.nextFloat() < 0.33f) {
+                this.func_227423_a_(seedReader, down, hazelnut.with(AbstractFruitBlock.AGE, rand.nextInt(8)), p_225576_5_, boundingBox);
             }
         });
     }

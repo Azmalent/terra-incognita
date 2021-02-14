@@ -121,6 +121,21 @@ public class TIConfig extends CommonConfigFile {
         public static BooleanOption hangingMoss = new BooleanOption(true).withFlag("hanging_moss");
     }
 
+    public static class Trees extends Category {
+        @Name("Apple Trees Enabled")
+        public static BooleanOption apple = new BooleanOption(true).withFlag("apple");
+
+        public static BooleanOption disableAppleDropFromOaks = new BooleanOption(true).withFlag("remove_oak_apples");
+
+        @Name("Hazel Trees Enabled")
+        public static BooleanOption hazel = new BooleanOption(true).withFlag("hazel");
+    }
+
+    public static class Biomes extends Category {
+        @Comment("Adds snowless and rocky tundra biomes.")
+        public static BooleanOption tundraVariants = new BooleanOption(true);
+    }
+
     public static class Tools extends Category {
         @Name("Caltrops Enabled")
         @Comment({"Caltrops are metal spikes that can be placed on the ground. Dropped caltrops will also place themselves if possible.",
@@ -135,21 +150,6 @@ public class TIConfig extends CommonConfigFile {
             "Baskets have 9 slots and can only store flowers, saplings, mushrooms and berries by default (governed by #terraincognita:basket_storable item tag)",
             "When you have a basket in your hand, it will automatically collect compatible items."})
         public static BooleanOption basket = new BooleanOption(true).withFlag("basket");
-    }
-
-    public static class Biomes extends Category {
-        @Comment("Adds snowless and rocky tundra biomes.")
-        public static BooleanOption tundraVariants = new BooleanOption(true);
-    }
-
-    public static class Trees extends Category {
-        @Name("Apple Trees Enabled")
-        public static BooleanOption apple = new BooleanOption(true).withFlag("apple");
-
-        public static BooleanOption disableAppleDropFromOaks = new BooleanOption(true).withFlag("remove_oak_apples");
-
-        @Name("Hazel Trees Enabled")
-        public static BooleanOption hazel = new BooleanOption(true).withFlag("hazel");
     }
 
     public static class Misc extends Category {

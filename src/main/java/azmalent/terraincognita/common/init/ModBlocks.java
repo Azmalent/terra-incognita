@@ -12,6 +12,8 @@ import azmalent.terraincognita.common.block.*;
 import azmalent.terraincognita.common.block.plants.*;
 import azmalent.terraincognita.common.block.blocksets.PottablePlantEntry;
 import azmalent.terraincognita.common.block.blocksets.ModWoodType;
+import azmalent.terraincognita.common.block.trees.AppleBlock;
+import azmalent.terraincognita.common.block.trees.HazelnutBlock;
 import azmalent.terraincognita.common.item.block.BasketItem;
 import azmalent.terraincognita.common.item.block.CaltropsItem;
 import azmalent.terraincognita.common.item.block.DandelionPuffItem;
@@ -30,6 +32,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Supplier;
+
+import static azmalent.terraincognita.TIConfig.*;
 
 @SuppressWarnings({"unused", "ConstantConditions"})
 public class ModBlocks {
@@ -77,6 +81,9 @@ public class ModBlocks {
     public static final PottablePlantEntry REEDS = makePottablePlant("reeds", ReedsBlock::new, Flora.reeds);
     public static final BlockEntry ROOTS = HELPER.newBuilder("roots", RootsBlock::new).withRenderType(BlockRenderType.CUTOUT).buildIf(Flora.roots);
     public static final BlockEntry HANGING_MOSS = HELPER.newBuilder("hanging_moss", HangingMossBlock::new).withRenderType(BlockRenderType.CUTOUT).buildIf(Flora.hangingMoss);
+
+    public static final BlockEntry APPLE = HELPER.newBuilder("apple", AppleBlock::new).withRenderType(BlockRenderType.CUTOUT).withoutItemForm().buildIf(Trees.apple);
+    public static final BlockEntry HAZELNUT = HELPER.newBuilder("hazelnut", HazelnutBlock::new).withoutItemForm().withRenderType(BlockRenderType.CUTOUT).buildIf(Trees.hazel);
 
     public static final BlockEntry PEAT = HELPER.newBuilder("peat", PeatBlock::new).buildIf(Misc.peat);
     public static final BlockEntry TILLED_PEAT = HELPER.newBuilder("tilled_peat", TilledPeatBlock::new).buildIf(Misc.peat);
@@ -146,7 +153,7 @@ public class ModBlocks {
     public static void initFlammability() {
         FireBlockAccessor fire = (FireBlockAccessor) Blocks.FIRE;
         for (PottablePlantEntry flower : FLOWERS) {
-            fire.TI_SetFireInfo(flower.getBlock(), 60, 100);
+            fire.TI_setFireInfo(flower.getBlock(), 60, 100);
         }
 
         for (ModWoodType woodType : ModWoodTypes.VALUES) {
@@ -155,7 +162,7 @@ public class ModBlocks {
 
         if (Flora.reeds.get()) {
             assert WICKER_MAT != null;
-            fire.TI_SetFireInfo(WICKER_MAT.getBlock(), 60, 20);
+            fire.TI_setFireInfo(WICKER_MAT.getBlock(), 60, 20);
         }
     }
 }

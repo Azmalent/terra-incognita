@@ -2,6 +2,7 @@ package azmalent.terraincognita.common.init;
 
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.client.renderer.entity.ModBoatRenderer;
+import azmalent.terraincognita.common.entity.ButterflyEntity;
 import azmalent.terraincognita.common.entity.ModBoatEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
@@ -20,6 +21,14 @@ public class ModEntities {
     public static final RegistryObject<EntityType<ModBoatEntity>> BOAT = register("boat",
         EntityType.Builder.<ModBoatEntity>create(ModBoatEntity::new, EntityClassification.MISC).size(1.375F, 0.5625F).setCustomClientFactory(ModBoatEntity::new).trackingRange(10)
     );
+
+    public static RegistryObject<EntityType<ButterflyEntity>> BUTTERFLY;
+
+    static {
+        BUTTERFLY = register("butterfly",
+            EntityType.Builder.<ButterflyEntity>create(ButterflyEntity::new, EntityClassification.AMBIENT).size(0.5f, 0.5f).setCustomClientFactory(ButterflyEntity::new).trackingRange(5)
+        );
+    }
 
     private static <TEntity extends Entity> RegistryObject register(String id, EntityType.Builder<TEntity> builder) {
         return ENTITIES.register(id, () -> builder.build(TerraIncognita.prefix(id).toString()));

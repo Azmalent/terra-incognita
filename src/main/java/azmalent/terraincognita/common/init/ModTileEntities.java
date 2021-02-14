@@ -54,8 +54,7 @@ public class ModTileEntities {
         List<Supplier<Block>> suppliers = Lists.newArrayList();
         ModWoodTypes.VALUES.stream().filter(ModWoodType::isEnabled).forEach(woodType -> func.accept(suppliers, woodType));
 
-        Supplier<Block>[] array = new Supplier[suppliers.size()];
-        return suppliers.toArray(array);
+        return suppliers.toArray(new Supplier[0]);
     }
 
     @SuppressWarnings("ConstantConditions")

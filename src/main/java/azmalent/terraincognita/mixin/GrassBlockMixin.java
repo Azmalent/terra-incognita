@@ -32,7 +32,8 @@ public class GrassBlockMixin {
         Biome biome = world.getBiome(pos);
         RegistryKey<Biome> biomeKey = BiomeUtil.getBiomeKey(biome);
 
-        if (biomeKey != Biomes.FLOWER_FOREST && rand.nextFloat() < 0.33) {
+        float f = rand.nextFloat();
+        if (biomeKey != Biomes.FLOWER_FOREST && f < 0.33) {
             boolean cold = BiomeDictionary.hasType(biomeKey, COLD);
             boolean hot = BiomeDictionary.hasType(biomeKey, HOT);
 

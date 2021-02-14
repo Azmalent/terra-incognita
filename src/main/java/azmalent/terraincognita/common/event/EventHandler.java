@@ -63,7 +63,7 @@ public class EventHandler {
         ModBlocks.initToolInteractions();
         ModBlocks.initFlammability();
         FuelHandler.initFuelValues();
-        ModRecipes.registerComposterRecipes();
+        ModRecipes.initCompostables();
     }
 
     public static void onSetupTrades(WandererTradesEvent event) {

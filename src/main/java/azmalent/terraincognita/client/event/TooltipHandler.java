@@ -113,7 +113,7 @@ public class TooltipHandler {
     }
 
 	//Copied from Quark ShulkerBoxTooltips#renderTooltipBackground() with minor edits
-    public static void renderTooltipBackground(MatrixStack matrix, int x, int y) {
+    private static void renderTooltipBackground(MatrixStack matrix, int x, int y) {
         Minecraft.getInstance().getTextureManager().bindTexture(SLOT_WIDGET);
 
         final int CORNER = 5;

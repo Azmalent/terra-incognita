@@ -60,7 +60,7 @@ public class ModRecipes {
         }
     }
 
-    public static void registerComposterRecipes() {
+    public static void initCompostables() {
         if (TIConfig.Misc.additionalCompostables.get()) {
             ComposterBlock.CHANCES.put(Items.DEAD_BUSH, 0.3f);
             ComposterBlock.CHANCES.put(Items.BAMBOO, 0.65f);
@@ -85,6 +85,6 @@ public class ModRecipes {
         });
 
         registerCompostable(ModWoodTypes.APPLE.BLOSSOMING_LEAVES, 0.3f);
-        registerCompostable(ModWoodTypes.HAZEL.HAZELNUT_ITEM, 0.3f);
+        registerCompostable(ModItems.HAZELNUT, 0.3f);
     }
 }

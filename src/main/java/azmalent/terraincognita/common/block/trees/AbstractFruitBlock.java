@@ -1,17 +1,14 @@
 package azmalent.terraincognita.common.block.trees;
 
-import azmalent.terraincognita.common.init.ModWoodTypes;
 import com.google.common.collect.Lists;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.material.MaterialColor;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.loot.LootContext;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
@@ -21,12 +18,8 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
-import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ForgeHooks;
@@ -34,41 +27,24 @@ import net.minecraftforge.common.ForgeHooks;
 import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Random;
+import java.util.function.Supplier;
 
-public class AppleFruitBlock extends Block {
-    private static VoxelShape SMALL_SHAPE = makeCuboidShape(6, 9, 6, 10, 13, 10);
-    private static VoxelShape BIG_SHAPE = makeCuboidShape(5, 7, 5, 11, 13, 11);
-
+@SuppressWarnings("deprecation")
+public abstract class AbstractFruitBlock extends Block {
     public static IntegerProperty AGE = BlockStateProperties.AGE_0_7;
 
-    public AppleFruitBlock() {
-        super(Block.Properties.create(Material.MISCELLANEOUS, MaterialColor.RED).hardnessAndResistance(0.2F).sound(SoundType.WOOD));
+    private final Supplier<Item> item;
 
-        setDefaultState(getStateContainer().getBaseState().with(AGE, 0));
+    protected AbstractFruitBlock(AbstractBlock.Properties properties, Supplier<Item> item) {
+        super(properties);
+        this.item = item;
+
+        this.setDefaultState(getStateContainer().getBaseState().with(AGE, 0));
     }
 
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-       builder.add(AGE);
-    }
-
-    @Nonnull
-    @Override
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        Vector3d offset = state.getOffset(worldIn, pos);
-        return (state.get(AGE) < 2 ? SMALL_SHAPE : BIG_SHAPE).withOffset(offset.x, offset.y, offset.z);
-    }
-
-    @Nonnull
-    @Override
-    public OffsetType getOffsetType() {
-        return OffsetType.XZ;
-    }
-
-    @Override
-    public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
-        BlockState up = worldIn.getBlockState(pos.up());
-        return up.isIn(ModWoodTypes.APPLE.LEAVES.getBlock()) || up.isIn(ModWoodTypes.APPLE.BLOSSOMING_LEAVES.getBlock());
+        builder.add(AGE);
     }
 
     @Nonnull
@@ -91,7 +67,7 @@ public class AppleFruitBlock extends Block {
         if (state.get(AGE) == 7) {
             worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
 
-            ItemStack stack = new ItemStack(Items.APPLE);
+            ItemStack stack = new ItemStack(item.get());
             ItemEntity itemEntity = new ItemEntity(worldIn, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, stack);
             itemEntity.setDefaultPickupDelay();
             worldIn.addEntity(itemEntity);
@@ -120,7 +96,7 @@ public class AppleFruitBlock extends Block {
     public List<ItemStack> getDrops(BlockState state, @Nonnull LootContext.Builder builder) {
         List<ItemStack> drops = Lists.newArrayList();
         if (state.get(AGE) == 7) {
-            drops.add(new ItemStack(Items.APPLE));
+            drops.add(new ItemStack(item.get()));
         }
 
         return drops;
@@ -129,12 +105,12 @@ public class AppleFruitBlock extends Block {
     @Nonnull
     @Override
     public ItemStack getItem(IBlockReader worldIn, BlockPos pos, BlockState state) {
-        return new ItemStack(Items.APPLE);
+        return new ItemStack(item.get());
     }
 
     @Nonnull
     @Override
     public String getTranslationKey() {
-        return Items.APPLE.getTranslationKey();
+        return item.get().getTranslationKey();
     }
 }

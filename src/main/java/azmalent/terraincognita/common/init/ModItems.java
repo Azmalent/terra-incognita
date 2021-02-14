@@ -28,6 +28,7 @@ public class ModItems {
     public static RegistryObject<Item> BAKED_ROOT;
     public static RegistryObject<Item> BERRY_SORBET;
     public static RegistryObject<WreathItem> WREATH;
+    public static RegistryObject<Item> HAZELNUT;
 
     private static Item.Properties props() {
         return new Item.Properties().group(TerraIncognita.TAB);
@@ -57,6 +58,10 @@ public class ModItems {
 
         if (TIConfig.Flora.wreath.get()) {
             WREATH = ITEMS.register("flower_band", WreathItem::new);
+        }
+
+        if (TIConfig.Trees.hazel.get()) {
+            HAZELNUT = ITEMS.register("hazelnut", () -> new Item(props().food(ModFoods.HAZELNUT)));
         }
     }
 

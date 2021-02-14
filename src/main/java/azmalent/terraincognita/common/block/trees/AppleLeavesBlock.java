@@ -25,7 +25,7 @@ public class AppleLeavesBlock extends LeavesBlock {
     public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
         BlockPos down = pos.down();
 
-        BlockState apple = ModWoodTypes.APPLE.FRUIT.getBlock().getDefaultState();
+        BlockState apple = ModBlocks.APPLE.getDefaultState();
         if (worldIn.isAirBlock(down) && ForgeHooks.onCropsGrowPre(worldIn, down, apple, random.nextInt(100) == 0)) {
             worldIn.setBlockState(down, apple, 2);
             ForgeHooks.onCropsGrowPost(worldIn, down, apple);

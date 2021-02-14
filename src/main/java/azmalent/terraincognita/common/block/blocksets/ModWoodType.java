@@ -124,15 +124,15 @@ public class ModWoodType {
         }
 
         FireBlockAccessor fire = (FireBlockAccessor) Blocks.FIRE;
-        fire.TI_SetFireInfo(LEAVES.getBlock(), 30, 60);
-        fire.TI_SetFireInfo(LOG.getBlock(), 5, 5);
-        fire.TI_SetFireInfo(STRIPPED_LOG.getBlock(), 5, 5);
-        fire.TI_SetFireInfo(WOOD.getBlock(), 5, 5);
-        fire.TI_SetFireInfo(STRIPPED_WOOD.getBlock(), 5, 5);
-        fire.TI_SetFireInfo(PLANKS.getBlock(), 5, 20);
-        fire.TI_SetFireInfo(STAIRS.getBlock(), 5, 20);
-        fire.TI_SetFireInfo(SLAB.getBlock(), 5, 20);
-        fire.TI_SetFireInfo(FENCE.getBlock(), 5, 20);
-        fire.TI_SetFireInfo(FENCE_GATE.getBlock(), 5, 20);
+        fire.TI_setFireInfo(LEAVES.getBlock(), 30, 60);
+        fire.TI_setFireInfo(LOG.getBlock(), 5, 5);
+        fire.TI_setFireInfo(STRIPPED_LOG.getBlock(), 5, 5);
+        fire.TI_setFireInfo(WOOD.getBlock(), 5, 5);
+        fire.TI_setFireInfo(STRIPPED_WOOD.getBlock(), 5, 5);
+        fire.TI_setFireInfo(PLANKS.getBlock(), 5, 20);
+        fire.TI_setFireInfo(STAIRS.getBlock(), 5, 20);
+        fire.TI_setFireInfo(SLAB.getBlock(), 5, 20);
+        fire.TI_setFireInfo(FENCE.getBlock(), 5, 20);
+        fire.TI_setFireInfo(FENCE_GATE.getBlock(), 5, 20);
     }
 }

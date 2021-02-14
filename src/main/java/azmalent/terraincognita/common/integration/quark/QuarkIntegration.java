@@ -8,6 +8,10 @@ import azmalent.terraincognita.client.event.ColorHandler;
 import azmalent.terraincognita.common.event.FuelHandler;
 import azmalent.terraincognita.common.init.ModBlocks;
 import azmalent.terraincognita.common.init.ModRecipes;
+import azmalent.terraincognita.common.integration.quark.block.HedgeBlock;
+import azmalent.terraincognita.common.integration.quark.block.LeafCarpetBlock;
+import azmalent.terraincognita.common.integration.quark.block.QuarkWoodBlockSet;
+import azmalent.terraincognita.common.integration.quark.block.WoodenPostBlock;
 import azmalent.terraincognita.mixin.accessor.FireBlockAccessor;
 import com.google.common.collect.Sets;
 import net.minecraft.block.*;
@@ -50,7 +54,7 @@ public class QuarkIntegration implements IQuarkIntegration {
     @Override
     public void register(IEventBus bus) {
         if (TIConfig.Trees.apple.get()) {
-            APPLE = new QuarkWoodBlockSet(ModBlocks.HELPER, "apple", MaterialColor.WOOD, MaterialColor.ORANGE_TERRACOTTA);
+            APPLE = new QuarkWoodBlockSet("apple", MaterialColor.WOOD, MaterialColor.ORANGE_TERRACOTTA);
             BLOSSOMING_APPLE_LEAF_CARPET = ModBlocks.HELPER.newBuilder("blossoming_apple_leaf_carpet", LeafCarpetBlock::new).withRenderType(BlockRenderType.CUTOUT_MIPPED).build();
             BLOSSOMING_APPLE_HEDGE = ModBlocks.HELPER.newBuilder("blossoming_apple_hedge", () -> new HedgeBlock(MaterialColor.ORANGE_TERRACOTTA)).withRenderType(BlockRenderType.CUTOUT_MIPPED).build();
 
@@ -58,7 +62,7 @@ public class QuarkIntegration implements IQuarkIntegration {
         }
 
         if (TIConfig.Trees.hazel.get()) {
-            HAZEL = new QuarkWoodBlockSet(ModBlocks.HELPER, "hazel", MaterialColor.WOOD, MaterialColor.BROWN);
+            HAZEL = new QuarkWoodBlockSet("hazel", MaterialColor.WOOD, MaterialColor.BROWN);
             HAZELNUT_SACK = ModBlocks.HELPER.newBuilder("hazelnut_sack", Block.Properties.create(Material.WOOL, MaterialColor.BROWN).hardnessAndResistance(0.5F).sound(SoundType.CLOTH)).build();
 
             WOOD_BLOCK_SETS.add(HAZEL);
@@ -86,15 +90,14 @@ public class QuarkIntegration implements IQuarkIntegration {
         }
 
         if (TIConfig.Trees.apple.get()) {
-            fire.TI_SetFireInfo(BLOSSOMING_APPLE_HEDGE.getBlock(), 5, 20);
+            fire.TI_setFireInfo(BLOSSOMING_APPLE_HEDGE.getBlock(), 5, 20);
+            ModRecipes.registerCompostable(BLOSSOMING_APPLE_LEAF_CARPET, 0.2f);
         }
 
         if (TIConfig.Trees.hazel.get()) {
-            fire.TI_SetFireInfo(HAZELNUT_SACK.getBlock(), 5, 20);
+            fire.TI_setFireInfo(HAZELNUT_SACK.getBlock(), 5, 20);
             ModRecipes.registerCompostable(HAZELNUT_SACK, 1);
         }
-
-        ModRecipes.registerCompostable(BLOSSOMING_APPLE_LEAF_CARPET, 0.2f);
     }
 
     @OnlyIn(Dist.CLIENT)
