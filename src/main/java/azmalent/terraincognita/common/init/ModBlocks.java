@@ -108,14 +108,11 @@ public class ModBlocks {
     }
 
     private static PottablePlantEntry makeTallPlant(String id, BooleanOption condition) {
-        Function<Block, BlockItem> blockItemConstructor = block -> new TallBlockItem(block, new Item.Properties().group(TerraIncognita.TAB));
-        BlockEntry plant = HELPER.newBuilder(id, () -> new TallFlowerBlock(Properties.from(Blocks.ROSE_BUSH))).withBlockItem(blockItemConstructor).withRenderType(BlockRenderType.CUTOUT).buildIf(condition);
-        return new PottablePlantEntry(id, plant);
+        return makePottablePlant(id, () -> new TallFlowerBlock(Properties.from(Blocks.ROSE_BUSH)), block -> new TallBlockItem(block, new Item.Properties().group(TerraIncognita.TAB)), condition);
     }
 
     private static PottablePlantEntry makeWaterloggableTallPlant(String id, BooleanOption condition) {
-        BlockEntry plant = HELPER.newBuilder(id, WaterloggableTallFlowerBlock::new).withBlockItem(block -> new TallBlockItem(block, new Item.Properties().group(TerraIncognita.TAB))).withRenderType(BlockRenderType.CUTOUT).buildIf(condition);
-        return new PottablePlantEntry(id, plant);
+        return makePottablePlant(id, WaterloggableTallFlowerBlock::new, block -> new TallBlockItem(block, new Item.Properties().group(TerraIncognita.TAB)), condition);
     }
 
     private static BlockEntry makeLotus(String id) {
