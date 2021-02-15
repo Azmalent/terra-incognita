@@ -1,12 +1,14 @@
 package azmalent.terraincognita.network.message.s2c;
 
+import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.client.ClientHandler;
 import azmalent.terraincognita.client.gui.ModEditSignScreen;
 import azmalent.terraincognita.common.tile.ModSignTileEntity;
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkDirection;
 import net.minecraftforge.fml.network.NetworkEvent;
 
@@ -19,8 +21,8 @@ public final class S2CEditSignMessage {
         this.pos = pos;
     }
 
-    public static void encode(final S2CEditSignMessage packet, PacketBuffer buffer) {
-        buffer.writeBlockPos(packet.pos);
+    public static void encode(final S2CEditSignMessage message, PacketBuffer buffer) {
+        buffer.writeBlockPos(message.pos);
     }
 
     public static S2CEditSignMessage decode(PacketBuffer buffer) {
@@ -32,12 +34,13 @@ public final class S2CEditSignMessage {
         NetworkEvent.Context context = contextSupplier.get();
         if (context.getDirection() == NetworkDirection.PLAY_TO_CLIENT) {
             context.enqueueWork(() -> {
-                ClientWorld world = ClientHandler.getWorld();
-                TileEntity te = world.getTileEntity(message.pos);
-                if (te instanceof ModSignTileEntity) {
-                    ModSignTileEntity sign = (ModSignTileEntity) te;
-                    ClientHandler.MC.displayGuiScreen(new ModEditSignScreen(sign));
+                TileEntity te = ClientHandler.getWorld().getTileEntity(message.pos);
+                if (!(te instanceof ModSignTileEntity)) {
+                    te = new ModSignTileEntity();
+                    te.setWorldAndPos(ClientHandler.getWorld(), message.pos);
                 }
+
+                TerraIncognita.PROXY.openSignEditor((ModSignTileEntity) te);
             });
 
             context.setPacketHandled(true);
