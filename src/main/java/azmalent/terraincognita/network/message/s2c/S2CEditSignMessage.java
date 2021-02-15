@@ -1,5 +1,6 @@
 package azmalent.terraincognita.network.message.s2c;
 
+import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.client.ClientHandler;
 import azmalent.terraincognita.client.gui.ModEditSignScreen;
 import azmalent.terraincognita.common.tile.ModSignTileEntity;
@@ -39,15 +40,10 @@ public final class S2CEditSignMessage {
                     te.setWorldAndPos(ClientHandler.getWorld(), message.pos);
                 }
 
-                displayEditScreen((ModSignTileEntity) te);
+                TerraIncognita.PROXY.openSignEditor((ModSignTileEntity) te);
             });
 
             context.setPacketHandled(true);
         }
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    private static void displayEditScreen(ModSignTileEntity sign) {
-        ClientHandler.MC.displayGuiScreen(new ModEditSignScreen(sign));
     }
 }

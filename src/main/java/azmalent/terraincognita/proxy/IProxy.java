@@ -1,5 +1,6 @@
 package azmalent.terraincognita.proxy;
 
+import azmalent.terraincognita.common.tile.ModSignTileEntity;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
@@ -12,4 +13,6 @@ public interface IProxy {
     }
 
     void spawnParticle(World world, IParticleData data, boolean alwaysRender, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed);
+
+    void openSignEditor(ModSignTileEntity sign);
 }
