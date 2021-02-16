@@ -1,7 +1,8 @@
 package azmalent.terraincognita.proxy;
 
-import azmalent.terraincognita.common.tile.ModSignTileEntity;
 import net.minecraft.particles.IParticleData;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 
 public class ServerProxy implements IProxy {
@@ -11,7 +12,12 @@ public class ServerProxy implements IProxy {
     }
 
     @Override
-    public void openSignEditor(ModSignTileEntity sign) {
+    public void openSignEditor(BlockPos pos) {
+        //NO-OP
+    }
+
+    @Override
+    public void updateSignOnClient(BlockPos pos, ITextComponent[] lines, int color) {
         //NO-OP
     }
 }

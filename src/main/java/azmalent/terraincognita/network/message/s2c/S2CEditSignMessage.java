@@ -1,11 +1,7 @@
 package azmalent.terraincognita.network.message.s2c;
 
 import azmalent.terraincognita.TerraIncognita;
-import azmalent.terraincognita.client.ClientHandler;
-import azmalent.terraincognita.client.gui.ModEditSignScreen;
-import azmalent.terraincognita.common.tile.ModSignTileEntity;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -34,13 +30,7 @@ public final class S2CEditSignMessage {
         NetworkEvent.Context context = contextSupplier.get();
         if (context.getDirection() == NetworkDirection.PLAY_TO_CLIENT) {
             context.enqueueWork(() -> {
-                TileEntity te = ClientHandler.getWorld().getTileEntity(message.pos);
-                if (!(te instanceof ModSignTileEntity)) {
-                    te = new ModSignTileEntity();
-                    te.setWorldAndPos(ClientHandler.getWorld(), message.pos);
-                }
-
-                TerraIncognita.PROXY.openSignEditor((ModSignTileEntity) te);
+                TerraIncognita.PROXY.openSignEditor(message.pos);
             });
 
             context.setPacketHandled(true);
