@@ -11,9 +11,14 @@ import net.minecraftforge.common.ForgeHooks;
 
 import java.util.Random;
 
-public class AppleLeavesBlock extends LeavesBlock {
-    public AppleLeavesBlock() {
+public class FruitLeavesBlock extends LeavesBlock {
+    private final BlockState fruitState;
+    private final int growthChance;
+
+    public FruitLeavesBlock(BlockState fruitState, int growthChance) {
         super(Properties.from(Blocks.OAK_LEAVES));
+        this.fruitState = fruitState;
+        this.growthChance = growthChance;
     }
 
     @Override
@@ -25,10 +30,9 @@ public class AppleLeavesBlock extends LeavesBlock {
     public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
         BlockPos down = pos.down();
 
-        BlockState apple = ModBlocks.APPLE.getDefaultState();
-        if (worldIn.isAirBlock(down) && ForgeHooks.onCropsGrowPre(worldIn, down, apple, random.nextInt(100) == 0)) {
-            worldIn.setBlockState(down, apple, 2);
-            ForgeHooks.onCropsGrowPost(worldIn, down, apple);
+        if (worldIn.isAirBlock(down) && ForgeHooks.onCropsGrowPre(worldIn, down, fruitState, random.nextInt(growthChance) == 0)) {
+            worldIn.setBlockState(down, fruitState, 2);
+            ForgeHooks.onCropsGrowPost(worldIn, down, fruitState);
         }
 
         if (super.ticksRandomly(state)) {

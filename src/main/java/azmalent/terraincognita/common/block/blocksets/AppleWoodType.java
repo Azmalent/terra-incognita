@@ -3,7 +3,7 @@ package azmalent.terraincognita.common.block.blocksets;
 import azmalent.cuneiform.lib.config.options.BooleanOption;
 import azmalent.cuneiform.lib.registry.BlockEntry;
 import azmalent.cuneiform.lib.registry.BlockRenderType;
-import azmalent.terraincognita.common.block.trees.AppleLeavesBlock;
+import azmalent.terraincognita.common.block.trees.FruitLeavesBlock;
 import azmalent.terraincognita.common.init.ModBlocks;
 import azmalent.terraincognita.mixin.accessor.FireBlockAccessor;
 import net.minecraft.block.Block;
@@ -11,10 +11,11 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.block.trees.Tree;
 
-public final class BlossomingWoodType extends ModWoodType {
+@SuppressWarnings("ConstantConditions")
+public final class AppleWoodType extends ModWoodType {
     public final BlockEntry BLOSSOMING_LEAVES;
 
-    public BlossomingWoodType(String id, Tree tree, MaterialColor woodColor, MaterialColor barkColor, BooleanOption condition) {
+    public AppleWoodType(String id, Tree tree, MaterialColor woodColor, MaterialColor barkColor, BooleanOption condition) {
         super(id, tree, woodColor, barkColor, condition);
 
         BLOSSOMING_LEAVES = ModBlocks.HELPER.newBuilder("blossoming_" + id + "_leaves", this::createLeaves).withRenderType(BlockRenderType.CUTOUT_MIPPED).buildIf(condition);
@@ -22,7 +23,7 @@ public final class BlossomingWoodType extends ModWoodType {
 
     @Override
     protected Block createLeaves() {
-        return new AppleLeavesBlock();
+        return new FruitLeavesBlock(ModBlocks.APPLE.getDefaultState(), 100);
     }
 
     @Override

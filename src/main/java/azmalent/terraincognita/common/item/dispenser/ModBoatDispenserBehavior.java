@@ -1,7 +1,7 @@
 package azmalent.terraincognita.common.item.dispenser;
 
 import azmalent.terraincognita.common.entity.ModBoatEntity;
-import azmalent.terraincognita.common.item.TIBoatItem;
+import azmalent.terraincognita.common.item.ModBoatItem;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.dispenser.IBlockSource;
@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 
-public class TIBoatDispenserBehavior extends DefaultDispenseItemBehavior {
+public class ModBoatDispenserBehavior extends DefaultDispenseItemBehavior {
     private final DefaultDispenseItemBehavior defaultDispenseItemBehavior = new DefaultDispenseItemBehavior();
 
     @Nonnull
@@ -35,7 +35,7 @@ public class TIBoatDispenserBehavior extends DefaultDispenseItemBehavior {
             adjustY = 0d;
         }
 
-        TIBoatItem item = (TIBoatItem) stack.getItem();
+        ModBoatItem item = (ModBoatItem) stack.getItem();
         ModBoatEntity boat = new ModBoatEntity(world, x, y + adjustY, z);
         boat.setWoodType(item.woodType);
         boat.rotationYaw = direction.getHorizontalAngle();

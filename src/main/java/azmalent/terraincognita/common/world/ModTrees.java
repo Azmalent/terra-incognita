@@ -4,6 +4,7 @@ import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.init.ModWoodTypes;
 import azmalent.terraincognita.common.world.treedecorator.AppleTreeDecorator;
+import azmalent.terraincognita.common.world.treedecorator.HazelnutTreeDecorator;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.registry.Registry;
@@ -14,7 +15,11 @@ import net.minecraft.world.gen.blockstateprovider.WeightedBlockStateProvider;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.foliageplacer.BlobFoliagePlacer;
 import net.minecraft.world.gen.foliageplacer.BushFoliagePlacer;
+import net.minecraft.world.gen.foliageplacer.FancyFoliagePlacer;
+import net.minecraft.world.gen.trunkplacer.FancyTrunkPlacer;
 import net.minecraft.world.gen.trunkplacer.StraightTrunkPlacer;
+
+import java.util.OptionalInt;
 
 public class ModTrees {
     public static class Configs {
@@ -42,6 +47,7 @@ public class ModTrees {
     public static ConfiguredFeature<BaseTreeFeatureConfig, ?> NATURAL_APPLE;
 
 	public static ConfiguredFeature<BaseTreeFeatureConfig, ?> HAZEL;
+	public static ConfiguredFeature<BaseTreeFeatureConfig, ?> NATURAL_HAZEL;
 
     @SuppressWarnings("unchecked")
     private static <T extends IFeatureConfig> ConfiguredFeature<T, ?> register(String id, ConfiguredFeature feature) {
@@ -57,15 +63,16 @@ public class ModTrees {
 
             BaseTreeFeatureConfig.Builder builder = (new BaseTreeFeatureConfig.Builder(logProvider, leavesProvider, new BlobFoliagePlacer(FeatureSpread.func_242252_a(2), FeatureSpread.func_242252_a(0), 3), new StraightTrunkPlacer(6, 2, 0), new TwoLayerFeature(1, 0, 1))).setIgnoreVines();
             APPLE = register("apple_tree", Feature.TREE.withConfiguration(builder.build()));
-            NATURAL_APPLE = register("rare_apple_trees", Feature.TREE.withConfiguration(builder.setDecorators(Lists.newArrayList(AppleTreeDecorator.INSTANCE)).build()).chance(32));
+            NATURAL_APPLE = register("natural_apple_tree", Feature.TREE.withConfiguration(builder.setDecorators(Lists.newArrayList(AppleTreeDecorator.INSTANCE)).build()).chance(32));
         }
 
         if (TIConfig.Trees.hazel.get()) {
             SimpleBlockStateProvider logProvider = new SimpleBlockStateProvider(ModWoodTypes.HAZEL.LOG.getDefaultState());
             SimpleBlockStateProvider leavesProvider = new SimpleBlockStateProvider(ModWoodTypes.HAZEL.LEAVES.getDefaultState());
             
-            BaseTreeFeatureConfig.Builder builder = (new BaseTreeFeatureConfig.Builder(logProvider, leavesProvider, new BlobFoliagePlacer(FeatureSpread.func_242252_a(2), FeatureSpread.func_242252_a(0), 3), new StraightTrunkPlacer(6, 2, 0), new TwoLayerFeature(1, 0, 1))).setIgnoreVines();
+            BaseTreeFeatureConfig.Builder builder = (new BaseTreeFeatureConfig.Builder(logProvider, leavesProvider, new FancyFoliagePlacer(FeatureSpread.func_242252_a(2), FeatureSpread.func_242252_a(4), 4), new FancyTrunkPlacer(2, 9, 0), new TwoLayerFeature(0, 0, 0, OptionalInt.of(4)))).setIgnoreVines().func_236702_a_(Heightmap.Type.MOTION_BLOCKING);
             HAZEL = register("hazel_tree", Feature.TREE.withConfiguration(builder.build()));
+            NATURAL_HAZEL = register("natural_hazel_tree", Feature.TREE.withConfiguration(builder.setDecorators(Lists.newArrayList(HazelnutTreeDecorator.INSTANCE)).build()).chance(48));
         }
     }
 }

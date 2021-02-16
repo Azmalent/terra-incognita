@@ -1,4 +1,4 @@
-package azmalent.terraincognita.common.item;
+package azmalent.terraincognita.common.init;
 
 import net.minecraft.item.Food;
 import net.minecraft.potion.EffectInstance;
@@ -21,5 +21,5 @@ public class ModFoods {
 
     public static final Food BERRY_SORBET = new Food.Builder().hunger(5).saturation(3f).build();
 
-    public static final Food HAZELNUT = new Food.Builder().hunger(3).saturation(0.5f).fastToEat().build();
+    public static final Food HAZELNUT = new Food.Builder().hunger(2).saturation(0.3f).fastToEat().build();
 }

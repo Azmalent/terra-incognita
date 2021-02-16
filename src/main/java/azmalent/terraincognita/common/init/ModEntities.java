@@ -1,12 +1,16 @@
 package azmalent.terraincognita.common.init;
 
 import azmalent.terraincognita.TerraIncognita;
+import azmalent.terraincognita.client.renderer.entity.ButterflyRenderer;
 import azmalent.terraincognita.client.renderer.entity.ModBoatRenderer;
+import azmalent.terraincognita.common.entity.AbstractButterflyEntity;
 import azmalent.terraincognita.common.entity.ButterflyEntity;
 import azmalent.terraincognita.common.entity.ModBoatEntity;
+import azmalent.terraincognita.common.entity.MothEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.RegistryObject;
@@ -16,26 +20,33 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 @SuppressWarnings("unchecked")
 public class ModEntities {
-    public static DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, TerraIncognita.MODID);
+    public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, TerraIncognita.MODID);
 
     public static final RegistryObject<EntityType<ModBoatEntity>> BOAT = register("boat",
         EntityType.Builder.<ModBoatEntity>create(ModBoatEntity::new, EntityClassification.MISC).size(1.375F, 0.5625F).setCustomClientFactory(ModBoatEntity::new).trackingRange(10)
     );
 
-    public static RegistryObject<EntityType<ButterflyEntity>> BUTTERFLY;
+    public static final RegistryObject<EntityType<ButterflyEntity>> BUTTERFLY = register("butterfly",
+        EntityType.Builder.<ButterflyEntity>create(ButterflyEntity::new, EntityClassification.AMBIENT).size(0.5f, 0.5f).setCustomClientFactory(ButterflyEntity::new).trackingRange(5)
+    );
 
-    static {
-        BUTTERFLY = register("butterfly",
-            EntityType.Builder.<ButterflyEntity>create(ButterflyEntity::new, EntityClassification.AMBIENT).size(0.5f, 0.5f).setCustomClientFactory(ButterflyEntity::new).trackingRange(5)
-        );
+    public static final RegistryObject<EntityType<MothEntity>> MOTH = null; /*register("moth",
+        EntityType.Builder.<MothEntity>create(MothEntity::new, EntityClassification.AMBIENT).size(0.5f, 0.5f).setCustomClientFactory(MothEntity::new).trackingRange(5)
+    );*/
+
+    private static <T extends Entity> RegistryObject<EntityType<T>> register(String id, EntityType.Builder<T> builder) {
+        return ENTITIES.register(id, () -> builder.build(TerraIncognita.prefix(id).toString()));
     }
 
-    private static <TEntity extends Entity> RegistryObject register(String id, EntityType.Builder<TEntity> builder) {
-        return ENTITIES.register(id, () -> builder.build(TerraIncognita.prefix(id).toString()));
+    public static void registerAttributes() {
+        GlobalEntityTypeAttributes.put(BUTTERFLY.get(), AbstractButterflyEntity.createAttributes().create());
+        //GlobalEntityTypeAttributes.put(MOTH.get(), AbstractButterflyEntity.registerAttributes().create());
     }
 
     @OnlyIn(Dist.CLIENT)
     public static void registerRenderers() {
         RenderingRegistry.registerEntityRenderingHandler(BOAT.get(), ModBoatRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(BUTTERFLY.get(), ButterflyRenderer<ButterflyEntity>::new);
+        //RenderingRegistry.registerEntityRenderingHandler(MOTH.get(), ButterflyRenderer<MothEntity>::new);
     }
 }

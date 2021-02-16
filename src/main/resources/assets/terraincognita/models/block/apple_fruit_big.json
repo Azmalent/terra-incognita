@@ -25,6 +25,15 @@
 				"north": {"uv": [0, 0, 2, 3], "texture": "#apple"},
 				"south": {"uv": [0, 0, 2, 3], "texture": "#apple"}
 			}
+		},
+		{
+			"from": [8, 13, 7],
+			"to": [8, 16, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [15, 22, 1]},
+			"faces": {
+				"east": {"uv": [0, 0, 2, 3], "texture": "#apple"},
+				"west": {"uv": [0, 0, 2, 3], "texture": "#apple"}
+			}
 		}
 	]
 }

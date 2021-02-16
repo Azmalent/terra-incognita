@@ -2,10 +2,7 @@ package azmalent.terraincognita.common.block.trees;
 
 import azmalent.terraincognita.common.init.ModWoodTypes;
 import com.google.common.collect.Lists;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.SoundType;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.entity.item.ItemEntity;
@@ -35,9 +32,10 @@ import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Random;
 
+@SuppressWarnings("deprecation")
 public class AppleBlock extends AbstractFruitBlock {
-    private static VoxelShape SMALL_SHAPE = makeCuboidShape(6, 9, 6, 10, 13, 10);
-    private static VoxelShape BIG_SHAPE = makeCuboidShape(5, 7, 5, 11, 13, 11);
+    private static final VoxelShape SMALL_SHAPE = makeCuboidShape(6, 9, 6, 10, 13, 10);
+    private static final VoxelShape BIG_SHAPE = makeCuboidShape(5, 7, 5, 11, 13, 11);
 
     public AppleBlock() {
         super(Block.Properties.create(Material.MISCELLANEOUS, MaterialColor.RED).hardnessAndResistance(0.2F).sound(SoundType.WOOD), () -> Items.APPLE);
@@ -59,6 +57,6 @@ public class AppleBlock extends AbstractFruitBlock {
     @Override
     public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
         BlockState up = worldIn.getBlockState(pos.up());
-        return up.isIn(ModWoodTypes.APPLE.LEAVES.getBlock()) || up.isIn(ModWoodTypes.APPLE.BLOSSOMING_LEAVES.getBlock());
+        return (up.isIn(ModWoodTypes.APPLE.LEAVES.getBlock()) || up.isIn(ModWoodTypes.APPLE.BLOSSOMING_LEAVES.getBlock())  && !up.get(LeavesBlock.PERSISTENT));
     }
 }

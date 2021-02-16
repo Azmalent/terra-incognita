@@ -4,6 +4,7 @@ import azmalent.cuneiform.lib.compat.ModProxyImpl;
 import azmalent.cuneiform.lib.registry.BlockEntry;
 import azmalent.cuneiform.lib.registry.BlockRenderType;
 import azmalent.terraincognita.TIConfig;
+import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.client.event.ColorHandler;
 import azmalent.terraincognita.common.event.FuelHandler;
 import azmalent.terraincognita.common.init.ModBlocks;
@@ -53,6 +54,8 @@ public class QuarkIntegration implements IQuarkIntegration {
     @SuppressWarnings("ConstantConditions")
     @Override
     public void register(IEventBus bus) {
+        TerraIncognita.LOGGER.info("Integrating with Quark...");
+
         if (TIConfig.Trees.apple.get()) {
             APPLE = new QuarkWoodBlockSet("apple", MaterialColor.WOOD, MaterialColor.ORANGE_TERRACOTTA);
             BLOSSOMING_APPLE_LEAF_CARPET = ModBlocks.HELPER.newBuilder("blossoming_apple_leaf_carpet", LeafCarpetBlock::new).withRenderType(BlockRenderType.CUTOUT_MIPPED).build();

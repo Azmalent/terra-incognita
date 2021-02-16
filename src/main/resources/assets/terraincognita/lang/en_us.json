@@ -1,8 +1,10 @@
 {
   "itemGroup.terraIncognitaTab": "Terra Incognita",
 
+  "_comment": "Dandelion Puff refers to a white fluffy dandelion",
   "block.terraincognita.dandelion_puff": "Dandelion Puff",
   "block.terraincognita.potted_dandelion_puff": "Potted Dandelion Puff",
+  "_comment": "Chicory as in the field flower, not the vegetable",
   "block.terraincognita.chicory": "Chicory",
   "block.terraincognita.potted_chicory": "Potted Chicory",
   "block.terraincognita.yarrow": "Yarrow",
@@ -53,6 +55,7 @@
   "block.terraincognita.potted_arctic_poppy": "Potted Arctic Poppy",
   "block.terraincognita.cattail": "Cattail",
   "block.terraincognita.potted_cattail": "Potted Cattail",
+  "_comment": "Water Flag is a colloquial name for Iris Pseudacorus. 'Swamp Iris' is a good way to translate it.",
   "block.terraincognita.water_flag": "Water Flag",
   "block.terraincognita.potted_water_flag": "Potted Water Flag",
   "block.terraincognita.tall_fireweed": "Fireweed",
@@ -69,6 +72,7 @@
   "block.terraincognita.potted_reeds": "Potted Swamp Reeds",
   "block.terraincognita.peat": "Peat",
   "block.terraincognita.tilled_peat": "Peat Farmland",
+  "block.terraincognita.mossy_gravel": "Mossy Gravel",
   "block.terraincognita.basket": "Basket",
   "block.terraincognita.wicker_mat": "Wicker Mat",
   "block.terraincognita.caltrops": "Caltrops",
@@ -153,8 +157,33 @@
   "biome.terraincognita.tundra": "Tundra",
   "biome.terraincognita.rocky_tundra": "Rocky Tundra",
 
-  "effect.terraincognita.sticky_mouth": "Sticky Mouth",
+  "entity.terraincognita.butterfly": "Butterfly",
+  "item.terraincognita.butterfly_spawn_egg": "Butterfly Spawn Egg",
+  "entity.terraincognita.moth": "Hawk Moth",
+  "item.terraincognita.moth_spawn_egg": "Hawk Moth Spawn Egg",
 
+  "_comment": "Halves eating speed with each level. Applied when eating taffies.",
+  "effect.terraincognita.sticky_mouth": "Sticky Mouth",
+  
+  "item.terraincognita.fleur_de_lis_banner_pattern": "Banner Pattern",
+  "item.terraincognita.fleur_de_lis_banner_pattern.desc": "Fleur de Lis",
+  "block.minecraft.banner.ti_fleur_de_lis.white": "White Fleur de Lis",
+  "block.minecraft.banner.ti_fleur_de_lis.orange": "Orange Fleur de Lis",
+  "block.minecraft.banner.ti_fleur_de_lis.magenta": "Magenta Fleur de Lis",
+  "block.minecraft.banner.ti_fleur_de_lis.light_blue": "Light Blue Fleur de Lis",
+  "block.minecraft.banner.ti_fleur_de_lis.yellow": "Yellow Fleur de Lis",
+  "block.minecraft.banner.ti_fleur_de_lis.lime": "Lime Fleur de Lis",
+  "block.minecraft.banner.ti_fleur_de_lis.pink": "Pink Fleur de Lis",
+  "block.minecraft.banner.ti_fleur_de_lis.gray": "Gray Fleur de Lis",
+  "block.minecraft.banner.ti_fleur_de_lis.light_gray": "Light Gray Fleur de Lis",
+  "block.minecraft.banner.ti_fleur_de_lis.cyan": "Cyan Fleur de Lis",
+  "block.minecraft.banner.ti_fleur_de_lis.purple": "Purple Fleur de Lis",
+  "block.minecraft.banner.ti_fleur_de_lis.blue": "Blue Fleur de Lis",
+  "block.minecraft.banner.ti_fleur_de_lis.brown": "Brown Fleur de Lis",
+  "block.minecraft.banner.ti_fleur_de_lis.green": "Green Fleur de Lis",
+  "block.minecraft.banner.ti_fleur_de_lis.red": "Red Fleur de Lis",
+  "block.minecraft.banner.ti_fleur_de_lis.black": "Black Fleur de Lis",
+  
   "subtitle.terraincognita.blow": "Player blows on a dandelion puff",
   "subtitle.terraincognita.caltrops_throw": "Caltrops thrown"
 }

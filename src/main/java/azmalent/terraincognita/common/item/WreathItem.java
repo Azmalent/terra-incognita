@@ -55,22 +55,4 @@ public class WreathItem extends DyeableArmorItem {
         CompoundNBT display = stack.getOrCreateChildTag("display");
         return display.contains("color", Constants.NBT.TAG_ANY_NUMERIC) ? display.getInt("color") : DEFAULT_COLOR;
     }
-
-    @Override
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-        super.addInformation(stack, worldIn, tooltip, flagIn);
-
-        if (!flagIn.isAdvanced()) {
-            for (ITextComponent line : tooltip) {
-                if (line instanceof TranslationTextComponent) {
-                    String key = ((TranslationTextComponent) line).getKey();
-                    TerraIncognita.LOGGER.info(key);
-                    if (key.equals("item.dyed")) {
-                        tooltip.remove(line);
-                        return;
-                    }
-                }
-            }
-        }
-    }
 }

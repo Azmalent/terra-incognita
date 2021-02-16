@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:paper"
+    },
+    {
+      "item": "terraincognita:water_flag"
+    }
+  ],
+  "result": {
+    "item": "terraincognita:fleur_de_lis_banner_pattern"
+  },
+  "conditions": [
+    {
+      "type": "cuneiform:config",
+      "config": "terraincognita:banners"
+    },
+    {
+      "type": "cuneiform:config",
+      "config": "terraincognita:swamp_flowers"
+    }
+  ]
+}

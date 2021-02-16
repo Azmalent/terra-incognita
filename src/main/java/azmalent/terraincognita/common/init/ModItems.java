@@ -2,9 +2,11 @@ package azmalent.terraincognita.common.init;
 
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.TIConfig;
-import azmalent.terraincognita.common.item.dispenser.TIBoatDispenserBehavior;
+import azmalent.terraincognita.common.entity.ButterflyEntity;
+import azmalent.terraincognita.common.entity.MothEntity;
+import azmalent.terraincognita.common.item.ModSpawnEggItem;
+import azmalent.terraincognita.common.item.dispenser.ModBoatDispenserBehavior;
 import azmalent.terraincognita.common.item.WreathItem;
-import azmalent.terraincognita.common.item.ModFoods;
 import azmalent.terraincognita.common.item.NotchCarrotItem;
 import azmalent.terraincognita.common.item.TaffyItem;
 import net.minecraft.block.DispenserBlock;
@@ -16,6 +18,7 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
+@SuppressWarnings({"ConstantConditions", "unused"})
 public class ModItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, TerraIncognita.MODID);
 
@@ -29,6 +32,9 @@ public class ModItems {
     public static RegistryObject<Item> BERRY_SORBET;
     public static RegistryObject<WreathItem> WREATH;
     public static RegistryObject<Item> HAZELNUT;
+
+    public static final RegistryObject<ModSpawnEggItem<ButterflyEntity>> BUTTERFLY_SPAWN_EGG = ModSpawnEggItem.create("butterfly", ModEntities.BUTTERFLY, 0xc02f03, 0x0f1016);
+    public static final RegistryObject<ModSpawnEggItem<MothEntity>> MOTH_SPAWN_EGG = ModSpawnEggItem.create("moth", ModEntities.MOTH, 0xbe9c7e, 0x5e4736);
 
     private static Item.Properties props() {
         return new Item.Properties().group(TerraIncognita.TAB);
@@ -63,13 +69,8 @@ public class ModItems {
         if (TIConfig.Trees.hazel.get()) {
             HAZELNUT = ITEMS.register("hazelnut", () -> new Item(props().food(ModFoods.HAZELNUT)));
         }
-    }
 
-    public static void registerDispenserBehaviors() {
-        TIBoatDispenserBehavior boatBehavior = new TIBoatDispenserBehavior();
-        ModWoodTypes.VALUES.forEach(woodType -> {
-            DispenserBlock.registerDispenseBehavior(woodType.BOAT.get(), boatBehavior);
-        });
+        ModBanners.init();
     }
 
     @OnlyIn(Dist.CLIENT)

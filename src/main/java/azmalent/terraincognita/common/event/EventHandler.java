@@ -59,10 +59,10 @@ public class EventHandler {
         event.enqueueWork(ModOres::configureFeatures);
         event.enqueueWork(ModBiomes::registerBiomes);
 
-        ModItems.registerDispenserBehaviors();
         ModBlocks.initToolInteractions();
         ModBlocks.initFlammability();
         FuelHandler.initFuelValues();
+        ModEntities.registerAttributes();
         ModRecipes.initCompostables();
     }
 

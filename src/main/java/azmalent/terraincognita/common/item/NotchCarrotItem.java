@@ -1,6 +1,7 @@
 package azmalent.terraincognita.common.item;
 
 import azmalent.terraincognita.TerraIncognita;
+import azmalent.terraincognita.common.init.ModFoods;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Rarity;

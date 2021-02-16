@@ -66,12 +66,12 @@ public class BiomeHandler {
                     WorldGenUtil.addVegetation(event, ModVegetation.ARCTIC_FLOWERS);
                 }
                 else {
-                    WorldGenUtil.addVegetation(event, ModVegetation.FOREST_FLOWERS, ModTrees.NATURAL_APPLE);
+                    WorldGenUtil.addVegetation(event, ModVegetation.FOREST_FLOWERS, ModTrees.NATURAL_APPLE, ModTrees.NATURAL_HAZEL);
                 }
                 break;
             case SWAMP:
                 WorldGenUtil.addVegetation(event, ModVegetation.SMALL_LILYPADS, ModVegetation.REEDS);
-                WorldGenUtil.addOre(event, ModOres.PEAT_DISK);
+                WorldGenUtil.addOre(event, ModOres.PEAT_DISK, ModOres.MOSSY_GRAVEL_DISK);
                 if (!cold) WorldGenUtil.addVegetation(event, ModVegetation.SWAMP_FLOWERS);
                 break;
             case SAVANNA:

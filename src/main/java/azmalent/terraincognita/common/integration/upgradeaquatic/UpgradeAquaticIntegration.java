@@ -1,6 +1,7 @@
 package azmalent.terraincognita.common.integration.upgradeaquatic;
 
 import azmalent.cuneiform.lib.compat.ModProxyImpl;
+import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.tile.ModSignTileEntity;
 import com.minecraftabnormals.upgrade_aquatic.client.particle.UAParticles;
 import com.minecraftabnormals.upgrade_aquatic.common.items.GlowingInkItem;
@@ -23,6 +24,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 public class UpgradeAquaticIntegration implements IUpgradeAquaticIntegration {
     @Override
     public void register(IEventBus bus) {
+        TerraIncognita.LOGGER.info("Integrating with Upgrade Aquatic...");
         MinecraftForge.EVENT_BUS.addListener(this::onRightClickBlock);
     }
 

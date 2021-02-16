@@ -2,6 +2,8 @@ package azmalent.terraincognita.common.item;
 
 import azmalent.terraincognita.common.entity.ModBoatEntity;
 import azmalent.terraincognita.common.block.blocksets.ModWoodType;
+import azmalent.terraincognita.common.item.dispenser.ModBoatDispenserBehavior;
+import net.minecraft.block.DispenserBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -21,13 +23,16 @@ import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class TIBoatItem extends Item {
-    private static final Predicate<Entity> field_219989_a = EntityPredicates.NOT_SPECTATING.and(Entity::canBeCollidedWith);
+public class ModBoatItem extends Item {
+    private static final ModBoatDispenserBehavior DISPENSER_BEHAVIOR = new ModBoatDispenserBehavior();
+    private static final Predicate<Entity> predicate = EntityPredicates.NOT_SPECTATING.and(Entity::canBeCollidedWith);
     public final ModWoodType woodType;
 
-    public TIBoatItem(ModWoodType woodType) {
+    public ModBoatItem(ModWoodType woodType) {
         super(new Item.Properties().maxStackSize(1).group(ItemGroup.TRANSPORTATION));
         this.woodType = woodType;
+
+        DispenserBlock.registerDispenseBehavior(this, DISPENSER_BEHAVIOR);
     }
 
     /**
@@ -43,7 +48,7 @@ public class TIBoatItem extends Item {
         } else {
             Vector3d vector3d = playerIn.getLook(1.0F);
             double d0 = 5.0D;
-            List<Entity> list = worldIn.getEntitiesInAABBexcluding(playerIn, playerIn.getBoundingBox().expand(vector3d.scale(5.0D)).grow(1.0D), field_219989_a);
+            List<Entity> list = worldIn.getEntitiesInAABBexcluding(playerIn, playerIn.getBoundingBox().expand(vector3d.scale(5.0D)).grow(1.0D), predicate);
             if (!list.isEmpty()) {
                 Vector3d vector3d1 = playerIn.getEyePosition(1.0F);
 

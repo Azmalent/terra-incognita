@@ -11,7 +11,7 @@ import azmalent.terraincognita.common.block.signs.ModStandingSignBlock;
 import azmalent.terraincognita.common.block.signs.ModWallSignBlock;
 import azmalent.terraincognita.common.init.ModBlocks;
 import azmalent.terraincognita.common.init.ModItems;
-import azmalent.terraincognita.common.item.TIBoatItem;
+import azmalent.terraincognita.common.item.ModBoatItem;
 import azmalent.terraincognita.common.item.block.ModSignItem;
 import azmalent.terraincognita.mixin.accessor.FireBlockAccessor;
 import net.minecraft.block.*;
@@ -59,7 +59,7 @@ public class ModWoodType {
         this.condition = condition;
         this.name = id;
 
-        SAPLING = ModBlocks.makePottablePlant(id + "_sapling", () -> new SaplingBlock(tree, Block.Properties.from(Blocks.OAK_SAPLING)), condition);
+        SAPLING = PottablePlantEntry.create(id + "_sapling", () -> new SaplingBlock(tree, Block.Properties.from(Blocks.OAK_SAPLING)), condition);
         LEAVES = ModBlocks.HELPER.newBuilder(id + "_leaves", this::createLeaves).withRenderType(BlockRenderType.CUTOUT_MIPPED).buildIf(condition);
         LOG = ModBlocks.HELPER.newBuilder(id + "_log", () -> createLogBlock(woodColor, barkColor)).buildIf(condition);
         STRIPPED_LOG = ModBlocks.HELPER.newBuilder("stripped_" + id + "_log", () -> createLogBlock(woodColor, woodColor)).buildIf(condition);
@@ -75,10 +75,10 @@ public class ModWoodType {
         DOOR = ModBlocks.HELPER.newBuilder(id + "_door", () -> new DoorBlock(Block.Properties.create(Material.WOOD, woodColor).hardnessAndResistance(3.0F).sound(SoundType.WOOD).notSolid())).withBlockItem(block -> new TallBlockItem(block, new Item.Properties().group(TerraIncognita.TAB))).withRenderType(BlockRenderType.CUTOUT).buildIf(condition);
         TRAPDOOR = ModBlocks.HELPER.newBuilder(id + "_trapdoor", () -> new TrapDoorBlock(Block.Properties.create(Material.WOOD, woodColor).hardnessAndResistance(3.0F).sound(SoundType.WOOD).notSolid().setAllowsSpawn((state, reader, pos, entity) -> false))).withRenderType(BlockRenderType.CUTOUT).buildIf(condition);
         BUTTON = ModBlocks.HELPER.newBuilder(id + "_button", () -> new WoodButtonBlock(Block.Properties.from(Blocks.OAK_BUTTON))).buildIf(condition);
-        PRESSURE_PLATE = ModBlocks.HELPER.newBuilder(id + "_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, AbstractBlock.Properties.create(Material.WOOD, woodColor).doesNotBlockMovement().hardnessAndResistance(0.5F).sound(SoundType.WOOD))).buildIf(condition);
+        PRESSURE_PLATE = ModBlocks.HELPER.newBuilder(id + "_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, Block.Properties.create(Material.WOOD, woodColor).doesNotBlockMovement().hardnessAndResistance(0.5F).sound(SoundType.WOOD))).buildIf(condition);
         CHEST = ModBlocks.HELPER.newBuilder(id +  "_chest", () -> new ModChestBlock(this, woodColor)).withBlockItemProperties(new Item.Properties().group(TerraIncognita.TAB).setISTER(() -> ModChestISTER::forNormalChest)).buildIf(condition);
         TRAPPED_CHEST = ModBlocks.HELPER.newBuilder(id +  "_trapped_chest", () -> new ModTrappedChestBlock(this, woodColor)).withBlockItemProperties(new Item.Properties().group(TerraIncognita.TAB).setISTER(() -> ModChestISTER::forTrappedChest)).buildIf(condition);
-        BOAT = condition.get() ? ModItems.ITEMS.register(id + "_boat", () -> new TIBoatItem(this)) : null;
+        BOAT = condition.get() ? ModItems.ITEMS.register(id + "_boat", () -> new ModBoatItem(this)) : null;
 
         SIGN_TEXTURE = TerraIncognita.prefix("entity/sign/" + name);
         BOAT_TEXTURE = TerraIncognita.prefix("textures/entity/boat/" + name + ".png");
