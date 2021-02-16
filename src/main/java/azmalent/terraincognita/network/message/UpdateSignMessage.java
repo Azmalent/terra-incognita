@@ -1,10 +1,8 @@
 package azmalent.terraincognita.network.message;
 
-import azmalent.terraincognita.client.ClientHandler;
+import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.tile.ModSignTileEntity;
 import azmalent.terraincognita.network.NetworkHandler;
-import net.minecraft.block.BlockState;
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.DyeColor;
 import net.minecraft.network.PacketBuffer;
@@ -79,18 +77,7 @@ public final class UpdateSignMessage {
         }
         else {
             context.enqueueWork(() -> {
-                ClientWorld world = ClientHandler.getWorld();
-                if (world.isAreaLoaded(message.pos, 1)) {
-                    TileEntity te = world.getTileEntity(message.pos);
-                    if (te instanceof ModSignTileEntity) {
-                        ModSignTileEntity sign = (ModSignTileEntity) te;
-                        for (int i = 0; i < 4; i++) {
-                            sign.setText(i, message.lines[i]);
-                        }
-
-                        sign.setTextColor(DyeColor.byId(message.color));
-                    }
-                }
+                TerraIncognita.PROXY.updateSignOnClient(message.pos, message.lines, message.color);
             });
         }
 

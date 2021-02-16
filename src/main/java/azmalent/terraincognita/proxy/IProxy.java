@@ -14,5 +14,7 @@ public interface IProxy {
 
     void spawnParticle(World world, IParticleData data, boolean alwaysRender, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed);
 
-    void openSignEditor(ModSignTileEntity sign);
+    void openSignEditor(BlockPos pos);
+
+    void updateSignOnClient(BlockPos pos, ITextComponent[] lines, int color);
 }
