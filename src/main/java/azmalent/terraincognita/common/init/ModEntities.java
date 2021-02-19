@@ -9,8 +9,10 @@ import azmalent.terraincognita.common.entity.ModBoatEntity;
 import azmalent.terraincognita.common.entity.MothEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
+import net.minecraft.world.gen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.RegistryObject;
@@ -41,6 +43,10 @@ public class ModEntities {
     public static void registerAttributes() {
         GlobalEntityTypeAttributes.put(BUTTERFLY.get(), AbstractButterflyEntity.createAttributes().create());
         //GlobalEntityTypeAttributes.put(MOTH.get(), AbstractButterflyEntity.registerAttributes().create());
+    }
+
+    public static void registerSpawns() {
+        EntitySpawnPlacementRegistry.register(BUTTERFLY.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING, ButterflyEntity::canSpawn);
     }
 
     @OnlyIn(Dist.CLIENT)

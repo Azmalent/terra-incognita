@@ -21,7 +21,7 @@ public class ModOres {
         }
 
         if (TIConfig.Misc.mossyGravel.get()) {
-            SphereReplaceConfig config = new SphereReplaceConfig(ModBlocks.PEAT.getBlock().getDefaultState(), FeatureSpread.func_242253_a(3, 2), 1, ImmutableList.of(Blocks.DIRT.getDefaultState(), Blocks.GRAVEL.getDefaultState()));
+            SphereReplaceConfig config = new SphereReplaceConfig(ModBlocks.MOSSY_GRAVEL.getBlock().getDefaultState(), FeatureSpread.func_242253_a(3, 2), 1, ImmutableList.of(Blocks.DIRT.getDefaultState(), Blocks.GRAVEL.getDefaultState()));
             MOSSY_GRAVEL_DISK = register("mossy_gravel", Feature.DISK.withConfiguration(config).withPlacement(Features.Placements.SEAGRASS_DISK_PLACEMENT).chance(2));
         }
     }

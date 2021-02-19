@@ -14,7 +14,7 @@ public class ClientHandler {
         return MC.player;
     }
 
-    public static World getWorld() {
+    public static ClientWorld getWorld() {
         return MC.world;
     }
 }

@@ -16,18 +16,20 @@ public class ModBanners {
 
     public static final Map<BannerPattern, RegistryObject<BannerPatternItem>> PATTERN_ITEMS = Maps.newHashMap();
     public static BannerPattern FLEUR_DE_LIS;
+    public static BannerPattern FERN;
 
     public static void init() {
         if (!TIConfig.Misc.bannerPatterns.get()) return;
 
         FLEUR_DE_LIS = register("fleur_de_lis", "fdl", true);
+        FERN = register("fern", "fern", true);
     }
 
-    private static BannerPattern register(String name, String hashName, boolean hasItem) {
+    private static BannerPattern register(String name, String hashName, boolean requiresItem) {
         String enumName = TerraIncognita.prefix(name).toString().replace(':', '_').toUpperCase();
-        BannerPattern pattern = BannerPattern.create(enumName, "ti_" + name, "ti_" + hashName, hasItem);
+        BannerPattern pattern = BannerPattern.create(enumName, "ti_" + name, "ti_" + hashName, requiresItem);
 
-        if (hasItem) {
+        if (requiresItem) {
             String itemName = name + "_banner_pattern";
             RegistryObject<BannerPatternItem> item = ModItems.ITEMS.register(itemName, () -> new BannerPatternItem(pattern, PATTERN_PROPS));
             PATTERN_ITEMS.put(pattern, item);

@@ -183,7 +183,26 @@
   "block.minecraft.banner.ti_fleur_de_lis.green": "Green Fleur de Lis",
   "block.minecraft.banner.ti_fleur_de_lis.red": "Red Fleur de Lis",
   "block.minecraft.banner.ti_fleur_de_lis.black": "Black Fleur de Lis",
-  
+
+  "item.terraincognita.fern_banner_pattern": "Banner Pattern",
+  "item.terraincognita.fern_banner_pattern.desc": "Fern",
+  "block.minecraft.banner.ti_fern.white": "White Fern",
+  "block.minecraft.banner.ti_fern.orange": "Orange Fern",
+  "block.minecraft.banner.ti_fern.magenta": "Magenta Fern",
+  "block.minecraft.banner.ti_fern.light_blue": "Light Blue Fern",
+  "block.minecraft.banner.ti_fern.yellow": "Yellow Fern",
+  "block.minecraft.banner.ti_fern.lime": "Lime Fern",
+  "block.minecraft.banner.ti_fern.pink": "Pink Fern",
+  "block.minecraft.banner.ti_fern.gray": "Gray Fern",
+  "block.minecraft.banner.ti_fern.light_gray": "Light Gray Fern",
+  "block.minecraft.banner.ti_fern.cyan": "Cyan Fern",
+  "block.minecraft.banner.ti_fern.purple": "Purple Fern",
+  "block.minecraft.banner.ti_fern.blue": "Blue Fern",
+  "block.minecraft.banner.ti_fern.brown": "Brown Fern",
+  "block.minecraft.banner.ti_fern.green": "Green Fern",
+  "block.minecraft.banner.ti_fern.red": "Red Fern",
+  "block.minecraft.banner.ti_fern.black": "Black Fern",
+
   "subtitle.terraincognita.blow": "Player blows on a dandelion puff",
   "subtitle.terraincognita.caltrops_throw": "Caltrops thrown"
 }

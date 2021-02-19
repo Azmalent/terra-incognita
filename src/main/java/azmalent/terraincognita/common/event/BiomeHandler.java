@@ -4,16 +4,19 @@ import azmalent.cuneiform.lib.util.BiomeUtil;
 import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.init.ModBiomes;
+import azmalent.terraincognita.common.init.ModEntities;
 import azmalent.terraincognita.common.world.ModOres;
 import azmalent.terraincognita.common.world.ModTrees;
 import azmalent.terraincognita.common.world.ModVegetation;
 import azmalent.terraincognita.common.world.WorldGenUtil;
+import net.minecraft.entity.EntityClassification;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.*;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import static azmalent.cuneiform.lib.util.BiomeUtil.hasAnyType;
 import static net.minecraftforge.common.BiomeDictionary.Type.*;
@@ -42,32 +45,40 @@ public class BiomeHandler {
     }
 
     public static void addCustomFeatures(BiomeLoadingEvent event) {
-        RegistryKey<Biome> biome = BiomeUtil.getBiomeKey(event.getName());
-        if (hasAnyType(biome, END, NETHER, VOID, OCEAN, BEACH, DEAD)) return;
+        RegistryKey<Biome> biomeKey = BiomeUtil.getBiomeKey(event.getName());
+        if (hasAnyType(biomeKey, END, NETHER, VOID, OCEAN, BEACH, DEAD) || biomeKey == Biomes.FLOWER_FOREST) return;
 
-        boolean cold = hasType(biome, COLD);
-        boolean hot = hasType(biome, HOT);
+        Biome biome = ForgeRegistries.BIOMES.getValue(event.getName());
+        if (TIConfig.biomeBlacklist.get().contains(biome)) {
+            return;
+        }
 
-        if (!hasAnyType(biome, SANDY, MESA, WASTELAND)) {
+        boolean cold = hasType(biomeKey, COLD);
+        boolean hot = hasType(biomeKey, HOT);
+
+        //Roots and hanging moss
+        if (!hasAnyType(biomeKey, SANDY, MESA, WASTELAND)) {
             WorldGenUtil.addVegetation(event, ModVegetation.ROOTS);
-            if (!hasAnyType(biome, COLD, SAVANNA, DRY)) {
+            if (!hasAnyType(biomeKey, COLD, SAVANNA, DRY)) {
                 WorldGenUtil.addVegetation(event, ModVegetation.HANGING_MOSS);
             }
         }
 
-        switch (event.getCategory()) {
+        Biome.Category category = event.getCategory();
+
+        //Workaround for biomes that don't use proper categories
+        if (category == Biome.Category.FOREST) {
+            if (hot) category = Biome.Category.JUNGLE;
+            else if (cold) category = Biome.Category.TAIGA;
+        }
+
+        switch (category) {
             case PLAINS:
                 WorldGenUtil.addVegetation(event, ModTrees.NATURAL_APPLE);
+                WorldGenUtil.addSpawner(event, ModEntities.BUTTERFLY, EntityClassification.AMBIENT, 10, 2, 4);
                 break;
             case FOREST:
-                if (hot) {
-                    WorldGenUtil.addVegetation(event, ModVegetation.JUNGLE_FLOWERS, ModVegetation.LOTUS);
-                } else if (cold) {
-                    WorldGenUtil.addVegetation(event, ModVegetation.ARCTIC_FLOWERS);
-                }
-                else {
-                    WorldGenUtil.addVegetation(event, ModVegetation.FOREST_FLOWERS, ModTrees.NATURAL_APPLE, ModTrees.NATURAL_HAZEL);
-                }
+                WorldGenUtil.addVegetation(event, ModVegetation.FOREST_FLOWERS, ModTrees.NATURAL_APPLE, ModTrees.NATURAL_HAZEL);
                 break;
             case SWAMP:
                 WorldGenUtil.addVegetation(event, ModVegetation.SMALL_LILYPADS, ModVegetation.REEDS);

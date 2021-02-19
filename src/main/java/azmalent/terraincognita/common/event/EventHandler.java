@@ -63,6 +63,7 @@ public class EventHandler {
         ModBlocks.initFlammability();
         FuelHandler.initFuelValues();
         ModEntities.registerAttributes();
+        ModEntities.registerSpawns();
         ModRecipes.initCompostables();
     }
 

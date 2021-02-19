@@ -1,26 +1,31 @@
 package azmalent.terraincognita.common.entity;
 
 import azmalent.cuneiform.lib.util.BiomeUtil;
-import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.init.ModEntities;
 import azmalent.terraincognita.common.init.ModItems;
-import net.minecraft.entity.*;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ILivingEntityData;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.fml.network.FMLPlayMessages;
 
 import javax.annotation.Nullable;
@@ -66,6 +71,16 @@ public class ButterflyEntity extends AbstractButterflyEntity {
     public void readAdditional(CompoundNBT tag) {
         super.readAdditional(tag);
         setButterflyType(Type.getTypeByName(tag.getString("Type")));
+    }
+
+    @SuppressWarnings("deprecation")
+    public static boolean canSpawn(EntityType<ButterflyEntity> butterfly, IWorld world, SpawnReason reason, BlockPos pos, Random randomIn) {
+        if (pos.getY() < world.getSeaLevel() || !world.canBlockSeeSky(pos)) {
+            return false;
+        }
+
+        int light = world.getLight(pos);
+        return (world.getBlockState(pos).isIn(BlockTags.FLOWERS) || world.getBlockState(pos.down()).isIn(Blocks.GRASS)) && light > 7;
     }
 
     private void setButterflyType(ButterflyEntity.Type type) {

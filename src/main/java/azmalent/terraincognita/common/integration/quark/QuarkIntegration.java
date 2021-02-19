@@ -110,6 +110,10 @@ public class QuarkIntegration implements IQuarkIntegration {
         if(APPLE != null) {
             colors.register((state, reader, pos, color) -> ColorHandler.APPLE_LEAVES_COLOR, APPLE.LEAF_CARPET.getBlock(), BLOSSOMING_APPLE_LEAF_CARPET.getBlock(), APPLE.HEDGE.getBlock(), BLOSSOMING_APPLE_HEDGE.getBlock());
         }
+
+        if (HAZEL != null) {
+            colors.register((state, reader, pos, color) -> ColorHandler.HAZEL_LEAVES_COLOR, HAZEL.LEAF_CARPET.getBlock(), HAZEL.HEDGE.getBlock());
+        }
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -118,6 +122,10 @@ public class QuarkIntegration implements IQuarkIntegration {
 
         if (APPLE != null) {
             colors.register((stack, index) -> index > 0 ? -1 : ColorHandler.APPLE_LEAVES_COLOR, APPLE.LEAF_CARPET.getItem(), BLOSSOMING_APPLE_LEAF_CARPET.getItem(), APPLE.HEDGE.getItem(), BLOSSOMING_APPLE_HEDGE.getItem());
+        }
+
+        if (HAZEL != null) {
+            colors.register((stack, index) -> index > 0 ? -1 : ColorHandler.HAZEL_LEAVES_COLOR, HAZEL.LEAF_CARPET.getItem(), HAZEL.HEDGE.getItem());
         }
     }
 

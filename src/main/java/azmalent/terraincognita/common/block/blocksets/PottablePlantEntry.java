@@ -6,12 +6,11 @@ import azmalent.cuneiform.lib.registry.BlockRenderType;
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.block.plants.WaterloggableTallFlowerBlock;
 import azmalent.terraincognita.common.init.ModBlocks;
+import azmalent.terraincognita.common.init.ModStewEffect;
 import net.minecraft.block.*;
-import net.minecraft.block.material.Material;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.TallBlockItem;
-import net.minecraft.potion.Effect;
 
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -40,11 +39,11 @@ public final class PottablePlantEntry {
         return potted.getBlock();
     }
 
-    public static PottablePlantEntry create(String id, Supplier<Block> constructor, BooleanOption condition) {
-        return create(id, constructor, null, condition);
+    public static PottablePlantEntry createPlant(String id, Supplier<Block> constructor, BooleanOption condition) {
+        return createPlant(id, constructor, null, condition);
     }
 
-    public static PottablePlantEntry create(String id, Supplier<Block> constructor, Function<Block, BlockItem> blockItemConstructor, BooleanOption condition) {
+    public static PottablePlantEntry createPlant(String id, Supplier<Block> constructor, Function<Block, BlockItem> blockItemConstructor, BooleanOption condition) {
         if (!condition.get()) {
             return null;
         }
@@ -53,15 +52,15 @@ public final class PottablePlantEntry {
         return new PottablePlantEntry(id, builder.build());
     }
 
-    public static PottablePlantEntry createFlower(String id, Effect effect, int duration, Block propertyBase, BooleanOption condition) {
-        return create(id, () -> new FlowerBlock(effect, duration, AbstractBlock.Properties.from(propertyBase)), condition);
+    public static PottablePlantEntry createFlower(String id, ModStewEffect stewEffect, BooleanOption condition) {
+        return createPlant(id, () -> new FlowerBlock(stewEffect.effect, stewEffect.duration, Block.Properties.from(Blocks.POPPY)), condition);
     }
 
-    public static PottablePlantEntry createTall(String id, BooleanOption condition) {
-        return create(id, () -> new TallFlowerBlock(AbstractBlock.Properties.from(Blocks.ROSE_BUSH)), block -> new TallBlockItem(block, new Item.Properties().group(TerraIncognita.TAB)), condition);
+    public static PottablePlantEntry createTallPlant(String id, BooleanOption condition) {
+        return createPlant(id, () -> new TallFlowerBlock(Block.Properties.from(Blocks.ROSE_BUSH)), block -> new TallBlockItem(block, new Item.Properties().group(TerraIncognita.TAB)), condition);
     }
 
-    public static PottablePlantEntry createTallWaterloggable(String id, BooleanOption condition) {
-        return create(id, WaterloggableTallFlowerBlock::new, block -> new TallBlockItem(block, new Item.Properties().group(TerraIncognita.TAB)), condition);
+    public static PottablePlantEntry createTallWaterloggablePlant(String id, BooleanOption condition) {
+        return createPlant(id, WaterloggableTallFlowerBlock::new, block -> new TallBlockItem(block, new Item.Properties().group(TerraIncognita.TAB)), condition);
     }
 }

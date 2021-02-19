@@ -59,7 +59,7 @@ public class ModWoodType {
         this.condition = condition;
         this.name = id;
 
-        SAPLING = PottablePlantEntry.create(id + "_sapling", () -> new SaplingBlock(tree, Block.Properties.from(Blocks.OAK_SAPLING)), condition);
+        SAPLING = PottablePlantEntry.createPlant(id + "_sapling", () -> new SaplingBlock(tree, Block.Properties.from(Blocks.OAK_SAPLING)), condition);
         LEAVES = ModBlocks.HELPER.newBuilder(id + "_leaves", this::createLeaves).withRenderType(BlockRenderType.CUTOUT_MIPPED).buildIf(condition);
         LOG = ModBlocks.HELPER.newBuilder(id + "_log", () -> createLogBlock(woodColor, barkColor)).buildIf(condition);
         STRIPPED_LOG = ModBlocks.HELPER.newBuilder("stripped_" + id + "_log", () -> createLogBlock(woodColor, woodColor)).buildIf(condition);

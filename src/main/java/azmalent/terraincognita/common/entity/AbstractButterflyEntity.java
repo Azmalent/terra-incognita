@@ -1,6 +1,5 @@
 package azmalent.terraincognita.common.entity;
 
-import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.common.entity.ai.ButterflyWanderGoal;
 import azmalent.terraincognita.common.init.ModItems;
 import net.minecraft.block.BlockState;
@@ -10,6 +9,7 @@ import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.controller.FlyingMovementController;
 import net.minecraft.entity.ai.goal.SwimGoal;
+import net.minecraft.entity.passive.BatEntity;
 import net.minecraft.entity.passive.IFlyingAnimal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -21,30 +21,29 @@ import net.minecraft.pathfinding.FlyingPathNavigator;
 import net.minecraft.pathfinding.PathNavigator;
 import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.state.properties.DoubleBlockHalf;
-import net.minecraft.state.properties.Half;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
+import java.util.Random;
 
 public abstract class AbstractButterflyEntity extends CreatureEntity implements IFlyingAnimal {
-    public static final DataParameter<Integer> LANDED_DIRECTION = EntityDataManager.createKey(AbstractButterflyEntity.class, DataSerializers.VARINT);
+    public static final DataParameter<Boolean> LANDED = EntityDataManager.createKey(AbstractButterflyEntity.class, DataSerializers.BOOLEAN);
+    int flyingTicks = 0;
+
     protected static final EntityPredicate PLAYER_PREDICATE = new EntityPredicate().setDistance(4).setLineOfSiteRequired().allowInvulnerable().setCustomPredicate(
-        entity -> entity instanceof PlayerEntity && isScaredOfPlayer((PlayerEntity) entity)
+        entity -> entity instanceof PlayerEntity && isAfraidOfPlayer((PlayerEntity) entity)
     );
 
-    protected static boolean isScaredOfPlayer(PlayerEntity player) {
+    protected static boolean isAfraidOfPlayer(PlayerEntity player) {
         if (player.isCreative()) return false;
-        if (ModItems.WREATH != null && player.getItemStackFromSlot(EquipmentSlotType.HEAD).getItem() == ModItems.WREATH.get()) {
-            return false;
-        }
-
-        return true;
+        return ModItems.WREATH == null || player.getItemStackFromSlot(EquipmentSlotType.HEAD).getItem() != ModItems.WREATH.get();
     }
 
     private int underWaterTicks = 0;
@@ -65,7 +64,7 @@ public abstract class AbstractButterflyEntity extends CreatureEntity implements 
     @Override
     protected void registerData() {
         super.registerData();
-        dataManager.register(LANDED_DIRECTION, -1);
+        dataManager.register(LANDED, false);
     }
 
     @Override
@@ -77,7 +76,7 @@ public abstract class AbstractButterflyEntity extends CreatureEntity implements 
 
     public static AttributeModifierMap.MutableAttribute createAttributes() {
         return MobEntity.func_233666_p_()
-            .createMutableAttribute(Attributes.MAX_HEALTH, 3.0D)
+            .createMutableAttribute(Attributes.MAX_HEALTH, 1.0D)
             .createMutableAttribute(Attributes.FLYING_SPEED, 0.6F)
             .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.3F);
     }
@@ -85,13 +84,13 @@ public abstract class AbstractButterflyEntity extends CreatureEntity implements 
     @Override
     public void writeAdditional(CompoundNBT tag) {
         super.writeAdditional(tag);
-        tag.putInt("LandedDirection", dataManager.get(LANDED_DIRECTION));
+        tag.putBoolean("Landed", dataManager.get(LANDED));
     }
 
     @Override
     public void readAdditional(CompoundNBT tag) {
         super.readAdditional(tag);
-        dataManager.set(LANDED_DIRECTION, tag.getInt("LandedDirection"));
+        dataManager.set(LANDED, tag.getBoolean("Landed"));
     }
 
     @Nonnull
@@ -130,78 +129,60 @@ public abstract class AbstractButterflyEntity extends CreatureEntity implements 
         }
 
         if (this.isLanded()) {
-            if (this.world.getClosestPlayer(PLAYER_PREDICATE, this) != null || !this.canSit()) {
-                this.setNotLanded();
+            flyingTicks = 0;
+
+            if (this.world.getClosestPlayer(PLAYER_PREDICATE, this) != null || this.rand.nextInt(200) == 0) {
+                this.setLanded(false);
+            }
+        } else {
+            flyingTicks++;
+            if (canSitOn(this.getPosition()) && flyingTicks > 600) {
+                this.setLanded(true);
             }
         }
     }
 
-    protected BlockPos getSittingPosition() {
-        BlockPos pos = getPosition();
-        Direction direction = getLandedDirection();
-        if (direction == Direction.DOWN) {
-            BlockState state = world.getBlockState(pos);
-            if (state.isIn(BlockTags.FLOWERS)) return pos;
-        }
-
-        return pos.offset(direction);
-    }
-
-    protected boolean canSit() {
-        return this.canSitOn(getSittingPosition(), getLandedDirection());
-    }
-
-    protected boolean canSitOn(BlockPos pos, Direction direction) {
-        if (direction == Direction.UP) return false;
-
+    protected boolean canSitOn(BlockPos pos) {
         BlockState state = world.getBlockState(pos);
-        if (direction == Direction.DOWN) {
-            if (state.isIn(BlockTags.FENCES)) {
-                return world.isAirBlock(pos.up());
-            }
-
-            if (state.isIn(BlockTags.SMALL_FLOWERS)) {
-                return true;
-            }
-
-            if (state.isIn(BlockTags.TALL_FLOWERS) && state.getBlock() instanceof TallFlowerBlock) {
-                if (state.get(TallFlowerBlock.HALF) == DoubleBlockHalf.UPPER) {
-                    return true;
-                }
-            }
+        if (state.isIn(BlockTags.SMALL_FLOWERS)) {
+            return true;
         }
 
-        return state.isSolidSide(world, pos, direction.getOpposite()) && world.isAirBlock(pos.offset(direction));
+        if (state.isIn(BlockTags.TALL_FLOWERS) && state.getBlock() instanceof TallFlowerBlock) {
+            return state.get(TallFlowerBlock.HALF) == DoubleBlockHalf.UPPER;
+        }
+
+        return false;
     }
 
     @Override
     public boolean attackEntityFrom(@Nonnull DamageSource damageSource, float damage) {
         boolean damaged = super.attackEntityFrom(damageSource, damage);
         if (damaged && this.isLanded()) {
-            this.setNotLanded();
+            this.setLanded(false);
         }
 
         return damaged;
     }
 
     public boolean isLanded() {
-        return dataManager.get(LANDED_DIRECTION) != -1;
+        return dataManager.get(LANDED);
     }
 
-    protected void setNotLanded() {
-        dataManager.set(LANDED_DIRECTION, -1);
+    protected void setLanded(boolean landed) {
+        dataManager.set(LANDED, landed);
+        if (landed) adjustLandedPosition();
     }
 
-    protected Direction getLandedDirection() {
-        return Direction.byIndex(dataManager.get(LANDED_DIRECTION));
-    }
+    private void adjustLandedPosition() {
+        BlockPos pos = getPosition();
+        BlockState state = world.getBlockState(pos);
 
-    protected void setLandedDirection(Direction direction) {
-        if (direction == Direction.UP) {
-            this.setNotLanded();
-        } else {
-            dataManager.set(LANDED_DIRECTION, direction.getIndex());
-        }
+        AxisAlignedBB aabb = state.getShape(world, pos).getBoundingBox();
+        double x = pos.getX() + (aabb.maxX - aabb.minX) / 2;
+        double y = pos.getY() + aabb.maxY;
+        double z = pos.getZ() + (aabb.maxZ - aabb.minZ) / 2;
+        setPosition(x, y, z);
     }
 
     public abstract ResourceLocation getTexture();

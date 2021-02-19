@@ -13,9 +13,7 @@ import net.minecraft.loot.LootContext;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
@@ -68,9 +66,14 @@ public abstract class AbstractFruitBlock extends Block {
             worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
 
             ItemStack stack = new ItemStack(item.get());
-            ItemEntity itemEntity = new ItemEntity(worldIn, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, stack);
-            itemEntity.setDefaultPickupDelay();
-            worldIn.addEntity(itemEntity);
+            if (player.addItemStackToInventory(stack)) {
+                float pitch = ((worldIn.rand.nextFloat() - worldIn.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F;
+                worldIn.playSound(player, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2F, pitch);
+            } else {
+                ItemEntity itemEntity = new ItemEntity(worldIn, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, stack);
+                itemEntity.setDefaultPickupDelay();
+                worldIn.addEntity(itemEntity);
+            }
 
             return ActionResultType.SUCCESS;
         }

@@ -57,8 +57,8 @@ public class CaltropsBlock extends Block {
             ItemStack stack = ModBlocks.CALTROPS.makeStack();
 
             if (player.addItemStackToInventory(stack)) {
-                float pitch = (player.getRNG().nextFloat() - player.getRNG().nextFloat()) * 0.7F + 1.0F;
-                world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), ModSounds.CALTROPS_THROWN.get(), SoundCategory.PLAYERS, 0.8F, pitch);
+                float pitch = ((world.rand.nextFloat() - world.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F;
+                world.playSound(player, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2F, pitch);
 
                 if (hand != null) player.swingArm(hand);
                 world.setBlockState(pos, Blocks.AIR.getDefaultState());

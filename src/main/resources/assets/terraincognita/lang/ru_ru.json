@@ -1,6 +1,7 @@
 {
   "itemGroup.terraIncognitaTab": "Terra Incognita",
 
+  "_comment": "Halves eating speed with each level",
   "block.terraincognita.dandelion_puff": "Белый одуванчик",
   "block.terraincognita.potted_dandelion_puff": "Белый одуванчик в горшке",
   "block.terraincognita.chicory": "Цикорий",
@@ -159,7 +160,6 @@
   "entity.terraincognita.moth": "Бражник",
   "item.terraincognita.moth_spawn_egg": "Яйцо призыва бражника",
 
-  "_comment": "Halves eating speed with each level",
   "effect.terraincognita.sticky_mouth": "Склеенный рот",
 
   "item.terraincognita.fleur_de_lis_banner_pattern": "Узор флага",
@@ -180,6 +180,25 @@
   "block.minecraft.banner.ti_fleur_de_lis.green": "Зелёная геральдическая лилия",
   "block.minecraft.banner.ti_fleur_de_lis.red": "Красная геральдическая лилия",
   "block.minecraft.banner.ti_fleur_de_lis.black": "Чёрная геральдическая лилия",
+
+  "item.terraincognita.fern_banner_pattern": "Узор флага",
+  "item.terraincognita.fern_banner_pattern.desc": "Папоротник",
+  "block.minecraft.banner.ti_fern.white": "Белый папоротник",
+  "block.minecraft.banner.ti_fern.orange": "Оранжевый папоротник",
+  "block.minecraft.banner.ti_fern.magenta": "Пурпурный папоротник",
+  "block.minecraft.banner.ti_fern.light_blue": "Голубой папоротник",
+  "block.minecraft.banner.ti_fern.yellow": "Жёлтый папоротник",
+  "block.minecraft.banner.ti_fern.lime": "Лаймовый папоротник",
+  "block.minecraft.banner.ti_fern.pink": "Розовый папоротник",
+  "block.minecraft.banner.ti_fern.gray": "Серый папоротник",
+  "block.minecraft.banner.ti_fern.light_gray": "Светло-серый папоротник",
+  "block.minecraft.banner.ti_fern.cyan": "Бирюзовый папоротник",
+  "block.minecraft.banner.ti_fern.purple": "Фиолетовый папоротник",
+  "block.minecraft.banner.ti_fern.blue": "Синий папоротник",
+  "block.minecraft.banner.ti_fern.brown": "Коричневый папоротник",
+  "block.minecraft.banner.ti_fern.green": "Зелёный папоротник",
+  "block.minecraft.banner.ti_fern.red": "Красный папоротник",
+  "block.minecraft.banner.ti_fern.black": "Чёрный папоротник",
 
   "subtitle.terraincognita.blow": "Игрок дует на одуванчик",
   "subtitle.terraincognita.caltrops_throw": "Брошен железный чеснок"

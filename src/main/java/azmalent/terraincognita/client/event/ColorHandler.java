@@ -18,7 +18,8 @@ import net.minecraftforge.client.event.ColorHandlerEvent;
 public class ColorHandler {
     public static final int LILYPAD_WORLD_COLOR = 2129968;
     public static final int LILYPAD_INVENTORY_COLOR = 2129968;
-    public static final int APPLE_LEAVES_COLOR = 0x73AD14;
+    public static final int APPLE_LEAVES_COLOR = 0x73CD14;
+    public static final int HAZEL_LEAVES_COLOR = 0x36A11C;
     public static final int MOSS_COLOR = 0x5AAD41;
 
     public static void registerBlockColorHandlers(ColorHandlerEvent.Block event) {
@@ -51,8 +52,12 @@ public class ColorHandler {
 
         if (TIConfig.Trees.apple.get()) {
             colors.register((state, reader, pos, color) -> APPLE_LEAVES_COLOR,
-                    ModWoodTypes.APPLE.LEAVES.getBlock(), ModWoodTypes.APPLE.BLOSSOMING_LEAVES.getBlock()
+                ModWoodTypes.APPLE.LEAVES.getBlock(), ModWoodTypes.APPLE.BLOSSOMING_LEAVES.getBlock()
             );
+        }
+
+        if (TIConfig.Trees.hazel.get()) {
+            colors.register((state, reader, pos, color) -> HAZEL_LEAVES_COLOR, ModWoodTypes.HAZEL.LEAVES.getBlock());
         }
     }
 
@@ -71,6 +76,10 @@ public class ColorHandler {
             colors.register((stack, index) -> index > 0 ? -1 : APPLE_LEAVES_COLOR,
                 ModWoodTypes.APPLE.LEAVES.getItem(), ModWoodTypes.APPLE.BLOSSOMING_LEAVES.getItem()
             );
+        }
+
+        if (TIConfig.Trees.hazel.get()) {
+            colors.register((stack, index) -> index > 0 ? -1 : HAZEL_LEAVES_COLOR, ModWoodTypes.HAZEL.LEAVES.getItem());
         }
 
         if (TIConfig.Flora.wreath.get()) {

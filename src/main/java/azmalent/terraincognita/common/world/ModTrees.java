@@ -72,7 +72,7 @@ public class ModTrees {
             
             BaseTreeFeatureConfig.Builder builder = (new BaseTreeFeatureConfig.Builder(logProvider, leavesProvider, new FancyFoliagePlacer(FeatureSpread.func_242252_a(2), FeatureSpread.func_242252_a(4), 4), new FancyTrunkPlacer(2, 9, 0), new TwoLayerFeature(0, 0, 0, OptionalInt.of(4)))).setIgnoreVines().func_236702_a_(Heightmap.Type.MOTION_BLOCKING);
             HAZEL = register("hazel_tree", Feature.TREE.withConfiguration(builder.build()));
-            NATURAL_HAZEL = register("natural_hazel_tree", Feature.TREE.withConfiguration(builder.setDecorators(Lists.newArrayList(HazelnutTreeDecorator.INSTANCE)).build()).chance(48));
+            NATURAL_HAZEL = register("natural_hazel_tree", Feature.TREE.withConfiguration(builder.setDecorators(Lists.newArrayList(HazelnutTreeDecorator.INSTANCE)).build()).chance(16));
         }
     }
 }

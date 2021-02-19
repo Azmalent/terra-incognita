@@ -7,7 +7,11 @@ import azmalent.cuneiform.lib.config.annotations.Name;
 import azmalent.cuneiform.lib.config.options.BooleanOption;
 import azmalent.cuneiform.lib.config.options.DoubleOption;
 import azmalent.cuneiform.lib.config.options.IntOption;
+import azmalent.cuneiform.lib.config.options.lazy.RegistryListOption;
+import com.google.common.collect.Lists;
 import jdk.nashorn.api.scripting.ScriptObjectMirror;
+import net.minecraft.world.biome.Biome;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Random;
 
@@ -20,6 +24,12 @@ public class TIConfig extends CommonConfigFile {
     public static void init() {
         new TIConfig().register();
     }
+
+    @Name("Biome Blacklist")
+    @Comment("Worldgen features will not be added to the biomes listed here.")
+    public static final RegistryListOption<Biome> biomeBlacklist = new RegistryListOption<>(ForgeRegistries.BIOMES, Lists.newArrayList(
+        "autumnity:maple_forest", "autumnity:maple_forest_hills", "autumnity:pumpkin_fields"
+    ));
 
     public static class Food extends Category {
         @Name("Fern Fiddlehead Enabled")
