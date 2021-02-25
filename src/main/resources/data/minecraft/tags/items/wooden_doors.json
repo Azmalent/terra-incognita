@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-	{"id": "terraincognita:apple_door", "required": false},
-	{"id": "terraincognita:hazel_door", "required": false}
+	"terraincognita:apple_door",
+	"terraincognita:hazel_door"
   ]
 }

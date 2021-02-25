@@ -1,6 +1,6 @@
 {
   "replace": false,
   "values": [
-    {"id": "terraincognita:mossy_gravel", "required": false}
+    "terraincognita:mossy_gravel"
   ]
 }

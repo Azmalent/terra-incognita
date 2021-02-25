@@ -1,9 +1,9 @@
 {
   "replace": false,
   "values": [
-	{"id": "terraincognita:apple_planks", "required": false},
-	{"id": "terraincognita:hazel_planks", "required": false},
-	{"id": "terraincognita:vertical_apple_planks", "required": false},
-	{"id": "terraincognita:vertical_hazel_planks", "required": false}
+	"terraincognita:apple_planks",
+	"terraincognita:hazel_planks",
+	"terraincognita:vertical_apple_planks",
+	"terraincognita:vertical_hazel_planks"
   ]
 }

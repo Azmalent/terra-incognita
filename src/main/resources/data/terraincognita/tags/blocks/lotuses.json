@@ -1,8 +1,8 @@
 {
   "replace": false,
   "values": [
-    {"id": "terraincognita:pink_lotus", "required": false},
-    {"id": "terraincognita:white_lotus", "required": false},
-    {"id": "terraincognita:yellow_lotus", "required": false}
+    "terraincognita:pink_lotus",
+    "terraincognita:white_lotus",
+    "terraincognita:yellow_lotus"
   ]
 }

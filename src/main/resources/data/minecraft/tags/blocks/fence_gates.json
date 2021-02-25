@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-	{"id": "terraincognita:apple_fence_gate", "required": false},
-	{"id": "terraincognita:hazel_fence_gate", "required": false}
+	"terraincognita:apple_fence_gate",
+	"terraincognita:hazel_fence_gate"
   ]
 }

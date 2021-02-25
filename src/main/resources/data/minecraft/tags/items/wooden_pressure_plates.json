@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-	{"id": "terraincognita:apple_pressure_plate", "required": false},
-	{"id": "terraincognita:hazel_pressure_plate", "required": false}
+	"terraincognita:apple_pressure_plate",
+	"terraincognita:hazel_pressure_plate"
   ]
 }

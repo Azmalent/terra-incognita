@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-	{"id": "terraincognita:apple_slab", "required": false},
-	{"id": "terraincognita:hazel_slab", "required": false}
+	"terraincognita:apple_slab",
+	"terraincognita:hazel_slab"
   ]
 }

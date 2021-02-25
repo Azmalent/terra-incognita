@@ -1,9 +1,9 @@
 {
   "replace": false,
   "values": [
-    {"id": "terraincognita:hazel_log", "required": false},
-    {"id": "terraincognita:stripped_hazel_log", "required": false},
-    {"id": "terraincognita:hazel_wood", "required": false},
-    {"id": "terraincognita:stripped_hazel_wood", "required": false}
+    "terraincognita:hazel_log",
+    "terraincognita:stripped_hazel_log",
+    "terraincognita:hazel_wood",
+    "terraincognita:stripped_hazel_wood"
   ]
 }

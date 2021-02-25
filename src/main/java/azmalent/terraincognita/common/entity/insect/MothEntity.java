@@ -34,8 +34,4 @@ public class MothEntity extends AbstractButterflyEntity {
         return TEXTURE;
     }
 
-    @Override
-    protected boolean isNocturnal() {
-        return true;
-    }
 }
