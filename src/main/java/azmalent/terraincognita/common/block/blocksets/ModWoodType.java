@@ -1,6 +1,5 @@
 package azmalent.terraincognita.common.block.blocksets;
 
-import azmalent.cuneiform.lib.config.options.BooleanOption;
 import azmalent.cuneiform.lib.registry.BlockEntry;
 import azmalent.cuneiform.lib.registry.BlockRenderType;
 import azmalent.terraincognita.TerraIncognita;
@@ -9,8 +8,8 @@ import azmalent.terraincognita.common.block.chests.ModChestBlock;
 import azmalent.terraincognita.common.block.chests.ModTrappedChestBlock;
 import azmalent.terraincognita.common.block.signs.ModStandingSignBlock;
 import azmalent.terraincognita.common.block.signs.ModWallSignBlock;
-import azmalent.terraincognita.common.init.ModBlocks;
-import azmalent.terraincognita.common.init.ModItems;
+import azmalent.terraincognita.common.registry.ModBlocks;
+import azmalent.terraincognita.common.registry.ModItems;
 import azmalent.terraincognita.common.item.ModBoatItem;
 import azmalent.terraincognita.common.item.block.ModSignItem;
 import azmalent.terraincognita.mixin.accessor.FireBlockAccessor;
@@ -27,7 +26,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.RegistryObject;
 
 public class ModWoodType {
-    protected final BooleanOption condition;
     public final String name;
 
     public final PottablePlantEntry SAPLING;
@@ -42,7 +40,7 @@ public class ModWoodType {
     public final BlockEntry FENCE;
     public final BlockEntry FENCE_GATE;
     public final BlockEntry WALL_SIGN;
-    public final BlockEntry STANDING_SIGN;
+    public final BlockEntry SIGN;
     public final BlockEntry DOOR;
     public final BlockEntry TRAPDOOR;
     public final BlockEntry BUTTON;
@@ -55,43 +53,38 @@ public class ModWoodType {
     public final ResourceLocation BOAT_TEXTURE;
 
     @SuppressWarnings({"ConstantConditions", "deprecation"})
-    public ModWoodType(String id, Tree tree, MaterialColor woodColor, MaterialColor barkColor, BooleanOption condition) {
-        this.condition = condition;
+    public ModWoodType(String id, Tree tree, MaterialColor woodColor, MaterialColor barkColor) {
         this.name = id;
 
-        SAPLING = PottablePlantEntry.createPlant(id + "_sapling", () -> new SaplingBlock(tree, Block.Properties.from(Blocks.OAK_SAPLING)), condition);
-        LEAVES = ModBlocks.HELPER.newBuilder(id + "_leaves", this::createLeaves).withRenderType(BlockRenderType.CUTOUT_MIPPED).buildIf(condition);
-        LOG = ModBlocks.HELPER.newBuilder(id + "_log", () -> createLogBlock(woodColor, barkColor)).buildIf(condition);
-        STRIPPED_LOG = ModBlocks.HELPER.newBuilder("stripped_" + id + "_log", () -> createLogBlock(woodColor, woodColor)).buildIf(condition);
-        WOOD = ModBlocks.HELPER.newBuilder(id + "_wood", () -> createWoodBlock(barkColor)).buildIf(condition);
-        STRIPPED_WOOD = ModBlocks.HELPER.newBuilder("stripped_" + id + "_wood", () -> createWoodBlock(barkColor)).buildIf(condition);
-        PLANKS = ModBlocks.HELPER.newBuilder(id + "_planks", () -> createPlanks(woodColor)).buildIf(condition);
-        STAIRS = ModBlocks.HELPER.newBuilder(id + "_stairs", () -> new StairsBlock(PLANKS.getBlock().getDefaultState(), Block.Properties.from(PLANKS.getBlock()))).buildIf(condition);
-        SLAB = ModBlocks.HELPER.newBuilder(id + "_slab", () -> new SlabBlock(Block.Properties.from(PLANKS.getBlock()))).buildIf(condition);
-        FENCE = ModBlocks.HELPER.newBuilder(id + "_fence", () -> new FenceBlock(Block.Properties.create(Material.WOOD, woodColor).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD))).buildIf(condition);
-        FENCE_GATE = ModBlocks.HELPER.newBuilder(id + "_fence_gate", () -> new FenceGateBlock(Block.Properties.create(Material.WOOD, woodColor).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD))).buildIf(condition);
-        STANDING_SIGN = ModBlocks.HELPER.newBuilder(id + "_sign", () -> new ModStandingSignBlock(woodColor, this)).withBlockItem(block -> new ModSignItem(this)).buildIf(condition);
-        WALL_SIGN = ModBlocks.HELPER.newBuilder(id + "_wall_sign", () -> new ModWallSignBlock(woodColor, this)).withoutItemForm().buildIf(condition);
-        DOOR = ModBlocks.HELPER.newBuilder(id + "_door", () -> new DoorBlock(Block.Properties.create(Material.WOOD, woodColor).hardnessAndResistance(3.0F).sound(SoundType.WOOD).notSolid())).withBlockItem(block -> new TallBlockItem(block, new Item.Properties().group(TerraIncognita.TAB))).withRenderType(BlockRenderType.CUTOUT).buildIf(condition);
-        TRAPDOOR = ModBlocks.HELPER.newBuilder(id + "_trapdoor", () -> new TrapDoorBlock(Block.Properties.create(Material.WOOD, woodColor).hardnessAndResistance(3.0F).sound(SoundType.WOOD).notSolid().setAllowsSpawn((state, reader, pos, entity) -> false))).withRenderType(BlockRenderType.CUTOUT).buildIf(condition);
-        BUTTON = ModBlocks.HELPER.newBuilder(id + "_button", () -> new WoodButtonBlock(Block.Properties.from(Blocks.OAK_BUTTON))).buildIf(condition);
-        PRESSURE_PLATE = ModBlocks.HELPER.newBuilder(id + "_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, Block.Properties.create(Material.WOOD, woodColor).doesNotBlockMovement().hardnessAndResistance(0.5F).sound(SoundType.WOOD))).buildIf(condition);
-        CHEST = ModBlocks.HELPER.newBuilder(id +  "_chest", () -> new ModChestBlock(this, woodColor)).withBlockItemProperties(new Item.Properties().group(TerraIncognita.TAB).setISTER(() -> ModChestISTER::forNormalChest)).buildIf(condition);
-        TRAPPED_CHEST = ModBlocks.HELPER.newBuilder(id +  "_trapped_chest", () -> new ModTrappedChestBlock(this, woodColor)).withBlockItemProperties(new Item.Properties().group(TerraIncognita.TAB).setISTER(() -> ModChestISTER::forTrappedChest)).buildIf(condition);
-        BOAT = condition.get() ? ModItems.ITEMS.register(id + "_boat", () -> new ModBoatItem(this)) : null;
+        SAPLING = PottablePlantEntry.createPlant(id + "_sapling", () -> new SaplingBlock(tree, Block.Properties.from(Blocks.OAK_SAPLING)));
+        LEAVES = ModBlocks.HELPER.newBuilder(id + "_leaves", this::createLeaves).withRenderType(BlockRenderType.CUTOUT_MIPPED).build();
+        LOG = ModBlocks.HELPER.newBuilder(id + "_log", () -> createLogBlock(woodColor, barkColor)).build();
+        STRIPPED_LOG = ModBlocks.HELPER.newBuilder("stripped_" + id + "_log", () -> createLogBlock(woodColor, woodColor)).build();
+        WOOD = ModBlocks.HELPER.newBuilder(id + "_wood", () -> createWoodBlock(barkColor)).build();
+        STRIPPED_WOOD = ModBlocks.HELPER.newBuilder("stripped_" + id + "_wood", () -> createWoodBlock(barkColor)).build();
+        PLANKS = ModBlocks.HELPER.newBuilder(id + "_planks", () -> createPlanks(woodColor)).build();
+        STAIRS = ModBlocks.HELPER.newBuilder(id + "_stairs", () -> new StairsBlock(PLANKS.getBlock().getDefaultState(), Block.Properties.from(PLANKS.getBlock()))).build();
+        SLAB = ModBlocks.HELPER.newBuilder(id + "_slab", () -> new SlabBlock(Block.Properties.from(PLANKS.getBlock()))).build();
+        FENCE = ModBlocks.HELPER.newBuilder(id + "_fence", () -> new FenceBlock(Block.Properties.create(Material.WOOD, woodColor).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD))).build();
+        FENCE_GATE = ModBlocks.HELPER.newBuilder(id + "_fence_gate", () -> new FenceGateBlock(Block.Properties.create(Material.WOOD, woodColor).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD))).build();
+        SIGN = ModBlocks.HELPER.newBuilder(id + "_sign", () -> new ModStandingSignBlock(woodColor, this)).withBlockItem(block -> new ModSignItem(this)).build();
+        WALL_SIGN = ModBlocks.HELPER.newBuilder(id + "_wall_sign", () -> new ModWallSignBlock(woodColor, this)).withoutItemForm().build();
+        DOOR = ModBlocks.HELPER.newBuilder(id + "_door", () -> new DoorBlock(Block.Properties.create(Material.WOOD, woodColor).hardnessAndResistance(3.0F).sound(SoundType.WOOD).notSolid())).withBlockItem(block -> new TallBlockItem(block, new Item.Properties().group(TerraIncognita.TAB))).withRenderType(BlockRenderType.CUTOUT).build();
+        TRAPDOOR = ModBlocks.HELPER.newBuilder(id + "_trapdoor", () -> new TrapDoorBlock(Block.Properties.create(Material.WOOD, woodColor).hardnessAndResistance(3.0F).sound(SoundType.WOOD).notSolid().setAllowsSpawn((state, reader, pos, entity) -> false))).withRenderType(BlockRenderType.CUTOUT).build();
+        BUTTON = ModBlocks.HELPER.newBuilder(id + "_button", () -> new WoodButtonBlock(Block.Properties.from(Blocks.OAK_BUTTON))).build();
+        PRESSURE_PLATE = ModBlocks.HELPER.newBuilder(id + "_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, Block.Properties.create(Material.WOOD, woodColor).doesNotBlockMovement().hardnessAndResistance(0.5F).sound(SoundType.WOOD))).build();
+        CHEST = ModBlocks.HELPER.newBuilder(id +  "_chest", () -> new ModChestBlock(this, woodColor)).withBlockItemProperties(new Item.Properties().group(TerraIncognita.TAB).setISTER(() -> ModChestISTER::forNormalChest)).build();
+        TRAPPED_CHEST = ModBlocks.HELPER.newBuilder(id +  "_trapped_chest", () -> new ModTrappedChestBlock(this, woodColor)).withBlockItemProperties(new Item.Properties().group(TerraIncognita.TAB).setISTER(() -> ModChestISTER::forTrappedChest)).build();
+        BOAT = ModItems.ITEMS.register(id + "_boat", () -> new ModBoatItem(this));
 
         SIGN_TEXTURE = TerraIncognita.prefix("entity/sign/" + name);
         BOAT_TEXTURE = TerraIncognita.prefix("textures/entity/boat/" + name + ".png");
     }
 
-    public boolean isEnabled() {
-        return condition.get();
-    }
-
     public ResourceLocation getChestTexture(ChestType type, boolean trapped) {
         String location = "entity/chest/" + name + "_";
-        if (trapped) location = location + "trapped_";
-        location = location + type.getString();
+        if (trapped) location += "trapped_";
+        location += type.getString();
 
         return TerraIncognita.prefix(location);
     }
@@ -119,10 +112,6 @@ public class ModWoodType {
     }
 
     public void initFlammability() {
-        if (!isEnabled()) {
-            return;
-        }
-
         FireBlockAccessor fire = (FireBlockAccessor) Blocks.FIRE;
         fire.TI_setFireInfo(LEAVES.getBlock(), 30, 60);
         fire.TI_setFireInfo(LOG.getBlock(), 5, 5);

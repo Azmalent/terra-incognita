@@ -18,7 +18,7 @@ import javax.annotation.Nullable;
 @SuppressWarnings("NullableProblems")
 public class ModSignItem extends WallOrFloorItem {
     public ModSignItem(ModWoodType woodType) {
-        super(woodType.STANDING_SIGN.getBlock(), woodType.WALL_SIGN.getBlock(), new Item.Properties().maxStackSize(16).group(TerraIncognita.TAB));
+        super(woodType.SIGN.getBlock(), woodType.WALL_SIGN.getBlock(), new Item.Properties().maxStackSize(16).group(TerraIncognita.TAB));
     }
 
     @Override

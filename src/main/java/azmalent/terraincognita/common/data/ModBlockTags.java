@@ -2,10 +2,8 @@ package azmalent.terraincognita.common.data;
 
 import azmalent.terraincognita.TerraIncognita;
 import net.minecraft.block.Block;
-import net.minecraft.item.Item;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ITag;
-import net.minecraft.tags.ItemTags;
 
 @SuppressWarnings("unused")
 public class ModBlockTags {
@@ -16,4 +14,5 @@ public class ModBlockTags {
     public static final ITag.INamedTag<Block> APPLE_LOGS = createTag("apple_logs");
     public static final ITag.INamedTag<Block> LOTUSES = createTag("lotuses");
     public static final ITag.INamedTag<Block> MOSS_PLACEABLE_ON = createTag("moss_placeable_on");
+    public static final ITag.INamedTag<Block> PEAT_MULTIBLOCK_PLANTS = createTag("peat_multiblock_plants");
 }

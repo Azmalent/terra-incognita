@@ -1,7 +1,5 @@
 package azmalent.terraincognita.common.block.trees;
 
-import azmalent.terraincognita.common.init.ModBlocks;
-import azmalent.terraincognita.common.init.ModWoodTypes;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.LeavesBlock;

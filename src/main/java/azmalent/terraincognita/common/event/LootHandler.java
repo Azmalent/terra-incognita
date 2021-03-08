@@ -2,7 +2,7 @@ package azmalent.terraincognita.common.event;
 
 import azmalent.cuneiform.lib.util.LootUtil;
 import azmalent.terraincognita.TIConfig;
-import azmalent.terraincognita.common.init.ModItems;
+import azmalent.terraincognita.common.registry.ModItems;
 import com.google.common.collect.Maps;
 import net.minecraft.loot.ItemLootEntry;
 import net.minecraft.loot.LootPool;
@@ -10,7 +10,6 @@ import net.minecraft.loot.LootTables;
 import net.minecraft.loot.RandomValueRange;
 import net.minecraft.loot.functions.SetCount;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.LootTableLoadEvent;
 
 import java.util.Map;

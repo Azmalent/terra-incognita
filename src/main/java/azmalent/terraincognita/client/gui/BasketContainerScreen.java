@@ -1,7 +1,6 @@
 package azmalent.terraincognita.client.gui;
 
 import azmalent.terraincognita.TerraIncognita;
-import azmalent.terraincognita.common.init.ModBlocks;
 import azmalent.terraincognita.common.inventory.BasketContainer;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -9,7 +8,6 @@ import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 

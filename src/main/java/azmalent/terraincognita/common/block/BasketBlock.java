@@ -1,7 +1,6 @@
 package azmalent.terraincognita.common.block;
 
 import azmalent.terraincognita.common.tile.BasketTileEntity;
-import azmalent.terraincognita.common.init.ModBlocks;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
@@ -151,8 +150,6 @@ public class BasketBlock extends HorizontalBlock implements IWaterLoggable {
     @Override
     public void onBlockHarvested(World world, @Nonnull BlockPos pos, BlockState state, @Nonnull PlayerEntity player) {
         if (!world.isRemote) {
-            assert ModBlocks.BASKET != null;
-
             TileEntity te = world.getTileEntity(pos);
             if (te instanceof BasketTileEntity) {
                 BasketTileEntity basket = (BasketTileEntity) te;

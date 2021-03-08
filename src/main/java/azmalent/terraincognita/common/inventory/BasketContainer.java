@@ -2,13 +2,12 @@ package azmalent.terraincognita.common.inventory;
 
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.tile.BasketTileEntity;
-import azmalent.terraincognita.common.init.ModContainers;
+import azmalent.terraincognita.common.registry.ModContainers;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.items.SlotItemHandler;
 

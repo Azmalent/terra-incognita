@@ -2,8 +2,7 @@ package azmalent.terraincognita.common.item.block;
 
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.capability.BasketCapabilityProvider;
-import azmalent.terraincognita.common.data.ModItemTags;
-import azmalent.terraincognita.common.init.ModBlocks;
+import azmalent.terraincognita.common.registry.ModBlocks;
 import azmalent.terraincognita.common.inventory.BasketContainer;
 import azmalent.terraincognita.common.inventory.BasketStackHandler;
 import net.minecraft.block.Block;
@@ -19,11 +18,9 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemHandlerHelper;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -65,8 +62,6 @@ public class BasketItem extends BlockItem {
     }
 
     public static ItemStack getBasketInHand(PlayerEntity player) {
-        assert ModBlocks.BASKET != null;
-
         if (player.getHeldItemMainhand().getItem() == ModBlocks.BASKET.getItem()) {
             return player.getHeldItemMainhand();
         }

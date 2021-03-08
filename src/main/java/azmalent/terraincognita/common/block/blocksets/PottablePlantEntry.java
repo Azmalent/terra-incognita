@@ -1,12 +1,11 @@
 package azmalent.terraincognita.common.block.blocksets;
 
-import azmalent.cuneiform.lib.config.options.BooleanOption;
 import azmalent.cuneiform.lib.registry.BlockEntry;
 import azmalent.cuneiform.lib.registry.BlockRenderType;
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.block.plants.WaterloggableTallFlowerBlock;
-import azmalent.terraincognita.common.init.ModBlocks;
-import azmalent.terraincognita.common.init.ModStewEffect;
+import azmalent.terraincognita.common.registry.ModBlocks;
+import azmalent.terraincognita.common.effect.ModStewEffect;
 import net.minecraft.block.*;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -24,7 +23,7 @@ public final class PottablePlantEntry {
     @SuppressWarnings("deprecation")
     public PottablePlantEntry(String id, BlockEntry plant) {
         this.plant = plant;
-        potted = ModBlocks.HELPER.newBuilder("potted_" + id, () -> new FlowerPotBlock(plant.getBlock(), FLOWER_POT_PROPS)).withoutItemForm().withRenderType(BlockRenderType.CUTOUT).buildIf(plant != null);
+        potted = ModBlocks.HELPER.newBuilder("potted_" + id, () -> new FlowerPotBlock(plant.getBlock(), FLOWER_POT_PROPS)).withoutItemForm().withRenderType(BlockRenderType.CUTOUT).build();
     }
 
     public Block getBlock() {
@@ -39,28 +38,24 @@ public final class PottablePlantEntry {
         return potted.getBlock();
     }
 
-    public static PottablePlantEntry createPlant(String id, Supplier<Block> constructor, BooleanOption condition) {
-        return createPlant(id, constructor, null, condition);
+    public static PottablePlantEntry createPlant(String id, Supplier<Block> constructor) {
+        return createPlant(id, constructor, null);
     }
 
-    public static PottablePlantEntry createPlant(String id, Supplier<Block> constructor, Function<Block, BlockItem> blockItemConstructor, BooleanOption condition) {
-        if (!condition.get()) {
-            return null;
-        }
-
+    public static PottablePlantEntry createPlant(String id, Supplier<Block> constructor, Function<Block, BlockItem> blockItemConstructor) {
         BlockEntry.Builder builder = ModBlocks.HELPER.newBuilder(id, constructor).withBlockItem(blockItemConstructor).withRenderType(BlockRenderType.CUTOUT);
         return new PottablePlantEntry(id, builder.build());
     }
 
-    public static PottablePlantEntry createFlower(String id, ModStewEffect stewEffect, BooleanOption condition) {
-        return createPlant(id, () -> new FlowerBlock(stewEffect.effect, stewEffect.duration, Block.Properties.from(Blocks.POPPY)), condition);
+    public static PottablePlantEntry createFlower(String id, ModStewEffect stewEffect) {
+        return createPlant(id, () -> new FlowerBlock(stewEffect.effect, stewEffect.duration, Block.Properties.from(Blocks.POPPY)));
     }
 
-    public static PottablePlantEntry createTallPlant(String id, BooleanOption condition) {
-        return createPlant(id, () -> new TallFlowerBlock(Block.Properties.from(Blocks.ROSE_BUSH)), block -> new TallBlockItem(block, new Item.Properties().group(TerraIncognita.TAB)), condition);
+    public static PottablePlantEntry createTallPlant(String id) {
+        return createPlant(id, () -> new TallFlowerBlock(Block.Properties.from(Blocks.ROSE_BUSH)), block -> new TallBlockItem(block, new Item.Properties().group(TerraIncognita.TAB)));
     }
 
-    public static PottablePlantEntry createTallWaterloggablePlant(String id, BooleanOption condition) {
-        return createPlant(id, WaterloggableTallFlowerBlock::new, block -> new TallBlockItem(block, new Item.Properties().group(TerraIncognita.TAB)), condition);
+    public static PottablePlantEntry createTallWaterloggablePlant(String id) {
+        return createPlant(id, WaterloggableTallFlowerBlock::new, block -> new TallBlockItem(block, new Item.Properties().group(TerraIncognita.TAB)));
     }
 }

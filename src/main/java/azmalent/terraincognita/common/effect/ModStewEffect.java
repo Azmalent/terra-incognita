@@ -1,4 +1,4 @@
-package azmalent.terraincognita.common.init;
+package azmalent.terraincognita.common.effect;
 
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.Effects;

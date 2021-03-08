@@ -1,6 +1,10 @@
 from datagen_base import *
 
 
+def copy_sawmill_recipe(template, type, out_file, variables):
+    copy_recipe('sawmill/' + template, 'environmental/sawmill/%s/%s' % (type, out_file), {**variables, 'type': type})
+
+
 def make_basic_block(name, default_loot_table=True):
     variables = {'block': name}
     copy_blockstate('simple_blockstate', name, variables)
@@ -19,7 +23,7 @@ def make_pottable_plant(name):
 
     potted_name = variables['block'] = 'potted_' + name
     copy_blockstate('simple_blockstate', potted_name, variables)
-    copy_block_model('potted_bush', potted_name, variables)
+    copy_block_model('potted_bush', potted_name, {**variables, 'block': name})
     copy_loot_table('potted_bush', potted_name, {**variables, 'block': name})
     add_to_block_tag('flower_pots', '%s:%s' % (MODID, potted_name))
 
@@ -76,13 +80,14 @@ def make_stairs_and_slabs(type, base_block, condition):
     copy_blockstate_and_models('vertical_slab', block, variables)
     drop_itself(block, variables)
     copy_crafting_recipe('vertical_slabs', 'compat/quark/%s/vertical_slabs' % type, variables)
-    add_to_item_and_block_tags('vertical_slab', '%s:%s' % (MODID, block), namespace='quark')
+    add_to_item_and_block_tags('vertical_slab', '%s:%s' % (MODID, block), namespace='quark', optional=True)
 
 
 def make_button(type, base_block, condition):
     block = type + '_button'
-    variables = {'type': type, 'block': block, 'base_block': base_block, 'ingredient': base_block, 'output': '%s:%s' % (MODID, block),
-            'count': '1', 'condition': condition}
+    variables = {'type': type, 'block': block, 'base_block': base_block, 'ingredient': base_block,
+                 'output': '%s:%s' % (MODID, block),
+                 'count': '1', 'condition': condition}
     copy_blockstate_and_models('button', block, variables, block_model_suffixes=['', '_inventory', '_pressed'])
     drop_itself(block, variables)
     copy_crafting_recipe('shapeless_one_ingredient', type + '/button', variables)
@@ -141,7 +146,7 @@ def make_wood_type(type):
     planks = type + '_planks'
     make_basic_block(planks)
     copy_crafting_recipe('planks', type + '/planks', {'type': type})
-    
+
     vertical_planks = 'vertical_' + planks
     variables = {'type': type, 'block': vertical_planks}
     copy_blockstate('simple_blockstate', vertical_planks, variables)
@@ -149,7 +154,7 @@ def make_wood_type(type):
     copy_item_model('block', vertical_planks, variables)
     drop_itself(vertical_planks, variables)
     copy_crafting_recipe('vertical_planks', 'compat/quark/%s/vertical_planks' % type, {'type': type})
-    
+
     make_stairs_and_slabs(type, planks, type)
     add_to_item_and_block_tags('planks', '%s:%s' % (MODID, planks), '%s:%s' % (MODID, vertical_planks))
     add_to_item_and_block_tags('wooden_stairs', '%s:%s_stairs' % (MODID, type))
@@ -183,7 +188,7 @@ def make_wood_type(type):
                                item_model_suffix='_post')
     drop_itself(hedge, variables)
     copy_crafting_recipe('hedge', 'compat/quark/%s/hedge' % type, variables)
-    add_to_item_and_block_tags('hedges', '%s:%s' % (MODID, hedge), namespace='quark')
+    add_to_item_and_block_tags('hedges', '%s:%s' % (MODID, hedge), namespace='quark', optional=True)
 
     # Doors and trapdoors
     door = variables['block'] = type + '_door'
@@ -238,7 +243,7 @@ def make_wood_type(type):
     copy_item_model('block', bookshelf, variables)
     copy_loot_table('bookshelf', bookshelf, variables)
     copy_crafting_recipe('bookshelf', 'compat/quark/%s/bookshelf' % type, variables)
-    add_to_block_tag('bookshelves', '%s:%s' % (MODID, bookshelf), namespace='forge')
+    add_to_block_tag('bookshelves', '%s:%s' % (MODID, bookshelf), namespace='forge', optional=True)
 
     ladder = variables['block'] = type + '_ladder'
     copy_blockstate('rotatable', ladder, variables)
@@ -246,10 +251,41 @@ def make_wood_type(type):
     copy_item_model('flat_block', ladder, variables)
     drop_itself(ladder, variables)
     copy_crafting_recipe('ladder', 'compat/quark/%s/ladder' % type, variables)
-    add_to_item_and_block_tags('ladders', '%s:%s' % (MODID, ladder), namespace='quark')
-    add_to_block_tag('climbable', '%s:%s' % (MODID, ladder))
+    add_to_item_and_block_tags('ladders', '%s:%s' % (MODID, ladder), namespace='quark', optional=True)
+    add_to_block_tag('climbable', '%s:%s' % (MODID, ladder), optional=True)
 
     boat = type + '_boat'
     copy_item_model('item', boat, {'item': boat})
     add_to_item_tag('boats', '%s:%s' % (MODID, boat))
     copy_crafting_recipe('boat', '%s/boat' % type, variables)
+
+    # Environmental Sawmill
+    copy_sawmill_recipe('item_from_log', type, 'planks_from_log', {'output': type + '_planks', 'count': '4'})
+    copy_sawmill_recipe('item_from_log', type, 'button_from_log', {'output': type + '_button', 'count': '4'})
+    copy_sawmill_recipe('item_from_planks', type, 'button_from_planks', {'output': type + '_button', 'count': '1'})
+    copy_sawmill_recipe('item_from_log', type, 'door_from_log', {'output': type + '_door', 'count': '2'})
+    copy_sawmill_recipe('item_from_log', type, 'fence_from_log', {'output': type + '_fence', 'count': '4'})
+    copy_sawmill_recipe('item_from_planks', type, 'fence_from_planks', {'output': type + '_fence', 'count': '1'})
+    copy_sawmill_recipe('item_from_log', type, 'fence_gate_from_log', {'output': type + '_fence_gate', 'count': '1'})
+    copy_sawmill_recipe('item_from_log', type, 'pressure_plate_from_log', {'output': type + '_pressure_plate', 'count': '2'})
+    copy_sawmill_recipe('item_from_log', type, 'sign_from_log', {'output': type + '_sign', 'count': '2'})
+    copy_sawmill_recipe('item_from_log', type, 'slab_from_log', {'output': type + '_slab', 'count': '8'})
+    copy_sawmill_recipe('item_from_planks', type, 'slab_from_planks', {'output': type + '_slab', 'count': '2'})
+    copy_sawmill_recipe('item_from_log', type, 'stairs_from_log', {'output': type + '_stairs', 'count': '4'})
+    copy_sawmill_recipe('item_from_planks', type, 'stairs_from_planks', {'output': type + '_stairs', 'count': '1'})
+    copy_sawmill_recipe('item_from_log', type, 'trapdoor_from_log', {'output': type + '_trapdoor', 'count': '1'})
+
+    # Quark Compat
+    copy_sawmill_recipe('quark_item_from_log', type, 'vertical_planks_from_log', {'output': vertical_planks, 'count': '4'})
+    copy_sawmill_recipe('quark_item_from_planks', type, 'vertical_planks_from_planks', {'output': vertical_planks, 'count': '1'})
+    copy_sawmill_recipe('quark_recipe', type, 'vertical_planks_from_planks', {'input': planks, 'output': vertical_planks, 'count': '1'})
+    copy_sawmill_recipe('quark_recipe', type, 'planks_from_vertical_planks', {'input': vertical_planks, 'output': planks, 'count': '1'})
+
+    copy_sawmill_recipe('quark_item_from_log', type, 'ladder_from_log', {'output': ladder, 'count': '8'})
+    copy_sawmill_recipe('quark_item_from_planks', type, 'ladder_from_planks', {'output': ladder, 'count': '2'})
+
+    slab, vertical_slab = type + '_slab', type + '_vertical_slab'
+    copy_sawmill_recipe('quark_item_from_log', type, 'vertical_slab_from_log', {'output': vertical_slab, 'count': '8'})
+    copy_sawmill_recipe('quark_item_from_planks', type, 'vertical_slab_from_planks', {'output': vertical_slab, 'count': '2'})
+    copy_sawmill_recipe('quark_recipe', type, 'slab_from_vertical_slab', {'input': slab, 'output': vertical_slab, 'count': '1'})
+    copy_sawmill_recipe('quark_recipe', type, 'vertical_slab_from_slab', {'input': vertical_slab, 'output': slab, 'count': '1'})

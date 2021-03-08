@@ -1,8 +1,9 @@
 package azmalent.terraincognita.common.event;
 
 import azmalent.terraincognita.TIConfig;
+import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.data.ModItemTags;
-import azmalent.terraincognita.common.init.*;
+import azmalent.terraincognita.common.registry.*;
 import azmalent.terraincognita.common.inventory.BasketStackHandler;
 import azmalent.terraincognita.common.item.block.BasketItem;
 import azmalent.terraincognita.common.world.ModOres;
@@ -18,12 +19,14 @@ import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.world.gen.treedecorator.TreeDecoratorType;
 import net.minecraftforge.client.event.RecipesUpdatedEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.village.WandererTradesEvent;
 import net.minecraftforge.eventbus.api.Event;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -34,21 +37,13 @@ public class EventHandler {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         bus.addListener(EventHandler::setup);
 
-        if (TIConfig.Food.taffy.get()) {
-            MinecraftForge.EVENT_BUS.addListener(EventHandler::onSetupTrades);
-            MinecraftForge.EVENT_BUS.addListener(EventHandler::onPlayerUseItem);
-        }
-
-        if (TIConfig.Flora.wreath.get()) {
-            MinecraftForge.EVENT_BUS.addListener(EventHandler::onUpdateRecipes);
-        }
-
-        if (TIConfig.Tools.basket.get()) {
-            MinecraftForge.EVENT_BUS.addListener(EventHandler::onItemPickup);
-        }
-
+        MinecraftForge.EVENT_BUS.addListener(EventHandler::onPlayerUseItem);
+        MinecraftForge.EVENT_BUS.addListener(EventHandler::onUpdateRecipes);
+        MinecraftForge.EVENT_BUS.addListener(EventHandler::onItemPickup);
+        MinecraftForge.EVENT_BUS.addListener(EventHandler::onSetupTrades);
         MinecraftForge.EVENT_BUS.addListener(FuelHandler::getBurnTime);
         MinecraftForge.EVENT_BUS.addListener(LootHandler::onLoadLootTable);
+
         BiomeHandler.registerListeners();
         BonemealHandler.registerListeners();
     }
@@ -68,7 +63,9 @@ public class EventHandler {
     }
 
     public static void onSetupTrades(WandererTradesEvent event) {
-        event.getRareTrades().add(new VillagerTrades.ItemsForEmeraldsTrade(ModItems.TAFFY.get(), 2, 1, 1, 2));
+        if (TIConfig.Food.taffy.get()) {
+            event.getRareTrades().add(new VillagerTrades.ItemsForEmeraldsTrade(ModItems.TAFFY.get(), 2, 1, 1, 2));
+        }
     }
 
     public static void onUpdateRecipes(RecipesUpdatedEvent event) {

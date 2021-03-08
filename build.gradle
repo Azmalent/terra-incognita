@@ -114,6 +114,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
 
     compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}:api")
+    compileOnly "curse.maven:autoreglib-250363:${autoreglib_file_id}"
     compileOnly "curse.maven:quark-243121:${quark_file_id}"
     compileOnly "curse.maven:simply-tea-268373:${simply_tea_file_id}"
     compileOnly "curse.maven:upgrade-aquatic-326895:${upgrade_aquatic_file_id}"

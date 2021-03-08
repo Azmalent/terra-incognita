@@ -9,11 +9,8 @@ import azmalent.cuneiform.lib.config.options.DoubleOption;
 import azmalent.cuneiform.lib.config.options.IntOption;
 import azmalent.cuneiform.lib.config.options.lazy.RegistryListOption;
 import com.google.common.collect.Lists;
-import jdk.nashorn.api.scripting.ScriptObjectMirror;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.registries.ForgeRegistries;
-
-import java.util.Random;
 
 @SuppressWarnings("unused")
 public class TIConfig extends CommonConfigFile {
@@ -25,11 +22,8 @@ public class TIConfig extends CommonConfigFile {
         new TIConfig().register();
     }
 
-    @Name("Biome Blacklist")
     @Comment("Worldgen features will not be added to the biomes listed here.")
-    public static final RegistryListOption<Biome> biomeBlacklist = new RegistryListOption<>(ForgeRegistries.BIOMES, Lists.newArrayList(
-        "autumnity:maple_forest", "autumnity:maple_forest_hills", "autumnity:pumpkin_fields"
-    ));
+    public static final RegistryListOption<Biome> biomeBlacklist = new RegistryListOption<>(ForgeRegistries.BIOMES, Lists.newArrayList());
 
     public static class Food extends Category {
         @Name("Fern Fiddlehead Enabled")
@@ -53,6 +47,10 @@ public class TIConfig extends CommonConfigFile {
             "It can be found in dungeon loot with the same rarity as enchanted golden apples."})
         public static final BooleanOption notchCarrot = new BooleanOption(true);
 
+        @Name("Kelp Soup Enabled")
+        @Comment("Kelp soup is a new food item made with four kelp in a bowl.")
+        public static final BooleanOption kelpSoup = new BooleanOption(true).withFlag("kelp_soup");
+
         @Name("Berry Sorbet Enabled")
         @Comment("Berry Sorbet is a new food item made with sweet berries, sugar and a snowball in a bowl.")
         public static final BooleanOption berrySorbet = new BooleanOption(true).withFlag("sorbet");
@@ -72,12 +70,16 @@ public class TIConfig extends CommonConfigFile {
         public static final BooleanOption fieldFlowers = new BooleanOption(true).withFlag("field_flowers");
 
 		@Name("Forest Flowers Enabled")
-        @Comment("Adds bluebells, primroses and foxglove to forests. These flowers can also be found in flower forests.")
+        @Comment("Adds primroses and foxgloves to forests. These flowers can also be found in flower forests.")
         public static final BooleanOption forestFlowers = new BooleanOption(true).withFlag("forest_flowers");
 
         @Name("Swamp Flowers Enabled")
-        @Comment("Adds forget-me-not, globeflower, cattails and water flags to temperate and hot swamps.")
+        @Comment("Adds forget-me-not, globeflowers and water flags to temperate and hot swamps.")
         public static final BooleanOption swampFlowers = new BooleanOption(true).withFlag("swamp_flowers");
+
+        @Name("Cattails Enabled")
+        @Comment("Adds cattails to swamps. Cattails can be duplicated using bonemeal and crafted into brown dye.")
+        public static final BooleanOption cattails = new BooleanOption(true).withFlag("cattails");
 
         @Name("Small Lilypads Enabled")
         @Comment("Small lilypads can be found in swamps. They can be stacked up to 4, like sea pickles.")
@@ -112,9 +114,12 @@ public class TIConfig extends CommonConfigFile {
         public static final IntOption edelweissMinimumY = new IntOption(90).inRange(64, 128);
 
         @Name("Arctic Flowers Enabled")
-        @Comment({"Adds fireweed to taiga and tundra biomes.",
-        "Also adds arctic poppies that replace vanilla poppies in tundras."})
+        @Comment("Adds fireweed, arctic poppies and white rhododendrons to taiga and tundra biomes.")
         public static final BooleanOption arcticFlowers = new BooleanOption(true).withFlag("arctic_flowers");
+
+        @Name("Arctic Poppy Ratio")
+        @Comment("Chance to replace a vanilla poppy with an arctic poppy in tundra biomes.")
+        public static final DoubleOption arcticPoppyChance = new DoubleOption(0.5).inRange(0, 1);
 
         @Name("Wreaths Enabled")
         @Comment({"Wreath is a cosmetic headdress crafted with 4 small flowers of any kind in any shape.",
@@ -148,8 +153,8 @@ public class TIConfig extends CommonConfigFile {
     }
 
     public static class Biomes extends Category {
-        @Comment("Adds snowless and rocky tundra biomes.")
-        public static final BooleanOption tundraVariants = new BooleanOption(true);
+        public static final IntOption snowlessTundraWeight = new IntOption(5).inRange(0, 100);
+        public static final IntOption rockyTundraWeight = new IntOption(2).inRange(0, 100);
     }
 
     public static class Tools extends Category {
@@ -163,7 +168,7 @@ public class TIConfig extends CommonConfigFile {
 
         @Name("Basket Enabled")
         @Comment({"Basket is a portable container crafted from swamp reeds (or sugar cane if reeds are disabled). It can be placed or opened from inventory.",
-            "Baskets have 9 slots and can only store flowers, saplings, mushrooms and berries by default (governed by #terraincognita:basket_storable item tag)",
+            "Baskets have 9 slots and can only store flowers, saplings, mushrooms, eggs and berries by default (governed by #terraincognita:basket_storable item tag)",
             "When you have a basket in your hand, it will automatically collect compatible items."})
         public static final BooleanOption basket = new BooleanOption(true).withFlag("basket");
     }
@@ -194,5 +199,12 @@ public class TIConfig extends CommonConfigFile {
         public static final BooleanOption witherRoseGeneration = new BooleanOption(true);
 
         public static final BooleanOption bannerPatterns = new BooleanOption(true).withFlag("banners");
+    }
+
+    public static class Integration extends Category {
+        public static class Quark extends Category {
+            @Comment("Chance to generate a marigold fairy ring in savanna biome chunk. Set to 0 to disable.")
+            public static final DoubleOption savannaFairyRingChance = new DoubleOption(0.0025).inRange(0, 1);
+        }
     }
 }

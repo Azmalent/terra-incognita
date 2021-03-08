@@ -1,8 +1,7 @@
 package azmalent.terraincognita.common.entity;
 
-import azmalent.cuneiform.lib.registry.BlockEntry;
-import azmalent.terraincognita.common.init.ModEntities;
-import azmalent.terraincognita.common.init.ModWoodTypes;
+import azmalent.terraincognita.common.registry.ModEntities;
+import azmalent.terraincognita.common.registry.ModWoodTypes;
 import azmalent.terraincognita.common.block.blocksets.ModWoodType;
 import azmalent.terraincognita.mixin.accessor.BoatEntityAccessor;
 import net.minecraft.block.BlockState;
@@ -25,7 +24,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.network.FMLPlayMessages;
 import net.minecraftforge.fml.network.NetworkHooks;
 
@@ -118,8 +116,8 @@ public class ModBoatEntity extends BoatEntity {
     }
 
     private Item getPlanks() {
-        BlockEntry planks = getWoodType().PLANKS;
-        if (planks != null) return planks.getItem();
+        ModWoodType woodType = getWoodType();
+        if (woodType != null) return woodType.PLANKS.getItem();
 
         return Items.OAK_PLANKS;
     }
@@ -127,8 +125,8 @@ public class ModBoatEntity extends BoatEntity {
     @Nonnull
     @Override
     public Item getItemBoat() {
-        RegistryObject<Item> boat = this.getWoodType().BOAT;
-        if (boat != null) return boat.get();
+        ModWoodType woodType = getWoodType();
+        if (woodType != null) return woodType.BOAT.get();
 
         return Items.OAK_BOAT;
     }

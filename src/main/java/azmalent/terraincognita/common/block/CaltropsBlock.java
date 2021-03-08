@@ -1,8 +1,8 @@
 package azmalent.terraincognita.common.block;
 
 import azmalent.terraincognita.client.ModSoundTypes;
-import azmalent.terraincognita.common.init.ModBlocks;
-import azmalent.terraincognita.common.init.ModSounds;
+import azmalent.terraincognita.common.ModDamageSources;
+import azmalent.terraincognita.common.registry.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -27,7 +27,7 @@ import net.minecraft.world.World;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-@SuppressWarnings("ConstantConditions")
+@SuppressWarnings({"ConstantConditions", "deprecation"})
 public class CaltropsBlock extends Block {
     private static final VoxelShape SHAPE = makeCuboidShape(0, 0, 0, 15, 4, 15);
     private static final float BREAK_CHANCE = 0.2f;
@@ -84,7 +84,7 @@ public class CaltropsBlock extends Block {
     public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
         if (!world.isRemote && entity instanceof LivingEntity) {
             LivingEntity living = (LivingEntity) entity;
-            if (living.attackEntityFrom(DamageSource.GENERIC, 2)) {
+            if (living.attackEntityFrom(ModDamageSources.CALTROPS, 2)) {
                 living.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 10 * 20, 0, false, false));
                 if (world.rand.nextFloat() < BREAK_CHANCE) {
                     world.destroyBlock(pos, false);

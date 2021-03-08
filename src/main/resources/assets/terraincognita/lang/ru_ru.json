@@ -1,7 +1,6 @@
 {
   "itemGroup.terraIncognitaTab": "Terra Incognita",
 
-  "_comment": "Halves eating speed with each level",
   "block.terraincognita.dandelion_puff": "Белый одуванчик",
   "block.terraincognita.potted_dandelion_puff": "Белый одуванчик в горшке",
   "block.terraincognita.chicory": "Цикорий",
@@ -10,8 +9,6 @@
   "block.terraincognita.potted_yarrow": "Тысячелистник в горшке",
   "block.terraincognita.daffodil": "Нарцисс",
   "block.terraincognita.potted_daffodil": "Нарцисс в горшке",
-  "block.terraincognita.bluebell": "Колокольчик",
-  "block.terraincognita.potted_bluebell": "Колокольчик в горшке",
   "block.terraincognita.pink_primrose": "Розовый первоцвет",
   "block.terraincognita.potted_pink_primrose": "Розовый первоцвет в горшке",
   "block.terraincognita.purple_primrose": "Фиолетовый первоцвет",
@@ -20,6 +17,8 @@
   "block.terraincognita.potted_yellow_primrose": "Жёлтый первоцвет в горшке",
   "block.terraincognita.foxglove": "Наперстянка",
   "block.terraincognita.potted_foxglove": "Наперстянка в горшке",
+  "block.terraincognita.wild_garlic": "Черемша",
+  "block.terraincognita.potted_wild_garlic": "Черемша в горшке",
   "block.terraincognita.forget_me_not": "Незабудка",
   "block.terraincognita.potted_forget_me_not": "Незабудка в горшке",
   "block.terraincognita.globeflower": "Купальница",
@@ -50,8 +49,10 @@
   "block.terraincognita.potted_black_iris": "Чёрный ирис в горшке",
   "block.terraincognita.fireweed": "Иван-чай",
   "block.terraincognita.potted_fireweed": "Иван-чай в горшке",
-  "block.terraincognita.arctic_poppy": "Арктический мак",
-  "block.terraincognita.potted_arctic_poppy": "Арктический мак в горшке",
+  "block.terraincognita.arctic_poppy": "Полярный мак",
+  "block.terraincognita.potted_arctic_poppy": "Полярный мак в горшке",
+  "block.terraincognita.white_dryad": "Белая дриада",
+  "block.terraincognita.potted_white_dryad": "Белая дриада в горшке",
   "block.terraincognita.cattail": "Рогоз",
   "block.terraincognita.potted_cattail": "Рогоз в горшке",
   "block.terraincognita.water_flag": "Болотный ирис",
@@ -73,6 +74,7 @@
   "block.terraincognita.mossy_gravel": "Замшелый гравий",
   "block.terraincognita.basket": "Лукошко",
   "block.terraincognita.wicker_mat": "Циновка",
+  "block.terraincognita.wicker_lantern": "Плетёная лампа",
   "block.terraincognita.caltrops": "Железный чеснок",
 
   "block.terraincognita.apple_sapling": "Саженец яблони",
@@ -145,8 +147,10 @@
   "item.terraincognita.clayed_root": "Обмазанный глиной корень",
   "item.terraincognita.baked_root": "Печёный корень",
   "item.terraincognita.berry_sorbet": "Ягодный шербет",
+  "item.terraincognita.kelp_soup": "Суп из ламинарии",
   "item.terraincognita.flower_band": "Венок",
   "item.terraincognita.hazelnut": "Фундук",
+  "item.terraincognita.honey_hazelnut": "Фундук в меду",
   "item.terraincognita.apple_boat": "Яблоневая лодка",
   "item.terraincognita.hazel_boat": "Орешниковая лодка",
   "item.terraincognita.fireweed_teabag": "Пакетик иван-чая",
@@ -199,6 +203,9 @@
   "block.minecraft.banner.ti_fern.green": "Зелёный папоротник",
   "block.minecraft.banner.ti_fern.red": "Красный папоротник",
   "block.minecraft.banner.ti_fern.black": "Чёрный папоротник",
+
+  "death.attack.caltrops": "%1$s был исколот до смерти железным чесноком",
+  "death.attack.caltrops.player": "%1$s был исколот до смерти железным чесноком, пытаясь убежать от %2$s",
 
   "subtitle.terraincognita.blow": "Игрок дует на одуванчик",
   "subtitle.terraincognita.caltrops_throw": "Брошен железный чеснок"

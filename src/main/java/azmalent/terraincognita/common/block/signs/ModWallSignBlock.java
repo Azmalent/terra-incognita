@@ -44,7 +44,7 @@ public class ModWallSignBlock extends AbstractModSignBlock {
 
     @Nonnull
     public String getTranslationKey() {
-        return woodType.STANDING_SIGN.getBlock().getTranslationKey();
+        return woodType.SIGN.getBlock().getTranslationKey();
     }
 
     @Nonnull
@@ -95,6 +95,6 @@ public class ModWallSignBlock extends AbstractModSignBlock {
     @Nonnull
     @Override
     public List<ItemStack> getDrops(@Nonnull BlockState state, @Nonnull LootContext.Builder builder) {
-        return this.woodType.STANDING_SIGN.getBlock().getDrops(state, builder);
+        return this.woodType.SIGN.getBlock().getDrops(state, builder);
     }
 }

@@ -1,8 +1,8 @@
 package azmalent.terraincognita.common.item.block;
 
 import azmalent.terraincognita.TerraIncognita;
-import azmalent.terraincognita.common.init.ModParticles;
-import azmalent.terraincognita.common.init.ModSounds;
+import azmalent.terraincognita.common.registry.ModParticles;
+import azmalent.terraincognita.common.registry.ModSounds;
 import net.minecraft.block.Block;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;

@@ -1,9 +1,8 @@
 package azmalent.terraincognita.common.integration.quark.block;
 
 import azmalent.cuneiform.lib.registry.BlockEntry;
-import azmalent.cuneiform.lib.registry.BlockRegistryHelper;
 import azmalent.cuneiform.lib.registry.BlockRenderType;
-import azmalent.terraincognita.common.init.ModBlocks;
+import azmalent.terraincognita.common.registry.ModBlocks;
 import azmalent.terraincognita.mixin.accessor.FireBlockAccessor;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -30,8 +29,8 @@ public class QuarkWoodBlockSet {
         VERTICAL_SLAB   = ModBlocks.HELPER.newBuilder(id + "_vertical_slab", () -> new VerticalSlabBlock(Block.Properties.create(Material.WOOD, woodColor).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD))).build();
         BOOKSHELF       = ModBlocks.HELPER.newBuilder(id + "_bookshelf", Block.Properties.create(Material.WOOD, woodColor).hardnessAndResistance(1.5F).sound(SoundType.WOOD)).build();
         LADDER          = ModBlocks.HELPER.newBuilder(id + "_ladder", () -> new LadderBlock(Block.Properties.from(Blocks.LADDER))).withRenderType(BlockRenderType.CUTOUT).build();
-        POST            = ModBlocks.HELPER.newBuilder(id + "_post", () -> new WoodenPostBlock(barkColor)).withRenderType(BlockRenderType.CUTOUT).build();
-        STRIPPED_POST   = ModBlocks.HELPER.newBuilder("stripped_" + id + "_post", () -> new WoodenPostBlock(woodColor)).withRenderType(BlockRenderType.CUTOUT).build();
+        POST            = ModBlocks.HELPER.newBuilder(id + "_post", () -> new ModWoodPostBlock(barkColor)).withRenderType(BlockRenderType.CUTOUT).build();
+        STRIPPED_POST   = ModBlocks.HELPER.newBuilder("stripped_" + id + "_post", () -> new ModWoodPostBlock(woodColor)).withRenderType(BlockRenderType.CUTOUT).build();
         HEDGE           = ModBlocks.HELPER.newBuilder(id + "_hedge", () -> new HedgeBlock(woodColor)).withRenderType(BlockRenderType.CUTOUT_MIPPED).build();
         LEAF_CARPET     = ModBlocks.HELPER.newBuilder(id + "_leaf_carpet", LeafCarpetBlock::new).withRenderType(BlockRenderType.CUTOUT_MIPPED).build();
     }

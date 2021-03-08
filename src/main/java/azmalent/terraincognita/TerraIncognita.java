@@ -3,15 +3,24 @@ package azmalent.terraincognita;
 import azmalent.cuneiform.lib.compat.ModCompatUtil;
 import azmalent.terraincognita.client.event.ClientEventHandler;
 import azmalent.terraincognita.common.event.EventHandler;
-import azmalent.terraincognita.common.init.*;
+import azmalent.terraincognita.common.registry.*;
 import azmalent.terraincognita.common.integration.ModIntegration;
+import azmalent.terraincognita.common.world.ModTrees;
 import azmalent.terraincognita.network.NetworkHandler;
 import azmalent.terraincognita.proxy.ClientProxy;
 import azmalent.terraincognita.proxy.ServerProxy;
 import azmalent.terraincognita.proxy.IProxy;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.WorldGenRegistries;
+import net.minecraft.world.gen.Heightmap;
+import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
+import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.foliageplacer.FancyFoliagePlacer;
+import net.minecraft.world.gen.trunkplacer.FancyTrunkPlacer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
@@ -19,6 +28,8 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.util.OptionalInt;
 
 @Mod(TerraIncognita.MODID)
 public class TerraIncognita {
@@ -51,6 +62,7 @@ public class TerraIncognita {
         ModSounds.SOUNDS.register(bus);
         ModTileEntities.TILE_ENTITIES.register(bus);
         ModTreeDecorators.TREE_DECORATORS.register(bus);
+        ModBanners.register();
 
         ModCompatUtil.initModProxies(ModIntegration.class, MODID);
         ModIntegration.QUARK.register(bus);

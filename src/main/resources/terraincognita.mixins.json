@@ -8,10 +8,11 @@
     "FlowersFeatureMixin",
     "FoxEntityTypeMixin",
     "GrassBlockMixin",
-    "LanternBlockMixin",
     "accessor.BoatEntityAccessor",
     "accessor.FireBlockAccessor",
-    "accessor.TreeDecoratorTypeAccessor"
+    "accessor.TreeDecoratorTypeAccessor",
+    "compat.quark.FairyRingGeneratorMixin",
+    "compat.quark.LanternBlockMixin"
   ],
   "client": [
     "client.BiomeMixin"

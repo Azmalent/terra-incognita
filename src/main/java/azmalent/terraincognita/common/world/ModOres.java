@@ -2,7 +2,7 @@ package azmalent.terraincognita.common.world;
 
 import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.TerraIncognita;
-import azmalent.terraincognita.common.init.ModBlocks;
+import azmalent.terraincognita.common.registry.ModBlocks;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.registry.Registry;

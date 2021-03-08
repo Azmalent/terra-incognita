@@ -1,11 +1,9 @@
 package azmalent.terraincognita.common.world.feature;
 
 import azmalent.terraincognita.common.block.plants.ReedsBlock;
-import azmalent.terraincognita.common.init.ModBlocks;
-import com.mojang.serialization.Codec;
+import azmalent.terraincognita.common.registry.ModBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.ChunkGenerator;

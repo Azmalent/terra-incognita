@@ -1,6 +1,5 @@
 package azmalent.terraincognita.proxy;
 
-import azmalent.terraincognita.common.tile.ModSignTileEntity;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;

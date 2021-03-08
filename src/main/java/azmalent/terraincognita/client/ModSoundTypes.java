@@ -1,6 +1,6 @@
 package azmalent.terraincognita.client;
 
-import azmalent.terraincognita.common.init.ModSounds;
+import azmalent.terraincognita.common.registry.ModSounds;
 import net.minecraft.block.SoundType;
 
 public class ModSoundTypes {

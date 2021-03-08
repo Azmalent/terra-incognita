@@ -2,8 +2,9 @@ package azmalent.terraincognita.mixin;
 
 import azmalent.cuneiform.lib.util.BiomeUtil;
 import azmalent.terraincognita.TIConfig;
-import azmalent.terraincognita.common.init.ModBlocks;
+import azmalent.terraincognita.common.registry.ModBlocks;
 import azmalent.terraincognita.common.world.ModVegetation;
+import azmalent.terraincognita.util.WorldGenUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.GrassBlock;
@@ -13,7 +14,6 @@ import net.minecraft.world.IWorldReader;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.gen.feature.BlockClusterFeatureConfig;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.FlowersFeature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.server.ServerWorld;
@@ -37,13 +37,12 @@ public class GrassBlockMixin {
             boolean cold = BiomeDictionary.hasType(biomeKey, COLD);
             boolean hot = BiomeDictionary.hasType(biomeKey, HOT);
 
-            switch (biome.getCategory()) {
+            switch (WorldGenUtil.getProperBiomeCategory(biome)) {
                 case FOREST:
                     if (!cold && !hot) return ModVegetation.Configs.FOREST_FLOWERS;
                     break;
                 case SWAMP:
-                    if (!cold) return ModVegetation.Configs.SWAMP_FLOWERS;
-                    break;
+                    return ModVegetation.Configs.SWAMP_FLOWERS;
                 case SAVANNA:
                     return ModVegetation.Configs.SAVANNA_FLOWERS;
                 case DESERT:
@@ -68,20 +67,20 @@ public class GrassBlockMixin {
 
     @SuppressWarnings({"unchecked", "ConstantConditions"})
     @Redirect(method = "grow", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/gen/feature/FlowersFeature;getFlowerToPlace(Ljava/util/Random;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/world/gen/feature/IFeatureConfig;)Lnet/minecraft/block/BlockState;"))
-    private <TConfig extends IFeatureConfig> BlockState getFlowerToPlace(FlowersFeature<TConfig> self, Random random, BlockPos pos, TConfig config, ServerWorld world, Random random1, BlockPos pos1, BlockState blockState) {
-        BlockClusterFeatureConfig customFlowerConfig = getCustomFlowerConfig(random, world, pos);
+    private <TConfig extends IFeatureConfig> BlockState getFlowerToPlace(FlowersFeature<TConfig> self, Random rand, BlockPos pos, TConfig config, ServerWorld world, Random random1, BlockPos pos1, BlockState blockState) {
+        BlockClusterFeatureConfig customFlowerConfig = getCustomFlowerConfig(rand, world, pos);
         if (customFlowerConfig != null) {
-            return customFlowerConfig.stateProvider.getBlockState(random, pos);
+            return customFlowerConfig.stateProvider.getBlockState(rand, pos);
         }
 
-        BlockState flower = self.getFlowerToPlace(random, pos, config);
+        BlockState flower = self.getFlowerToPlace(rand, pos, config);
         if (flower.isIn(Blocks.DANDELION) && TIConfig.Flora.dandelionPuff.get()) {
-            if (random.nextFloat() < TIConfig.Flora.dandelionPuffChance.get()) {
+            if (rand.nextFloat() < TIConfig.Flora.dandelionPuffChance.get()) {
                 flower = ModBlocks.DANDELION_PUFF.getBlock().getDefaultState();
             }
         }
         else if (flower.isIn(Blocks.POPPY) && TIConfig.Flora.arcticFlowers.get()) {
-            if (world.getBiome(pos).getCategory() == Biome.Category.ICY) {
+            if (world.getBiome(pos).getCategory() == Biome.Category.ICY && rand.nextFloat() < TIConfig.Flora.arcticPoppyChance.get()) {
                 flower = ModBlocks.ARCTIC_POPPY.getBlock().getDefaultState();
             }
         }

@@ -66,14 +66,9 @@ public abstract class AbstractFruitBlock extends Block {
             worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
 
             ItemStack stack = new ItemStack(item.get());
-            if (player.addItemStackToInventory(stack)) {
-                float pitch = ((worldIn.rand.nextFloat() - worldIn.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F;
-                worldIn.playSound(player, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2F, pitch);
-            } else {
-                ItemEntity itemEntity = new ItemEntity(worldIn, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, stack);
-                itemEntity.setDefaultPickupDelay();
-                worldIn.addEntity(itemEntity);
-            }
+            ItemEntity itemEntity = new ItemEntity(worldIn, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, stack);
+            itemEntity.setDefaultPickupDelay();
+            worldIn.addEntity(itemEntity);
 
             return ActionResultType.SUCCESS;
         }

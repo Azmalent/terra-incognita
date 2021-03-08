@@ -1,0 +1,27 @@
+{
+  "type": "environmental:sawing",
+  "ingredient": {
+    "tag": "terraincognita:hazel_logs"
+  },
+  "result": "terraincognita:hazel_ladder",
+  "count": 4,
+  "conditions":[
+    {
+      "type": "forge:and",
+      "values": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "environmental"
+        },
+        {
+          "type": "forge:mod_loaded",
+          "modid": "quark"
+        },
+        {
+          "type": "cuneiform:config",
+          "config": "terraincognita:hazel"
+        }
+      ]
+    }
+  ]
+}

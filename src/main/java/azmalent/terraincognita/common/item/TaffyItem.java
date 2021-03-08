@@ -2,8 +2,7 @@ package azmalent.terraincognita.common.item;
 
 import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.TerraIncognita;
-import azmalent.terraincognita.common.init.ModEffects;
-import azmalent.terraincognita.common.init.ModFoods;
+import azmalent.terraincognita.common.registry.ModEffects;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;

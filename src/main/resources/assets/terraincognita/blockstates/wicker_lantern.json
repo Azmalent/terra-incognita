@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "hanging=false": {
+      "model": "terraincognita:block/wicker_lantern"
+    },
+    "hanging=true": {
+      "model": "terraincognita:block/wicker_lantern_hanging"
+    }
+  }
+}

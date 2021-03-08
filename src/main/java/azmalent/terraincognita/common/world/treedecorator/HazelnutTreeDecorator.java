@@ -1,8 +1,8 @@
 package azmalent.terraincognita.common.world.treedecorator;
 
 import azmalent.terraincognita.common.block.trees.AbstractFruitBlock;
-import azmalent.terraincognita.common.init.ModBlocks;
-import azmalent.terraincognita.common.init.ModTreeDecorators;
+import azmalent.terraincognita.common.registry.ModBlocks;
+import azmalent.terraincognita.common.registry.ModTreeDecorators;
 import com.mojang.serialization.Codec;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;

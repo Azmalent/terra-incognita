@@ -1,13 +1,12 @@
 package azmalent.terraincognita.common.item;
 
-import azmalent.terraincognita.common.init.ModItems;
+import azmalent.terraincognita.common.registry.ModItems;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -17,6 +16,7 @@ import net.minecraft.util.Direction;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fml.RegistryObject;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
@@ -24,7 +24,7 @@ public class ModSpawnEggItem<T extends Entity> extends SpawnEggItem {
     private static final DefaultDispenseItemBehavior DISPENSER_BEHAVIOR = new DefaultDispenseItemBehavior() {
         public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
         Direction direction = source.getBlockState().get(DispenserBlock.FACING);
-        EntityType<?> entityType = ((ModSpawnEggItem) stack.getItem()).getType(stack.getTag());
+        EntityType<?> entityType = ((ModSpawnEggItem<?>) stack.getItem()).getType(stack.getTag());
         entityType.spawn(source.getWorld(), stack, null, source.getBlockPos().offset(direction), SpawnReason.DISPENSER, direction != Direction.UP, false);
         stack.shrink(1);
         return stack;
@@ -40,6 +40,7 @@ public class ModSpawnEggItem<T extends Entity> extends SpawnEggItem {
         DispenserBlock.registerDispenseBehavior(this, DISPENSER_BEHAVIOR);
     }
 
+    @Nonnull
     @Override
     public EntityType<?> getType(@Nullable CompoundNBT compound) {
         if (compound != null && compound.contains("EntityTag", Constants.NBT.TAG_COMPOUND)) {
@@ -54,7 +55,6 @@ public class ModSpawnEggItem<T extends Entity> extends SpawnEggItem {
 
     @SuppressWarnings("ConstantConditions")
     public static <T extends Entity> RegistryObject<ModSpawnEggItem<T>> create(String entityId, RegistryObject<EntityType<T>> type, int primaryColor, int secondaryColor) {
-        if (type == null) return null;
         return ModItems.ITEMS.register(entityId + "_spawn_egg", () -> new ModSpawnEggItem<T>(type, primaryColor, secondaryColor));
     }
 }

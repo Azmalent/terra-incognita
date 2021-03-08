@@ -1,8 +1,8 @@
 package azmalent.terraincognita.common.recipe;
 
 
-import azmalent.terraincognita.common.init.ModItems;
-import azmalent.terraincognita.common.init.ModRecipes;
+import azmalent.terraincognita.common.registry.ModItems;
+import azmalent.terraincognita.common.registry.ModRecipes;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FlowerBlock;
 import net.minecraft.inventory.CraftingInventory;

@@ -1,14 +1,9 @@
 package azmalent.terraincognita.network.message.s2c;
 
 import azmalent.terraincognita.client.ClientHandler;
-import azmalent.terraincognita.common.tile.ModSignTileEntity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.particles.BasicParticleType;
-import net.minecraft.particles.IParticleData;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkDirection;
@@ -74,9 +69,9 @@ public final class S2CSpawnParticleMessage {
                     world.addParticle(type, message.xPos, message.yPos, message.zPos, message.xSpeed, message.ySpeed, message.zSpeed);
                 }
             });
-
-            context.setPacketHandled(true);
         }
+
+        context.setPacketHandled(true);
     }
 
 }

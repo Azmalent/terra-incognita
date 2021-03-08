@@ -1,0 +1,23 @@
+{
+  "type": "environmental:sawing",
+  "ingredient": {
+    "item": "$MODID:$TYPE_planks"
+  },
+  "result": "$MODID:$OUTPUT",
+  "count": $COUNT,
+  "conditions":[
+    {
+      "type": "forge:and",
+      "values": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "environmental"
+        },
+        {
+          "type": "cuneiform:config",
+          "config": "$MODID:$TYPE"
+        }
+      ]
+    }
+  ]
+}

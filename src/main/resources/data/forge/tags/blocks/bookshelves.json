@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-	"terraincognita:apple_bookshelf",
-	"terraincognita:hazel_bookshelf"
+	{"id": "terraincognita:apple_bookshelf", "required": false},
+	{"id": "terraincognita:hazel_bookshelf", "required": false}
   ]
 }

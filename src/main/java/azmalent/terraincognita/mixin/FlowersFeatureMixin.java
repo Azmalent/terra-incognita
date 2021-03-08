@@ -1,11 +1,9 @@
 package azmalent.terraincognita.mixin;
 
-import azmalent.cuneiform.lib.util.BiomeUtil;
 import azmalent.terraincognita.TIConfig;
-import azmalent.terraincognita.common.init.ModBlocks;
+import azmalent.terraincognita.common.registry.ModBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.util.RegistryKey;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
 import net.minecraft.world.IWorld;
@@ -13,7 +11,6 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.FlowersFeature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
-import net.minecraftforge.common.BiomeDictionary;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -48,7 +45,7 @@ public abstract class FlowersFeatureMixin<TConfig extends IFeatureConfig> {
                     }
                 }
                 else if (flower.isIn(Blocks.POPPY) && TIConfig.Flora.arcticFlowers.get()) {
-                    if (reader.getBiome(pos).getCategory() == Biome.Category.ICY) {
+                    if (reader.getBiome(pos).getCategory() == Biome.Category.ICY && rand.nextFloat() < TIConfig.Flora.arcticPoppyChance.get()) {
                         flower = ModBlocks.ARCTIC_POPPY.getBlock().getDefaultState();
                     }
                 }

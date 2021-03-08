@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "result": {
+    "item": "terraincognita:kelp_soup"
+  },
+  "ingredients": [
+    { "item": "minecraft:kelp" },
+    { "item": "minecraft:kelp" },
+    { "item": "minecraft:kelp" },
+    { "item": "minecraft:kelp" },
+    { "item": "minecraft:bowl" }
+  ],
+  "conditions": [
+    {
+      "type": "cuneiform:config",
+      "config": "terraincognita:kelp_soup"
+    }
+  ]
+}

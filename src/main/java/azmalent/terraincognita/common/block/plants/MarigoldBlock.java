@@ -1,10 +1,9 @@
 package azmalent.terraincognita.common.block.plants;
 
-import azmalent.terraincognita.common.init.ModStewEffect;
+import azmalent.terraincognita.common.effect.ModStewEffect;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FlowerBlock;
-import net.minecraft.potion.Effects;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;

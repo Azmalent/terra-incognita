@@ -3,8 +3,6 @@ package azmalent.terraincognita.network.message.s2c;
 import azmalent.terraincognita.TerraIncognita;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkDirection;
 import net.minecraftforge.fml.network.NetworkEvent;
 
@@ -32,8 +30,8 @@ public final class S2CEditSignMessage {
             context.enqueueWork(() -> {
                 TerraIncognita.PROXY.openSignEditor(message.pos);
             });
-
-            context.setPacketHandled(true);
         }
+
+        context.setPacketHandled(true);
     }
 }

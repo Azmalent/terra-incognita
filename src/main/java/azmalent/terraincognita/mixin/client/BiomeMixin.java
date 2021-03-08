@@ -1,6 +1,6 @@
 package azmalent.terraincognita.mixin.client;
 
-import azmalent.terraincognita.common.init.ModBiomes;
+import azmalent.terraincognita.common.registry.ModBiomes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import org.spongepowered.asm.mixin.Mixin;

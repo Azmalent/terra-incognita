@@ -1,7 +1,7 @@
 package azmalent.terraincognita.common.event;
 
-import azmalent.terraincognita.common.init.ModBlocks;
-import azmalent.terraincognita.common.init.ModWoodTypes;
+import azmalent.terraincognita.common.registry.ModBlocks;
+import azmalent.terraincognita.common.registry.ModWoodTypes;
 import azmalent.terraincognita.common.block.blocksets.ModWoodType;
 import com.google.common.collect.Maps;
 import net.minecraft.item.Item;
@@ -17,26 +17,22 @@ public class FuelHandler {
             initWoodFuelValues(woodType);
         }
 
-        if (ModBlocks.PEAT != null) {
-            fuelValues.put(ModBlocks.PEAT.getItem(), 2400);
-        }
+        fuelValues.put(ModBlocks.PEAT.getItem(), 2400);
     }
 
     private static void initWoodFuelValues(ModWoodType woodType) {
-        if (woodType.isEnabled()) {
-            fuelValues.put(woodType.LOG.getItem(), 300);
-            fuelValues.put(woodType.STRIPPED_LOG.getItem(), 300);
-            fuelValues.put(woodType.WOOD.getItem(), 300);
-            fuelValues.put(woodType.STRIPPED_WOOD.getItem(), 300);
-            fuelValues.put(woodType.PLANKS.getItem(), 300);
-            fuelValues.put(woodType.SLAB.getItem(), 150);
-            fuelValues.put(woodType.STAIRS.getItem(), 300);
-            fuelValues.put(woodType.FENCE.getItem(), 300);
-            fuelValues.put(woodType.FENCE_GATE.getItem(), 300);
-            //fuelValues.put(tree.SIGN.getItem(), 200);
-            fuelValues.put(woodType.DOOR.getItem(), 200);
-            fuelValues.put(woodType.TRAPDOOR.getItem(), 300);
-        }
+        fuelValues.put(woodType.LOG.getItem(), 300);
+        fuelValues.put(woodType.STRIPPED_LOG.getItem(), 300);
+        fuelValues.put(woodType.WOOD.getItem(), 300);
+        fuelValues.put(woodType.STRIPPED_WOOD.getItem(), 300);
+        fuelValues.put(woodType.PLANKS.getItem(), 300);
+        fuelValues.put(woodType.SLAB.getItem(), 150);
+        fuelValues.put(woodType.STAIRS.getItem(), 300);
+        fuelValues.put(woodType.FENCE.getItem(), 300);
+        fuelValues.put(woodType.FENCE_GATE.getItem(), 300);
+        fuelValues.put(woodType.SIGN.getItem(), 200);
+        fuelValues.put(woodType.DOOR.getItem(), 200);
+        fuelValues.put(woodType.TRAPDOOR.getItem(), 300);
     }
 
     public static void getBurnTime(FurnaceFuelBurnTimeEvent event) {

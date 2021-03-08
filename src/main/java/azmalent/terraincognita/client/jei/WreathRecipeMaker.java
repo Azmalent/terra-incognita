@@ -1,7 +1,7 @@
 package azmalent.terraincognita.client.jei;
 
 import azmalent.terraincognita.TerraIncognita;
-import azmalent.terraincognita.common.init.ModItems;
+import azmalent.terraincognita.common.registry.ModItems;
 import com.google.common.collect.Lists;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;

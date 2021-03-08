@@ -1,19 +1,17 @@
 package azmalent.terraincognita.common.block;
 
 import azmalent.terraincognita.TIConfig;
+import azmalent.terraincognita.common.data.ModBlockTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.SugarCaneBlock;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.IPlantable;
-import net.minecraftforge.common.PlantType;
 import net.minecraftforge.common.ToolType;
 
 import javax.annotation.Nonnull;
@@ -38,8 +36,8 @@ public class PeatBlock extends Block {
 
         BlockPos plantPos = pos.up();
         BlockState plant = world.getBlockState(plantPos);
-        if (plant.getBlock() instanceof SugarCaneBlock || plant.isIn(Blocks.BAMBOO)) {
-            while (world.getBlockState(plantPos.up()).getBlock() == plant.getBlock()) {
+        if (plant.isIn(ModBlockTags.PEAT_MULTIBLOCK_PLANTS)) {
+            while (world.getBlockState(plantPos.up()).isIn(ModBlockTags.PEAT_MULTIBLOCK_PLANTS)) {
                 plantPos = plantPos.up();
             }
 

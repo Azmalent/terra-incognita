@@ -3,12 +3,12 @@ package azmalent.terraincognita.common.event;
 import azmalent.cuneiform.lib.util.BiomeUtil;
 import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.TerraIncognita;
-import azmalent.terraincognita.common.init.ModBiomes;
-import azmalent.terraincognita.common.init.ModEntities;
+import azmalent.terraincognita.common.registry.ModBiomes;
+import azmalent.terraincognita.common.registry.ModEntities;
 import azmalent.terraincognita.common.world.ModOres;
 import azmalent.terraincognita.common.world.ModTrees;
 import azmalent.terraincognita.common.world.ModVegetation;
-import azmalent.terraincognita.common.world.WorldGenUtil;
+import azmalent.terraincognita.util.WorldGenUtil;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
@@ -31,11 +31,9 @@ public class BiomeHandler {
 
     public static void initCustomBiomes(BiomeLoadingEvent event) {
         ResourceLocation id = event.getName();
-        if (!id.getNamespace().equals(TerraIncognita.MODID)) {
-            return;
-        }
+        if (!id.getNamespace().equals(TerraIncognita.MODID)) return;
 
-        if (TIConfig.Biomes.tundraVariants.get() && id.equals(ModBiomes.TUNDRA.getId()) || id.equals(ModBiomes.ROCKY_TUNDRA.getId())) {
+        if (id.equals(ModBiomes.TUNDRA.getId()) || id.equals(ModBiomes.ROCKY_TUNDRA.getId())) {
             ModBiomes.addTundraFeatures(event.getGeneration());
 
             if (id.equals(ModBiomes.ROCKY_TUNDRA.getId())) {
@@ -44,12 +42,18 @@ public class BiomeHandler {
         }
     }
 
+    @SuppressWarnings("ConstantConditions")
     public static void addCustomFeatures(BiomeLoadingEvent event) {
         RegistryKey<Biome> biomeKey = BiomeUtil.getBiomeKey(event.getName());
-        if (hasAnyType(biomeKey, END, NETHER, VOID, OCEAN, BEACH, DEAD) || biomeKey == Biomes.FLOWER_FOREST) return;
+        if (hasAnyType(biomeKey, END, NETHER, VOID, OCEAN, BEACH, DEAD)) return;
 
         Biome biome = ForgeRegistries.BIOMES.getValue(event.getName());
         if (TIConfig.biomeBlacklist.get().contains(biome)) {
+            return;
+        }
+
+        //Sweet peas
+        if (biomeKey == Biomes.FLOWER_FOREST) {
             return;
         }
 
@@ -64,18 +68,10 @@ public class BiomeHandler {
             }
         }
 
-        Biome.Category category = event.getCategory();
-
-        //Workaround for biomes that don't use proper categories
-        if (category == Biome.Category.FOREST) {
-            if (hot) category = Biome.Category.JUNGLE;
-            else if (cold) category = Biome.Category.TAIGA;
-        }
-
-        switch (category) {
+        switch (WorldGenUtil.getProperBiomeCategory(biome)) {
             case PLAINS:
                 WorldGenUtil.addVegetation(event, ModTrees.NATURAL_APPLE);
-                WorldGenUtil.addSpawner(event, ModEntities.BUTTERFLY, EntityClassification.AMBIENT, 10, 2, 4);
+                WorldGenUtil.addSpawner(event, ModEntities.BUTTERFLY, EntityClassification.CREATURE, 10, 2, 4, TIConfig.Fauna.butterflies);
                 break;
             case FOREST:
                 WorldGenUtil.addVegetation(event, ModVegetation.FOREST_FLOWERS, ModTrees.NATURAL_APPLE, ModTrees.NATURAL_HAZEL);

@@ -1,6 +1,6 @@
 package azmalent.terraincognita.common.tile;
 
-import azmalent.terraincognita.common.init.ModTileEntities;
+import azmalent.terraincognita.common.registry.ModTileEntities;
 import net.minecraft.tileentity.ChestTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.AxisAlignedBB;

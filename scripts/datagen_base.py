@@ -38,14 +38,14 @@ def copy_file(template, out_file, variables):
                 fout.write(string)
 
 
-def to_tag_entry(item):
-    if item[0] == '#':
+def to_tag_entry(item, optional=False):
+    if not optional or item[0] == '#':
         return '"%s"' % item
 
     return '{"id": "%s", "required": false}' % item
 
 
-def add_to_tag(tag_file, *items):
+def add_to_tag(tag_file, *items, optional=False):
     if os.path.isfile(tag_file):
         with open(tag_file, 'rt') as f:
             contents = f.readlines()
@@ -55,7 +55,7 @@ def add_to_tag(tag_file, *items):
             contents = f.readlines()
 
     header, lines, footer = contents[:3], contents[3:-2], contents[-2:]
-    new_items = [to_tag_entry(x) for x in items]
+    new_items = [to_tag_entry(x, optional=optional) for x in items]
     old_items = [x.strip(', \t\n') for x in lines]
 
     all_items = ['\t' + x for x in set(new_items + old_items) if x]
@@ -77,19 +77,19 @@ def add_to_tag(tag_file, *items):
             f.write(line)
 
 
-def add_to_item_tag(tag, *items, namespace='minecraft'):
+def add_to_item_tag(tag, *items, namespace='minecraft', optional=False):
     filename = CWD + '/../src/main/resources/data/%s/tags/items/%s.json' % (namespace, tag)
-    add_to_tag(filename, *items)
+    add_to_tag(filename, *items, optional=optional)
 
 
-def add_to_block_tag(tag, *items, namespace='minecraft'):
+def add_to_block_tag(tag, *items, namespace='minecraft', optional=False):
     filename = CWD + '/../src/main/resources/data/%s/tags/blocks/%s.json' % (namespace, tag)
-    add_to_tag(filename, *items)
+    add_to_tag(filename, *items, optional=optional)
 
 
-def add_to_item_and_block_tags(tag, *items, namespace='minecraft'):
-    add_to_item_tag(tag, *items, namespace=namespace)
-    add_to_block_tag(tag, *items, namespace=namespace)
+def add_to_item_and_block_tags(tag, *items, namespace='minecraft', optional=False):
+    add_to_item_tag(tag, *items, namespace=namespace, optional=optional)
+    add_to_block_tag(tag, *items, namespace=namespace, optional=optional)
 
 
 def copy_asset(path, template, out_file, variables):
