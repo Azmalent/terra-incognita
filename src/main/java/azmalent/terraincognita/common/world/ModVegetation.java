@@ -5,7 +5,7 @@ import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.block.plants.SmallLilypadBlock;
 import azmalent.terraincognita.common.registry.ModBlocks;
 import azmalent.terraincognita.common.registry.ModFeatures;
-import azmalent.terraincognita.common.block.blocksets.PottablePlantEntry;
+import azmalent.terraincognita.common.block.PottablePlantEntry;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import net.minecraft.block.BlockState;

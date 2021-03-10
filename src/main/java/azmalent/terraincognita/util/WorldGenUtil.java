@@ -36,8 +36,8 @@ public class WorldGenUtil {
         return category;
     }
 
-    public static <T extends Entity> void addSpawner(BiomeLoadingEvent event, RegistryObject<EntityType<T>> entityType, EntityClassification classification, int weight, int minCount, int maxCount, BooleanOption condition) {
-        if (condition.get()) {
+    public static <T extends Entity> void addSpawner(BiomeLoadingEvent event, RegistryObject<EntityType<T>> entityType, EntityClassification classification, int weight, int minCount, int maxCount) {
+        if (weight > 0) {
             event.getSpawns().withSpawner(classification, new MobSpawnInfo.Spawners(entityType.get(), weight, minCount, maxCount));
         }
     }

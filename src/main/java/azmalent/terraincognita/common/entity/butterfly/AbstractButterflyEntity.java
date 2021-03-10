@@ -1,5 +1,6 @@
 package azmalent.terraincognita.common.entity.butterfly;
 
+import azmalent.terraincognita.common.ModDamageSources;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
@@ -13,6 +14,8 @@ import net.minecraft.pathfinding.PathNavigator;
 import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
@@ -25,6 +28,9 @@ import javax.annotation.Nullable;
 public abstract class AbstractButterflyEntity extends CreatureEntity implements IFlyingAnimal {
     protected int flyingTicks = 0;
     protected int underWaterTicks = 0;
+
+    protected float wingRotation = 0.5f;
+    protected float targetWingRotation = 0.5f;
 
     protected AbstractButterflyEntity(EntityType<? extends AbstractButterflyEntity> type, World world) {
         super(type, world);
@@ -70,6 +76,8 @@ public abstract class AbstractButterflyEntity extends CreatureEntity implements 
     public boolean isLanded() {
         return false;
     }
+
+    public abstract float getWingRotation(float ageInTicks);
 
     @Override
     protected void updateAITasks() {
@@ -147,7 +155,10 @@ public abstract class AbstractButterflyEntity extends CreatureEntity implements 
 
     @Override
     public boolean isInvulnerableTo(@Nonnull DamageSource source) {
-        return source == DamageSource.SWEET_BERRY_BUSH || source == DamageSource.CACTUS || super.isInvulnerableTo(source);
+        return source == DamageSource.SWEET_BERRY_BUSH
+            || source == DamageSource.CACTUS
+            || source == ModDamageSources.CALTROPS
+            || super.isInvulnerableTo(source);
     }
 
     @Nonnull
@@ -159,5 +170,14 @@ public abstract class AbstractButterflyEntity extends CreatureEntity implements 
     @Override
     protected float getStandingEyeHeight(Pose pose, EntitySize size) {
         return size.height / 2f;
+    }   @Nullable
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        return SoundEvents.ENTITY_SILVERFISH_HURT;
+    }
+    @Override
+    protected SoundEvent getDeathSound() {
+        return SoundEvents.ENTITY_SILVERFISH_DEATH;
     }
 }

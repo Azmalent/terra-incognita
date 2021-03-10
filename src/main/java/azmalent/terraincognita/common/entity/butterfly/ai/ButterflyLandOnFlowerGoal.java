@@ -1,11 +1,11 @@
 package azmalent.terraincognita.common.entity.butterfly.ai;
 
 import azmalent.terraincognita.common.entity.butterfly.ButterflyEntity;
-import net.minecraft.block.*;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.LilyPadBlock;
+import net.minecraft.block.TallFlowerBlock;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityPredicate;
 import net.minecraft.entity.ai.goal.MoveToBlockGoal;
-import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -14,11 +14,9 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IWorldReader;
 
 import javax.annotation.Nonnull;
+import java.util.List;
 
 public class ButterflyLandOnFlowerGoal extends MoveToBlockGoal {
-    private static final double RADIUS = 1.25;
-    private static final EntityPredicate BUTTERFLY_PREDICATE = new EntityPredicate().setDistance(RADIUS).allowFriendlyFire().allowInvulnerable();;
-
     private final ButterflyEntity butterfly;
 
     public ButterflyLandOnFlowerGoal(ButterflyEntity butterfly, double speed, int searchRadius) {
@@ -44,7 +42,7 @@ public class ButterflyLandOnFlowerGoal extends MoveToBlockGoal {
     @Override
     protected boolean shouldMoveTo(@Nonnull IWorldReader world, @Nonnull BlockPos pos) {
         BlockState state = world.getBlockState(pos);
-        return canLandOnBlock(state) && !hasOtherButterfliesInArea(pos);
+        return canLandOnBlock(state) && !isBlockTaken(world, state, pos);
     }
 
     private boolean canLandOnBlock(BlockState state) {
@@ -55,13 +53,12 @@ public class ButterflyLandOnFlowerGoal extends MoveToBlockGoal {
         return state.isIn(BlockTags.SMALL_FLOWERS);
     }
 
-    private boolean hasOtherButterfliesInArea(BlockPos pos) {
-        Entity otherButterfly = butterfly.world.getClosestEntityWithinAABB(
-            ButterflyEntity.class, BUTTERFLY_PREDICATE, butterfly,
-            pos.getX(), pos.getY(), pos.getZ(), butterfly.getBoundingBox().grow(0.25, RADIUS, 0.25)
+    private boolean isBlockTaken(IWorldReader world, BlockState state, BlockPos pos) {
+        List<Entity> entities = butterfly.world.getEntitiesWithinAABB(
+            ButterflyEntity.class, state.getShape(world, pos).getBoundingBox().expand(0.5, 0.5, 0.5).offset(pos)
         );
 
-        return otherButterfly != null;
+        return entities.stream().anyMatch(e -> pos.equals(((ButterflyEntity) e).restGoal.restingPos));
     }
 
     @Override

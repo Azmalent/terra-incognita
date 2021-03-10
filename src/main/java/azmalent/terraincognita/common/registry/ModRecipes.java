@@ -3,7 +3,7 @@ package azmalent.terraincognita.common.registry;
 import azmalent.cuneiform.lib.registry.BlockEntry;
 import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.TerraIncognita;
-import azmalent.terraincognita.common.block.blocksets.PottablePlantEntry;
+import azmalent.terraincognita.common.block.PottablePlantEntry;
 import azmalent.terraincognita.common.recipe.FiddleheadSuspiciousStewAdditionRecipe;
 import azmalent.terraincognita.common.recipe.FiddleheadSuspiciousStewRecipe;
 import azmalent.terraincognita.common.recipe.WreathRecipe;
@@ -13,6 +13,7 @@ import net.minecraft.item.Items;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.SpecialRecipe;
 import net.minecraft.item.crafting.SpecialRecipeSerializer;
+import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -36,12 +37,8 @@ public class ModRecipes {
         ComposterBlock.CHANCES.put(item.get(), value);
     }
 
-    public static void registerCompostable(BlockEntry blockEntry, float value) {
-        ComposterBlock.CHANCES.put(blockEntry.getItem(), value);
-    }
-
-    public static void registerCompostable(PottablePlantEntry plantEntry, float value) {
-        ComposterBlock.CHANCES.put(plantEntry.getItem(), value);
+    public static void registerCompostable(IItemProvider itemProvider, float value) {
+        ComposterBlock.CHANCES.put(itemProvider, value);
     }
 
     public static void initCompostables() {

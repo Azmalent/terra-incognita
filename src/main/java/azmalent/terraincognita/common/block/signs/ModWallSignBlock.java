@@ -1,6 +1,6 @@
 package azmalent.terraincognita.common.block.signs;
 
-import azmalent.terraincognita.common.block.blocksets.ModWoodType;
+import azmalent.terraincognita.common.block.woodtypes.ModWoodType;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import net.minecraft.block.*;

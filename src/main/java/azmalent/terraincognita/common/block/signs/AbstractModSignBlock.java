@@ -1,6 +1,6 @@
 package azmalent.terraincognita.common.block.signs;
 
-import azmalent.terraincognita.common.block.blocksets.ModWoodType;
+import azmalent.terraincognita.common.block.woodtypes.ModWoodType;
 import azmalent.terraincognita.common.integration.ModIntegration;
 import azmalent.terraincognita.common.tile.ModSignTileEntity;
 import azmalent.terraincognita.network.NetworkHandler;

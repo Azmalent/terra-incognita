@@ -15,10 +15,10 @@ import net.minecraftforge.common.ToolType;
 import javax.annotation.Nonnull;
 
 //Copied from Quark LeafCarpetBlock with minor edits
-public class LeafCarpetBlock extends Block {
+public class TILeafCarpetBlock extends Block {
     private static final VoxelShape SHAPE = makeCuboidShape(0, 0, 0, 16, 1, 16);
 
-    public LeafCarpetBlock() {
+    public TILeafCarpetBlock() {
         super(Block.Properties.create(Material.CARPET).hardnessAndResistance(0F).sound(SoundType.PLANT).harvestTool(ToolType.HOE).notSolid());
     }
 

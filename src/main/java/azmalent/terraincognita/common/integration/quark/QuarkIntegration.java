@@ -3,16 +3,15 @@ package azmalent.terraincognita.common.integration.quark;
 import azmalent.cuneiform.lib.compat.ModProxyImpl;
 import azmalent.cuneiform.lib.registry.BlockEntry;
 import azmalent.cuneiform.lib.registry.BlockRenderType;
+import azmalent.cuneiform.lib.util.DataUtil;
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.client.event.ColorHandler;
 import azmalent.terraincognita.common.event.FuelHandler;
 import azmalent.terraincognita.common.registry.ModBlocks;
 import azmalent.terraincognita.common.registry.ModRecipes;
-import azmalent.terraincognita.common.integration.quark.block.HedgeBlock;
-import azmalent.terraincognita.common.integration.quark.block.LeafCarpetBlock;
-import azmalent.terraincognita.common.integration.quark.block.QuarkWoodBlockSet;
-import azmalent.terraincognita.common.integration.quark.block.ModWoodPostBlock;
-import azmalent.terraincognita.mixin.accessor.FireBlockAccessor;
+import azmalent.terraincognita.common.integration.quark.block.TIHedgeBlock;
+import azmalent.terraincognita.common.integration.quark.block.TILeafCarpetBlock;
+import azmalent.terraincognita.common.integration.quark.block.TIWoodPostBlock;
 import com.google.common.collect.Lists;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
@@ -32,7 +31,6 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import vazkii.quark.base.module.ModuleLoader;
-import vazkii.quark.content.building.block.WoodPostBlock;
 import vazkii.quark.content.client.module.ChestSearchingModule;
 import vazkii.quark.content.tweaks.module.SignEditingModule;
 
@@ -43,8 +41,8 @@ public class QuarkIntegration implements IQuarkIntegration {
     private static final ResourceLocation BASKET_DROP_IN_CAP = TerraIncognita.prefix("basket_drop_in");
 
     private QuarkWoodBlockSet APPLE = new QuarkWoodBlockSet("apple", MaterialColor.WOOD, MaterialColor.ORANGE_TERRACOTTA);
-    private BlockEntry BLOSSOMING_APPLE_LEAF_CARPET = ModBlocks.HELPER.newBuilder("blossoming_apple_leaf_carpet", LeafCarpetBlock::new).withRenderType(BlockRenderType.CUTOUT_MIPPED).build();
-    private BlockEntry BLOSSOMING_APPLE_HEDGE = ModBlocks.HELPER.newBuilder("blossoming_apple_hedge", () -> new HedgeBlock(MaterialColor.ORANGE_TERRACOTTA)).withRenderType(BlockRenderType.CUTOUT_MIPPED).build();;
+    private BlockEntry BLOSSOMING_APPLE_LEAF_CARPET = ModBlocks.HELPER.newBuilder("blossoming_apple_leaf_carpet", TILeafCarpetBlock::new).cutoutMippedRender().build();
+    private BlockEntry BLOSSOMING_APPLE_HEDGE = ModBlocks.HELPER.newBuilder("blossoming_apple_hedge", () -> new TIHedgeBlock(MaterialColor.ORANGE_TERRACOTTA)).cutoutMippedRender().build();;
 
     private QuarkWoodBlockSet HAZEL = new QuarkWoodBlockSet("hazel", MaterialColor.WOOD, MaterialColor.BROWN);
     private BlockEntry HAZELNUT_SACK = ModBlocks.HELPER.newBuilder("hazelnut_sack", Block.Properties.create(Material.WOOL, MaterialColor.BROWN).hardnessAndResistance(0.5F).sound(SoundType.CLOTH)).build();
@@ -71,10 +69,8 @@ public class QuarkIntegration implements IQuarkIntegration {
     }
 
     public void setup(FMLCommonSetupEvent event) {
-        FireBlockAccessor fire = (FireBlockAccessor) Blocks.FIRE;
-
         for (QuarkWoodBlockSet set : WOOD_BLOCK_SETS) {
-			ModWoodPostBlock post = (ModWoodPostBlock) set.POST.getBlock();
+			TIWoodPostBlock post = (TIWoodPostBlock) set.POST.getBlock();
 			post.strippedBlock = set.STRIPPED_POST.getBlock();
         
             set.initFuelValues(FuelHandler.fuelValues);
@@ -83,10 +79,10 @@ public class QuarkIntegration implements IQuarkIntegration {
             ModRecipes.registerCompostable(set.LEAF_CARPET, 0.2f);
         }
 
-        fire.TI_setFireInfo(BLOSSOMING_APPLE_HEDGE.getBlock(), 5, 20);
+        DataUtil.registerFlammable(BLOSSOMING_APPLE_HEDGE, 5, 20);
         ModRecipes.registerCompostable(BLOSSOMING_APPLE_LEAF_CARPET, 0.2f);
 
-        fire.TI_setFireInfo(HAZELNUT_SACK.getBlock(), 5, 20);
+        DataUtil.registerFlammable(HAZELNUT_SACK, 5, 20);
         ModRecipes.registerCompostable(HAZELNUT_SACK, 1);
     }
 
@@ -102,8 +98,8 @@ public class QuarkIntegration implements IQuarkIntegration {
     public void registerItemColorHandlers(ColorHandlerEvent.Item event) {
         ItemColors colors = event.getItemColors();
 
-        colors.register((stack, index) -> index > 0 ? -1 : ColorHandler.APPLE_LEAVES_COLOR, APPLE.LEAF_CARPET.getItem(), BLOSSOMING_APPLE_LEAF_CARPET.getItem(), APPLE.HEDGE.getItem(), BLOSSOMING_APPLE_HEDGE.getItem());
-        colors.register((stack, index) -> index > 0 ? -1 : ColorHandler.HAZEL_LEAVES_COLOR, HAZEL.LEAF_CARPET.getItem(), HAZEL.HEDGE.getItem());
+        colors.register((stack, index) -> index > 0 ? -1 : ColorHandler.APPLE_LEAVES_COLOR, APPLE.LEAF_CARPET, BLOSSOMING_APPLE_LEAF_CARPET, APPLE.HEDGE, BLOSSOMING_APPLE_HEDGE);
+        colors.register((stack, index) -> index > 0 ? -1 : ColorHandler.HAZEL_LEAVES_COLOR, HAZEL.LEAF_CARPET, HAZEL.HEDGE);
     }
 
     public void onAttachItemCapabilities(AttachCapabilitiesEvent<ItemStack> event) {
@@ -119,6 +115,6 @@ public class QuarkIntegration implements IQuarkIntegration {
 
     @Override
     public boolean canLanternConnect(BlockState state, IWorldReader worldIn, BlockPos pos) {
-        return state.get(LanternBlock.HANGING) && (worldIn.getBlockState(pos.up()).getBlock() instanceof ModWoodPostBlock);
+        return state.get(LanternBlock.HANGING) && (worldIn.getBlockState(pos.up()).getBlock() instanceof TIWoodPostBlock);
     }
 }

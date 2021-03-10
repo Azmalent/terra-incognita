@@ -15,6 +15,7 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.FarmlandWaterManager;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.IPlantable;
+import net.minecraftforge.common.PlantType;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
@@ -31,7 +32,7 @@ public class PeatFarmlandBlock extends FarmlandBlock {
 
     @Override
     public boolean canSustainPlant(@Nonnull BlockState state, @Nonnull IBlockReader world, BlockPos pos, @Nonnull Direction facing, IPlantable plant) {
-        return Blocks.FARMLAND.canSustainPlant(state, world, pos, facing, plant);
+        return plant.getPlantType(world, pos) == PlantType.CROP;
     }
 
     @Override
@@ -43,15 +44,21 @@ public class PeatFarmlandBlock extends FarmlandBlock {
 
     @Override
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+        BlockPos up = pos.up();
+
         int moisture = state.get(MOISTURE);
         if (moisture > 0 && hasCrops(world, pos)) {
-            BlockState crop = world.getBlockState(pos.up());
+            BlockState crop = world.getBlockState(up);
             if (crop.ticksRandomly() && random.nextDouble() < TIConfig.Misc.peatGrowthRateBonus.get()) {
-                crop.randomTick(world, pos.up(), random);
+                crop.randomTick(world, up, random);
+
+                if (world.getBlockState(up) != crop) {
+                    PeatBlock.makeParticles(up, random);
+                }
             }
         }
 
-        if (!hasWater(world, pos) && !world.isRainingAt(pos.up())) {
+        if (!hasWater(world, pos) && !world.isRainingAt(up)) {
             if (moisture > 0) {
                 world.setBlockState(pos, state.with(MOISTURE, moisture - 1), 2);
             }
@@ -66,11 +73,11 @@ public class PeatFarmlandBlock extends FarmlandBlock {
 
     @Override
     public void onFallenUpon(World worldIn, @Nonnull BlockPos pos, Entity entityIn, float fallDistance) {
-        if (!worldIn.isRemote && worldIn.rand.nextBoolean() && ForgeHooks.onFarmlandTrample(worldIn, pos, Blocks.DIRT.getDefaultState(), fallDistance, entityIn)) {
+        if (!worldIn.isRemote && worldIn.rand.nextBoolean() && ForgeHooks.onFarmlandTrample(worldIn, pos, ModBlocks.PEAT.getDefaultState(), fallDistance, entityIn)) {
             turnToPeat(worldIn.getBlockState(pos), worldIn, pos);
         }
 
-        super.onFallenUpon(worldIn, pos, entityIn, fallDistance);
+        entityIn.onLivingFall(fallDistance, 1.0F);
     }
 
     private boolean hasCrops(IBlockReader worldIn, BlockPos pos) {

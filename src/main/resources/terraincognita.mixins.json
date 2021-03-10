@@ -9,7 +9,6 @@
     "FoxEntityTypeMixin",
     "GrassBlockMixin",
     "accessor.BoatEntityAccessor",
-    "accessor.FireBlockAccessor",
     "accessor.TreeDecoratorTypeAccessor",
     "compat.quark.FairyRingGeneratorMixin",
     "compat.quark.LanternBlockMixin"

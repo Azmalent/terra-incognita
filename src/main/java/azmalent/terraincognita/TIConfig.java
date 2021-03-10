@@ -9,6 +9,7 @@ import azmalent.cuneiform.lib.config.options.DoubleOption;
 import azmalent.cuneiform.lib.config.options.IntOption;
 import azmalent.cuneiform.lib.config.options.lazy.RegistryListOption;
 import com.google.common.collect.Lists;
+import jdk.nashorn.api.scripting.ScriptObjectMirror;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -32,6 +33,8 @@ public class TIConfig extends CommonConfigFile {
             "If the effect is negative, duration is halved instead."
         })
         public static final BooleanOption fiddlehead = new BooleanOption(true).withFlag("fiddlehead");
+
+        public static final DoubleOption fiddleheadDropChance = new DoubleOption(0.2).inRange(0, 1);
 
         @Name("Taffy Enabled")
         @Comment("Taffy is a food item that can only be found in dungeons. " +
@@ -114,7 +117,7 @@ public class TIConfig extends CommonConfigFile {
         public static final IntOption edelweissMinimumY = new IntOption(90).inRange(64, 128);
 
         @Name("Arctic Flowers Enabled")
-        @Comment("Adds fireweed, arctic poppies and white rhododendrons to taiga and tundra biomes.")
+        @Comment("Adds white dryads, fireweed, arctic poppies and white rhododendrons to taiga and tundra biomes.")
         public static final BooleanOption arcticFlowers = new BooleanOption(true).withFlag("arctic_flowers");
 
         @Name("Arctic Poppy Ratio")
@@ -137,8 +140,7 @@ public class TIConfig extends CommonConfigFile {
     }
 
     public static class Fauna extends Category {
-        @Name("Butterflies Enabled")
-        public static final BooleanOption butterflies = new BooleanOption(true);
+        public static IntOption butterflySpawnWeight = new IntOption(10).inRange(0, 100);
     }
 
     public static class Trees extends Category {
@@ -161,10 +163,12 @@ public class TIConfig extends CommonConfigFile {
         @Name("Caltrops Enabled")
         @Comment({"Caltrops are metal spikes that can be placed on the ground. Dropped caltrops will also place themselves if possible.",
             "Caltrops deal one heart of damage and inflict slowness for 10 seconds when touched.",
-            "They break with 1 in 5 chance after dealing damage, so they are not suitable as a permanent trap.",
             "Caltrops will be flushed away by flowing water.",
             "You can right click caltrops with an empty hand to pick them up."})
         public static final BooleanOption caltrops = new BooleanOption(true).withFlag("caltrops");
+
+        @Comment("The chance for caltrops to break when dealing damage.")
+        public static final DoubleOption caltropsBreakChance = new DoubleOption(0.125).inRange(0, 1);
 
         @Name("Basket Enabled")
         @Comment({"Basket is a portable container crafted from swamp reeds (or sugar cane if reeds are disabled). It can be placed or opened from inventory.",

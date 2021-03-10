@@ -1,8 +1,8 @@
 package azmalent.terraincognita.common.registry;
 
-import azmalent.terraincognita.common.block.blocksets.AppleWoodType;
-import azmalent.terraincognita.common.block.blocksets.HazelWoodType;
-import azmalent.terraincognita.common.block.blocksets.ModWoodType;
+import azmalent.terraincognita.common.block.woodtypes.AppleWoodType;
+import azmalent.terraincognita.common.block.woodtypes.HazelWoodType;
+import azmalent.terraincognita.common.block.woodtypes.ModWoodType;
 import azmalent.terraincognita.common.block.trees.AppleTree;
 import azmalent.terraincognita.common.block.trees.HazelTree;
 import com.google.common.collect.Lists;

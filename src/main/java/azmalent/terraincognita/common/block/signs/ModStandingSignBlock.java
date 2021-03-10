@@ -1,6 +1,6 @@
 package azmalent.terraincognita.common.block.signs;
 
-import azmalent.terraincognita.common.block.blocksets.ModWoodType;
+import azmalent.terraincognita.common.block.woodtypes.ModWoodType;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;

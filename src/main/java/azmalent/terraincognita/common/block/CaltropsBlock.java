@@ -1,5 +1,6 @@
 package azmalent.terraincognita.common.block;
 
+import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.client.ModSoundTypes;
 import azmalent.terraincognita.common.ModDamageSources;
 import azmalent.terraincognita.common.registry.ModBlocks;
@@ -29,8 +30,9 @@ import javax.annotation.Nullable;
 
 @SuppressWarnings({"ConstantConditions", "deprecation"})
 public class CaltropsBlock extends Block {
-    private static final VoxelShape SHAPE = makeCuboidShape(0, 0, 0, 15, 4, 15);
-    private static final float BREAK_CHANCE = 0.2f;
+    private static final VoxelShape SHAPE = makeCuboidShape(0, 0, 0, 16, 4, 16);
+
+    private static final int STEP_DAMAGE = 2;
 
     public CaltropsBlock() {
         super(Block.Properties.create(Material.MISCELLANEOUS, MaterialColor.IRON).doesNotBlockMovement().zeroHardnessAndResistance());
@@ -58,7 +60,7 @@ public class CaltropsBlock extends Block {
 
             if (player.addItemStackToInventory(stack)) {
                 float pitch = ((world.rand.nextFloat() - world.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F;
-                world.playSound(player, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2F, pitch);
+                world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2F, pitch);
 
                 if (hand != null) player.swingArm(hand);
                 world.setBlockState(pos, Blocks.AIR.getDefaultState());
@@ -68,7 +70,6 @@ public class CaltropsBlock extends Block {
         return super.onBlockActivated(state, world, pos, player, hand, hit);
     }
 
-    @Nonnull
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         return SHAPE;
@@ -82,11 +83,11 @@ public class CaltropsBlock extends Block {
 
     @Override
     public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
-        if (!world.isRemote && entity instanceof LivingEntity) {
+        if (!world.isRemote && entity instanceof LivingEntity && entity.isOnGround()) {
             LivingEntity living = (LivingEntity) entity;
-            if (living.attackEntityFrom(ModDamageSources.CALTROPS, 2)) {
-                living.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 10 * 20, 0, false, false));
-                if (world.rand.nextFloat() < BREAK_CHANCE) {
+            if (living.attackEntityFrom(ModDamageSources.CALTROPS, STEP_DAMAGE)) {
+                living.addPotionEffect(new EffectInstance(Effects.SLOWNESS, STEP_DAMAGE * 100, 0, false, false));
+                if (world.rand.nextFloat() < TIConfig.Tools.caltropsBreakChance.get()) {
                     world.destroyBlock(pos, false);
                 }
             }

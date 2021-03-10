@@ -156,7 +156,7 @@ def make_wood_type(type):
     copy_crafting_recipe('vertical_planks', 'compat/quark/%s/vertical_planks' % type, {'type': type})
 
     make_stairs_and_slabs(type, planks, type)
-    add_to_item_and_block_tags('planks', '%s:%s' % (MODID, planks), '%s:%s' % (MODID, vertical_planks))
+    add_to_item_and_block_tags('planks', '%s:%s' % (MODID, planks), '%s:%s' % (MODID, vertical_planks), optional=True)
     add_to_item_and_block_tags('wooden_stairs', '%s:%s_stairs' % (MODID, type))
     add_to_item_and_block_tags('wooden_slabs', '%s:%s_slab' % (MODID, type))
 

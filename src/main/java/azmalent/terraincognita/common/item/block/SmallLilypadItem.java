@@ -3,6 +3,7 @@ package azmalent.terraincognita.common.item.block;
 import azmalent.terraincognita.TerraIncognita;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.item.LilyPadItem;
 import net.minecraft.util.ActionResultType;
@@ -11,7 +12,7 @@ import javax.annotation.Nonnull;
 
 public class SmallLilypadItem extends LilyPadItem {
     public SmallLilypadItem(Block block) {
-        super(block, (new Properties()).group(TerraIncognita.TAB));
+        super(block, (new Properties()).group(ItemGroup.DECORATIONS));
     }
 
     @Nonnull

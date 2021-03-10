@@ -2,7 +2,7 @@ package azmalent.terraincognita.common.entity;
 
 import azmalent.terraincognita.common.registry.ModEntities;
 import azmalent.terraincognita.common.registry.ModWoodTypes;
-import azmalent.terraincognita.common.block.blocksets.ModWoodType;
+import azmalent.terraincognita.common.block.woodtypes.ModWoodType;
 import azmalent.terraincognita.mixin.accessor.BoatEntityAccessor;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;

@@ -47,6 +47,11 @@ public class BiomeHandler {
         RegistryKey<Biome> biomeKey = BiomeUtil.getBiomeKey(event.getName());
         if (hasAnyType(biomeKey, END, NETHER, VOID, OCEAN, BEACH, DEAD)) return;
 
+        //Spawns
+        if (hasAnyType(biomeKey, PLAINS, FOREST) && !hasAnyType(biomeKey, COLD, DENSE)) {
+            WorldGenUtil.addSpawner(event, ModEntities.BUTTERFLY, EntityClassification.AMBIENT, TIConfig.Fauna.butterflySpawnWeight.get(), 4, 8);
+        }
+
         Biome biome = ForgeRegistries.BIOMES.getValue(event.getName());
         if (TIConfig.biomeBlacklist.get().contains(biome)) {
             return;
@@ -71,7 +76,6 @@ public class BiomeHandler {
         switch (WorldGenUtil.getProperBiomeCategory(biome)) {
             case PLAINS:
                 WorldGenUtil.addVegetation(event, ModTrees.NATURAL_APPLE);
-                WorldGenUtil.addSpawner(event, ModEntities.BUTTERFLY, EntityClassification.CREATURE, 10, 2, 4, TIConfig.Fauna.butterflies);
                 break;
             case FOREST:
                 WorldGenUtil.addVegetation(event, ModVegetation.FOREST_FLOWERS, ModTrees.NATURAL_APPLE, ModTrees.NATURAL_HAZEL);

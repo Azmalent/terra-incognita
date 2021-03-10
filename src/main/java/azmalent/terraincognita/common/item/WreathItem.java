@@ -17,7 +17,7 @@ public class WreathItem extends DyeableArmorItem {
     private static int DEFAULT_COLOR = DyeColor.YELLOW.getColorValue();
 
     public WreathItem() {
-        super(FlowerMaterial.INSTANCE, EquipmentSlotType.HEAD, new Item.Properties().group(TerraIncognita.TAB));
+        super(FlowerMaterial.INSTANCE, EquipmentSlotType.HEAD, new Item.Properties().group(ItemGroup.MISC));
     }
 
     @Nonnull

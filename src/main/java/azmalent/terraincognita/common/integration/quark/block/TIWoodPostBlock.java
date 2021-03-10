@@ -25,7 +25,7 @@ import net.minecraftforge.common.ToolType;
 import javax.annotation.Nonnull;
 
 //Copied from Quark WoodPostBlock with minor edits
-public class ModWoodPostBlock extends Block implements IWaterLoggable {
+public class TIWoodPostBlock extends Block implements IWaterLoggable {
     private static final VoxelShape SHAPE_X = Block.makeCuboidShape(0F, 6F, 6F, 16F, 10F, 10F);
     private static final VoxelShape SHAPE_Y = Block.makeCuboidShape(6F, 0F, 6F, 10F, 16F, 10F);
     private static final VoxelShape SHAPE_Z = Block.makeCuboidShape(6F, 6F, 0F, 10F, 10F, 16F);
@@ -44,7 +44,7 @@ public class ModWoodPostBlock extends Block implements IWaterLoggable {
 
 	public Block strippedBlock = null;
 
-    public ModWoodPostBlock(MaterialColor color) {
+    public TIWoodPostBlock(MaterialColor color) {
         super(Block.Properties.create(Material.WOOD, color).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD));
 
         BlockState state = getStateContainer().getBaseState().with(WATERLOGGED, false).with(AXIS, Direction.Axis.Y);

@@ -11,6 +11,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.SimpleNamedContainerProvider;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResult;
@@ -27,7 +28,7 @@ import javax.annotation.Nullable;
 
 public class BasketItem extends BlockItem {
     public BasketItem(Block block) {
-        super(block, new Item.Properties().group(TerraIncognita.TAB).maxStackSize(1));
+        super(block, new Item.Properties().group(ItemGroup.TOOLS).maxStackSize(1));
     }
 
     @Nonnull

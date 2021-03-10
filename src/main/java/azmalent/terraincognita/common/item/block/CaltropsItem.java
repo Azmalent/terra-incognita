@@ -9,6 +9,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
@@ -19,7 +20,7 @@ import java.util.Random;
 
 public class CaltropsItem extends BlockItem {
     public CaltropsItem(Block block) {
-        super(block, new Item.Properties().group(TerraIncognita.TAB).maxStackSize(16));
+        super(block, new Item.Properties().group(ItemGroup.COMBAT).maxStackSize(16));
     }
 
     @SuppressWarnings("ConstantConditions")

@@ -36,13 +36,6 @@ public class TerraIncognita {
     public static final String MODID = "terraincognita";
     public static final Logger LOGGER = LogManager.getLogger(MODID);
 
-    public static final ItemGroup TAB = new ItemGroup("terraIncognitaTab") {
-        @Override
-        public ItemStack createIcon() {
-            return new ItemStack(ModItems.MOD_ICON.get());
-        }
-    };
-
     public static final IProxy PROXY = DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> ServerProxy::new);
 
     public TerraIncognita() {

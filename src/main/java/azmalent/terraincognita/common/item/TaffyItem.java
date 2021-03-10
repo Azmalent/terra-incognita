@@ -7,6 +7,7 @@ import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Rarity;
 import net.minecraft.potion.EffectInstance;
@@ -19,7 +20,7 @@ public class TaffyItem extends Item {
     private static int DURATION = 30;
 
     public TaffyItem() {
-        super(new Item.Properties().group(TerraIncognita.TAB).food(ModFoods.TAFFY));
+        super(new Item.Properties().group(ItemGroup.FOOD).food(ModFoods.TAFFY));
     }
 
     @Nonnull

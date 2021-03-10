@@ -13,7 +13,7 @@ public class ButterflyWanderGoal extends Goal {
     private final AbstractButterflyEntity butterfly;
 
     public ButterflyWanderGoal(AbstractButterflyEntity butterfly) {
-        setMutexFlags(EnumSet.of(Goal.Flag.MOVE));
+        setMutexFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.JUMP));
         this.butterfly = butterfly;
     }
 

@@ -1,9 +1,11 @@
 package azmalent.terraincognita.client.event;
 
 import azmalent.terraincognita.client.gui.BasketContainerScreen;
+import azmalent.terraincognita.common.data.ModBlockTags;
 import azmalent.terraincognita.common.registry.*;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.Atlases;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.state.properties.ChestType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -12,6 +14,7 @@ import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import vazkii.quark.base.handler.RenderLayerHandler;
 
 @OnlyIn(Dist.CLIENT)
 public class ClientEventHandler {

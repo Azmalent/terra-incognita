@@ -1,12 +1,11 @@
-package azmalent.terraincognita.common.block.blocksets;
+package azmalent.terraincognita.common.block.woodtypes;
 
 import azmalent.cuneiform.lib.registry.BlockEntry;
 import azmalent.cuneiform.lib.registry.BlockRenderType;
+import azmalent.cuneiform.lib.util.DataUtil;
 import azmalent.terraincognita.common.block.trees.FruitLeavesBlock;
 import azmalent.terraincognita.common.registry.ModBlocks;
-import azmalent.terraincognita.mixin.accessor.FireBlockAccessor;
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.block.trees.Tree;
 
@@ -16,8 +15,7 @@ public final class AppleWoodType extends ModWoodType {
 
     public AppleWoodType(String id, Tree tree, MaterialColor woodColor, MaterialColor barkColor) {
         super(id, tree, woodColor, barkColor);
-
-        BLOSSOMING_LEAVES = ModBlocks.HELPER.newBuilder("blossoming_" + id + "_leaves", this::createLeaves).withRenderType(BlockRenderType.CUTOUT_MIPPED).build();
+        BLOSSOMING_LEAVES = ModBlocks.HELPER.newBuilder("blossoming_" + id + "_leaves", this::createLeaves).cutoutMippedRender().build();
     }
 
     @Override
@@ -28,8 +26,6 @@ public final class AppleWoodType extends ModWoodType {
     @Override
     public void initFlammability() {
         super.initFlammability();
-
-        FireBlockAccessor fire = (FireBlockAccessor) Blocks.FIRE;
-        fire.TI_setFireInfo(BLOSSOMING_LEAVES.getBlock(), 30, 60);
+        DataUtil.registerFlammable(BLOSSOMING_LEAVES, 30, 60);
     }
 }

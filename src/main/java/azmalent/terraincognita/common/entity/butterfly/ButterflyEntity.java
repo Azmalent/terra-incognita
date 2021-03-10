@@ -7,10 +7,8 @@ import azmalent.terraincognita.common.entity.butterfly.ai.ButterflyLandOnFlowerG
 import azmalent.terraincognita.common.entity.butterfly.ai.ButterflyWanderGoal;
 import azmalent.terraincognita.common.registry.ModEntities;
 import azmalent.terraincognita.common.registry.ModItems;
-import net.minecraft.entity.EntityPredicate;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ILivingEntityData;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.*;
+import net.minecraft.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -19,10 +17,9 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.RegistryKey;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.DifficultyInstance;
@@ -38,6 +35,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Map;
 import java.util.Random;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class ButterflyEntity extends AbstractButterflyEntity {
@@ -45,11 +43,15 @@ public class ButterflyEntity extends AbstractButterflyEntity {
     public static final DataParameter<Boolean> TIRED = EntityDataManager.createKey(ButterflyEntity.class, DataSerializers.BOOLEAN);
     public static final DataParameter<Boolean> LANDED = EntityDataManager.createKey(ButterflyEntity.class, DataSerializers.BOOLEAN);
 
-    public static final EntityPredicate PLAYER_PREDICATE = new EntityPredicate().setDistance(4).allowFriendlyFire().setCustomPredicate(entity -> {
+    public static final Predicate<LivingEntity> SHOULD_AVOID = entity -> {
         if (!(entity instanceof PlayerEntity)) return false;
         PlayerEntity player = (PlayerEntity) entity;
         return !player.isCreative() && !player.isSpectator() && player.getItemStackFromSlot(EquipmentSlotType.HEAD).getItem() != ModItems.WREATH.get();
-    });
+    };
+
+    public boolean hasPlayersNearby() {
+        return !world.getEntitiesWithinAABB(PlayerEntity.class, getBoundingBox().expand(4, 4, 4), SHOULD_AVOID).isEmpty();
+    }
 
     public ButterflyEntity(EntityType<ButterflyEntity> type, World world) {
         super(type, world);
@@ -92,22 +94,20 @@ public class ButterflyEntity extends AbstractButterflyEntity {
         setLanded(tag.getBoolean("IsLanded"));
     }
 
+    public ButterflyRestGoal restGoal;
+
     @Override
     protected void registerGoals() {
-        goalSelector.addGoal(0, new ButterflyRestGoal(this));
-        goalSelector.addGoal(1, new ButterflyLandOnFlowerGoal(this, 2.4, 16));
-        goalSelector.addGoal(2, new ButterflyWanderGoal(this));
-        goalSelector.addGoal(3, new SwimGoal(this));
+        goalSelector.addGoal(0, new AvoidEntityGoal<>(this, PlayerEntity.class, 4, 2, 2.4, SHOULD_AVOID));
+        goalSelector.addGoal(1, restGoal = new ButterflyRestGoal(this));
+        goalSelector.addGoal(2, new ButterflyLandOnFlowerGoal(this, 2.4, 16));
+        goalSelector.addGoal(3, new ButterflyWanderGoal(this));
+        goalSelector.addGoal(4, new SwimGoal(this));
     }
 
     @SuppressWarnings("deprecation")
     public static boolean canSpawn(EntityType<ButterflyEntity> butterfly, IWorld world, SpawnReason reason, BlockPos pos, Random randomIn) {
         return pos.getY() >= world.getSeaLevel() && world.getLightSubtracted(pos, 0) > 8;
-    }
-
-    @Override
-    public int getMaxSpawnedInChunk() {
-        return 2;
     }
 
     public ButterflyEntity.Type getButterflyType() {
@@ -139,6 +139,22 @@ public class ButterflyEntity extends AbstractButterflyEntity {
     public void setNotLanded() {
         setLanded(false);
         this.setPositionAndUpdate(this.getPosition().getX() + 0.5D, this.getPosition().getY() + 0.5D, this.getPosition().getZ() + 0.5D);
+    }
+
+    @Override
+    public float getWingRotation(float ageInTicks) {
+        if (isLanded() && getMotion().lengthSquared() < 1.0E-7D) {
+            if (!world.isNightTime() && rand.nextInt(80) == 0) {
+                targetWingRotation = rand.nextFloat();
+            }
+
+            wingRotation = MathHelper.lerp(0.05f, wingRotation, targetWingRotation);
+        } else {
+            wingRotation = MathHelper.abs(MathHelper.cos(ageInTicks / 1.5f));
+            targetWingRotation = wingRotation;
+        }
+
+        return wingRotation;
     }
 
     @Override

@@ -2,7 +2,7 @@ package azmalent.terraincognita.common.event;
 
 import azmalent.terraincognita.common.registry.ModBlocks;
 import azmalent.terraincognita.common.registry.ModWoodTypes;
-import azmalent.terraincognita.common.block.blocksets.ModWoodType;
+import azmalent.terraincognita.common.block.woodtypes.ModWoodType;
 import com.google.common.collect.Maps;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;

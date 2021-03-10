@@ -20,10 +20,10 @@ import vazkii.quark.content.building.module.HedgesModule;
 
 import javax.annotation.Nonnull;
 
-public class HedgeBlock extends FenceBlock {
+public class TIHedgeBlock extends FenceBlock {
     public static final BooleanProperty EXTEND = BooleanProperty.create("extend");
 
-    public HedgeBlock(MaterialColor woodColor) {
+    public TIHedgeBlock(MaterialColor woodColor) {
         super(Block.Properties.create(Material.WOOD, woodColor).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD));
         setDefaultState(getDefaultState().with(EXTEND, false));
     }
@@ -46,7 +46,7 @@ public class HedgeBlock extends FenceBlock {
         BlockState downState = iblockreader.getBlockState(down);
 
         return super.getStateForPlacement(context)
-                .with(EXTEND, downState.getBlock() instanceof HedgeBlock);
+                .with(EXTEND, downState.getBlock() instanceof TIHedgeBlock);
     }
 
     @Nonnull
@@ -57,7 +57,7 @@ public class HedgeBlock extends FenceBlock {
         }
 
         if(facing == Direction.DOWN) {
-            return stateIn.with(EXTEND, facingState.getBlock() instanceof HedgeBlock);
+            return stateIn.with(EXTEND, facingState.getBlock() instanceof TIHedgeBlock);
         }
 
         return super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);

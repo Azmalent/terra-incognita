@@ -1,7 +1,7 @@
 package azmalent.terraincognita.common.item;
 
 import azmalent.terraincognita.common.entity.ModBoatEntity;
-import azmalent.terraincognita.common.block.blocksets.ModWoodType;
+import azmalent.terraincognita.common.block.woodtypes.ModWoodType;
 import azmalent.terraincognita.common.item.dispenser.ModBoatDispenserBehavior;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.entity.Entity;

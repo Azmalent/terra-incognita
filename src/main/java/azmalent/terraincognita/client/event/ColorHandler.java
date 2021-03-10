@@ -55,13 +55,13 @@ public class ColorHandler {
         colors.register((stack, index) -> {
             BlockState blockstate = ((BlockItem) stack.getItem()).getBlock().getDefaultState();
             return blockColors.getColor(blockstate, null, null, index);
-        }, ModBlocks.SMALL_LILY_PAD.getItem());
+        }, ModBlocks.SMALL_LILY_PAD);
 
         colors.register((stack, index) -> index > 0 ? -1 : APPLE_LEAVES_COLOR,
-            ModWoodTypes.APPLE.LEAVES.getItem(), ModWoodTypes.APPLE.BLOSSOMING_LEAVES.getItem()
+            ModWoodTypes.APPLE.LEAVES, ModWoodTypes.APPLE.BLOSSOMING_LEAVES
         );
 
-        colors.register((stack, index) -> index > 0 ? -1 : HAZEL_LEAVES_COLOR, ModWoodTypes.HAZEL.LEAVES.getItem());
+        colors.register((stack, index) -> index > 0 ? -1 : HAZEL_LEAVES_COLOR, ModWoodTypes.HAZEL.LEAVES);
 
         colors.register((stack, index) -> index > 0 ? -1 : ModItems.WREATH.get().getColor(stack), ModItems.WREATH.get());
     }

@@ -2,20 +2,18 @@ package azmalent.terraincognita.common.registry;
 
 import azmalent.cuneiform.lib.registry.BlockEntry;
 import azmalent.cuneiform.lib.registry.BlockRegistryHelper;
-import azmalent.cuneiform.lib.registry.BlockRenderType;
+import azmalent.cuneiform.lib.util.DataUtil;
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.block.*;
-import azmalent.terraincognita.common.block.blocksets.ModWoodType;
-import azmalent.terraincognita.common.block.blocksets.PottablePlantEntry;
 import azmalent.terraincognita.common.block.plants.*;
 import azmalent.terraincognita.common.block.trees.AppleBlock;
 import azmalent.terraincognita.common.block.trees.HazelnutBlock;
+import azmalent.terraincognita.common.block.woodtypes.ModWoodType;
 import azmalent.terraincognita.common.effect.ModStewEffect;
 import azmalent.terraincognita.common.item.block.BasketItem;
 import azmalent.terraincognita.common.item.block.CaltropsItem;
 import azmalent.terraincognita.common.item.block.DandelionPuffItem;
 import azmalent.terraincognita.common.item.block.SmallLilypadItem;
-import azmalent.terraincognita.mixin.accessor.FireBlockAccessor;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.minecraft.block.AbstractBlock.Properties;
@@ -25,14 +23,13 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.List;
-import java.util.function.Function;
 
-import static azmalent.terraincognita.common.block.blocksets.PottablePlantEntry.*;
+import static azmalent.terraincognita.common.block.PottablePlantEntry.*;
 
 @SuppressWarnings({"unused", "ConstantConditions"})
 public class ModBlocks {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, TerraIncognita.MODID);
-    public static final BlockRegistryHelper HELPER = new BlockRegistryHelper(BLOCKS, ModItems.ITEMS, TerraIncognita.TAB);
+    public static final BlockRegistryHelper HELPER = new BlockRegistryHelper(BLOCKS, ModItems.ITEMS, ItemGroup.DECORATIONS);
 
     //Small flowers
     public static final List<PottablePlantEntry> FLOWERS;
@@ -74,27 +71,27 @@ public class ModBlocks {
     public static final BlockEntry PINK_LOTUS   = createLotus("pink_lotus");
     public static final BlockEntry WHITE_LOTUS  = createLotus("white_lotus");
     public static final BlockEntry YELLOW_LOTUS = createLotus("yellow_lotus");
-    public static final BlockEntry SMALL_LILY_PAD = HELPER.newBuilder("small_lilypad", SmallLilypadBlock::new).withBlockItem(SmallLilypadItem::new).withRenderType(BlockRenderType.CUTOUT).build();
+    public static final BlockEntry SMALL_LILY_PAD = HELPER.newBuilder("small_lilypad", SmallLilypadBlock::new).withBlockItem(SmallLilypadItem::new).cutoutRender().build();
 
     //Other vegetation
     public static final PottablePlantEntry REEDS = createPlant("reeds", ReedsBlock::new);
-    public static final BlockEntry ROOTS = HELPER.newBuilder("roots", RootsBlock::new).withRenderType(BlockRenderType.CUTOUT).build();
-    public static final BlockEntry HANGING_MOSS = HELPER.newBuilder("hanging_moss", HangingMossBlock::new).withRenderType(BlockRenderType.CUTOUT).build();
+    public static final BlockEntry ROOTS = HELPER.newBuilder("roots", RootsBlock::new).cutoutRender().build();
+    public static final BlockEntry HANGING_MOSS = HELPER.newBuilder("hanging_moss", HangingMossBlock::new).cutoutRender().build();
 
     //Fruits
-    public static final BlockEntry APPLE = HELPER.newBuilder("apple", AppleBlock::new).withRenderType(BlockRenderType.CUTOUT).withoutItemForm().build();
-    public static final BlockEntry HAZELNUT = HELPER.newBuilder("hazelnut", HazelnutBlock::new).withoutItemForm().withRenderType(BlockRenderType.CUTOUT).build();
+    public static final BlockEntry APPLE = HELPER.newBuilder("apple", AppleBlock::new).cutoutRender().withoutItemForm().build();
+    public static final BlockEntry HAZELNUT = HELPER.newBuilder("hazelnut", HazelnutBlock::new).withoutItemForm().cutoutRender().build();
 
     //Ores and such
-    public static final BlockEntry PEAT = HELPER.newBuilder("peat", PeatBlock::new).build();
+    public static final BlockEntry PEAT = HELPER.newBuilder("peat", PeatBlock::new).withItemGroup(ItemGroup.BUILDING_BLOCKS).build();
     public static final BlockEntry TILLED_PEAT = HELPER.newBuilder("tilled_peat", PeatFarmlandBlock::new).build();
     public static final BlockEntry MOSSY_GRAVEL = HELPER.newBuilder("mossy_gravel", () -> new GravelBlock(Properties.from(Blocks.GRAVEL))).build();
 
     //Other blocks
-    public static final BlockEntry CALTROPS = HELPER.newBuilder("caltrops", CaltropsBlock::new).withBlockItem(CaltropsItem::new).withRenderType(BlockRenderType.CUTOUT).build();
+    public static final BlockEntry CALTROPS = HELPER.newBuilder("caltrops", CaltropsBlock::new).withBlockItem(CaltropsItem::new).cutoutRender().build();
     public static final BlockEntry BASKET = HELPER.newBuilder("basket", BasketBlock::new).withBlockItem(BasketItem::new).build();
     public static final BlockEntry WICKER_MAT = HELPER.newBuilder("wicker_mat", WickerMatBlock::new).build();
-    public static final BlockEntry WICKER_LANTERN = HELPER.newBuilder("wicker_lantern", WickerLanternBlock::new).withRenderType(BlockRenderType.CUTOUT).build();
+    public static final BlockEntry WICKER_LANTERN = HELPER.newBuilder("wicker_lantern", WickerLanternBlock::new).cutoutRender().build();
 
     static {
         ModWoodTypes.init();
@@ -109,8 +106,7 @@ public class ModBlocks {
     }
 
     private static BlockEntry createLotus(String id) {
-        Function<Block, BlockItem> blockItemConstructor = block -> new LilyPadItem(block, new Item.Properties().group(TerraIncognita.TAB));
-        return HELPER.newBuilder(id, () -> new LilyPadBlock(Properties.from(Blocks.LILY_PAD))).withBlockItem(blockItemConstructor).withRenderType(BlockRenderType.CUTOUT).build();
+        return HELPER.newBuilder(id, () -> new LilyPadBlock(Properties.from(Blocks.LILY_PAD))).withBlockItem(LilyPadItem::new, new Item.Properties().group(ItemGroup.DECORATIONS)).cutoutRender().build();
     }
 
     public static void initToolInteractions() {
@@ -125,15 +121,14 @@ public class ModBlocks {
     }
 
     public static void initFlammability() {
-        FireBlockAccessor fire = (FireBlockAccessor) Blocks.FIRE;
         for (PottablePlantEntry flower : FLOWERS) {
-            fire.TI_setFireInfo(flower.getBlock(), 60, 100);
+            DataUtil.registerFlammable(flower.getBlock(), 60, 100);
         }
 
         for (ModWoodType woodType : ModWoodTypes.VALUES) {
             woodType.initFlammability();
         }
 
-        fire.TI_setFireInfo(WICKER_MAT.getBlock(), 60, 20);
+        DataUtil.registerFlammable(WICKER_MAT.getBlock(), 60, 20);
     }
 }

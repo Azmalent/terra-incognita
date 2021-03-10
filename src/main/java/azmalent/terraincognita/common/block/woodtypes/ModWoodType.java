@@ -1,24 +1,25 @@
-package azmalent.terraincognita.common.block.blocksets;
+package azmalent.terraincognita.common.block.woodtypes;
 
 import azmalent.cuneiform.lib.registry.BlockEntry;
-import azmalent.cuneiform.lib.registry.BlockRenderType;
+import azmalent.cuneiform.lib.util.DataUtil;
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.client.renderer.ModChestISTER;
+import azmalent.terraincognita.common.block.PottablePlantEntry;
 import azmalent.terraincognita.common.block.chests.ModChestBlock;
 import azmalent.terraincognita.common.block.chests.ModTrappedChestBlock;
 import azmalent.terraincognita.common.block.signs.ModStandingSignBlock;
 import azmalent.terraincognita.common.block.signs.ModWallSignBlock;
-import azmalent.terraincognita.common.registry.ModBlocks;
-import azmalent.terraincognita.common.registry.ModItems;
 import azmalent.terraincognita.common.item.ModBoatItem;
 import azmalent.terraincognita.common.item.block.ModSignItem;
-import azmalent.terraincognita.mixin.accessor.FireBlockAccessor;
+import azmalent.terraincognita.common.registry.ModBlocks;
+import azmalent.terraincognita.common.registry.ModItems;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.block.trees.Tree;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.TallBlockItem;
 import net.minecraft.state.properties.ChestType;
 import net.minecraft.util.Direction;
@@ -57,24 +58,24 @@ public class ModWoodType {
         this.name = id;
 
         SAPLING = PottablePlantEntry.createPlant(id + "_sapling", () -> new SaplingBlock(tree, Block.Properties.from(Blocks.OAK_SAPLING)));
-        LEAVES = ModBlocks.HELPER.newBuilder(id + "_leaves", this::createLeaves).withRenderType(BlockRenderType.CUTOUT_MIPPED).build();
-        LOG = ModBlocks.HELPER.newBuilder(id + "_log", () -> createLogBlock(woodColor, barkColor)).build();
-        STRIPPED_LOG = ModBlocks.HELPER.newBuilder("stripped_" + id + "_log", () -> createLogBlock(woodColor, woodColor)).build();
-        WOOD = ModBlocks.HELPER.newBuilder(id + "_wood", () -> createWoodBlock(barkColor)).build();
-        STRIPPED_WOOD = ModBlocks.HELPER.newBuilder("stripped_" + id + "_wood", () -> createWoodBlock(barkColor)).build();
-        PLANKS = ModBlocks.HELPER.newBuilder(id + "_planks", () -> createPlanks(woodColor)).build();
-        STAIRS = ModBlocks.HELPER.newBuilder(id + "_stairs", () -> new StairsBlock(PLANKS.getBlock().getDefaultState(), Block.Properties.from(PLANKS.getBlock()))).build();
-        SLAB = ModBlocks.HELPER.newBuilder(id + "_slab", () -> new SlabBlock(Block.Properties.from(PLANKS.getBlock()))).build();
+        LEAVES = ModBlocks.HELPER.newBuilder(id + "_leaves", this::createLeaves).cutoutMippedRender().build();
+        LOG = ModBlocks.HELPER.newBuilder(id + "_log", () -> createLogBlock(woodColor, barkColor)).withItemGroup(ItemGroup.BUILDING_BLOCKS).build();
+        STRIPPED_LOG = ModBlocks.HELPER.newBuilder("stripped_" + id + "_log", () -> createLogBlock(woodColor, woodColor)).withItemGroup(ItemGroup.BUILDING_BLOCKS).build();
+        WOOD = ModBlocks.HELPER.newBuilder(id + "_wood", () -> createWoodBlock(barkColor)).withItemGroup(ItemGroup.BUILDING_BLOCKS).build();
+        STRIPPED_WOOD = ModBlocks.HELPER.newBuilder("stripped_" + id + "_wood", () -> createWoodBlock(barkColor)).withItemGroup(ItemGroup.BUILDING_BLOCKS).build();
+        PLANKS = ModBlocks.HELPER.newBuilder(id + "_planks", () -> createPlanks(woodColor)).withItemGroup(ItemGroup.BUILDING_BLOCKS).build();
+        STAIRS = ModBlocks.HELPER.newBuilder(id + "_stairs", () -> new StairsBlock(PLANKS.getBlock().getDefaultState(), Block.Properties.from(PLANKS.getBlock()))).withItemGroup(ItemGroup.BUILDING_BLOCKS).build();
+        SLAB = ModBlocks.HELPER.newBuilder(id + "_slab", () -> new SlabBlock(Block.Properties.from(PLANKS.getBlock()))).withItemGroup(ItemGroup.BUILDING_BLOCKS).build();
         FENCE = ModBlocks.HELPER.newBuilder(id + "_fence", () -> new FenceBlock(Block.Properties.create(Material.WOOD, woodColor).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD))).build();
         FENCE_GATE = ModBlocks.HELPER.newBuilder(id + "_fence_gate", () -> new FenceGateBlock(Block.Properties.create(Material.WOOD, woodColor).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD))).build();
         SIGN = ModBlocks.HELPER.newBuilder(id + "_sign", () -> new ModStandingSignBlock(woodColor, this)).withBlockItem(block -> new ModSignItem(this)).build();
         WALL_SIGN = ModBlocks.HELPER.newBuilder(id + "_wall_sign", () -> new ModWallSignBlock(woodColor, this)).withoutItemForm().build();
-        DOOR = ModBlocks.HELPER.newBuilder(id + "_door", () -> new DoorBlock(Block.Properties.create(Material.WOOD, woodColor).hardnessAndResistance(3.0F).sound(SoundType.WOOD).notSolid())).withBlockItem(block -> new TallBlockItem(block, new Item.Properties().group(TerraIncognita.TAB))).withRenderType(BlockRenderType.CUTOUT).build();
-        TRAPDOOR = ModBlocks.HELPER.newBuilder(id + "_trapdoor", () -> new TrapDoorBlock(Block.Properties.create(Material.WOOD, woodColor).hardnessAndResistance(3.0F).sound(SoundType.WOOD).notSolid().setAllowsSpawn((state, reader, pos, entity) -> false))).withRenderType(BlockRenderType.CUTOUT).build();
-        BUTTON = ModBlocks.HELPER.newBuilder(id + "_button", () -> new WoodButtonBlock(Block.Properties.from(Blocks.OAK_BUTTON))).build();
-        PRESSURE_PLATE = ModBlocks.HELPER.newBuilder(id + "_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, Block.Properties.create(Material.WOOD, woodColor).doesNotBlockMovement().hardnessAndResistance(0.5F).sound(SoundType.WOOD))).build();
-        CHEST = ModBlocks.HELPER.newBuilder(id +  "_chest", () -> new ModChestBlock(this, woodColor)).withBlockItemProperties(new Item.Properties().group(TerraIncognita.TAB).setISTER(() -> ModChestISTER::forNormalChest)).build();
-        TRAPPED_CHEST = ModBlocks.HELPER.newBuilder(id +  "_trapped_chest", () -> new ModTrappedChestBlock(this, woodColor)).withBlockItemProperties(new Item.Properties().group(TerraIncognita.TAB).setISTER(() -> ModChestISTER::forTrappedChest)).build();
+        DOOR = ModBlocks.HELPER.newBuilder(id + "_door", () -> new DoorBlock(Block.Properties.create(Material.WOOD, woodColor).hardnessAndResistance(3.0F).sound(SoundType.WOOD).notSolid())).withBlockItem(block -> new TallBlockItem(block, new Item.Properties().group(ItemGroup.REDSTONE))).cutoutRender().build();
+        TRAPDOOR = ModBlocks.HELPER.newBuilder(id + "_trapdoor", () -> new TrapDoorBlock(Block.Properties.create(Material.WOOD, woodColor).hardnessAndResistance(3.0F).sound(SoundType.WOOD).notSolid().setAllowsSpawn((state, reader, pos, entity) -> false))).withItemGroup(ItemGroup.REDSTONE).cutoutRender().build();
+        BUTTON = ModBlocks.HELPER.newBuilder(id + "_button", () -> new WoodButtonBlock(Block.Properties.from(Blocks.OAK_BUTTON))).withItemGroup(ItemGroup.REDSTONE).build();
+        PRESSURE_PLATE = ModBlocks.HELPER.newBuilder(id + "_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, Block.Properties.create(Material.WOOD, woodColor).doesNotBlockMovement().hardnessAndResistance(0.5F).sound(SoundType.WOOD))).withItemGroup(ItemGroup.REDSTONE).build();
+        CHEST = ModBlocks.HELPER.newBuilder(id +  "_chest", () -> new ModChestBlock(this, woodColor)).withItemProperties(new Item.Properties().group(ItemGroup.DECORATIONS).setISTER(() -> ModChestISTER::forNormalChest)).build();
+        TRAPPED_CHEST = ModBlocks.HELPER.newBuilder(id +  "_trapped_chest", () -> new ModTrappedChestBlock(this, woodColor)).withItemProperties(new Item.Properties().group(ItemGroup.REDSTONE).setISTER(() -> ModChestISTER::forTrappedChest)).build();
         BOAT = ModItems.ITEMS.register(id + "_boat", () -> new ModBoatItem(this));
 
         SIGN_TEXTURE = TerraIncognita.prefix("entity/sign/" + name);
@@ -112,16 +113,15 @@ public class ModWoodType {
     }
 
     public void initFlammability() {
-        FireBlockAccessor fire = (FireBlockAccessor) Blocks.FIRE;
-        fire.TI_setFireInfo(LEAVES.getBlock(), 30, 60);
-        fire.TI_setFireInfo(LOG.getBlock(), 5, 5);
-        fire.TI_setFireInfo(STRIPPED_LOG.getBlock(), 5, 5);
-        fire.TI_setFireInfo(WOOD.getBlock(), 5, 5);
-        fire.TI_setFireInfo(STRIPPED_WOOD.getBlock(), 5, 5);
-        fire.TI_setFireInfo(PLANKS.getBlock(), 5, 20);
-        fire.TI_setFireInfo(STAIRS.getBlock(), 5, 20);
-        fire.TI_setFireInfo(SLAB.getBlock(), 5, 20);
-        fire.TI_setFireInfo(FENCE.getBlock(), 5, 20);
-        fire.TI_setFireInfo(FENCE_GATE.getBlock(), 5, 20);
+        DataUtil.registerFlammable(LEAVES.getBlock(), 30, 60);
+        DataUtil.registerFlammable(LOG.getBlock(), 5, 5);
+        DataUtil.registerFlammable(STRIPPED_LOG.getBlock(), 5, 5);
+        DataUtil.registerFlammable(WOOD.getBlock(), 5, 5);
+        DataUtil.registerFlammable(STRIPPED_WOOD.getBlock(), 5, 5);
+        DataUtil.registerFlammable(PLANKS.getBlock(), 5, 20);
+        DataUtil.registerFlammable(STAIRS.getBlock(), 5, 20);
+        DataUtil.registerFlammable(SLAB.getBlock(), 5, 20);
+        DataUtil.registerFlammable(FENCE.getBlock(), 5, 20);
+        DataUtil.registerFlammable(FENCE_GATE.getBlock(), 5, 20);
     }
 }

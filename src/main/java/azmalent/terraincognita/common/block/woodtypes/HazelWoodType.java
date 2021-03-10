@@ -1,4 +1,4 @@
-package azmalent.terraincognita.common.block.blocksets;
+package azmalent.terraincognita.common.block.woodtypes;
 
 import azmalent.terraincognita.common.block.trees.FruitLeavesBlock;
 import azmalent.terraincognita.common.registry.ModBlocks;
