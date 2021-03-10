@@ -10,6 +10,7 @@ import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IWorldReader;
 
@@ -65,10 +66,13 @@ public class ButterflyLandOnFlowerGoal extends MoveToBlockGoal {
     public void tick() {
         super.tick();
         if (getIsAboveDestination() && shouldMoveTo(butterfly.world, destinationBlock)) {
+            BlockState state = butterfly.world.getBlockState(destinationBlock);
+            VoxelShape shape = state.getShape(butterfly.world, destinationBlock);
+            if (shape.isEmpty()) return;
+
             butterfly.setLanded(true);
 
-            BlockState state = butterfly.world.getBlockState(destinationBlock);
-            AxisAlignedBB aabb = state.getShape(butterfly.world, destinationBlock).getBoundingBox();
+            AxisAlignedBB aabb = shape.getBoundingBox();
             double x = destinationBlock.getX() + (aabb.minX + aabb.maxX) / 2;
             double y = destinationBlock.getY() + aabb.maxY;
             double z = destinationBlock.getZ() + (aabb.minZ + aabb.maxZ) / 2;
