@@ -53,6 +53,11 @@ public class BiomeHandler {
         }
 
         Biome biome = ForgeRegistries.BIOMES.getValue(event.getName());
+        if (biome == null) {
+            TerraIncognita.LOGGER.warn("Biome " + event.getName().toString() + " not found in the registry!");
+            return;
+        }
+
         if (TIConfig.biomeBlacklist.get().contains(biome)) {
             return;
         }
