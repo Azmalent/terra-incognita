@@ -1,5 +1,6 @@
 package azmalent.terraincognita.network.message.s2c;
 
+import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.client.ClientHandler;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.particles.BasicParticleType;
@@ -63,7 +64,7 @@ public final class S2CSpawnParticleMessage {
         NetworkEvent.Context context = contextSupplier.get();
         if (context.getDirection() == NetworkDirection.PLAY_TO_CLIENT) {
             context.enqueueWork(() -> {
-                World world = ClientHandler.getWorld();
+                World world = TerraIncognita.PROXY.getClientWorld();
                 BasicParticleType type = (BasicParticleType) ForgeRegistries.PARTICLE_TYPES.getValue(message.name);
                 if (type != null) {
                     world.addParticle(type, message.xPos, message.yPos, message.zPos, message.xSpeed, message.ySpeed, message.zSpeed);

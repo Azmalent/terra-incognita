@@ -3,7 +3,6 @@ package azmalent.terraincognita.proxy;
 import azmalent.terraincognita.client.ClientHandler;
 import azmalent.terraincognita.client.gui.ModEditSignScreen;
 import azmalent.terraincognita.common.tile.ModSignTileEntity;
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.item.DyeColor;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.tileentity.TileEntity;
@@ -18,7 +17,12 @@ public class ClientProxy implements IProxy {
     public void spawnParticle(World world, IParticleData data, boolean alwaysRender, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
         world.addParticle(data, alwaysRender, x, y, z, xSpeed, ySpeed, zSpeed);
     }
-    
+
+    @Override
+    public World getClientWorld() {
+        return ClientHandler.getWorld();
+    }
+
     public void openSignEditor(BlockPos pos) {
         TileEntity te = ClientHandler.getWorld().getTileEntity(pos);
         if (!(te instanceof ModSignTileEntity)) {
@@ -32,7 +36,7 @@ public class ClientProxy implements IProxy {
 
     @Override
     public void updateSignOnClient(BlockPos pos, ITextComponent[] lines, int color) {
-        ClientWorld world = ClientHandler.getWorld();
+        World world = ClientHandler.getWorld();
         if (world.isAreaLoaded(pos, 1)) {
             TileEntity te = world.getTileEntity(pos);
             if (te instanceof ModSignTileEntity) {

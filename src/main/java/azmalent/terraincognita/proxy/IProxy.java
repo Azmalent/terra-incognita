@@ -11,6 +11,8 @@ public interface IProxy {
         spawnParticle(world, data, alwaysRender, pos.x, pos.y, pos.z, speed.x, speed.y, speed.z);
     }
 
+    World getClientWorld();
+
     void spawnParticle(World world, IParticleData data, boolean alwaysRender, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed);
 
     void openSignEditor(BlockPos pos);

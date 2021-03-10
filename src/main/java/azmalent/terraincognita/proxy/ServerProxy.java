@@ -7,6 +7,11 @@ import net.minecraft.world.World;
 
 public class ServerProxy implements IProxy {
     @Override
+    public World getClientWorld() {
+        throw new AssertionError("getClientWorld() called on server");
+    }
+
+    @Override
     public void spawnParticle(World world, IParticleData data, boolean alwaysRender, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
         //NO-OP
     }
