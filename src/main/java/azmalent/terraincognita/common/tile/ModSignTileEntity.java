@@ -1,6 +1,6 @@
 package azmalent.terraincognita.common.tile;
 
-import azmalent.terraincognita.common.init.ModTileEntities;
+import azmalent.terraincognita.common.registry.ModTileEntities;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import java.util.function.Function;
 import javax.annotation.Nonnull;
@@ -8,7 +8,6 @@ import javax.annotation.Nullable;
 import net.minecraft.block.BlockState;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.ICommandSource;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.DyeColor;
@@ -22,9 +21,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentUtils;
-import net.minecraft.util.text.ITextComponent.Serializer;
 import net.minecraft.util.text.event.ClickEvent;
-import net.minecraft.util.text.event.ClickEvent.Action;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;

@@ -1,16 +1,22 @@
 package azmalent.terraincognita.common.event;
 
-import azmalent.terraincognita.TIConfig;
+import azmalent.terraincognita.TerraIncognita;
+import azmalent.terraincognita.common.block.CaltropsBlock;
 import azmalent.terraincognita.common.data.ModItemTags;
-import azmalent.terraincognita.common.init.*;
 import azmalent.terraincognita.common.inventory.BasketStackHandler;
 import azmalent.terraincognita.common.item.block.BasketItem;
+import azmalent.terraincognita.common.registry.ModBiomes;
+import azmalent.terraincognita.common.registry.ModBlocks;
+import azmalent.terraincognita.common.registry.ModEffects;
+import azmalent.terraincognita.common.registry.ModEntities;
+import azmalent.terraincognita.common.registry.ModRecipes;
 import azmalent.terraincognita.common.world.ModOres;
 import azmalent.terraincognita.common.world.ModTrees;
 import azmalent.terraincognita.common.world.ModVegetation;
 import azmalent.terraincognita.util.ColorUtil;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.merchant.villager.VillagerTrades;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ICraftingRecipe;
@@ -18,37 +24,34 @@ import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.client.event.RecipesUpdatedEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
+import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
-import net.minecraftforge.event.village.WandererTradesEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.items.ItemHandlerHelper;
 
+@SuppressWarnings("deprecation")
 public class EventHandler {
     public static void registerListeners() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         bus.addListener(EventHandler::setup);
 
-        if (TIConfig.Food.taffy.get()) {
-            MinecraftForge.EVENT_BUS.addListener(EventHandler::onSetupTrades);
-            MinecraftForge.EVENT_BUS.addListener(EventHandler::onPlayerUseItem);
-        }
-
-        if (TIConfig.Flora.wreath.get()) {
-            MinecraftForge.EVENT_BUS.addListener(EventHandler::onUpdateRecipes);
-        }
-
-        if (TIConfig.Tools.basket.get()) {
-            MinecraftForge.EVENT_BUS.addListener(EventHandler::onItemPickup);
-        }
+        MinecraftForge.EVENT_BUS.addListener(EventHandler::onUpdateRecipes);
+        MinecraftForge.EVENT_BUS.addListener(EventHandler::onPlayerUseItem);
+        MinecraftForge.EVENT_BUS.addListener(EventHandler::onItemPickup);
 
         MinecraftForge.EVENT_BUS.addListener(FuelHandler::getBurnTime);
+        MinecraftForge.EVENT_BUS.addListener(TradeHandler::setupWandererTrades);
         MinecraftForge.EVENT_BUS.addListener(LootHandler::onLoadLootTable);
+
         BiomeHandler.registerListeners();
         BonemealHandler.registerListeners();
     }
@@ -59,15 +62,12 @@ public class EventHandler {
         event.enqueueWork(ModOres::configureFeatures);
         event.enqueueWork(ModBiomes::registerBiomes);
 
-        ModItems.registerDispenserBehaviors();
         ModBlocks.initToolInteractions();
         ModBlocks.initFlammability();
         FuelHandler.initFuelValues();
-        ModRecipes.registerComposterRecipes();
-    }
-
-    public static void onSetupTrades(WandererTradesEvent event) {
-        event.getRareTrades().add(new VillagerTrades.ItemsForEmeraldsTrade(ModItems.TAFFY.get(), 2, 1, 1, 2));
+        ModEntities.registerAttributes();
+        ModEntities.registerSpawns();
+        ModRecipes.initCompostables();
     }
 
     public static void onUpdateRecipes(RecipesUpdatedEvent event) {

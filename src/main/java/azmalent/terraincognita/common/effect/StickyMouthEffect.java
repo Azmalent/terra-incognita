@@ -1,10 +1,8 @@
 package azmalent.terraincognita.common.effect;
 
-import azmalent.terraincognita.TerraIncognita;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectType;
-import net.minecraft.util.ResourceLocation;
 
 import java.util.ArrayList;
 import java.util.List;

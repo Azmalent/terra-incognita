@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "result": {
+    "item": "minecraft:mossy_cobblestone"
+  },
+  "ingredients": [
+    {"item": "minecraft:cobblestone"},
+    {"item": "terraincognita:hanging_moss"}
+  ],
+  "conditions": [
+    {
+      "type": "cuneiform:config",
+      "config": "terraincognita:hanging_moss"
+    }
+  ]
+}

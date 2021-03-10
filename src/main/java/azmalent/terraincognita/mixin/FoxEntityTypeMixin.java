@@ -3,7 +3,6 @@ package azmalent.terraincognita.mixin;
 import net.minecraft.entity.passive.FoxEntity;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.Biomes;
 import net.minecraftforge.common.BiomeDictionary;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

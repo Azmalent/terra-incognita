@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "terraincognita:hazel_planks"
+    }
+  },
+  "result": {
+    "item": "terraincognita:hazel_door",
+    "count": 3
+  },
+  "conditions": [
+    {
+      "type": "cuneiform:config",
+      "config": "terraincognita:hazel"
+    }
+  ]
+}

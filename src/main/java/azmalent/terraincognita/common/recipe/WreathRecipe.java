@@ -1,7 +1,7 @@
 package azmalent.terraincognita.common.recipe;
 
-import azmalent.terraincognita.common.init.ModItems;
-import azmalent.terraincognita.common.init.ModRecipes;
+import azmalent.terraincognita.common.registry.ModItems;
+import azmalent.terraincognita.common.registry.ModRecipes;
 import azmalent.terraincognita.util.ColorUtil;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.*;

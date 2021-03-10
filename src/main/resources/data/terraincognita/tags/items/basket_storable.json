@@ -4,8 +4,15 @@
     "#minecraft:small_flowers",
     "#minecraft:saplings",
     "#forge:mushrooms",
+    "#forge:eggs",
+    "minecraft:turtle_egg",
     "minecraft:sweet_berries",
-    {"id": "autumnity:foul_berries", "required": false},
-    {"id": "upgrade_aquatic:mulberry", "required": false}
+    "terraincognita:hazelnut"
+  ],
+  "optional": [
+    "autumnity:foul_berries",
+    "bayou_blues:gooseberries",
+    "environmental:cherries",
+    "upgrade_aquatic:mulberry"
   ]
 }

@@ -1,7 +1,7 @@
 package azmalent.terraincognita.common.recipe;
 
-import azmalent.terraincognita.common.init.ModItems;
-import azmalent.terraincognita.common.init.ModRecipes;
+import azmalent.terraincognita.common.registry.ModItems;
+import azmalent.terraincognita.common.registry.ModRecipes;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.*;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -9,7 +9,6 @@ import net.minecraft.item.crafting.SpecialRecipe;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.potion.Effect;
-import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;

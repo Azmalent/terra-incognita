@@ -30,12 +30,12 @@ public final class UpdateSignMessage {
         this.color = color;
     }
 
-    public static void encode(final UpdateSignMessage packet, PacketBuffer buffer) {
-        buffer.writeBlockPos(packet.pos);
+    public static void encode(final UpdateSignMessage message, PacketBuffer buffer) {
+        buffer.writeBlockPos(message.pos);
         for (int i = 0; i < 4; i++) {
-            buffer.writeTextComponent(packet.lines[i]);
+            buffer.writeTextComponent(message.lines[i]);
         }
-        buffer.writeInt(packet.color);
+        buffer.writeInt(message.color);
     }
 
     public static UpdateSignMessage decode(PacketBuffer buffer) {

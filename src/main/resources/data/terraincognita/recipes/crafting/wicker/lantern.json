@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XXX",
+    "X#X",
+    "XXX"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:torch"
+    },
+    "X": {
+      "item": "terraincognita:reeds"
+    }
+  },
+  "result": {
+    "item": "terraincognita:wicker_lantern"
+  },
+  "conditions": [
+    {
+      "type": "cuneiform:config",
+      "config": "terraincognita:reeds"
+    }
+  ]
+}

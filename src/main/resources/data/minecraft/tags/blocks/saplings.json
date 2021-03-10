@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-	{"id": "terraincognita:apple_sapling", "required": false}
+	"terraincognita:apple_sapling",
+	"terraincognita:hazel_sapling"
   ]
 }

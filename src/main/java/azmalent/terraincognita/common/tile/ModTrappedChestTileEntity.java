@@ -1,6 +1,6 @@
 package azmalent.terraincognita.common.tile;
 
-import azmalent.terraincognita.common.init.ModTileEntities;
+import azmalent.terraincognita.common.registry.ModTileEntities;
 
 public class ModTrappedChestTileEntity extends ModChestTileEntity {
     public ModTrappedChestTileEntity() {

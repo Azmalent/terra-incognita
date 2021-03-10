@@ -2,7 +2,7 @@ package azmalent.terraincognita.common.event;
 
 import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.common.block.plants.SmallLilypadBlock;
-import azmalent.terraincognita.common.init.ModBlocks;
+import azmalent.terraincognita.common.registry.ModBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.IGrowable;
@@ -57,9 +57,7 @@ public class BonemealHandler {
         BlockPos pos = event.getPos();
 
         //Don't grow lilypads when bonemealing growable plants
-        if (world.getBlockState(pos).getBlock() instanceof IGrowable) {
-            return;
-        }
+        if (world.getBlockState(pos).getBlock() instanceof IGrowable) return;
 
         Biome.Category category = world.getBiome(pos).getCategory();
         if(category != Biome.Category.SWAMP && category != Biome.Category.JUNGLE) {

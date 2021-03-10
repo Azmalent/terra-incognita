@@ -1,6 +1,5 @@
 package azmalent.terraincognita.common.data.loot;
 
-import azmalent.terraincognita.common.init.ModItems;
 import com.google.gson.JsonObject;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;

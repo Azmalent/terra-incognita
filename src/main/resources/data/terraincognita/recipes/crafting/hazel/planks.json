@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "terraincognita:hazel_logs"
+    }
+  ],
+  "result": {
+    "item": "terraincognita:hazel_planks",
+    "count": 4
+  },
+  "conditions": [
+    {
+      "type": "cuneiform:config",
+      "config": "terraincognita:hazel"
+    }
+  ]
+}

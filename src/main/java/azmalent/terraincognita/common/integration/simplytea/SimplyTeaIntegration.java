@@ -1,9 +1,8 @@
 package azmalent.terraincognita.common.integration.simplytea;
 
 import azmalent.cuneiform.lib.compat.ModProxyImpl;
-import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.TerraIncognita;
-import azmalent.terraincognita.common.init.ModItems;
+import azmalent.terraincognita.common.registry.ModItems;
 import knightminer.simplytea.core.Registration;
 import knightminer.simplytea.item.TeaCupItem;
 import net.minecraft.item.Food;
@@ -21,19 +20,17 @@ public class SimplyTeaIntegration implements ISimplyTeaIntegration {
 
     @Override
     public void register(IEventBus bus) {
-        if (TIConfig.Flora.arcticFlowers.get()) {
-            TerraIncognita.LOGGER.info("Integrating with Simply Tea...");
-            ItemGroup group = Registration.group;
+        TerraIncognita.LOGGER.info("Integrating with Simply Tea...");
+        ItemGroup group = Registration.group;
 
-            FIREWEED_TEA_BAG = ModItems.ITEMS.register("fireweed_teabag", () -> new Item(new Item.Properties().group(group)));
+        FIREWEED_TEA_BAG = ModItems.ITEMS.register("fireweed_teabag", () -> new Item(new Item.Properties().group(group)));
 
-            FIREWEED_TEA_CUP = ModItems.ITEMS.register("fireweed_tea_cup", () -> new TeaCupItem(
-                new Item.Properties().group(group).maxStackSize(1).maxDamage(2).setNoRepair().containerItem(Registration.cup)
-                    .food(new Food.Builder().hunger(2).saturation(0.5f)
-                        .effect(() -> new EffectInstance(Registration.restful, 20 * 20, 1), 1)
-                        .build()
-                )
-            ));
-        }
+        FIREWEED_TEA_CUP = ModItems.ITEMS.register("fireweed_tea_cup", () -> new TeaCupItem(
+            new Item.Properties().group(group).maxStackSize(1).maxDamage(2).setNoRepair().containerItem(Registration.cup)
+                .food(new Food.Builder().hunger(2).saturation(0.5f)
+                    .effect(() -> new EffectInstance(Registration.restful, 20 * 20, 1), 1)
+                    .build()
+            )
+        ));
     }
 }

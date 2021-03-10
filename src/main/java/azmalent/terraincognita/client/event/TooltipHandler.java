@@ -1,9 +1,8 @@
 package azmalent.terraincognita.client.event;
 
-import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.TerraIncognita;
-import azmalent.terraincognita.common.init.ModBlocks;
-import azmalent.terraincognita.common.init.ModItems;
+import azmalent.terraincognita.common.registry.ModBlocks;
+import azmalent.terraincognita.common.registry.ModItems;
 import azmalent.terraincognita.common.integration.ModIntegration;
 import azmalent.terraincognita.common.inventory.BasketContainer;
 import azmalent.terraincognita.common.inventory.BasketStackHandler;
@@ -26,19 +25,15 @@ import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 
 import java.util.List;
 
+@SuppressWarnings("deprecation")
 @OnlyIn(Dist.CLIENT)
 public class TooltipHandler {
 	//Copied from Quark shulker_widget.png
     private static final ResourceLocation SLOT_WIDGET = TerraIncognita.prefix("textures/gui/slot_widget.png");
 
     public static void registerListeners() {
-        if (TIConfig.Flora.wreath.get()) {
-            MinecraftForge.EVENT_BUS.addListener(TooltipHandler::removeDyedWreathTooltip);
-        }
-
-        if (TIConfig.Tools.basket.get()) {
-            MinecraftForge.EVENT_BUS.addListener(TooltipHandler::renderBasketTooltip);
-        }
+        MinecraftForge.EVENT_BUS.addListener(TooltipHandler::removeDyedWreathTooltip);
+        MinecraftForge.EVENT_BUS.addListener(TooltipHandler::renderBasketTooltip);
     }
 
     public static void removeDyedWreathTooltip(ItemTooltipEvent event) {
@@ -60,7 +55,6 @@ public class TooltipHandler {
 
 	//Copied from Quark ShulkerBoxTooltips#renderTooltip() with edits
     public static void renderBasketTooltip(RenderTooltipEvent.PostText event) {
-        assert ModBlocks.BASKET != null;
         if (event.getStack().getItem() != ModBlocks.BASKET.getItem()) {
             return;
         }
@@ -113,7 +107,7 @@ public class TooltipHandler {
     }
 
 	//Copied from Quark ShulkerBoxTooltips#renderTooltipBackground() with minor edits
-    public static void renderTooltipBackground(MatrixStack matrix, int x, int y) {
+    private static void renderTooltipBackground(MatrixStack matrix, int x, int y) {
         Minecraft.getInstance().getTextureManager().bindTexture(SLOT_WIDGET);
 
         final int CORNER = 5;

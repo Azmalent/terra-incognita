@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "terraincognita:hazel_leaves"
+    }
+  },
+  "result": {
+    "item": "terraincognita:hazel_leaf_carpet",
+    "count": 3
+  },
+  "conditions": [
+	  {
+	    "type": "forge:and",
+	    "values": [
+	      {
+	        "type": "forge:mod_loaded",
+	        "modid": "quark"
+	      },
+	      {
+	        "type": "cuneiform:config",
+	        "config": "terraincognita:hazel"
+	      }
+	    ]
+	  }
+  ]
+}

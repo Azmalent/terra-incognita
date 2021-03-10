@@ -1,9 +1,9 @@
 {
   "replace": false,
   "values": [
-    {"id": "terraincognita:apple_log", "required": false},
-    {"id": "terraincognita:stripped_apple_log", "required": false},
-    {"id": "terraincognita:apple_wood", "required": false},
-    {"id": "terraincognita:stripped_apple_wood", "required": false}
+    "terraincognita:apple_log",
+    "terraincognita:stripped_apple_log",
+    "terraincognita:apple_wood",
+    "terraincognita:stripped_apple_wood"
   ]
 }

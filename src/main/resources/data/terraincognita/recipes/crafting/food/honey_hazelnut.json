@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "result": {
+    "item": "terraincognita:honey_hazelnut",
+    "count": 3
+  },
+  "ingredients": [
+    { "item": "terraincognita:hazelnut" },
+    { "item": "terraincognita:hazelnut" },
+    { "item": "terraincognita:hazelnut" },
+    { "item": "minecraft:honey_bottle" }
+  ],
+  "conditions": [
+    {
+      "type": "cuneiform:config",
+      "config": "terraincognita:hazel"
+    }
+  ]
+}

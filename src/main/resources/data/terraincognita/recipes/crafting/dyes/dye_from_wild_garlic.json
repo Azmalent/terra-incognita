@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "terraincognita:wild_garlic"
+    }
+  ],
+  "result": {
+    "item": "minecraft:light_gray_dye",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "cuneiform:config",
+      "config": "terraincognita:forest_flowers"
+    }
+  ]
+}

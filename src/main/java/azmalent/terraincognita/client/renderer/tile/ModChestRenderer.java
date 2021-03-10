@@ -1,6 +1,5 @@
 package azmalent.terraincognita.client.renderer.tile;
 
-import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.block.chests.ModChestBlock;
 import azmalent.terraincognita.common.block.chests.ModTrappedChestBlock;
 import azmalent.terraincognita.common.tile.ModChestTileEntity;
@@ -17,8 +16,6 @@ import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.state.properties.ChestType;
 import net.minecraft.tileentity.ChestTileEntity;
-import net.minecraft.tileentity.IChestLid;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityMerger;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;

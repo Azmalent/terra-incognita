@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-	{"id": "terraincognita:apple_chest", "required": false}
+	"terraincognita:apple_chest",
+	"terraincognita:hazel_chest"
   ]
 }

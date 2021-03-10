@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "terraincognita:hazelnut_sack"
+    }
+  ],
+  "result": {
+    "item": "terraincognita:hazelnut",
+    "count": 9
+  },
+  "conditions": [
+    {
+      "type": "forge:and",
+      "values": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "quark"
+        },
+        {
+          "type": "cuneiform:config",
+          "config": "terraincognita:hazel"
+        }
+      ]
+    }
+  ]
+}

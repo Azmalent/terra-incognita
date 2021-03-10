@@ -1,7 +1,7 @@
 package azmalent.terraincognita.common.block.chests;
 
-import azmalent.terraincognita.common.init.ModTileEntities;
-import azmalent.terraincognita.common.block.blocksets.ModWoodType;
+import azmalent.terraincognita.common.registry.ModTileEntities;
+import azmalent.terraincognita.common.block.woodtypes.ModWoodType;
 import azmalent.terraincognita.common.tile.ModChestTileEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ChestBlock;

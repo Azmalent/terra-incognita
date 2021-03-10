@@ -1,15 +1,14 @@
 package azmalent.terraincognita.common.tile;
 
 import azmalent.terraincognita.common.data.ModItemTags;
-import azmalent.terraincognita.common.init.ModBlocks;
-import azmalent.terraincognita.common.init.ModTileEntities;
+import azmalent.terraincognita.common.registry.ModBlocks;
+import azmalent.terraincognita.common.registry.ModTileEntities;
 import azmalent.terraincognita.common.inventory.BasketContainer;
 import azmalent.terraincognita.common.inventory.BasketStackHandler;
 import azmalent.terraincognita.common.item.block.BasketItem;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.inventory.container.Container;
@@ -38,8 +37,6 @@ public class BasketTileEntity extends TileEntity implements INamedContainerProvi
     }
 
     public void readFromStack(ItemStack stack) {
-        assert ModBlocks.BASKET != null;
-
         stackHandler = new BasketStackHandler();
         if (stack.getItem() == ModBlocks.BASKET.getItem()) {
             BasketStackHandler itemHandler = BasketItem.getStackHandler(stack);
@@ -56,8 +53,6 @@ public class BasketTileEntity extends TileEntity implements INamedContainerProvi
     }
 
     public ItemStack saveToStack() {
-        assert ModBlocks.BASKET != null;
-
         ItemStack stack = ModBlocks.BASKET.makeStack();
         BasketStackHandler itemHandler = BasketItem.getStackHandler(stack);
         if (itemHandler != null) {
@@ -129,7 +124,6 @@ public class BasketTileEntity extends TileEntity implements INamedContainerProvi
     @Nonnull
     @Override
     public ITextComponent getDisplayName() {
-        assert ModBlocks.BASKET != null;
         return customName != null ? customName : new TranslationTextComponent(ModBlocks.BASKET.getBlock().getTranslationKey());
     }
 

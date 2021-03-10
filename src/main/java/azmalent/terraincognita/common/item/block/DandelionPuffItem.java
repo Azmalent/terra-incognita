@@ -1,15 +1,12 @@
 package azmalent.terraincognita.common.item.block;
 
 import azmalent.terraincognita.TerraIncognita;
-import azmalent.terraincognita.common.init.ModParticles;
-import azmalent.terraincognita.common.init.ModSounds;
+import azmalent.terraincognita.common.registry.ModParticles;
+import azmalent.terraincognita.common.registry.ModSounds;
 import net.minecraft.block.Block;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.UseAction;
+import net.minecraft.item.*;
 import net.minecraft.particles.BasicParticleType;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.ActionResult;
@@ -24,7 +21,7 @@ import java.util.Random;
 
 public class DandelionPuffItem extends BlockItem {
     public DandelionPuffItem(Block blockIn) {
-        super(blockIn, new Item.Properties().group(TerraIncognita.TAB));
+        super(blockIn, new Item.Properties().group(ItemGroup.DECORATIONS));
     }
 
     @Nonnull

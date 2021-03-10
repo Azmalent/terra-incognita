@@ -1,8 +1,8 @@
 {
   "replace": false,
   "values": [
-	{"id": "terraincognita:tall_fireweed", "required": false},
-	{"id": "terraincognita:water_flag", "required": false},
-	{"id": "terraincognita:white_rhododendron", "required": false}
+	"terraincognita:tall_fireweed",
+	"terraincognita:water_flag",
+	"terraincognita:white_rhododendron"
   ]
 }

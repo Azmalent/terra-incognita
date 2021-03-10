@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "terraincognita:block/hazelnut_stage0"
+    },
+    "age=1": {
+      "model": "terraincognita:block/hazelnut_stage0"
+    },
+    "age=2": {
+      "model": "terraincognita:block/hazelnut_stage0"
+    },
+    "age=3": {
+      "model": "terraincognita:block/hazelnut_stage0"
+    },
+    "age=4": {
+      "model": "terraincognita:block/hazelnut_stage0"
+    },
+    "age=5": {
+      "model": "terraincognita:block/hazelnut_stage0"
+    },
+    "age=6": {
+      "model": "terraincognita:block/hazelnut_stage0"
+    },
+    "age=7": {
+      "model": "terraincognita:block/hazelnut_stage1"
+    }
+  }
+}

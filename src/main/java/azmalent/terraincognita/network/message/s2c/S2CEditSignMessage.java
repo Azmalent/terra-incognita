@@ -30,8 +30,8 @@ public final class S2CEditSignMessage {
             context.enqueueWork(() -> {
                 TerraIncognita.PROXY.openSignEditor(message.pos);
             });
-
-            context.setPacketHandled(true);
         }
+
+        context.setPacketHandled(true);
     }
 }
