@@ -14,4 +14,6 @@ public class ModIntegration {
 
     @ModProxy("upgrade_aquatic")
     public static IUpgradeAquaticIntegration UPGRADE_AQUATIC;
+
+    public static EnvironmentalIntegration ENVIRONMENTAL = new EnvironmentalIntegration();
 }

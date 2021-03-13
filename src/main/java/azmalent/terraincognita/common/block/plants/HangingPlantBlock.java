@@ -16,6 +16,7 @@ import net.minecraftforge.common.PlantType;
 
 import javax.annotation.Nonnull;
 
+@SuppressWarnings("deprecation")
 public abstract class HangingPlantBlock extends Block implements IPlantable {
     public HangingPlantBlock() {
         super(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().zeroHardnessAndResistance().sound(SoundType.PLANT));
@@ -58,4 +59,5 @@ public abstract class HangingPlantBlock extends Block implements IPlantable {
     public PlantType getPlantType(IBlockReader world, BlockPos pos) {
         return PlantType.CAVE;
     }
+
 }

@@ -101,6 +101,24 @@ def make_pressure_plate(type, base_block, condition):
     copy_crafting_recipe('pressure_plate', type + '/pressure_plate', variables)
 
 
+def make_sweet_peas(color):
+    block = color + '_sweet_peas'
+    copy_blockstate('sweet_peas', block, {'color': color})
+    copy_item_model('flat_block', block, {'block': block})
+
+    for suffix in ['1', '1u', '2', '2_opposite', '2u', '2u_opposite', '3', '3u', '4', '4u', 'u']:
+        copy_block_model('vine', 'sweet_peas/%s/%s' % (color, suffix), {'suffix': suffix, 'block': block})
+        copy_block_model('vine', 'sweet_peas/%s/burnt_%s' % (color, suffix), {'suffix': suffix, 'block': block + '_burnt'})
+
+    copy_loot_table('requires_shears', block, {'block': block})
+    copy_crafting_recipe('shapeless_one_ingredient', 'dyes/dye_from_' + block, {
+        'ingredient': block,
+        'output': 'minecraft:%s_dye' % color,
+        'count': '1',
+        'condition': 'sweet_peas'
+    })
+
+
 def make_wood_type(type):
     # Sapling and leaves
     sapling = type + '_sapling'

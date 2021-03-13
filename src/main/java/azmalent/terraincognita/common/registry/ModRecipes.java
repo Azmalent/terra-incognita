@@ -38,7 +38,7 @@ public class ModRecipes {
     }
 
     public static void registerCompostable(IItemProvider itemProvider, float value) {
-        ComposterBlock.CHANCES.put(itemProvider, value);
+        ComposterBlock.CHANCES.put(itemProvider.asItem(), value);
     }
 
     public static void initCompostables() {
@@ -53,17 +53,19 @@ public class ModRecipes {
 
         ModBlocks.FLOWERS.forEach(flower -> registerCompostable(flower, 0.65f));
         ModBlocks.LOTUSES.forEach(lotus -> registerCompostable(lotus, 0.65f));
-        registerCompostable(ModBlocks.SMALL_LILY_PAD, 0.3f);
-        registerCompostable(ModBlocks.REEDS, 0.5f);
-        registerCompostable(ModBlocks.ROOTS, 0.5f);
-        registerCompostable(ModBlocks.HANGING_MOSS, 0.3f);
-        registerCompostable(ModItems.FIDDLEHEAD, 0.65f);
-        registerCompostable(ModItems.WREATH, 1);
-
+        ModBlocks.SWEET_PEAS.forEach(sweetPea -> registerCompostable(sweetPea, 0.65f));
         ModWoodTypes.VALUES.forEach(woodType -> {
             registerCompostable(woodType.SAPLING, 0.3f);
             registerCompostable(woodType.LEAVES, 0.3f);
         });
+
+        registerCompostable(ModBlocks.SMALL_LILY_PAD, 0.3f);
+        registerCompostable(ModBlocks.REEDS, 0.5f);
+        registerCompostable(ModBlocks.CARIBOU_MOSS, 0.3f);
+        registerCompostable(ModBlocks.ROOTS, 0.5f);
+        registerCompostable(ModBlocks.HANGING_MOSS, 0.3f);
+        registerCompostable(ModItems.FIDDLEHEAD, 0.65f);
+        registerCompostable(ModItems.WREATH, 1);
 
         registerCompostable(ModWoodTypes.APPLE.BLOSSOMING_LEAVES, 0.3f);
         registerCompostable(ModItems.HAZELNUT, 0.3f);

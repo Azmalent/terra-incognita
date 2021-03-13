@@ -53,6 +53,7 @@ public class TerraIncognita {
         ModParticles.PARTICLES.register(bus);
         ModRecipes.RECIPES.register(bus);
         ModSounds.SOUNDS.register(bus);
+        ModSurfaceBuilders.BUILDERS.register(bus);
         ModTileEntities.TILE_ENTITIES.register(bus);
         ModTreeDecorators.TREE_DECORATORS.register(bus);
         ModBanners.register();

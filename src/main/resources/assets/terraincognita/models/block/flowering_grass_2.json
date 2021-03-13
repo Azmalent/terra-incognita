@@ -1,0 +1,6 @@
+{
+  "parent": "terraincognita:block/flowering_grass_base",
+  "textures": {
+    "flowers": "terraincognita:block/flowering_grass_overlay_alt"
+  }
+}

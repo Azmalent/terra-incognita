@@ -28,4 +28,9 @@ public class QuarkDummy implements IQuarkIntegration {
     public boolean canLanternConnect(BlockState state, IWorldReader worldIn, BlockPos pos) {
         return false;
     }
+
+    @Override
+    public boolean canBurnVineTips() {
+        return false;
+    }
 }

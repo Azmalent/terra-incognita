@@ -43,7 +43,7 @@ public class ButterflyLandOnFlowerGoal extends MoveToBlockGoal {
     @Override
     protected boolean shouldMoveTo(@Nonnull IWorldReader world, @Nonnull BlockPos pos) {
         BlockState state = world.getBlockState(pos);
-        return canLandOnBlock(state) && !isBlockTaken(world, state, pos);
+        return canLandOnBlock(state) && !isBlockTaken(world, pos);
     }
 
     private boolean canLandOnBlock(BlockState state) {
@@ -54,10 +54,11 @@ public class ButterflyLandOnFlowerGoal extends MoveToBlockGoal {
         return state.isIn(BlockTags.SMALL_FLOWERS);
     }
 
-    private boolean isBlockTaken(IWorldReader world, BlockState state, BlockPos pos) {
-        List<Entity> entities = butterfly.world.getEntitiesWithinAABB(
-            ButterflyEntity.class, state.getShape(world, pos).getBoundingBox().expand(0.5, 0.5, 0.5).offset(pos)
-        );
+    private boolean isBlockTaken(IWorldReader world, BlockPos pos) {
+        VoxelShape shape = world.getBlockState(pos).getShape(world, pos);
+        if (shape.isEmpty()) return true;
+
+        List<Entity> entities = butterfly.world.getEntitiesWithinAABB(ButterflyEntity.class, shape.getBoundingBox().expand(0.5, 0.5, 0.5).offset(pos));
 
         return entities.stream().anyMatch(e -> pos.equals(((ButterflyEntity) e).restGoal.restingPos));
     }

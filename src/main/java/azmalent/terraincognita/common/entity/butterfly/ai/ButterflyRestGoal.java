@@ -5,6 +5,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.World;
 
 import java.util.EnumSet;
@@ -56,7 +57,7 @@ public class ButterflyRestGoal extends Goal {
         if (restingPos == null) restingPos = butterfly.getPosition();
         ticks++;
 
-        if (blockStateUpdated() || isBlockTaken(restingPos)) {
+        if (blockStateUpdated() || isBlockTaken(butterfly.world, restingPos)) {
             butterfly.setNotLanded();
         }
         else if (butterfly.getRNG().nextInt(200) == 0) {
@@ -69,12 +70,11 @@ public class ButterflyRestGoal extends Goal {
         }
     }
 
-    private boolean isBlockTaken(BlockPos pos) {
-        World world = butterfly.world;
-        List<Entity> entities = world.getEntitiesWithinAABB(
-            ButterflyEntity.class, world.getBlockState(pos).getShape(world, pos).getBoundingBox().expand(0.5, 0.5, 0.5).offset(pos)
-        );
+    private boolean isBlockTaken(World world, BlockPos pos) {
+        VoxelShape shape = world.getBlockState(pos).getShape(world, pos);
+        if (shape.isEmpty()) return true;
 
+        List<Entity> entities = world.getEntitiesWithinAABB(ButterflyEntity.class, shape.getBoundingBox().expand(0.5, 0.5, 0.5).offset(pos));
         return entities.stream().anyMatch(e -> e != butterfly && pos.equals(((ButterflyEntity) e).restGoal.restingPos));
     }
 

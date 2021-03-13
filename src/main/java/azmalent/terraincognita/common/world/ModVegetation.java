@@ -3,6 +3,7 @@ package azmalent.terraincognita.common.world;
 import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.block.plants.SmallLilypadBlock;
+import azmalent.terraincognita.common.integration.ModIntegration;
 import azmalent.terraincognita.common.registry.ModBlocks;
 import azmalent.terraincognita.common.registry.ModFeatures;
 import azmalent.terraincognita.common.block.PottablePlantEntry;
@@ -16,6 +17,9 @@ import net.minecraft.world.gen.blockplacer.DoublePlantBlockPlacer;
 import net.minecraft.world.gen.blockplacer.SimpleBlockPlacer;
 import net.minecraft.world.gen.blockstateprovider.*;
 import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.placement.NoiseDependant;
+import net.minecraft.world.gen.placement.Placement;
+import net.minecraft.world.gen.placement.TopSolidWithNoiseConfig;
 
 import java.util.Arrays;
 import java.util.List;
@@ -26,7 +30,6 @@ import static azmalent.terraincognita.common.registry.ModBlocks.*;
 
 public class ModVegetation {
     public static class Configs {
-        public static BlockClusterFeatureConfig FIELD_FLOWERS;
         public static BlockClusterFeatureConfig FOREST_FLOWERS;
         public static BlockClusterFeatureConfig SWAMP_FLOWERS;
         public static BlockClusterFeatureConfig CATTAILS;
@@ -39,9 +42,10 @@ public class ModVegetation {
         public static BlockClusterFeatureConfig ARCTIC_FLOWERS;
         public static BlockClusterFeatureConfig ARCTIC_TALL_FLOWERS;
         public static BlockClusterFeatureConfig WITHER_ROSE;
+
+        public static BlockClusterFeatureConfig LUSH_PLAINS_TALL_FLOWERS;
     }
 
-    public static ConfiguredFeature<?, ?> FIELD_FLOWERS;
     public static ConfiguredFeature<?, ?> FOREST_FLOWERS;
     public static ConfiguredFeature<?, ?> SWAMP_FLOWERS;
     public static ConfiguredFeature<?, ?> ALPINE_FLOWERS;
@@ -53,9 +57,13 @@ public class ModVegetation {
 
     public static ConfiguredFeature<?, ?> LOTUS;
     public static ConfiguredFeature<?, ?> SMALL_LILYPADS;
+    public static ConfiguredFeature<?, ?> SWEET_PEAS;
+    public static ConfiguredFeature<?, ?> CARIBOU_MOSS;
     public static ConfiguredFeature<?, ?> REEDS;
     public static ConfiguredFeature<?, ?> ROOTS;
     public static ConfiguredFeature<?, ?> HANGING_MOSS;
+
+    public static ConfiguredFeature<?, ?> LUSH_PLAINS_FLOWERS;
 
     private static BlockClusterFeatureConfig createConfig(PottablePlantEntry plant, int tries) {
         return createConfig(plant.getBlock().getDefaultState(), tries);
@@ -90,35 +98,11 @@ public class ModVegetation {
         return Feature.RANDOM_PATCH.withConfiguration(config).withPlacement(Features.Placements.PATCH_PLACEMENT).func_242731_b(4);
     }
 
-    @SuppressWarnings("unchecked")
-    private static <T extends IFeatureConfig> ConfiguredFeature<T, ?> register(String id, ConfiguredFeature<T, ?> feature) {
+    public static <T extends IFeatureConfig> ConfiguredFeature<T, ?> register(String id, ConfiguredFeature<T, ?> feature) {
         return Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, TerraIncognita.prefix(id), feature);
     }
 
-    @SuppressWarnings("ConstantConditions")
     public static void configureFeatures() {
-		if (TIConfig.Flora.fieldFlowers.get()) {
-            List<BlockState> flowers = Lists.newArrayList(PlainFlowerBlockStateProvider.COMMON_FLOWERS);
-            flowers.add(CHICORY.getBlock().getDefaultState());
-            flowers.add(YARROW.getBlock().getDefaultState());
-            PlainFlowerBlockStateProvider.COMMON_FLOWERS = flowers.toArray(new BlockState[0]);
-
-            List<BlockState> rareFlowers = Lists.newArrayList(PlainFlowerBlockStateProvider.RARE_FLOWERS);
-            rareFlowers.add(DAFFODIL.getBlock().getDefaultState());
-            PlainFlowerBlockStateProvider.RARE_FLOWERS = rareFlowers.toArray(new BlockState[0]);
-
-            addToFlowerForestGradient(DAFFODIL);
-
-            //For biomes that don't use flower gradient
-            WeightedBlockStateProvider provider = new WeightedBlockStateProvider();
-            provider.addWeightedBlockstate(CHICORY.getBlock().getDefaultState(), 4);
-            provider.addWeightedBlockstate(YARROW.getBlock().getDefaultState(), 4);
-            provider.addWeightedBlockstate(DAFFODIL.getBlock().getDefaultState(), 1);
-            Configs.FIELD_FLOWERS = createConfig(provider, 12);
-
-            FIELD_FLOWERS = register("field_flowers", initFlowerFeature(Configs.FIELD_FLOWERS));
-        }
-
 		if (TIConfig.Flora.forestFlowers.get()) {
             WeightedBlockStateProvider provider = new WeightedBlockStateProvider();
             provider.addWeightedBlockstate(PINK_PRIMROSE.getBlock().getDefaultState(), 1);
@@ -129,8 +113,6 @@ public class ModVegetation {
             Configs.FOREST_FLOWERS = createConfig(provider, 16);
 
             FOREST_FLOWERS = register("forest_flowers", initFlowerFeature(Configs.FOREST_FLOWERS));
-
-            addToFlowerForestGradient(PINK_PRIMROSE, PURPLE_PRIMROSE, YELLOW_PRIMROSE, FOXGLOVE, WILD_GARLIC);
         }
 
         if (TIConfig.Flora.swampFlowers.get() || TIConfig.Flora.cattails.get()) {
@@ -139,8 +121,8 @@ public class ModVegetation {
             provider.addWeightedBlockstate(GLOBEFLOWER.getBlock().getDefaultState(), 1);
             Configs.SWAMP_FLOWERS = createConfig(provider, 32);
 
-            Configs.CATTAILS = (new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(CATTAIL.getBlock().getDefaultState()), new DoublePlantBlockPlacer())).tries(48).func_227317_b_().requiresWater().replaceable().build();
-            Configs.WATER_FLAG = (new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(WATER_FLAG.getBlock().getDefaultState()), new DoublePlantBlockPlacer())).tries(24).func_227317_b_().requiresWater().replaceable().build();
+            Configs.CATTAILS = new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(CATTAIL.getBlock().getDefaultState()), new DoublePlantBlockPlacer()).tries(48).func_227317_b_().requiresWater().replaceable().build();
+            Configs.WATER_FLAG = new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(WATER_FLAG.getBlock().getDefaultState()), new DoublePlantBlockPlacer()).tries(24).func_227317_b_().requiresWater().replaceable().build();
 
             if (TIConfig.Flora.swampFlowers.get()) {
                 List<ConfiguredRandomFeatureList> chances = Lists.newArrayList(
@@ -172,7 +154,7 @@ public class ModVegetation {
             WeightedBlockStateProvider tallFlowerProvider = new WeightedBlockStateProvider();
             tallFlowerProvider.addWeightedBlockstate(TALL_FIREWEED.getBlock().getDefaultState(), 2);
             tallFlowerProvider.addWeightedBlockstate(WHITE_RHODODENDRON.getBlock().getDefaultState(), 1);
-            Configs.ARCTIC_TALL_FLOWERS = (new BlockClusterFeatureConfig.Builder(tallFlowerProvider, new DoublePlantBlockPlacer())).tries(12).func_227317_b_().build();
+            Configs.ARCTIC_TALL_FLOWERS = new BlockClusterFeatureConfig.Builder(tallFlowerProvider, new DoublePlantBlockPlacer()).tries(12).func_227317_b_().build();
 
             List<ConfiguredRandomFeatureList> chances = Lists.newArrayList(
                 initFlowerFeature(Configs.ARCTIC_FLOWERS).withChance(0.5f)
@@ -246,19 +228,27 @@ public class ModVegetation {
         if (TIConfig.Flora.lotus.get()) {
             WeightedBlockStateProvider provider = new WeightedBlockStateProvider();
             provider.addWeightedBlockstate(Blocks.LILY_PAD.getDefaultState(), 3);
-            provider.addWeightedBlockstate(PINK_LOTUS.getBlock().getDefaultState(), 1);
-            provider.addWeightedBlockstate(WHITE_LOTUS.getBlock().getDefaultState(), 1);
-            provider.addWeightedBlockstate(YELLOW_LOTUS.getBlock().getDefaultState(), 1);
+            provider.addWeightedBlockstate(PINK_LOTUS.getDefaultState(), 1);
+            provider.addWeightedBlockstate(WHITE_LOTUS.getDefaultState(), 1);
+            provider.addWeightedBlockstate(YELLOW_LOTUS.getDefaultState(), 1);
 
             LOTUS = register("lotuses", initLilypadFeature(provider, 10));
         }
 
+        if (TIConfig.Flora.sweetPeas.get()) {
+            SWEET_PEAS = register("sweet_peas", ModFeatures.SWEET_PEAS.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).square());
+        }
+
+        if (TIConfig.Flora.caribouMoss.get()) {
+            CARIBOU_MOSS = register("caribou_moss", ModFeatures.CARIBOU_MOSS.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Features.Placements.VEGETATION_PLACEMENT).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).func_242731_b(8));
+        }
+
         if (TIConfig.Flora.reeds.get()) {
-            REEDS = register("reeds", ModFeatures.REEDS.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Features.Placements.PATCH_PLACEMENT).func_242731_b(20).chance(8));
+            REEDS = register("reeds", ModFeatures.REEDS.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Features.Placements.PATCH_PLACEMENT).func_242731_b(12).chance(12));
         }
 
         if (TIConfig.Flora.roots.get()) {
-            SimpleBlockStateProvider provider = new SimpleBlockStateProvider(ModBlocks.ROOTS.getBlock().getDefaultState());
+            SimpleBlockStateProvider provider = new SimpleBlockStateProvider(ModBlocks.ROOTS.getDefaultState());
             BlockClusterFeatureConfig config = new BlockClusterFeatureConfig.Builder(provider, SimpleBlockPlacer.PLACER).tries(60).xSpread(4).ySpread(16).zSpread(4).func_227317_b_().build();
             ROOTS = register("roots", Feature.RANDOM_PATCH.withConfiguration(config).withPlacement(Features.Placements.PATCH_PLACEMENT).func_242731_b(20));
         }
@@ -271,12 +261,27 @@ public class ModVegetation {
             Configs.WITHER_ROSE = createConfig(Blocks.WITHER_ROSE.getDefaultState(), 128);
             WITHER_ROSE = register("wither_roses", initFlowerFeature(Configs.WITHER_ROSE));
         }
-    }
 
-    private static void addToFlowerForestGradient(PottablePlantEntry... flowers) {
-        List<BlockState> states = Lists.newArrayList(ForestFlowerBlockStateProvider.STATES);
-        states.addAll(Arrays.stream(flowers).map(flower -> flower.getBlock().getDefaultState()).collect(Collectors.toList()));
+        if (TIConfig.Biomes.lushPlainsWeight.get() > 0) {
+            WeightedBlockStateProvider tallFlowerProvider = new WeightedBlockStateProvider();
+            tallFlowerProvider.addWeightedBlockstate(Blocks.ROSE_BUSH.getDefaultState(), 2);
+            tallFlowerProvider.addWeightedBlockstate(Blocks.PEONY.getBlock().getDefaultState(), 2);
+            tallFlowerProvider.addWeightedBlockstate(Blocks.LILAC.getBlock().getDefaultState(), 2);
+            tallFlowerProvider.addWeightedBlockstate(Blocks.SUNFLOWER.getBlock().getDefaultState(), 2);
+            ModIntegration.ENVIRONMENTAL.addDelphiniums(tallFlowerProvider);
+            Configs.LUSH_PLAINS_TALL_FLOWERS = new BlockClusterFeatureConfig.Builder(tallFlowerProvider, new DoublePlantBlockPlacer()).tries(12).func_227317_b_().build();
 
-        ForestFlowerBlockStateProvider.STATES = states.toArray(new BlockState[0]);
+            List<ConfiguredRandomFeatureList> chances = Lists.newArrayList(
+                Features.FLOWER_PLAIN_DECORATED.withChance(0.8f)
+            );
+
+            ConfiguredFeature<?, ?> defaultFeature = initTallFlowerFeature(Configs.LUSH_PLAINS_TALL_FLOWERS, -2, 4);
+
+            LUSH_PLAINS_FLOWERS = register("lush_plains_flowers", Feature.RANDOM_SELECTOR
+                .withConfiguration(new MultipleRandomFeatureConfig(chances, defaultFeature))
+                .withPlacement(Features.Placements.VEGETATION_PLACEMENT)
+                .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).func_242731_b(4)
+            );
+        }
     }
 }

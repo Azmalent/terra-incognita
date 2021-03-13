@@ -5,6 +5,7 @@ import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.registry.ModWoodTypes;
 import azmalent.terraincognita.common.world.treedecorator.AppleTreeDecorator;
 import azmalent.terraincognita.common.world.treedecorator.HazelnutTreeDecorator;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.registry.Registry;
@@ -16,6 +17,8 @@ import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.foliageplacer.BlobFoliagePlacer;
 import net.minecraft.world.gen.foliageplacer.BushFoliagePlacer;
 import net.minecraft.world.gen.foliageplacer.FancyFoliagePlacer;
+import net.minecraft.world.gen.placement.AtSurfaceWithExtraConfig;
+import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.trunkplacer.FancyTrunkPlacer;
 import net.minecraft.world.gen.trunkplacer.StraightTrunkPlacer;
 
@@ -23,28 +26,37 @@ import java.util.OptionalInt;
 
 public class ModTrees {
     public static class Configs {
-        public static final BaseTreeFeatureConfig DWARF_BIRCH = (new BaseTreeFeatureConfig.Builder(
+        public static final BaseTreeFeatureConfig TUNDRA_BIRCH = (new BaseTreeFeatureConfig.Builder(
                 new SimpleBlockStateProvider(Blocks.BIRCH_LOG.getDefaultState()),
                 new SimpleBlockStateProvider(Blocks.BIRCH_LEAVES.getDefaultState()),
+                new BushFoliagePlacer(FeatureSpread.func_242252_a(2), FeatureSpread.func_242252_a(0), 3),
+                new StraightTrunkPlacer(4, 2, 0),
+                new TwoLayerFeature(0, 0, 0))).func_236702_a_(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES).build();
+
+        public static final BaseTreeFeatureConfig OAK_SHRUB = (new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.OAK_LOG.getDefaultState()),
+                new SimpleBlockStateProvider(Blocks.OAK_LEAVES.getDefaultState()),
                 new BushFoliagePlacer(FeatureSpread.func_242252_a(2), FeatureSpread.func_242252_a(1), 2),
-                new StraightTrunkPlacer(2, 0, 0),
-                new TwoLayerFeature(0, 0, 0))).func_236702_a_(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES
-            ).build();
+                new StraightTrunkPlacer(1, 0, 0),
+                new TwoLayerFeature(0, 0, 0))).func_236702_a_(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES).build();
 
         public static final BaseTreeFeatureConfig SPRUCE_SHRUB = (new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.SPRUCE_LOG.getDefaultState()),
                 new SimpleBlockStateProvider(Blocks.SPRUCE_LEAVES.getDefaultState()),
                 new BushFoliagePlacer(FeatureSpread.func_242252_a(2), FeatureSpread.func_242252_a(1), 2),
                 new StraightTrunkPlacer(1, 0, 0),
-                new TwoLayerFeature(0, 0, 0))).func_236702_a_(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES
-            ).build();
+                new TwoLayerFeature(0, 0, 0))).func_236702_a_(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES).build();
+
+        public static final MultipleRandomFeatureConfig MUSKEG_TREES = new MultipleRandomFeatureConfig(ImmutableList.of(Features.MEGA_PINE.withChance(0.1F)), Features.PINE);
     }
 
+    public static final ConfiguredFeature<BaseTreeFeatureConfig, ?> OAK_SHRUB = register("oak_shrub", Feature.TREE.withConfiguration(Configs.OAK_SHRUB).chance(4));
     public static final ConfiguredFeature<BaseTreeFeatureConfig, ?> SPRUCE_SHRUB = register("spruce_shrub", Feature.TREE.withConfiguration(Configs.SPRUCE_SHRUB).chance(4));
-    public static final ConfiguredFeature<BaseTreeFeatureConfig, ?> DWARF_BIRCH = register("dwarf_birch", Feature.TREE.withConfiguration(Configs.DWARF_BIRCH).chance(4));
-    public static final ConfiguredFeature<BaseTreeFeatureConfig, ?> RARE_BIRCHES = register("rare_birches", Features.BIRCH.chance(8));
+    public static final ConfiguredFeature<BaseTreeFeatureConfig, ?> TUNDRA_BIRCH = register("tundra_birch", Feature.TREE.withConfiguration(Configs.TUNDRA_BIRCH).chance(4));
+    public static final ConfiguredFeature<BaseTreeFeatureConfig, ?> LUSH_PLAINS_OAK = register("lush_plains_oak", Features.FANCY_OAK_BEES_005.withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(3, 0.1F, 1))).chance(12));
+    public static final ConfiguredFeature<BaseTreeFeatureConfig, ?> MUSKEG_TREES = register("muskeg_trees", Feature.RANDOM_SELECTOR.withConfiguration(Configs.MUSKEG_TREES).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(10, 0.1F, 1))).chance(2));
 
     public static ConfiguredFeature<BaseTreeFeatureConfig, ?> APPLE;
     public static ConfiguredFeature<BaseTreeFeatureConfig, ?> NATURAL_APPLE;
+    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> LUSH_PLAINS_APPLE;
 
 	public static ConfiguredFeature<BaseTreeFeatureConfig, ?> HAZEL;
 	public static ConfiguredFeature<BaseTreeFeatureConfig, ?> NATURAL_HAZEL;
@@ -66,7 +78,11 @@ public class ModTrees {
         HAZEL = register("hazel_tree", Feature.TREE.withConfiguration(hazelBuilder.build()));
 
         if (TIConfig.Trees.apple.get()) {
-            NATURAL_APPLE = register("natural_apple_tree", Feature.TREE.withConfiguration(appleBuilder.setDecorators(Lists.newArrayList(AppleTreeDecorator.INSTANCE)).build()).chance(32));
+            BaseTreeFeatureConfig config = appleBuilder.setDecorators(Lists.newArrayList(AppleTreeDecorator.INSTANCE)).build();
+            NATURAL_APPLE = register("natural_apple_tree", Feature.TREE.withConfiguration(config).chance(32));
+            if (TIConfig.Biomes.lushPlainsWeight.get() > 0) {
+                LUSH_PLAINS_APPLE = register("lush_plains_apple_tree", Feature.TREE.withConfiguration(config).chance(12));
+            }
         }
 
         if (TIConfig.Trees.hazel.get()) {

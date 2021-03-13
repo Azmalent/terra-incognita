@@ -4,12 +4,17 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "terraincognita.mixins.refmap.json",
   "package": "azmalent.terraincognita.mixin",
+  "plugin": "azmalent.terraincognita.mixin.MixinConfigPlugin",
   "mixins": [
+    "EatGrassGoalMixin",
     "FlowersFeatureMixin",
     "FoxEntityTypeMixin",
     "GrassBlockMixin",
+    "HillsLayerMixin",
+    "VineBlockMixin",
     "accessor.BoatEntityAccessor",
     "accessor.TreeDecoratorTypeAccessor",
+    "compat.botania.HornHarvestablesMixin",
     "compat.quark.FairyRingGeneratorMixin",
     "compat.quark.LanternBlockMixin"
   ],

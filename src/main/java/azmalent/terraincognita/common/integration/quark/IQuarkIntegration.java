@@ -14,4 +14,6 @@ public interface IQuarkIntegration {
     boolean canEditSign(ItemStack heldStack);
 
     boolean canLanternConnect(BlockState state, IWorldReader worldIn, BlockPos pos);
+
+    boolean canBurnVineTips();
 }

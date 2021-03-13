@@ -32,7 +32,6 @@ public class ClientEventHandler {
 
     public static void clientSetup(FMLClientSetupEvent event) {
         event.enqueueWork(ModBlocks.HELPER::initRenderTypes);
-        event.enqueueWork(ModBiomes::initGrassModifiers);
         event.enqueueWork(ModItems::registerPropertyOverrides);
 
         ScreenManager.registerFactory(ModContainers.BASKET.get(), BasketContainerScreen::new);

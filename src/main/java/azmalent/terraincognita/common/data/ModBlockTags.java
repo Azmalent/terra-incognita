@@ -12,7 +12,11 @@ public class ModBlockTags {
     }
 
     public static final ITag.INamedTag<Block> APPLE_LOGS = createTag("apple_logs");
+    public static final ITag.INamedTag<Block> HAZEL_LOGS = createTag("hazel_logs");
+
     public static final ITag.INamedTag<Block> LOTUSES = createTag("lotuses");
-    public static final ITag.INamedTag<Block> MOSS_PLACEABLE_ON = createTag("moss_placeable_on");
+    public static final ITag.INamedTag<Block> SWEET_PEAS = createTag("sweet_peas");
+
+    public static final ITag.INamedTag<Block> HANGING_MOSS_PLANTABLE_ON = createTag("hanging_moss_plantable_on");
     public static final ITag.INamedTag<Block> PEAT_MULTIBLOCK_PLANTS = createTag("peat_multiblock_plants");
 }

@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "terraincognita:reeds_block"
+    }
+  ],
+  "result": {
+    "item": "terraincognita:reeds",
+    "count": 9
+  },
+  "conditions": [
+    {
+      "type": "forge:and",
+      "values": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "quark"
+        },
+        {
+          "type": "cuneiform:config",
+          "config": "terraincognita:reeds"
+        }
+      ]
+    }
+  ]
+}

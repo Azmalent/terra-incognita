@@ -1,6 +1,7 @@
 package azmalent.terraincognita.mixin.client;
 
 import azmalent.terraincognita.common.registry.ModBiomes;
+import azmalent.terraincognita.common.world.biome.BiomeEntry;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import org.spongepowered.asm.mixin.Mixin;
@@ -15,9 +16,12 @@ public class BiomeMixin {
         Biome self = (Biome) (Object) this;
         ResourceLocation id = self.getRegistryName();
 
-        if (ModBiomes.CUSTOM_GRASS_MODIFIERS.containsKey(id)) {
-            int color = ModBiomes.CUSTOM_GRASS_MODIFIERS.get(id).apply(x, z);
-            cir.setReturnValue(color);
+        if (ModBiomes.ID_TO_BIOME_MAP.containsKey(id)) {
+            BiomeEntry biomeData = ModBiomes.ID_TO_BIOME_MAP.get(id);
+            if (biomeData.hasCustomGrassModifier()) {
+                int color = biomeData.getCustomGrassColor(x, z);
+                cir.setReturnValue(color);
+            }
         }
     }
 }

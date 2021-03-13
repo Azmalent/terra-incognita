@@ -39,21 +39,5 @@ public class QuarkWoodBlockSet {
         HEDGE           = ModBlocks.HELPER.newBuilder(id + "_hedge", () -> new TIHedgeBlock(woodColor)).cutoutMippedRender().build();
         LEAF_CARPET     = ModBlocks.HELPER.newBuilder(id + "_leaf_carpet", TILeafCarpetBlock::new).cutoutMippedRender().build();
     }
-
-    public void initFuelValues(Map<Item, Integer> fuelValues) {
-        fuelValues.put(VERTICAL_PLANKS.getItem(), 300);
-        fuelValues.put(BOOKSHELF.getItem(), 300);
-        fuelValues.put(LADDER.getItem(), 300);
-        fuelValues.put(POST.getItem(), 300);
-        fuelValues.put(STRIPPED_POST.getItem(), 300);
-    }
-
-    public void initFlammability() {
-        DataUtil.registerFlammable(VERTICAL_PLANKS.getBlock(), 5, 20);
-        DataUtil.registerFlammable(BOOKSHELF.getBlock(), 30, 20);
-        DataUtil.registerFlammable(POST.getBlock(), 5, 20);
-        DataUtil.registerFlammable(STRIPPED_POST.getBlock(), 5, 20);
-        DataUtil.registerFlammable(HEDGE.getBlock(), 5, 20);
-    }
 }
 

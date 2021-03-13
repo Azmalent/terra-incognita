@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+	"terraincognita:flowering_grass",
 	"terraincognita:peat"
   ]
 }

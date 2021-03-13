@@ -9,7 +9,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class ClientHandler {
+public class ClientHelper {
     public static final Minecraft MC = Minecraft.getInstance();
 
     public static World getWorld() {

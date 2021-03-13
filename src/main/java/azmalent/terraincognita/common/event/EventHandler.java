@@ -1,21 +1,14 @@
 package azmalent.terraincognita.common.event;
 
-import azmalent.terraincognita.TerraIncognita;
-import azmalent.terraincognita.common.block.CaltropsBlock;
+import azmalent.terraincognita.common.ModTweaks;
 import azmalent.terraincognita.common.data.ModItemTags;
 import azmalent.terraincognita.common.inventory.BasketStackHandler;
 import azmalent.terraincognita.common.item.block.BasketItem;
-import azmalent.terraincognita.common.registry.ModBiomes;
-import azmalent.terraincognita.common.registry.ModBlocks;
-import azmalent.terraincognita.common.registry.ModEffects;
-import azmalent.terraincognita.common.registry.ModEntities;
-import azmalent.terraincognita.common.registry.ModRecipes;
-import azmalent.terraincognita.common.world.ModOres;
+import azmalent.terraincognita.common.registry.*;
+import azmalent.terraincognita.common.world.ModMiscFeatures;
 import azmalent.terraincognita.common.world.ModTrees;
 import azmalent.terraincognita.common.world.ModVegetation;
 import azmalent.terraincognita.util.ColorUtil;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -24,13 +17,9 @@ import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraftforge.client.event.RecipesUpdatedEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
-import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -48,26 +37,26 @@ public class EventHandler {
         MinecraftForge.EVENT_BUS.addListener(EventHandler::onPlayerUseItem);
         MinecraftForge.EVENT_BUS.addListener(EventHandler::onItemPickup);
 
-        MinecraftForge.EVENT_BUS.addListener(FuelHandler::getBurnTime);
-        MinecraftForge.EVENT_BUS.addListener(TradeHandler::setupWandererTrades);
+        MinecraftForge.EVENT_BUS.addListener(BiomeHandler::onLoadBiome);
         MinecraftForge.EVENT_BUS.addListener(LootHandler::onLoadLootTable);
+        MinecraftForge.EVENT_BUS.addListener(TradeHandler::setupWandererTrades);
 
-        BiomeHandler.registerListeners();
         BonemealHandler.registerListeners();
     }
 
     public static void setup(FMLCommonSetupEvent event) {
         event.enqueueWork(ModVegetation::configureFeatures);
         event.enqueueWork(ModTrees::configureFeatures);
-        event.enqueueWork(ModOres::configureFeatures);
+        event.enqueueWork(ModMiscFeatures::configureFeatures);
         event.enqueueWork(ModBiomes::registerBiomes);
 
         ModBlocks.initToolInteractions();
         ModBlocks.initFlammability();
-        FuelHandler.initFuelValues();
+        ModItems.initFuelValues();
         ModEntities.registerAttributes();
         ModEntities.registerSpawns();
         ModRecipes.initCompostables();
+        ModTweaks.modifyFlowerGradients();
     }
 
     public static void onUpdateRecipes(RecipesUpdatedEvent event) {

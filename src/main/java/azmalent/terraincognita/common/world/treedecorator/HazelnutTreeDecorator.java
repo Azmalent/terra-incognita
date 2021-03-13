@@ -29,13 +29,13 @@ public class HazelnutTreeDecorator extends TreeDecorator {
     }
 
     @Override
-    public void func_225576_a_(@Nonnull ISeedReader seedReader, @Nonnull Random rand, @Nonnull List<BlockPos> logPositions, @Nonnull List<BlockPos> leafPositions, @Nonnull Set<BlockPos> p_225576_5_, @Nonnull MutableBoundingBox boundingBox) {
+    public void func_225576_a_(@Nonnull ISeedReader seedReader, @Nonnull Random rand, @Nonnull List<BlockPos> logPositions, @Nonnull List<BlockPos> leafPositions, @Nonnull Set<BlockPos> decorationPositions, @Nonnull MutableBoundingBox boundingBox) {
         BlockState hazelnut = ModBlocks.HAZELNUT.getDefaultState();
 
         leafPositions.forEach((pos) -> {
             BlockPos down = pos.down();
             if (Feature.isAirAt(seedReader, down) && hazelnut.isValidPosition(seedReader, down) && rand.nextFloat() < 0.33f) {
-                this.func_227423_a_(seedReader, down, hazelnut.with(AbstractFruitBlock.AGE, rand.nextInt(8)), p_225576_5_, boundingBox);
+                this.func_227423_a_(seedReader, down, hazelnut.with(AbstractFruitBlock.AGE, rand.nextInt(8)), decorationPositions, boundingBox);
             }
         });
     }

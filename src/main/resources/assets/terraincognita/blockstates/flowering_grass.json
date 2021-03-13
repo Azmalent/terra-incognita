@@ -1,0 +1,69 @@
+{
+  "variants": {
+    "snowy=false": [
+      {
+        "model": "minecraft:block/grass_block"
+      },
+      {
+        "model": "minecraft:block/grass_block",
+        "y": 90
+      },
+      {
+        "model": "minecraft:block/grass_block",
+        "y": 180
+      },
+      {
+        "model": "minecraft:block/grass_block",
+        "y": 270
+      },
+      {
+        "model": "terraincognita:block/flowering_grass_1"
+      },
+      {
+        "model": "terraincognita:block/flowering_grass_1",
+        "y": 90
+      },
+      {
+        "model": "terraincognita:block/flowering_grass_1",
+        "y": 180
+      },
+      {
+        "model": "terraincognita:block/flowering_grass_1",
+        "y": 270
+      },
+      {
+        "model": "terraincognita:block/flowering_grass_2"
+      },
+      {
+        "model": "terraincognita:block/flowering_grass_2",
+        "y": 90
+      },
+      {
+        "model": "terraincognita:block/flowering_grass_2",
+        "y": 180
+      },
+      {
+        "model": "terraincognita:block/flowering_grass_2",
+        "y": 270
+      },
+      {
+        "model": "terraincognita:block/flowering_grass_3"
+      },
+      {
+        "model": "terraincognita:block/flowering_grass_3",
+        "y": 90
+      },
+      {
+        "model": "terraincognita:block/flowering_grass_3",
+        "y": 180
+      },
+      {
+        "model": "terraincognita:block/flowering_grass_3",
+        "y": 270
+      }
+    ],
+    "snowy=true": {
+      "model": "minecraft:block/grass_block_snow"
+    }
+  }
+}

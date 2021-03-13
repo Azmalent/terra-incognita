@@ -1,0 +1,6 @@
+{
+  "parent": "block/coral_wall_fan",
+  "textures": {
+    "fan": "terraincognita:block/caribou_moss"
+  }
+}

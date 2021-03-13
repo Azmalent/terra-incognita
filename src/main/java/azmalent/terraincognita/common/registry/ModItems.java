@@ -1,7 +1,9 @@
 package azmalent.terraincognita.common.registry;
 
+import azmalent.cuneiform.common.event.FuelHandler;
 import azmalent.cuneiform.common.item.ModSpawnEggItem;
 import azmalent.terraincognita.TerraIncognita;
+import azmalent.terraincognita.common.block.woodtypes.ModWoodType;
 import azmalent.terraincognita.common.entity.butterfly.ButterflyEntity;
 import azmalent.terraincognita.common.item.*;
 import net.minecraft.entity.Entity;
@@ -37,6 +39,26 @@ public class ModItems {
 
     private static <T extends Entity> RegistryObject<ModSpawnEggItem<T>> spawnEgg(String entityId, RegistryObject<EntityType<T>> type, int primaryColor, int secondaryColor) {
         return ITEMS.register(entityId + "_spawn_egg", () -> new ModSpawnEggItem<T>(type, primaryColor, secondaryColor));
+    }
+
+    public static void initFuelValues() {
+        for (ModWoodType woodType : ModWoodTypes.VALUES) {
+            FuelHandler.registerFuel(woodType.LOG, 300);
+            FuelHandler.registerFuel(woodType.STRIPPED_LOG, 300);
+            FuelHandler.registerFuel(woodType.WOOD, 300);
+            FuelHandler.registerFuel(woodType.STRIPPED_WOOD, 300);
+            FuelHandler.registerFuel(woodType.PLANKS, 300);
+            FuelHandler.registerFuel(woodType.SLAB, 150);
+            FuelHandler.registerFuel(woodType.STAIRS, 300);
+            FuelHandler.registerFuel(woodType.FENCE, 300);
+            FuelHandler.registerFuel(woodType.FENCE_GATE, 300);
+            FuelHandler.registerFuel(woodType.SIGN, 200);
+            FuelHandler.registerFuel(woodType.DOOR, 200);
+            FuelHandler.registerFuel(woodType.TRAPDOOR, 300);
+        }
+
+        FuelHandler.registerFuel(ModBlocks.REEDS, 100);
+        FuelHandler.registerFuel(ModBlocks.PEAT, 2400);
     }
 
     @OnlyIn(Dist.CLIENT)

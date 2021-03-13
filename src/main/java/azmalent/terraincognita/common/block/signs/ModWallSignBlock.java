@@ -95,6 +95,6 @@ public class ModWallSignBlock extends AbstractModSignBlock {
     @Nonnull
     @Override
     public List<ItemStack> getDrops(@Nonnull BlockState state, @Nonnull LootContext.Builder builder) {
-        return this.woodType.SIGN.getBlock().getDrops(state, builder);
+        return this.woodType.SIGN.getDefaultState().getDrops(builder);
     }
 }

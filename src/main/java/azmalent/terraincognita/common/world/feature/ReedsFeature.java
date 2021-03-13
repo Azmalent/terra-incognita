@@ -40,7 +40,8 @@ public class ReedsFeature extends Feature<NoFeatureConfig> {
                 nextPos.setY(nextPos.getY() + j);
 
                 boolean isWater = reader.getFluidState(nextPos).getFluid() == Fluids.WATER;
-                BlockState reeds = ModBlocks.REEDS.getBlock().getDefaultState().with(ReedsBlock.WATERLOGGED, isWater);
+                BlockState reeds = ModBlocks.REEDS.getBlock().getDefaultState()
+                    .with(ReedsBlock.WATERLOGGED, isWater);
 
                 if ((isWater || reader.isAirBlock(nextPos) || reader.getBlockState(nextPos).getMaterial().isReplaceable()) && reeds.isValidPosition(reader, nextPos)) {
                     reader.setBlockState(nextPos, reeds, 2);

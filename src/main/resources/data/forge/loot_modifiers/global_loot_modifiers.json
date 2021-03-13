@@ -2,6 +2,7 @@
   "replace": false,
   "entries": [
     "terraincognita:fern_fiddlehead",
+    "terraincognita:remove_dark_oak_apples",
     "terraincognita:remove_oak_apples"
   ]
 }

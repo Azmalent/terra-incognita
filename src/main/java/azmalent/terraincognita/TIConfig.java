@@ -13,6 +13,8 @@ import jdk.nashorn.api.scripting.ScriptObjectMirror;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.function.Supplier;
+
 @SuppressWarnings("unused")
 public class TIConfig extends CommonConfigFile {
     protected TIConfig() {
@@ -34,7 +36,7 @@ public class TIConfig extends CommonConfigFile {
         })
         public static final BooleanOption fiddlehead = new BooleanOption(true).withFlag("fiddlehead");
 
-        public static final DoubleOption fiddleheadDropChance = new DoubleOption(0.2).inRange(0, 1);
+        public static final DoubleOption fiddleheadDropChance = new DoubleOption(0.2).inUnitRange();
 
         @Name("Taffy Enabled")
         @Comment("Taffy is a food item that can only be found in dungeons. " +
@@ -43,7 +45,7 @@ public class TIConfig extends CommonConfigFile {
 
         @Name("Taffy Healing Amount")
         @Comment("How many half hearts are healed when eating a taffy.")
-        public static final IntOption taffyHealing = new IntOption(3).inRange(2, 8);
+        public static final IntOption taffyHealing = new IntOption(3).inRange(0, 8);
 
         @Name("Enchanted Golden Carrot Enabled")
         @Comment({"Enchanted golden carrot grants 30 seconds of Regeneration II, 2 minutes of Absorption IV, 5 minutes of Speed II and 10 minutes of Night Vision when eaten.",
@@ -66,14 +68,14 @@ public class TIConfig extends CommonConfigFile {
 
         @Name("Dandelion Puff Ratio")
         @Comment("Chance to replace a vanilla dandelion with a dandelion puff during generation.")
-        public static final DoubleOption dandelionPuffChance = new DoubleOption(0.5).inRange(0, 1);
+        public static final DoubleOption dandelionPuffChance = new DoubleOption(0.5).inUnitRange();
 
         @Name("Field Flowers Enabled")
         @Comment("Adds chicory, yarrow and daffodils to plains. Daffodils are rare, but they can also be found in flower forests.")
         public static final BooleanOption fieldFlowers = new BooleanOption(true).withFlag("field_flowers");
 
 		@Name("Forest Flowers Enabled")
-        @Comment("Adds primroses and foxgloves to forests. These flowers can also be found in flower forests.")
+        @Comment("Adds wild garlic, primroses and foxgloves to forests. These flowers can also be found in flower forests.")
         public static final BooleanOption forestFlowers = new BooleanOption(true).withFlag("forest_flowers");
 
         @Name("Swamp Flowers Enabled")
@@ -122,10 +124,18 @@ public class TIConfig extends CommonConfigFile {
 
         @Name("Arctic Poppy Ratio")
         @Comment("Chance to replace a vanilla poppy with an arctic poppy in tundra biomes.")
-        public static final DoubleOption arcticPoppyChance = new DoubleOption(0.5).inRange(0, 1);
+        public static final DoubleOption arcticPoppyChance = new DoubleOption(0.5).inUnitRange();
+
+        @Name("Caribou Moss Enabled")
+        @Comment("Caribou moss is a grass-like plant found in tundras.")
+        public static final BooleanOption caribouMoss = new BooleanOption(true);
+
+        @Name("Sweet Peas Enabled")
+        @Comment("Sweet peas are flowering vines found in flower forests. They come in seven different colors.")
+        public static final BooleanOption sweetPeas = new BooleanOption(true).withFlag("sweet_peas");
 
         @Name("Wreaths Enabled")
-        @Comment({"Wreath is a cosmetic headdress crafted with 4 small flowers of any kind in any shape.",
+        @Comment({"Wreath is a cosmetic headdress crafted with 4 small flowers of any kind in a 2x2 shape.",
             "The color of the wreath depends on the flowers you used to craft it."})
         public static final BooleanOption wreath = new BooleanOption(true).withFlag("flower_band");
 
@@ -147,16 +157,13 @@ public class TIConfig extends CommonConfigFile {
         @Name("Apple Trees Enabled")
         public static final BooleanOption apple = new BooleanOption(true).withFlag("apple");
 
-        @Comment("This tweak only applies if apple trees are enabled.")
-        public static final BooleanOption disableAppleDropFromOaks = new BooleanOption(true).withFlag("remove_oak_apples");
-
         @Name("Hazel Trees Enabled")
         public static final BooleanOption hazel = new BooleanOption(true).withFlag("hazel");
     }
 
     public static class Biomes extends Category {
-        public static final IntOption snowlessTundraWeight = new IntOption(5).inRange(0, 100);
-        public static final IntOption rockyTundraWeight = new IntOption(2).inRange(0, 100);
+        public static final IntOption snowlessTundraWeight = new IntOption(5).nonNegative();
+        public static final IntOption lushPlainsWeight = new IntOption(1).nonNegative();
     }
 
     public static class Tools extends Category {
@@ -168,15 +175,16 @@ public class TIConfig extends CommonConfigFile {
         public static final BooleanOption caltrops = new BooleanOption(true).withFlag("caltrops");
 
         @Comment("The chance for caltrops to break when dealing damage.")
-        public static final DoubleOption caltropsBreakChance = new DoubleOption(0.125).inRange(0, 1);
+        public static final DoubleOption caltropsBreakChance = new DoubleOption(0.125).inUnitRange();
 
         @Name("Basket Enabled")
         @Comment({"Basket is a portable container crafted from swamp reeds (or sugar cane if reeds are disabled). It can be placed or opened from inventory.",
-            "Baskets have 9 slots and can only store flowers, saplings, mushrooms, eggs and berries by default (governed by #terraincognita:basket_storable item tag)",
+            "Baskets have 9 slots and can only store forage such as flowers, saplings, mushrooms, seeds and eggs.",
             "When you have a basket in your hand, it will automatically collect compatible items."})
         public static final BooleanOption basket = new BooleanOption(true).withFlag("basket");
     }
 
+    @SuppressWarnings("GrazieInspection")
     public static class Misc extends Category {
         @Name("Peat Enabled")
         @Comment({"Peat is a block found underwater in swamps similar to clay.",
@@ -184,20 +192,23 @@ public class TIConfig extends CommonConfigFile {
             "One peat block can also be used as fuel to smelt 12 items."})
         public static final BooleanOption peat = new BooleanOption(true);
 
-        public static final DoubleOption peatGrowthRateBonus = new DoubleOption(0.25).inRange(0, 1);
+        public static final DoubleOption peatGrowthRateBonus = new DoubleOption(0.25).inUnitRange();
 
         @Name("Mossy Gravel Enabled")
         @Comment("Mossy Gravel is found in swamps. It can also be crafted using gravel and vines/hanging moss.")
         public static final BooleanOption mossyGravel = new BooleanOption(true).withFlag("mossy_gravel");
 
-        @Comment("Adds foxes, sheep, berry bushes, birches and shrubs to tundras to make them less lackluster.")
-        public static final BooleanOption betterTundras = new BooleanOption(true);
+        @Comment("This tweak only applies if apple trees are enabled.")
+        public static final BooleanOption disableAppleDropFromOaks = new BooleanOption(true).withFlag("remove_oak_apples");
 
         @Comment("Adds composting recipes for dead bushes, bamboo, poisonous potatoes and chorus fruits/flowers.")
         public static final BooleanOption additionalCompostables = new BooleanOption(true);
 
         @Comment("Allows growing lily pads by using bonemeal in shallow water pools.")
         public static final BooleanOption bonemealLilypadGrowing = new BooleanOption(true);
+
+        @Comment("Adds foxes, sheep, berry bushes, birches and shrubs to tundras to make them less lackluster.")
+        public static final BooleanOption betterTundras = new BooleanOption(true);
 
         @Comment("If enabled, wither roses will generate naturally in Soul Sand Valleys.")
         public static final BooleanOption witherRoseGeneration = new BooleanOption(true);
@@ -208,7 +219,11 @@ public class TIConfig extends CommonConfigFile {
     public static class Integration extends Category {
         public static class Quark extends Category {
             @Comment("Chance to generate a marigold fairy ring in savanna biome chunk. Set to 0 to disable.")
-            public static final DoubleOption savannaFairyRingChance = new DoubleOption(0.0025).inRange(0, 1);
+            public static final DoubleOption savannaFairyRingChance = new DoubleOption(0.0025).inUnitRange();
+        }
+
+        public static class Environmental extends Category {
+            public static final BooleanOption delphiniumsInLushPlains = new BooleanOption(true);
         }
     }
 }

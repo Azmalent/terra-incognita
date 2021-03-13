@@ -1,7 +1,7 @@
 package azmalent.terraincognita.common.event;
 
+import azmalent.cuneiform.common.trade.RandomItemForEmeraldsTrade;
 import azmalent.terraincognita.TIConfig;
-import azmalent.terraincognita.common.block.PottablePlantEntry;
 import azmalent.terraincognita.common.registry.ModBlocks;
 import azmalent.terraincognita.common.registry.ModItems;
 import azmalent.terraincognita.common.registry.ModWoodTypes;
@@ -16,8 +16,8 @@ import java.util.List;
 public class TradeHandler {
     public static void setupWandererTrades(WandererTradesEvent event) {
         List<VillagerTrades.ITrade> generic = event.getGenericTrades();
-        List<VillagerTrades.ITrade> rare = event.getRareTrades();
 
+        //Flowers
         if (TIConfig.Flora.dandelionPuff.get()) {
             sell(generic, ModBlocks.DANDELION_PUFF, 12);
         }
@@ -39,6 +39,11 @@ public class TradeHandler {
         if (TIConfig.Flora.swampFlowers.get()) {
             sell(generic, ModBlocks.FORGET_ME_NOT, 12);
             sell(generic, ModBlocks.GLOBEFLOWER, 12);
+            sell(generic, ModBlocks.WATER_FLAG, 12);
+        }
+
+        if (TIConfig.Flora.cattails.get()) {
+            sell(generic, ModBlocks.CATTAIL, 12);
         }
 
         if (TIConfig.Flora.alpineFlowers.get()) {
@@ -66,22 +71,11 @@ public class TradeHandler {
             sell(generic, ModBlocks.ARCTIC_POPPY, 12);
             sell(generic, ModBlocks.DWARF_FIREWEED, 12);
             sell(generic, ModBlocks.WHITE_DRYAD, 12);
+            sell(generic, ModBlocks.TALL_FIREWEED, 12);
+            sell(generic, ModBlocks.WHITE_RHODODENDRON, 12);
         }
 
-        if (TIConfig.Flora.smallLilypad.get()) {
-            sell(generic, ModBlocks.SMALL_LILY_PAD.makeStack(3), 5);
-        }
-
-        if (TIConfig.Flora.lotus.get()) {
-            sell(generic, ModBlocks.WHITE_LOTUS.makeStack(), 5);
-            sell(generic, ModBlocks.PINK_LOTUS.makeStack(), 5);
-            sell(generic, ModBlocks.YELLOW_LOTUS.makeStack(), 5);
-        }
-
-        if (TIConfig.Flora.reeds.get()) {
-            sell(generic, ModBlocks.REEDS, 8);
-        }
-
+        //Saplings
         if (TIConfig.Trees.apple.get()) {
             sell(generic, 5, ModWoodTypes.APPLE.SAPLING, 8);
         }
@@ -90,12 +84,41 @@ public class TradeHandler {
             sell(generic, 5, ModWoodTypes.HAZEL.SAPLING, 8);
         }
 
-        if (TIConfig.Food.taffy.get()) {
-            sell(rare, 2, new ItemStack(ModItems.TAFFY.get()), 3);
+        //Other stuff
+        if (TIConfig.Flora.smallLilypad.get()) {
+            sell(generic, ModBlocks.SMALL_LILY_PAD.makeStack(3), 5);
+        }
+
+        if (TIConfig.Flora.lotus.get()) {
+            ModBlocks.LOTUSES.forEach(lotus -> sell(generic, lotus.makeStack(), 5));
+        }
+
+        if (TIConfig.Flora.caribouMoss.get()) {
+            sell(generic, ModBlocks.CARIBOU_MOSS, 12);
+        }
+
+        if (TIConfig.Flora.reeds.get()) {
+            sell(generic, ModBlocks.REEDS, 8);
         }
 
         if (TIConfig.Misc.peat.get()) {
             sell(generic, 2, ModBlocks.PEAT.makeStack(4), 3);
+        }
+
+        //Rares
+        List<VillagerTrades.ITrade> rare = event.getRareTrades();
+
+        if (TIConfig.Food.taffy.get()) {
+            sell(rare, 2, new ItemStack(ModItems.TAFFY.get()), 3);
+        }
+
+        if (TIConfig.Flora.sweetPeas.get()) {
+            IItemProvider[] items = ModBlocks.SWEET_PEAS.toArray(new IItemProvider[0]);
+            rare.add(new RandomItemForEmeraldsTrade(3, items, 5, 1));
+        }
+
+        if (TIConfig.Biomes.lushPlainsWeight.get() > 0) {
+            sell(rare, 3, new ItemStack(ModBlocks.FLOWERING_GRASS, 3), 6);
         }
     }
 

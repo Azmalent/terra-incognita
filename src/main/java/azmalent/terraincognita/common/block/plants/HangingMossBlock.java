@@ -72,7 +72,7 @@ public class HangingMossBlock extends HangingPlantBlock implements IGrowable {
             return ground.get(VARIANT) != Variant.BOTTOM;
         }
 
-        return ground.isSolidSide(worldIn, groundPos, Direction.DOWN) && ground.isIn(ModBlockTags.MOSS_PLACEABLE_ON);
+        return ground.isSolidSide(worldIn, groundPos, Direction.DOWN) && ground.isIn(ModBlockTags.HANGING_MOSS_PLANTABLE_ON);
     }
 
     @Nullable
@@ -86,6 +86,7 @@ public class HangingMossBlock extends HangingPlantBlock implements IGrowable {
         return super.getStateForPlacement(context);
     }
 
+    @Nonnull
     @Override
     public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
         if (facing == Direction.DOWN) {

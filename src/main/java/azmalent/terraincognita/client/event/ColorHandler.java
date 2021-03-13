@@ -1,12 +1,16 @@
 package azmalent.terraincognita.client.event;
 
+import azmalent.terraincognita.common.block.woodtypes.ModWoodType;
 import azmalent.terraincognita.common.registry.ModBlocks;
 import azmalent.terraincognita.common.registry.ModItems;
 import azmalent.terraincognita.common.registry.ModWoodTypes;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.item.BlockItem;
+import net.minecraft.util.IItemProvider;
+import net.minecraft.world.GrassColors;
 import net.minecraft.world.biome.BiomeColors;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -46,23 +50,28 @@ public class ColorHandler {
         );
 
         colors.register((state, reader, pos, color) -> HAZEL_LEAVES_COLOR, ModWoodTypes.HAZEL.LEAVES.getBlock());
+
+        colors.register((state, reader, pos, color) -> reader != null && pos != null ? BiomeColors.getGrassColor(reader, pos) : GrassColors.get(0.5D, 1.0D),
+            ModBlocks.FLOWERING_GRASS.getBlock()
+        );
     }
 
     public static void registerItemColorHandlers(ColorHandlerEvent.Item event) {
         ItemColors colors = event.getItemColors();
         BlockColors blockColors = event.getBlockColors();
 
+        registerDefaultItemColors(colors, blockColors,
+            ModBlocks.FLOWERING_GRASS, ModBlocks.SMALL_LILY_PAD, ModWoodTypes.APPLE.LEAVES, ModWoodTypes.APPLE.BLOSSOMING_LEAVES,
+            ModWoodTypes.HAZEL.LEAVES
+        );
+
+        colors.register((stack, index) -> index > 0 ? -1 : ModItems.WREATH.get().getColor(stack), ModItems.WREATH.get());
+    }
+
+    public static void registerDefaultItemColors(ItemColors colors, BlockColors blockColors, IItemProvider... items) {
         colors.register((stack, index) -> {
             BlockState blockstate = ((BlockItem) stack.getItem()).getBlock().getDefaultState();
             return blockColors.getColor(blockstate, null, null, index);
-        }, ModBlocks.SMALL_LILY_PAD);
-
-        colors.register((stack, index) -> index > 0 ? -1 : APPLE_LEAVES_COLOR,
-            ModWoodTypes.APPLE.LEAVES, ModWoodTypes.APPLE.BLOSSOMING_LEAVES
-        );
-
-        colors.register((stack, index) -> index > 0 ? -1 : HAZEL_LEAVES_COLOR, ModWoodTypes.HAZEL.LEAVES);
-
-        colors.register((stack, index) -> index > 0 ? -1 : ModItems.WREATH.get().getColor(stack), ModItems.WREATH.get());
+        }, items );
     }
 }

@@ -2,9 +2,8 @@ package azmalent.terraincognita.common.registry;
 
 import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.TerraIncognita;
-import azmalent.terraincognita.common.world.feature.AlpineFlowerFeature;
-import azmalent.terraincognita.common.world.feature.HangingMossFeature;
-import azmalent.terraincognita.common.world.feature.ReedsFeature;
+import azmalent.terraincognita.common.world.biome.BiomeEntry;
+import azmalent.terraincognita.common.world.feature.*;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -13,8 +12,11 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class ModFeatures {
     public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, TerraIncognita.MODID);
 
-    public static RegistryObject<AlpineFlowerFeature> ALPINE_FLOWERS = FEATURES.register("alpine_flowers", () -> new AlpineFlowerFeature(64));
-    public static RegistryObject<AlpineFlowerFeature> EDELWEISS = FEATURES.register("edelweiss", () -> new AlpineFlowerFeature(TIConfig.Flora.edelweissMinimumY.get()));
-    public static RegistryObject<ReedsFeature> REEDS = FEATURES.register("reeds", ReedsFeature::new);
-    public static RegistryObject<HangingMossFeature> HANGING_MOSS = FEATURES.register("hanging_moss", HangingMossFeature::new);
+    public static final RegistryObject<AlpineFlowerFeature> ALPINE_FLOWERS = FEATURES.register("alpine_flowers", () -> new AlpineFlowerFeature(64));
+    public static final RegistryObject<AlpineFlowerFeature> EDELWEISS      = FEATURES.register("edelweiss", () -> new AlpineFlowerFeature(TIConfig.Flora.edelweissMinimumY.get()));
+    public static final RegistryObject<SweetPeasFeature> SWEET_PEAS        = FEATURES.register("sweet_peas", SweetPeasFeature::new);
+    public static final RegistryObject<ReedsFeature> REEDS                 = FEATURES.register("reeds", ReedsFeature::new);
+    public static final RegistryObject<HangingMossFeature> HANGING_MOSS    = FEATURES.register("hanging_moss", HangingMossFeature::new);
+    public static final RegistryObject<CaribouMossFeature> CARIBOU_MOSS    = FEATURES.register("caribou_moss", CaribouMossFeature::new);
+    public static final RegistryObject<MossyBoulderFeature> MOSSY_BOULDER  = FEATURES.register("mossy_boulder", MossyBoulderFeature::new);
 }

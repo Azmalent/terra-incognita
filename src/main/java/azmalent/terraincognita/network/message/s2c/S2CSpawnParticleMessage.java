@@ -1,7 +1,6 @@
 package azmalent.terraincognita.network.message.s2c;
 
 import azmalent.terraincognita.TerraIncognita;
-import azmalent.terraincognita.client.ClientHandler;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.particles.BasicParticleType;
 import net.minecraft.util.ResourceLocation;

@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
 	{"id": "terraincognita:apple_ladder", "required": false},
-	{"id": "terraincognita:hazel_ladder", "required": false}
+	{"id": "terraincognita:hazel_ladder", "required": false},
+    "#terraincognita:sweet_peas"
   ]
 }

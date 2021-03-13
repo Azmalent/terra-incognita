@@ -1,6 +1,6 @@
 package azmalent.terraincognita.proxy;
 
-import azmalent.terraincognita.client.ClientHandler;
+import azmalent.terraincognita.client.ClientHelper;
 import azmalent.terraincognita.client.gui.ModEditSignScreen;
 import azmalent.terraincognita.common.tile.ModSignTileEntity;
 import net.minecraft.item.DyeColor;
@@ -20,23 +20,23 @@ public class ClientProxy implements IProxy {
 
     @Override
     public World getClientWorld() {
-        return ClientHandler.getWorld();
+        return ClientHelper.getWorld();
     }
 
     public void openSignEditor(BlockPos pos) {
-        TileEntity te = ClientHandler.getWorld().getTileEntity(pos);
+        TileEntity te = ClientHelper.getWorld().getTileEntity(pos);
         if (!(te instanceof ModSignTileEntity)) {
             te = new ModSignTileEntity();
-            te.setWorldAndPos(ClientHandler.getWorld(), pos);
+            te.setWorldAndPos(ClientHelper.getWorld(), pos);
         }
 
         ModSignTileEntity sign = (ModSignTileEntity) te;
-        ClientHandler.MC.displayGuiScreen(new ModEditSignScreen(sign));
+        ClientHelper.MC.displayGuiScreen(new ModEditSignScreen(sign));
     }
 
     @Override
     public void updateSignOnClient(BlockPos pos, ITextComponent[] lines, int color) {
-        World world = ClientHandler.getWorld();
+        World world = ClientHelper.getWorld();
         if (world.isAreaLoaded(pos, 1)) {
             TileEntity te = world.getTileEntity(pos);
             if (te instanceof ModSignTileEntity) {

@@ -66,28 +66,39 @@ public class ModBlocks {
     public static final PottablePlantEntry TALL_FIREWEED      = createTallPlant("tall_fireweed");
     public static final PottablePlantEntry WHITE_RHODODENDRON = createTallPlant("white_rhododendron");
 
+    //Sweet peas
+    public static final List<BlockEntry> SWEET_PEAS;
+    public static final BlockEntry WHITE_SWEET_PEAS   = createSweetPeas("white");
+    public static final BlockEntry PINK_SWEET_PEAS    = createSweetPeas("pink");
+    public static final BlockEntry RED_SWEET_PEAS     = createSweetPeas("red");
+    public static final BlockEntry MAGENTA_SWEET_PEAS = createSweetPeas("magenta");
+    public static final BlockEntry PURPLE_SWEET_PEAS  = createSweetPeas("purple");
+    public static final BlockEntry BLUE_SWEET_PEAS    = createSweetPeas("blue");
+    public static final BlockEntry LIGHT_BLUE_SWEET_PEAS  = createSweetPeas("light_blue");
+
     //Lily pads
     public static final List<BlockEntry> LOTUSES;
-    public static final BlockEntry PINK_LOTUS   = createLotus("pink_lotus");
-    public static final BlockEntry WHITE_LOTUS  = createLotus("white_lotus");
-    public static final BlockEntry YELLOW_LOTUS = createLotus("yellow_lotus");
+    public static final BlockEntry PINK_LOTUS   = createLotus("pink");
+    public static final BlockEntry WHITE_LOTUS  = createLotus("white");
+    public static final BlockEntry YELLOW_LOTUS = createLotus("yellow");
     public static final BlockEntry SMALL_LILY_PAD = HELPER.newBuilder("small_lilypad", SmallLilypadBlock::new).withBlockItem(SmallLilypadItem::new).cutoutRender().build();
+
+    //Fruits
+    public static final BlockEntry APPLE = HELPER.newBuilder("apple", AppleBlock::new).withoutItemForm().cutoutRender().build();
+    public static final BlockEntry HAZELNUT = HELPER.newBuilder("hazelnut", HazelnutBlock::new).withoutItemForm().cutoutRender().build();
 
     //Other vegetation
     public static final PottablePlantEntry REEDS = createPlant("reeds", ReedsBlock::new);
+    public static final BlockEntry CARIBOU_MOSS_WALL = HELPER.newBuilder("caribou_moss_wall", CaribouMossWallBlock::new).withoutItemForm().cutoutRender().build();
+    public static final PottablePlantEntry CARIBOU_MOSS = createPlant("caribou_moss", CaribouMossBlock::new, block -> new WallOrFloorItem(block, CARIBOU_MOSS_WALL.getBlock(), new Item.Properties().group(ItemGroup.DECORATIONS)));
     public static final BlockEntry ROOTS = HELPER.newBuilder("roots", RootsBlock::new).cutoutRender().build();
     public static final BlockEntry HANGING_MOSS = HELPER.newBuilder("hanging_moss", HangingMossBlock::new).cutoutRender().build();
 
-    //Fruits
-    public static final BlockEntry APPLE = HELPER.newBuilder("apple", AppleBlock::new).cutoutRender().withoutItemForm().build();
-    public static final BlockEntry HAZELNUT = HELPER.newBuilder("hazelnut", HazelnutBlock::new).withoutItemForm().cutoutRender().build();
-
-    //Ores and such
+    //Other blocks
     public static final BlockEntry PEAT = HELPER.newBuilder("peat", PeatBlock::new).withItemGroup(ItemGroup.BUILDING_BLOCKS).build();
     public static final BlockEntry TILLED_PEAT = HELPER.newBuilder("tilled_peat", PeatFarmlandBlock::new).build();
-    public static final BlockEntry MOSSY_GRAVEL = HELPER.newBuilder("mossy_gravel", () -> new GravelBlock(Properties.from(Blocks.GRAVEL))).build();
-
-    //Other blocks
+    public static final BlockEntry FLOWERING_GRASS = HELPER.newBuilder("flowering_grass", GrassBlock::new, Properties.from(Blocks.GRASS_BLOCK)).cutoutMippedRender().build();
+    public static final BlockEntry MOSSY_GRAVEL = HELPER.newBuilder("mossy_gravel", GravelBlock::new, Properties.from(Blocks.GRAVEL)).build();
     public static final BlockEntry CALTROPS = HELPER.newBuilder("caltrops", CaltropsBlock::new).withBlockItem(CaltropsItem::new).cutoutRender().build();
     public static final BlockEntry BASKET = HELPER.newBuilder("basket", BasketBlock::new).withBlockItem(BasketItem::new).build();
     public static final BlockEntry WICKER_MAT = HELPER.newBuilder("wicker_mat", WickerMatBlock::new).build();
@@ -103,10 +114,19 @@ public class ModBlocks {
         );
 
         LOTUSES = Lists.newArrayList(WHITE_LOTUS, PINK_LOTUS, YELLOW_LOTUS);
+
+        SWEET_PEAS = Lists.newArrayList(
+            WHITE_SWEET_PEAS, PINK_SWEET_PEAS, RED_SWEET_PEAS, MAGENTA_SWEET_PEAS, PURPLE_SWEET_PEAS,
+            BLUE_SWEET_PEAS, LIGHT_BLUE_SWEET_PEAS
+        );
     }
 
-    private static BlockEntry createLotus(String id) {
-        return HELPER.newBuilder(id, () -> new LilyPadBlock(Properties.from(Blocks.LILY_PAD))).withBlockItem(LilyPadItem::new, new Item.Properties().group(ItemGroup.DECORATIONS)).cutoutRender().build();
+    private static BlockEntry createLotus(String color) {
+        return HELPER.newBuilder(color + "_lotus", LilyPadBlock::new, Properties.from(Blocks.LILY_PAD)).withBlockItem(LilyPadItem::new, ItemGroup.DECORATIONS).cutoutRender().build();
+    }
+
+    private static BlockEntry createSweetPeas(String color) {
+        return HELPER.newBuilder(color + "_sweet_peas", SweetPeasBlock::new).cutoutRender().build();
     }
 
     public static void initToolInteractions() {
@@ -117,12 +137,20 @@ public class ModBlocks {
         }
 
         HoeItem.HOE_LOOKUP = Maps.newHashMap(HoeItem.HOE_LOOKUP);
-        HoeItem.HOE_LOOKUP.put(ModBlocks.PEAT.getBlock(), ModBlocks.TILLED_PEAT.getBlock().getDefaultState());
+        HoeItem.HOE_LOOKUP.put(PEAT.getBlock(), TILLED_PEAT.getBlock().getDefaultState());
+        HoeItem.HOE_LOOKUP.put(FLOWERING_GRASS.getBlock(), Blocks.FARMLAND.getDefaultState());
+
+        ShovelItem.SHOVEL_LOOKUP = Maps.newHashMap(ShovelItem.SHOVEL_LOOKUP);
+        ShovelItem.SHOVEL_LOOKUP.put(FLOWERING_GRASS.getBlock(), Blocks.GRASS_PATH.getDefaultState());
     }
 
     public static void initFlammability() {
         for (PottablePlantEntry flower : FLOWERS) {
             DataUtil.registerFlammable(flower.getBlock(), 60, 100);
+        }
+
+        for (BlockEntry sweetPea : SWEET_PEAS) {
+            DataUtil.registerFlammable(sweetPea.getBlock(), 15, 100);
         }
 
         for (ModWoodType woodType : ModWoodTypes.VALUES) {
