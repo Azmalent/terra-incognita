@@ -76,19 +76,21 @@ public class ButterflyEntity extends AbstractButterflyEntity {
         dataManager.register(BUTTERFLY_TYPE, 0);
         dataManager.register(TIRED, false);
         dataManager.register(LANDED, false);
+        dataManager.register(SIZE_MODIFIER, 0.7f);
     }
 
     @Override
     public void writeAdditional(CompoundNBT tag) {
         super.writeAdditional(tag);
         tag.putString("Type", getButterflyType().getName());
-        tag.putBoolean("IsTired", dataManager.get(TIRED));
-        tag.putBoolean("IsLanded", dataManager.get(LANDED));
+        tag.putBoolean("IsTired", isTired());
+        tag.putBoolean("IsLanded", isLanded());
     }
 
     @Override
     public void readAdditional(CompoundNBT tag) {
         super.readAdditional(tag);
+
         setButterflyType(Type.getTypeByName(tag.getString("Type")));
         setTired(tag.getBoolean("IsTired"));
         setLanded(tag.getBoolean("IsLanded"));
@@ -116,6 +118,11 @@ public class ButterflyEntity extends AbstractButterflyEntity {
 
     private void setButterflyType(ButterflyEntity.Type type) {
         dataManager.set(BUTTERFLY_TYPE, type.getIndex());
+    }
+
+    @Override
+    protected float getRandomSizeModifier() {
+        return getButterflyType().getRandomSize(rand);
     }
 
     @Override
@@ -206,9 +213,9 @@ public class ButterflyEntity extends AbstractButterflyEntity {
     }
 
     public enum Type {
-        PEACOCK(0, "peacock"),
-        BRIMSTONE(1, "brimstone"),
-        CABBAGE_WHITE(2, "cabbage_white");
+        PEACOCK(0, "peacock", 0.6f, 0.8f),
+        BRIMSTONE(1, "brimstone", 0.5f, 0.7f),
+        CABBAGE_WHITE(2, "cabbage_white", 0.6f, 0.8f);
 
         private static final Type[] VALUES = Arrays.stream(values()).sorted(Comparator.comparingInt(Type::getIndex)).toArray(Type[]::new);
         private static final Map<String, Type> TYPES_BY_NAME = Arrays.stream(values()).collect(Collectors.toMap(Type::getName, name -> name));
@@ -216,11 +223,17 @@ public class ButterflyEntity extends AbstractButterflyEntity {
         private final int index;
         private final String name;
         private final ResourceLocation texture;
+        private final float minSize;
+        private final float maxSize;
 
-        Type(int index, String name) {
+        Type(int index, String name, float minSize, float maxSize) {
+            assert maxSize >= minSize;
+
             this.index = index;
             this.name = name;
             this.texture = TerraIncognita.prefix("textures/entity/butterfly/" + name + ".png");
+            this.minSize = minSize;
+            this.maxSize = maxSize;
         }
 
         public String getName() {
@@ -233,6 +246,10 @@ public class ButterflyEntity extends AbstractButterflyEntity {
 
         public ResourceLocation getTexture() {
             return texture;
+        }
+
+        public float getRandomSize(Random random) {
+            return MathHelper.lerp(random.nextFloat(), minSize, maxSize);
         }
 
         public static Type getTypeByName(String nameIn) {

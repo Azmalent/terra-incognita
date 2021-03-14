@@ -2,12 +2,11 @@ package azmalent.terraincognita.common.world.biome;
 
 import azmalent.cuneiform.lib.util.BiomeUtil;
 import azmalent.terraincognita.util.NoiseWeightedList;
+import azmalent.terraincognita.util.TriFunction;
 import net.minecraft.util.RegistryKey;
-import net.minecraft.util.WeightedList;
-import net.minecraft.world.biome.*;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.INoiseRandom;
 import net.minecraftforge.common.BiomeManager;
-import vazkii.quark.base.util.TriFunction;
 
 import java.util.function.Supplier;
 
@@ -27,11 +26,11 @@ public abstract class NormalBiomeEntry extends BiomeEntry {
         }
     }
 
-    public SubBiomeEntry createSubBiome(String id, TriFunction<SubBiomeEntry, String, NormalBiomeEntry, Integer> constructor) {
+    public SubBiomeEntry createSubBiome(String id, TriFunction<String, NormalBiomeEntry, Integer, SubBiomeEntry> constructor) {
         return createSubBiome(id, constructor, 1);
     }
 
-    public SubBiomeEntry createSubBiome(String id, TriFunction<SubBiomeEntry, String, NormalBiomeEntry, Integer> constructor, int weight) {
+    public SubBiomeEntry createSubBiome(String id, TriFunction<String, NormalBiomeEntry, Integer, SubBiomeEntry> constructor, int weight) {
         return constructor.apply(id, this, weight);
     }
 

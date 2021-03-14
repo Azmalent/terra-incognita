@@ -3,6 +3,7 @@ package azmalent.terraincognita.common.world.biome.normal;
 import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.common.ModTweaks;
 import azmalent.terraincognita.common.registry.ModBiomes;
+import azmalent.terraincognita.common.world.ModDefaultFeatures;
 import azmalent.terraincognita.common.world.biome.NormalBiomeEntry;
 import com.google.common.collect.Lists;
 import net.minecraft.world.biome.*;
@@ -95,7 +96,7 @@ public class TundraBiome extends NormalBiomeEntry {
         DefaultBiomeFeatures.withLavaAndWaterSprings(builder);
 
         if (TIConfig.Misc.betterTundras.get()) {
-            ModTweaks.addExtraTundraFeatures(builder);
+            ModDefaultFeatures.withExtraTundraFeatures(builder);
         }
     }
 

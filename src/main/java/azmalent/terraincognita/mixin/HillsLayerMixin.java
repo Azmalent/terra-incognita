@@ -1,6 +1,5 @@
 package azmalent.terraincognita.mixin;
 
-import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.registry.ModBiomes;
 import azmalent.terraincognita.common.world.biome.BiomeEntry;
 import azmalent.terraincognita.common.world.biome.NormalBiomeEntry;

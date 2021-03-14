@@ -13,6 +13,6 @@ public class AppleTree extends Tree {
     @Nullable
     @Override
     protected ConfiguredFeature<BaseTreeFeatureConfig, ?> getTreeFeature(@Nonnull Random randomIn, boolean largeHive) {
-        return ModTrees.APPLE;
+        return ModTrees.GROWN_APPLE;
     }
 }

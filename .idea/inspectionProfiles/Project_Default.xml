@@ -1,6 +1,7 @@
 <component name="InspectionProjectProfileManager">
   <profile version="1.0">
     <option name="myName" value="Project Default" />
+    <inspection_tool class="BooleanMethodIsAlwaysInverted" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="FieldDeclarationSideOnly" enabled="true" level="ERROR" enabled_by_default="true" />
     <inspection_tool class="LocalVariableDeclarationSideOnly" enabled="true" level="ERROR" enabled_by_default="true" />
     <inspection_tool class="MethodCallSideOnly" enabled="true" level="ERROR" enabled_by_default="true" />

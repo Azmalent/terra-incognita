@@ -13,6 +13,6 @@ public class HazelTree extends Tree {
     @Nullable
     @Override
     protected ConfiguredFeature<BaseTreeFeatureConfig, ?> getTreeFeature(@Nonnull Random randomIn, boolean largeHive) {
-        return ModTrees.HAZEL;
+        return ModTrees.GROWN_HAZEL;
     }
 }

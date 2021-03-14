@@ -6,9 +6,7 @@ import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.ModTweaks;
 import azmalent.terraincognita.common.registry.ModBiomes;
 import azmalent.terraincognita.common.registry.ModEntities;
-import azmalent.terraincognita.common.world.ModMiscFeatures;
-import azmalent.terraincognita.common.world.ModTrees;
-import azmalent.terraincognita.common.world.ModVegetation;
+import azmalent.terraincognita.common.world.ModDefaultFeatures;
 import azmalent.terraincognita.common.world.biome.BiomeEntry;
 import azmalent.terraincognita.util.WorldGenUtil;
 import net.minecraft.entity.EntityClassification;
@@ -16,15 +14,13 @@ import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
+import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import net.minecraftforge.common.world.MobSpawnInfoBuilder;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import static azmalent.cuneiform.lib.util.BiomeUtil.hasAnyType;
-import static azmalent.cuneiform.lib.util.BiomeUtil.hasNoneOfTypes;
 import static net.minecraftforge.common.BiomeDictionary.Type.*;
-import static net.minecraftforge.common.BiomeDictionary.hasType;
 
 public class BiomeHandler {
     @SuppressWarnings("ConstantConditions")
@@ -37,11 +33,11 @@ public class BiomeHandler {
 
         RegistryKey<Biome> biomeKey = BiomeUtil.getBiomeKey(event.getName());
         Biome biome = ForgeRegistries.BIOMES.getValue(event.getName());
-        if (biome == null || hasAnyType(biomeKey, END, NETHER, VOID, OCEAN, BEACH, DEAD)) return;
+        if (biome == null || BiomeUtil.hasAnyType(biomeKey, END, NETHER, VOID, OCEAN, BEACH, DEAD)) return;
 
         //Spawns
         MobSpawnInfoBuilder spawns = event.getSpawns();
-        if (hasAnyType(biomeKey, PLAINS, FOREST) && !hasAnyType(biomeKey, COLD, DENSE)) {
+        if (BiomeUtil.hasAnyType(biomeKey, PLAINS, FOREST) && BiomeUtil.hasNoneOfTypes(biomeKey, COLD, DENSE)) {
             WorldGenUtil.addSpawner(spawns, ModEntities.BUTTERFLY, EntityClassification.AMBIENT, TIConfig.Fauna.butterflySpawnWeight.get(), 4, 8);
         }
 
@@ -50,47 +46,62 @@ public class BiomeHandler {
         BiomeGenerationSettingsBuilder builder = event.getGeneration();
 
         //Roots and hanging moss
-        if (hasNoneOfTypes(biomeKey, SANDY, MESA, WASTELAND)) {
-            WorldGenUtil.addVegetation(builder, ModVegetation.ROOTS);
-            if (hasNoneOfTypes(biomeKey, COLD, SAVANNA, DRY)) {
-                WorldGenUtil.addVegetation(builder, ModVegetation.HANGING_MOSS);
+        if (BiomeUtil.hasNoneOfTypes(biomeKey, SANDY, MESA, WASTELAND)) {
+            ModDefaultFeatures.withHangingRoots(builder);
+            if (BiomeUtil.hasNoneOfTypes(biomeKey, COLD, SAVANNA, DRY)) {
+                ModDefaultFeatures.withHangingMoss(builder);
             }
         }
 
         //Sweet peas
         if (biomeKey == Biomes.FLOWER_FOREST) {
-            WorldGenUtil.addVegetation(builder, ModVegetation.SWEET_PEAS);
+            ModDefaultFeatures.withSweetPeas(builder);
             return;
         }
 
         switch (WorldGenUtil.getProperBiomeCategory(biome)) {
             case PLAINS:
-                WorldGenUtil.addVegetation(builder, ModTrees.NATURAL_APPLE);
+                ModDefaultFeatures.withAppleTrees(builder);
                 break;
+
             case FOREST:
-                WorldGenUtil.addVegetation(builder, ModVegetation.FOREST_FLOWERS, ModTrees.NATURAL_APPLE, ModTrees.NATURAL_HAZEL);
+                ModDefaultFeatures.withForestFlowers(builder);
+                ModDefaultFeatures.withAppleTrees(builder);
+                ModDefaultFeatures.withHazelTrees(builder);
                 break;
+
             case SWAMP:
-                WorldGenUtil.addVegetation(builder, ModVegetation.SMALL_LILYPADS, ModVegetation.REEDS);
-                WorldGenUtil.addOre(builder, ModMiscFeatures.PEAT_DISK, ModMiscFeatures.MOSSY_GRAVEL_DISK);
-                if (!hasType(biomeKey, COLD)) WorldGenUtil.addVegetation(builder, ModVegetation.SWAMP_FLOWERS);
+                ModDefaultFeatures.withSmallLilyPads(builder);
+                ModDefaultFeatures.withSwampReeds(builder);
+                ModDefaultFeatures.withPeatAndMossyGravel(builder);
+                if (!BiomeDictionary.hasType(biomeKey, COLD)) {
+                    ModDefaultFeatures.withSwampFlowers(builder);
+                }
                 break;
+
             case SAVANNA:
-                WorldGenUtil.addVegetation(builder, ModVegetation.SAVANNA_FLOWERS);
+                ModDefaultFeatures.withSavannaFlowers(builder);
                 break;
+
             case DESERT:
-                WorldGenUtil.addVegetation(builder, ModVegetation.DESERT_MARIGOLDS);
+                ModDefaultFeatures.withDesertMarigolds(builder);
                 break;
+
             case EXTREME_HILLS:
-                if (!hasType(biomeKey, HOT)) WorldGenUtil.addVegetation(builder, ModVegetation.ALPINE_FLOWERS);
+                if (!BiomeDictionary.hasType(biomeKey, HOT)) {
+                    ModDefaultFeatures.withAlpineFlowers(builder);
+                }
                 break;
+
             case JUNGLE:
-                WorldGenUtil.addVegetation(builder, ModVegetation.JUNGLE_FLOWERS, ModVegetation.LOTUS);
+                ModDefaultFeatures.withJungleFlowers(builder);
+                ModDefaultFeatures.withLotuses(builder);
                 break;
+
             case ICY:
-                WorldGenUtil.addVegetation(builder, ModVegetation.CARIBOU_MOSS);
+                ModDefaultFeatures.withCaribouMoss(builder);
             case TAIGA:
-                WorldGenUtil.addVegetation(builder, ModVegetation.ARCTIC_FLOWERS);
+                ModDefaultFeatures.withArcticFlowers(builder);
                 break;
         }
     }
@@ -109,13 +120,14 @@ public class BiomeHandler {
 
     public static void applyVanillaBiomeTweaks(BiomeLoadingEvent event) {
         RegistryKey<Biome> biome = BiomeUtil.getBiomeKey(event.getName());
+        BiomeGenerationSettingsBuilder builder = event.getGeneration();
 
         if (TIConfig.Misc.betterTundras.get() && (biome == Biomes.SNOWY_TUNDRA || biome == Biomes.ICE_SPIKES)) {
-            ModTweaks.addExtraTundraFeatures(event.getGeneration());
+            ModDefaultFeatures.withExtraTundraFeatures(builder);
             ModTweaks.addExtraTundraSpawns(event.getSpawns());
         }
         else if (biome == Biomes.SOUL_SAND_VALLEY) {
-            WorldGenUtil.addVegetation(event.getGeneration(), ModVegetation.WITHER_ROSE);
+            ModDefaultFeatures.withWitherRoses(builder);
         }
     }
 }

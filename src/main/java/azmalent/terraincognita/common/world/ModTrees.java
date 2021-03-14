@@ -54,11 +54,11 @@ public class ModTrees {
     public static final ConfiguredFeature<BaseTreeFeatureConfig, ?> LUSH_PLAINS_OAK = register("lush_plains_oak", Features.FANCY_OAK_BEES_005.withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(3, 0.1F, 1))).chance(12));
     public static final ConfiguredFeature<BaseTreeFeatureConfig, ?> MUSKEG_TREES = register("muskeg_trees", Feature.RANDOM_SELECTOR.withConfiguration(Configs.MUSKEG_TREES).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(10, 0.1F, 1))).chance(2));
 
-    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> APPLE;
+    public static ConfiguredFeature<BaseTreeFeatureConfig, ?> GROWN_APPLE;
     public static ConfiguredFeature<BaseTreeFeatureConfig, ?> NATURAL_APPLE;
     public static ConfiguredFeature<BaseTreeFeatureConfig, ?> LUSH_PLAINS_APPLE;
 
-	public static ConfiguredFeature<BaseTreeFeatureConfig, ?> HAZEL;
+	public static ConfiguredFeature<BaseTreeFeatureConfig, ?> GROWN_HAZEL;
 	public static ConfiguredFeature<BaseTreeFeatureConfig, ?> NATURAL_HAZEL;
 
     @SuppressWarnings("unchecked")
@@ -70,12 +70,12 @@ public class ModTrees {
         SimpleBlockStateProvider appleLogProvider = new SimpleBlockStateProvider(ModWoodTypes.APPLE.LOG.getDefaultState());
         WeightedBlockStateProvider appleLeavesProvider = new WeightedBlockStateProvider().addWeightedBlockstate(ModWoodTypes.APPLE.LEAVES.getDefaultState(), 1).addWeightedBlockstate(ModWoodTypes.APPLE.BLOSSOMING_LEAVES.getDefaultState(), 1);
         BaseTreeFeatureConfig.Builder appleBuilder = (new BaseTreeFeatureConfig.Builder(appleLogProvider, appleLeavesProvider, new BlobFoliagePlacer(FeatureSpread.func_242252_a(2), FeatureSpread.func_242252_a(0), 3), new StraightTrunkPlacer(5, 2, 0), new TwoLayerFeature(1, 0, 1))).setIgnoreVines();
-        APPLE = register("apple_tree", Feature.TREE.withConfiguration(appleBuilder.build()));
+        GROWN_APPLE = register("apple_tree", Feature.TREE.withConfiguration(appleBuilder.build()));
 
         SimpleBlockStateProvider hazelLogProvider = new SimpleBlockStateProvider(ModWoodTypes.HAZEL.LOG.getDefaultState());
         SimpleBlockStateProvider hazelLeavesProvider = new SimpleBlockStateProvider(ModWoodTypes.HAZEL.LEAVES.getDefaultState());
         BaseTreeFeatureConfig.Builder hazelBuilder = (new BaseTreeFeatureConfig.Builder(hazelLogProvider, hazelLeavesProvider, new FancyFoliagePlacer(FeatureSpread.func_242252_a(2), FeatureSpread.func_242252_a(4), 4), new FancyTrunkPlacer(5, 8, 0), new TwoLayerFeature(0, 0, 0, OptionalInt.of(4)))).setIgnoreVines().func_236702_a_(Heightmap.Type.MOTION_BLOCKING);
-        HAZEL = register("hazel_tree", Feature.TREE.withConfiguration(hazelBuilder.build()));
+        GROWN_HAZEL = register("hazel_tree", Feature.TREE.withConfiguration(hazelBuilder.build()));
 
         if (TIConfig.Trees.apple.get()) {
             BaseTreeFeatureConfig config = appleBuilder.setDecorators(Lists.newArrayList(AppleTreeDecorator.INSTANCE)).build();

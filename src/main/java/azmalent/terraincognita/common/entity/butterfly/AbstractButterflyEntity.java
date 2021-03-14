@@ -1,5 +1,6 @@
 package azmalent.terraincognita.common.entity.butterfly;
 
+import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.ModDamageSources;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
@@ -9,6 +10,9 @@ import net.minecraft.entity.ai.controller.FlyingMovementController;
 import net.minecraft.entity.passive.IFlyingAnimal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.pathfinding.FlyingPathNavigator;
 import net.minecraft.pathfinding.PathNavigator;
 import net.minecraft.pathfinding.PathNodeType;
@@ -26,6 +30,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public abstract class AbstractButterflyEntity extends CreatureEntity implements IFlyingAnimal {
+    public static final DataParameter<Float> SIZE_MODIFIER = EntityDataManager.createKey(ButterflyEntity.class, DataSerializers.FLOAT);
+
     protected int flyingTicks = 0;
     protected int underWaterTicks = 0;
 
@@ -43,6 +49,24 @@ public abstract class AbstractButterflyEntity extends CreatureEntity implements 
         this.setPathPriority(PathNodeType.WATER_BORDER, -1.0F);
         this.setPathPriority(PathNodeType.COCOA, -1.0F);
         this.setPathPriority(PathNodeType.FENCE, -1.0F);
+    }
+
+    @Override
+    public void writeAdditional(CompoundNBT compound) {
+        super.writeAdditional(compound);
+
+        compound.putFloat("SizeModifier", getSizeModifier());
+    }
+
+    @Override
+    public void readAdditional(CompoundNBT compound) {
+        super.readAdditional(compound);
+
+        if (compound.contains("SizeModifier")) {
+            setSizeModifier(compound.getFloat("SizeModifier"));
+        } else {
+            setSizeModifier(getRandomSizeModifier());
+        }
     }
 
     public static AttributeModifierMap.MutableAttribute bakeAttributes() {
@@ -67,6 +91,16 @@ public abstract class AbstractButterflyEntity extends CreatureEntity implements 
     @Override
     public float getBlockPathWeight(BlockPos pos, IWorldReader worldIn) {
         return worldIn.isAirBlock(pos) ? 10.0F : 0.0F;
+    }
+
+    protected abstract float getRandomSizeModifier();
+
+    public float getSizeModifier() {
+        return dataManager.get(SIZE_MODIFIER);
+    }
+
+    protected void setSizeModifier(float sizeModifier) {
+        dataManager.set(SIZE_MODIFIER, sizeModifier);
     }
 
     public boolean isTired() {
@@ -97,6 +131,7 @@ public abstract class AbstractButterflyEntity extends CreatureEntity implements 
     @Override
     public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
         setHomePosAndDistance(this.getPosition(), 22);
+        setSizeModifier(getRandomSizeModifier());
 
         return super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }

@@ -29,7 +29,8 @@ public class ButterflyRenderer<T extends AbstractButterflyEntity> extends MobRen
 
     @Override
     protected void preRenderCallback(T butterfly, MatrixStack matrixStack, float partialTickTime) {
-        matrixStack.scale(0.7f, 0.7f, 0.7f);
+        float scale = butterfly.getSizeModifier();
+        matrixStack.scale(scale, scale, scale);
     }
 
     @Override

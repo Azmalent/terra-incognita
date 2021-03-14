@@ -49,11 +49,4 @@ public class ModTweaks {
         spawns.withSpawner(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.SHEEP, 2, 2, 3));
         spawns.withSpawner(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.FOX, 1, 1, 1));
     }
-
-    public static void addExtraTundraFeatures(BiomeGenerationSettings.Builder builder) {
-        DefaultBiomeFeatures.withSparseBerries(builder);
-
-        builder.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModTrees.SPRUCE_SHRUB);
-        builder.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModTrees.TUNDRA_BIRCH);
-    }
 }
