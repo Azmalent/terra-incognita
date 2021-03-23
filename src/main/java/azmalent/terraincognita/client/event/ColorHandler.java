@@ -1,11 +1,9 @@
 package azmalent.terraincognita.client.event;
 
-import azmalent.terraincognita.common.block.woodtypes.ModWoodType;
 import azmalent.terraincognita.common.registry.ModBlocks;
 import azmalent.terraincognita.common.registry.ModItems;
 import azmalent.terraincognita.common.registry.ModWoodTypes;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.item.BlockItem;
@@ -16,7 +14,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 
-@SuppressWarnings("ConstantConditions")
 @OnlyIn(Dist.CLIENT)
 public class ColorHandler {
     public static final int LILYPAD_WORLD_COLOR = 2129968;

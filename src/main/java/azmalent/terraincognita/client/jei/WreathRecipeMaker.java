@@ -17,8 +17,8 @@ import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
 public class WreathRecipeMaker {
-    private static ResourceLocation recipeId = TerraIncognita.prefix("wreath");
-    private static Ingredient flowerIngredient = Ingredient.fromTag(ItemTags.SMALL_FLOWERS);
+    private static final ResourceLocation recipeId = TerraIncognita.prefix("wreath");
+    private static final Ingredient flowerIngredient = Ingredient.fromTag(ItemTags.SMALL_FLOWERS);
 
     public static List<IShapedRecipe<?>> getRecipes() {
         NonNullList<Ingredient> inputs = NonNullList.from(Ingredient.EMPTY,

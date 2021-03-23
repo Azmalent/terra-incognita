@@ -20,7 +20,7 @@ public class AppleBlock extends AbstractFruitBlock {
     private static final VoxelShape BIG_SHAPE = makeCuboidShape(5, 7, 5, 11, 13, 11);
 
     public AppleBlock() {
-        super(Block.Properties.create(Material.MISCELLANEOUS, MaterialColor.RED).hardnessAndResistance(0.2F).sound(SoundType.WOOD), () -> Items.APPLE);
+        super(Block.Properties.create(Material.MISCELLANEOUS, MaterialColor.RED).hardnessAndResistance(0.2F).sound(SoundType.WOOD), () -> Items.APPLE, 25);
     }
 
     @Nonnull

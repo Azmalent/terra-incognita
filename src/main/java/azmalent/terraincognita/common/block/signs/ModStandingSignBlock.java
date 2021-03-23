@@ -25,8 +25,8 @@ import javax.annotation.Nonnull;
 public class ModStandingSignBlock extends AbstractModSignBlock {
     public static final IntegerProperty ROTATION = BlockStateProperties.ROTATION_0_15;
 
-    public ModStandingSignBlock(MaterialColor color, ModWoodType woodType) {
-        super(color, woodType);
+    public ModStandingSignBlock(ModWoodType woodType) {
+        super(woodType);
         this.setDefaultState(this.stateContainer.getBaseState().with(ROTATION, 0).with(WATERLOGGED, Boolean.FALSE));
     }
 

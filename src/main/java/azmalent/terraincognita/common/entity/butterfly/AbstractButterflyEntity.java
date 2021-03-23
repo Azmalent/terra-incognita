@@ -1,6 +1,5 @@
 package azmalent.terraincognita.common.entity.butterfly;
 
-import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.ModDamageSources;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;

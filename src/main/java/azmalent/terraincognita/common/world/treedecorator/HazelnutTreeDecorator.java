@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
-@SuppressWarnings("ConstantConditions")
 public class HazelnutTreeDecorator extends TreeDecorator {
     public static final HazelnutTreeDecorator INSTANCE = new HazelnutTreeDecorator();
     public static final Codec<HazelnutTreeDecorator> CODEC = Codec.unit(() -> INSTANCE);

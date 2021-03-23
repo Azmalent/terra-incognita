@@ -1,17 +1,12 @@
 package azmalent.terraincognita.common.world.feature;
 
-import azmalent.terraincognita.TerraIncognita;
-import azmalent.terraincognita.common.block.plants.SweetPeasBlock;
 import azmalent.terraincognita.common.registry.ModBlocks;
-import com.mojang.serialization.Codec;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.VineBlock;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
-import net.minecraft.world.World;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
@@ -47,7 +42,7 @@ public class SweetPeasFeature extends Feature<NoFeatureConfig> {
 
     private boolean tryPlaceVine(ISeedReader reader, BlockState defaultState, Direction direction, BlockPos.Mutable pos, Random rand) {
         boolean success = false;
-        if (reader.getBlockState(pos.offset(direction)).isIn(BlockTags.LEAVES)) {
+        if (reader.getBlockState(pos.offset(direction)).isIn(BlockTags.LEAVES) && hasEnoughVerticalSpace(reader, pos)) {
             int length = 3 + rand.nextInt(8);
             BlockState state = defaultState.with(VineBlock.getPropertyFor(direction), true);
 
@@ -58,10 +53,22 @@ public class SweetPeasFeature extends Feature<NoFeatureConfig> {
                 if (reader.isAirBlock(pos) && state.isValidPosition(reader, pos)) {
                     reader.setBlockState(pos, state, 2);
                     success = true;
+                } else {
+                    break;
                 }
             }
         }
 
         return success;
+    }
+
+    private boolean hasEnoughVerticalSpace(ISeedReader reader, BlockPos pos) {
+        for (int i = 0; i < 3; i++) {
+            if (!reader.isAirBlock(pos.down(i))) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

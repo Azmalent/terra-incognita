@@ -2,15 +2,11 @@ package azmalent.terraincognita.common;
 
 import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.common.registry.ModBlocks;
-import azmalent.terraincognita.common.world.ModTrees;
 import com.google.common.collect.Lists;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
-import net.minecraft.world.biome.BiomeGenerationSettings;
-import net.minecraft.world.biome.DefaultBiomeFeatures;
 import net.minecraft.world.biome.MobSpawnInfo;
-import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.blockstateprovider.ForestFlowerBlockStateProvider;
 import net.minecraft.world.gen.blockstateprovider.PlainFlowerBlockStateProvider;
 
@@ -46,7 +42,9 @@ public class ModTweaks {
     }
 
     public static void addExtraTundraSpawns(MobSpawnInfo.Builder spawns) {
-        spawns.withSpawner(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.SHEEP, 2, 2, 3));
-        spawns.withSpawner(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.FOX, 1, 1, 1));
+        if (TIConfig.Misc.betterTundras.get()) {
+            spawns.withSpawner(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.SHEEP, 2, 2, 3));
+            spawns.withSpawner(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.FOX, 1, 1, 1));
+        }
     }
 }

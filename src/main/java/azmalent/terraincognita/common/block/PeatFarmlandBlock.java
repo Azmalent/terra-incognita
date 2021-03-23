@@ -20,7 +20,6 @@ import net.minecraftforge.common.PlantType;
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-@SuppressWarnings("ConstantConditions")
 public class PeatFarmlandBlock extends FarmlandBlock {
     public PeatFarmlandBlock() {
         super(Properties.from(Blocks.FARMLAND));

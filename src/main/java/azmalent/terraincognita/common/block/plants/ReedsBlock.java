@@ -62,7 +62,6 @@ public class ReedsBlock extends SugarCaneBlock implements IWaterLoggable {
         return super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
     }
 
-    @SuppressWarnings("ConstantConditions")
     @Override
     public boolean isValidPosition(BlockState state, IWorldReader world, BlockPos pos) {
         BlockPos up = pos.up();

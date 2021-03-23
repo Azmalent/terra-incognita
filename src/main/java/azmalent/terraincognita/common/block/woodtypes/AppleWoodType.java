@@ -1,7 +1,6 @@
 package azmalent.terraincognita.common.block.woodtypes;
 
 import azmalent.cuneiform.lib.registry.BlockEntry;
-import azmalent.cuneiform.lib.registry.BlockRenderType;
 import azmalent.cuneiform.lib.util.DataUtil;
 import azmalent.terraincognita.common.block.trees.FruitLeavesBlock;
 import azmalent.terraincognita.common.registry.ModBlocks;
@@ -9,7 +8,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.block.trees.Tree;
 
-@SuppressWarnings("ConstantConditions")
 public final class AppleWoodType extends ModWoodType {
     public final BlockEntry BLOSSOMING_LEAVES;
 

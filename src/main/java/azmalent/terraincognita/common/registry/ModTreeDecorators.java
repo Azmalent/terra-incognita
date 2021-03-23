@@ -18,6 +18,6 @@ public class ModTreeDecorators {
     public static final RegistryObject<TreeDecoratorType<HazelnutTreeDecorator>> HAZELNUTS = register("hazelnuts", HazelnutTreeDecorator.CODEC);
 
     private static <P extends TreeDecorator> RegistryObject<TreeDecoratorType<P>> register(String id, Codec<P> codec) {
-        return TREE_DECORATORS.register(id, () -> TreeDecoratorTypeAccessor.constructor(codec));
+        return TREE_DECORATORS.register(id, () -> TreeDecoratorTypeAccessor.ti_constructor(codec));
     }
 }

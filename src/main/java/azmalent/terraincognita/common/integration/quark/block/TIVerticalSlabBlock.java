@@ -30,6 +30,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 //Copied from Quark VerticalSlabBlock with minor edits
+@SuppressWarnings("deprecation")
 public class TIVerticalSlabBlock extends Block implements IWaterLoggable {
     public static final EnumProperty<VerticalSlabType> TYPE = EnumProperty.create("type", VerticalSlabType.class);
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;

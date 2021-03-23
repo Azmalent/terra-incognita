@@ -26,7 +26,7 @@ public class HangingMossBlock extends HangingPlantBlock implements IGrowable {
     public enum Variant implements IStringSerializable {
         SINGLE("single"), TOP("top"), BOTTOM("bottom");
 
-        private String name;
+        private final String name;
 
         Variant(String name) {
             this.name = name;
@@ -133,9 +133,9 @@ public class HangingMossBlock extends HangingPlantBlock implements IGrowable {
         for (int i = 0; i < numAttempts; i++) {
             BlockState moss = this.getDefaultState();
 
-            int x = random.nextInt(4) - 2;
-            int y = random.nextInt(2) - 1;
-            int z = random.nextInt(4) - 2;
+            int x = random.nextInt(4) - random.nextInt(4);
+            int y = random.nextInt(2) - random.nextInt(2);
+            int z = random.nextInt(4) - random.nextInt(4);
             if (x == 0 && z == 0) continue;
 
             BlockPos nextPos = pos.add(x, y, z);

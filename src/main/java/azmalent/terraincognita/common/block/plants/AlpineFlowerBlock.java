@@ -1,17 +1,13 @@
 package azmalent.terraincognita.common.block.plants;
 
-import azmalent.terraincognita.common.effect.ModStewEffect;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.FlowerBlock;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraftforge.common.Tags;
 
-public class AlpineFlowerBlock extends FlowerBlock {
-    public AlpineFlowerBlock(ModStewEffect stewEffect) {
-        super(stewEffect.effect, stewEffect.duration, Block.Properties.from(Blocks.POPPY));
+public class AlpineFlowerBlock extends ModFlowerBlock {
+    public AlpineFlowerBlock(ModFlowerBlock.StewEffect stewEffect) {
+        super(stewEffect);
     }
 
     @Override

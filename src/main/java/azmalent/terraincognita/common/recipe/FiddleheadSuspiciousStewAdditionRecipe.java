@@ -16,7 +16,7 @@ import net.minecraftforge.common.util.Constants;
 import javax.annotation.Nonnull;
 
 public class FiddleheadSuspiciousStewAdditionRecipe extends SpecialRecipe {
-    private static ItemStack DUMMY;
+    private static final ItemStack DUMMY;
 
     static {
         DUMMY = new ItemStack(Items.SUSPICIOUS_STEW, 1);

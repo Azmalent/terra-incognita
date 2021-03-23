@@ -1,4 +1,4 @@
-package azmalent.terraincognita.common.item;
+package azmalent.terraincognita.common.item.material;
 
 import azmalent.terraincognita.TerraIncognita;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -11,7 +11,7 @@ import net.minecraft.util.SoundEvents;
 import javax.annotation.Nonnull;
 
 public class FlowerMaterial implements IArmorMaterial {
-    public static FlowerMaterial INSTANCE = new FlowerMaterial();
+    public static final FlowerMaterial INSTANCE = new FlowerMaterial();
 
     @Override
     public int getDurability(@Nonnull EquipmentSlotType equipmentSlotType) {

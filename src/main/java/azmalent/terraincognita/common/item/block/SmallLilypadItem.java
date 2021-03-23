@@ -1,6 +1,5 @@
 package azmalent.terraincognita.common.item.block;
 
-import azmalent.terraincognita.TerraIncognita;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemGroup;

@@ -21,14 +21,14 @@ public class ModChestBlock extends ChestBlock {
     public final ModWoodType woodType;
     public final Supplier<TileEntityType<? extends ChestTileEntity>> tileEntityType;
 
-    protected ModChestBlock(ModWoodType woodType, MaterialColor color, Supplier<TileEntityType<? extends ChestTileEntity>> typeSupplier) {
-        super(Properties.create(Material.WOOD, color).hardnessAndResistance(2.5F).sound(SoundType.WOOD), typeSupplier);
+    protected ModChestBlock(ModWoodType woodType, Supplier<TileEntityType<? extends ChestTileEntity>> typeSupplier) {
+        super(Properties.create(Material.WOOD, woodType.woodColor).hardnessAndResistance(2.5F).sound(SoundType.WOOD), typeSupplier);
         this.woodType = woodType;
         this.tileEntityType = typeSupplier;
     }
 
-    public ModChestBlock(ModWoodType woodType, MaterialColor color) {
-        this(woodType, color, ModTileEntities.CHEST::get);
+    public ModChestBlock(ModWoodType woodType) {
+        this(woodType, ModTileEntities.CHEST::get);
     }
 
     @Override

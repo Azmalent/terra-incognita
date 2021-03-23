@@ -9,7 +9,8 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 @Mixin(TreeDecoratorType.class)
 public interface TreeDecoratorTypeAccessor {
     @Invoker("<init>")
-    static <P extends TreeDecorator> TreeDecoratorType<P> constructor(Codec<P> codec) {
+    @SuppressWarnings("unused")
+    static <P extends TreeDecorator> TreeDecoratorType<P> ti_constructor(Codec<P> codec) {
         throw new AssertionError("Failed to apply mixin!");
     }
 }

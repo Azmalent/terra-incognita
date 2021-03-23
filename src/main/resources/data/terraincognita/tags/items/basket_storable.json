@@ -8,7 +8,8 @@
     "#forge:seeds",
     "minecraft:turtle_egg",
     "minecraft:sweet_berries",
-    "terraincognita:hazelnut"
+    "terraincognita:hazelnut",
+    "terraincognita:sour_berries"
   ],
   "optional": [
     "abundance:lavender",

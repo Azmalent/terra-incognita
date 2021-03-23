@@ -1,8 +1,8 @@
 package azmalent.terraincognita.common.item;
 
 import azmalent.terraincognita.TIConfig;
-import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.registry.ModEffects;
+import azmalent.terraincognita.common.registry.ModItems;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -17,10 +17,10 @@ import net.minecraft.world.World;
 import javax.annotation.Nonnull;
 
 public class TaffyItem extends Item {
-    private static int DURATION = 30;
+    private static final int DURATION = 30;
 
     public TaffyItem() {
-        super(new Item.Properties().group(ItemGroup.FOOD).food(ModFoods.TAFFY));
+        super(new Item.Properties().group(ItemGroup.FOOD).food(ModItems.Foods.TAFFY));
     }
 
     @Nonnull

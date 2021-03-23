@@ -31,8 +31,8 @@ import javax.annotation.Nonnull;
 public abstract class AbstractModSignBlock extends AbstractSignBlock {
     protected final ModWoodType woodType;
 
-    public AbstractModSignBlock(MaterialColor color, ModWoodType woodType) {
-        super(Block.Properties.create(Material.WOOD, color).doesNotBlockMovement().hardnessAndResistance(1.0F).sound(SoundType.WOOD), WoodType.OAK);
+    public AbstractModSignBlock(ModWoodType woodType) {
+        super(Block.Properties.create(Material.WOOD, woodType.woodColor).doesNotBlockMovement().hardnessAndResistance(1.0F).sound(SoundType.WOOD), WoodType.OAK);
         this.woodType = woodType;
     }
 

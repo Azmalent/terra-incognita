@@ -1,20 +1,23 @@
 package azmalent.terraincognita.common.item;
 
-import azmalent.terraincognita.TerraIncognita;
+import azmalent.terraincognita.common.item.material.FlowerMaterial;
+import com.google.common.collect.Maps;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.DyeColor;
-import net.minecraft.item.DyeableArmorItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
+import net.minecraft.item.crafting.ICraftingRecipe;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.NonNullList;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.util.Constants;
 
 import javax.annotation.Nonnull;
+import java.util.List;
+import java.util.Map;
 
 public class WreathItem extends DyeableArmorItem {
-    private static int DEFAULT_COLOR = DyeColor.YELLOW.getColorValue();
+    private static final int DEFAULT_COLOR = DyeColor.YELLOW.getColorValue();
 
     public WreathItem() {
         super(FlowerMaterial.INSTANCE, EquipmentSlotType.HEAD, new Item.Properties().group(ItemGroup.MISC));

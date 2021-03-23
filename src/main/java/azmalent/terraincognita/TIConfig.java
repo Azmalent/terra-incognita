@@ -9,7 +9,6 @@ import azmalent.cuneiform.lib.config.options.DoubleOption;
 import azmalent.cuneiform.lib.config.options.IntOption;
 import azmalent.cuneiform.lib.config.options.lazy.RegistryListOption;
 import com.google.common.collect.Lists;
-import jdk.nashorn.api.scripting.ScriptObjectMirror;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -126,18 +125,22 @@ public class TIConfig extends CommonConfigFile {
         @Comment("Chance to replace a vanilla poppy with an arctic poppy in tundra biomes.")
         public static final DoubleOption arcticPoppyChance = new DoubleOption(0.5).inUnitRange();
 
-        @Name("Caribou Moss Enabled")
-        @Comment("Caribou moss is a grass-like plant found in tundras.")
-        public static final BooleanOption caribouMoss = new BooleanOption(true);
-
         @Name("Sweet Peas Enabled")
         @Comment("Sweet peas are flowering vines found in flower forests. They come in seven different colors.")
         public static final BooleanOption sweetPeas = new BooleanOption(true).withFlag("sweet_peas");
 
         @Name("Wreaths Enabled")
         @Comment({"Wreath is a cosmetic headdress crafted with 4 small flowers of any kind in a 2x2 shape.",
-            "The color of the wreath depends on the flowers you used to craft it."})
+                "The color of the wreath depends on the flowers you used to craft it."})
         public static final BooleanOption wreath = new BooleanOption(true).withFlag("flower_band");
+
+        @Name("Caribou Moss Enabled")
+        @Comment("Caribou moss is a grass-like plant found in tundras.")
+        public static final BooleanOption caribouMoss = new BooleanOption(true);
+
+        @Name("Sour Berries Enabled")
+        @Comment("Sour berries can be found growing on water in boreal swamps.")
+        public static final BooleanOption sourBerries = new BooleanOption(true).withFlag("sour_berries");
 
         @Name("Roots Enabled")
         @Comment({"Roots can be found on dirt cave ceilings and overhangs in most biomes.",
@@ -150,7 +153,7 @@ public class TIConfig extends CommonConfigFile {
     }
 
     public static class Fauna extends Category {
-        public static IntOption butterflySpawnWeight = new IntOption(10).inRange(0, 100);
+        public static final IntOption butterflySpawnWeight = new IntOption(10).inRange(0, 100);
     }
 
     public static class Trees extends Category {
@@ -162,8 +165,9 @@ public class TIConfig extends CommonConfigFile {
     }
 
     public static class Biomes extends Category {
-        public static final IntOption snowlessTundraWeight = new IntOption(5).nonNegative();
         public static final IntOption lushPlainsWeight = new IntOption(1).nonNegative();
+        public static final IntOption tundraWeight = new IntOption(5).nonNegative();
+        public static final IntOption muskegWeight = new IntOption(3).nonNegative();
     }
 
     public static class Tools extends Category {

@@ -1,18 +1,21 @@
 package azmalent.terraincognita.common.world.biome.normal;
 
-import azmalent.terraincognita.common.world.ModTrees;
-import azmalent.terraincognita.common.world.ModVegetation;
+import azmalent.terraincognita.common.registry.ModSurfaceBuilders;
+import azmalent.terraincognita.common.world.*;
 import azmalent.terraincognita.common.world.biome.NormalBiomeEntry;
 import azmalent.terraincognita.util.WorldGenUtil;
 import com.google.common.collect.Lists;
+import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.EntityType;
 import net.minecraft.world.biome.*;
-import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Features;
 import net.minecraft.world.gen.feature.structure.StructureFeatures;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilders;
+import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager;
+import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -36,26 +39,26 @@ public class MuskegBiome extends NormalBiomeEntry {
 
     @Override
     protected float getDepth() {
-        return -0.2f;
+        return -0.15f;
     }
 
     @Override
     protected float getScale() {
-        return 0.1f;
+        return 0.05f;
     }
 
     @Override
     protected BiomeAmbience getAmbience() {
         return (new BiomeAmbience.Builder())
-            .setWaterColor(6388580).setWaterFogColor(2302743).setFogColor(12638463)
-            .withSkyColor(getSkyColorWithTemperatureModifier(0.8F))
-            .withFoliageColor(6975545).withGrassColorModifier(BiomeAmbience.GrassColorModifier.SWAMP)
+            .setWaterColor(0x787360).setWaterFogColor(0x232317).setFogColor(0xc0d8ff)
+            .withSkyColor(getSkyColorWithTemperatureModifier(0.25F))
+            .withFoliageColor(0x6a7039).withGrassColorModifier(BiomeAmbience.GrassColorModifier.SWAMP)
             .setMoodSound(MoodSoundAmbience.DEFAULT_CAVE).build();
     }
 
     @Override
     protected ConfiguredSurfaceBuilder<?> getSurfaceBuilder() {
-        return ConfiguredSurfaceBuilders.field_244177_i;
+        return ModSurfaceBuilders.MUSKEG.get().func_242929_a(SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG);
     }
 
     @Override
@@ -72,12 +75,15 @@ public class MuskegBiome extends NormalBiomeEntry {
     protected MobSpawnInfo.Builder initSpawns() {
         MobSpawnInfo.Builder spawns = new MobSpawnInfo.Builder();
         DefaultBiomeFeatures.withPassiveMobs(spawns);
-        DefaultBiomeFeatures.withBatsAndHostiles(spawns);
+        DefaultBiomeFeatures.withBats(spawns);
+        DefaultBiomeFeatures.withHostileMobs(spawns, 95, 5, 50);
+        spawns.withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(EntityType.STRAY, 50, 4, 4));
+
         return spawns;
     }
 
     @Override
-    public void initFeatures(BiomeGenerationSettings.Builder builder) {
+    public void initFeatures(BiomeGenerationSettingsBuilder builder) {
         initDefaultFeatures(builder);
 
         builder.withStructure(StructureFeatures.SWAMP_HUT)
@@ -90,17 +96,16 @@ public class MuskegBiome extends NormalBiomeEntry {
         DefaultBiomeFeatures.withNormalMushroomGeneration(builder);
         DefaultBiomeFeatures.withSwampSugarcaneAndPumpkin(builder);
         DefaultBiomeFeatures.withLavaAndWaterSprings(builder);
-        builder.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_GRASS_NORMAL);
-        builder.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.BROWN_MUSHROOM_TAIGA);
-        builder.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.RED_MUSHROOM_TAIGA);
-        builder.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_WATERLILLY);
-        builder.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_DEAD_BUSH);
-        builder.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.SEAGRASS_SWAMP);
-
         DefaultBiomeFeatures.withDefaultFlowers(builder);
-        DefaultBiomeFeatures.withSparseBerries(builder);
         DefaultBiomeFeatures.withFrozenTopLayer(builder);
+        DefaultBiomeFeatures.withGiantTaigaGrassVegetation(builder);
+        DefaultBiomeFeatures.withLargeFern(builder);
 
-        WorldGenUtil.addVegetation(builder, ModTrees.MUSKEG_TREES, ModVegetation.ARCTIC_FLOWERS, ModVegetation.CARIBOU_MOSS);
+        ModDefaultFeatures.withArcticFlowers(builder);
+        ModDefaultFeatures.withCaribouMoss(builder);
+        ModDefaultFeatures.withSourBerries(builder);
+
+        WorldGenUtil.addVegetation(builder, Features.PATCH_WATERLILLY, Features.SEAGRASS_SWAMP, ModTreeFeatures.MUSKEG_TREES);
+        WorldGenUtil.addModification(builder, ModConfiguredFeatures.MUSKEG_LOG);
     }
 }

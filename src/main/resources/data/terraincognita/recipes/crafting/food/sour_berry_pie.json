@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "result": {
+    "item": "terraincognita:sour_berry_pie"
+  },
+  "ingredients": [
+    { "item": "terraincognita:sour_berries" },
+    { "item": "minecraft:sugar" },
+    { "tag": "forge:eggs" }
+  ]
+}

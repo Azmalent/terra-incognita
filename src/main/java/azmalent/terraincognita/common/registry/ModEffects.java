@@ -10,5 +10,5 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class ModEffects {
     public static final DeferredRegister<Effect> EFFECTS = DeferredRegister.create(ForgeRegistries.POTIONS, TerraIncognita.MODID);
 
-    public static RegistryObject<Effect> STICKY_MOUTH = EFFECTS.register("sticky_mouth", StickyMouthEffect::new);
+    public static final RegistryObject<Effect> STICKY_MOUTH = EFFECTS.register("sticky_mouth", StickyMouthEffect::new);
 }

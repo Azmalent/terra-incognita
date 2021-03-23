@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 
-public class ModBoatDispenserBehavior extends DefaultDispenseItemBehavior {
+public final class ModBoatDispenserBehavior extends DefaultDispenseItemBehavior {
     private final DefaultDispenseItemBehavior defaultDispenseItemBehavior = new DefaultDispenseItemBehavior();
 
     @Nonnull

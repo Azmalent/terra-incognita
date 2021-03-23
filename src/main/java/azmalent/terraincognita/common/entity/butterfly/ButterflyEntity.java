@@ -2,12 +2,15 @@ package azmalent.terraincognita.common.entity.butterfly;
 
 import azmalent.cuneiform.lib.util.BiomeUtil;
 import azmalent.terraincognita.TerraIncognita;
-import azmalent.terraincognita.common.entity.butterfly.ai.ButterflyRestGoal;
 import azmalent.terraincognita.common.entity.butterfly.ai.ButterflyLandOnFlowerGoal;
+import azmalent.terraincognita.common.entity.butterfly.ai.ButterflyRestGoal;
 import azmalent.terraincognita.common.entity.butterfly.ai.ButterflyWanderGoal;
 import azmalent.terraincognita.common.registry.ModEntities;
 import azmalent.terraincognita.common.registry.ModItems;
-import net.minecraft.entity.*;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ILivingEntityData;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.player.PlayerEntity;
@@ -17,7 +20,10 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.*;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.RegistryKey;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
@@ -151,14 +157,13 @@ public class ButterflyEntity extends AbstractButterflyEntity {
     @Override
     public float getWingRotation(float ageInTicks) {
         if (isLanded() && getMotion().lengthSquared() < 1.0E-7D) {
-            if (!world.isNightTime() && rand.nextInt(80) == 0) {
+            if (world.isDaytime() && rand.nextInt(100) == 0) {
                 targetWingRotation = rand.nextFloat();
             }
 
             wingRotation = MathHelper.lerp(0.05f, wingRotation, targetWingRotation);
         } else {
             wingRotation = MathHelper.abs(MathHelper.cos(ageInTicks / 1.5f));
-            targetWingRotation = wingRotation;
         }
 
         return wingRotation;
@@ -174,7 +179,7 @@ public class ButterflyEntity extends AbstractButterflyEntity {
         } else {
             flyingTicks++;
 
-            if (flyingTicks > 200 && this.getRNG().nextInt(100) == 0) {
+            if (flyingTicks > 600 && this.getRNG().nextInt(200) == 0) {
                 this.setTired(true);
             }
 
@@ -213,9 +218,12 @@ public class ButterflyEntity extends AbstractButterflyEntity {
     }
 
     public enum Type {
-        PEACOCK(0, "peacock", 0.6f, 0.8f),
-        BRIMSTONE(1, "brimstone", 0.5f, 0.7f),
-        CABBAGE_WHITE(2, "cabbage_white", 0.6f, 0.8f);
+        PEACOCK(0, "peacock", 0.6f, 0.15f),
+        BRIMSTONE(1, "brimstone", 0.5f, 0.1f),
+        CABBAGE_WHITE(2, "cabbage_white", 0.6f, 0.15f),
+        COMMON_BLUE(3, "common_blue", 0.5f, 0.1f),
+        ORANGE_TIP(4, "orange_tip", 0.5f, 0.15f),
+        MONARCH(5, "monarch", 0.6f, 0.2f);
 
         private static final Type[] VALUES = Arrays.stream(values()).sorted(Comparator.comparingInt(Type::getIndex)).toArray(Type[]::new);
         private static final Map<String, Type> TYPES_BY_NAME = Arrays.stream(values()).collect(Collectors.toMap(Type::getName, name -> name));
@@ -223,17 +231,17 @@ public class ButterflyEntity extends AbstractButterflyEntity {
         private final int index;
         private final String name;
         private final ResourceLocation texture;
-        private final float minSize;
-        private final float maxSize;
+        private final float averageSize;
+        private final float sizeVariation;
 
-        Type(int index, String name, float minSize, float maxSize) {
-            assert maxSize >= minSize;
+        Type(int index, String name, float averageSize, float sizeVariation) {
+            assert averageSize >= sizeVariation;
 
             this.index = index;
             this.name = name;
             this.texture = TerraIncognita.prefix("textures/entity/butterfly/" + name + ".png");
-            this.minSize = minSize;
-            this.maxSize = maxSize;
+            this.averageSize = averageSize;
+            this.sizeVariation = sizeVariation;
         }
 
         public String getName() {
@@ -249,7 +257,7 @@ public class ButterflyEntity extends AbstractButterflyEntity {
         }
 
         public float getRandomSize(Random random) {
-            return MathHelper.lerp(random.nextFloat(), minSize, maxSize);
+            return MathHelper.lerp(random.nextFloat(), averageSize - sizeVariation, averageSize + sizeVariation);
         }
 
         public static Type getTypeByName(String nameIn) {
@@ -265,7 +273,7 @@ public class ButterflyEntity extends AbstractButterflyEntity {
         }
 
         public static Type getRandomType(RegistryKey<Biome> biome, Random random) {
-            return VALUES[random.nextInt(VALUES.length)];
+            return Util.getRandomObject(VALUES, random);
         }
     }
 }

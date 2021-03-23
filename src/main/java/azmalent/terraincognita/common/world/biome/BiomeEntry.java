@@ -1,7 +1,6 @@
 package azmalent.terraincognita.common.world.biome;
 
 import azmalent.cuneiform.lib.util.BiomeUtil;
-import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.registry.ModBiomes;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
@@ -13,6 +12,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager;
+import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import net.minecraftforge.fml.RegistryObject;
 
 import java.util.List;
@@ -78,7 +78,7 @@ public abstract class BiomeEntry implements Supplier<Biome> {
     protected abstract BiomeManager.BiomeType getBiomeType();
     protected abstract List<BiomeDictionary.Type> getBiomeDictionaryTypes();
 
-    public abstract void initFeatures(BiomeGenerationSettings.Builder builder);
+    public abstract void initFeatures(BiomeGenerationSettingsBuilder builder);
 
     protected void initDefaultFeatures(BiomeGenerationSettings.Builder builder) {
         DefaultBiomeFeatures.withCavesAndCanyons(builder);

@@ -1,8 +1,8 @@
 from datagen_base import *
 
 
-def copy_sawmill_recipe(template, type, out_file, variables):
-    copy_recipe('sawmill/' + template, 'environmental/sawmill/%s/%s' % (type, out_file), {**variables, 'type': type})
+def copy_sawmill_recipe(template, wood_type, out_file, variables):
+    copy_recipe('sawmill/' + template, 'environmental/sawmill/%s/%s' % (wood_type, out_file), {**variables, 'type': wood_type})
 
 
 def make_basic_block(name, default_loot_table=True):

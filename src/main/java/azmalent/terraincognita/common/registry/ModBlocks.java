@@ -6,10 +6,10 @@ import azmalent.cuneiform.lib.util.DataUtil;
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.block.*;
 import azmalent.terraincognita.common.block.plants.*;
+import azmalent.terraincognita.common.block.plants.ModFlowerBlock.StewEffect;
 import azmalent.terraincognita.common.block.trees.AppleBlock;
 import azmalent.terraincognita.common.block.trees.HazelnutBlock;
 import azmalent.terraincognita.common.block.woodtypes.ModWoodType;
-import azmalent.terraincognita.common.effect.ModStewEffect;
 import azmalent.terraincognita.common.item.block.BasketItem;
 import azmalent.terraincognita.common.item.block.CaltropsItem;
 import azmalent.terraincognita.common.item.block.DandelionPuffItem;
@@ -23,45 +23,44 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.List;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
-import static azmalent.terraincognita.common.block.PottablePlantEntry.*;
-
-@SuppressWarnings({"unused", "ConstantConditions"})
+@SuppressWarnings({"unused"})
 public class ModBlocks {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, TerraIncognita.MODID);
     public static final BlockRegistryHelper HELPER = new BlockRegistryHelper(BLOCKS, ModItems.ITEMS, ItemGroup.DECORATIONS);
 
     //Small flowers
     public static final List<PottablePlantEntry> FLOWERS;
-    public static final PottablePlantEntry DANDELION_PUFF = createPlant("dandelion_puff", () -> new FlowerBlock(ModStewEffect.SATURATION.effect, ModStewEffect.SATURATION.duration, Properties.from(Blocks.POPPY)), DandelionPuffItem::new);
-    public static final PottablePlantEntry CHICORY        = createFlower("chicory", ModStewEffect.SPEED);
-    public static final PottablePlantEntry YARROW         = createFlower("yarrow", ModStewEffect.NIGHT_VISION);
-    public static final PottablePlantEntry DAFFODIL       = createFlower("daffodil", ModStewEffect.BLINDNESS);
-    public static final PottablePlantEntry YELLOW_PRIMROSE = createFlower("yellow_primrose", ModStewEffect.STRENGTH);
-    public static final PottablePlantEntry PINK_PRIMROSE   = createFlower("pink_primrose", ModStewEffect.STRENGTH);
-    public static final PottablePlantEntry PURPLE_PRIMROSE = createFlower("purple_primrose", ModStewEffect.STRENGTH);
-    public static final PottablePlantEntry FOXGLOVE       = createFlower("foxglove", ModStewEffect.POISON);
-    public static final PottablePlantEntry WILD_GARLIC    = createFlower("wild_garlic", ModStewEffect.SATURATION);
+    public static final PottablePlantEntry DANDELION_PUFF = createPlant("dandelion_puff", () -> new ModFlowerBlock(StewEffect.SATURATION), DandelionPuffItem::new);
+    public static final PottablePlantEntry CHICORY        = createPlant("chicory", () -> new ModFlowerBlock(StewEffect.SPEED));
+    public static final PottablePlantEntry YARROW         = createPlant("yarrow", () -> new ModFlowerBlock(StewEffect.NIGHT_VISION));
+    public static final PottablePlantEntry DAFFODIL       = createPlant("daffodil", () -> new ModFlowerBlock(StewEffect.BLINDNESS));
+    public static final PottablePlantEntry YELLOW_PRIMROSE = createPlant("yellow_primrose", () -> new ModFlowerBlock(StewEffect.STRENGTH));
+    public static final PottablePlantEntry PINK_PRIMROSE   = createPlant("pink_primrose", () -> new ModFlowerBlock(StewEffect.STRENGTH));
+    public static final PottablePlantEntry PURPLE_PRIMROSE = createPlant("purple_primrose", () -> new ModFlowerBlock(StewEffect.STRENGTH));
+    public static final PottablePlantEntry FOXGLOVE       = createPlant("foxglove", () -> new ModFlowerBlock(StewEffect.POISON));
+    public static final PottablePlantEntry WILD_GARLIC    = createPlant("wild_garlic", () -> new ModFlowerBlock(StewEffect.SATURATION));
     public static final PottablePlantEntry MARIGOLD       = createPlant("marigold", MarigoldBlock::new);
-    public static final PottablePlantEntry BLUE_LUPINE    = createFlower("blue_lupin", ModStewEffect.RESISTANCE);
-    public static final PottablePlantEntry RED_SNAPDRAGON     = createFlower("red_snapdragon", ModStewEffect.RESISTANCE);
-    public static final PottablePlantEntry YELLOW_SNAPDRAGON  = createFlower("yellow_snapdragon", ModStewEffect.RESISTANCE);
-    public static final PottablePlantEntry MAGENTA_SNAPDRAGON = createFlower("magenta_snapdragon", ModStewEffect.RESISTANCE);
-    public static final PottablePlantEntry EDELWEISS      = createPlant("edelweiss", () -> new AlpineFlowerBlock(ModStewEffect.HASTE));
+    public static final PottablePlantEntry BLUE_LUPINE    = createPlant("blue_lupin", () -> new ModFlowerBlock(StewEffect.HUNGER));
+    public static final PottablePlantEntry RED_SNAPDRAGON     = createPlant("red_snapdragon", () -> new ModFlowerBlock(StewEffect.RESISTANCE));
+    public static final PottablePlantEntry YELLOW_SNAPDRAGON  = createPlant("yellow_snapdragon", () -> new ModFlowerBlock(StewEffect.RESISTANCE));
+    public static final PottablePlantEntry MAGENTA_SNAPDRAGON = createPlant("magenta_snapdragon", () -> new ModFlowerBlock(StewEffect.RESISTANCE));
     public static final PottablePlantEntry SAXIFRAGE      = createPlant("rockfoil", SaxifrageBlock::new);
-    public static final PottablePlantEntry ALPINE_PINK    = createPlant("alpine_pink", () -> new AlpineFlowerBlock(ModStewEffect.SLOWNESS));
-    public static final PottablePlantEntry GENTIAN        = createPlant("gentian", () -> new AlpineFlowerBlock(ModStewEffect.WEAKNESS));
-    public static final PottablePlantEntry FORGET_ME_NOT  = createFlower("forget_me_not", ModStewEffect.SLOWNESS);
-    public static final PottablePlantEntry GLOBEFLOWER    = createFlower("globeflower", ModStewEffect.RESISTANCE);
-    public static final PottablePlantEntry BLUE_IRIS      = createFlower("blue_iris", ModStewEffect.INVISIBILITY);
-    public static final PottablePlantEntry PURPLE_IRIS    = createFlower("purple_iris", ModStewEffect.INVISIBILITY);
-    public static final PottablePlantEntry BLACK_IRIS     = createFlower("black_iris", ModStewEffect.INVISIBILITY);
-    public static final PottablePlantEntry DWARF_FIREWEED = createFlower("fireweed", ModStewEffect.SPEED);
-    public static final PottablePlantEntry ARCTIC_POPPY   = createFlower("arctic_poppy", ModStewEffect.NIGHT_VISION);
-    public static final PottablePlantEntry WHITE_DRYAD    = createFlower("white_dryad", ModStewEffect.SLOWNESS);
+    public static final PottablePlantEntry ALPINE_PINK    = createPlant("alpine_pink", () -> new AlpineFlowerBlock(StewEffect.SLOWNESS));
+    public static final PottablePlantEntry GENTIAN        = createPlant("gentian", () -> new AlpineFlowerBlock(StewEffect.WEAKNESS));
+    public static final PottablePlantEntry EDELWEISS      = createPlant("edelweiss", () -> new AlpineFlowerBlock(StewEffect.HASTE));
+    public static final PottablePlantEntry FORGET_ME_NOT  = createPlant("forget_me_not", () -> new ModFlowerBlock(StewEffect.SLOWNESS));
+    public static final PottablePlantEntry GLOBEFLOWER    = createPlant("globeflower", () -> new ModFlowerBlock(StewEffect.RESISTANCE));
+    public static final PottablePlantEntry BLUE_IRIS      = createPlant("blue_iris", () -> new ModFlowerBlock(StewEffect.INVISIBILITY));
+    public static final PottablePlantEntry PURPLE_IRIS    = createPlant("purple_iris", () -> new ModFlowerBlock(StewEffect.INVISIBILITY));
+    public static final PottablePlantEntry BLACK_IRIS     = createPlant("black_iris", () -> new ModFlowerBlock(StewEffect.INVISIBILITY));
+    public static final PottablePlantEntry DWARF_FIREWEED = createPlant("fireweed", () -> new ModFlowerBlock(StewEffect.SPEED));
+    public static final PottablePlantEntry ARCTIC_POPPY   = createPlant("arctic_poppy", () -> new ModFlowerBlock(StewEffect.NIGHT_VISION));
+    public static final PottablePlantEntry WHITE_DRYAD    = createPlant("white_dryad", () -> new ModFlowerBlock(StewEffect.SLOWNESS));
 
     //Tall flowers
-    public static final PottablePlantEntry CATTAIL            = createTallWaterloggablePlant("cattail");
     public static final PottablePlantEntry WATER_FLAG         = createTallWaterloggablePlant("water_flag");
     public static final PottablePlantEntry TALL_FIREWEED      = createTallPlant("tall_fireweed");
     public static final PottablePlantEntry WHITE_RHODODENDRON = createTallPlant("white_rhododendron");
@@ -88,7 +87,10 @@ public class ModBlocks {
     public static final BlockEntry HAZELNUT = HELPER.newBuilder("hazelnut", HazelnutBlock::new).withoutItemForm().cutoutRender().build();
 
     //Other vegetation
+    public static final PottablePlantEntry CATTAIL = createTallWaterloggablePlant("cattail");
     public static final PottablePlantEntry REEDS = createPlant("reeds", ReedsBlock::new);
+    public static final BlockEntry SOUR_BERRY_SPROUTS = HELPER.newBuilder("sour_berry_sprouts", SourBerrySproutBlock::new).withBlockItem(LilyPadItem::new, ItemGroup.MISC).cutoutRender().build();
+    public static final BlockEntry SOUR_BERRY_BUSH = HELPER.newBuilder("sour_berry_bush", SourBerryBushBlock::new).withoutItemForm().cutoutRender().build();
     public static final BlockEntry CARIBOU_MOSS_WALL = HELPER.newBuilder("caribou_moss_wall", CaribouMossWallBlock::new).withoutItemForm().cutoutRender().build();
     public static final PottablePlantEntry CARIBOU_MOSS = createPlant("caribou_moss", CaribouMossBlock::new, block -> new WallOrFloorItem(block, CARIBOU_MOSS_WALL.getBlock(), new Item.Properties().group(ItemGroup.DECORATIONS)));
     public static final BlockEntry ROOTS = HELPER.newBuilder("roots", RootsBlock::new).cutoutRender().build();
@@ -119,6 +121,23 @@ public class ModBlocks {
             WHITE_SWEET_PEAS, PINK_SWEET_PEAS, RED_SWEET_PEAS, MAGENTA_SWEET_PEAS, PURPLE_SWEET_PEAS,
             BLUE_SWEET_PEAS, LIGHT_BLUE_SWEET_PEAS
         );
+    }
+
+    public static PottablePlantEntry createPlant(String id, Supplier<Block> constructor) {
+        return createPlant(id, constructor, null);
+    }
+
+    public static PottablePlantEntry createPlant(String id, Supplier<Block> constructor, Function<Block, BlockItem> blockItemConstructor) {
+        BlockEntry.Builder builder = ModBlocks.HELPER.newBuilder(id, constructor).withBlockItem(blockItemConstructor).cutoutRender();
+        return new PottablePlantEntry(id, builder.build());
+    }
+
+    public static PottablePlantEntry createTallPlant(String id) {
+        return createPlant(id, () -> new TallFlowerBlock(Block.Properties.from(Blocks.ROSE_BUSH)), block -> new TallBlockItem(block, new Item.Properties().group(ItemGroup.DECORATIONS)));
+    }
+
+    public static PottablePlantEntry createTallWaterloggablePlant(String id) {
+        return createPlant(id, WaterloggableTallFlowerBlock::new, block -> new TallBlockItem(block, new Item.Properties().group(ItemGroup.DECORATIONS)));
     }
 
     private static BlockEntry createLotus(String color) {

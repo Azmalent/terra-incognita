@@ -19,8 +19,8 @@ import javax.annotation.Nonnull;
 
 @SuppressWarnings("deprecation")
 public class ModTrappedChestBlock extends ModChestBlock {
-    public ModTrappedChestBlock(ModWoodType woodType, MaterialColor color) {
-        super(woodType, color, ModTileEntities.TRAPPED_CHEST::get);
+    public ModTrappedChestBlock(ModWoodType woodType) {
+        super(woodType, ModTileEntities.TRAPPED_CHEST::get);
     }
 
     @Override

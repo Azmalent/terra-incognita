@@ -1,0 +1,7 @@
+{
+  "parent": "block/lily_pad",
+  "textures": {
+    "particle": "terraincognita:block/sour_berry_bush_stage1",
+    "texture": "terraincognita:block/sour_berry_bush_stage1"
+  }
+}

@@ -1,5 +1,5 @@
 {
   "parent": "block/flower_pot_cross",
   "textures": {
-    "plant": "terraincognita:block/rockfoil" }
+    "plant": "terraincognita:block/potted_rockfoil" }
 }

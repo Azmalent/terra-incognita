@@ -1,5 +1,5 @@
 {
-  "itemGroup.terraIncognitaTab": "Terra Incognita",
+  "_comment": "Halves eating speed with each level. Applied when eating taffies.",
 
   "block.terraincognita.dandelion_puff": "Белый одуванчик",
   "block.terraincognita.potted_dandelion_puff": "Белый одуванчик в горшке",
@@ -86,6 +86,9 @@
   "block.terraincognita.wicker_mat": "Циновка",
   "block.terraincognita.wicker_lantern": "Плетёная лампа",
   "block.terraincognita.reeds_block": "Связка болотного тростника",
+  "block.terraincognita.sour_berry_bush": "Куст кислых ягод",
+  "block.terraincognita.sour_berry_sprouts": "Росток кислых ягод",
+  "block.terraincognita.sour_berry_sack": "Мешок кислых ягод",
   "block.terraincognita.caltrops": "Железный чеснок",
 
   "block.terraincognita.apple_sapling": "Саженец яблони",
@@ -162,6 +165,10 @@
   "item.terraincognita.flower_band": "Венок",
   "item.terraincognita.hazelnut": "Фундук",
   "item.terraincognita.honey_hazelnut": "Фундук в меду",
+  "item.terraincognita.hazelnut_cookie": "Печенье с фундуком",
+  "item.terraincognita.sour_berries": "Кислые ягоды",
+  "item.terraincognita.sour_berry_jam": "Джем из кислых ягод",
+  "item.terraincognita.sour_berry_pie": "Пирог из кислых ягод",
   "item.terraincognita.apple_boat": "Яблоневая лодка",
   "item.terraincognita.hazel_boat": "Орешниковая лодка",
   "item.terraincognita.fireweed_teabag": "Пакетик иван-чая",
@@ -222,5 +229,5 @@
   "death.attack.caltrops.player": "%1$s был исколот до смерти железным чесноком, пытаясь убежать от %2$s",
 
   "subtitle.terraincognita.blow": "Игрок дует на одуванчик",
-  "subtitle.terraincognita.caltrops_throw": "Брошен железный чеснок"
+  "subtitle.terraincognita.caltrops_throw": "Брошен железный чеснок",
 }

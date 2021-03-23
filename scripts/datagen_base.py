@@ -8,17 +8,17 @@ DATA_TEMPLATE_DIR = CWD + '/templates/data/'
 ASSETS_DIR = CWD + '/../src/main/resources/assets/%s/' % MODID
 DATA_DIR = CWD + '/../src/main/resources/data/%s/' % MODID
 
-assert(os.path.isdir(ASSETS_TEMPLATE_DIR))
-assert(os.path.isdir(DATA_TEMPLATE_DIR))
-assert(os.path.isdir(ASSETS_DIR))
-assert(os.path.isdir(DATA_DIR))
+assert (os.path.isdir(ASSETS_TEMPLATE_DIR))
+assert (os.path.isdir(DATA_TEMPLATE_DIR))
+assert (os.path.isdir(ASSETS_DIR))
+assert (os.path.isdir(DATA_DIR))
 
 
 def copy_file(template, out_file, variables):
     template += '.json'
     out_file += '.json'
 
-    assert(os.path.isfile(template))
+    assert (os.path.isfile(template))
 
     if os.path.isfile(out_file):
         return
@@ -107,6 +107,14 @@ def copy_block_model(template, out_file, variables, block_model_suffixes=['']):
 
 def copy_item_model(template, out_file, variables):
     copy_asset('models/item', template, out_file, variables)
+
+
+def basic_item_model(item):
+    copy_item_model('item', item, {'item': item})
+
+
+def basic_blockitem_model(block):
+    copy_item_model('block', block, {'block': block})
 
 
 def copy_blockstate_and_models(template, out_file, variables, block_model_suffixes=[''], item_model_suffix=''):

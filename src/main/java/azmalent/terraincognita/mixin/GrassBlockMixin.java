@@ -3,7 +3,7 @@ package azmalent.terraincognita.mixin;
 import azmalent.cuneiform.lib.util.BiomeUtil;
 import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.common.registry.ModBlocks;
-import azmalent.terraincognita.common.world.ModVegetation;
+import azmalent.terraincognita.common.world.ModFlowerFeatures;
 import azmalent.terraincognita.util.WorldGenUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -24,7 +24,8 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 import java.util.Random;
 
-import static net.minecraftforge.common.BiomeDictionary.Type.*;
+import static net.minecraftforge.common.BiomeDictionary.Type.COLD;
+import static net.minecraftforge.common.BiomeDictionary.Type.HOT;
 
 @Mixin(GrassBlock.class)
 public class GrassBlockMixin {
@@ -32,40 +33,37 @@ public class GrassBlockMixin {
         Biome biome = world.getBiome(pos);
         RegistryKey<Biome> biomeKey = BiomeUtil.getBiomeKey(biome);
 
-        float f = rand.nextFloat();
-        if (biomeKey != Biomes.FLOWER_FOREST && f < 0.33) {
-            boolean cold = BiomeDictionary.hasType(biomeKey, COLD);
-            boolean hot = BiomeDictionary.hasType(biomeKey, HOT);
-
+        if (biomeKey != Biomes.FLOWER_FOREST && rand.nextBoolean()) {
             switch (WorldGenUtil.getProperBiomeCategory(biome)) {
                 case FOREST:
-                    if (!cold && !hot) return ModVegetation.Configs.FOREST_FLOWERS;
-                    break;
-                case SWAMP:
-                    return ModVegetation.Configs.SWAMP_FLOWERS;
-                case SAVANNA:
-                    return ModVegetation.Configs.SAVANNA_FLOWERS;
-                case DESERT:
-                    return ModVegetation.Configs.DESERT_MARIGOLDS;
-                case EXTREME_HILLS:
-                    if (!hot) {
-                        if (pos.getY() >= TIConfig.Flora.edelweissMinimumY.get() && f < 0.165) {
-                            return ModVegetation.Configs.EDELWEISS;
-                        }
+                    return ModFlowerFeatures.Configs.FOREST_FLOWERS;
 
-                        return ModVegetation.Configs.ALPINE_FLOWERS;
+                case SWAMP:
+                    if (!BiomeDictionary.hasType(biomeKey, COLD)) {
+                        return ModFlowerFeatures.Configs.SWAMP_SMALL_FLOWERS;
                     }
+                    break;
+
+                case SAVANNA: case DESERT:
+                    return ModFlowerFeatures.Configs.SAVANNA_FLOWERS;
+
+                case EXTREME_HILLS:
+                    if (!BiomeDictionary.hasType(biomeKey, HOT)) {
+                        return ModFlowerFeatures.Configs.ALPINE_FLOWERS;
+                    }
+                    break;
+
                 case JUNGLE:
-                    return ModVegetation.Configs.JUNGLE_FLOWERS;
+                    return ModFlowerFeatures.Configs.JUNGLE_FLOWERS;
+
                 case TAIGA: case ICY:
-                    return ModVegetation.Configs.ARCTIC_FLOWERS;
+                    return ModFlowerFeatures.Configs.ARCTIC_SMALL_FLOWERS;
             }
         }
 
         return null;
     }
-
-    @SuppressWarnings({"unchecked", "ConstantConditions"})
+    
     @Redirect(method = "grow", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/gen/feature/FlowersFeature;getFlowerToPlace(Ljava/util/Random;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/world/gen/feature/IFeatureConfig;)Lnet/minecraft/block/BlockState;"))
     private <TConfig extends IFeatureConfig> BlockState getFlowerToPlace(FlowersFeature<TConfig> self, Random rand, BlockPos pos, TConfig config, ServerWorld world, Random random1, BlockPos pos1, BlockState blockState) {
         BlockClusterFeatureConfig customFlowerConfig = getCustomFlowerConfig(rand, world, pos);

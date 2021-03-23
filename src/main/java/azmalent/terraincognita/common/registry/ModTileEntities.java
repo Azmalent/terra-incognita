@@ -24,11 +24,11 @@ import java.util.function.Supplier;
 public class ModTileEntities {
     public static final DeferredRegister<TileEntityType<?>> TILE_ENTITIES = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, TerraIncognita.MODID);
 
-    public static RegistryObject<TileEntityType<ModChestTileEntity>> CHEST = register("chest", ModChestTileEntity::new, ModWoodTypes.getChests());
-    public static RegistryObject<TileEntityType<ModTrappedChestTileEntity>> TRAPPED_CHEST = register("trapped_chest", ModTrappedChestTileEntity::new, ModWoodTypes.getTrappedChests());
-    public static RegistryObject<TileEntityType<ModSignTileEntity>> SIGN = register("sign", ModSignTileEntity::new, ModWoodTypes.getSigns());
+    public static final RegistryObject<TileEntityType<ModChestTileEntity>> CHEST = register("chest", ModChestTileEntity::new, ModWoodTypes.getChests());
+    public static final RegistryObject<TileEntityType<ModTrappedChestTileEntity>> TRAPPED_CHEST = register("trapped_chest", ModTrappedChestTileEntity::new, ModWoodTypes.getTrappedChests());
+    public static final RegistryObject<TileEntityType<ModSignTileEntity>> SIGN = register("sign", ModSignTileEntity::new, ModWoodTypes.getSigns());
 
-    public static RegistryObject<TileEntityType<BasketTileEntity>> BASKET = register("basket", BasketTileEntity::new, ModBlocks.BASKET::getBlock);
+    public static final RegistryObject<TileEntityType<BasketTileEntity>> BASKET = register("basket", BasketTileEntity::new, ModBlocks.BASKET::getBlock);
 
     @SuppressWarnings("ConstantConditions")
     private static <T extends TileEntity> RegistryObject<TileEntityType<T>> register(String id, Supplier<T> constructor, Supplier<Block>... blockSuppliers) {

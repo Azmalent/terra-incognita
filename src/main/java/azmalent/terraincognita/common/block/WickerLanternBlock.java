@@ -9,6 +9,8 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 
+import javax.annotation.Nonnull;
+
 public class WickerLanternBlock extends LanternBlock {
     private static final VoxelShape GROUNDED_SHAPE = makeCuboidShape(4.0D, 0.0D, 4.0D, 12.0D, 8.0D, 12.0D);
     private static final VoxelShape HANGING_SHAPE  = makeCuboidShape(4.0D, 2.0D, 4.0D, 12.0D, 10.0D, 12.0D);
@@ -17,6 +19,7 @@ public class WickerLanternBlock extends LanternBlock {
         super(Properties.create(Material.WOOD).hardnessAndResistance(3.5F).sound(SoundType.WOOD).setLightLevel((state) -> 15).notSolid());
     }
 
+    @Nonnull
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext context) {
         return state.get(HANGING) ? HANGING_SHAPE : GROUNDED_SHAPE;

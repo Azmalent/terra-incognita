@@ -20,7 +20,7 @@ public class MixinConfigPlugin implements IMixinConfigPlugin {
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        if (targetClassName.startsWith("vazkii.quark")) {
+        if (mixinClassName.startsWith("azmalent.terraincognita.mixin.compat.quark")) {
             try {
                 Class.forName("vazkii.quark.base.Quark");
             } catch (ClassNotFoundException e) {

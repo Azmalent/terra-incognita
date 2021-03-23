@@ -17,7 +17,7 @@ import net.minecraft.world.World;
 import javax.annotation.Nonnull;
 
 public class FiddleheadSuspiciousStewRecipe extends SpecialRecipe {
-    private static ItemStack DUMMY = new ItemStack(Items.SUSPICIOUS_STEW, 1);
+    private static final ItemStack DUMMY = new ItemStack(Items.SUSPICIOUS_STEW, 1);
 
     public FiddleheadSuspiciousStewRecipe(ResourceLocation id) {
         super(id);

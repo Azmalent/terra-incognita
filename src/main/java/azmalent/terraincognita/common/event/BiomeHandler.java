@@ -23,7 +23,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 import static net.minecraftforge.common.BiomeDictionary.Type.*;
 
 public class BiomeHandler {
-    @SuppressWarnings("ConstantConditions")
     public static void onLoadBiome(BiomeLoadingEvent event) {
         if (event.getName().getNamespace().equals(TerraIncognita.MODID)) {
             initCustomBiome(event);
@@ -72,6 +71,7 @@ public class BiomeHandler {
 
             case SWAMP:
                 ModDefaultFeatures.withSmallLilyPads(builder);
+                ModDefaultFeatures.withCattails(builder);
                 ModDefaultFeatures.withSwampReeds(builder);
                 ModDefaultFeatures.withPeatAndMossyGravel(builder);
                 if (!BiomeDictionary.hasType(biomeKey, COLD)) {
@@ -81,10 +81,6 @@ public class BiomeHandler {
 
             case SAVANNA:
                 ModDefaultFeatures.withSavannaFlowers(builder);
-                break;
-
-            case DESERT:
-                ModDefaultFeatures.withDesertMarigolds(builder);
                 break;
 
             case EXTREME_HILLS:
@@ -122,7 +118,7 @@ public class BiomeHandler {
         RegistryKey<Biome> biome = BiomeUtil.getBiomeKey(event.getName());
         BiomeGenerationSettingsBuilder builder = event.getGeneration();
 
-        if (TIConfig.Misc.betterTundras.get() && (biome == Biomes.SNOWY_TUNDRA || biome == Biomes.ICE_SPIKES)) {
+        if (biome == Biomes.SNOWY_TUNDRA || biome == Biomes.ICE_SPIKES) {
             ModDefaultFeatures.withExtraTundraFeatures(builder);
             ModTweaks.addExtraTundraSpawns(event.getSpawns());
         }

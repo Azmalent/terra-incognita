@@ -4,21 +4,24 @@ import azmalent.terraincognita.common.ModTweaks;
 import azmalent.terraincognita.common.data.ModItemTags;
 import azmalent.terraincognita.common.inventory.BasketStackHandler;
 import azmalent.terraincognita.common.item.block.BasketItem;
+import azmalent.terraincognita.common.recipe.WreathRecipe;
 import azmalent.terraincognita.common.registry.*;
-import azmalent.terraincognita.common.world.ModMiscFeatures;
-import azmalent.terraincognita.common.world.ModTrees;
-import azmalent.terraincognita.common.world.ModVegetation;
-import azmalent.terraincognita.util.ColorUtil;
+import azmalent.terraincognita.common.world.ModConfiguredFeatures;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.DyeItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ICraftingRecipe;
 import net.minecraft.item.crafting.IRecipeType;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.potion.EffectInstance;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraftforge.client.event.RecipesUpdatedEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.eventbus.api.Event;
@@ -27,7 +30,8 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.items.ItemHandlerHelper;
 
-@SuppressWarnings("deprecation")
+import java.util.List;
+
 public class EventHandler {
     public static void registerListeners() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -45,9 +49,7 @@ public class EventHandler {
     }
 
     public static void setup(FMLCommonSetupEvent event) {
-        event.enqueueWork(ModVegetation::configureFeatures);
-        event.enqueueWork(ModTrees::configureFeatures);
-        event.enqueueWork(ModMiscFeatures::configureFeatures);
+        event.enqueueWork(ModConfiguredFeatures::registerFeatures);
         event.enqueueWork(ModBiomes::registerBiomes);
 
         ModBlocks.initToolInteractions();
@@ -61,7 +63,18 @@ public class EventHandler {
 
     public static void onUpdateRecipes(RecipesUpdatedEvent event) {
         for (ICraftingRecipe recipe : event.getRecipeManager().getRecipesForType(IRecipeType.CRAFTING)) {
-            ColorUtil.saveFlowerDyeRecipe(recipe);
+            List<Ingredient> ingredients = recipe.getIngredients();
+            if (ingredients.size() != 1) continue;
+
+            ItemStack[] matchingStacks = ingredients.get(0).getMatchingStacks();
+            for (int i = 0, n = matchingStacks.length; i < n; i++) {
+                Item input = matchingStacks[i].getItem();
+                Item output = recipe.getRecipeOutput().getItem();
+
+                if (input.isIn(ItemTags.SMALL_FLOWERS) && output.isIn(Tags.Items.DYES)) {
+                    WreathRecipe.FLOWER_TO_DYE_MAP.put(input, (DyeItem) output.getItem());
+                }
+            }
         }
     }
 

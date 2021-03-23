@@ -11,6 +11,7 @@ import azmalent.terraincognita.common.integration.quark.block.TILeafCarpetBlock;
 import azmalent.terraincognita.common.integration.quark.block.TIWoodPostBlock;
 import azmalent.terraincognita.common.registry.ModBlocks;
 import azmalent.terraincognita.common.registry.ModRecipes;
+import azmalent.terraincognita.common.registry.ModWoodTypes;
 import com.google.common.collect.Lists;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
@@ -41,23 +42,23 @@ import java.util.List;
 public class QuarkIntegration implements IQuarkIntegration {
     private static final ResourceLocation BASKET_DROP_IN_CAP = TerraIncognita.prefix("basket_drop_in");
 
-    private QuarkWoodBlockSet APPLE = new QuarkWoodBlockSet("apple", MaterialColor.WOOD, MaterialColor.ORANGE_TERRACOTTA);
-    private BlockEntry BLOSSOMING_APPLE_LEAF_CARPET = ModBlocks.HELPER.newBuilder("blossoming_apple_leaf_carpet", TILeafCarpetBlock::new).cutoutMippedRender().build();
-    private BlockEntry BLOSSOMING_APPLE_HEDGE = ModBlocks.HELPER.newBuilder("blossoming_apple_hedge", () -> new TIHedgeBlock(MaterialColor.ORANGE_TERRACOTTA)).cutoutMippedRender().build();;
+    private final QuarkWoodBlockSet APPLE = new QuarkWoodBlockSet(ModWoodTypes.APPLE);
+    private final BlockEntry BLOSSOMING_APPLE_LEAF_CARPET = ModBlocks.HELPER.newBuilder("blossoming_apple_leaf_carpet", TILeafCarpetBlock::new).cutoutMippedRender().build();
+    private final BlockEntry BLOSSOMING_APPLE_HEDGE = ModBlocks.HELPER.newBuilder("blossoming_apple_hedge", () -> new TIHedgeBlock(MaterialColor.ORANGE_TERRACOTTA)).cutoutMippedRender().build();
 
-    private QuarkWoodBlockSet HAZEL = new QuarkWoodBlockSet("hazel", MaterialColor.WOOD, MaterialColor.BROWN);
-    private BlockEntry HAZELNUT_SACK = ModBlocks.HELPER.newBuilder("hazelnut_sack", Block.Properties.create(Material.WOOL, MaterialColor.BROWN).hardnessAndResistance(0.5F).sound(SoundType.CLOTH)).build();
+    private final QuarkWoodBlockSet HAZEL = new QuarkWoodBlockSet(ModWoodTypes.HAZEL);
 
-    private BlockEntry REEDS_BUNDLE = ModBlocks.HELPER.newBuilder("reeds_block", RotatedPillarBlock::new, Block.Properties.create(Material.WOOD).hardnessAndResistance(0.5F).sound(SoundType.WOOD)).withItemGroup(ItemGroup.BUILDING_BLOCKS).build();
+    private final BlockEntry HAZELNUT_SACK = ModBlocks.HELPER.newBuilder("hazelnut_sack", Block.Properties.create(Material.WOOL, MaterialColor.BROWN).hardnessAndResistance(0.5F).sound(SoundType.CLOTH)).build();
+    private final BlockEntry SOUR_BERRY_SACK = ModBlocks.HELPER.newBuilder("sour_berry_sack", RotatedPillarBlock::new, Block.Properties.create(Material.WOOL, MaterialColor.ORANGE_TERRACOTTA).hardnessAndResistance(0.5F).sound(SoundType.CLOTH)).build();
+    private final BlockEntry REEDS_BUNDLE = ModBlocks.HELPER.newBuilder("reeds_block", RotatedPillarBlock::new, Block.Properties.create(Material.WOOD).hardnessAndResistance(0.5F).sound(SoundType.WOOD)).withItemGroup(ItemGroup.BUILDING_BLOCKS).build();
 
-    private List<QuarkWoodBlockSet> WOOD_BLOCK_SETS = Lists.newArrayList(APPLE, HAZEL);
+    private final List<QuarkWoodBlockSet> WOOD_BLOCK_SETS = Lists.newArrayList(APPLE, HAZEL);
 
     @Override
     public boolean matchesItemSearch(ItemStack stack) {
         return ChestSearchingModule.namesMatch(stack);
     }
 
-    @SuppressWarnings("ConstantConditions")
     @Override
     public void register(IEventBus bus) {
         TerraIncognita.LOGGER.info("Integrating with Quark...");
@@ -95,11 +96,13 @@ public class QuarkIntegration implements IQuarkIntegration {
         DataUtil.registerFlammable(BLOSSOMING_APPLE_HEDGE, 5, 20);
         DataUtil.registerFlammable(BLOSSOMING_APPLE_LEAF_CARPET, 30, 60);
         DataUtil.registerFlammable(HAZELNUT_SACK, 30, 60);
+        DataUtil.registerFlammable(SOUR_BERRY_SACK, 30, 60);
         DataUtil.registerFlammable(REEDS_BUNDLE, 30, 60);
 
         FuelHandler.registerFuel(REEDS_BUNDLE, 900);
 
         ModRecipes.registerCompostable(BLOSSOMING_APPLE_LEAF_CARPET, 0.2f);
+        ModRecipes.registerCompostable(SOUR_BERRY_SACK, 1);
         ModRecipes.registerCompostable(HAZELNUT_SACK, 1);
         ModRecipes.registerCompostable(REEDS_BUNDLE, 1);
     }

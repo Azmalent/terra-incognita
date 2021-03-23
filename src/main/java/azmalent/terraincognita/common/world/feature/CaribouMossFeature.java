@@ -3,8 +3,6 @@ package azmalent.terraincognita.common.world.feature;
 import azmalent.terraincognita.common.block.plants.CaribouMossWallBlock;
 import azmalent.terraincognita.common.registry.ModBlocks;
 import net.minecraft.block.BlockState;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
@@ -36,16 +34,16 @@ public class CaribouMossFeature extends Feature<NoFeatureConfig> {
                     rand.nextInt(z) - rand.nextInt(z)
                 );
 
-                success |= tryPlaceMoss(reader, nextPos, rand);
+                if (reader.isAirBlock(nextPos)) {
+                    success |= tryPlaceMoss(reader, nextPos, rand);
+                }
             }
         }
 
         return success;
     }
 
-    private boolean tryPlaceMoss(ISeedReader reader, BlockPos pos, Random rand) {
-        if (!reader.isAirBlock(pos)) return false;
-
+    public static boolean tryPlaceMoss(ISeedReader reader, BlockPos pos, Random rand) {
         for (Direction direction : Direction.Plane.HORIZONTAL) {
             BlockState state = ModBlocks.CARIBOU_MOSS_WALL.getDefaultState().with(CaribouMossWallBlock.FACING, direction);
             if (rand.nextBoolean() && state.isValidPosition(reader, pos)) {

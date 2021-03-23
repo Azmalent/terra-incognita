@@ -1,10 +1,10 @@
 package azmalent.terraincognita.common.world.biome.sub;
 
-import azmalent.terraincognita.common.world.ModMiscFeatures;
+import azmalent.terraincognita.common.world.ModConfiguredFeatures;
 import azmalent.terraincognita.common.world.biome.NormalBiomeEntry;
 import azmalent.terraincognita.common.world.biome.SubBiomeEntry;
-import net.minecraft.world.biome.BiomeGenerationSettings;
-import net.minecraft.world.gen.GenerationStage;
+import azmalent.terraincognita.util.WorldGenUtil;
+import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 
 public class RockyTundraSubBiome extends SubBiomeEntry {
     public RockyTundraSubBiome(String id, NormalBiomeEntry baseBiome, int weight) {
@@ -22,8 +22,8 @@ public class RockyTundraSubBiome extends SubBiomeEntry {
     }
 
     @Override
-    public void initFeatures(BiomeGenerationSettings.Builder builder) {
+    public void initFeatures(BiomeGenerationSettingsBuilder builder) {
         super.initFeatures(builder);
-        builder.withFeature(GenerationStage.Decoration.LOCAL_MODIFICATIONS, ModMiscFeatures.ROCK);
+        WorldGenUtil.addModification(builder, ModConfiguredFeatures.TUNDRA_ROCK);
     }
 }

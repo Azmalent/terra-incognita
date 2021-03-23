@@ -42,6 +42,7 @@ public class ButterflyRenderer<T extends AbstractButterflyEntity> extends MobRen
         super.applyRotations(butterfly, matrixStack, ageInTicks, rotationYaw, partialTicks);
     }
 
+    @SuppressWarnings("FieldCanBeLocal")
     public static class ButterflyModel<T extends AbstractButterflyEntity> extends EntityModel<T> {
         private final ModelRenderer body;
         private final ModelRenderer antennae;
@@ -50,10 +51,6 @@ public class ButterflyRenderer<T extends AbstractButterflyEntity> extends MobRen
 
         private static final float MIN_WING_ANGLE = (float) Math.PI * 0.2f;
         private static final float MAX_WING_ANGLE = (float) Math.PI * 0.8f;
-        private float wingRotation = 0;
-        private float targetWingRotation = 0;
-
-        private final Random random = new Random();
 
         public ButterflyModel() {
             textureWidth = 64;
@@ -67,7 +64,7 @@ public class ButterflyRenderer<T extends AbstractButterflyEntity> extends MobRen
             antennae.setRotationPoint(3.0F, -1.0F, -2.0F);
             body.addChild(antennae);
             setModelRotation(antennae, 1.0472F, 0.0F, 0.0F);
-            antennae.addBox(-7.0F, -4.0F, 0.0F, 7.0F, 4.0F, 0.0F, 0.0F, false);
+            antennae.setTextureOffset(29, 12).addBox(-7.0F, -4.0F, 0.0F, 7.0F, 4.0F, 0.0F, 0.0F, false);
 
             leftWing = new ModelRenderer(this, 8, 11);
             leftWing.setRotationPoint(0.0F, -0.5F, 2.0F);

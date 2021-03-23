@@ -1,6 +1,5 @@
 package azmalent.terraincognita.common.integration.quark;
 
-import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.data.ModItemTags;
 import azmalent.terraincognita.common.inventory.BasketStackHandler;
 import azmalent.terraincognita.common.item.block.BasketItem;

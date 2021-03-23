@@ -2,7 +2,7 @@ package azmalent.terraincognita.common.recipe;
 
 import azmalent.terraincognita.common.registry.ModItems;
 import azmalent.terraincognita.common.registry.ModRecipes;
-import azmalent.terraincognita.util.ColorUtil;
+import com.google.common.collect.Maps;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.*;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -14,9 +14,11 @@ import net.minecraft.world.World;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class WreathRecipe extends SpecialRecipe {
-    private static ItemStack DUMMY = new ItemStack(ModItems.WREATH.get());
+    public static final Map<Item, DyeItem> FLOWER_TO_DYE_MAP = Maps.newHashMap();
+    private static final ItemStack DUMMY = new ItemStack(ModItems.WREATH.get());
 
     public WreathRecipe(ResourceLocation id) {
         super(id);
@@ -54,7 +56,7 @@ public class WreathRecipe extends SpecialRecipe {
         List<DyeItem> dyes = new ArrayList<>();
         for (int i = 0; i < inv.getSizeInventory(); i++) {
             if (!inv.getStackInSlot(i).isEmpty()) {
-                DyeItem dye = ColorUtil.getDyeFromFlower(inv.getStackInSlot(i).getItem());
+                DyeItem dye = FLOWER_TO_DYE_MAP.getOrDefault(inv.getStackInSlot(i).getItem(), (DyeItem) Items.WHITE_DYE);
                 dyes.add(dye);
             }
         }

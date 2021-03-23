@@ -129,7 +129,7 @@ public class ModEditSignScreen extends Screen {
         this.renderBackground(matrixStack);
         drawCenteredString(matrixStack, this.font, this.title, this.width / 2, 40, 16777215);
         matrixStack.push();
-        matrixStack.translate(this.width / 2, 0.0D, 50.0D);
+        matrixStack.translate(this.width / 2.0D, 0.0D, 50.0D);
         float f = 93.75F;
         matrixStack.scale(93.75F, -93.75F, 93.75F);
         matrixStack.translate(0.0D, -1.3125D, 0.0D);
@@ -153,7 +153,7 @@ public class ModEditSignScreen extends Screen {
 
         matrixStack.pop();
         float f2 = 0.010416667F;
-        matrixStack.translate(0.0D, (double)0.33333334F, (double)0.046666667F);
+        matrixStack.translate(0.0D, 0.33333334F, 0.046666667F);
         matrixStack.scale(0.010416667F, -0.010416667F, 0.010416667F);
         int i = this.sign.getTextColor().getTextColor();
         int j = this.textInputUtil.getEndIndex();

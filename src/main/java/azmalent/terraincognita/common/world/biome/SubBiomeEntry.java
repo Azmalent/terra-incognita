@@ -1,6 +1,5 @@
 package azmalent.terraincognita.common.world.biome;
 
-import azmalent.terraincognita.TerraIncognita;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeAmbience;
 import net.minecraft.world.biome.BiomeGenerationSettings;
@@ -8,6 +7,7 @@ import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager;
+import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 
 import java.util.List;
 
@@ -71,7 +71,7 @@ public abstract class SubBiomeEntry extends BiomeEntry {
     }
 
     @Override
-    public void initFeatures(BiomeGenerationSettings.Builder builder) {
+    public void initFeatures(BiomeGenerationSettingsBuilder builder) {
         baseBiome.initFeatures(builder);
     }
 

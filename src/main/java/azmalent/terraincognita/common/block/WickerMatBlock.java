@@ -17,6 +17,7 @@ import net.minecraft.world.IWorldReader;
 
 import javax.annotation.Nonnull;
 
+@SuppressWarnings("deprecation")
 public class WickerMatBlock extends Block {
     protected static final VoxelShape SHAPE = Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 1.0D, 16.0D);
 

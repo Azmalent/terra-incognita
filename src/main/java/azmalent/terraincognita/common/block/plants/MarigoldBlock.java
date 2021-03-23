@@ -1,19 +1,17 @@
 package azmalent.terraincognita.common.block.plants;
 
-import azmalent.terraincognita.common.effect.ModStewEffect;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.FlowerBlock;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraftforge.common.Tags;
 
-public class MarigoldBlock extends FlowerBlock {
+public class MarigoldBlock extends ModFlowerBlock {
     private static final int WATER_SEARCH_RADIUS = 3;
 
     public MarigoldBlock() {
-        super(ModStewEffect.REGENERATION.effect, ModStewEffect.REGENERATION.duration, Properties.from(Blocks.ORANGE_TULIP));
+        super(ModFlowerBlock.StewEffect.REGENERATION);
     }
 
     private boolean hasWaterNearby(IBlockReader world, BlockPos soilPos) {

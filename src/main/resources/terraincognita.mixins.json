@@ -12,6 +12,7 @@
     "GrassBlockMixin",
     "HillsLayerMixin",
     "VineBlockMixin",
+    "accessor.BlockStateProviderTypeAccessor",
     "accessor.BoatEntityAccessor",
     "accessor.TreeDecoratorTypeAccessor",
     "compat.botania.HornHarvestablesMixin",

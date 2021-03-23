@@ -1,17 +1,19 @@
 package azmalent.terraincognita.common.world.biome.normal;
 
-import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.common.ModTweaks;
-import azmalent.terraincognita.common.registry.ModBiomes;
 import azmalent.terraincognita.common.world.ModDefaultFeatures;
 import azmalent.terraincognita.common.world.biome.NormalBiomeEntry;
 import com.google.common.collect.Lists;
-import net.minecraft.world.biome.*;
+import net.minecraft.world.biome.BiomeAmbience;
+import net.minecraft.world.biome.DefaultBiomeFeatures;
+import net.minecraft.world.biome.MobSpawnInfo;
+import net.minecraft.world.biome.MoodSoundAmbience;
 import net.minecraft.world.gen.feature.structure.StructureFeatures;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilders;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager;
+import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -30,7 +32,7 @@ public class TundraBiome extends NormalBiomeEntry {
 
     @Override
     protected Climate getClimate() {
-        return new Climate(RainType.SNOW, 0.2f, TemperatureModifier.NONE, 0.5f);
+        return new Climate(RainType.RAIN, 0.2f, TemperatureModifier.NONE, 0.5f);
     }
 
     @Override
@@ -60,10 +62,7 @@ public class TundraBiome extends NormalBiomeEntry {
     protected MobSpawnInfo.Builder initSpawns() {
         MobSpawnInfo.Builder spawns = (new MobSpawnInfo.Builder()).withCreatureSpawnProbability(0.07F);
         DefaultBiomeFeatures.withSnowyBiomeMobs(spawns);
-
-        if (TIConfig.Misc.betterTundras.get()) {
-            ModTweaks.addExtraTundraSpawns(spawns);
-        }
+        ModTweaks.addExtraTundraSpawns(spawns);
 
         return spawns;
     }
@@ -79,11 +78,11 @@ public class TundraBiome extends NormalBiomeEntry {
     }
 
     @Override
-    public void initFeatures(BiomeGenerationSettings.Builder builder) {
+    public void initFeatures(BiomeGenerationSettingsBuilder builder) {
         initDefaultFeatures(builder);
 
         DefaultBiomeFeatures.withStrongholdAndMineshaft(builder);
-        builder.withStructure(StructureFeatures.VILLAGE_SNOWY)
+        builder.withStructure(StructureFeatures.VILLAGE_TAIGA)
                .withStructure(StructureFeatures.PILLAGER_OUTPOST)
                .withStructure(StructureFeatures.RUINED_PORTAL);
 
@@ -94,10 +93,7 @@ public class TundraBiome extends NormalBiomeEntry {
         DefaultBiomeFeatures.withNormalMushroomGeneration(builder);
         DefaultBiomeFeatures.withSugarCaneAndPumpkins(builder);
         DefaultBiomeFeatures.withLavaAndWaterSprings(builder);
-
-        if (TIConfig.Misc.betterTundras.get()) {
-            ModDefaultFeatures.withExtraTundraFeatures(builder);
-        }
+        ModDefaultFeatures.withExtraTundraFeatures(builder);
     }
 
     @Override

@@ -1,89 +1,133 @@
 package azmalent.terraincognita.common.world;
 
+import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.util.WorldGenUtil;
-import net.minecraft.world.biome.BiomeGenerationSettings;
 import net.minecraft.world.biome.DefaultBiomeFeatures;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 
 public class ModDefaultFeatures {
     public static void withForestFlowers(BiomeGenerationSettingsBuilder builder) {
-        WorldGenUtil.addVegetation(builder, ModVegetation.FOREST_FLOWERS);
+        if (TIConfig.Flora.forestFlowers.get()) {
+            WorldGenUtil.addVegetation(builder, ModFlowerFeatures.FOREST_FLOWERS);
+        }
     }
 
     public static void withSwampFlowers(BiomeGenerationSettingsBuilder builder) {
-        WorldGenUtil.addVegetation(builder, ModVegetation.SWAMP_FLOWERS);
+        if (TIConfig.Flora.swampFlowers.get()) {
+            WorldGenUtil.addVegetation(builder, ModFlowerFeatures.SWAMP_FLOWERS);
+        }
     }
 
     public static void withAlpineFlowers(BiomeGenerationSettingsBuilder builder) {
-        WorldGenUtil.addVegetation(builder, ModVegetation.ALPINE_FLOWERS);
+        if (TIConfig.Flora.alpineFlowers.get()) {
+            WorldGenUtil.addVegetation(builder, ModFlowerFeatures.ALPINE_FLOWERS);
+        }
     }
 
     public static void withSavannaFlowers(BiomeGenerationSettingsBuilder builder) {
-        WorldGenUtil.addVegetation(builder, ModVegetation.SAVANNA_FLOWERS);
-    }
-
-    public static void withDesertMarigolds(BiomeGenerationSettingsBuilder builder) {
-        WorldGenUtil.addVegetation(builder, ModVegetation.DESERT_MARIGOLDS);
+        if (TIConfig.Flora.savannaFlowers.get()) {
+            WorldGenUtil.addVegetation(builder, ModFlowerFeatures.SAVANNA_FLOWERS);
+        }
     }
 
     public static void withJungleFlowers(BiomeGenerationSettingsBuilder builder) {
-        WorldGenUtil.addVegetation(builder, ModVegetation.JUNGLE_FLOWERS);
+        if (TIConfig.Flora.jungleFlowers.get()) {
+            WorldGenUtil.addVegetation(builder, ModFlowerFeatures.JUNGLE_FLOWERS);
+        }
     }
 
     public static void withArcticFlowers(BiomeGenerationSettingsBuilder builder) {
-        WorldGenUtil.addVegetation(builder, ModVegetation.ARCTIC_FLOWERS);
+        if (TIConfig.Flora.arcticFlowers.get()) {
+            WorldGenUtil.addVegetation(builder, ModFlowerFeatures.ARCTIC_FLOWERS);
+        }
     }
 
     public static void withSweetPeas(BiomeGenerationSettingsBuilder builder) {
-        WorldGenUtil.addVegetation(builder, ModVegetation.SWEET_PEAS);
+        if (TIConfig.Flora.sweetPeas.get()) {
+            WorldGenUtil.addVegetation(builder, ModFlowerFeatures.SWEET_PEAS);
+        }
+    }
+
+    public static void withCattails(BiomeGenerationSettingsBuilder builder) {
+        if (TIConfig.Flora.cattails.get()) {
+            WorldGenUtil.addVegetation(builder, ModVegetationFeatures.CATTAILS);
+        }
     }
 
     public static void withSwampReeds(BiomeGenerationSettingsBuilder builder) {
-        WorldGenUtil.addVegetation(builder, ModVegetation.REEDS);
+        if (TIConfig.Flora.reeds.get()) {
+            WorldGenUtil.addVegetation(builder, ModVegetationFeatures.REEDS);
+        }
     }
 
     public static void withCaribouMoss(BiomeGenerationSettingsBuilder builder) {
-        WorldGenUtil.addVegetation(builder, ModVegetation.CARIBOU_MOSS);
+        if (TIConfig.Flora.caribouMoss.get()) {
+            WorldGenUtil.addVegetation(builder, ModVegetationFeatures.CARIBOU_MOSS);
+        }
     }
 
     public static void withSmallLilyPads(BiomeGenerationSettingsBuilder builder) {
-        WorldGenUtil.addVegetation(builder, ModVegetation.SMALL_LILYPADS);
+        if (TIConfig.Flora.smallLilypad.get()) {
+            WorldGenUtil.addVegetation(builder, ModVegetationFeatures.SMALL_LILY_PADS);
+        }
     }
 
     public static void withLotuses(BiomeGenerationSettingsBuilder builder) {
-        WorldGenUtil.addVegetation(builder, ModVegetation.LOTUS);
+        if (TIConfig.Flora.lotus.get()) {
+            WorldGenUtil.addVegetation(builder, ModVegetationFeatures.LOTUS);
+        }
+    }
+
+    public static void withSourBerries(BiomeGenerationSettingsBuilder builder) {
+        WorldGenUtil.addVegetation(builder, ModVegetationFeatures.SOUR_BERRIES);
     }
 
     public static void withHangingRoots(BiomeGenerationSettingsBuilder builder) {
-        WorldGenUtil.addVegetation(builder, ModVegetation.ROOTS);
+        if (TIConfig.Flora.roots.get()) {
+            WorldGenUtil.addVegetation(builder, ModVegetationFeatures.ROOTS);
+        }
     }
 
     public static void withHangingMoss(BiomeGenerationSettingsBuilder builder) {
-        WorldGenUtil.addVegetation(builder, ModVegetation.HANGING_MOSS);
+        if (TIConfig.Flora.hangingMoss.get()) {
+            WorldGenUtil.addVegetation(builder, ModVegetationFeatures.HANGING_MOSS);
+        }
     }
 
     public static void withAppleTrees(BiomeGenerationSettingsBuilder builder) {
-        WorldGenUtil.addVegetation(builder, ModTrees.NATURAL_APPLE);
+        if (TIConfig.Trees.apple.get()) {
+            WorldGenUtil.addVegetation(builder, ModTreeFeatures.APPLE_TREE);
+        }
     }
 
     public static void withHazelTrees(BiomeGenerationSettingsBuilder builder) {
-        WorldGenUtil.addVegetation(builder, ModTrees.NATURAL_HAZEL);
+        if (TIConfig.Trees.hazel.get()) {
+            WorldGenUtil.addVegetation(builder, ModTreeFeatures.HAZEL);
+        }
     }
 
     public static void withPeatAndMossyGravel(BiomeGenerationSettingsBuilder builder) {
-        WorldGenUtil.addOre(builder, ModMiscFeatures.PEAT_DISK);
-        WorldGenUtil.addOre(builder, ModMiscFeatures.MOSSY_GRAVEL_DISK);
+        if (TIConfig.Misc.peat.get()) {
+            WorldGenUtil.addOre(builder, ModConfiguredFeatures.PEAT_DISK);
+        }
+
+        if (TIConfig.Misc.mossyGravel.get()) {
+            WorldGenUtil.addOre(builder, ModConfiguredFeatures.MOSSY_GRAVEL_DISK);
+        }
     }
-
     //Vanilla biome tweaks
-    public static void withExtraTundraFeatures(BiomeGenerationSettings.Builder builder) {
-        DefaultBiomeFeatures.withSparseBerries(builder);
 
-        WorldGenUtil.addVegetation(builder, ModTrees.SPRUCE_SHRUB);
-        WorldGenUtil.addVegetation(builder, ModTrees.TUNDRA_BIRCH);
+    public static void withExtraTundraFeatures(BiomeGenerationSettingsBuilder builder) {
+        if (TIConfig.Misc.betterTundras.get()) {
+            DefaultBiomeFeatures.withSparseBerries(builder);
+
+            WorldGenUtil.addVegetation(builder, ModTreeFeatures.SPRUCE_SHRUB, ModTreeFeatures.TUNDRA_BIRCH);
+        }
     }
 
     public static void withWitherRoses(BiomeGenerationSettingsBuilder builder) {
-        WorldGenUtil.addVegetation(builder, ModVegetation.WITHER_ROSE);
+        if (TIConfig.Misc.witherRoseGeneration.get()) {
+            WorldGenUtil.addVegetation(builder, ModFlowerFeatures.WITHER_ROSE);
+        }
     }
 }

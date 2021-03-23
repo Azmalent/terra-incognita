@@ -2,7 +2,6 @@ package azmalent.terraincognita.common.block.plants;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.IGrowable;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
@@ -10,9 +9,7 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.common.IForgeShearable;
 import net.minecraftforge.common.Tags;
-import vazkii.botania.api.item.IHornHarvestable;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
@@ -53,9 +50,9 @@ public class RootsBlock extends HangingPlantBlock implements IGrowable {
         BlockState roots = this.getDefaultState();
 
         for(int i = 0; i < 4; i++) {
-            int x = random.nextInt(4) - 2;
-            int y = random.nextInt(2) - 1;
-            int z = random.nextInt(4) - 2;
+            int x = random.nextInt(4) - random.nextInt(4);
+            int y = random.nextInt(2) - random.nextInt(2);
+            int z = random.nextInt(4) - random.nextInt(4);
             if (x == 0 && z == 0) continue;
 
             BlockPos nextPos = pos.add(x, y, z);

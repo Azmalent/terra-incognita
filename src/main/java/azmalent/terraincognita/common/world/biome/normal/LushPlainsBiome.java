@@ -1,8 +1,10 @@
 package azmalent.terraincognita.common.world.biome.normal;
 
+import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.common.registry.ModSurfaceBuilders;
-import azmalent.terraincognita.common.world.ModTrees;
-import azmalent.terraincognita.common.world.ModVegetation;
+import azmalent.terraincognita.common.world.ModConfiguredFeatures;
+import azmalent.terraincognita.common.world.ModFlowerFeatures;
+import azmalent.terraincognita.common.world.ModTreeFeatures;
 import azmalent.terraincognita.common.world.biome.NormalBiomeEntry;
 import azmalent.terraincognita.util.WorldGenUtil;
 import com.google.common.collect.Lists;
@@ -12,6 +14,7 @@ import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager;
+import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -73,7 +76,7 @@ public class LushPlainsBiome extends NormalBiomeEntry {
     }
 
     @Override
-    public void initFeatures(BiomeGenerationSettings.Builder builder) {
+    public void initFeatures(BiomeGenerationSettingsBuilder builder) {
         initDefaultFeatures(builder);
 
         DefaultBiomeFeatures.withStrongholdAndMineshaft(builder);
@@ -85,9 +88,12 @@ public class LushPlainsBiome extends NormalBiomeEntry {
         DefaultBiomeFeatures.withNormalMushroomGeneration(builder);
         DefaultBiomeFeatures.withSugarCaneAndPumpkins(builder);
         DefaultBiomeFeatures.withLavaAndWaterSprings(builder);
-        DefaultBiomeFeatures.withChanceBerries(builder);
         DefaultBiomeFeatures.withFrozenTopLayer(builder);
 
-        WorldGenUtil.addVegetation(builder, ModTrees.LUSH_PLAINS_APPLE, ModTrees.LUSH_PLAINS_OAK, ModTrees.OAK_SHRUB, ModVegetation.LUSH_PLAINS_FLOWERS);
+        if (TIConfig.Trees.apple.get()) {
+            WorldGenUtil.addVegetation(builder, ModTreeFeatures.EXTRA_APPLE_TREE);
+        }
+
+        WorldGenUtil.addVegetation(builder, ModTreeFeatures.LUSH_PLAINS_OAK, ModTreeFeatures.OAK_SHRUB, ModFlowerFeatures.LUSH_PLAINS_FLOWERS);
     }
 }

@@ -2,25 +2,16 @@ package azmalent.terraincognita;
 
 import azmalent.cuneiform.lib.compat.ModCompatUtil;
 import azmalent.terraincognita.client.event.ClientEventHandler;
+import azmalent.terraincognita.common.data.ModBlockTags;
+import azmalent.terraincognita.common.data.ModItemTags;
 import azmalent.terraincognita.common.event.EventHandler;
 import azmalent.terraincognita.common.registry.*;
 import azmalent.terraincognita.common.integration.ModIntegration;
-import azmalent.terraincognita.common.world.ModTrees;
 import azmalent.terraincognita.network.NetworkHandler;
 import azmalent.terraincognita.proxy.ClientProxy;
 import azmalent.terraincognita.proxy.ServerProxy;
 import azmalent.terraincognita.proxy.IProxy;
-import net.minecraft.block.Blocks;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.WorldGenRegistries;
-import net.minecraft.world.gen.Heightmap;
-import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
-import net.minecraft.world.gen.feature.*;
-import net.minecraft.world.gen.foliageplacer.FancyFoliagePlacer;
-import net.minecraft.world.gen.trunkplacer.FancyTrunkPlacer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
@@ -28,8 +19,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.util.OptionalInt;
 
 @Mod(TerraIncognita.MODID)
 public class TerraIncognita {
@@ -42,13 +31,14 @@ public class TerraIncognita {
         TIConfig.init();
 
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-        ModBiomes.BIOMES.register(bus);
         ModBlocks.BLOCKS.register(bus);
+        ModItems.ITEMS.register(bus);
+        ModBiomes.BIOMES.register(bus);
+        ModBlockStateProviders.PROVIDERS.register(bus);
         ModContainers.CONTAINERS.register(bus);
         ModEffects.EFFECTS.register(bus);
         ModEntities.ENTITIES.register(bus);
         ModFeatures.FEATURES.register(bus);
-        ModItems.ITEMS.register(bus);
         ModLootModifiers.LOOT_MODIFIERS.register(bus);
         ModParticles.PARTICLES.register(bus);
         ModRecipes.RECIPES.register(bus);
@@ -63,6 +53,8 @@ public class TerraIncognita {
         ModIntegration.SIMPLY_TEA.register(bus);
         ModIntegration.UPGRADE_AQUATIC.register(bus);
 
+        ModItemTags.init();
+        ModBlockTags.init();
         NetworkHandler.registerMessages();
 
         EventHandler.registerListeners();

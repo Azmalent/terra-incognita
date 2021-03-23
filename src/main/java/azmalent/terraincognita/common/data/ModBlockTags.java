@@ -7,6 +7,10 @@ import net.minecraft.tags.ITag;
 
 @SuppressWarnings("unused")
 public class ModBlockTags {
+    public static void init() {
+        //Called to force static constructor
+    }
+
     private static ITag.INamedTag<Block> createTag(String name) {
         return BlockTags.makeWrapperTag(TerraIncognita.prefix(name).toString());
     }

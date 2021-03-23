@@ -1,9 +1,7 @@
 package azmalent.terraincognita.common.registry;
 
-import azmalent.cuneiform.lib.registry.BlockEntry;
 import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.TerraIncognita;
-import azmalent.terraincognita.common.block.PottablePlantEntry;
 import azmalent.terraincognita.common.recipe.FiddleheadSuspiciousStewAdditionRecipe;
 import azmalent.terraincognita.common.recipe.FiddleheadSuspiciousStewRecipe;
 import azmalent.terraincognita.common.recipe.WreathRecipe;
@@ -23,11 +21,11 @@ import java.util.function.Function;
 
 @SuppressWarnings("unused")
 public class ModRecipes {
-    public static DeferredRegister<IRecipeSerializer<?>> RECIPES = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, TerraIncognita.MODID);
+    public static final DeferredRegister<IRecipeSerializer<?>> RECIPES = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, TerraIncognita.MODID);
 
-    public static RegistryObject<SpecialRecipeSerializer<?>> FIDDLEHEAD_SUSPICIOUS_STEW = registerRecipe("fiddlehead_suspicious_stew", FiddleheadSuspiciousStewRecipe::new);
+    public static final RegistryObject<SpecialRecipeSerializer<?>> FIDDLEHEAD_SUSPICIOUS_STEW = registerRecipe("fiddlehead_suspicious_stew", FiddleheadSuspiciousStewRecipe::new);
     public static RegistryObject<SpecialRecipeSerializer<?>> FIDDLEHEAD_SUSPICIOUS_STEW_ADDITION = registerRecipe("fiddlehead_suspicious_stew_addition", FiddleheadSuspiciousStewAdditionRecipe::new);
-    public static RegistryObject<SpecialRecipeSerializer<?>> WREATH = registerRecipe("flower_band", WreathRecipe::new);
+    public static final RegistryObject<SpecialRecipeSerializer<?>> WREATH = registerRecipe("flower_band", WreathRecipe::new);
 
     private static RegistryObject<SpecialRecipeSerializer<?>> registerRecipe(String id, Function<ResourceLocation, SpecialRecipe> constructor) {
         return RECIPES.register(id, () -> new SpecialRecipeSerializer<>(constructor));
@@ -64,10 +62,14 @@ public class ModRecipes {
         registerCompostable(ModBlocks.CARIBOU_MOSS, 0.3f);
         registerCompostable(ModBlocks.ROOTS, 0.5f);
         registerCompostable(ModBlocks.HANGING_MOSS, 0.3f);
+        registerCompostable(ModItems.SOUR_BERRIES, 0.3f);
+        registerCompostable(ModBlocks.SOUR_BERRY_SPROUTS, 0.3f);
         registerCompostable(ModItems.FIDDLEHEAD, 0.65f);
         registerCompostable(ModItems.WREATH, 1);
 
         registerCompostable(ModWoodTypes.APPLE.BLOSSOMING_LEAVES, 0.3f);
         registerCompostable(ModItems.HAZELNUT, 0.3f);
+        registerCompostable(ModItems.HAZELNUT_COOKIE, 0.85f);
+
     }
 }

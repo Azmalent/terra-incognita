@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
-@SuppressWarnings("ConstantConditions")
 public class AppleTreeDecorator extends TreeDecorator {
     public static final AppleTreeDecorator INSTANCE = new AppleTreeDecorator();
     public static final Codec<AppleTreeDecorator> CODEC = Codec.unit(() -> INSTANCE);

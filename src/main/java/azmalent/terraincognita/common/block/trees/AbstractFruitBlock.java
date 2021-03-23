@@ -29,13 +29,15 @@ import java.util.function.Supplier;
 
 @SuppressWarnings("deprecation")
 public abstract class AbstractFruitBlock extends Block {
-    public static IntegerProperty AGE = BlockStateProperties.AGE_0_7;
+    public static final IntegerProperty AGE = BlockStateProperties.AGE_0_7;
 
     private final Supplier<Item> item;
+    private final int growthChance;
 
-    protected AbstractFruitBlock(AbstractBlock.Properties properties, Supplier<Item> item) {
+    protected AbstractFruitBlock(AbstractBlock.Properties properties, Supplier<Item> item, int growthChance) {
         super(properties);
         this.item = item;
+        this.growthChance = growthChance;
 
         this.setDefaultState(getStateContainer().getBaseState().with(AGE, 0));
     }
@@ -83,7 +85,7 @@ public abstract class AbstractFruitBlock extends Block {
 
     @Override
     public void randomTick(@Nonnull BlockState state, @Nonnull ServerWorld worldIn, @Nonnull BlockPos pos, Random random) {
-        if (ForgeHooks.onCropsGrowPre(worldIn, pos, state, random.nextInt(25) == 0)) {
+        if (ForgeHooks.onCropsGrowPre(worldIn, pos, state, random.nextInt(growthChance) == 0)) {
             worldIn.setBlockState(pos, state.with(AGE,state.get(AGE) + 1), 2);
             ForgeHooks.onCropsGrowPost(worldIn, pos, state);
         }

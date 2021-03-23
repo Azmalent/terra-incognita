@@ -21,7 +21,7 @@ public class HazelnutBlock extends AbstractFruitBlock {
     private static final VoxelShape SHAPE = makeCuboidShape(6, 12, 6, 10, 16, 10);
 
     public HazelnutBlock() {
-        super(Block.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(0.2F).sound(SoundType.WOOD), ModItems.HAZELNUT);
+        super(Block.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(0.2F).sound(SoundType.WOOD), ModItems.HAZELNUT, 10);
     }
 
     @Nonnull
@@ -31,6 +31,7 @@ public class HazelnutBlock extends AbstractFruitBlock {
         return SHAPE.withOffset(offset.x, offset.y, offset.z);
     }
 
+    @Nonnull
     @Override
     public OffsetType getOffsetType() {
         return OffsetType.XZ;

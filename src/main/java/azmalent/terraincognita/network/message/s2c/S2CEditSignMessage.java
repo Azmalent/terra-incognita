@@ -23,13 +23,10 @@ public final class S2CEditSignMessage {
         return new S2CEditSignMessage(buffer.readBlockPos());
     }
 
-    @SuppressWarnings("ConstantConditions")
     public static void handle(final S2CEditSignMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
         NetworkEvent.Context context = contextSupplier.get();
         if (context.getDirection() == NetworkDirection.PLAY_TO_CLIENT) {
-            context.enqueueWork(() -> {
-                TerraIncognita.PROXY.openSignEditor(message.pos);
-            });
+            context.enqueueWork(() -> TerraIncognita.PROXY.openSignEditor(message.pos));
         }
 
         context.setPacketHandled(true);

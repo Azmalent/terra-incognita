@@ -12,7 +12,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.function.Supplier;
 
-@SuppressWarnings("ConstantConditions")
 public final class S2CSpawnParticleMessage {
     private final ResourceLocation name;
     private final double xPos, yPos, zPos;
@@ -58,7 +57,6 @@ public final class S2CSpawnParticleMessage {
         return new S2CSpawnParticleMessage(name, posX, posY, posZ, speedX, speedY, speedZ);
     }
 
-    @SuppressWarnings("ConstantConditions")
     public static void handle(final S2CSpawnParticleMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
         NetworkEvent.Context context = contextSupplier.get();
         if (context.getDirection() == NetworkDirection.PLAY_TO_CLIENT) {

@@ -4,15 +4,26 @@ import com.google.common.collect.Lists;
 import net.minecraft.world.gen.INoiseRandom;
 
 import java.util.List;
-import java.util.Random;
 
-public final class NoiseWeightedList<T> {
+public class NoiseWeightedList<T> {
+    private static class Node<T> {
+        protected final T value;
+        protected final int weight;
+
+        private Node(T value, int weight) {
+            this.value = value;
+            this.weight = weight;
+        }
+    }
+
     private final List<Node<T>> items = Lists.newArrayList();
     private int totalWeight = 0;
 
     public void add(T value, int weight) {
-        if (weight < 1) {
+        if (weight < 0) {
             throw new IllegalArgumentException("Weight must be positive!");
+        } else if (weight == 0) {
+            return;
         }
 
         items.add(new Node<>(value, weight));
@@ -36,15 +47,5 @@ public final class NoiseWeightedList<T> {
         }
 
         throw new AssertionError("Method didn't return a value!");
-    }
-
-    private static class Node<T> {
-        private final T value;
-        private final int weight;
-
-        private Node(T value, int weight) {
-            this.value = value;
-            this.weight = weight;
-        }
     }
 }

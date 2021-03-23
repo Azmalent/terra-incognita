@@ -84,11 +84,11 @@ public class ModBoatEntity extends BoatEntity {
     protected void updateFallState(double y, boolean onGroundIn, BlockState state, BlockPos pos) {
         BoatEntityAccessor accessor = (BoatEntityAccessor) this;
 
-        accessor.setLastYd(this.getMotion().y);
+        accessor.ti_setLastYd(this.getMotion().y);
         if (!this.isPassenger()) {
             if (onGroundIn) {
                 if (this.fallDistance > 3.0F) {
-                    if (accessor.getStatus() != ModBoatEntity.Status.ON_LAND) {
+                    if (accessor.ti_getStatus() != ModBoatEntity.Status.ON_LAND) {
                         this.fallDistance = 0.0F;
                         return;
                     }

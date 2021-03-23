@@ -76,9 +76,7 @@ public final class UpdateSignMessage {
             });
         }
         else {
-            context.enqueueWork(() -> {
-                TerraIncognita.PROXY.updateSignOnClient(message.pos, message.lines, message.color);
-            });
+            context.enqueueWork(() -> TerraIncognita.PROXY.updateSignOnClient(message.pos, message.lines, message.color));
         }
 
         context.setPacketHandled(true);

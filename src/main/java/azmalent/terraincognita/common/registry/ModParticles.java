@@ -16,7 +16,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class ModParticles {
     public static final DeferredRegister<ParticleType<?>> PARTICLES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, TerraIncognita.MODID);
 
-    public static RegistryObject<BasicParticleType> DANDELION_FLUFF = PARTICLES.register("dandelion_fluff", () -> new BasicParticleType(false));
+    public static final RegistryObject<BasicParticleType> DANDELION_FLUFF = PARTICLES.register("dandelion_fluff", () -> new BasicParticleType(false));
 
     @OnlyIn(Dist.CLIENT)
     public static void registerParticleFactories(ParticleFactoryRegisterEvent event) {

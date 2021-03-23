@@ -160,6 +160,7 @@ public class ModSignTileEntity extends TileEntity {
         return this.player;
     }
 
+    @SuppressWarnings("SameReturnValue")
     public boolean executeCommand(PlayerEntity playerIn) {
         for(ITextComponent itextcomponent : this.signText) {
             Style style = itextcomponent == null ? null : itextcomponent.getStyle();

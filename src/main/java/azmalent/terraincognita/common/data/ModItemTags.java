@@ -1,13 +1,16 @@
 package azmalent.terraincognita.common.data;
 
 import azmalent.terraincognita.TerraIncognita;
-import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.tags.ITag;
 import net.minecraft.tags.ItemTags;
 
 @SuppressWarnings("unused")
 public class ModItemTags {
+    public static void init() {
+        //Called to force static constructor
+    }
+
     private static ITag.INamedTag<Item> createTag(String name) {
         return ItemTags.makeWrapperTag(TerraIncognita.prefix(name).toString());
     }

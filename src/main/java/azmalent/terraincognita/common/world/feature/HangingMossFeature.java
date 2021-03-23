@@ -27,8 +27,7 @@ public class HangingMossFeature extends Feature<NoFeatureConfig> {
         super(NoFeatureConfig.field_236558_a_);
     }
 
-    @SuppressWarnings("ConstantConditions")
-    public boolean generate(ISeedReader world, @Nonnull ChunkGenerator generator, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull NoFeatureConfig config) {
+    public boolean generate(@Nonnull ISeedReader world, @Nonnull ChunkGenerator generator, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull NoFeatureConfig config) {
         int y = rand.nextInt(MAX_Y - MIN_Y) + MIN_Y;
         BlockPos centerPos = new BlockPos(pos.getX(), y, pos.getZ());
 
@@ -43,7 +42,7 @@ public class HangingMossFeature extends Feature<NoFeatureConfig> {
                 continue;
             }
 
-            if (isEnoughVerticalSpace(world, nextPos) && moss.isValidPosition(world, nextPos) && !world.getBlockState(nextPos.up()).isIn(ModBlocks.HANGING_MOSS.getBlock())) {
+            if (hasEnoughVerticalSpace(world, nextPos) && moss.isValidPosition(world, nextPos) && !world.getBlockState(nextPos.up()).isIn(ModBlocks.HANGING_MOSS.getBlock())) {
                 if (rand.nextBoolean()) {
                     world.setBlockState(nextPos, moss, 2);
                 } else {
@@ -58,7 +57,7 @@ public class HangingMossFeature extends Feature<NoFeatureConfig> {
         return success;
     }
 
-    private boolean isEnoughVerticalSpace(ISeedReader reader, BlockPos pos) {
+    private boolean hasEnoughVerticalSpace(ISeedReader reader, BlockPos pos) {
         for (int i = 0; i < MIN_VERTICAL_SPACE; i++) {
             if (!reader.isAirBlock(pos.down(i))) {
                 return false;

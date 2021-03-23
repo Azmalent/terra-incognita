@@ -32,8 +32,8 @@ public class ModWallSignBlock extends AbstractModSignBlock {
     public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
     private static final Map<Direction, VoxelShape> SHAPES = Maps.newEnumMap(ImmutableMap.of(Direction.NORTH, Block.makeCuboidShape(0.0D, 4.5D, 14.0D, 16.0D, 12.5D, 16.0D), Direction.SOUTH, Block.makeCuboidShape(0.0D, 4.5D, 0.0D, 16.0D, 12.5D, 2.0D), Direction.EAST, Block.makeCuboidShape(0.0D, 4.5D, 0.0D, 2.0D, 12.5D, 16.0D), Direction.WEST, Block.makeCuboidShape(14.0D, 4.5D, 0.0D, 16.0D, 12.5D, 16.0D)));
 
-    public ModWallSignBlock(MaterialColor color, ModWoodType woodType) {
-        super(color, woodType);
+    public ModWallSignBlock(ModWoodType woodType) {
+        super(woodType);
         this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH).with(WATERLOGGED, Boolean.FALSE));
     }
 
