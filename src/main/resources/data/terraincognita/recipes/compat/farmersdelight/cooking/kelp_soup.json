@@ -1,0 +1,33 @@
+{
+  "type": "farmersdelight:cooking",
+  "ingredients": [
+    {
+      "item": "minecraft:kelp"
+    },
+    {
+      "item": "minecraft:beetroot"
+    }
+  ],
+  "result": {
+    "item": "terraincognita:kelp_soup"
+  },
+  "container": {
+    "item": "minecraft:bowl"
+  },
+  "cookingtime": 200,
+  "conditions": [
+    {
+      "type": "forge:and",
+      "values": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "farmersdelight"
+        },
+        {
+          "type": "cuneiform:config",
+          "config": "terraincognita:kelp_soup"
+        }
+      ]
+    }
+  ]
+}
