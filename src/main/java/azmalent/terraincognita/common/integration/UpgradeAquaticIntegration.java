@@ -1,5 +1,6 @@
-package azmalent.terraincognita.common.integration.upgradeaquatic;
+package azmalent.terraincognita.common.integration;
 
+import azmalent.cuneiform.lib.compat.IModIntegration;
 import azmalent.cuneiform.lib.compat.ModProxyImpl;
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.tile.ModSignTileEntity;
@@ -20,8 +21,8 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 
-@ModProxyImpl(IUpgradeAquaticIntegration.MODID)
-public class UpgradeAquaticIntegration implements IUpgradeAquaticIntegration {
+@ModProxyImpl("upgrade_aquatic")
+public class UpgradeAquaticIntegration implements IModIntegration {
     @Override
     public void register(IEventBus bus) {
         TerraIncognita.LOGGER.info("Integrating with Upgrade Aquatic...");

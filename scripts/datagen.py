@@ -281,6 +281,25 @@ def make_wood_type(type):
     add_to_item_tag('boats', '%s:%s' % (MODID, boat))
     copy_crafting_recipe('boat', '%s/boat' % type, variables)
 
+    # Buzzier Bees
+    beehive = variables['block'] = type + '_beehive'
+    copy_blockstate_and_models('beehive', beehive, variables, block_model_suffixes=['', '_honey'])
+    copy_loot_table('beehive', beehive, variables)
+    copy_recipe('beehive', 'compat/buzzier_bees/%s' % beehive, variables)
+    add_to_block_tag('beehives', '%s:%s' % (MODID, beehive), optional=True)
+
+    # Farmer's Delight
+    pantry = variables['block'] = type + '_pantry'
+    copy_blockstate_and_models('pantry', pantry, variables, block_model_suffixes=['', '_open'])
+    copy_loot_table('named_tile_entity', pantry, variables)
+    copy_recipe('pantry', 'compat/farmersdelight/%s' % pantry, variables)
+
+    copy_cutting_recipe('stripping', type, 'stripped_log', {'input': type + '_log'})
+    copy_cutting_recipe('stripping', type, 'stripped_wood', {'input': type + '_wood'})
+    copy_cutting_recipe('item_to_planks', type, 'door', {'input': type + '_door'})
+    copy_cutting_recipe('item_to_planks', type, 'trapdoor', {'input': type + '_trapdoor'})
+    copy_cutting_recipe('item_to_planks', type, 'sign', {'input': type + '_sign'})
+
     # Environmental Sawmill
     copy_sawmill_recipe('item_from_log', type, 'planks_from_log', {'output': type + '_planks', 'count': '4'})
     copy_sawmill_recipe('item_from_log', type, 'button_from_log', {'output': type + '_button', 'count': '4'})
@@ -311,10 +330,3 @@ def make_wood_type(type):
     copy_sawmill_recipe('quark_item_from_planks', type, 'vertical_slab_from_planks', {'output': vertical_slab, 'count': '2'})
     copy_sawmill_recipe('quark_recipe', type, 'slab_from_vertical_slab', {'input': slab, 'output': vertical_slab, 'count': '1'})
     copy_sawmill_recipe('quark_recipe', type, 'vertical_slab_from_slab', {'input': vertical_slab, 'output': slab, 'count': '1'})
-
-    # Farmer's Delight
-    copy_cutting_recipe('log_stripping', type, 'stripped_log', {})
-    copy_cutting_recipe('wood_stripping', type, 'stripped_wood', {})
-    copy_cutting_recipe('item_to_planks', type, 'door', {'input': type + '_door'})
-    copy_cutting_recipe('item_to_planks', type, 'trapdoor', {'input': type + '_trapdoor'})
-    copy_cutting_recipe('item_to_planks', type, 'sign', {'input': type + '_sign'})

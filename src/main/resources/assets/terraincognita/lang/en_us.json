@@ -124,8 +124,8 @@
   "block.terraincognita.blossoming_apple_hedge": "Blossoming Apple Hedge",
   "block.terraincognita.apple_leaf_carpet": "Apple Leaf Carpet",
   "block.terraincognita.blossoming_apple_leaf_carpet": "Blossoming Apple Leaf Carpet",
-  "block.terraincognita.apple_barrel": "Apple Barrel",
   "block.terraincognita.apple_beehive": "Apple Beehive",
+  "block.terraincognita.apple_pantry": "Apple Pantry",
 
   "block.terraincognita.hazel_sapling": "Hazel Sapling",
   "block.terraincognita.potted_hazel_sapling": "Potted Hazel Sapling",
@@ -154,8 +154,8 @@
   "block.terraincognita.stripped_hazel_post": "Stripped Hazel Post",
   "block.terraincognita.hazel_hedge": "Hazel Hedge",
   "block.terraincognita.hazel_leaf_carpet": "Hazel Leaf Carpet",
-  "block.terraincognita.hazel_barrel": "Hazel Barrel",
   "block.terraincognita.hazel_beehive": "Hazel Beehive",
+  "block.terraincognita.hazel_pantry": "Hazel Pantry",
   "block.terraincognita.hazelnut_sack": "Hazelnut Sack",
 
   "item.terraincognita.taffy": "Taffy",

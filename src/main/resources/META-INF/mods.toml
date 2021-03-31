@@ -46,13 +46,25 @@ An expansion focusing on nature and exploration.
     side="BOTH"
 
 [[dependencies.terraincognita]]
-    modId="simplytea"
+    modId="buzzier_bees"
     mandatory=false
     ordering="AFTER"
     side="BOTH"
 
 [[dependencies.terraincognita]]
     modId="upgrade_aquatic"
+    mandatory=false
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.terraincognita]]
+    modId="farmersdelight"
+    mandatory=false
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.terraincognita]]
+    modId="simplytea"
     mandatory=false
     ordering="AFTER"
     side="BOTH"

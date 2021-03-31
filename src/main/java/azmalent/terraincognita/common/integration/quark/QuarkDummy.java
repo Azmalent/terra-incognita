@@ -10,8 +10,8 @@ import net.minecraftforge.eventbus.api.IEventBus;
 @ModProxyDummy("quark")
 public class QuarkDummy implements IQuarkIntegration {
     @Override
-    public void register(IEventBus bus) {
-
+    public void register(IEventBus iEventBus) {
+        //NO-OP
     }
 
     @Override

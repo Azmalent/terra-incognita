@@ -1,8 +1,8 @@
 package azmalent.terraincognita.common.world.biome;
 
+import azmalent.cuneiform.lib.function.TriFunction;
 import azmalent.cuneiform.lib.util.BiomeUtil;
 import azmalent.terraincognita.util.NoiseWeightedList;
-import azmalent.terraincognita.util.TriFunction;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.INoiseRandom;

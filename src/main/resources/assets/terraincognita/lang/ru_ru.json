@@ -121,8 +121,8 @@
   "block.terraincognita.blossoming_apple_hedge": "Цветущая яблоневая живая изгородь",
   "block.terraincognita.apple_leaf_carpet": "Ковёр из листьев яблони",
   "block.terraincognita.blossoming_apple_leaf_carpet": "Ковёр из цветущих листьев яблони",
-  "block.terraincognita.apple_barrel": "Яблоневая бочка",
   "block.terraincognita.apple_beehive": "Яблоневый улей",
+  "block.terraincognita.apple_pantry": "Яблоневая кладовая",
 
   "block.terraincognita.hazel_sapling": "Саженец орешника",
   "block.terraincognita.potted_hazel_sapling": "Саженец орешника в горшке",
@@ -151,8 +151,8 @@
   "block.terraincognita.stripped_hazel_post": "Обтёсанный орешниковый столб",
   "block.terraincognita.hazel_hedge": "Орешниковая живая изгородь",
   "block.terraincognita.hazel_leaf_carpet": "Ковёр из листьев орешника",
-  "block.terraincognita.hazel_barrel": "Орешниковая бочка",
   "block.terraincognita.hazel_beehive": "Орешниковый улей",
+  "block.terraincognita.hazel_pantry": "Орешниковая кладовая",
   "block.terraincognita.hazelnut_sack": "Мешок фундука",
 
   "item.terraincognita.taffy": "Ириска",

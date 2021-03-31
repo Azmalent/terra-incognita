@@ -50,8 +50,10 @@ public class TerraIncognita {
 
         ModCompatUtil.initModProxies(ModIntegration.class, MODID);
         ModIntegration.QUARK.register(bus);
-        ModIntegration.SIMPLY_TEA.register(bus);
+        ModIntegration.BUZZIER_BEES.register(bus);
         ModIntegration.UPGRADE_AQUATIC.register(bus);
+        ModIntegration.FARMERS_DELIGHT.register(bus);
+        ModIntegration.SIMPLY_TEA.register(bus);
 
         ModItemTags.init();
         ModBlockTags.init();

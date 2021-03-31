@@ -2,7 +2,7 @@
   "type": "farmersdelight:cutting",
   "ingredients": [
     {
-      "item": "$MODID:$TYPE_wood"
+      "item": "$MODID:$INPUT"
     }
   ],
   "tool": {
@@ -11,7 +11,7 @@
   },
   "result": [
     {
-      "item": "$MODID:stripped_$TYPE_wood"
+      "item": "$MODID:stripped_$INPUT"
     },
     {
       "item": "farmersdelight:tree_bark"

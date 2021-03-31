@@ -1,5 +1,6 @@
-package azmalent.terraincognita.common.integration.simplytea;
+package azmalent.terraincognita.common.integration;
 
+import azmalent.cuneiform.lib.compat.IModIntegration;
 import azmalent.cuneiform.lib.compat.ModProxyImpl;
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.registry.ModItems;
@@ -13,8 +14,8 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
 
 @SuppressWarnings({"FieldCanBeLocal", "unused"})
-@ModProxyImpl(ISimplyTeaIntegration.MODID)
-public class SimplyTeaIntegration implements ISimplyTeaIntegration {
+@ModProxyImpl("simplytea")
+public class SimplyTeaIntegration implements IModIntegration {
     private RegistryObject<Item> FIREWEED_TEA_BAG;
     private RegistryObject<Item> FIREWEED_TEA_CUP;
 

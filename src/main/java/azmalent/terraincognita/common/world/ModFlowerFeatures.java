@@ -1,5 +1,6 @@
 package azmalent.terraincognita.common.world;
 
+import azmalent.terraincognita.common.integration.EnvironmentalIntegration;
 import azmalent.terraincognita.common.integration.ModIntegration;
 import azmalent.terraincognita.common.registry.ModBlocks;
 import azmalent.terraincognita.common.registry.ModFeatures;
@@ -56,7 +57,7 @@ public class ModFlowerFeatures {
 
         static final WeightedBlockStateProvider LUSH_PLAINS_TALL_FLOWERS = new WeightedBlockStateProvider().addWeightedBlockstate(States.ROSE_BUSH, 2).addWeightedBlockstate(States.PEONY, 2).addWeightedBlockstate(States.LILAC, 2).addWeightedBlockstate(States.SUNFLOWER, 2);
         static {
-            ModIntegration.ENVIRONMENTAL.addDelphiniums(LUSH_PLAINS_TALL_FLOWERS);
+            EnvironmentalIntegration.addDelphiniums(LUSH_PLAINS_TALL_FLOWERS);
         }
     }
 

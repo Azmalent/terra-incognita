@@ -1,19 +1,22 @@
 package azmalent.terraincognita.common.integration;
 
+import azmalent.cuneiform.lib.compat.IModIntegration;
 import azmalent.cuneiform.lib.compat.ModProxy;
 import azmalent.terraincognita.common.integration.quark.IQuarkIntegration;
-import azmalent.terraincognita.common.integration.simplytea.ISimplyTeaIntegration;
-import azmalent.terraincognita.common.integration.upgradeaquatic.IUpgradeAquaticIntegration;
 
 public class ModIntegration {
     @ModProxy("quark")
     public static IQuarkIntegration QUARK;
 
-    @ModProxy("simplytea")
-    public static ISimplyTeaIntegration SIMPLY_TEA;
+    @ModProxy("buzzier_bees")
+    public static IModIntegration BUZZIER_BEES;
 
     @ModProxy("upgrade_aquatic")
-    public static IUpgradeAquaticIntegration UPGRADE_AQUATIC;
+    public static IModIntegration UPGRADE_AQUATIC;
 
-    public static final EnvironmentalIntegration ENVIRONMENTAL = new EnvironmentalIntegration();
+    @ModProxy("farmersdelight")
+    public static IModIntegration FARMERS_DELIGHT;
+
+    @ModProxy("simplytea")
+    public static IModIntegration SIMPLY_TEA;
 }

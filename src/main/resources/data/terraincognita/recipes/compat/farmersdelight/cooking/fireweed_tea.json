@@ -2,17 +2,17 @@
   "type": "farmersdelight:cooking",
   "ingredients": [
     {
-      "item": "minecraft:kelp"
+      "item": "terraincognita:fireweed"
     },
     {
-      "item": "minecraft:kelp"
+      "item": "terraincognita:fireweed"
     }
   ],
   "result": {
-    "item": "terraincognita:kelp_soup"
+    "item": "terraincognita:fireweed_tea_cup"
   },
   "container": {
-    "item": "minecraft:bowl"
+    "item": "simplytea:cup"
   },
   "cookingtime": 200,
   "conditions": [
@@ -24,8 +24,12 @@
           "modid": "farmersdelight"
         },
         {
+          "type": "forge:mod_loaded",
+          "modid": "simplytea"
+        },
+        {
           "type": "cuneiform:config",
-          "config": "terraincognita:kelp_soup"
+          "config": "terraincognita:arctic_flowers"
         }
       ]
     }
