@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_top_rh",
+  "textures": {
+    "top": "terraincognita:block/hazel/door_top",
+    "bottom": "terraincognita:block/hazel/door_bottom"
+  }
+}

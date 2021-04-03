@@ -1,6 +1,0 @@
-{
-	"parent": "terraincognita:block/hazelnut",
-	"textures": {
-		"nut": "terraincognita:block/hazelnut_stage1"
-	}
-}

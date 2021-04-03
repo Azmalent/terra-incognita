@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "terraincognita:block/purple_sweet_peas"
+    "layer0": "terraincognita:block/sweet_peas/purple_sweet_peas"
   }
 }

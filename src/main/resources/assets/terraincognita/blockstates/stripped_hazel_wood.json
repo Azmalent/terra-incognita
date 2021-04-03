@@ -1,15 +1,15 @@
 {
   "variants": {
     "axis=x": {
-      "model": "terraincognita:block/stripped_hazel_wood",
+      "model": "terraincognita:block/hazel/stripped_wood",
       "x": 90,
       "y": 90
     },
     "axis=y": {
-      "model": "terraincognita:block/stripped_hazel_wood"
+      "model": "terraincognita:block/hazel/stripped_wood"
     },
     "axis=z": {
-      "model": "terraincognita:block/stripped_hazel_wood",
+      "model": "terraincognita:block/hazel/stripped_wood",
       "x": 90
     }
   }

@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "terraincognita:block/potted_foxglove"
+      "model": "terraincognita:block/potted/foxglove"
     }
   }
 }

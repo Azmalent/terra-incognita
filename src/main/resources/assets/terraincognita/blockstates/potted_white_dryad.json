@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "terraincognita:block/potted_white_dryad"
+      "model": "terraincognita:block/potted/white_dryad"
     }
   }
 }

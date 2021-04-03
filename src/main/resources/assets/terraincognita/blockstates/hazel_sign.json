@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "terraincognita:block/hazel_sign"
+      "model": "terraincognita:block/hazel/sign"
     }
   }
 }

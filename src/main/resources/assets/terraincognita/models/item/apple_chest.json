@@ -1,7 +1,7 @@
 {
   "parent": "builtin/entity",
   "textures": {
-    "particle": "terraincognita:block/apple_planks"
+    "particle": "terraincognita:block/apple/planks"
   },
   "display": {
     "gui": {

@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "terraincognita:block/potted_gentian"
+      "model": "terraincognita:block/potted/gentian"
     }
   }
 }

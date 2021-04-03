@@ -1,15 +1,15 @@
 {
   "variants": {
     "axis=x": {
-      "model": "terraincognita:block/stripped_hazel_log_horizontal",
+      "model": "terraincognita:block/hazel/stripped_log_horizontal",
       "x": 90,
       "y": 90
     },
     "axis=y": {
-      "model": "terraincognita:block/stripped_hazel_log"
+      "model": "terraincognita:block/hazel/stripped_log"
     },
     "axis=z": {
-      "model": "terraincognita:block/stripped_hazel_log_horizontal",
+      "model": "terraincognita:block/hazel/stripped_log_horizontal",
       "x": 90
     }
   }

@@ -1,15 +1,15 @@
 {
   "variants": {
     "axis=x": {
-      "model": "terraincognita:block/apple_log_horizontal",
+      "model": "terraincognita:block/apple/log_horizontal",
       "x": 90,
       "y": 90
     },
     "axis=y": {
-      "model": "terraincognita:block/apple_log"
+      "model": "terraincognita:block/apple/log"
     },
     "axis=z": {
-      "model": "terraincognita:block/apple_log_horizontal",
+      "model": "terraincognita:block/apple/log_horizontal",
       "x": 90
     }
   }

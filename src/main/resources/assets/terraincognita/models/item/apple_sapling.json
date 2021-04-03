@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "terraincognita:block/apple_sapling"
+    "layer0": "terraincognita:block/apple/sapling"
   }
 }

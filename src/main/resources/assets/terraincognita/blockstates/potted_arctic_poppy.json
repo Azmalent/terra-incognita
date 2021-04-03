@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "terraincognita:block/potted_arctic_poppy"
+      "model": "terraincognita:block/potted/arctic_poppy"
     }
   }
 }

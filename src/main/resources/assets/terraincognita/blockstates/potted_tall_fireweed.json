@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "terraincognita:block/potted_tall_fireweed"
+      "model": "terraincognita:block/potted/tall_fireweed"
     }
   }
 }

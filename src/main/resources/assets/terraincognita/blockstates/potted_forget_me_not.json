@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "terraincognita:block/potted_forget_me_not"
+      "model": "terraincognita:block/potted/forget_me_not"
     }
   }
 }

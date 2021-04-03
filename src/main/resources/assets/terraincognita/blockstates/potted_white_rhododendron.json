@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "terraincognita:block/potted_white_rhododendron"
+      "model": "terraincognita:block/potted/white_rhododendron"
     }
   }
 }

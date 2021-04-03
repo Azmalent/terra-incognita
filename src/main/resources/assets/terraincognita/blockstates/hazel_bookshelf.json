@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "terraincognita:block/hazel_bookshelf"
+      "model": "terraincognita:block/hazel/bookshelf"
     }
   }
 }

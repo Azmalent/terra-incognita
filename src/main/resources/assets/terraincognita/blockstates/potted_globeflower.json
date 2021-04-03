@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "terraincognita:block/potted_globeflower"
+      "model": "terraincognita:block/potted/globeflower"
     }
   }
 }

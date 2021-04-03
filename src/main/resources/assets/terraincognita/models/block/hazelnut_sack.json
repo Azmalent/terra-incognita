@@ -1,8 +1,0 @@
-{
-  "parent": "block/cube_bottom_top",
-  "textures": {
-    "top": "terraincognita:block/hazelnut_sack_top",
-    "bottom": "terraincognita:block/hazelnut_sack_bottom",
-    "side": "terraincognita:block/hazelnut_sack"
-  }
-}

@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "terraincognita:block/potted_wild_garlic"
+      "model": "terraincognita:block/potted/wild_garlic"
     }
   }
 }

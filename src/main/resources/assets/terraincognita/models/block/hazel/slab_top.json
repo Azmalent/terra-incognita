@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "terraincognita:block/hazel/planks",
+    "top": "terraincognita:block/hazel/planks",
+    "side": "terraincognita:block/hazel/planks"
+  }
+}

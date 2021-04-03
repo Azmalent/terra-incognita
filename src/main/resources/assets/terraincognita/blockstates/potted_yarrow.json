@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "terraincognita:block/potted_yarrow"
+      "model": "terraincognita:block/potted/yarrow"
     }
   }
 }

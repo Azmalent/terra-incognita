@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "terraincognita:block/potted_blue_iris"
+      "model": "terraincognita:block/potted/blue_iris"
     }
   }
 }

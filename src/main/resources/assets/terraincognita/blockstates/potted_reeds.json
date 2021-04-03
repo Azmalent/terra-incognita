@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "terraincognita:block/potted_reeds"
+      "model": "terraincognita:block/potted/reeds"
     }
   }
 }

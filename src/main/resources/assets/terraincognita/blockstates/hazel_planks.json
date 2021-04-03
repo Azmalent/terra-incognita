@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "terraincognita:block/hazel_planks"
+      "model": "terraincognita:block/hazel/planks"
     }
   }
 }

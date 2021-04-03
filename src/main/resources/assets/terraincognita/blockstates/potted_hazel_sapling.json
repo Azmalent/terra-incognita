@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "terraincognita:block/potted_hazel_sapling"
+      "model": "terraincognita:block/potted/hazel_sapling"
     }
   }
 }

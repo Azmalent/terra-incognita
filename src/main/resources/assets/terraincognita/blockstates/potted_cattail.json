@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "terraincognita:block/potted_cattail"
+      "model": "terraincognita:block/potted/cattail"
     }
   }
 }

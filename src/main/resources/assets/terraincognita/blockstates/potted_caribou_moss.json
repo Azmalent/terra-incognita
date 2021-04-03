@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "terraincognita:block/potted_caribou_moss"
+      "model": "terraincognita:block/potted/caribou_moss"
     }
   }
 }

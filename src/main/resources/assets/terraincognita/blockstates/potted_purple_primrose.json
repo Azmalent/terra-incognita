@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "terraincognita:block/potted_purple_primrose"
+      "model": "terraincognita:block/potted/purple_primrose"
     }
   }
 }

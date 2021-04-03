@@ -1,13 +1,13 @@
 {
   "variants": {
     "type=bottom": {
-      "model": "terraincognita:block/apple_slab"
+      "model": "terraincognita:block/apple/slab"
     },
     "type=double": {
-      "model": "terraincognita:block/apple_planks"
+      "model": "terraincognita:block/apple/planks"
     },
     "type=top": {
-      "model": "terraincognita:block/apple_slab_top"
+      "model": "terraincognita:block/apple/slab_top"
     }
   }
 }

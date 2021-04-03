@@ -5,7 +5,7 @@
         "extend": "false"
       },
       "apply": {
-        "model": "terraincognita:block/apple_hedge_post"
+        "model": "terraincognita:block/apple/hedge_post"
       }
     },
     {
@@ -13,7 +13,7 @@
         "extend": "true"
       },
       "apply": {
-        "model": "terraincognita:block/apple_hedge_extend"
+        "model": "terraincognita:block/apple/hedge_extend"
       }
     },
     {
@@ -21,7 +21,7 @@
         "north": "true"
       },
       "apply": {
-        "model": "terraincognita:block/apple_hedge_side",
+        "model": "terraincognita:block/apple/hedge_side",
         "uvlock": true
       }
     },
@@ -30,7 +30,7 @@
         "east": "true"
       },
       "apply": {
-        "model": "terraincognita:block/apple_hedge_side",
+        "model": "terraincognita:block/apple/hedge_side",
         "y": 90,
         "uvlock": true
       }
@@ -40,7 +40,7 @@
         "south": "true"
       },
       "apply": {
-        "model": "terraincognita:block/apple_hedge_side",
+        "model": "terraincognita:block/apple/hedge_side",
         "y": 180,
         "uvlock": true
       }
@@ -50,7 +50,7 @@
         "west": "true"
       },
       "apply": {
-        "model": "terraincognita:block/apple_hedge_side",
+        "model": "terraincognita:block/apple/hedge_side",
         "y": 270,
         "uvlock": true
       }

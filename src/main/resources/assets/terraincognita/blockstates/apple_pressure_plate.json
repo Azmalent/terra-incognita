@@ -1,10 +1,10 @@
 {
   "variants": {
     "powered=false": {
-      "model": "terraincognita:block/apple_pressure_plate"
+      "model": "terraincognita:block/apple/pressure_plate"
     },
     "powered=true": {
-      "model": "terraincognita:block/apple_pressure_plate_down"
+      "model": "terraincognita:block/apple/pressure_plate_down"
     }
   }
 }

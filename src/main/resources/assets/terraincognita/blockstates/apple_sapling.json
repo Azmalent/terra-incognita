@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "terraincognita:block/apple_sapling"
+      "model": "terraincognita:block/apple/sapling"
     }
   }
 }

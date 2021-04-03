@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "terraincognita:block/potted_alpine_pink"
+      "model": "terraincognita:block/potted/alpine_pink"
     }
   }
 }

@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "terraincognita:block/potted_red_snapdragon"
+      "model": "terraincognita:block/potted/red_snapdragon"
     }
   }
 }

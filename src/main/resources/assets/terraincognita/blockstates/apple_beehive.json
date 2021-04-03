@@ -2,93 +2,93 @@
   "variants": {
     "facing=east,honey_level=0": {
       "y": 90,
-      "model": "terraincognita:block/apple_beehive"
+      "model": "terraincognita:block/apple/beehive"
     },
     "facing=east,honey_level=1": {
       "y": 90,
-      "model": "terraincognita:block/apple_beehive"
+      "model": "terraincognita:block/apple/beehive"
     },
     "facing=east,honey_level=2": {
       "y": 90,
-      "model": "terraincognita:block/apple_beehive"
+      "model": "terraincognita:block/apple/beehive"
     },
     "facing=east,honey_level=3": {
       "y": 90,
-      "model": "terraincognita:block/apple_beehive"
+      "model": "terraincognita:block/apple/beehive"
     },
     "facing=east,honey_level=4": {
       "y": 90,
-      "model": "terraincognita:block/apple_beehive"
+      "model": "terraincognita:block/apple/beehive"
     },
     "facing=east,honey_level=5": {
       "y": 90,
-      "model": "terraincognita:block/apple_beehive_honey"
+      "model": "terraincognita:block/apple/beehive_honey"
     },
     "facing=north,honey_level=0": {
-      "model": "terraincognita:block/apple_beehive"
+      "model": "terraincognita:block/apple/beehive"
     },
     "facing=north,honey_level=1": {
-      "model": "terraincognita:block/apple_beehive"
+      "model": "terraincognita:block/apple/beehive"
     },
     "facing=north,honey_level=2": {
-      "model": "terraincognita:block/apple_beehive"
+      "model": "terraincognita:block/apple/beehive"
     },
     "facing=north,honey_level=3": {
-      "model": "terraincognita:block/apple_beehive"
+      "model": "terraincognita:block/apple/beehive"
     },
     "facing=north,honey_level=4": {
-      "model": "terraincognita:block/apple_beehive"
+      "model": "terraincognita:block/apple/beehive"
     },
     "facing=north,honey_level=5": {
-      "model": "terraincognita:block/apple_beehive_honey"
+      "model": "terraincognita:block/apple/beehive_honey"
     },
     "facing=south,honey_level=0": {
       "y": 180,
-      "model": "terraincognita:block/apple_beehive"
+      "model": "terraincognita:block/apple/beehive"
     },
     "facing=south,honey_level=1": {
       "y": 180,
-      "model": "terraincognita:block/apple_beehive"
+      "model": "terraincognita:block/apple/beehive"
     },
     "facing=south,honey_level=2": {
       "y": 180,
-      "model": "terraincognita:block/apple_beehive"
+      "model": "terraincognita:block/apple/beehive"
     },
     "facing=south,honey_level=3": {
       "y": 180,
-      "model": "terraincognita:block/apple_beehive"
+      "model": "terraincognita:block/apple/beehive"
     },
     "facing=south,honey_level=4": {
       "y": 180,
-      "model": "terraincognita:block/apple_beehive"
+      "model": "terraincognita:block/apple/beehive"
     },
     "facing=south,honey_level=5": {
       "y": 180,
-      "model": "terraincognita:block/apple_beehive_honey"
+      "model": "terraincognita:block/apple/beehive_honey"
     },
     "facing=west,honey_level=0": {
       "y": 270,
-      "model": "terraincognita:block/apple_beehive"
+      "model": "terraincognita:block/apple/beehive"
     },
     "facing=west,honey_level=1": {
       "y": 270,
-      "model": "terraincognita:block/apple_beehive"
+      "model": "terraincognita:block/apple/beehive"
     },
     "facing=west,honey_level=2": {
       "y": 270,
-      "model": "terraincognita:block/apple_beehive"
+      "model": "terraincognita:block/apple/beehive"
     },
     "facing=west,honey_level=3": {
       "y": 270,
-      "model": "terraincognita:block/apple_beehive"
+      "model": "terraincognita:block/apple/beehive"
     },
     "facing=west,honey_level=4": {
       "y": 270,
-      "model": "terraincognita:block/apple_beehive"
+      "model": "terraincognita:block/apple/beehive"
     },
     "facing=west,honey_level=5": {
       "y": 270,
-      "model": "terraincognita:block/apple_beehive_honey"
+      "model": "terraincognita:block/apple/beehive_honey"
     }
   }
 }

@@ -1,18 +1,18 @@
 {
   "variants": {
     "facing=east": {
-      "model": "terraincognita:block/hazel_ladder",
+      "model": "terraincognita:block/hazel/ladder",
       "y": 90
     },
     "facing=north": {
-      "model": "terraincognita:block/hazel_ladder"
+      "model": "terraincognita:block/hazel/ladder"
     },
     "facing=south": {
-      "model": "terraincognita:block/hazel_ladder",
+      "model": "terraincognita:block/hazel/ladder",
       "y": 180
     },
     "facing=west": {
-      "model": "terraincognita:block/hazel_ladder",
+      "model": "terraincognita:block/hazel/ladder",
       "y": 270
     }
   }

@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "terraincognita:block/potted_water_flag"
+      "model": "terraincognita:block/potted/water_flag"
     }
   }
 }

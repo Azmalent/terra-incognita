@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "terraincognita:block/hazel_chest"
+      "model": "terraincognita:block/hazel/chest"
     }
   }
 }
