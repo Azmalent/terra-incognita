@@ -7,6 +7,7 @@ import azmalent.terraincognita.common.item.block.BasketItem;
 import azmalent.terraincognita.common.recipe.WreathRecipe;
 import azmalent.terraincognita.common.registry.*;
 import azmalent.terraincognita.common.world.ModConfiguredFeatures;
+import net.minecraft.block.Block;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.DyeItem;
@@ -37,6 +38,9 @@ public class EventHandler {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         bus.addListener(EventHandler::setup);
 
+        MinecraftForge.EVENT_BUS.addGenericListener(Block.class, IdRemappingHandler::onMissingBlockMappings);
+        MinecraftForge.EVENT_BUS.addGenericListener(Item.class, IdRemappingHandler::onMissingItemMappings);
+
         MinecraftForge.EVENT_BUS.addListener(EventHandler::onUpdateRecipes);
         MinecraftForge.EVENT_BUS.addListener(EventHandler::onPlayerUseItem);
         MinecraftForge.EVENT_BUS.addListener(EventHandler::onItemPickup);
@@ -55,12 +59,14 @@ public class EventHandler {
         ModBlocks.initToolInteractions();
         ModBlocks.initFlammability();
         ModItems.initFuelValues();
+        ModItems.registerDispenserBehaviors();
         ModEntities.registerAttributes();
         ModEntities.registerSpawns();
         ModRecipes.initCompostables();
         ModTweaks.modifyFlowerGradients();
     }
 
+    //Build flower to dye map for the wreath recipe
     public static void onUpdateRecipes(RecipesUpdatedEvent event) {
         for (ICraftingRecipe recipe : event.getRecipeManager().getRecipesForType(IRecipeType.CRAFTING)) {
             List<Ingredient> ingredients = recipe.getIngredients();
@@ -78,6 +84,7 @@ public class EventHandler {
         }
     }
 
+    //Eating speed adjustment
     public static void onPlayerUseItem(LivingEntityUseItemEvent.Start event) {
         if (!(event.getEntity() instanceof PlayerEntity)) return;
 
@@ -89,6 +96,7 @@ public class EventHandler {
         }
     }
 
+    //Basket auto-pickup
     public static void onItemPickup(EntityItemPickupEvent event) {
         if (event.isCanceled() || event.getResult() == Event.Result.ALLOW) {
             return;

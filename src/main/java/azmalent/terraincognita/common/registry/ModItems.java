@@ -2,10 +2,13 @@ package azmalent.terraincognita.common.registry;
 
 import azmalent.cuneiform.common.event.FuelHandler;
 import azmalent.cuneiform.common.item.ModSpawnEggItem;
+import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.block.woodtypes.ModWoodType;
 import azmalent.terraincognita.common.entity.butterfly.ButterflyEntity;
 import azmalent.terraincognita.common.item.*;
+import azmalent.terraincognita.common.item.dispenser.ShearCactusDispenserBehavior;
+import net.minecraft.block.DispenserBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.*;
@@ -44,7 +47,7 @@ public class ModItems {
         public static final Food SOUR_BERRY_JAM = new Food.Builder().hunger(4).saturation(0.2f).build();
 
         public static final Food HAZELNUT = new Food.Builder().hunger(2).saturation(0.2f).fastToEat().build();
-        public static final Food HONEY_HAZELNUT = new Food.Builder().hunger(4).saturation(0.4f).fastToEat().build();
+        public static final Food CANDIED_HAZELNUT = new Food.Builder().hunger(4).saturation(0.4f).fastToEat().build();
         public static final Food HAZELNUT_COOKIE = new Food.Builder().hunger(2).saturation(0.1f).build();
     }
 
@@ -57,15 +60,18 @@ public class ModItems {
     public static final RegistryObject<Item> BAKED_ROOT = ITEMS.register("baked_root", () -> new Item(foodProps(Foods.BAKED_ROOT)));
     public static final RegistryObject<Item> KELP_SOUP = ITEMS.register("kelp_soup", () -> new SoupItem(foodProps(Foods.KELP_SOUP).maxStackSize(1)));
     public static final RegistryObject<Item> BERRY_SORBET = ITEMS.register("berry_sorbet", () -> new SoupItem(foodProps(Foods.BERRY_SORBET).maxStackSize(1)));
-    public static final RegistryObject<WreathItem> WREATH = ITEMS.register("flower_band", WreathItem::new);
 
     public static final RegistryObject<Item> SOUR_BERRIES = ITEMS.register("sour_berries", () -> new Item(foodProps(Foods.SOUR_BERRIES)));
     public static final RegistryObject<Item> SOUR_BERRY_PIE = ITEMS.register("sour_berry_pie", () -> new Item(foodProps(Foods.SOUR_BERRY_PIE)));
     public static final RegistryObject<Item> SOUR_BERRY_JAM = ITEMS.register("sour_berry_jam", () -> new JamItem(foodProps(Foods.SOUR_BERRY_JAM).maxStackSize(16)));
 
     public static final RegistryObject<Item> HAZELNUT = ITEMS.register("hazelnut", () -> new Item(foodProps(Foods.HAZELNUT)));
-    public static final RegistryObject<Item> HONEY_HAZELNUT = ITEMS.register("honey_hazelnut", () -> new Item(foodProps(Foods.HONEY_HAZELNUT)));
+    public static final RegistryObject<Item> CANDIED_HAZELNUT = ITEMS.register("candied_hazelnut", () -> new Item(foodProps(Foods.CANDIED_HAZELNUT)));
     public static final RegistryObject<Item> HAZELNUT_COOKIE = ITEMS.register("hazelnut_cookie", () -> new Item(foodProps(Foods.HAZELNUT_COOKIE)));
+
+    public static final RegistryObject<Item> CACTUS_NEEDLE = ITEMS.register("cactus_needle", () -> new Item(new Item.Properties().group(ItemGroup.MISC)));
+
+    public static final RegistryObject<WreathItem> WREATH = ITEMS.register("wreath", WreathItem::new);
 
     public static final RegistryObject<ModSpawnEggItem<ButterflyEntity>> BUTTERFLY_SPAWN_EGG = spawnEgg("butterfly", ModEntities.BUTTERFLY, 0xc02f03, 0x0f1016);
 
@@ -95,6 +101,12 @@ public class ModItems {
 
         FuelHandler.registerFuel(ModBlocks.REEDS, 100);
         FuelHandler.registerFuel(ModBlocks.PEAT, 2400);
+    }
+
+    public static void registerDispenserBehaviors() {
+        if (TIConfig.Tools.blowpipe.get()) {
+            DispenserBlock.registerDispenseBehavior(Items.SHEARS, new ShearCactusDispenserBehavior());
+        }
     }
 
     @OnlyIn(Dist.CLIENT)

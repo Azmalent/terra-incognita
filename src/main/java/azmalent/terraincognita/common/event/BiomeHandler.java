@@ -79,6 +79,10 @@ public class BiomeHandler {
                 }
                 break;
 
+            case DESERT:
+                ModDefaultFeatures.withCactusFlowers(builder);
+                break;
+
             case SAVANNA:
                 ModDefaultFeatures.withSavannaFlowers(builder);
                 break;

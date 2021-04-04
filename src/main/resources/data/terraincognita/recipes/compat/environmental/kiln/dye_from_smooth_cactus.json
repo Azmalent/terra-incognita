@@ -1,15 +1,19 @@
 {
-  "type": "minecraft:smelting",
+  "type": "environmental:baking",
   "ingredient": {
-    "item": "minecraft:cactus"
+    "item": "terraincognita:smooth_cactus"
   },
   "result": "minecraft:green_dye",
   "experience": 1.0,
-  "cookingtime": 200,
+  "cookingtime": 100,
   "conditions": [
     {
       "type": "forge:and",
       "values": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "environmental"
+        },
         {
           "type": "cuneiform:config",
           "config": "terraincognita:blowpipe"

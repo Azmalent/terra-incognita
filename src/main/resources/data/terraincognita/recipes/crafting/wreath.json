@@ -1,9 +1,9 @@
 {
-  "type": "terraincognita:flower_band",
+  "type": "terraincognita:wreath",
   "conditions": [
     {
       "type": "cuneiform:config",
-      "config": "terraincognita:flower_band"
+      "config": "terraincognita:wreath"
     }
   ]
 }

@@ -1,9 +1,9 @@
 {
   "type": "environmental:baking",
   "ingredient": {
-    "item": "minecraft:cactus"
+    "item": "terraincognita:smooth_cactus"
   },
-  "result": "minecraft:green_dye",
+  "result": "quark:cactus_paste",
   "experience": 1.0,
   "cookingtime": 100,
   "conditions": [
@@ -15,24 +15,16 @@
           "modid": "environmental"
         },
         {
-          "type": "cuneiform:config",
-          "config": "terraincognita:blowpipe"
+          "type": "forge:mod_loaded",
+          "modid": "quark"
         },
         {
-          "type": "forge:not",
-          "value": {
-            "type": "forge:and",
-            "values": [
-              {
-                "type": "forge:mod_loaded",
-                "modid": "quark"
-              },
-              {
-                "type": "quark:flag",
-                "flag": "midori"
-              }
-            ]
-          }
+          "type": "quark:flag",
+          "flag": "midori"
+        },
+        {
+          "type": "cuneiform:config",
+          "config": "terraincognita:blowpipe"
         }
       ]
     }

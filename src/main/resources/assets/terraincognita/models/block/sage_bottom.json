@@ -1,0 +1,6 @@
+{
+  "parent": "block/cross",
+  "textures": {
+    "cross": "terraincognita:block/sage_bottom"
+  }
+}

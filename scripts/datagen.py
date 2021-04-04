@@ -59,10 +59,10 @@ def make_tall_flower(name, dye_color, condition, custom_potted_texture=False):
 
     add_to_item_and_block_tags('tall_flowers', '%s:%s' % (MODID, name))
 
-    potted_name = variables['block'] = 'potted_' + name
-    copy_blockstate('simple_blockstate', potted_name, variables)
+    potted_name = 'potted_' + name
+    copy_blockstate('simple_blockstate', potted_name, {'block': name + '_top'})
     copy_block_model('potted_bush', potted_name, {'block': (potted_name if custom_potted_texture else name + '_top')})
-    copy_loot_table('potted_bush', potted_name, variables)
+    copy_loot_table('potted_bush', potted_name, {'block': name})
     add_to_block_tag('flower_pots', '%s:%s' % (MODID, potted_name))
 
 

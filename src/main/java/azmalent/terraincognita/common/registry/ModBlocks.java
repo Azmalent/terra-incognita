@@ -43,11 +43,11 @@ public class ModBlocks {
     public static final PottablePlantEntry FOXGLOVE       = createPlant("foxglove", () -> new ModFlowerBlock(StewEffect.POISON));
     public static final PottablePlantEntry WILD_GARLIC    = createPlant("wild_garlic", () -> new ModFlowerBlock(StewEffect.SATURATION));
     public static final PottablePlantEntry MARIGOLD       = createPlant("marigold", MarigoldBlock::new);
-    public static final PottablePlantEntry BLUE_LUPINE    = createPlant("blue_lupin", () -> new ModFlowerBlock(StewEffect.HUNGER));
-    public static final PottablePlantEntry RED_SNAPDRAGON     = createPlant("red_snapdragon", () -> new ModFlowerBlock(StewEffect.RESISTANCE));
-    public static final PottablePlantEntry YELLOW_SNAPDRAGON  = createPlant("yellow_snapdragon", () -> new ModFlowerBlock(StewEffect.RESISTANCE));
-    public static final PottablePlantEntry MAGENTA_SNAPDRAGON = createPlant("magenta_snapdragon", () -> new ModFlowerBlock(StewEffect.RESISTANCE));
-    public static final PottablePlantEntry SAXIFRAGE      = createPlant("rockfoil", SaxifrageBlock::new);
+    public static final PottablePlantEntry BLUE_LUPINE    = createPlant("blue_lupine", () -> new ModFlowerBlock(StewEffect.HUNGER));
+    public static final PottablePlantEntry SNAPDRAGON     = createPlant("snapdragon", () -> new ModFlowerBlock(StewEffect.HASTE));
+    public static final PottablePlantEntry GLADIOLUS      = createPlant("gladiolus", () -> new ModFlowerBlock(StewEffect.STRENGTH));
+    public static final PottablePlantEntry GERANIUM       = createPlant("geranium", () -> new ModFlowerBlock(StewEffect.RESISTANCE));
+    public static final PottablePlantEntry SAXIFRAGE      = createPlant("saxifrage", SaxifrageBlock::new);
     public static final PottablePlantEntry ALPINE_PINK    = createPlant("alpine_pink", () -> new AlpineFlowerBlock(StewEffect.SLOWNESS));
     public static final PottablePlantEntry GENTIAN        = createPlant("gentian", () -> new AlpineFlowerBlock(StewEffect.WEAKNESS));
     public static final PottablePlantEntry EDELWEISS      = createPlant("edelweiss", () -> new AlpineFlowerBlock(StewEffect.HASTE));
@@ -56,14 +56,16 @@ public class ModBlocks {
     public static final PottablePlantEntry BLUE_IRIS      = createPlant("blue_iris", () -> new ModFlowerBlock(StewEffect.INVISIBILITY));
     public static final PottablePlantEntry PURPLE_IRIS    = createPlant("purple_iris", () -> new ModFlowerBlock(StewEffect.INVISIBILITY));
     public static final PottablePlantEntry BLACK_IRIS     = createPlant("black_iris", () -> new ModFlowerBlock(StewEffect.INVISIBILITY));
-    public static final PottablePlantEntry DWARF_FIREWEED = createPlant("fireweed", () -> new ModFlowerBlock(StewEffect.SPEED));
+    public static final PottablePlantEntry DWARF_FIREWEED = createPlant("dwarf_fireweed", () -> new ModFlowerBlock(StewEffect.SPEED));
     public static final PottablePlantEntry ARCTIC_POPPY   = createPlant("arctic_poppy", () -> new ModFlowerBlock(StewEffect.NIGHT_VISION));
     public static final PottablePlantEntry WHITE_DRYAD    = createPlant("white_dryad", () -> new ModFlowerBlock(StewEffect.SLOWNESS));
 
     //Tall flowers
     public static final PottablePlantEntry WATER_FLAG         = createTallWaterloggablePlant("water_flag");
-    public static final PottablePlantEntry TALL_FIREWEED      = createTallPlant("tall_fireweed");
+    public static final PottablePlantEntry FIREWEED = createTallPlant("tall_fireweed");
     public static final PottablePlantEntry WHITE_RHODODENDRON = createTallPlant("white_rhododendron");
+    public static final PottablePlantEntry OLEANDER = createTallPlant("oleander");
+    public static final PottablePlantEntry SAGE     = createTallPlant("sage");
 
     //Sweet peas
     public static final List<BlockEntry> SWEET_PEAS;
@@ -89,12 +91,19 @@ public class ModBlocks {
     //Other vegetation
     public static final PottablePlantEntry CATTAIL = createTallWaterloggablePlant("cattail");
     public static final PottablePlantEntry REEDS = createPlant("reeds", ReedsBlock::new);
+
     public static final BlockEntry SOUR_BERRY_SPROUTS = HELPER.newBuilder("sour_berry_sprouts", SourBerrySproutBlock::new).withBlockItem(LilyPadItem::new, ItemGroup.MISC).cutoutRender().build();
     public static final BlockEntry SOUR_BERRY_BUSH = HELPER.newBuilder("sour_berry_bush", SourBerryBushBlock::new).withoutItemForm().cutoutRender().build();
+
     public static final BlockEntry CARIBOU_MOSS_WALL = HELPER.newBuilder("caribou_moss_wall", CaribouMossWallBlock::new).withoutItemForm().cutoutRender().build();
     public static final PottablePlantEntry CARIBOU_MOSS = createPlant("caribou_moss", CaribouMossBlock::new, block -> new WallOrFloorItem(block, CARIBOU_MOSS_WALL.getBlock(), new Item.Properties().group(ItemGroup.DECORATIONS)));
+
     public static final BlockEntry ROOTS = HELPER.newBuilder("roots", RootsBlock::new).cutoutRender().build();
     public static final BlockEntry HANGING_MOSS = HELPER.newBuilder("hanging_moss", HangingMossBlock::new).cutoutRender().build();
+
+    public static final BlockEntry SMOOTH_CACTUS = HELPER.newBuilder("smooth_cactus", SmoothCactusBlock::new).cutoutRender().build();
+    public static final PottablePlantEntry CACTUS_FLOWER = createPlant("cactus_flower", CactusFlowerBlock::new);
+    public static final PottablePlantEntry SMALL_CACTUS = createPlant("small_cactus", () -> new DeadBushBlock(Properties.from(Blocks.TALL_GRASS)));
 
     //Other blocks
     public static final BlockEntry PEAT = HELPER.newBuilder("peat", PeatBlock::new).withItemGroup(ItemGroup.BUILDING_BLOCKS).build();
@@ -111,7 +120,7 @@ public class ModBlocks {
 
         FLOWERS = Lists.newArrayList(
             DANDELION_PUFF, CHICORY, YARROW, DAFFODIL, YELLOW_PRIMROSE, PINK_PRIMROSE, PURPLE_PRIMROSE, FOXGLOVE, WILD_GARLIC,
-            MARIGOLD, BLUE_LUPINE, RED_SNAPDRAGON, YELLOW_SNAPDRAGON, MAGENTA_SNAPDRAGON, EDELWEISS, ALPINE_PINK, SAXIFRAGE,
+            MARIGOLD, BLUE_LUPINE, GLADIOLUS, SNAPDRAGON, GERANIUM, EDELWEISS, ALPINE_PINK, SAXIFRAGE,
             GENTIAN, FORGET_ME_NOT, BLUE_IRIS, PURPLE_IRIS, BLACK_IRIS, DWARF_FIREWEED, ARCTIC_POPPY, WHITE_DRYAD
         );
 

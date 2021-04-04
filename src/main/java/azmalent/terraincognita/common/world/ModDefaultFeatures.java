@@ -1,6 +1,7 @@
 package azmalent.terraincognita.common.world;
 
 import azmalent.terraincognita.TIConfig;
+import azmalent.terraincognita.common.registry.ModFeatures;
 import azmalent.terraincognita.util.WorldGenUtil;
 import net.minecraft.world.biome.DefaultBiomeFeatures;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
@@ -39,6 +40,12 @@ public class ModDefaultFeatures {
     public static void withArcticFlowers(BiomeGenerationSettingsBuilder builder) {
         if (TIConfig.Flora.arcticFlowers.get()) {
             WorldGenUtil.addVegetation(builder, ModFlowerFeatures.ARCTIC_FLOWERS);
+        }
+    }
+
+    public static void withCactusFlowers(BiomeGenerationSettingsBuilder builder) {
+        if (TIConfig.Flora.cactusFlowers.get()) {
+            WorldGenUtil.addVegetation(builder, ModFlowerFeatures.CACTUS_FLOWERS);
         }
     }
 
@@ -105,7 +112,6 @@ public class ModDefaultFeatures {
             WorldGenUtil.addVegetation(builder, ModTreeFeatures.HAZEL);
         }
     }
-
     public static void withPeatAndMossyGravel(BiomeGenerationSettingsBuilder builder) {
         if (TIConfig.Misc.peat.get()) {
             WorldGenUtil.addOre(builder, ModConfiguredFeatures.PEAT_DISK);
@@ -115,6 +121,7 @@ public class ModDefaultFeatures {
             WorldGenUtil.addOre(builder, ModConfiguredFeatures.MOSSY_GRAVEL_DISK);
         }
     }
+
     //Vanilla biome tweaks
 
     public static void withExtraTundraFeatures(BiomeGenerationSettingsBuilder builder) {

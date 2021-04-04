@@ -5,8 +5,8 @@
   },
   "ingredients": [
     {"item": "simplytea:teabag"},
-    {"item": "terraincognita:fireweed"},
-    {"item": "terraincognita:fireweed"}
+    {"item": "terraincognita:dwarf_fireweed"},
+    {"item": "terraincognita:dwarf_fireweed"}
   ],
   "conditions": [
     {
