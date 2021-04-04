@@ -2,17 +2,17 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "terraincognita:rockfoil"
+      "item": "terraincognita:blue_lupine"
     }
   ],
   "result": {
-    "item": "minecraft:yellow_dye",
+    "item": "minecraft:blue_dye",
     "count": 1
   },
   "conditions": [
     {
       "type": "cuneiform:config",
-      "config": "terraincognita:alpine_flowers"
+      "config": "terraincognita:savanna_flowers"
     }
   ]
 }

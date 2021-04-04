@@ -2,11 +2,11 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "terraincognita:blue_lupin"
+      "item": "terraincognita:snapdragon"
     }
   ],
   "result": {
-    "item": "minecraft:blue_dye",
+    "item": "minecraft:yellow_dye",
     "count": 1
   },
   "conditions": [

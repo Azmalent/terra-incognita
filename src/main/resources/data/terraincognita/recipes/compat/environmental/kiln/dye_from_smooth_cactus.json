@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "minecraft:cactus"
+  },
+  "result": "minecraft:green_dye",
+  "experience": 1.0,
+  "cookingtime": 200,
+  "conditions": [
+    {
+      "type": "forge:and",
+      "values": [
+        {
+          "type": "cuneiform:config",
+          "config": "terraincognita:blowpipe"
+        },
+        {
+          "type": "forge:not",
+          "value": {
+            "type": "forge:and",
+            "values": [
+              {
+                "type": "forge:mod_loaded",
+                "modid": "quark"
+              },
+              {
+                "type": "quark:flag",
+                "flag": "midori"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

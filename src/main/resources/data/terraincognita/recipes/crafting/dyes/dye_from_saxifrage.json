@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "terraincognita:yellow_snapdragon"
+      "item": "terraincognita:saxifrage"
     }
   ],
   "result": {
@@ -12,7 +12,7 @@
   "conditions": [
     {
       "type": "cuneiform:config",
-      "config": "terraincognita:savanna_flowers"
+      "config": "terraincognita:alpine_flowers"
     }
   ]
 }
