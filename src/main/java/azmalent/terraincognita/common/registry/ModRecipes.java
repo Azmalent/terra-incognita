@@ -66,7 +66,7 @@ public class ModRecipes {
         registerCompostable(ModBlocks.REEDS, 0.5f);
         registerCompostable(ModBlocks.ROOTS, 0.5f);
         registerCompostable(ModBlocks.SMOOTH_CACTUS, 0.5f);
-        registerCompostable(ModBlocks.CACTUS_FLOWER, 0.65f);
+        registerCompostable(ModBlocks.CATTAIL, 0.65f);
         registerCompostable(ModItems.FIDDLEHEAD, 0.65f);
         registerCompostable(ModItems.WREATH, 1);
 

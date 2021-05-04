@@ -45,7 +45,7 @@ public class GrassBlockMixin {
                     break;
 
                 case SAVANNA: case DESERT:
-                    return ModFlowerFeatures.Configs.SAVANNA_FLOWERS;
+                    return ModFlowerFeatures.Configs.SAVANNA_TALL_FLOWERS;
 
                 case EXTREME_HILLS:
                     if (!BiomeDictionary.hasType(biomeKey, HOT)) {

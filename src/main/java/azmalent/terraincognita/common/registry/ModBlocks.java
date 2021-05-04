@@ -101,9 +101,9 @@ public class ModBlocks {
     public static final BlockEntry ROOTS = HELPER.newBuilder("roots", RootsBlock::new).cutoutRender().build();
     public static final BlockEntry HANGING_MOSS = HELPER.newBuilder("hanging_moss", HangingMossBlock::new).cutoutRender().build();
 
+    public static final PottablePlantEntry SMALL_CACTUS = createPlant("small_cactus", SmallCactusBlock::new);
     public static final BlockEntry SMOOTH_CACTUS = HELPER.newBuilder("smooth_cactus", SmoothCactusBlock::new).cutoutRender().build();
     public static final PottablePlantEntry CACTUS_FLOWER = createPlant("cactus_flower", CactusFlowerBlock::new);
-    public static final PottablePlantEntry SMALL_CACTUS = createPlant("small_cactus", () -> new DeadBushBlock(Properties.from(Blocks.TALL_GRASS)));
 
     //Other blocks
     public static final BlockEntry PEAT = HELPER.newBuilder("peat", PeatBlock::new).withItemGroup(ItemGroup.BUILDING_BLOCKS).build();
@@ -121,7 +121,8 @@ public class ModBlocks {
         FLOWERS = Lists.newArrayList(
             DANDELION_PUFF, CHICORY, YARROW, DAFFODIL, YELLOW_PRIMROSE, PINK_PRIMROSE, PURPLE_PRIMROSE, FOXGLOVE, WILD_GARLIC,
             MARIGOLD, BLUE_LUPINE, GLADIOLUS, SNAPDRAGON, GERANIUM, EDELWEISS, ALPINE_PINK, SAXIFRAGE,
-            GENTIAN, FORGET_ME_NOT, BLUE_IRIS, PURPLE_IRIS, BLACK_IRIS, DWARF_FIREWEED, ARCTIC_POPPY, WHITE_DRYAD
+            GENTIAN, FORGET_ME_NOT, BLUE_IRIS, PURPLE_IRIS, BLACK_IRIS, DWARF_FIREWEED, ARCTIC_POPPY, WHITE_DRYAD,
+            WATER_FLAG, FIREWEED, WHITE_RHODODENDRON, OLEANDER, SAGE, CACTUS_FLOWER
         );
 
         LOTUSES = Lists.newArrayList(WHITE_LOTUS, PINK_LOTUS, YELLOW_LOTUS);

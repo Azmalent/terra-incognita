@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "terraincognita:block/oleander_top"
+      "model": "terraincognita:block/potted/oleander"
     }
   }
 }

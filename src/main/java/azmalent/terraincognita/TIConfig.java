@@ -154,6 +154,9 @@ public class TIConfig extends CommonConfigFile {
 
         @Name("Cactus Flowers Enabled")
         public static final BooleanOption cactusFlowers = new BooleanOption(true).withFlag("cactus_flowers");
+
+        @Name("Small Cacti Enabled")
+        public static final BooleanOption smallCacti = new BooleanOption(true);
     }
 
     public static class Fauna extends Category {
