@@ -185,6 +185,8 @@
   "item.terraincognita.hazel_boat": "Hazel Boat",
   "item.terraincognita.fireweed_teabag": "Fireweed Tea Bag",
   "item.terraincognita.fireweed_tea_cup": "Cup of Fireweed Tea",
+  "item.terraincognita.cactus_needle": "Cactus Needle",
+  "item.terraincognita.blowpipe": "Blowpipe",
 
   "biome.terraincognita.tundra": "Tundra",
   "biome.terraincognita.rocky_tundra": "Rocky Tundra",
@@ -193,9 +195,20 @@
   "biome.terraincognita.lush_hills": "Lush Hills",
 
   "entity.terraincognita.butterfly": "Butterfly",
+  "entity.terraincognita.butterfly.peacock": "Peacock",
+  "entity.terraincognita.butterfly.brimstone": "Brimstone",
+  "entity.terraincognita.butterfly.cabbage_white": "Cabbage White",
+  "entity.terraincognita.butterfly.common_blue": "Common Blue",
+  "entity.terraincognita.butterfly.orange_tip": "Orange Tip",
+  "entity.terraincognita.butterfly.monarch": "Monarch",
+  "entity.terraincognita.butterfly.white_admiral": "White Admiral",
+  "entity.terraincognita.butterfly.red_admiral": "Red Admiral",
+  "entity.terraincognita.butterfly.small_tortoiseshell": "Small Tortoiseshell",
+  "entity.terraincognita.butterfly.speckled_wood": "Speckled Wood",
   "item.terraincognita.butterfly_spawn_egg": "Butterfly Spawn Egg",
-  "entity.terraincognita.moth": "Hawk Moth",
-  "item.terraincognita.moth_spawn_egg": "Hawk Moth Spawn Egg",
+
+  "entity.terraincognita.moth": "Moth",
+  "item.terraincognita.moth_spawn_egg": "Moth Spawn Egg",
 
   "_comment": "Halves eating speed with each level. Applied when eating taffies.",
   "effect.terraincognita.sticky_mouth": "Sticky Mouth",

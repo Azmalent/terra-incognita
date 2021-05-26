@@ -182,6 +182,8 @@
   "item.terraincognita.hazel_boat": "Орешниковая лодка",
   "item.terraincognita.fireweed_teabag": "Пакетик иван-чая",
   "item.terraincognita.fireweed_tea_cup": "Кружка иван-чая",
+  "item.terraincognita.cactus_needle": "Кактусовая иголка",
+  "item.terraincognita.blowpipe": "Духовое ружьё",
 
   "biome.terraincognita.tundra": "Тундра",
   "biome.terraincognita.rocky_tundra": "Каменистая тундра",
@@ -191,6 +193,17 @@
 
   "entity.terraincognita.butterfly": "Бабочка",
   "item.terraincognita.butterfly_spawn_egg": "Яйцо призыва бабочки",
+  "entity.terraincognita.butterfly.peacock": "Павлиний глаз",
+  "entity.terraincognita.butterfly.brimstone": "Лимонница",
+  "entity.terraincognita.butterfly.cabbage_white": "Капустница",
+  "entity.terraincognita.butterfly.common_blue": "Голубянка",
+  "entity.terraincognita.butterfly.orange_tip": "Зорька",
+  "entity.terraincognita.butterfly.monarch": "Монарх",
+  "entity.terraincognita.butterfly.white_admiral": "Камилла",
+  "entity.terraincognita.butterfly.red_admiral": "Адмирал",
+  "entity.terraincognita.butterfly.small_tortoiseshell": "Крапивница",
+  "entity.terraincognita.butterfly.speckled_wood": "Краеглазка",
+
   "entity.terraincognita.moth": "Бражник",
   "item.terraincognita.moth_spawn_egg": "Яйцо призыва бражника",
 
@@ -238,5 +251,5 @@
   "death.attack.caltrops.player": "%1$s был исколот до смерти железным чесноком, пытаясь убежать от %2$s",
 
   "subtitle.terraincognita.blow": "Игрок дует на одуванчик",
-  "subtitle.terraincognita.caltrops_throw": "Брошен железный чеснок",
+  "subtitle.terraincognita.caltrops_throw": "Брошен железный чеснок"
 }

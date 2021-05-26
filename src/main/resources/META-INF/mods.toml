@@ -36,35 +36,41 @@ An expansion focusing on nature and exploration.
 [[dependencies.terraincognita]]
     modId="jei"
     mandatory=false
+    versionRange="[7.6.0,)"
     ordering="AFTER"
     side="CLIENT"
 
 [[dependencies.terraincognita]]
     modId="quark"
     mandatory=false
+    versionRange="[r2.4,)"
     ordering="AFTER"
     side="BOTH"
 
 [[dependencies.terraincognita]]
     modId="buzzier_bees"
     mandatory=false
+    versionRange="[3,)"
     ordering="AFTER"
     side="BOTH"
 
 [[dependencies.terraincognita]]
     modId="upgrade_aquatic"
     mandatory=false
+    versionRange="[3,)"
     ordering="AFTER"
     side="BOTH"
 
 [[dependencies.terraincognita]]
     modId="farmersdelight"
     mandatory=false
+    versionRange="[0.4,)"
     ordering="AFTER"
     side="BOTH"
 
 [[dependencies.terraincognita]]
     modId="simplytea"
     mandatory=false
+    versionRange="[2.3.2,)"
     ordering="AFTER"
     side="BOTH"

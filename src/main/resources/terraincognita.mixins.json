@@ -12,6 +12,7 @@
     "FoxEntityTypeMixin",
     "GrassBlockMixin",
     "HillsLayerMixin",
+    "SugarcaneBlockMixin",
     "VineBlockMixin",
     "accessor.BlockStateProviderTypeAccessor",
     "accessor.BoatEntityAccessor",

@@ -156,7 +156,7 @@ public class TIConfig extends CommonConfigFile {
         public static final BooleanOption cactusFlowers = new BooleanOption(true).withFlag("cactus_flowers");
 
         @Name("Small Cacti Enabled")
-        public static final BooleanOption smallCacti = new BooleanOption(true);
+        public static final BooleanOption smallCacti = new BooleanOption(true).withFlag("small_cacti");
     }
 
     public static class Fauna extends Category {
@@ -216,7 +216,7 @@ public class TIConfig extends CommonConfigFile {
         @Comment("This tweak only applies if apple trees are enabled.")
         public static final BooleanOption disableAppleDropFromOaks = new BooleanOption(true).withFlag("remove_oak_apples");
 
-        @Comment("Adds height variation to cacti, sugarcane and kelp.")
+        @Comment("Adds height variation to cacti, sugarcane and reeds.")
         public static final BooleanOption plantHeightVariation = new BooleanOption(true);
 
         @Comment("Adds composting recipes for dead bushes, bamboo, poisonous potatoes and chorus fruits/flowers.")

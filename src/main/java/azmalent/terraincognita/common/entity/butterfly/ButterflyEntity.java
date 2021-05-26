@@ -256,6 +256,10 @@ public class ButterflyEntity extends AbstractButterflyEntity {
             return texture;
         }
 
+        public String getTranslationKey() {
+            return ModEntities.BUTTERFLY.get().getTranslationKey() + "." + this.name;
+        }
+
         public float getRandomSize(Random random) {
             return MathHelper.lerp(random.nextFloat(), averageSize - sizeVariation, averageSize + sizeVariation);
         }

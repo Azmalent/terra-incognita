@@ -2,6 +2,7 @@ package azmalent.terraincognita.common.event;
 
 import azmalent.terraincognita.common.ModTweaks;
 import azmalent.terraincognita.common.data.ModItemTags;
+import azmalent.terraincognita.common.integration.theoneprobe.ButterflyProvider;
 import azmalent.terraincognita.common.inventory.BasketStackHandler;
 import azmalent.terraincognita.common.item.block.BasketItem;
 import azmalent.terraincognita.common.recipe.WreathRecipe;
@@ -27,7 +28,10 @@ import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.InterModComms;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.items.ItemHandlerHelper;
 
@@ -37,6 +41,7 @@ public class EventHandler {
     public static void registerListeners() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         bus.addListener(EventHandler::setup);
+        bus.addListener(EventHandler::sendIMCMessages);
 
         MinecraftForge.EVENT_BUS.addGenericListener(Block.class, IdRemappingHandler::onMissingBlockMappings);
         MinecraftForge.EVENT_BUS.addGenericListener(Item.class, IdRemappingHandler::onMissingItemMappings);
@@ -64,6 +69,12 @@ public class EventHandler {
         ModEntities.registerSpawns();
         ModRecipes.initCompostables();
         ModTweaks.modifyFlowerGradients();
+    }
+
+    public static void sendIMCMessages(InterModEnqueueEvent event) {
+        if (ModList.get().isLoaded("theoneprobe")) {
+            InterModComms.sendTo("theoneprobe", "getTheOneProbe", ButterflyProvider::new);
+        }
     }
 
     //Build flower to dye map for the wreath recipe

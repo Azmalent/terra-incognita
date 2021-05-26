@@ -81,6 +81,7 @@ def make_stairs_and_slabs(type, base_block, condition):
     drop_itself(block, variables)
     copy_crafting_recipe('slabs', type + '/slab', variables)
 
+    variables['slab'] = block
     block = type + '_vertical_slab'
     variables['block'] = block
     copy_blockstate_and_models('vertical_slab', block, variables)
