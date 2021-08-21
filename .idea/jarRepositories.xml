@@ -56,5 +56,10 @@
       <option name="name" value="tterrag" />
       <option name="url" value="https://maven.tterrag.com/" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="blamejared" />
+      <option name="name" value="blamejared" />
+      <option name="url" value="http://maven.blamejared.com/" />
+    </remote-repository>
   </component>
 </project>

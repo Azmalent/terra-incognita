@@ -1,5 +1,6 @@
 package azmalent.terraincognita.common.entity.butterfly;
 
+import azmalent.cuneiform.lib.collections.WeightedList;
 import azmalent.cuneiform.lib.util.BiomeUtil;
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.entity.butterfly.ai.ButterflyLandOnFlowerGoal;
@@ -7,6 +8,7 @@ import azmalent.terraincognita.common.entity.butterfly.ai.ButterflyRestGoal;
 import azmalent.terraincognita.common.entity.butterfly.ai.ButterflyWanderGoal;
 import azmalent.terraincognita.common.registry.ModEntities;
 import azmalent.terraincognita.common.registry.ModItems;
+import azmalent.terraincognita.util.WorldGenUtil;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.LivingEntity;
@@ -28,12 +30,15 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.registry.WorldGenRegistries;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.fml.network.FMLPlayMessages;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -124,6 +129,11 @@ public class ButterflyEntity extends AbstractButterflyEntity {
 
     private void setButterflyType(ButterflyEntity.Type type) {
         dataManager.set(BUTTERFLY_TYPE, type.getIndex());
+    }
+
+    public TranslationTextComponent getTypeDisplayName() {
+        String key = getButterflyType().getTranslationKey();
+        return new TranslationTextComponent(key);
     }
 
     @Override
@@ -223,10 +233,33 @@ public class ButterflyEntity extends AbstractButterflyEntity {
         CABBAGE_WHITE(2, "cabbage_white", 0.6f, 0.15f),
         COMMON_BLUE(3, "common_blue", 0.5f, 0.1f),
         ORANGE_TIP(4, "orange_tip", 0.5f, 0.15f),
-        MONARCH(5, "monarch", 0.6f, 0.2f);
+        MONARCH(5, "monarch", 0.7f, 0.15f),
+        WHITE_ADMIRAL(6, "white_admiral", 0.6f, 0.1f),
+        RED_ADMIRAL(7, "red_admiral", 0.6f, 0.15f),
+        SPECKLED_WOOD(8, "speckled_wood", 0.5f, 0.1f),
+        PURPLE_EMPEROR(9, "purple_emperor", 0.7f, 0.15f);
 
         private static final Type[] VALUES = Arrays.stream(values()).sorted(Comparator.comparingInt(Type::getIndex)).toArray(Type[]::new);
         private static final Map<String, Type> TYPES_BY_NAME = Arrays.stream(values()).collect(Collectors.toMap(Type::getName, name -> name));
+
+        private static final WeightedList<Type> COMMON_TYPES = new WeightedList<>();
+        private static final WeightedList<Type> PLAINS_TYPES = new WeightedList<>();
+        private static final WeightedList<Type> FOREST_TYPES = new WeightedList<>();
+
+        static {
+            COMMON_TYPES.add(CABBAGE_WHITE, 6);
+            COMMON_TYPES.add(PEACOCK, 5);
+            COMMON_TYPES.add(MONARCH, 4);
+            COMMON_TYPES.add(RED_ADMIRAL, 3);
+
+            PLAINS_TYPES.add(BRIMSTONE, 5);
+            PLAINS_TYPES.add(COMMON_BLUE, 4);
+            PLAINS_TYPES.add(ORANGE_TIP, 2);
+
+            FOREST_TYPES.add(WHITE_ADMIRAL, 5);
+            FOREST_TYPES.add(SPECKLED_WOOD, 4);
+            FOREST_TYPES.add(PURPLE_EMPEROR, 2);
+        }
 
         private final int index;
         private final String name;
@@ -276,8 +309,20 @@ public class ButterflyEntity extends AbstractButterflyEntity {
             return VALUES[indexIn];
         }
 
-        public static Type getRandomType(RegistryKey<Biome> biome, Random random) {
-            return Util.getRandomObject(VALUES, random);
+        @SuppressWarnings("ConstantConditions")
+        public static Type getRandomType(RegistryKey<Biome> biomeKey, Random random) {
+            if (random.nextFloat() < 0.66) {
+                Biome biome = ForgeRegistries.BIOMES.getValue(biomeKey.getLocation());
+                Biome.Category category = WorldGenUtil.getProperBiomeCategory(biome);
+                switch (category) {
+                    case PLAINS:
+                        return PLAINS_TYPES.getRandomItem(random);
+                    case FOREST:
+                        return FOREST_TYPES.getRandomItem(random);
+                }
+            }
+
+            return COMMON_TYPES.getRandomItem(random);
         }
     }
 }

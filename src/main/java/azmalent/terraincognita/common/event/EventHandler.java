@@ -64,7 +64,6 @@ public class EventHandler {
         ModBlocks.initToolInteractions();
         ModBlocks.initFlammability();
         ModItems.initFuelValues();
-        ModItems.registerDispenserBehaviors();
         ModEntities.registerAttributes();
         ModEntities.registerSpawns();
         ModRecipes.initCompostables();

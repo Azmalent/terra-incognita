@@ -5,7 +5,6 @@ import azmalent.terraincognita.common.entity.butterfly.ButterflyEntity;
 import mcjty.theoneprobe.api.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
 import java.util.function.Function;
@@ -26,9 +25,7 @@ public class ButterflyProvider implements IProbeInfoEntityProvider, Function<ITh
     public void addProbeEntityInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, World world, Entity entity, IProbeHitEntityData hit) {
         if (entity instanceof ButterflyEntity) {
             ButterflyEntity butterfly = (ButterflyEntity) entity;
-
-            String key = butterfly.getButterflyType().getTranslationKey();
-            probeInfo.text(new TranslationTextComponent(key));
+            probeInfo.text(butterfly.getTypeDisplayName());
         }
     }
 }

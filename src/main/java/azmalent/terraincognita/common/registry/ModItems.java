@@ -2,13 +2,13 @@ package azmalent.terraincognita.common.registry;
 
 import azmalent.cuneiform.common.event.FuelHandler;
 import azmalent.cuneiform.common.item.ModSpawnEggItem;
-import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.block.woodtypes.ModWoodType;
 import azmalent.terraincognita.common.entity.butterfly.ButterflyEntity;
-import azmalent.terraincognita.common.item.*;
-import azmalent.terraincognita.common.item.dispenser.ShearCactusDispenserBehavior;
-import net.minecraft.block.DispenserBlock;
+import azmalent.terraincognita.common.item.JamItem;
+import azmalent.terraincognita.common.item.NotchCarrotItem;
+import azmalent.terraincognita.common.item.TaffyItem;
+import azmalent.terraincognita.common.item.WreathItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.*;
@@ -46,9 +46,9 @@ public class ModItems {
         public static final Food SOUR_BERRY_PIE = new Food.Builder().hunger(6).saturation(0.3f).build();
         public static final Food SOUR_BERRY_JAM = new Food.Builder().hunger(4).saturation(0.2f).build();
 
-        public static final Food HAZELNUT = new Food.Builder().hunger(2).saturation(0.2f).fastToEat().build();
+        public static final Food HAZELNUT = new Food.Builder().hunger(2).saturation(0.1f).fastToEat().build();
         public static final Food CANDIED_HAZELNUT = new Food.Builder().hunger(4).saturation(0.4f).fastToEat().build();
-        public static final Food HAZELNUT_COOKIE = new Food.Builder().hunger(2).saturation(0.1f).build();
+        public static final Food HAZELNUT_COOKIE = new Food.Builder().hunger(2).saturation(0.2f).build();
     }
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, TerraIncognita.MODID);
@@ -70,6 +70,7 @@ public class ModItems {
     public static final RegistryObject<Item> HAZELNUT_COOKIE = ITEMS.register("hazelnut_cookie", () -> new Item(foodProps(Foods.HAZELNUT_COOKIE)));
 
     public static final RegistryObject<Item> CACTUS_NEEDLE = ITEMS.register("cactus_needle", () -> new Item(new Item.Properties().group(ItemGroup.MISC)));
+    //public static final RegistryObject<BlowpipeItem> BLOWPIPE = ITEMS.register("blowpipe", BlowpipeItem::new);
 
     public static final RegistryObject<WreathItem> WREATH = ITEMS.register("wreath", WreathItem::new);
 
@@ -101,12 +102,6 @@ public class ModItems {
 
         FuelHandler.registerFuel(ModBlocks.REEDS, 100);
         FuelHandler.registerFuel(ModBlocks.PEAT, 2400);
-    }
-
-    public static void registerDispenserBehaviors() {
-        if (TIConfig.Tools.blowpipe.get()) {
-            DispenserBlock.registerDispenseBehavior(Items.SHEARS, new ShearCactusDispenserBehavior());
-        }
     }
 
     @OnlyIn(Dist.CLIENT)

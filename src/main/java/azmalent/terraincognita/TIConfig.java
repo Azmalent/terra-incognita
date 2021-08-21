@@ -187,8 +187,7 @@ public class TIConfig extends CommonConfigFile {
         @Name("Caltrops Enabled")
         @Comment({"Caltrops are metal spikes that can be placed on the ground. Dropped caltrops will also place themselves if possible.",
             "Caltrops deal one heart of damage and inflict slowness for 10 seconds when touched.",
-            "Caltrops will be flushed away by flowing water.",
-            "You can right click caltrops with an empty hand to pick them up."})
+            "You can right click caltrops with an empty hand to pick them up. They will also be flushed away by flowing water."})
         public static final BooleanOption caltrops = new BooleanOption(true).withFlag("caltrops");
 
         @Comment("The chance for caltrops to break when dealing damage.")
@@ -196,7 +195,6 @@ public class TIConfig extends CommonConfigFile {
 
         @Name("Blowpipe Enabled")
         public static final BooleanOption blowpipe = new BooleanOption(true).withFlag("blowpipe");
-
     }
 
     @SuppressWarnings("GrazieInspection")
