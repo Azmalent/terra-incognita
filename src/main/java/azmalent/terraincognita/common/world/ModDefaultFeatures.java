@@ -1,6 +1,7 @@
 package azmalent.terraincognita.common.world;
 
 import azmalent.terraincognita.TIConfig;
+import azmalent.terraincognita.common.registry.ModFeatures;
 import azmalent.terraincognita.util.WorldGenUtil;
 import net.minecraft.world.biome.DefaultBiomeFeatures;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
@@ -30,9 +31,13 @@ public class ModDefaultFeatures {
         }
     }
 
-    public static void withJungleFlowers(BiomeGenerationSettingsBuilder builder) {
+    public static void withJungleVegetation(BiomeGenerationSettingsBuilder builder) {
         if (TIConfig.Flora.jungleFlowers.get()) {
             WorldGenUtil.addVegetation(builder, ModFlowerFeatures.JUNGLE_FLOWERS);
+        }
+
+        if (TIConfig.Flora.lotus.get()) {
+            WorldGenUtil.addVegetation(builder, ModVegetationFeatures.LOTUS);
         }
     }
 
@@ -48,13 +53,15 @@ public class ModDefaultFeatures {
         }
     }
 
-    public static void withCattails(BiomeGenerationSettingsBuilder builder) {
+    public static void withSwampVegetation(BiomeGenerationSettingsBuilder builder) {
+        if (TIConfig.Flora.smallLilypad.get()) {
+            WorldGenUtil.addVegetation(builder, ModVegetationFeatures.SMALL_LILY_PADS);
+        }
+
         if (TIConfig.Flora.cattails.get()) {
             WorldGenUtil.addVegetation(builder, ModVegetationFeatures.CATTAILS);
         }
-    }
 
-    public static void withSwampReeds(BiomeGenerationSettingsBuilder builder) {
         if (TIConfig.Flora.reeds.get()) {
             WorldGenUtil.addVegetation(builder, ModVegetationFeatures.REEDS);
         }
@@ -66,15 +73,13 @@ public class ModDefaultFeatures {
         }
     }
 
-    public static void withSmallLilyPads(BiomeGenerationSettingsBuilder builder) {
-        if (TIConfig.Flora.smallLilypad.get()) {
-            WorldGenUtil.addVegetation(builder, ModVegetationFeatures.SMALL_LILY_PADS);
+    public static void withDesertVegetation(BiomeGenerationSettingsBuilder builder) {
+        if (TIConfig.Flora.smallCacti.get()) {
+            WorldGenUtil.addVegetation(builder, ModVegetationFeatures.SMALL_CACTUS);
         }
-    }
 
-    public static void withLotuses(BiomeGenerationSettingsBuilder builder) {
-        if (TIConfig.Flora.lotus.get()) {
-            WorldGenUtil.addVegetation(builder, ModVegetationFeatures.LOTUS);
+        if (TIConfig.Flora.cactusFlowers.get()) {
+            WorldGenUtil.addVegetation(builder, ModFlowerFeatures.CACTUS_FLOWERS);
         }
     }
 
@@ -105,7 +110,6 @@ public class ModDefaultFeatures {
             WorldGenUtil.addVegetation(builder, ModTreeFeatures.HAZEL);
         }
     }
-
     public static void withPeatAndMossyGravel(BiomeGenerationSettingsBuilder builder) {
         if (TIConfig.Misc.peat.get()) {
             WorldGenUtil.addOre(builder, ModConfiguredFeatures.PEAT_DISK);
@@ -115,8 +119,8 @@ public class ModDefaultFeatures {
             WorldGenUtil.addOre(builder, ModConfiguredFeatures.MOSSY_GRAVEL_DISK);
         }
     }
-    //Vanilla biome tweaks
 
+    //Vanilla biome tweaks
     public static void withExtraTundraFeatures(BiomeGenerationSettingsBuilder builder) {
         if (TIConfig.Misc.betterTundras.get()) {
             DefaultBiomeFeatures.withSparseBerries(builder);

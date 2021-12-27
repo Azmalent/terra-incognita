@@ -8,6 +8,7 @@ import azmalent.cuneiform.lib.config.options.BooleanOption;
 import azmalent.cuneiform.lib.config.options.DoubleOption;
 import azmalent.cuneiform.lib.config.options.IntOption;
 import azmalent.cuneiform.lib.config.options.lazy.RegistryListOption;
+import azmalent.terraincognita.common.world.biome.BiomeEntry;
 import com.google.common.collect.Lists;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -51,13 +52,9 @@ public class TIConfig extends CommonConfigFile {
             "It can be found in dungeon loot with the same rarity as enchanted golden apples."})
         public static final BooleanOption notchCarrot = new BooleanOption(true);
 
-        @Name("Kelp Soup Enabled")
-        @Comment("Kelp soup is a new food item made with four kelp in a bowl.")
-        public static final BooleanOption kelpSoup = new BooleanOption(true).withFlag("kelp_soup");
-
-        @Name("Berry Sorbet Enabled")
-        @Comment("Berry Sorbet is a new food item made with sweet berries, sugar and a snowball in a bowl.")
-        public static final BooleanOption berrySorbet = new BooleanOption(true).withFlag("sorbet");
+        @Name("Extra Vanilla Foods")
+        @Comment("Adds kelp soup and sweet berry sorbet.")
+        public static final BooleanOption kelpSoup = new BooleanOption(true).withFlag("vanilla_foods");
     }
 
     public static class Flora extends Category {
@@ -95,8 +92,7 @@ public class TIConfig extends CommonConfigFile {
         public static final BooleanOption reeds = new BooleanOption(true).withFlag("reeds");
 
         @Name("Savanna Flowers Enabled")
-        @Comment({"Adds marigolds, blue lupines and snapdragons to savannas.",
-            "Marigolds are unique in that they can grow on sand, but only if there is water nearby. They will spawn in deserts when these conditions are met."})
+        @Comment("Adds marigolds, blue lupines, snapdragons, gladioluses, geraniums, oleanders and sage to savannas.")
         public static final BooleanOption savannaFlowers = new BooleanOption(true).withFlag("savanna_flowers");
 
         @Name("Jungle Flowers Enabled")
@@ -104,7 +100,7 @@ public class TIConfig extends CommonConfigFile {
         public static final BooleanOption jungleFlowers = new BooleanOption(true).withFlag("jungle_flowers");
 
         @Name("Lotus Enabled")
-        @Comment("Lotus is a beautiful aquatic flower found in jungles. It comes in yellow, pink and white colors.")
+        @Comment("Lotus is a beautiful aquatic flower found in jungle lakes. It comes in yellow, pink and white colors.")
         public static final BooleanOption lotus = new BooleanOption(true).withFlag("lotus");
 
         @Name("Alpine Flowers Enabled")
@@ -132,7 +128,7 @@ public class TIConfig extends CommonConfigFile {
         @Name("Wreaths Enabled")
         @Comment({"Wreath is a cosmetic headdress crafted with 4 small flowers of any kind in a 2x2 shape.",
                 "The color of the wreath depends on the flowers you used to craft it."})
-        public static final BooleanOption wreath = new BooleanOption(true).withFlag("flower_band");
+        public static final BooleanOption wreath = new BooleanOption(true).withFlag("wreath");
 
         @Name("Caribou Moss Enabled")
         @Comment("Caribou moss is a grass-like plant found in tundras.")
@@ -150,6 +146,12 @@ public class TIConfig extends CommonConfigFile {
 
         @Name("Hanging Moss Enabled")
         public static final BooleanOption hangingMoss = new BooleanOption(true).withFlag("hanging_moss");
+
+        @Name("Cactus Flowers Enabled")
+        public static final BooleanOption cactusFlowers = new BooleanOption(true).withFlag("cactus_flowers");
+
+        @Name("Small Cacti Enabled")
+        public static final BooleanOption smallCacti = new BooleanOption(true).withFlag("small_cacti");
     }
 
     public static class Fauna extends Category {
@@ -171,21 +173,23 @@ public class TIConfig extends CommonConfigFile {
     }
 
     public static class Tools extends Category {
+        @Name("Basket Enabled")
+        @Comment({"Basket is a portable container crafted from swamp reeds (or sugar cane if reeds are disabled). It can be placed or opened from inventory.",
+                "Baskets have 9 slots and can only store forage such as flowers, saplings, mushrooms, seeds and eggs.",
+                "When you have a basket in your hand, it will automatically collect compatible items."})
+        public static final BooleanOption basket = new BooleanOption(true).withFlag("basket");
+
         @Name("Caltrops Enabled")
         @Comment({"Caltrops are metal spikes that can be placed on the ground. Dropped caltrops will also place themselves if possible.",
             "Caltrops deal one heart of damage and inflict slowness for 10 seconds when touched.",
-            "Caltrops will be flushed away by flowing water.",
-            "You can right click caltrops with an empty hand to pick them up."})
+            "You can right click caltrops with an empty hand to pick them up. They will also be flushed away by flowing water."})
         public static final BooleanOption caltrops = new BooleanOption(true).withFlag("caltrops");
 
         @Comment("The chance for caltrops to break when dealing damage.")
         public static final DoubleOption caltropsBreakChance = new DoubleOption(0.125).inUnitRange();
 
-        @Name("Basket Enabled")
-        @Comment({"Basket is a portable container crafted from swamp reeds (or sugar cane if reeds are disabled). It can be placed or opened from inventory.",
-            "Baskets have 9 slots and can only store forage such as flowers, saplings, mushrooms, seeds and eggs.",
-            "When you have a basket in your hand, it will automatically collect compatible items."})
-        public static final BooleanOption basket = new BooleanOption(true).withFlag("basket");
+        @Name("Blowpipe Enabled")
+        public static final BooleanOption blowpipe = new BooleanOption(true).withFlag("blowpipe");
     }
 
     @SuppressWarnings("GrazieInspection")
@@ -204,6 +208,9 @@ public class TIConfig extends CommonConfigFile {
 
         @Comment("This tweak only applies if apple trees are enabled.")
         public static final BooleanOption disableAppleDropFromOaks = new BooleanOption(true).withFlag("remove_oak_apples");
+
+        @Comment("Adds height variation to cacti, sugarcane and reeds.")
+        public static final BooleanOption plantHeightVariation = new BooleanOption(true);
 
         @Comment("Adds composting recipes for dead bushes, bamboo, poisonous potatoes and chorus fruits/flowers.")
         public static final BooleanOption additionalCompostables = new BooleanOption(true);

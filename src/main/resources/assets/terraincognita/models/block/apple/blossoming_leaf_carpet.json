@@ -1,7 +1,7 @@
 {
   "parent": "block/thin_block",
   "textures": {
-    "leaves": "minecraft:block/birch_leaves",
+    "leaves": "terraincognita:block/apple/leaves",
     "blossoms": "terraincognita:block/apple/flowers",
     "particle": "#leaves"
   },

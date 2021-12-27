@@ -1,6 +1,6 @@
 {
   "textures": {
-    "leaf": "minecraft:block/birch_leaves",
+    "leaf": "terraincognita:block/apple/leaves",
     "blossoms": "terraincognita:block/apple/flowers",
     "particle": "#leaf"
   },

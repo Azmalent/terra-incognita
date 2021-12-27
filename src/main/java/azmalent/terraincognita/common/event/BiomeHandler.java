@@ -70,13 +70,15 @@ public class BiomeHandler {
                 break;
 
             case SWAMP:
-                ModDefaultFeatures.withSmallLilyPads(builder);
-                ModDefaultFeatures.withCattails(builder);
-                ModDefaultFeatures.withSwampReeds(builder);
+                ModDefaultFeatures.withSwampVegetation(builder);
                 ModDefaultFeatures.withPeatAndMossyGravel(builder);
                 if (!BiomeDictionary.hasType(biomeKey, COLD)) {
                     ModDefaultFeatures.withSwampFlowers(builder);
                 }
+                break;
+
+            case DESERT:
+                ModDefaultFeatures.withDesertVegetation(builder);
                 break;
 
             case SAVANNA:
@@ -90,8 +92,7 @@ public class BiomeHandler {
                 break;
 
             case JUNGLE:
-                ModDefaultFeatures.withJungleFlowers(builder);
-                ModDefaultFeatures.withLotuses(builder);
+                ModDefaultFeatures.withJungleVegetation(builder);
                 break;
 
             case ICY:
@@ -102,7 +103,7 @@ public class BiomeHandler {
         }
     }
 
-    public static void initCustomBiome(BiomeLoadingEvent event) {
+    private static void initCustomBiome(BiomeLoadingEvent event) {
         ResourceLocation id = event.getName();
 
         BiomeEntry biome = ModBiomes.ID_TO_BIOME_MAP.get(id);
@@ -114,7 +115,7 @@ public class BiomeHandler {
         biome.initFeatures(event.getGeneration());
     }
 
-    public static void applyVanillaBiomeTweaks(BiomeLoadingEvent event) {
+    private static void applyVanillaBiomeTweaks(BiomeLoadingEvent event) {
         RegistryKey<Biome> biome = BiomeUtil.getBiomeKey(event.getName());
         BiomeGenerationSettingsBuilder builder = event.getGeneration();
 

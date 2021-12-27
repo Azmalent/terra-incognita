@@ -2,10 +2,7 @@ package azmalent.terraincognita.common.integration.quark;
 
 import azmalent.cuneiform.lib.registry.BlockEntry;
 import azmalent.terraincognita.common.block.woodtypes.ModWoodType;
-import azmalent.terraincognita.common.integration.quark.block.TIWoodPostBlock;
-import azmalent.terraincognita.common.integration.quark.block.TIHedgeBlock;
-import azmalent.terraincognita.common.integration.quark.block.TILeafCarpetBlock;
-import azmalent.terraincognita.common.integration.quark.block.TIVerticalSlabBlock;
+import azmalent.terraincognita.common.integration.quark.block.*;
 import azmalent.terraincognita.common.registry.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -33,7 +30,7 @@ public class QuarkWoodBlockSet {
 
         VERTICAL_PLANKS = ModBlocks.HELPER.newBuilder("vertical_" + name + "_planks", Block.Properties.create(Material.WOOD, woodColor).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)).withItemGroup(ItemGroup.BUILDING_BLOCKS).build();
         VERTICAL_SLAB   = ModBlocks.HELPER.newBuilder(name + "_vertical_slab", TIVerticalSlabBlock::new, Block.Properties.create(Material.WOOD, woodColor).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)).withItemGroup(ItemGroup.BUILDING_BLOCKS).build();
-        BOOKSHELF       = ModBlocks.HELPER.newBuilder(name + "_bookshelf", Block.Properties.create(Material.WOOD, woodColor).hardnessAndResistance(1.5F).sound(SoundType.WOOD)).withItemGroup(ItemGroup.BUILDING_BLOCKS).build();
+        BOOKSHELF       = ModBlocks.HELPER.newBuilder(name + "_bookshelf", TIBookshelfBlock::new, Block.Properties.create(Material.WOOD, woodColor).hardnessAndResistance(1.5F).sound(SoundType.WOOD)).withItemGroup(ItemGroup.BUILDING_BLOCKS).build();
         LADDER          = ModBlocks.HELPER.newBuilder(name + "_ladder", LadderBlock::new, Block.Properties.from(Blocks.LADDER)).cutoutRender().build();
         POST            = ModBlocks.HELPER.newBuilder(name + "_post", () -> new TIWoodPostBlock(barkColor)).cutoutRender().build();
         STRIPPED_POST   = ModBlocks.HELPER.newBuilder("stripped_" + name + "_post", () -> new TIWoodPostBlock(woodColor)).cutoutRender().build();

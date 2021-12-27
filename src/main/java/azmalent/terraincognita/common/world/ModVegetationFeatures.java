@@ -24,6 +24,7 @@ public class ModVegetationFeatures {
 
         static final BlockState CATTAIL = ModBlocks.CATTAIL.getBlock().getDefaultState();
         static final BlockState ROOTS = ModBlocks.ROOTS.getDefaultState();
+        static final BlockState SMALL_CACTUS = ModBlocks.SMALL_CACTUS.getBlock().getDefaultState();
     }
 
     public static class StateProviders {
@@ -42,6 +43,7 @@ public class ModVegetationFeatures {
     public static class Configs {
         static final BlockClusterFeatureConfig CATTAILS = new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(States.CATTAIL), DoublePlantBlockPlacer.PLACER).tries(48).func_227317_b_().requiresWater().replaceable().build();
         static final BlockClusterFeatureConfig ROOTS = new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(States.ROOTS), SimpleBlockPlacer.PLACER).tries(60).xSpread(4).ySpread(16).zSpread(4).func_227317_b_().build();
+        static final BlockClusterFeatureConfig SMALL_CACTUS = new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(States.SMALL_CACTUS), SimpleBlockPlacer.PLACER).tries(4).build();
     }
 
     public static ConfiguredFeature<?, ?> LOTUS;
@@ -52,6 +54,7 @@ public class ModVegetationFeatures {
     public static ConfiguredFeature<?, ?> ROOTS;
     public static ConfiguredFeature<?, ?> HANGING_MOSS;
     public static ConfiguredFeature<?, ?> CARIBOU_MOSS;
+    public static ConfiguredFeature<?, ?> SMALL_CACTUS;
 
     private static ConfiguredFeature<?, ?> initLilypadFeature(BlockStateProvider provider, int tries) {
         BlockClusterFeatureConfig config = new BlockClusterFeatureConfig.Builder(provider, SimpleBlockPlacer.PLACER)
@@ -69,5 +72,6 @@ public class ModVegetationFeatures {
         ROOTS = ModConfiguredFeatures.register("roots", Feature.RANDOM_PATCH.withConfiguration(Configs.ROOTS).withPlacement(Features.Placements.PATCH_PLACEMENT).func_242731_b(20));
         HANGING_MOSS = ModConfiguredFeatures.register("hanging_moss", ModFeatures.HANGING_MOSS.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Features.Placements.PATCH_PLACEMENT).func_242731_b(20));
         CARIBOU_MOSS = ModConfiguredFeatures.register("caribou_moss", ModFeatures.CARIBOU_MOSS.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Features.Placements.VEGETATION_PLACEMENT).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).func_242731_b(8));
+        SMALL_CACTUS = ModConfiguredFeatures.register("small_cactus", Feature.RANDOM_PATCH.withConfiguration(Configs.SMALL_CACTUS).withPlacement(Features.Placements.VEGETATION_PLACEMENT));
     }
 }

@@ -16,10 +16,12 @@ public class ModBanners {
     public static final Map<BannerPattern, RegistryObject<BannerPatternItem>> PATTERN_ITEMS = Maps.newHashMap();
     public static BannerPattern FLEUR_DE_LIS;
     public static BannerPattern FERN;
+    public static BannerPattern BUTTERFLY;
 
     public static void register() {
         FLEUR_DE_LIS = registerBanner("fleur_de_lis", "fdl", true);
         FERN = registerBanner("fern", "fern", true);
+        BUTTERFLY = registerBanner("butterfly", "btrfly", true);
     }
 
     private static BannerPattern registerBanner(String name, String hashName, boolean requiresItem) {

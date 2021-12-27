@@ -11,15 +11,26 @@
         "category": "blocks",
         "subtitle": "subtitle.terraincognita.caltrops_throw",
         "sounds":[
-            "terraincognita:caltrops"
-        ]
-    },
-
-    "block.caltrops.place": {
-        "category": "blocks",
-        "subtitle": "subtitles.block.generic.place",
-        "sounds":[
-            {"name": "terraincognita:caltrops", "pitch": 1.2}
+            {
+                "name": "block/chain/break1",
+                "volume": 0.5,
+                "pitch": 1.4
+            },
+            {
+                "name": "block/chain/break2",
+                "volume": 0.5,
+                "pitch": 1.4
+            },
+            {
+                "name": "block/chain/break3",
+                "volume": 0.5,
+                "pitch": 1.4
+            },
+            {
+                "name": "block/chain/break4",
+                "volume": 0.5,
+                "pitch": 1.4
+            }
         ]
     }
 }

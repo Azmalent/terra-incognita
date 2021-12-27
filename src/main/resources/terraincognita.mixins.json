@@ -6,11 +6,13 @@
   "package": "azmalent.terraincognita.mixin",
   "plugin": "azmalent.terraincognita.mixin.MixinConfigPlugin",
   "mixins": [
+    "CactusBlockMixin",
     "EatGrassGoalMixin",
     "FlowersFeatureMixin",
     "FoxEntityTypeMixin",
     "GrassBlockMixin",
     "HillsLayerMixin",
+    "SugarcaneBlockMixin",
     "VineBlockMixin",
     "accessor.BlockStateProviderTypeAccessor",
     "accessor.BoatEntityAccessor",

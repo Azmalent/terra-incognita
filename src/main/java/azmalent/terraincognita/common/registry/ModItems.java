@@ -4,19 +4,28 @@ import azmalent.cuneiform.common.event.FuelHandler;
 import azmalent.cuneiform.common.item.ModSpawnEggItem;
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.block.woodtypes.ModWoodType;
+import azmalent.terraincognita.common.entity.IBottleableEntity;
 import azmalent.terraincognita.common.entity.butterfly.ButterflyEntity;
 import azmalent.terraincognita.common.item.*;
+import azmalent.terraincognita.common.item.BottledEntityItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.*;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+
+import java.util.List;
+import java.util.function.BiConsumer;
+import java.util.function.Supplier;
 
 @SuppressWarnings({"ConstantConditions", "unused"})
 public class ModItems {
@@ -43,9 +52,9 @@ public class ModItems {
         public static final Food SOUR_BERRY_PIE = new Food.Builder().hunger(6).saturation(0.3f).build();
         public static final Food SOUR_BERRY_JAM = new Food.Builder().hunger(4).saturation(0.2f).build();
 
-        public static final Food HAZELNUT = new Food.Builder().hunger(2).saturation(0.2f).fastToEat().build();
-        public static final Food HONEY_HAZELNUT = new Food.Builder().hunger(4).saturation(0.4f).fastToEat().build();
-        public static final Food HAZELNUT_COOKIE = new Food.Builder().hunger(2).saturation(0.1f).build();
+        public static final Food HAZELNUT = new Food.Builder().hunger(2).saturation(0.1f).fastToEat().build();
+        public static final Food CANDIED_HAZELNUT = new Food.Builder().hunger(4).saturation(0.4f).fastToEat().build();
+        public static final Food HAZELNUT_COOKIE = new Food.Builder().hunger(2).saturation(0.2f).build();
     }
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, TerraIncognita.MODID);
@@ -57,20 +66,28 @@ public class ModItems {
     public static final RegistryObject<Item> BAKED_ROOT = ITEMS.register("baked_root", () -> new Item(foodProps(Foods.BAKED_ROOT)));
     public static final RegistryObject<Item> KELP_SOUP = ITEMS.register("kelp_soup", () -> new SoupItem(foodProps(Foods.KELP_SOUP).maxStackSize(1)));
     public static final RegistryObject<Item> BERRY_SORBET = ITEMS.register("berry_sorbet", () -> new SoupItem(foodProps(Foods.BERRY_SORBET).maxStackSize(1)));
-    public static final RegistryObject<WreathItem> WREATH = ITEMS.register("flower_band", WreathItem::new);
 
     public static final RegistryObject<Item> SOUR_BERRIES = ITEMS.register("sour_berries", () -> new Item(foodProps(Foods.SOUR_BERRIES)));
     public static final RegistryObject<Item> SOUR_BERRY_PIE = ITEMS.register("sour_berry_pie", () -> new Item(foodProps(Foods.SOUR_BERRY_PIE)));
     public static final RegistryObject<Item> SOUR_BERRY_JAM = ITEMS.register("sour_berry_jam", () -> new JamItem(foodProps(Foods.SOUR_BERRY_JAM).maxStackSize(16)));
 
     public static final RegistryObject<Item> HAZELNUT = ITEMS.register("hazelnut", () -> new Item(foodProps(Foods.HAZELNUT)));
-    public static final RegistryObject<Item> HONEY_HAZELNUT = ITEMS.register("honey_hazelnut", () -> new Item(foodProps(Foods.HONEY_HAZELNUT)));
+    public static final RegistryObject<Item> CANDIED_HAZELNUT = ITEMS.register("candied_hazelnut", () -> new Item(foodProps(Foods.CANDIED_HAZELNUT)));
     public static final RegistryObject<Item> HAZELNUT_COOKIE = ITEMS.register("hazelnut_cookie", () -> new Item(foodProps(Foods.HAZELNUT_COOKIE)));
 
+    public static final RegistryObject<Item> CACTUS_NEEDLE = ITEMS.register("cactus_needle", () -> new Item(new Item.Properties().group(ItemGroup.MISC)));
+
+    public static final RegistryObject<WreathItem> WREATH = ITEMS.register("wreath", WreathItem::new);
+
+    public static final RegistryObject<BottledEntityItem<ButterflyEntity>> BOTTLED_BUTTERFLY = bottledEntity("butterfly", ModEntities.BUTTERFLY, ButterflyEntity::addBottleTooltip);
     public static final RegistryObject<ModSpawnEggItem<ButterflyEntity>> BUTTERFLY_SPAWN_EGG = spawnEgg("butterfly", ModEntities.BUTTERFLY, 0xc02f03, 0x0f1016);
 
     private static Item.Properties foodProps(Food food) {
         return new Item.Properties().group(ItemGroup.FOOD).food(food);
+    }
+
+    private static <T extends LivingEntity & IBottleableEntity> RegistryObject<BottledEntityItem<T>> bottledEntity(String entityId, Supplier<EntityType<T>> type, BiConsumer<CompoundNBT, List<ITextComponent>> tooltipHandler) {
+        return ITEMS.register("bottled_" + entityId, () -> new BottledEntityItem<T>(type, tooltipHandler));
     }
 
     private static <T extends Entity> RegistryObject<ModSpawnEggItem<T>> spawnEgg(String entityId, RegistryObject<EntityType<T>> type, int primaryColor, int secondaryColor) {

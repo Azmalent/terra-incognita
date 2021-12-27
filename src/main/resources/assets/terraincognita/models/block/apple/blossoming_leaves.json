@@ -1,7 +1,7 @@
 {
   "parent": "terraincognita:block/blossoming_leaves",
   "textures": {
-    "leaves": "minecraft:block/birch_leaves",
+    "leaves": "terraincognita:block/apple/leaves",
     "blossoms": "terraincognita:block/apple/flowers"
   }
 }

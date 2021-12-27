@@ -1,6 +1,6 @@
 package azmalent.terraincognita.common.item;
 
-import azmalent.terraincognita.util.PlayerUtil;
+import azmalent.terraincognita.util.InventoryUtil;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -39,7 +39,7 @@ public class JamItem extends Item {
         if (living instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity) living;
             if (!player.isCreative()) {
-                PlayerUtil.giveStackToPlayer(player, bottle);
+                InventoryUtil.giveStackToPlayer(player, bottle);
             }
         }
 

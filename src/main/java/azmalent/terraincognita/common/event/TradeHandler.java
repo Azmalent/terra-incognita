@@ -56,9 +56,9 @@ public class TradeHandler {
         if (TIConfig.Flora.savannaFlowers.get()) {
             sell(generic, ModBlocks.MARIGOLD, 12);
             sell(generic, ModBlocks.BLUE_LUPINE, 12);
-            sell(generic, ModBlocks.YELLOW_SNAPDRAGON, 12);
-            sell(generic, ModBlocks.RED_SNAPDRAGON, 12);
-            sell(generic, ModBlocks.MAGENTA_SNAPDRAGON, 12);
+            sell(generic, ModBlocks.SNAPDRAGON, 12);
+            sell(generic, ModBlocks.GLADIOLUS, 12);
+            sell(generic, ModBlocks.GERANIUM, 12);
         }
 
         if (TIConfig.Flora.jungleFlowers.get()) {
@@ -71,7 +71,7 @@ public class TradeHandler {
             sell(generic, ModBlocks.ARCTIC_POPPY, 12);
             sell(generic, ModBlocks.DWARF_FIREWEED, 12);
             sell(generic, ModBlocks.WHITE_DRYAD, 12);
-            sell(generic, ModBlocks.TALL_FIREWEED, 12);
+            sell(generic, ModBlocks.FIREWEED, 12);
             sell(generic, ModBlocks.WHITE_RHODODENDRON, 12);
         }
 

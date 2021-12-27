@@ -1,5 +1,6 @@
 {
   "parent": "block/flower_pot_cross",
   "textures": {
-    "plant": "terraincognita:block/apple/sapling" }
+    "plant": "terraincognita:block/apple/sapling" 
+  }
 }

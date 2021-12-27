@@ -13,7 +13,7 @@
   "conditions": [
     {
       "type": "cuneiform:config",
-      "config": "terraincognita:kelp_soup"
+      "config": "terraincognita:vanilla_foods"
     }
   ]
 }

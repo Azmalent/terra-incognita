@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.item.BlockItem;
 import net.minecraft.util.IItemProvider;
+import net.minecraft.world.FoliageColors;
 import net.minecraft.world.GrassColors;
 import net.minecraft.world.biome.BiomeColors;
 import net.minecraftforge.api.distmarker.Dist;
@@ -18,8 +19,6 @@ import net.minecraftforge.client.event.ColorHandlerEvent;
 public class ColorHandler {
     public static final int LILYPAD_WORLD_COLOR = 2129968;
     public static final int LILYPAD_INVENTORY_COLOR = 2129968;
-    public static final int APPLE_LEAVES_COLOR = 0x73CD14;
-    public static final int HAZEL_LEAVES_COLOR = 0x36A11C;
     public static final int MOSS_COLOR = 0x5AAD41;
 
     public static void registerBlockColorHandlers(ColorHandlerEvent.Block event) {
@@ -42,11 +41,9 @@ public class ColorHandler {
 
         colors.register((state, reader, pos, color) -> MOSS_COLOR, ModBlocks.HANGING_MOSS.getBlock());
 
-        colors.register((state, reader, pos, color) -> APPLE_LEAVES_COLOR,
-            ModWoodTypes.APPLE.LEAVES.getBlock(), ModWoodTypes.APPLE.BLOSSOMING_LEAVES.getBlock()
+        colors.register((state, reader, pos, color) -> reader != null && pos != null ? BiomeColors.getFoliageColor(reader, pos) : FoliageColors.get(0.5D, 1.0D),
+            ModWoodTypes.APPLE.LEAVES.getBlock(), ModWoodTypes.APPLE.BLOSSOMING_LEAVES.getBlock(), ModWoodTypes.HAZEL.LEAVES.getBlock()
         );
-
-        colors.register((state, reader, pos, color) -> HAZEL_LEAVES_COLOR, ModWoodTypes.HAZEL.LEAVES.getBlock());
 
         colors.register((state, reader, pos, color) -> reader != null && pos != null ? BiomeColors.getGrassColor(reader, pos) : GrassColors.get(0.5D, 1.0D),
             ModBlocks.FLOWERING_GRASS.getBlock()

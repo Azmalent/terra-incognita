@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:paper"
+    },
+    {
+      "item": "terraincognita:bottled_butterfly"
+    }
+  ],
+  "result": {
+    "item": "terraincognita:butterfly_banner_pattern"
+  },
+  "conditions": [
+    {
+      "type": "cuneiform:config",
+      "config": "terraincognita:banners"
+    }
+  ]
+}

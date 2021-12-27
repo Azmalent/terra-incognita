@@ -1,0 +1,15 @@
+{
+  "type": "simplytea:shapeless_honey",
+  "group": "simplytea:with_honey",
+  "tea": "terraincognita:fireweed_tea_cup",
+  "honey": {
+    "item": "minecraft:honey_bottle"
+  },
+  "tag": "with_honey",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "simplytea"
+    }
+  ]
+}

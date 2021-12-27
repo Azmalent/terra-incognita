@@ -1,6 +1,6 @@
 {
   "parent": "quark:block/leaf_carpet",
   "textures": {
-    "all": "minecraft:block/birch_leaves"
+    "all": "terraincognita:block/apple/leaves"
   }
 }

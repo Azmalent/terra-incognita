@@ -12,7 +12,7 @@
   "conditions": [
     {
       "type": "cuneiform:config",
-      "config": "terraincognita:sorbet"
+      "config": "terraincognita:vanilla_foods"
     }
   ]
 }

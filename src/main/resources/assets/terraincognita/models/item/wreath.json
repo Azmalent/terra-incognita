@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "terraincognita:item/wreath",
+    "layer1": "terraincognita:item/wreath_overlay"
+  }
+}
