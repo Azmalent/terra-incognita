@@ -1,6 +1,7 @@
 package azmalent.terraincognita.common.entity.butterfly;
 
 import azmalent.terraincognita.common.ModDamageSources;
+import azmalent.terraincognita.common.entity.IBottleableEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
@@ -28,7 +29,7 @@ import net.minecraft.world.World;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public abstract class AbstractButterflyEntity extends CreatureEntity implements IFlyingAnimal {
+public abstract class AbstractButterflyEntity extends CreatureEntity implements IFlyingAnimal, IBottleableEntity {
     public static final DataParameter<Float> SIZE_MODIFIER = EntityDataManager.createKey(ButterflyEntity.class, DataSerializers.FLOAT);
 
     protected int flyingTicks = 0;

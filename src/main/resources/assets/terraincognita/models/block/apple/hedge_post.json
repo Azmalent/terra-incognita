@@ -2,6 +2,6 @@
   "parent": "quark:block/hedge_post",
   "textures": {
     "log": "terraincognita:block/apple/log",
-    "leaf": "minecraft:block/birch_leaves"
+    "leaf": "terraincognita:block/apple/leaves"
   }
 }

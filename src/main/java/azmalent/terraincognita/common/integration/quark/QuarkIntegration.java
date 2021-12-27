@@ -22,7 +22,9 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.FoliageColors;
 import net.minecraft.world.IWorldReader;
+import net.minecraft.world.biome.BiomeColors;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ColorHandlerEvent;
@@ -111,8 +113,10 @@ public class QuarkIntegration implements IQuarkIntegration {
     public void registerBlockColorHandlers(ColorHandlerEvent.Block event) {
         BlockColors colors = event.getBlockColors();
 
-        colors.register((state, reader, pos, color) -> ColorHandler.APPLE_LEAVES_COLOR, APPLE.LEAF_CARPET.getBlock(), BLOSSOMING_APPLE_LEAF_CARPET.getBlock(), APPLE.HEDGE.getBlock(), BLOSSOMING_APPLE_HEDGE.getBlock());
-        colors.register((state, reader, pos, color) -> ColorHandler.HAZEL_LEAVES_COLOR, HAZEL.LEAF_CARPET.getBlock(), HAZEL.HEDGE.getBlock());
+        colors.register((state, reader, pos, color) -> reader != null && pos != null ? BiomeColors.getFoliageColor(reader, pos) : FoliageColors.get(0.5D, 1.0D),
+            APPLE.LEAF_CARPET.getBlock(), BLOSSOMING_APPLE_LEAF_CARPET.getBlock(), APPLE.HEDGE.getBlock(), BLOSSOMING_APPLE_HEDGE.getBlock(),
+            HAZEL.LEAF_CARPET.getBlock(), HAZEL.HEDGE.getBlock()
+        );
     }
 
     @OnlyIn(Dist.CLIENT)

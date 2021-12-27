@@ -1,14 +1,13 @@
 package azmalent.terraincognita.client;
 
-import azmalent.terraincognita.common.registry.ModSounds;
 import net.minecraft.block.SoundType;
 
 public class ModSoundTypes {
-    public static final SoundType CALTROPS = new SoundType(0.8f, 1.2f,
-        SoundType.METAL.getBreakSound(),
-        SoundType.METAL.getStepSound(),
-        ModSounds.CALTROPS_PLACE.get(),
-        SoundType.METAL.getHitSound(),
-        SoundType.METAL.getFallSound()
+    public static final SoundType CALTROPS = new SoundType(0.8f, 1.4f,
+        SoundType.CHAIN.getBreakSound(),
+        SoundType.CHAIN.getStepSound(),
+        SoundType.CHAIN.getPlaceSound(),
+        SoundType.CHAIN.getHitSound(),
+        SoundType.CHAIN.getFallSound()
     );
 }

@@ -1,31 +1,42 @@
 package azmalent.terraincognita.common.event;
 
+import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.common.ModTweaks;
 import azmalent.terraincognita.common.data.ModItemTags;
+import azmalent.terraincognita.common.entity.IBottleableEntity;
 import azmalent.terraincognita.common.integration.theoneprobe.ButterflyProvider;
 import azmalent.terraincognita.common.inventory.BasketStackHandler;
+import azmalent.terraincognita.common.item.BottledEntityItem;
 import azmalent.terraincognita.common.item.block.BasketItem;
 import azmalent.terraincognita.common.recipe.WreathRecipe;
 import azmalent.terraincognita.common.registry.*;
 import azmalent.terraincognita.common.world.ModConfiguredFeatures;
+import azmalent.terraincognita.util.InventoryUtil;
 import net.minecraft.block.Block;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.DyeItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.item.crafting.ICraftingRecipe;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.potion.EffectInstance;
+import net.minecraft.stats.Stats;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.world.World;
 import net.minecraftforge.client.event.RecipesUpdatedEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.InterModComms;
@@ -46,8 +57,12 @@ public class EventHandler {
         MinecraftForge.EVENT_BUS.addGenericListener(Block.class, IdRemappingHandler::onMissingBlockMappings);
         MinecraftForge.EVENT_BUS.addGenericListener(Item.class, IdRemappingHandler::onMissingItemMappings);
 
-        MinecraftForge.EVENT_BUS.addListener(EventHandler::onUpdateRecipes);
+        if (TIConfig.Flora.wreath.get()) {
+            MinecraftForge.EVENT_BUS.addListener(EventHandler::onUpdateRecipes);
+        }
+
         MinecraftForge.EVENT_BUS.addListener(EventHandler::onPlayerUseItem);
+        MinecraftForge.EVENT_BUS.addListener(EventHandler::onPlayerInteract);
         MinecraftForge.EVENT_BUS.addListener(EventHandler::onItemPickup);
 
         MinecraftForge.EVENT_BUS.addListener(BiomeHandler::onLoadBiome);
@@ -103,6 +118,40 @@ public class EventHandler {
         if (effect != null && event.getItem().isFood()) {
             int multiplier = 2 << effect.getAmplifier();
             event.setDuration(event.getDuration() * multiplier);
+        }
+    }
+
+    //Entity bottling
+    public static void onPlayerInteract(PlayerInteractEvent.EntityInteractSpecific event) {
+        if (!(event.getTarget() instanceof LivingEntity) || event.getWorld().isRemote) {
+            return;
+        }
+
+        PlayerEntity player = event.getPlayer();
+        Hand hand = event.getHand();
+        ItemStack heldStack = player.getHeldItem(hand);
+        LivingEntity living = (LivingEntity) event.getTarget();
+
+        if (heldStack.getItem() == Items.GLASS_BOTTLE && living instanceof IBottleableEntity && living.isAlive()) {
+            World world = event.getWorld();
+
+            heldStack.shrink(1);
+
+            ItemStack bottle = new ItemStack(((IBottleableEntity) living).getBottledItem());
+            if (living.hasCustomName()) {
+                bottle.setDisplayName(living.getCustomName());
+            }
+
+            BottledEntityItem.setBottledEntity(bottle, living);
+            living.remove();
+            world.playSound(player, event.getPos(), SoundEvents.ITEM_BOTTLE_FILL_DRAGONBREATH, SoundCategory.NEUTRAL, 1.0f, 1.0f);
+            player.addStat(Stats.ITEM_USED.get(Items.GLASS_BOTTLE));
+
+            InventoryUtil.giveStackToPlayer(player, bottle, hand);
+            player.swingArm(hand);
+
+            event.setCanceled(true);
+            event.setCancellationResult(ActionResultType.CONSUME);
         }
     }
 

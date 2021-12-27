@@ -11,6 +11,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.item.*;
 import net.minecraft.stats.Stats;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
@@ -81,6 +83,21 @@ public class BlowpipeItem extends ShootableItem implements IVanishable {
         }
     }
 
+    public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
+        ItemStack stack = player.getHeldItem(hand);
+        boolean hasAmmo = !player.findAmmo(stack).isEmpty();
+
+        ActionResult<ItemStack> result = ForgeEventFactory.onArrowNock(stack, world, player, hand, hasAmmo);
+        if (result != null) return result;
+
+        if (!player.abilities.isCreativeMode && !hasAmmo) {
+            return ActionResult.resultFail(stack);
+        }
+
+        player.setActiveHand(hand);
+        return ActionResult.resultConsume(stack);
+    }
+
     public static float getArrowVelocity(int charge) {
         float f = (float)charge / 20.0F;
         f = (f * f + f * 2.0F) / 3.0F;
@@ -102,7 +119,7 @@ public class BlowpipeItem extends ShootableItem implements IVanishable {
      * returns the action that specifies what animation to play when the items is being used
      */
     public UseAction getUseAction(ItemStack stack) {
-        return UseAction.SPEAR;
+        return UseAction.CROSSBOW;
     }
 
 

@@ -1,5 +1,6 @@
 package azmalent.terraincognita.client.renderer.tile;
 
+import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.block.chests.ModChestBlock;
 import azmalent.terraincognita.common.block.chests.ModTrappedChestBlock;
 import azmalent.terraincognita.common.tile.ModChestTileEntity;
@@ -102,7 +103,7 @@ public class ModChestRenderer<TChest extends ModChestTileEntity> extends TileEnt
             f1 = 1.0F - f1 * f1 * f1;
             int i = icallbackwrapper.apply(new DualBrightnessCallback<>()).applyAsInt(combinedLightIn);
 
-            RenderMaterial material = new RenderMaterial(Atlases.CHEST_ATLAS, getChestTexture(chest, chesttype));
+            RenderMaterial material = getRenderMaterial(chest, chesttype);
             IVertexBuilder ivertexbuilder = material.getBuffer(bufferIn, RenderType::getEntityCutoutNoCull);
             if (flag1) {
                 if (chesttype == ChestType.LEFT) {
@@ -118,17 +119,18 @@ public class ModChestRenderer<TChest extends ModChestTileEntity> extends TileEnt
         }
     }
 
-    public ResourceLocation getChestTexture(AbstractChestBlock<?> chestBlock, ChestType type) {
+    private RenderMaterial getRenderMaterial(AbstractChestBlock<?> chestBlock, ChestType type) {
         if (isChristmas) {
             switch (type) {
-                case LEFT:  return new ResourceLocation("textures/entity/chest/christmas_left.png");
-                case RIGHT: return new ResourceLocation("textures/entity/chest/christmas_right.png");
-                default:    return new ResourceLocation("textures/entity/chest/christmas.png");
+                case LEFT:  return Atlases.CHEST_XMAS_LEFT_MATERIAL;
+                case RIGHT: return Atlases.CHEST_XMAS_RIGHT_MATERIAL;
+                default:    return Atlases.CHEST_XMAS_MATERIAL;
             }
         }
 
         ModChestBlock block = inventoryBlock != null ? inventoryBlock : (ModChestBlock) chestBlock;
-        return block.woodType.getChestTexture(type, block instanceof ModTrappedChestBlock);
+        ResourceLocation texture = block.woodType.getChestTexture(type, block instanceof ModTrappedChestBlock);
+        return new RenderMaterial(Atlases.CHEST_ATLAS, texture);
     }
 
     public void func_228871_a_(MatrixStack matrixStack, IVertexBuilder builder, ModelRenderer chestLid, ModelRenderer chestLatch, ModelRenderer chestBottom, float lidAngle, int combinedLightIn, int combinedOverlayIn) {

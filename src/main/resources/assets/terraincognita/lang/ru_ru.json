@@ -192,7 +192,6 @@
   "biome.terraincognita.lush_hills": "Цветущие холмы",
 
   "entity.terraincognita.butterfly": "Бабочка",
-  "item.terraincognita.butterfly_spawn_egg": "Яйцо призыва бабочки",
   "entity.terraincognita.butterfly.peacock": "Павлиний глаз",
   "entity.terraincognita.butterfly.brimstone": "Лимонница",
   "entity.terraincognita.butterfly.cabbage_white": "Капустница",
@@ -203,9 +202,11 @@
   "entity.terraincognita.butterfly.red_admiral": "Адмирал",
   "entity.terraincognita.butterfly.speckled_wood": "Краеглазка",
   "entity.terraincognita.butterfly.purple_emperor": "Переливница",
+  "item.terraincognita.butterfly_spawn_egg": "Яйцо призыва бабочки",
+  "item.terraincognita.bottled_butterfly": "Бутылка с бабочкой",
 
-  "entity.terraincognita.moth": "Бражник",
-  "item.terraincognita.moth_spawn_egg": "Яйцо призыва бражника",
+  "entity.terraincognita.moth": "Мотылёк",
+  "item.terraincognita.moth_spawn_egg": "Яйцо призыва мотылька",
 
   "effect.terraincognita.sticky_mouth": "Склеенный рот",
 
@@ -246,6 +247,25 @@
   "block.minecraft.banner.ti_fern.green": "Зелёный папоротник",
   "block.minecraft.banner.ti_fern.red": "Красный папоротник",
   "block.minecraft.banner.ti_fern.black": "Чёрный папоротник",
+
+  "item.terraincognita.butterfly_banner_pattern": "Узор флага",
+  "item.terraincognita.butterfly_banner_pattern.desc": "Бабочка",
+  "block.minecraft.banner.ti_butterfly.white": "Белая бабочка",
+  "block.minecraft.banner.ti_butterfly.orange": "Оранжевая бабочка",
+  "block.minecraft.banner.ti_butterfly.magenta": "Пурпурная бабочка",
+  "block.minecraft.banner.ti_butterfly.light_blue": "Голубая бабочка",
+  "block.minecraft.banner.ti_butterfly.yellow": "Жёлтая бабочка",
+  "block.minecraft.banner.ti_butterfly.lime": "Лаймовая бабочка",
+  "block.minecraft.banner.ti_butterfly.pink": "Розовая бабочка",
+  "block.minecraft.banner.ti_butterfly.gray": "Серая бабочка",
+  "block.minecraft.banner.ti_butterfly.light_gray": "Светло-серая бабочка",
+  "block.minecraft.banner.ti_butterfly.cyan": "Бирюзовая бабочка",
+  "block.minecraft.banner.ti_butterfly.purple": "Фиолетовая бабочка",
+  "block.minecraft.banner.ti_butterfly.blue": "Синяя бабочка",
+  "block.minecraft.banner.ti_butterfly.brown": "Коричневая бабочка",
+  "block.minecraft.banner.ti_butterfly.green": "Зелёная бабочка",
+  "block.minecraft.banner.ti_butterfly.red": "Красная бабочка",
+  "block.minecraft.banner.ti_butterfly.black": "Чёрная бабочка",
 
   "death.attack.caltrops": "%1$s был исколот до смерти железным чесноком",
   "death.attack.caltrops.player": "%1$s был исколот до смерти железным чесноком, пытаясь убежать от %2$s",

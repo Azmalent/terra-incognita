@@ -52,13 +52,9 @@ public class TIConfig extends CommonConfigFile {
             "It can be found in dungeon loot with the same rarity as enchanted golden apples."})
         public static final BooleanOption notchCarrot = new BooleanOption(true);
 
-        @Name("Kelp Soup Enabled")
-        @Comment("Kelp soup is a new food item made with four kelp in a bowl.")
-        public static final BooleanOption kelpSoup = new BooleanOption(true).withFlag("kelp_soup");
-
-        @Name("Berry Sorbet Enabled")
-        @Comment("Berry Sorbet is a new food item made with sweet berries, sugar and a snowball in a bowl.")
-        public static final BooleanOption berrySorbet = new BooleanOption(true).withFlag("sorbet");
+        @Name("Extra Vanilla Foods")
+        @Comment("Adds kelp soup and sweet berry sorbet.")
+        public static final BooleanOption kelpSoup = new BooleanOption(true).withFlag("vanilla_foods");
     }
 
     public static class Flora extends Category {
@@ -96,8 +92,7 @@ public class TIConfig extends CommonConfigFile {
         public static final BooleanOption reeds = new BooleanOption(true).withFlag("reeds");
 
         @Name("Savanna Flowers Enabled")
-        @Comment({"Adds marigolds, blue lupines and snapdragons to savannas.",
-            "Marigolds are unique in that they can grow on sand, but only if there is water nearby. They will spawn in deserts when these conditions are met."})
+        @Comment("Adds marigolds, blue lupines, snapdragons, gladioluses, geraniums, oleanders and sage to savannas.")
         public static final BooleanOption savannaFlowers = new BooleanOption(true).withFlag("savanna_flowers");
 
         @Name("Jungle Flowers Enabled")
@@ -105,7 +100,7 @@ public class TIConfig extends CommonConfigFile {
         public static final BooleanOption jungleFlowers = new BooleanOption(true).withFlag("jungle_flowers");
 
         @Name("Lotus Enabled")
-        @Comment("Lotus is a beautiful aquatic flower found in jungles. It comes in yellow, pink and white colors.")
+        @Comment("Lotus is a beautiful aquatic flower found in jungle lakes. It comes in yellow, pink and white colors.")
         public static final BooleanOption lotus = new BooleanOption(true).withFlag("lotus");
 
         @Name("Alpine Flowers Enabled")

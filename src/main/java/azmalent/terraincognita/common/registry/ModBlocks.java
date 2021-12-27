@@ -19,6 +19,7 @@ import com.google.common.collect.Maps;
 import net.minecraft.block.AbstractBlock.Properties;
 import net.minecraft.block.*;
 import net.minecraft.item.*;
+import net.minecraftforge.common.ToolType;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -42,7 +43,7 @@ public class ModBlocks {
     public static final PottablePlantEntry PURPLE_PRIMROSE = createPlant("purple_primrose", () -> new ModFlowerBlock(StewEffect.STRENGTH));
     public static final PottablePlantEntry FOXGLOVE       = createPlant("foxglove", () -> new ModFlowerBlock(StewEffect.POISON));
     public static final PottablePlantEntry WILD_GARLIC    = createPlant("wild_garlic", () -> new ModFlowerBlock(StewEffect.SATURATION));
-    public static final PottablePlantEntry MARIGOLD       = createPlant("marigold", MarigoldBlock::new);
+    public static final PottablePlantEntry MARIGOLD       = createPlant("marigold", () -> new ModFlowerBlock(StewEffect.REGENERATION));
     public static final PottablePlantEntry BLUE_LUPINE    = createPlant("blue_lupine", () -> new ModFlowerBlock(StewEffect.HUNGER));
     public static final PottablePlantEntry SNAPDRAGON     = createPlant("snapdragon", () -> new ModFlowerBlock(StewEffect.HASTE));
     public static final PottablePlantEntry GLADIOLUS      = createPlant("gladiolus", () -> new ModFlowerBlock(StewEffect.STRENGTH));
@@ -108,8 +109,8 @@ public class ModBlocks {
     //Other blocks
     public static final BlockEntry PEAT = HELPER.newBuilder("peat", PeatBlock::new).withItemGroup(ItemGroup.BUILDING_BLOCKS).build();
     public static final BlockEntry TILLED_PEAT = HELPER.newBuilder("tilled_peat", PeatFarmlandBlock::new).build();
-    public static final BlockEntry FLOWERING_GRASS = HELPER.newBuilder("flowering_grass", GrassBlock::new, Properties.from(Blocks.GRASS_BLOCK)).cutoutMippedRender().build();
-    public static final BlockEntry MOSSY_GRAVEL = HELPER.newBuilder("mossy_gravel", GravelBlock::new, Properties.from(Blocks.GRAVEL)).build();
+    public static final BlockEntry FLOWERING_GRASS = HELPER.newBuilder("flowering_grass", GrassBlock::new, Properties.from(Blocks.GRASS_BLOCK).harvestTool(ToolType.SHOVEL)).cutoutMippedRender().build();
+    public static final BlockEntry MOSSY_GRAVEL = HELPER.newBuilder("mossy_gravel", GravelBlock::new, Properties.from(Blocks.GRAVEL).harvestTool(ToolType.SHOVEL)).build();
     public static final BlockEntry CALTROPS = HELPER.newBuilder("caltrops", CaltropsBlock::new).withBlockItem(CaltropsItem::new).cutoutRender().build();
     public static final BlockEntry BASKET = HELPER.newBuilder("basket", BasketBlock::new).withBlockItem(BasketItem::new).build();
     public static final BlockEntry WICKER_MAT = HELPER.newBuilder("wicker_mat", WickerMatBlock::new).build();

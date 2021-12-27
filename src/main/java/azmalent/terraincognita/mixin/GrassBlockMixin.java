@@ -36,28 +36,39 @@ public class GrassBlockMixin {
         if (biomeKey != Biomes.FLOWER_FOREST && rand.nextBoolean()) {
             switch (WorldGenUtil.getProperBiomeCategory(biome)) {
                 case FOREST:
-                    return ModFlowerFeatures.Configs.FOREST_FLOWERS;
+                    if (TIConfig.Flora.forestFlowers.get()) {
+                        return ModFlowerFeatures.Configs.FOREST_FLOWERS;
+                    }
+                    break;
 
                 case SWAMP:
-                    if (!BiomeDictionary.hasType(biomeKey, COLD)) {
+                    if (TIConfig.Flora.swampFlowers.get() && !BiomeDictionary.hasType(biomeKey, COLD)) {
                         return ModFlowerFeatures.Configs.SWAMP_SMALL_FLOWERS;
                     }
                     break;
 
                 case SAVANNA: case DESERT:
-                    return ModFlowerFeatures.Configs.SAVANNA_TALL_FLOWERS;
+                    if (TIConfig.Flora.savannaFlowers.get()) {
+                        return ModFlowerFeatures.Configs.SAVANNA_SMALL_FLOWERS;
+                    }
+                    break;
 
                 case EXTREME_HILLS:
-                    if (!BiomeDictionary.hasType(biomeKey, HOT)) {
+                    if (TIConfig.Flora.alpineFlowers.get() && !BiomeDictionary.hasType(biomeKey, HOT)) {
                         return ModFlowerFeatures.Configs.ALPINE_FLOWERS;
                     }
                     break;
 
                 case JUNGLE:
-                    return ModFlowerFeatures.Configs.JUNGLE_FLOWERS;
+                    if (TIConfig.Flora.jungleFlowers.get()) {
+                        return ModFlowerFeatures.Configs.JUNGLE_FLOWERS;
+                    }
+                    break;
 
                 case TAIGA: case ICY:
-                    return ModFlowerFeatures.Configs.ARCTIC_SMALL_FLOWERS;
+                    if (TIConfig.Flora.arcticFlowers.get()) {
+                        return ModFlowerFeatures.Configs.ARCTIC_SMALL_FLOWERS;
+                    }
             }
         }
 

@@ -4,22 +4,28 @@ import azmalent.cuneiform.common.event.FuelHandler;
 import azmalent.cuneiform.common.item.ModSpawnEggItem;
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.block.woodtypes.ModWoodType;
+import azmalent.terraincognita.common.entity.IBottleableEntity;
 import azmalent.terraincognita.common.entity.butterfly.ButterflyEntity;
-import azmalent.terraincognita.common.item.JamItem;
-import azmalent.terraincognita.common.item.NotchCarrotItem;
-import azmalent.terraincognita.common.item.TaffyItem;
-import azmalent.terraincognita.common.item.WreathItem;
+import azmalent.terraincognita.common.item.*;
+import azmalent.terraincognita.common.item.BottledEntityItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.*;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+
+import java.util.List;
+import java.util.function.BiConsumer;
+import java.util.function.Supplier;
 
 @SuppressWarnings({"ConstantConditions", "unused"})
 public class ModItems {
@@ -70,14 +76,18 @@ public class ModItems {
     public static final RegistryObject<Item> HAZELNUT_COOKIE = ITEMS.register("hazelnut_cookie", () -> new Item(foodProps(Foods.HAZELNUT_COOKIE)));
 
     public static final RegistryObject<Item> CACTUS_NEEDLE = ITEMS.register("cactus_needle", () -> new Item(new Item.Properties().group(ItemGroup.MISC)));
-    //public static final RegistryObject<BlowpipeItem> BLOWPIPE = ITEMS.register("blowpipe", BlowpipeItem::new);
 
     public static final RegistryObject<WreathItem> WREATH = ITEMS.register("wreath", WreathItem::new);
 
+    public static final RegistryObject<BottledEntityItem<ButterflyEntity>> BOTTLED_BUTTERFLY = bottledEntity("butterfly", ModEntities.BUTTERFLY, ButterflyEntity::addBottleTooltip);
     public static final RegistryObject<ModSpawnEggItem<ButterflyEntity>> BUTTERFLY_SPAWN_EGG = spawnEgg("butterfly", ModEntities.BUTTERFLY, 0xc02f03, 0x0f1016);
 
     private static Item.Properties foodProps(Food food) {
         return new Item.Properties().group(ItemGroup.FOOD).food(food);
+    }
+
+    private static <T extends LivingEntity & IBottleableEntity> RegistryObject<BottledEntityItem<T>> bottledEntity(String entityId, Supplier<EntityType<T>> type, BiConsumer<CompoundNBT, List<ITextComponent>> tooltipHandler) {
+        return ITEMS.register("bottled_" + entityId, () -> new BottledEntityItem<T>(type, tooltipHandler));
     }
 
     private static <T extends Entity> RegistryObject<ModSpawnEggItem<T>> spawnEgg(String entityId, RegistryObject<EntityType<T>> type, int primaryColor, int secondaryColor) {

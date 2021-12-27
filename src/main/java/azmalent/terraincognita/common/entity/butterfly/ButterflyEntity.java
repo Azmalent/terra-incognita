@@ -17,6 +17,7 @@ import net.minecraft.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
@@ -31,6 +32,8 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.registry.WorldGenRegistries;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
@@ -42,10 +45,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -53,6 +53,7 @@ public class ButterflyEntity extends AbstractButterflyEntity {
     public static final DataParameter<Integer> BUTTERFLY_TYPE = EntityDataManager.createKey(ButterflyEntity.class, DataSerializers.VARINT);
     public static final DataParameter<Boolean> TIRED = EntityDataManager.createKey(ButterflyEntity.class, DataSerializers.BOOLEAN);
     public static final DataParameter<Boolean> LANDED = EntityDataManager.createKey(ButterflyEntity.class, DataSerializers.BOOLEAN);
+    public static final DataParameter<Boolean> FROM_BOTTLE = EntityDataManager.createKey(ButterflyEntity.class, DataSerializers.BOOLEAN);
 
     public static final Predicate<LivingEntity> SHOULD_AVOID = entity -> {
         if (!(entity instanceof PlayerEntity)) return false;
@@ -84,18 +85,22 @@ public class ButterflyEntity extends AbstractButterflyEntity {
     @Override
     protected void registerData() {
         super.registerData();
+
         dataManager.register(BUTTERFLY_TYPE, 0);
         dataManager.register(TIRED, false);
         dataManager.register(LANDED, false);
+        dataManager.register(FROM_BOTTLE, false);
         dataManager.register(SIZE_MODIFIER, 0.7f);
     }
 
     @Override
     public void writeAdditional(CompoundNBT tag) {
         super.writeAdditional(tag);
+
         tag.putString("Type", getButterflyType().getName());
         tag.putBoolean("IsTired", isTired());
         tag.putBoolean("IsLanded", isLanded());
+        tag.putBoolean("IsFromBottle", isFromBottle());
     }
 
     @Override
@@ -105,6 +110,7 @@ public class ButterflyEntity extends AbstractButterflyEntity {
         setButterflyType(Type.getTypeByName(tag.getString("Type")));
         setTired(tag.getBoolean("IsTired"));
         setLanded(tag.getBoolean("IsLanded"));
+        setFromBottle(tag.getBoolean("IsFromBottle"));
     }
 
     public ButterflyRestGoal restGoal;
@@ -122,6 +128,11 @@ public class ButterflyEntity extends AbstractButterflyEntity {
     public static boolean canSpawn(EntityType<ButterflyEntity> butterfly, IWorld world, SpawnReason reason, BlockPos pos, Random randomIn) {
         return pos.getY() >= world.getSeaLevel() && world.getLightSubtracted(pos, 0) > 8;
     }
+
+    public boolean preventDespawn() {
+        return super.preventDespawn() || isFromBottle();
+    }
+
 
     public ButterflyEntity.Type getButterflyType() {
         return ButterflyEntity.Type.getTypeByIndex(dataManager.get(BUTTERFLY_TYPE));
@@ -162,6 +173,14 @@ public class ButterflyEntity extends AbstractButterflyEntity {
     public void setNotLanded() {
         setLanded(false);
         this.setPositionAndUpdate(this.getPosition().getX() + 0.5D, this.getPosition().getY() + 0.5D, this.getPosition().getZ() + 0.5D);
+    }
+
+    private void setFromBottle(boolean fromBottle) {
+        dataManager.set(FROM_BOTTLE, fromBottle);
+    }
+
+    private boolean isFromBottle() {
+        return dataManager.get(FROM_BOTTLE);
     }
 
     @Override
@@ -227,6 +246,25 @@ public class ButterflyEntity extends AbstractButterflyEntity {
         return new ItemStack(ModItems.BUTTERFLY_SPAWN_EGG.get());
     }
 
+    //IBottleableEntity implementation
+    @Override
+    public Item getBottledItem() {
+        return ModItems.BOTTLED_BUTTERFLY.get();
+    }
+
+    @Override
+    public void onUnbottled() {
+        setNotLanded();
+        setTired(false);
+        setFromBottle(true);
+    }
+
+    public static void addBottleTooltip(CompoundNBT nbt, List<ITextComponent> tooltip) {
+        String type = nbt.getString("Type");
+        String key = Type.getTypeByName(type).getTranslationKey();
+        tooltip.add(new TranslationTextComponent(key).mergeStyle(TextFormatting.GRAY));
+    }
+
     public enum Type {
         PEACOCK(0, "peacock", 0.6f, 0.15f),
         BRIMSTONE(1, "brimstone", 0.5f, 0.1f),
@@ -247,18 +285,18 @@ public class ButterflyEntity extends AbstractButterflyEntity {
         private static final WeightedList<Type> FOREST_TYPES = new WeightedList<>();
 
         static {
-            COMMON_TYPES.add(CABBAGE_WHITE, 6);
-            COMMON_TYPES.add(PEACOCK, 5);
-            COMMON_TYPES.add(MONARCH, 4);
-            COMMON_TYPES.add(RED_ADMIRAL, 3);
+            COMMON_TYPES.add(CABBAGE_WHITE, 5);
+            COMMON_TYPES.add(PEACOCK, 4);
+            COMMON_TYPES.add(MONARCH, 3);
+            COMMON_TYPES.add(RED_ADMIRAL, 2);
 
             PLAINS_TYPES.add(BRIMSTONE, 5);
             PLAINS_TYPES.add(COMMON_BLUE, 4);
-            PLAINS_TYPES.add(ORANGE_TIP, 2);
+            PLAINS_TYPES.add(ORANGE_TIP, 1);
 
             FOREST_TYPES.add(WHITE_ADMIRAL, 5);
             FOREST_TYPES.add(SPECKLED_WOOD, 4);
-            FOREST_TYPES.add(PURPLE_EMPEROR, 2);
+            FOREST_TYPES.add(PURPLE_EMPEROR, 1);
         }
 
         private final int index;

@@ -104,6 +104,8 @@ public class BasketContainer extends Container {
 
     @Override
     public boolean canInteractWith(@Nonnull PlayerEntity player) {
-        return heldStack.isEmpty() || player.getHeldItemMainhand() == heldStack || player.getHeldItemOffhand() == heldStack;
+        ItemStack main = player.getHeldItemMainhand();
+        ItemStack off = player.getHeldItemOffhand();
+        return !main.isEmpty() && main == heldStack || !off.isEmpty() && off == heldStack;
     }
 }
