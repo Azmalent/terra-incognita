@@ -130,7 +130,7 @@ public class BasketTileEntity extends TileEntity implements INamedContainerProvi
     @Nullable
     @Override
     public Container createMenu(int i, @Nonnull PlayerInventory playerInventory, @Nonnull PlayerEntity playerEntity) {
-        return new BasketContainer(i, playerInventory, stackHandler, this);
+        return new BasketContainer(i, playerInventory, stackHandler, this.world, this.pos);
     }
 
     public void setCustomName(ITextComponent customName) {

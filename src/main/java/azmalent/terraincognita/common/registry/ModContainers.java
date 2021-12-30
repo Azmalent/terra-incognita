@@ -11,5 +11,5 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class ModContainers {
     public static final DeferredRegister<ContainerType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.CONTAINERS, TerraIncognita.MODID);
 
-    public static final RegistryObject<ContainerType<BasketContainer>> BASKET = CONTAINERS.register("basket", () -> IForgeContainerType.create(BasketContainer::new));
+    public static final RegistryObject<ContainerType<BasketContainer>> BASKET = CONTAINERS.register("basket", () -> IForgeContainerType.create(BasketContainer::createOnClientSide));
 }

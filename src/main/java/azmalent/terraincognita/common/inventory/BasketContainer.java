@@ -9,6 +9,11 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.SlotItemHandler;
 
 import javax.annotation.Nonnull;
@@ -33,19 +38,19 @@ public class BasketContainer extends Container {
     private static final int BASKET_INVENTORY_X = PLAYER_INVENTORY_X + SLOT_OFFSET * 3;
     private static final int BASKET_INVENTORY_Y = 18;
 
-    private final ItemStack heldStack;
+    private final IUseContext useContext;
 
-    public BasketContainer(int id, PlayerInventory playerInventory, PacketBuffer buffer) {
-        this(id, playerInventory, new BasketStackHandler(), ItemStack.EMPTY);
+    public BasketContainer(int windowId, PlayerInventory playerInventory, BasketStackHandler stackHandler, ItemStack stack) {
+        this(windowId, playerInventory, stackHandler, new IUseContext.Item(stack));
     }
 
-    public BasketContainer(int id, PlayerInventory playerInventory, BasketStackHandler stackHandler, BasketTileEntity te) {
-        this(id, playerInventory, stackHandler, ItemStack.EMPTY);
+    public BasketContainer(int windowId, PlayerInventory playerInventory, BasketStackHandler stackHandler, World world, BlockPos pos) {
+        this(windowId, playerInventory, stackHandler, new IUseContext.Block(world, pos));
     }
 
-    public BasketContainer(int id, PlayerInventory playerInventory, BasketStackHandler stackHandler, ItemStack heldStack) {
-        super(ModContainers.BASKET.get(), id);
-        this.heldStack = heldStack;
+    private BasketContainer(int windowId, PlayerInventory playerInventory, BasketStackHandler stackHandler, IUseContext useContext) {
+        super(ModContainers.BASKET.get(), windowId);
+        this.useContext = useContext;
 
         // Add the players hotbar to the gui - the [xpos, ypos] location of each item
         for (int i = 0; i < HOTBAR_SLOT_COUNT; i++) {
@@ -70,6 +75,17 @@ public class BasketContainer extends Container {
                 addSlot(new SlotItemHandler(stackHandler, row * HEIGHT + col, x, y));
             }
         }
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public static BasketContainer createOnClientSide(int windowId, PlayerInventory playerInventory, PacketBuffer buffer) {
+        try {
+            return new BasketContainer(windowId, playerInventory, new BasketStackHandler(), ItemStack.EMPTY);
+        } catch (IllegalArgumentException e) {
+            TerraIncognita.LOGGER.warn(e);
+        }
+
+        return null;
     }
 
     @Nonnull
@@ -104,8 +120,45 @@ public class BasketContainer extends Container {
 
     @Override
     public boolean canInteractWith(@Nonnull PlayerEntity player) {
-        ItemStack main = player.getHeldItemMainhand();
-        ItemStack off = player.getHeldItemOffhand();
-        return !main.isEmpty() && main == heldStack || !off.isEmpty() && off == heldStack;
+        return useContext.canInteractWith(player);
+    }
+
+    private interface IUseContext {
+        boolean canInteractWith(@Nonnull PlayerEntity player);
+
+        final class Block implements IUseContext {
+            private final World world;
+            private final BlockPos pos;
+
+            public Block(World world, BlockPos pos) {
+                this.world = world;
+                this.pos = pos;
+            }
+
+            @Override
+            public boolean canInteractWith(@Nonnull PlayerEntity player) {
+                TileEntity te = world.getTileEntity(pos);
+                if (te instanceof BasketTileEntity) {
+                    return player.getDistanceSq(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5) < 64;
+                }
+
+                return false;
+            }
+        }
+
+        final class Item implements IUseContext {
+            private final ItemStack heldStack;
+
+            public Item(ItemStack heldStack) {
+                this.heldStack = heldStack;
+            }
+
+            @Override
+            public boolean canInteractWith(@Nonnull PlayerEntity player) {
+                ItemStack main = player.getHeldItemMainhand();
+                ItemStack off = player.getHeldItemOffhand();
+                return !main.isEmpty() && main == heldStack || !off.isEmpty() && off == heldStack;
+            }
+        }
     }
 }
