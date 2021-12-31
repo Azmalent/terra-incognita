@@ -77,7 +77,6 @@ public class BasketContainer extends Container {
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
     public static BasketContainer createOnClientSide(int windowId, PlayerInventory playerInventory, PacketBuffer buffer) {
         try {
             return new BasketContainer(windowId, playerInventory, new BasketStackHandler(), ItemStack.EMPTY);
