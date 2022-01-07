@@ -7,16 +7,16 @@ import azmalent.terraincognita.common.integration.ModIntegration;
 import azmalent.terraincognita.common.inventory.BasketContainer;
 import azmalent.terraincognita.common.inventory.BasketStackHandler;
 import azmalent.terraincognita.common.item.block.BasketItem;
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.MainWindow;
+import com.mojang.blaze3d.platform.Window;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.AbstractGui;
-import net.minecraft.client.renderer.ItemRenderer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RenderTooltipEvent;
@@ -41,10 +41,10 @@ public class TooltipHandler {
             return;
         }
 
-        List<ITextComponent> tooltip = event.getToolTip();
-        for (ITextComponent line : tooltip) {
-            if (line instanceof TranslationTextComponent) {
-                String key = ((TranslationTextComponent) line).getKey();
+        List<Component> tooltip = event.getToolTip();
+        for (Component line : tooltip) {
+            if (line instanceof TranslatableComponent) {
+                String key = ((TranslatableComponent) line).getKey();
                 if (key.equals("item.dyed")) {
                     tooltip.remove(line);
                     return;
@@ -60,8 +60,8 @@ public class TooltipHandler {
         }
 
         Minecraft mc = Minecraft.getInstance();
-        MatrixStack matrix = event.getMatrixStack();
-        MainWindow window = mc.getMainWindow();
+        PoseStack matrix = event.getMatrixStack();
+        Window window = mc.getWindow();
 
         BasketStackHandler stackHandler = BasketItem.getStackHandler(event.getStack());
         if (stackHandler.isEmpty()) {
@@ -77,8 +77,8 @@ public class TooltipHandler {
         }
 
         int right = currentX + texWidth;
-        if (right > window.getScaledWidth()) {
-            currentX -= (right - window.getScaledWidth());
+        if (right > window.getGuiScaledWidth()) {
+            currentX -= (right - window.getGuiScaledWidth());
         }
 
         RenderSystem.pushMatrix();
@@ -93,13 +93,13 @@ public class TooltipHandler {
             int y = currentY + 6 + (i / BasketContainer.WIDTH) * 18;
 
             if (!stack.isEmpty()) {
-                render.renderItemAndEffectIntoGUI(stack, x, y);
-                render.renderItemOverlays(mc.fontRenderer, stack, x, y);
+                render.renderAndDecorateItem(stack, x, y);
+                render.renderGuiItemDecorations(mc.font, stack, x, y);
             }
 
             if (!ModIntegration.QUARK.matchesItemSearch(stack)) {
                 RenderSystem.disableDepthTest();
-                AbstractGui.fill(matrix, x, y, x + 16, y + 16, 0xAA000000);
+                GuiComponent.fill(matrix, x, y, x + 16, y + 16, 0xAA000000);
             }
         }
 
@@ -107,29 +107,29 @@ public class TooltipHandler {
     }
 
 	//Copied from Quark ShulkerBoxTooltips#renderTooltipBackground() with minor edits
-    private static void renderTooltipBackground(MatrixStack matrix, int x, int y) {
-        Minecraft.getInstance().getTextureManager().bindTexture(SLOT_WIDGET);
+    private static void renderTooltipBackground(PoseStack matrix, int x, int y) {
+        Minecraft.getInstance().getTextureManager().bind(SLOT_WIDGET);
 
         final int CORNER = 5;
         final int BUFFER = 1;
         final int EDGE = 18;
 
-        AbstractGui.blit(matrix, x, y, 0, 0, CORNER, CORNER, 256, 256);
-        AbstractGui.blit(matrix, x + CORNER + EDGE * BasketContainer.WIDTH, y + CORNER + EDGE * BasketContainer.HEIGHT, CORNER + BUFFER + EDGE + BUFFER, CORNER + BUFFER + EDGE + BUFFER, CORNER, CORNER, 256, 256);
-        AbstractGui.blit(matrix, x + CORNER + EDGE * BasketContainer.WIDTH, y, CORNER + BUFFER + EDGE + BUFFER, 0, CORNER, CORNER, 256, 256);
-        AbstractGui.blit(matrix, x, y + CORNER + EDGE * BasketContainer.HEIGHT, 0, CORNER + BUFFER + EDGE + BUFFER, CORNER, CORNER, 256, 256);
+        GuiComponent.blit(matrix, x, y, 0, 0, CORNER, CORNER, 256, 256);
+        GuiComponent.blit(matrix, x + CORNER + EDGE * BasketContainer.WIDTH, y + CORNER + EDGE * BasketContainer.HEIGHT, CORNER + BUFFER + EDGE + BUFFER, CORNER + BUFFER + EDGE + BUFFER, CORNER, CORNER, 256, 256);
+        GuiComponent.blit(matrix, x + CORNER + EDGE * BasketContainer.WIDTH, y, CORNER + BUFFER + EDGE + BUFFER, 0, CORNER, CORNER, 256, 256);
+        GuiComponent.blit(matrix, x, y + CORNER + EDGE * BasketContainer.HEIGHT, 0, CORNER + BUFFER + EDGE + BUFFER, CORNER, CORNER, 256, 256);
 
         for (int row = 0; row < BasketContainer.HEIGHT; row++) {
-            AbstractGui.blit(matrix, x, y + CORNER + EDGE * row, 0, CORNER + BUFFER, CORNER, EDGE, 256, 256);
-            AbstractGui.blit(matrix, x + CORNER + EDGE * BasketContainer.HEIGHT, y + CORNER + EDGE * row, CORNER + BUFFER + EDGE + BUFFER, CORNER + BUFFER, CORNER, EDGE, 256, 256);
+            GuiComponent.blit(matrix, x, y + CORNER + EDGE * row, 0, CORNER + BUFFER, CORNER, EDGE, 256, 256);
+            GuiComponent.blit(matrix, x + CORNER + EDGE * BasketContainer.HEIGHT, y + CORNER + EDGE * row, CORNER + BUFFER + EDGE + BUFFER, CORNER + BUFFER, CORNER, EDGE, 256, 256);
 
             for (int col = 0; col < BasketContainer.WIDTH; col++) {
                 if (row == 0) {
-                    AbstractGui.blit(matrix, x + CORNER + EDGE * col, y, CORNER + BUFFER, 0, EDGE, CORNER, 256, 256);
-                    AbstractGui.blit(matrix, x + CORNER + EDGE * col, y + CORNER + EDGE * BasketContainer.HEIGHT, CORNER + BUFFER, CORNER + BUFFER + EDGE + BUFFER, EDGE, CORNER, 256, 256);
+                    GuiComponent.blit(matrix, x + CORNER + EDGE * col, y, CORNER + BUFFER, 0, EDGE, CORNER, 256, 256);
+                    GuiComponent.blit(matrix, x + CORNER + EDGE * col, y + CORNER + EDGE * BasketContainer.HEIGHT, CORNER + BUFFER, CORNER + BUFFER + EDGE + BUFFER, EDGE, CORNER, 256, 256);
                 }
 
-                AbstractGui.blit(matrix, x + CORNER + EDGE * col, y + CORNER + EDGE * row, CORNER + BUFFER, CORNER + BUFFER, EDGE, EDGE, 256, 256);
+                GuiComponent.blit(matrix, x + CORNER + EDGE * col, y + CORNER + EDGE * row, CORNER + BUFFER, CORNER + BUFFER, EDGE, EDGE, 256, 256);
             }
         }
 

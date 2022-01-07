@@ -14,17 +14,17 @@ import azmalent.terraincognita.common.registry.ModRecipes;
 import azmalent.terraincognita.common.registry.ModWoodTypes;
 import com.google.common.collect.Lists;
 import net.minecraft.block.*;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.material.MaterialColor;
-import net.minecraft.client.renderer.color.BlockColors;
-import net.minecraft.client.renderer.color.ItemColors;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.FoliageColors;
-import net.minecraft.world.IWorldReader;
-import net.minecraft.world.biome.BiomeColors;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.client.color.block.BlockColors;
+import net.minecraft.client.color.item.ItemColors;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.FoliageColor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.client.renderer.BiomeColors;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ColorHandlerEvent;
@@ -40,19 +40,25 @@ import vazkii.quark.content.tweaks.module.SignEditingModule;
 
 import java.util.List;
 
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Lantern;
+import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockState;
+
 @ModProxyImpl("quark")
 public class QuarkIntegration implements IQuarkIntegration {
     private static final ResourceLocation BASKET_DROP_IN_CAP = TerraIncognita.prefix("basket_drop_in");
 
     private final QuarkWoodBlockSet APPLE = new QuarkWoodBlockSet(ModWoodTypes.APPLE);
     private final BlockEntry BLOSSOMING_APPLE_LEAF_CARPET = ModBlocks.HELPER.newBuilder("blossoming_apple_leaf_carpet", TILeafCarpetBlock::new).cutoutMippedRender().build();
-    private final BlockEntry BLOSSOMING_APPLE_HEDGE = ModBlocks.HELPER.newBuilder("blossoming_apple_hedge", () -> new TIHedgeBlock(MaterialColor.ORANGE_TERRACOTTA)).cutoutMippedRender().build();
+    private final BlockEntry BLOSSOMING_APPLE_HEDGE = ModBlocks.HELPER.newBuilder("blossoming_apple_hedge", () -> new TIHedgeBlock(MaterialColor.TERRACOTTA_ORANGE)).cutoutMippedRender().build();
 
     private final QuarkWoodBlockSet HAZEL = new QuarkWoodBlockSet(ModWoodTypes.HAZEL);
 
-    private final BlockEntry HAZELNUT_SACK = ModBlocks.HELPER.newBuilder("hazelnut_sack", Block.Properties.create(Material.WOOL, MaterialColor.BROWN).hardnessAndResistance(0.5F).sound(SoundType.CLOTH)).build();
-    private final BlockEntry SOUR_BERRY_SACK = ModBlocks.HELPER.newBuilder("sour_berry_sack", RotatedPillarBlock::new, Block.Properties.create(Material.WOOL, MaterialColor.ORANGE_TERRACOTTA).hardnessAndResistance(0.5F).sound(SoundType.CLOTH)).build();
-    private final BlockEntry REEDS_BUNDLE = ModBlocks.HELPER.newBuilder("reeds_block", RotatedPillarBlock::new, Block.Properties.create(Material.WOOD).hardnessAndResistance(0.5F).sound(SoundType.WOOD)).withItemGroup(ItemGroup.BUILDING_BLOCKS).build();
+    private final BlockEntry HAZELNUT_SACK = ModBlocks.HELPER.newBuilder("hazelnut_sack", Block.Properties.of(Material.WOOL, MaterialColor.COLOR_BROWN).strength(0.5F).sound(SoundType.WOOL)).build();
+    private final BlockEntry SOUR_BERRY_SACK = ModBlocks.HELPER.newBuilder("sour_berry_sack", RotatedPillarBlock::new, Block.Properties.of(Material.WOOL, MaterialColor.TERRACOTTA_ORANGE).strength(0.5F).sound(SoundType.WOOL)).build();
+    private final BlockEntry REEDS_BUNDLE = ModBlocks.HELPER.newBuilder("reeds_block", RotatedPillarBlock::new, Block.Properties.of(Material.WOOD).strength(0.5F).sound(SoundType.WOOD)).withItemGroup(CreativeModeTab.TAB_BUILDING_BLOCKS).build();
 
     private final List<QuarkWoodBlockSet> WOOD_BLOCK_SETS = Lists.newArrayList(APPLE, HAZEL);
 
@@ -113,7 +119,7 @@ public class QuarkIntegration implements IQuarkIntegration {
     public void registerBlockColorHandlers(ColorHandlerEvent.Block event) {
         BlockColors colors = event.getBlockColors();
 
-        colors.register((state, reader, pos, color) -> reader != null && pos != null ? BiomeColors.getFoliageColor(reader, pos) : FoliageColors.get(0.5D, 1.0D),
+        colors.register((state, reader, pos, color) -> reader != null && pos != null ? BiomeColors.getAverageFoliageColor(reader, pos) : FoliageColor.get(0.5D, 1.0D),
             APPLE.LEAF_CARPET.getBlock(), BLOSSOMING_APPLE_LEAF_CARPET.getBlock(), APPLE.HEDGE.getBlock(), BLOSSOMING_APPLE_HEDGE.getBlock(),
             HAZEL.LEAF_CARPET.getBlock(), HAZEL.HEDGE.getBlock()
         );
@@ -141,8 +147,8 @@ public class QuarkIntegration implements IQuarkIntegration {
     }
 
     @Override
-    public boolean canLanternConnect(BlockState state, IWorldReader worldIn, BlockPos pos) {
-        return state.get(LanternBlock.HANGING) && (worldIn.getBlockState(pos.up()).getBlock() instanceof TIWoodPostBlock);
+    public boolean canLanternConnect(BlockState state, LevelReader worldIn, BlockPos pos) {
+        return state.getValue(Lantern.HANGING) && (worldIn.getBlockState(pos.above()).getBlock() instanceof TIWoodPostBlock);
     }
 
     @Override

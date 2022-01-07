@@ -1,10 +1,10 @@
 package azmalent.terraincognita.common.integration.quark;
 
 import azmalent.cuneiform.lib.compat.ModProxyDummy;
-import net.minecraft.block.BlockState;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IWorldReader;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.LevelReader;
 import net.minecraftforge.eventbus.api.IEventBus;
 
 @ModProxyDummy("quark")
@@ -25,7 +25,7 @@ public class QuarkDummy implements IQuarkIntegration {
     }
 
     @Override
-    public boolean canLanternConnect(BlockState state, IWorldReader worldIn, BlockPos pos) {
+    public boolean canLanternConnect(BlockState state, LevelReader worldIn, BlockPos pos) {
         return false;
     }
 

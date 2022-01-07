@@ -1,29 +1,29 @@
 package azmalent.terraincognita.common.block.plants;
 
 import azmalent.terraincognita.common.data.ModBlockTags;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.IGrowable;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.state.EnumProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.util.Direction;
-import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.core.Direction;
+import net.minecraft.util.StringRepresentable;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Random;
 
 @SuppressWarnings("deprecation")
-public class HangingMossBlock extends HangingPlantBlock implements IGrowable {
-    public enum Variant implements IStringSerializable {
+public class HangingMossBlock extends HangingPlantBlock implements BonemealableBlock {
+    public enum Variant implements StringRepresentable {
         SINGLE("single"), TOP("top"), BOTTOM("bottom");
 
         private final String name;
@@ -34,7 +34,7 @@ public class HangingMossBlock extends HangingPlantBlock implements IGrowable {
 
         @Nonnull
         @Override
-        public String getString() {
+        public String getSerializedName() {
             return name;
         }
 
@@ -44,43 +44,43 @@ public class HangingMossBlock extends HangingPlantBlock implements IGrowable {
         }
     }
 
-    public static final VoxelShape TOP_SHAPE = makeCuboidShape(3, 0, 3, 13, 16, 13);
-    public static final VoxelShape BOTTOM_SHAPE = makeCuboidShape(3, 6, 3, 13, 16, 13);
+    public static final VoxelShape TOP_SHAPE = box(3, 0, 3, 13, 16, 13);
+    public static final VoxelShape BOTTOM_SHAPE = box(3, 6, 3, 13, 16, 13);
 
     public static final EnumProperty<Variant> VARIANT = EnumProperty.create("variant", Variant.class);
 
     public HangingMossBlock() {
         super();
-        setDefaultState(getStateContainer().getBaseState().with(VARIANT, Variant.SINGLE));
+        registerDefaultState(getStateDefinition().any().setValue(VARIANT, Variant.SINGLE));
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        super.fillStateContainer(builder);
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        super.createBlockStateDefinition(builder);
         builder.add(VARIANT);
     }
 
     @Nonnull
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext context) {
-        return state.get(VARIANT) == Variant.TOP ? TOP_SHAPE : BOTTOM_SHAPE;
+    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+        return state.getValue(VARIANT) == Variant.TOP ? TOP_SHAPE : BOTTOM_SHAPE;
     }
 
     @Override
-    protected boolean isValidGround(BlockState state, BlockState ground, IBlockReader worldIn, BlockPos groundPos) {
+    protected boolean isValidGround(BlockState state, BlockState ground, BlockGetter worldIn, BlockPos groundPos) {
         if (ground.getBlock() == this) {
-            return ground.get(VARIANT) != Variant.BOTTOM;
+            return ground.getValue(VARIANT) != Variant.BOTTOM;
         }
 
-        return ground.isSolidSide(worldIn, groundPos, Direction.DOWN) && ground.isIn(ModBlockTags.HANGING_MOSS_PLANTABLE_ON);
+        return ground.isFaceSturdy(worldIn, groundPos, Direction.DOWN) && ground.is(ModBlockTags.HANGING_MOSS_PLANTABLE_ON);
     }
 
     @Nullable
     @Override
-    public BlockState getStateForPlacement(BlockItemUseContext context) {
-        BlockState ground = context.getWorld().getBlockState(context.getPos().up());
-        if (ground.getBlock() == this && ground.get(VARIANT) != Variant.BOTTOM) {
-            return getDefaultState().with(VARIANT, Variant.BOTTOM);
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        BlockState ground = context.getLevel().getBlockState(context.getClickedPos().above());
+        if (ground.getBlock() == this && ground.getValue(VARIANT) != Variant.BOTTOM) {
+            return defaultBlockState().setValue(VARIANT, Variant.BOTTOM);
         }
 
         return super.getStateForPlacement(context);
@@ -88,59 +88,59 @@ public class HangingMossBlock extends HangingPlantBlock implements IGrowable {
 
     @Nonnull
     @Override
-    public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
+    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor worldIn, BlockPos currentPos, BlockPos facingPos) {
         if (facing == Direction.DOWN) {
-            if (stateIn.get(VARIANT) == Variant.SINGLE && facingState.getBlock() == this) {
-                return super.updatePostPlacement(stateIn.with(VARIANT, Variant.TOP), facing, facingState, worldIn, currentPos, facingPos);
+            if (stateIn.getValue(VARIANT) == Variant.SINGLE && facingState.getBlock() == this) {
+                return super.updateShape(stateIn.setValue(VARIANT, Variant.TOP), facing, facingState, worldIn, currentPos, facingPos);
             }
-            else if (stateIn.get(VARIANT) == Variant.TOP && facingState.getBlock() != this) {
-                return super.updatePostPlacement(getDefaultState(), facing, facingState, worldIn, currentPos, facingPos);
+            else if (stateIn.getValue(VARIANT) == Variant.TOP && facingState.getBlock() != this) {
+                return super.updateShape(defaultBlockState(), facing, facingState, worldIn, currentPos, facingPos);
             }
         }
         else if (facing == Direction.UP) {
-            if (facingState.getBlock() == this && facingState.get(VARIANT) != Variant.BOTTOM) {
-                return stateIn.with(VARIANT, Variant.BOTTOM);
+            if (facingState.getBlock() == this && facingState.getValue(VARIANT) != Variant.BOTTOM) {
+                return stateIn.setValue(VARIANT, Variant.BOTTOM);
             }
 
             if (isValidGround(stateIn, facingState, worldIn, facingPos)) {
-                return stateIn.with(VARIANT, Variant.SINGLE);
+                return stateIn.setValue(VARIANT, Variant.SINGLE);
             }
         }
 
-        return super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
+        return super.updateShape(stateIn, facing, facingState, worldIn, currentPos, facingPos);
     }
 
     @Override
-    public boolean canGrow(@Nonnull IBlockReader world, @Nonnull BlockPos pos, @Nonnull BlockState blockState, boolean isClient) {
+    public boolean isValidBonemealTarget(@Nonnull BlockGetter world, @Nonnull BlockPos pos, @Nonnull BlockState blockState, boolean isClient) {
         return true;
     }
 
     @Override
-    public boolean canUseBonemeal(@Nonnull World world, @Nonnull Random random, @Nonnull BlockPos pos, @Nonnull BlockState state) {
+    public boolean isBonemealSuccess(@Nonnull Level world, @Nonnull Random random, @Nonnull BlockPos pos, @Nonnull BlockState state) {
         return true;
     }
 
     @Override
-    public void grow(@Nonnull ServerWorld world, @Nonnull Random random, @Nonnull BlockPos pos, BlockState state) {
+    public void performBonemeal(@Nonnull ServerLevel world, @Nonnull Random random, @Nonnull BlockPos pos, BlockState state) {
         int numAttempts = 4;
 
-        if (state.get(VARIANT) == Variant.SINGLE && world.isAirBlock(pos.down()) && random.nextBoolean()) {
-            world.setBlockState(pos, state.with(VARIANT, Variant.TOP));
-            world.setBlockState(pos.down(), state.with(VARIANT, Variant.BOTTOM));
+        if (state.getValue(VARIANT) == Variant.SINGLE && world.isEmptyBlock(pos.below()) && random.nextBoolean()) {
+            world.setBlockAndUpdate(pos, state.setValue(VARIANT, Variant.TOP));
+            world.setBlockAndUpdate(pos.below(), state.setValue(VARIANT, Variant.BOTTOM));
             numAttempts = 2;
         }
 
         for (int i = 0; i < numAttempts; i++) {
-            BlockState moss = this.getDefaultState();
+            BlockState moss = this.defaultBlockState();
 
             int x = random.nextInt(4) - random.nextInt(4);
             int y = random.nextInt(2) - random.nextInt(2);
             int z = random.nextInt(4) - random.nextInt(4);
             if (x == 0 && z == 0) continue;
 
-            BlockPos nextPos = pos.add(x, y, z);
-            if (world.isAirBlock(nextPos) && moss.isValidPosition(world, nextPos)) {
-                world.setBlockState(nextPos, moss);
+            BlockPos nextPos = pos.offset(x, y, z);
+            if (world.isEmptyBlock(nextPos) && moss.canSurvive(world, nextPos)) {
+                world.setBlockAndUpdate(nextPos, moss);
             }
         }
     }

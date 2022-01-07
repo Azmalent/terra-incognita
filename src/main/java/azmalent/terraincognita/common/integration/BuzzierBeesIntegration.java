@@ -7,14 +7,14 @@ import azmalent.terraincognita.common.block.woodtypes.ModWoodType;
 import azmalent.terraincognita.common.registry.ModBlocks;
 import azmalent.terraincognita.common.registry.ModWoodTypes;
 import com.minecraftabnormals.abnormals_core.common.blocks.AbnormalsBeehiveBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.eventbus.api.IEventBus;
 
 @ModProxyImpl("buzzier_bees")
 public class BuzzierBeesIntegration implements IModIntegration {
     private void createBeehive(String id) {
-        ModBlocks.HELPER.newBuilder(id, AbnormalsBeehiveBlock::new, Block.Properties.from(Blocks.BEEHIVE)).build();
+        ModBlocks.HELPER.newBuilder(id, AbnormalsBeehiveBlock::new, Block.Properties.copy(Blocks.BEEHIVE)).build();
     }
 
     @Override

@@ -7,52 +7,59 @@ import azmalent.terraincognita.network.NetworkHandler;
 import azmalent.terraincognita.network.message.UpdateSignMessage;
 import azmalent.terraincognita.network.message.s2c.S2CEditSignMessage;
 import net.minecraft.block.*;
-import net.minecraft.block.material.Material;
+import net.minecraft.world.level.material.Material;
 import net.minecraft.block.material.MaterialColor;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.DyeItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.state.StateContainer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.Style;
-import net.minecraft.util.text.event.ClickEvent;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.DyeItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.ClickEvent;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 
 import javax.annotation.Nonnull;
 
-public abstract class AbstractModSignBlock extends AbstractSignBlock {
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.SignBlock;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.WoodType;
+
+public abstract class AbstractModSignBlock extends SignBlock {
     protected final ModWoodType woodType;
 
     public AbstractModSignBlock(ModWoodType woodType) {
-        super(Block.Properties.create(Material.WOOD, woodType.woodColor).doesNotBlockMovement().hardnessAndResistance(1.0F).sound(SoundType.WOOD), WoodType.OAK);
+        super(Block.Properties.of(Material.WOOD, woodType.woodColor).noCollission().strength(1.0F).sound(SoundType.WOOD), WoodType.OAK);
         this.woodType = woodType;
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(WATERLOGGED);
     }
 
     @Nonnull
     @Override
-    public ActionResultType onBlockActivated(BlockState state, World worldIn, @Nonnull BlockPos pos, PlayerEntity player, @Nonnull Hand handIn, BlockRayTraceResult hit) {
-        ItemStack heldStack = player.getHeldItem(handIn);
-        boolean canEdit = player.abilities.allowEdit;
+    public InteractionResult use(BlockState state, Level worldIn, @Nonnull BlockPos pos, Player player, @Nonnull InteractionHand handIn, BlockHitResult hit) {
+        ItemStack heldStack = player.getItemInHand(handIn);
+        boolean canEdit = player.abilities.mayBuild;
         boolean canDye = heldStack.getItem() instanceof DyeItem && canEdit;
 
-        if (worldIn.isRemote) {
-            return canDye ? ActionResultType.SUCCESS : ActionResultType.CONSUME;
+        if (worldIn.isClientSide) {
+            return canDye ? InteractionResult.SUCCESS : InteractionResult.CONSUME;
         }
 
-        TileEntity te = worldIn.getTileEntity(pos);
+        BlockEntity te = worldIn.getBlockEntity(pos);
         if (te instanceof ModSignTileEntity) {
             ModSignTileEntity sign = (ModSignTileEntity) te;
             if (canDye) {
@@ -66,20 +73,20 @@ public abstract class AbstractModSignBlock extends AbstractSignBlock {
                     }
                 }
             } else {
-                if (canEdit && !this.doesSignHaveCommand(sign) && ModIntegration.QUARK.canEditSign(heldStack) && !player.isSneaking()) {
-                    NetworkHandler.sendToPlayer((ServerPlayerEntity) player, new S2CEditSignMessage(pos));
-                    return ActionResultType.SUCCESS;
+                if (canEdit && !this.doesSignHaveCommand(sign) && ModIntegration.QUARK.canEditSign(heldStack) && !player.isShiftKeyDown()) {
+                    NetworkHandler.sendToPlayer((ServerPlayer) player, new S2CEditSignMessage(pos));
+                    return InteractionResult.SUCCESS;
                 }
             }
 
-            return sign.executeCommand(player) ? ActionResultType.SUCCESS : ActionResultType.PASS;
+            return sign.executeCommand(player) ? InteractionResult.SUCCESS : InteractionResult.PASS;
         }
 
-        return ActionResultType.PASS;
+        return InteractionResult.PASS;
     }
 
     private boolean doesSignHaveCommand(ModSignTileEntity sign) {
-        for (ITextComponent itextcomponent : sign.signText) {
+        for (Component itextcomponent : sign.signText) {
             Style style = itextcomponent == null ? null : itextcomponent.getStyle();
             if (style != null && style.getClickEvent() != null) {
                 ClickEvent clickevent = style.getClickEvent();
@@ -96,13 +103,13 @@ public abstract class AbstractModSignBlock extends AbstractSignBlock {
     }
 
     @Override
-    public TileEntity createNewTileEntity(IBlockReader world) {
+    public BlockEntity newBlockEntity(BlockGetter world) {
         return new ModSignTileEntity();
     }
 
     @Nonnull
     @Override
-    public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.ENTITYBLOCK_ANIMATED;
+    public RenderShape getRenderShape(BlockState state) {
+        return RenderShape.ENTITYBLOCK_ANIMATED;
     }
 }

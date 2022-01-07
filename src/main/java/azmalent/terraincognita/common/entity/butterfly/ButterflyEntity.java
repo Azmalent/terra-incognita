@@ -9,37 +9,37 @@ import azmalent.terraincognita.common.entity.butterfly.ai.ButterflyWanderGoal;
 import azmalent.terraincognita.common.registry.ModEntities;
 import azmalent.terraincognita.common.registry.ModItems;
 import azmalent.terraincognita.util.WorldGenUtil;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ILivingEntityData;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.ai.goal.AvoidEntityGoal;
-import net.minecraft.entity.ai.goal.SwimGoal;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.RegistryKey;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Util;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.util.registry.WorldGenRegistries;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.IServerWorld;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraftforge.fml.network.FMLPlayMessages;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -50,52 +50,52 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class ButterflyEntity extends AbstractButterflyEntity {
-    public static final DataParameter<Integer> BUTTERFLY_TYPE = EntityDataManager.createKey(ButterflyEntity.class, DataSerializers.VARINT);
-    public static final DataParameter<Boolean> TIRED = EntityDataManager.createKey(ButterflyEntity.class, DataSerializers.BOOLEAN);
-    public static final DataParameter<Boolean> LANDED = EntityDataManager.createKey(ButterflyEntity.class, DataSerializers.BOOLEAN);
-    public static final DataParameter<Boolean> FROM_BOTTLE = EntityDataManager.createKey(ButterflyEntity.class, DataSerializers.BOOLEAN);
+    public static final EntityDataAccessor<Integer> BUTTERFLY_TYPE = SynchedEntityData.defineId(ButterflyEntity.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Boolean> TIRED = SynchedEntityData.defineId(ButterflyEntity.class, EntityDataSerializers.BOOLEAN);
+    public static final EntityDataAccessor<Boolean> LANDED = SynchedEntityData.defineId(ButterflyEntity.class, EntityDataSerializers.BOOLEAN);
+    public static final EntityDataAccessor<Boolean> FROM_BOTTLE = SynchedEntityData.defineId(ButterflyEntity.class, EntityDataSerializers.BOOLEAN);
 
     public static final Predicate<LivingEntity> SHOULD_AVOID = entity -> {
-        if (!(entity instanceof PlayerEntity)) return false;
-        PlayerEntity player = (PlayerEntity) entity;
-        return !player.isCreative() && !player.isSpectator() && player.getItemStackFromSlot(EquipmentSlotType.HEAD).getItem() != ModItems.WREATH.get();
+        if (!(entity instanceof Player)) return false;
+        Player player = (Player) entity;
+        return !player.isCreative() && !player.isSpectator() && player.getItemBySlot(EquipmentSlot.HEAD).getItem() != ModItems.WREATH.get();
     };
 
     public boolean hasPlayersNearby() {
-        return !world.getEntitiesWithinAABB(PlayerEntity.class, getBoundingBox().expand(4, 4, 4), SHOULD_AVOID).isEmpty();
+        return !level.getEntitiesOfClass(Player.class, getBoundingBox().expandTowards(4, 4, 4), SHOULD_AVOID).isEmpty();
     }
 
-    public ButterflyEntity(EntityType<ButterflyEntity> type, World world) {
+    public ButterflyEntity(EntityType<ButterflyEntity> type, Level world) {
         super(type, world);
     }
 
-    public ButterflyEntity(World world, double x, double y, double z) {
+    public ButterflyEntity(Level world, double x, double y, double z) {
         super(ModEntities.BUTTERFLY.get(), world);
-        this.setPosition(x, y, z);
-        this.setMotion(Vector3d.ZERO);
-        this.prevPosX = x;
-        this.prevPosY = y;
-        this.prevPosZ = z;
+        this.setPos(x, y, z);
+        this.setDeltaMovement(Vec3.ZERO);
+        this.xo = x;
+        this.yo = y;
+        this.zo = z;
     }
 
-    public ButterflyEntity(FMLPlayMessages.SpawnEntity spawnEntity, World world) {
+    public ButterflyEntity(FMLPlayMessages.SpawnEntity spawnEntity, Level world) {
         super(ModEntities.BUTTERFLY.get(), world);
     }
 
     @Override
-    protected void registerData() {
-        super.registerData();
+    protected void defineSynchedData() {
+        super.defineSynchedData();
 
-        dataManager.register(BUTTERFLY_TYPE, 0);
-        dataManager.register(TIRED, false);
-        dataManager.register(LANDED, false);
-        dataManager.register(FROM_BOTTLE, false);
-        dataManager.register(SIZE_MODIFIER, 0.7f);
+        entityData.define(BUTTERFLY_TYPE, 0);
+        entityData.define(TIRED, false);
+        entityData.define(LANDED, false);
+        entityData.define(FROM_BOTTLE, false);
+        entityData.define(SIZE_MODIFIER, 0.7f);
     }
 
     @Override
-    public void writeAdditional(CompoundNBT tag) {
-        super.writeAdditional(tag);
+    public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
 
         tag.putString("Type", getButterflyType().getName());
         tag.putBoolean("IsTired", isTired());
@@ -104,8 +104,8 @@ public class ButterflyEntity extends AbstractButterflyEntity {
     }
 
     @Override
-    public void readAdditional(CompoundNBT tag) {
-        super.readAdditional(tag);
+    public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
 
         setButterflyType(Type.getTypeByName(tag.getString("Type")));
         setTired(tag.getBoolean("IsTired"));
@@ -117,108 +117,108 @@ public class ButterflyEntity extends AbstractButterflyEntity {
 
     @Override
     protected void registerGoals() {
-        goalSelector.addGoal(0, new AvoidEntityGoal<>(this, PlayerEntity.class, 4, 2, 2.4, SHOULD_AVOID));
+        goalSelector.addGoal(0, new AvoidEntityGoal<>(this, Player.class, 4, 2, 2.4, SHOULD_AVOID));
         goalSelector.addGoal(1, restGoal = new ButterflyRestGoal(this));
         goalSelector.addGoal(2, new ButterflyLandOnFlowerGoal(this, 2.4, 16));
         goalSelector.addGoal(3, new ButterflyWanderGoal(this));
-        goalSelector.addGoal(4, new SwimGoal(this));
+        goalSelector.addGoal(4, new FloatGoal(this));
     }
 
     @SuppressWarnings("deprecation")
-    public static boolean canSpawn(EntityType<ButterflyEntity> butterfly, IWorld world, SpawnReason reason, BlockPos pos, Random randomIn) {
-        return pos.getY() >= world.getSeaLevel() && world.getLightSubtracted(pos, 0) > 8;
+    public static boolean canSpawn(EntityType<ButterflyEntity> butterfly, LevelAccessor world, MobSpawnType reason, BlockPos pos, Random randomIn) {
+        return pos.getY() >= world.getSeaLevel() && world.getRawBrightness(pos, 0) > 8;
     }
 
-    public boolean preventDespawn() {
-        return super.preventDespawn() || isFromBottle();
+    public boolean requiresCustomPersistence() {
+        return super.requiresCustomPersistence() || isFromBottle();
     }
 
 
     public ButterflyEntity.Type getButterflyType() {
-        return ButterflyEntity.Type.getTypeByIndex(dataManager.get(BUTTERFLY_TYPE));
+        return ButterflyEntity.Type.getTypeByIndex(entityData.get(BUTTERFLY_TYPE));
     }
 
     private void setButterflyType(ButterflyEntity.Type type) {
-        dataManager.set(BUTTERFLY_TYPE, type.getIndex());
+        entityData.set(BUTTERFLY_TYPE, type.getIndex());
     }
 
-    public TranslationTextComponent getTypeDisplayName() {
+    public TranslatableComponent getTypeDisplayName() {
         String key = getButterflyType().getTranslationKey();
-        return new TranslationTextComponent(key);
+        return new TranslatableComponent(key);
     }
 
     @Override
     protected float getRandomSizeModifier() {
-        return getButterflyType().getRandomSize(rand);
+        return getButterflyType().getRandomSize(random);
     }
 
     @Override
     public boolean isTired() {
-        return dataManager.get(TIRED);
+        return entityData.get(TIRED);
     }
 
     public void setTired(boolean tired) {
-        dataManager.set(TIRED, tired);
+        entityData.set(TIRED, tired);
     }
 
     @Override
     public boolean isLanded() {
-        return dataManager.get(LANDED);
+        return entityData.get(LANDED);
     }
 
     public void setLanded(boolean landed) {
-        dataManager.set(LANDED, landed);
+        entityData.set(LANDED, landed);
     }
 
     public void setNotLanded() {
         setLanded(false);
-        this.setPositionAndUpdate(this.getPosition().getX() + 0.5D, this.getPosition().getY() + 0.5D, this.getPosition().getZ() + 0.5D);
+        this.teleportTo(this.blockPosition().getX() + 0.5D, this.blockPosition().getY() + 0.5D, this.blockPosition().getZ() + 0.5D);
     }
 
     private void setFromBottle(boolean fromBottle) {
-        dataManager.set(FROM_BOTTLE, fromBottle);
+        entityData.set(FROM_BOTTLE, fromBottle);
     }
 
     private boolean isFromBottle() {
-        return dataManager.get(FROM_BOTTLE);
+        return entityData.get(FROM_BOTTLE);
     }
 
     @Override
     public float getWingRotation(float ageInTicks) {
-        if (isLanded() && getMotion().lengthSquared() < 1.0E-7D) {
-            if (world.isDaytime() && rand.nextInt(100) == 0) {
-                targetWingRotation = rand.nextFloat();
+        if (isLanded() && getDeltaMovement().lengthSqr() < 1.0E-7D) {
+            if (level.isDay() && random.nextInt(100) == 0) {
+                targetWingRotation = random.nextFloat();
             }
 
-            wingRotation = MathHelper.lerp(0.05f, wingRotation, targetWingRotation);
+            wingRotation = Mth.lerp(0.05f, wingRotation, targetWingRotation);
         } else {
-            wingRotation = MathHelper.abs(MathHelper.cos(ageInTicks / 1.5f));
+            wingRotation = Mth.abs(Mth.cos(ageInTicks / 1.5f));
         }
 
         return wingRotation;
     }
 
     @Override
-    protected void updateAITasks() {
-        super.updateAITasks();
+    protected void customServerAiStep() {
+        super.customServerAiStep();
 
         if (this.isLanded()) {
             flyingTicks = 0;
-            setMotion(Vector3d.ZERO);
+            setDeltaMovement(Vec3.ZERO);
         } else {
             flyingTicks++;
 
-            if (flyingTicks > 600 && this.getRNG().nextInt(200) == 0) {
+            if (flyingTicks > 600 && this.getRandom().nextInt(200) == 0) {
                 this.setTired(true);
             }
 
-            this.setMotion(this.getMotion().mul(1, 0.8, 1));
+            this.setDeltaMovement(this.getDeltaMovement().multiply(1, 0.8, 1));
         }
     }
 
     @Override
-    public boolean attackEntityFrom(@Nonnull DamageSource damageSource, float damage) {
-        boolean damaged = super.attackEntityFrom(damageSource, damage);
+    public boolean hurt(@Nonnull DamageSource damageSource, float damage) {
+        boolean damaged = super.hurt(damageSource, damage);
         if (damaged && this.isLanded()) {
             this.setNotLanded();
         }
@@ -233,16 +233,16 @@ public class ButterflyEntity extends AbstractButterflyEntity {
 
     @Nullable
     @Override
-    public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
-        RegistryKey<Biome> biomeKey = BiomeUtil.getBiomeKey(worldIn, this.getPosition());
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
+        ResourceKey<Biome> biomeKey = BiomeUtil.getBiomeKey(worldIn, this.blockPosition());
         Type type = Type.getRandomType(biomeKey, worldIn.getRandom());
         setButterflyType(type);
 
-        return super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
     @Override
-    public ItemStack getPickedResult(RayTraceResult target) {
+    public ItemStack getPickedResult(HitResult target) {
         return new ItemStack(ModItems.BUTTERFLY_SPAWN_EGG.get());
     }
 
@@ -259,10 +259,10 @@ public class ButterflyEntity extends AbstractButterflyEntity {
         setFromBottle(true);
     }
 
-    public static void addBottleTooltip(CompoundNBT nbt, List<ITextComponent> tooltip) {
+    public static void addBottleTooltip(CompoundTag nbt, List<Component> tooltip) {
         String type = nbt.getString("Type");
         String key = Type.getTypeByName(type).getTranslationKey();
-        tooltip.add(new TranslationTextComponent(key).mergeStyle(TextFormatting.GRAY));
+        tooltip.add(new TranslatableComponent(key).withStyle(ChatFormatting.GRAY));
     }
 
     public enum Type {
@@ -328,11 +328,11 @@ public class ButterflyEntity extends AbstractButterflyEntity {
         }
 
         public String getTranslationKey() {
-            return ModEntities.BUTTERFLY.get().getTranslationKey() + "." + this.name;
+            return ModEntities.BUTTERFLY.get().getDescriptionId() + "." + this.name;
         }
 
         public float getRandomSize(Random random) {
-            return MathHelper.lerp(random.nextFloat(), averageSize - sizeVariation, averageSize + sizeVariation);
+            return Mth.lerp(random.nextFloat(), averageSize - sizeVariation, averageSize + sizeVariation);
         }
 
         public static Type getTypeByName(String nameIn) {
@@ -348,10 +348,10 @@ public class ButterflyEntity extends AbstractButterflyEntity {
         }
 
         @SuppressWarnings("ConstantConditions")
-        public static Type getRandomType(RegistryKey<Biome> biomeKey, Random random) {
+        public static Type getRandomType(ResourceKey<Biome> biomeKey, Random random) {
             if (random.nextFloat() < 0.66) {
-                Biome biome = ForgeRegistries.BIOMES.getValue(biomeKey.getLocation());
-                Biome.Category category = WorldGenUtil.getProperBiomeCategory(biome);
+                Biome biome = ForgeRegistries.BIOMES.getValue(biomeKey.location());
+                Biome.BiomeCategory category = WorldGenUtil.getProperBiomeCategory(biome);
                 switch (category) {
                     case PLAINS:
                         return PLAINS_TYPES.getRandomItem(random);

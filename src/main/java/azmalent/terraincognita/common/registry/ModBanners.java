@@ -2,16 +2,16 @@ package azmalent.terraincognita.common.registry;
 
 import azmalent.terraincognita.TerraIncognita;
 import com.google.common.collect.Maps;
-import net.minecraft.item.BannerPatternItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.tileentity.BannerPattern;
+import net.minecraft.world.item.BannerPatternItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.level.block.entity.BannerPattern;
 import net.minecraftforge.fml.RegistryObject;
 
 import java.util.Map;
 
 public class ModBanners {
-    private static final Item.Properties PATTERN_PROPS = new Item.Properties().maxStackSize(1).group(ItemGroup.MISC);
+    private static final Item.Properties PATTERN_PROPS = new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_MISC);
 
     public static final Map<BannerPattern, RegistryObject<BannerPatternItem>> PATTERN_ITEMS = Maps.newHashMap();
     public static BannerPattern FLEUR_DE_LIS;

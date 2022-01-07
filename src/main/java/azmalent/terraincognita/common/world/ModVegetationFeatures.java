@@ -5,45 +5,52 @@ import azmalent.terraincognita.common.block.plants.SourBerryBushBlock;
 import azmalent.terraincognita.common.registry.ModBlocks;
 import azmalent.terraincognita.common.registry.ModFeatures;
 import com.google.common.collect.Sets;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.world.gen.blockplacer.DoublePlantBlockPlacer;
-import net.minecraft.world.gen.blockplacer.SimpleBlockPlacer;
-import net.minecraft.world.gen.blockstateprovider.BlockStateProvider;
-import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
-import net.minecraft.world.gen.blockstateprovider.WeightedBlockStateProvider;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.feature.blockplacers.DoublePlantPlacer;
+import net.minecraft.world.level.levelgen.feature.blockplacers.SimpleBlockPlacer;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
+import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.gen.feature.*;
+
+import net.minecraft.data.worldgen.Features;
+import net.minecraft.util.UniformInt;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
 
 public class ModVegetationFeatures {
     public static class States {
-        static final BlockState LILY_PAD = Blocks.LILY_PAD.getDefaultState();
+        static final BlockState LILY_PAD = Blocks.LILY_PAD.defaultBlockState();
 
-        static final BlockState WHITE_LOTUS  = ModBlocks.WHITE_LOTUS.getBlock().getDefaultState();
-        static final BlockState PINK_LOTUS   = ModBlocks.PINK_LOTUS.getBlock().getDefaultState();
-        static final BlockState YELLOW_LOTUS = ModBlocks.YELLOW_LOTUS.getBlock().getDefaultState();
+        static final BlockState WHITE_LOTUS  = ModBlocks.WHITE_LOTUS.getBlock().defaultBlockState();
+        static final BlockState PINK_LOTUS   = ModBlocks.PINK_LOTUS.getBlock().defaultBlockState();
+        static final BlockState YELLOW_LOTUS = ModBlocks.YELLOW_LOTUS.getBlock().defaultBlockState();
 
-        static final BlockState CATTAIL = ModBlocks.CATTAIL.getBlock().getDefaultState();
+        static final BlockState CATTAIL = ModBlocks.CATTAIL.getBlock().defaultBlockState();
         static final BlockState ROOTS = ModBlocks.ROOTS.getDefaultState();
-        static final BlockState SMALL_CACTUS = ModBlocks.SMALL_CACTUS.getBlock().getDefaultState();
+        static final BlockState SMALL_CACTUS = ModBlocks.SMALL_CACTUS.getBlock().defaultBlockState();
     }
 
     public static class StateProviders {
-        static final WeightedBlockStateProvider LOTUS = new WeightedBlockStateProvider().addWeightedBlockstate(States.LILY_PAD, 3).addWeightedBlockstate(States.WHITE_LOTUS, 1).addWeightedBlockstate(States.PINK_LOTUS, 1).addWeightedBlockstate(States.YELLOW_LOTUS, 1);
-        static final WeightedBlockStateProvider SMALL_LILY_PAD = new WeightedBlockStateProvider();
+        static final WeightedStateProvider LOTUS = new WeightedStateProvider().add(States.LILY_PAD, 3).add(States.WHITE_LOTUS, 1).add(States.PINK_LOTUS, 1).add(States.YELLOW_LOTUS, 1);
+        static final WeightedStateProvider SMALL_LILY_PAD = new WeightedStateProvider();
         static {
             for (int i = 0; i < 4; i++) {
-                BlockState state = ModBlocks.SMALL_LILY_PAD.getDefaultState().with(SmallLilypadBlock.LILYPADS, i + 1);
-                SMALL_LILY_PAD.addWeightedBlockstate(state, 1);
+                BlockState state = ModBlocks.SMALL_LILY_PAD.getDefaultState().setValue(SmallLilypadBlock.LILYPADS, i + 1);
+                SMALL_LILY_PAD.add(state, 1);
             }
         }
 
-        static final SimpleBlockStateProvider SOUR_BERRIES = new SimpleBlockStateProvider(ModBlocks.SOUR_BERRY_BUSH.getDefaultState().with(SourBerryBushBlock.AGE, 3));
+        static final SimpleStateProvider SOUR_BERRIES = new SimpleStateProvider(ModBlocks.SOUR_BERRY_BUSH.getDefaultState().setValue(SourBerryBushBlock.AGE, 3));
     }
 
     public static class Configs {
-        static final BlockClusterFeatureConfig CATTAILS = new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(States.CATTAIL), DoublePlantBlockPlacer.PLACER).tries(48).func_227317_b_().requiresWater().replaceable().build();
-        static final BlockClusterFeatureConfig ROOTS = new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(States.ROOTS), SimpleBlockPlacer.PLACER).tries(60).xSpread(4).ySpread(16).zSpread(4).func_227317_b_().build();
-        static final BlockClusterFeatureConfig SMALL_CACTUS = new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(States.SMALL_CACTUS), SimpleBlockPlacer.PLACER).tries(4).build();
+        static final RandomPatchConfiguration CATTAILS = new RandomPatchConfiguration.GrassConfigurationBuilder(new SimpleStateProvider(States.CATTAIL), DoublePlantPlacer.INSTANCE).tries(48).noProjection().needWater().canReplace().build();
+        static final RandomPatchConfiguration ROOTS = new RandomPatchConfiguration.GrassConfigurationBuilder(new SimpleStateProvider(States.ROOTS), SimpleBlockPlacer.INSTANCE).tries(60).xspread(4).yspread(16).zspread(4).noProjection().build();
+        static final RandomPatchConfiguration SMALL_CACTUS = new RandomPatchConfiguration.GrassConfigurationBuilder(new SimpleStateProvider(States.SMALL_CACTUS), SimpleBlockPlacer.INSTANCE).tries(4).build();
     }
 
     public static ConfiguredFeature<?, ?> LOTUS;
@@ -57,21 +64,21 @@ public class ModVegetationFeatures {
     public static ConfiguredFeature<?, ?> SMALL_CACTUS;
 
     private static ConfiguredFeature<?, ?> initLilypadFeature(BlockStateProvider provider, int tries) {
-        BlockClusterFeatureConfig config = new BlockClusterFeatureConfig.Builder(provider, SimpleBlockPlacer.PLACER)
+        RandomPatchConfiguration config = new RandomPatchConfiguration.GrassConfigurationBuilder(provider, SimpleBlockPlacer.INSTANCE)
                 .tries(tries).whitelist(Sets.newHashSet(Blocks.WATER)).build();
 
-        return Feature.RANDOM_PATCH.withConfiguration(config).withPlacement(Features.Placements.PATCH_PLACEMENT).func_242731_b(4);
+        return Feature.RANDOM_PATCH.configured(config).decorated(Features.Decorators.HEIGHTMAP_DOUBLE_SQUARE).count(4);
     }
 
     public static void registerFeatures() {
         LOTUS = ModConfiguredFeatures.register("lotus", initLilypadFeature(StateProviders.LOTUS, 10));
         SMALL_LILY_PADS = ModConfiguredFeatures.register("small_lily_pad", initLilypadFeature(StateProviders.SMALL_LILY_PAD, 10));
         SOUR_BERRIES = ModConfiguredFeatures.register("sour_berries", initLilypadFeature(StateProviders.SOUR_BERRIES, 4).chance(2));
-        CATTAILS = ModConfiguredFeatures.register("cattails", Feature.RANDOM_PATCH.withConfiguration(Configs.CATTAILS).func_242730_a(FeatureSpread.func_242253_a(2, 4)).withPlacement(Features.Placements.VEGETATION_PLACEMENT).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).func_242731_b(5));
-        REEDS = ModConfiguredFeatures.register("reeds", ModFeatures.REEDS.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Features.Placements.PATCH_PLACEMENT).func_242731_b(12).chance(12));
-        ROOTS = ModConfiguredFeatures.register("roots", Feature.RANDOM_PATCH.withConfiguration(Configs.ROOTS).withPlacement(Features.Placements.PATCH_PLACEMENT).func_242731_b(20));
-        HANGING_MOSS = ModConfiguredFeatures.register("hanging_moss", ModFeatures.HANGING_MOSS.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Features.Placements.PATCH_PLACEMENT).func_242731_b(20));
-        CARIBOU_MOSS = ModConfiguredFeatures.register("caribou_moss", ModFeatures.CARIBOU_MOSS.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Features.Placements.VEGETATION_PLACEMENT).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).func_242731_b(8));
-        SMALL_CACTUS = ModConfiguredFeatures.register("small_cactus", Feature.RANDOM_PATCH.withConfiguration(Configs.SMALL_CACTUS).withPlacement(Features.Placements.VEGETATION_PLACEMENT));
+        CATTAILS = ModConfiguredFeatures.register("cattails", Feature.RANDOM_PATCH.configured(Configs.CATTAILS).count(UniformInt.of(2, 4)).decorated(Features.Decorators.ADD_32).decorated(Features.Decorators.HEIGHTMAP_SQUARE).count(5));
+        REEDS = ModConfiguredFeatures.register("reeds", ModFeatures.REEDS.get().configured(FeatureConfiguration.NONE).decorated(Features.Decorators.HEIGHTMAP_DOUBLE_SQUARE).count(12).chance(12));
+        ROOTS = ModConfiguredFeatures.register("roots", Feature.RANDOM_PATCH.configured(Configs.ROOTS).decorated(Features.Decorators.HEIGHTMAP_DOUBLE_SQUARE).count(20));
+        HANGING_MOSS = ModConfiguredFeatures.register("hanging_moss", ModFeatures.HANGING_MOSS.get().configured(FeatureConfiguration.NONE).decorated(Features.Decorators.HEIGHTMAP_DOUBLE_SQUARE).count(20));
+        CARIBOU_MOSS = ModConfiguredFeatures.register("caribou_moss", ModFeatures.CARIBOU_MOSS.get().configured(FeatureConfiguration.NONE).decorated(Features.Decorators.ADD_32).decorated(Features.Decorators.HEIGHTMAP_SQUARE).count(8));
+        SMALL_CACTUS = ModConfiguredFeatures.register("small_cactus", Feature.RANDOM_PATCH.configured(Configs.SMALL_CACTUS).decorated(Features.Decorators.ADD_32));
     }
 }

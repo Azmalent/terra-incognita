@@ -3,7 +3,7 @@ package azmalent.terraincognita.common.registry;
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.world.surfacebuilder.LushPlainsSurfaceBuilder;
 import azmalent.terraincognita.common.world.surfacebuilder.MuskegSurfaceBuilder;
-import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
+import net.minecraft.world.level.levelgen.surfacebuilders.SurfaceBuilder;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;

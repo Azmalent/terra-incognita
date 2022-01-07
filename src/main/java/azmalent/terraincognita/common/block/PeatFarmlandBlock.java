@@ -3,15 +3,15 @@ package azmalent.terraincognita.common.block;
 import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.common.registry.ModBlocks;
 import net.minecraft.block.*;
-import net.minecraft.entity.Entity;
-import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorldReader;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.core.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.common.FarmlandWaterManager;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.IPlantable;
@@ -20,35 +20,41 @@ import net.minecraftforge.common.PlantType;
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public class PeatFarmlandBlock extends FarmlandBlock {
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.FarmBlock;
+import net.minecraft.world.level.block.state.BlockState;
+
+public class PeatFarmlandBlock extends FarmBlock {
     public PeatFarmlandBlock() {
-        super(Properties.from(Blocks.FARMLAND));
+        super(Properties.copy(Blocks.FARMLAND));
     }
 
-    public BlockState getStateForPlacement(BlockItemUseContext context) {
-        return !getDefaultState().isValidPosition(context.getWorld(), context.getPos()) ? ModBlocks.PEAT.getBlock().getDefaultState() : getDefaultState();
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        return !defaultBlockState().canSurvive(context.getLevel(), context.getClickedPos()) ? ModBlocks.PEAT.getBlock().defaultBlockState() : defaultBlockState();
     }
 
     @Override
-    public boolean canSustainPlant(@Nonnull BlockState state, @Nonnull IBlockReader world, BlockPos pos, @Nonnull Direction facing, IPlantable plant) {
+    public boolean canSustainPlant(@Nonnull BlockState state, @Nonnull BlockGetter world, BlockPos pos, @Nonnull Direction facing, IPlantable plant) {
         return plant.getPlantType(world, pos) == PlantType.CROP;
     }
 
     @Override
-    public void tick(BlockState state, @Nonnull ServerWorld worldIn, @Nonnull BlockPos pos, Random rand) {
-        if (!state.isValidPosition(worldIn, pos)) {
+    public void tick(BlockState state, @Nonnull ServerLevel worldIn, @Nonnull BlockPos pos, Random rand) {
+        if (!state.canSurvive(worldIn, pos)) {
             turnToPeat(state, worldIn, pos);
         }
     }
 
     @Override
-    public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        BlockPos up = pos.up();
+    public void randomTick(BlockState state, ServerLevel world, BlockPos pos, Random random) {
+        BlockPos up = pos.above();
 
-        int moisture = state.get(MOISTURE);
+        int moisture = state.getValue(MOISTURE);
         if (moisture > 0 && hasCrops(world, pos)) {
             BlockState crop = world.getBlockState(up);
-            if (crop.ticksRandomly() && random.nextDouble() < TIConfig.Misc.peatGrowthRateBonus.get()) {
+            if (crop.isRandomlyTicking() && random.nextDouble() < TIConfig.Misc.peatGrowthRateBonus.get()) {
                 crop.randomTick(world, up, random);
 
                 if (world.getBlockState(up) != crop) {
@@ -59,35 +65,35 @@ public class PeatFarmlandBlock extends FarmlandBlock {
 
         if (!hasWater(world, pos) && !world.isRainingAt(up)) {
             if (moisture > 0) {
-                world.setBlockState(pos, state.with(MOISTURE, moisture - 1), 2);
+                world.setBlock(pos, state.setValue(MOISTURE, moisture - 1), 2);
             }
             else if (!hasCrops(world, pos)) {
                 turnToPeat(state, world, pos);
             }
         }
         else if (moisture < 7) {
-            world.setBlockState(pos, state.with(MOISTURE, 7), 2);
+            world.setBlock(pos, state.setValue(MOISTURE, 7), 2);
         }
     }
 
     @Override
-    public void onFallenUpon(World worldIn, @Nonnull BlockPos pos, Entity entityIn, float fallDistance) {
-        if (!worldIn.isRemote && worldIn.rand.nextBoolean() && ForgeHooks.onFarmlandTrample(worldIn, pos, ModBlocks.PEAT.getDefaultState(), fallDistance, entityIn)) {
+    public void fallOn(Level worldIn, @Nonnull BlockPos pos, Entity entityIn, float fallDistance) {
+        if (!worldIn.isClientSide && worldIn.random.nextBoolean() && ForgeHooks.onFarmlandTrample(worldIn, pos, ModBlocks.PEAT.getDefaultState(), fallDistance, entityIn)) {
             turnToPeat(worldIn.getBlockState(pos), worldIn, pos);
         }
 
-        entityIn.onLivingFall(fallDistance, 1.0F);
+        entityIn.causeFallDamage(fallDistance, 1.0F);
     }
 
-    private boolean hasCrops(IBlockReader worldIn, BlockPos pos) {
-        BlockState plant = worldIn.getBlockState(pos.up());
+    private boolean hasCrops(BlockGetter worldIn, BlockPos pos) {
+        BlockState plant = worldIn.getBlockState(pos.above());
         BlockState state = worldIn.getBlockState(pos);
         return plant.getBlock() instanceof IPlantable && state.canSustainPlant(worldIn, pos, Direction.UP, (IPlantable) plant.getBlock());
     }
 
-    private boolean hasWater(IWorldReader worldIn, BlockPos pos) {
-        for(BlockPos blockpos : BlockPos.getAllInBoxMutable(pos.add(-4, 0, -4), pos.add(4, 1, 4))) {
-            if (worldIn.getFluidState(blockpos).isTagged(FluidTags.WATER)) {
+    private boolean hasWater(LevelReader worldIn, BlockPos pos) {
+        for(BlockPos blockpos : BlockPos.betweenClosed(pos.offset(-4, 0, -4), pos.offset(4, 1, 4))) {
+            if (worldIn.getFluidState(blockpos).is(FluidTags.WATER)) {
                 return true;
             }
         }
@@ -95,7 +101,7 @@ public class PeatFarmlandBlock extends FarmlandBlock {
         return FarmlandWaterManager.hasBlockWaterTicket(worldIn, pos);
     }
 
-    private void turnToPeat(BlockState state, World worldIn, BlockPos pos) {
-        worldIn.setBlockState(pos, nudgeEntitiesWithNewState(state, ModBlocks.PEAT.getBlock().getDefaultState(), worldIn, pos));
+    private void turnToPeat(BlockState state, Level worldIn, BlockPos pos) {
+        worldIn.setBlockAndUpdate(pos, pushEntitiesUp(state, ModBlocks.PEAT.getBlock().defaultBlockState(), worldIn, pos));
     }
 }

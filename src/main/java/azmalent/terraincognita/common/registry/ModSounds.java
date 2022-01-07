@@ -1,7 +1,7 @@
 package azmalent.terraincognita.common.registry;
 
 import azmalent.terraincognita.TerraIncognita;
-import net.minecraft.util.SoundEvent;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;

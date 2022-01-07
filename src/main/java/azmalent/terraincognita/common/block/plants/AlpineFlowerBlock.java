@@ -1,8 +1,8 @@
 package azmalent.terraincognita.common.block.plants;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraftforge.common.Tags;
 
 public class AlpineFlowerBlock extends ModFlowerBlock {
@@ -11,7 +11,7 @@ public class AlpineFlowerBlock extends ModFlowerBlock {
     }
 
     @Override
-    protected boolean isValidGround(BlockState state, IBlockReader world, BlockPos pos) {
-        return state.isIn(Tags.Blocks.GRAVEL) || super.isValidGround(state, world, pos);
+    protected boolean mayPlaceOn(BlockState state, BlockGetter world, BlockPos pos) {
+        return state.is(Tags.Blocks.GRAVEL) || super.mayPlaceOn(state, world, pos);
     }
 }

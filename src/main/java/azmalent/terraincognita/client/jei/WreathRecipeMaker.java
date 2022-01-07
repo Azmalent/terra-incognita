@@ -3,12 +3,12 @@ package azmalent.terraincognita.client.jei;
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.registry.ModItems;
 import com.google.common.collect.Lists;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.ShapedRecipe;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.core.NonNullList;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.crafting.IShapedRecipe;
@@ -18,10 +18,10 @@ import java.util.List;
 @OnlyIn(Dist.CLIENT)
 public class WreathRecipeMaker {
     private static final ResourceLocation recipeId = TerraIncognita.prefix("wreath");
-    private static final Ingredient flowerIngredient = Ingredient.fromTag(ItemTags.SMALL_FLOWERS);
+    private static final Ingredient flowerIngredient = Ingredient.of(ItemTags.SMALL_FLOWERS);
 
     public static List<IShapedRecipe<?>> getRecipes() {
-        NonNullList<Ingredient> inputs = NonNullList.from(Ingredient.EMPTY,
+        NonNullList<Ingredient> inputs = NonNullList.of(Ingredient.EMPTY,
             flowerIngredient, flowerIngredient,
             flowerIngredient, flowerIngredient
         );

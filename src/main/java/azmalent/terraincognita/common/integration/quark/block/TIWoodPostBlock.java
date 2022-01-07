@@ -1,34 +1,41 @@
 package azmalent.terraincognita.common.integration.quark.block;
 
 import net.minecraft.block.*;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.material.MaterialColor;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.EnumProperty;
-import net.minecraft.state.Property;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.World;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.core.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ToolType;
 
 import javax.annotation.Nonnull;
 
 //Copied from Quark WoodPostBlock with minor edits
-public class TIWoodPostBlock extends Block implements IWaterLoggable {
-    private static final VoxelShape SHAPE_X = Block.makeCuboidShape(0F, 6F, 6F, 16F, 10F, 10F);
-    private static final VoxelShape SHAPE_Y = Block.makeCuboidShape(6F, 0F, 6F, 10F, 16F, 10F);
-    private static final VoxelShape SHAPE_Z = Block.makeCuboidShape(6F, 6F, 0F, 10F, 10F, 16F);
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.ChainBlock;
+import net.minecraft.world.level.block.Lantern;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockState;
+
+public class TIWoodPostBlock extends Block implements SimpleWaterloggedBlock {
+    private static final VoxelShape SHAPE_X = Block.box(0F, 6F, 6F, 16F, 10F, 10F);
+    private static final VoxelShape SHAPE_Y = Block.box(6F, 0F, 6F, 10F, 16F, 10F);
+    private static final VoxelShape SHAPE_Z = Block.box(6F, 6F, 0F, 10F, 10F, 16F);
 
     public static final EnumProperty<Direction.Axis> AXIS = BlockStateProperties.AXIS;
     private static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
@@ -45,18 +52,18 @@ public class TIWoodPostBlock extends Block implements IWaterLoggable {
 	public Block strippedBlock = null;
 
     public TIWoodPostBlock(MaterialColor color) {
-        super(Block.Properties.create(Material.WOOD, color).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD));
+        super(Block.Properties.of(Material.WOOD, color).strength(2.0F, 3.0F).sound(SoundType.WOOD));
 
-        BlockState state = getStateContainer().getBaseState().with(WATERLOGGED, false).with(AXIS, Direction.Axis.Y);
+        BlockState state = getStateDefinition().any().setValue(WATERLOGGED, false).setValue(AXIS, Direction.Axis.Y);
         for(BooleanProperty prop : CHAINED) {
-            state = state.with(prop, false);
+            state = state.setValue(prop, false);
         }
 
-        setDefaultState(state);
+        registerDefaultState(state);
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(WATERLOGGED, AXIS);
         for(BooleanProperty prop : CHAINED) {
             builder.add(prop);
@@ -65,8 +72,8 @@ public class TIWoodPostBlock extends Block implements IWaterLoggable {
 
     @Nonnull
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        switch(state.get(AXIS)) {
+    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
+        switch(state.getValue(AXIS)) {
             case X: return SHAPE_X;
             case Y: return SHAPE_Y;
             default: return SHAPE_Z;
@@ -75,37 +82,37 @@ public class TIWoodPostBlock extends Block implements IWaterLoggable {
 
     @Override
    	@SuppressWarnings({ "rawtypes", "unchecked" })
-   	public BlockState getToolModifiedState(BlockState state, World world, BlockPos pos, PlayerEntity player, ItemStack stack, ToolType toolType) {
+   	public BlockState getToolModifiedState(BlockState state, Level world, BlockPos pos, Player player, ItemStack stack, ToolType toolType) {
    		if(strippedBlock == null || toolType != ToolType.AXE) {
    			return super.getToolModifiedState(state, world, pos, player, stack, toolType);
   		}
    		
-   		BlockState newState = strippedBlock.getDefaultState();
+   		BlockState newState = strippedBlock.defaultBlockState();
    		for(Property p : state.getProperties()) {
-   			newState = newState.with(p, state.get(p));
+   			newState = newState.setValue(p, state.getValue(p));
    		}
    		
    		return newState;
    	}
 
     @Override
-    public boolean propagatesSkylightDown(BlockState state, @Nonnull IBlockReader reader, @Nonnull BlockPos pos) {
-        return !state.get(WATERLOGGED);
+    public boolean propagatesSkylightDown(BlockState state, @Nonnull BlockGetter reader, @Nonnull BlockPos pos) {
+        return !state.getValue(WATERLOGGED);
     }
 
-    private BlockState getState(IWorld world, BlockPos pos, Direction.Axis axis) {
-        BlockState state = getDefaultState().with(WATERLOGGED, world.getFluidState(pos).getFluid() == Fluids.WATER).with(AXIS, axis);
+    private BlockState getState(LevelAccessor world, BlockPos pos, Direction.Axis axis) {
+        BlockState state = defaultBlockState().setValue(WATERLOGGED, world.getFluidState(pos).getType() == Fluids.WATER).setValue(AXIS, axis);
 
         for(Direction d : Direction.values()) {
             if(d.getAxis() == axis) {
                 continue;
             }
 
-            BlockState sideState = world.getBlockState(pos.offset(d));
-            if((sideState.getBlock() instanceof ChainBlock && sideState.get(BlockStateProperties.AXIS) == d.getAxis())
-                    || (d == Direction.DOWN && sideState.getBlock() instanceof LanternBlock && sideState.get(LanternBlock.HANGING))) {
+            BlockState sideState = world.getBlockState(pos.relative(d));
+            if((sideState.getBlock() instanceof ChainBlock && sideState.getValue(BlockStateProperties.AXIS) == d.getAxis())
+                    || (d == Direction.DOWN && sideState.getBlock() instanceof Lantern && sideState.getValue(Lantern.HANGING))) {
                 BooleanProperty prop = CHAINED[d.ordinal()];
-                state = state.with(prop, true);
+                state = state.setValue(prop, true);
             }
         }
 
@@ -113,24 +120,24 @@ public class TIWoodPostBlock extends Block implements IWaterLoggable {
     }
 
     @Override
-    public BlockState getStateForPlacement(BlockItemUseContext context) {
-        return getState(context.getWorld(), context.getPos(), context.getFace().getAxis());
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        return getState(context.getLevel(), context.getClickedPos(), context.getClickedFace().getAxis());
     }
 
     @Override
     @SuppressWarnings("deprecation")
-    public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
+    public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
         super.neighborChanged(state, worldIn, pos, blockIn, fromPos, isMoving);
 
-        BlockState newState = getState(worldIn, pos, state.get(AXIS));
+        BlockState newState = getState(worldIn, pos, state.getValue(AXIS));
         if(!newState.equals(state)) {
-            worldIn.setBlockState(pos, newState);
+            worldIn.setBlockAndUpdate(pos, newState);
         }
     }
 
     @Nonnull
     @Override
     public FluidState getFluidState(BlockState state) {
-        return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : Fluids.EMPTY.getDefaultState();
+        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : Fluids.EMPTY.defaultFluidState();
     }
 }

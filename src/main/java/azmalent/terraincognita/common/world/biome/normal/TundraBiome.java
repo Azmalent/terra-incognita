@@ -4,13 +4,13 @@ import azmalent.terraincognita.common.ModTweaks;
 import azmalent.terraincognita.common.world.ModDefaultFeatures;
 import azmalent.terraincognita.common.world.biome.NormalBiomeEntry;
 import com.google.common.collect.Lists;
-import net.minecraft.world.biome.BiomeAmbience;
-import net.minecraft.world.biome.DefaultBiomeFeatures;
-import net.minecraft.world.biome.MobSpawnInfo;
-import net.minecraft.world.biome.MoodSoundAmbience;
-import net.minecraft.world.gen.feature.structure.StructureFeatures;
-import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
-import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilders;
+import net.minecraft.world.level.biome.BiomeSpecialEffects;
+import net.minecraft.data.worldgen.BiomeDefaultFeatures;
+import net.minecraft.world.level.biome.MobSpawnSettings;
+import net.minecraft.world.level.biome.AmbientMoodSettings;
+import net.minecraft.data.worldgen.StructureFeatures;
+import net.minecraft.world.level.levelgen.surfacebuilders.ConfiguredSurfaceBuilder;
+import net.minecraft.data.worldgen.SurfaceBuilders;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
@@ -18,7 +18,12 @@ import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import java.util.List;
 import java.util.function.Supplier;
 
-import static net.minecraft.world.biome.Biome.*;
+import static net.minecraft.world.level.biome.Biome.*;
+
+import net.minecraft.world.level.biome.Biome.BiomeCategory;
+import net.minecraft.world.level.biome.Biome.ClimateSettings;
+import net.minecraft.world.level.biome.Biome.Precipitation;
+import net.minecraft.world.level.biome.Biome.TemperatureModifier;
 
 public class TundraBiome extends NormalBiomeEntry {
     public TundraBiome(String id, Supplier<Integer> spawnWeight) {
@@ -26,13 +31,13 @@ public class TundraBiome extends NormalBiomeEntry {
     }
 
     @Override
-    protected Category getCategory() {
-        return Category.ICY;
+    protected BiomeCategory getCategory() {
+        return BiomeCategory.ICY;
     }
 
     @Override
-    protected Climate getClimate() {
-        return new Climate(RainType.RAIN, 0.2f, TemperatureModifier.NONE, 0.5f);
+    protected ClimateSettings getClimate() {
+        return new ClimateSettings(Precipitation.RAIN, 0.2f, TemperatureModifier.NONE, 0.5f);
     }
 
     @Override
@@ -46,22 +51,22 @@ public class TundraBiome extends NormalBiomeEntry {
     }
 
     @Override
-    protected BiomeAmbience getAmbience() {
-        return (new BiomeAmbience.Builder())
-            .setWaterColor(4159204).setWaterFogColor(329011).setFogColor(12638463)
-            .withSkyColor(getSkyColorWithTemperatureModifier(0.2F))
-            .setMoodSound(MoodSoundAmbience.DEFAULT_CAVE).build();
+    protected BiomeSpecialEffects getAmbience() {
+        return (new BiomeSpecialEffects.Builder())
+            .waterColor(4159204).waterFogColor(329011).fogColor(12638463)
+            .skyColor(getSkyColorWithTemperatureModifier(0.2F))
+            .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS).build();
     }
 
     @Override
     protected ConfiguredSurfaceBuilder<?> getSurfaceBuilder() {
-        return ConfiguredSurfaceBuilders.field_244178_j;
+        return SurfaceBuilders.GRASS;
     }
 
     @Override
-    protected MobSpawnInfo.Builder initSpawns() {
-        MobSpawnInfo.Builder spawns = (new MobSpawnInfo.Builder()).withCreatureSpawnProbability(0.07F);
-        DefaultBiomeFeatures.withSnowyBiomeMobs(spawns);
+    protected MobSpawnSettings.Builder initSpawns() {
+        MobSpawnSettings.Builder spawns = (new MobSpawnSettings.Builder()).creatureGenerationProbability(0.07F);
+        BiomeDefaultFeatures.snowySpawns(spawns);
         ModTweaks.addExtraTundraSpawns(spawns);
 
         return spawns;
@@ -81,18 +86,18 @@ public class TundraBiome extends NormalBiomeEntry {
     public void initFeatures(BiomeGenerationSettingsBuilder builder) {
         initDefaultFeatures(builder);
 
-        DefaultBiomeFeatures.withStrongholdAndMineshaft(builder);
-        builder.withStructure(StructureFeatures.VILLAGE_TAIGA)
-               .withStructure(StructureFeatures.PILLAGER_OUTPOST)
-               .withStructure(StructureFeatures.RUINED_PORTAL);
+        BiomeDefaultFeatures.addDefaultOverworldLandStructures(builder);
+        builder.addStructureStart(StructureFeatures.VILLAGE_TAIGA)
+               .addStructureStart(StructureFeatures.PILLAGER_OUTPOST)
+               .addStructureStart(StructureFeatures.RUINED_PORTAL_STANDARD);
 
-        DefaultBiomeFeatures.withDisks(builder);
-        DefaultBiomeFeatures.withSnowySpruces(builder);
-        DefaultBiomeFeatures.withDefaultFlowers(builder);
-        DefaultBiomeFeatures.withBadlandsGrass(builder);
-        DefaultBiomeFeatures.withNormalMushroomGeneration(builder);
-        DefaultBiomeFeatures.withSugarCaneAndPumpkins(builder);
-        DefaultBiomeFeatures.withLavaAndWaterSprings(builder);
+        BiomeDefaultFeatures.addDefaultSoftDisks(builder);
+        BiomeDefaultFeatures.addSnowyTrees(builder);
+        BiomeDefaultFeatures.addDefaultFlowers(builder);
+        BiomeDefaultFeatures.addDefaultGrass(builder);
+        BiomeDefaultFeatures.addDefaultMushrooms(builder);
+        BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
+        BiomeDefaultFeatures.addDefaultSprings(builder);
         ModDefaultFeatures.withExtraTundraFeatures(builder);
     }
 
@@ -103,7 +108,7 @@ public class TundraBiome extends NormalBiomeEntry {
 
     @Override
     public int getCustomGrassColor(double x, double z) {
-        double d0 = INFO_NOISE.noiseAt(x * 0.0225D, z * 0.0225D, false);
+        double d0 = BIOME_INFO_NOISE.getValue(x * 0.0225D, z * 0.0225D, false);
         return d0 < -0.1D ? 0xADA258 : 0x80B497;
     }
 }

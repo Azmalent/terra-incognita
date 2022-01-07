@@ -4,14 +4,14 @@ import azmalent.cuneiform.lib.registry.BlockEntry;
 import azmalent.terraincognita.common.block.woodtypes.ModWoodType;
 import azmalent.terraincognita.common.integration.quark.block.*;
 import azmalent.terraincognita.common.registry.ModBlocks;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.LadderBlock;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.material.MaterialColor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LadderBlock;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
+import net.minecraft.world.item.CreativeModeTab;
 
 public class QuarkWoodBlockSet {
     public final BlockEntry VERTICAL_PLANKS;
@@ -28,10 +28,10 @@ public class QuarkWoodBlockSet {
         MaterialColor barkColor = woodType.barkColor;
         MaterialColor woodColor = woodType.woodColor;
 
-        VERTICAL_PLANKS = ModBlocks.HELPER.newBuilder("vertical_" + name + "_planks", Block.Properties.create(Material.WOOD, woodColor).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)).withItemGroup(ItemGroup.BUILDING_BLOCKS).build();
-        VERTICAL_SLAB   = ModBlocks.HELPER.newBuilder(name + "_vertical_slab", TIVerticalSlabBlock::new, Block.Properties.create(Material.WOOD, woodColor).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)).withItemGroup(ItemGroup.BUILDING_BLOCKS).build();
-        BOOKSHELF       = ModBlocks.HELPER.newBuilder(name + "_bookshelf", TIBookshelfBlock::new, Block.Properties.create(Material.WOOD, woodColor).hardnessAndResistance(1.5F).sound(SoundType.WOOD)).withItemGroup(ItemGroup.BUILDING_BLOCKS).build();
-        LADDER          = ModBlocks.HELPER.newBuilder(name + "_ladder", LadderBlock::new, Block.Properties.from(Blocks.LADDER)).cutoutRender().build();
+        VERTICAL_PLANKS = ModBlocks.HELPER.newBuilder("vertical_" + name + "_planks", Block.Properties.of(Material.WOOD, woodColor).strength(2.0F, 3.0F).sound(SoundType.WOOD)).withItemGroup(CreativeModeTab.TAB_BUILDING_BLOCKS).build();
+        VERTICAL_SLAB   = ModBlocks.HELPER.newBuilder(name + "_vertical_slab", TIVerticalSlabBlock::new, Block.Properties.of(Material.WOOD, woodColor).strength(2.0F, 3.0F).sound(SoundType.WOOD)).withItemGroup(CreativeModeTab.TAB_BUILDING_BLOCKS).build();
+        BOOKSHELF       = ModBlocks.HELPER.newBuilder(name + "_bookshelf", TIBookshelfBlock::new, Block.Properties.of(Material.WOOD, woodColor).strength(1.5F).sound(SoundType.WOOD)).withItemGroup(CreativeModeTab.TAB_BUILDING_BLOCKS).build();
+        LADDER          = ModBlocks.HELPER.newBuilder(name + "_ladder", LadderBlock::new, Block.Properties.copy(Blocks.LADDER)).cutoutRender().build();
         POST            = ModBlocks.HELPER.newBuilder(name + "_post", () -> new TIWoodPostBlock(barkColor)).cutoutRender().build();
         STRIPPED_POST   = ModBlocks.HELPER.newBuilder("stripped_" + name + "_post", () -> new TIWoodPostBlock(woodColor)).cutoutRender().build();
         HEDGE           = ModBlocks.HELPER.newBuilder(name + "_hedge", () -> new TIHedgeBlock(woodColor)).cutoutMippedRender().build();

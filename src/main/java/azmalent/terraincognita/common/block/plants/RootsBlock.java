@@ -1,32 +1,34 @@
 package azmalent.terraincognita.common.block.plants;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.IGrowable;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.common.Tags;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public class RootsBlock extends HangingPlantBlock implements IGrowable {
-	public static final VoxelShape SHAPE = makeCuboidShape(3, 6, 3, 13, 16, 13);
+import net.minecraft.world.level.block.state.BlockBehaviour.OffsetType;
+
+public class RootsBlock extends HangingPlantBlock implements BonemealableBlock {
+	public static final VoxelShape SHAPE = box(3, 6, 3, 13, 16, 13);
 
     @Nonnull
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader reader, BlockPos blockPos, ISelectionContext context) {
-        Vector3d offset = state.getOffset(reader, blockPos);
-        return SHAPE.withOffset(offset.x, offset.y, offset.z);
+    public VoxelShape getShape(BlockState state, BlockGetter reader, BlockPos blockPos, CollisionContext context) {
+        Vec3 offset = state.getOffset(reader, blockPos);
+        return SHAPE.move(offset.x, offset.y, offset.z);
     }
 
     @Override
-    protected boolean isValidGround(BlockState state, BlockState ground, IBlockReader worldIn, BlockPos groundPos) {
-        return ground.isIn(Tags.Blocks.DIRT);
+    protected boolean isValidGround(BlockState state, BlockState ground, BlockGetter worldIn, BlockPos groundPos) {
+        return ground.is(Tags.Blocks.DIRT);
     }
 
     @Nonnull
@@ -36,18 +38,18 @@ public class RootsBlock extends HangingPlantBlock implements IGrowable {
     }
 
     @Override
-    public boolean canGrow(@Nonnull IBlockReader world, @Nonnull BlockPos pos, @Nonnull BlockState blockState, boolean isClient) {
+    public boolean isValidBonemealTarget(@Nonnull BlockGetter world, @Nonnull BlockPos pos, @Nonnull BlockState blockState, boolean isClient) {
         return true;
     }
 
     @Override
-    public boolean canUseBonemeal(@Nonnull World world, @Nonnull Random random, @Nonnull BlockPos pos, @Nonnull BlockState state) {
+    public boolean isBonemealSuccess(@Nonnull Level world, @Nonnull Random random, @Nonnull BlockPos pos, @Nonnull BlockState state) {
         return true;
     }
 
     @Override
-    public void grow(@Nonnull ServerWorld world, @Nonnull Random random, @Nonnull BlockPos pos, @Nonnull BlockState state) {
-        BlockState roots = this.getDefaultState();
+    public void performBonemeal(@Nonnull ServerLevel world, @Nonnull Random random, @Nonnull BlockPos pos, @Nonnull BlockState state) {
+        BlockState roots = this.defaultBlockState();
 
         for(int i = 0; i < 4; i++) {
             int x = random.nextInt(4) - random.nextInt(4);
@@ -55,9 +57,9 @@ public class RootsBlock extends HangingPlantBlock implements IGrowable {
             int z = random.nextInt(4) - random.nextInt(4);
             if (x == 0 && z == 0) continue;
 
-            BlockPos nextPos = pos.add(x, y, z);
-            if (world.isAirBlock(nextPos) && roots.isValidPosition(world, nextPos)) {
-                world.setBlockState(nextPos, roots);
+            BlockPos nextPos = pos.offset(x, y, z);
+            if (world.isEmptyBlock(nextPos) && roots.canSurvive(world, nextPos)) {
+                world.setBlockAndUpdate(nextPos, roots);
             }
         }
     }

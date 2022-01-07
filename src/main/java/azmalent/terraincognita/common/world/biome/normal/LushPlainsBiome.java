@@ -9,9 +9,9 @@ import azmalent.terraincognita.common.world.biome.NormalBiomeEntry;
 import azmalent.terraincognita.util.WorldGenUtil;
 import com.google.common.collect.Lists;
 import net.minecraft.world.biome.*;
-import net.minecraft.world.gen.feature.structure.StructureFeatures;
-import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
-import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
+import net.minecraft.data.worldgen.StructureFeatures;
+import net.minecraft.world.level.levelgen.surfacebuilders.ConfiguredSurfaceBuilder;
+import net.minecraft.world.level.levelgen.surfacebuilders.SurfaceBuilder;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
@@ -19,19 +19,25 @@ import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import java.util.List;
 import java.util.function.Supplier;
 
+import net.minecraft.data.worldgen.BiomeDefaultFeatures;
+import net.minecraft.world.level.biome.AmbientMoodSettings;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.BiomeSpecialEffects;
+import net.minecraft.world.level.biome.MobSpawnSettings;
+
 public class LushPlainsBiome extends NormalBiomeEntry {
     public LushPlainsBiome(String id, Supplier<Integer> spawnWeight) {
         super(id, spawnWeight);
     }
 
     @Override
-    protected Biome.Category getCategory() {
-        return Biome.Category.PLAINS;
+    protected Biome.BiomeCategory getCategory() {
+        return Biome.BiomeCategory.PLAINS;
     }
 
     @Override
-    protected Biome.Climate getClimate() {
-        return new Biome.Climate(Biome.RainType.RAIN, 0.8f, Biome.TemperatureModifier.NONE, 0.4f);
+    protected Biome.ClimateSettings getClimate() {
+        return new Biome.ClimateSettings(Biome.Precipitation.RAIN, 0.8f, Biome.TemperatureModifier.NONE, 0.4f);
     }
 
     @Override
@@ -45,17 +51,17 @@ public class LushPlainsBiome extends NormalBiomeEntry {
     }
 
     @Override
-    protected BiomeAmbience getAmbience() {
-        return (new BiomeAmbience.Builder())
-            .setWaterColor(4159204).setWaterFogColor(329011).setFogColor(12638463)
-            .withSkyColor(getSkyColorWithTemperatureModifier(0.8F))
-            .withGrassColor(0x9BCA26)
-            .setMoodSound(MoodSoundAmbience.DEFAULT_CAVE).build();
+    protected BiomeSpecialEffects getAmbience() {
+        return (new BiomeSpecialEffects.Builder())
+            .waterColor(4159204).waterFogColor(329011).fogColor(12638463)
+            .skyColor(getSkyColorWithTemperatureModifier(0.8F))
+            .grassColorOverride(0x9BCA26)
+            .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS).build();
     }
 
     @Override
     protected ConfiguredSurfaceBuilder<?> getSurfaceBuilder() {
-        return ModSurfaceBuilders.LUSH_PLAINS.get().func_242929_a(SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG);
+        return ModSurfaceBuilders.LUSH_PLAINS.get().configured(SurfaceBuilder.CONFIG_GRASS);
     }
 
     @Override
@@ -69,9 +75,9 @@ public class LushPlainsBiome extends NormalBiomeEntry {
     }
 
     @Override
-    protected MobSpawnInfo.Builder initSpawns() {
-        MobSpawnInfo.Builder spawns = new MobSpawnInfo.Builder();
-        DefaultBiomeFeatures.withSpawnsWithHorseAndDonkey(spawns);
+    protected MobSpawnSettings.Builder initSpawns() {
+        MobSpawnSettings.Builder spawns = new MobSpawnSettings.Builder();
+        BiomeDefaultFeatures.plainsSpawns(spawns);
         return spawns;
     }
 
@@ -79,16 +85,16 @@ public class LushPlainsBiome extends NormalBiomeEntry {
     public void initFeatures(BiomeGenerationSettingsBuilder builder) {
         initDefaultFeatures(builder);
 
-        DefaultBiomeFeatures.withStrongholdAndMineshaft(builder);
-        builder.withStructure(StructureFeatures.RUINED_PORTAL);
+        BiomeDefaultFeatures.addDefaultOverworldLandStructures(builder);
+        builder.addStructureStart(StructureFeatures.RUINED_PORTAL_STANDARD);
 
-        DefaultBiomeFeatures.withDisks(builder);
-        DefaultBiomeFeatures.withNoiseTallGrass(builder);
-        DefaultBiomeFeatures.withPlainGrassVegetation(builder);
-        DefaultBiomeFeatures.withNormalMushroomGeneration(builder);
-        DefaultBiomeFeatures.withSugarCaneAndPumpkins(builder);
-        DefaultBiomeFeatures.withLavaAndWaterSprings(builder);
-        DefaultBiomeFeatures.withFrozenTopLayer(builder);
+        BiomeDefaultFeatures.addDefaultSoftDisks(builder);
+        BiomeDefaultFeatures.addPlainGrass(builder);
+        BiomeDefaultFeatures.addPlainVegetation(builder);
+        BiomeDefaultFeatures.addDefaultMushrooms(builder);
+        BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
+        BiomeDefaultFeatures.addDefaultSprings(builder);
+        BiomeDefaultFeatures.addSurfaceFreezing(builder);
 
         if (TIConfig.Trees.apple.get()) {
             WorldGenUtil.addVegetation(builder, ModTreeFeatures.EXTRA_APPLE_TREE);

@@ -2,11 +2,10 @@ buildscript {
     repositories {
         maven { url = 'https://maven.minecraftforge.net/' }
         maven { url = 'https://repo.spongepowered.org/maven' }
-        jcenter()
         mavenCentral()
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
         classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-SNAPSHOT'
     }
 }
@@ -14,19 +13,19 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'org.spongepowered.mixin'
 
-ext.configFile = file('gradle.properties')
+ext.configFile = file('build.properties')
 ext.config = parseConfig(configFile)
 
-group = "azmalent.${modid}"
-archivesBaseName = modid
-version = "${minecraft_version}-${mod_version}"
+group = "azmalent.${config.modid}"
+archivesBaseName = config.modid
+version = "${config.minecraft_version}-${config.mod_version}"
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 
 minecraft {
-    mappings channel: mappings_channel, version: mappings_version
+    mappings channel: 'official', version: config.minecraft_version
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
     runs {
@@ -62,7 +61,7 @@ minecraft {
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
 
-            args '--mod', 'examplemod', '--all', '--output', file('src/generated/resources/')
+            args '--mod', 'terraincognita', '--all', '--output', file('src/generated/resources/')
 
             mods {
                 terraincognita {
@@ -76,16 +75,16 @@ minecraft {
 jar {
     manifest {
         attributes([
-                "Specification-Title": "${modid}",
+                "Specification-Title": "${config.modid}",
                 "Specification-Vendor": "azmalent",
                 "Specification-Version": "1", // We are version 1 of ourselves
-                "Implementation-Title": "${modid}",
-                "Implementation-Version": "${mod_version}",
+                "Implementation-Title": "${config.modid}",
+                "Implementation-Version": "${config.mod_version}",
                 "Implementation-Vendor": "azmalent",
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
 
                 'TweakClass': 'org.spongepowered.asm.launch.MixinTweaker',
-                "MixinConfigs": "${modid}.mixins.json",
+                "MixinConfigs": "${config.modid}.mixins.json",
                 'FMLCorePluginContainsFMLMod': 'true',
                 'ForceLoadAsMod': 'true'
         ])
@@ -93,13 +92,16 @@ jar {
 }
 
 repositories {
+    flatDir {
+        dirs 'libs'
+    }
     maven {
         name = "CurseMaven"
         url = "https://www.cursemaven.com"
     }
     maven {
         name "blamejared"
-        url "http://maven.blamejared.com/"
+        url "https://maven.blamejared.com/"
     }
     maven {
         name = "Progwml6 maven"
@@ -112,34 +114,34 @@ repositories {
 }
 
 dependencies {
-    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
-    compile fileTree(dir: 'libs', include: '*.jar')
+    minecraft "net.minecraftforge:forge:${config.minecraft_version}-${config.forge_version}"
+    implementation name: "cuneiform-${config.minecraft_version}-${config.cuneiform_version}"
 
-    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}:api")
-    compileOnly fg.deobf("curse.maven:jade-api-324717:${jade_api_file_id}")
-    runtimeOnly fg.deobf("curse.maven:jade-324717:${jade_file_id}")
-    compileOnly fg.deobf("mcjty.theoneprobe:TheOneProbe-1.16:${top_version}:api")
-    runtimeOnly fg.deobf("mcjty.theoneprobe:TheOneProbe-1.16:${top_version}")
+    compileOnly fg.deobf("mezz.jei:jei-${config.minecraft_version}:${config.jei_version}:api")
+    compileOnly fg.deobf("curse.maven:jade-api-324717:${config.jade_api_file_id}")
+    runtimeOnly fg.deobf("curse.maven:jade-324717:${config.jade_file_id}")
+    compileOnly fg.deobf("mcjty.theoneprobe:TheOneProbe-1.16:${config.top_version}:api")
+    runtimeOnly fg.deobf("mcjty.theoneprobe:TheOneProbe-1.16:${config.top_version}")
 
-    compileOnly fg.deobf("vazkii.autoreglib:AutoRegLib:${autoreglib_version}")
-    compileOnly fg.deobf("vazkii.quark:Quark:${quark_version}")
+    compileOnly fg.deobf("vazkii.autoreglib:AutoRegLib:${config.autoreglib_version}")
+    compileOnly fg.deobf("vazkii.quark:Quark:${config.quark_version}")
 
-    compileOnly fg.deobf("curse.maven:abnormals-core-382216:${abnormals_core_file_id}")
-    compileOnly fg.deobf("curse.maven:upgrade-aquatic-326895:${upgrade_aquatic_file_id}")
+    compileOnly fg.deobf("curse.maven:abnormals-core-382216:${config.abnormals_core_file_id}")
+    compileOnly fg.deobf("curse.maven:upgrade-aquatic-326895:${config.upgrade_aquatic_file_id}")
 
-    compileOnly fg.deobf("curse.maven:farmers-delight-398521:${farmers_delight_file_id}")
-    compileOnly fg.deobf("curse.maven:simply-tea-268373:${simply_tea_file_id}")
-    compileOnly fg.deobf("vazkii.botania:Botania:${botania_version}:api")
+    compileOnly fg.deobf("curse.maven:farmers-delight-398521:${config.farmers_delight_file_id}")
+    compileOnly fg.deobf("curse.maven:simply-tea-268373:${config.simply_tea_file_id}")
+    compileOnly fg.deobf("vazkii.botania:Botania:${config.botania_version}:api")
 }
 
 processResources {
     from(sourceSets.main.resources.srcDirs) {
         include 'META-INF/mods.toml'
 
-        expand 'mod_name': mod_name, 'mod_version': project.version,
-                'minecraft_version': minecraft_version, 'minecraft_version_range': minecraft_version_range,
-                'fml_min': fml_min, 'forge_version': forge_version,
-                'cuneiform_version': cuneiform_version
+        expand 'mod_name': config.mod_name, 'mod_version': config.project.version,
+                'minecraft_version': config.minecraft_version, 'minecraft_version_range': config.minecraft_version_range,
+                'fml_min': config.fml_min, 'forge_version': config.forge_version,
+                'cuneiform_version': config.cuneiform_version
     }
 
     from(sourceSets.main.resources.srcDirs) {
@@ -147,11 +149,8 @@ processResources {
     }
 }
 
-sourceSets {
-    main {
-        output.resourcesDir = output.classesDir
-        ext.refMap = "terraincognita.mixins.refmap.json"
-    }
+mixin {
+    add sourceSets.main, "${config.modid}.mixins.refmap.json"
 }
 
 static def parseConfig(File config) {

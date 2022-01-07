@@ -13,7 +13,7 @@ import azmalent.terraincognita.proxy.ServerProxy;
 import azmalent.terraincognita.proxy.IProxy;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.CactusBlock;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.IForgeShearable;
 import net.minecraftforge.eventbus.api.IEventBus;

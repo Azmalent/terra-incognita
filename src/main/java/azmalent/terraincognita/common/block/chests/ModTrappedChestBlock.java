@@ -3,17 +3,17 @@ package azmalent.terraincognita.common.block.chests;
 import azmalent.terraincognita.common.registry.ModTileEntities;
 import azmalent.terraincognita.common.block.woodtypes.ModWoodType;
 import azmalent.terraincognita.common.tile.ModTrappedChestTileEntity;
-import net.minecraft.block.BlockState;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.stats.Stat;
 import net.minecraft.stats.Stats;
-import net.minecraft.tileentity.ChestTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.world.level.block.entity.ChestBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
+import net.minecraft.world.level.BlockGetter;
 
 import javax.annotation.Nonnull;
 
@@ -24,33 +24,33 @@ public class ModTrappedChestBlock extends ModChestBlock {
     }
 
     @Override
-    public boolean isFlammable(BlockState state, IBlockReader world, BlockPos pos, Direction face) {
+    public boolean isFlammable(BlockState state, BlockGetter world, BlockPos pos, Direction face) {
         return false;
     }
 
     @Override
-    public TileEntity createNewTileEntity(IBlockReader world) {
+    public BlockEntity newBlockEntity(BlockGetter world) {
         return new ModTrappedChestTileEntity();
     }
 
     @Nonnull
     @Override
-    protected Stat<ResourceLocation> getOpenStat() {
+    protected Stat<ResourceLocation> getOpenChestStat() {
         return Stats.CUSTOM.get(Stats.TRIGGER_TRAPPED_CHEST);
     }
 
     @Override
-    public boolean canProvidePower(BlockState state) {
+    public boolean isSignalSource(BlockState state) {
         return true;
     }
 
     @Override
-    public int getWeakPower(BlockState state, IBlockReader world, BlockPos pos, Direction direction) {
-        return MathHelper.clamp(ChestTileEntity.getPlayersUsing(world, pos), 0, 15);
+    public int getSignal(BlockState state, BlockGetter world, BlockPos pos, Direction direction) {
+        return Mth.clamp(ChestBlockEntity.getOpenCount(world, pos), 0, 15);
     }
 
     @Override
-    public int getStrongPower(BlockState state, IBlockReader world, BlockPos pos, Direction direction) {
-        return direction == Direction.UP ? state.getWeakPower(world, pos, direction) : 0;
+    public int getDirectSignal(BlockState state, BlockGetter world, BlockPos pos, Direction direction) {
+        return direction == Direction.UP ? state.getSignal(world, pos, direction) : 0;
     }
 }

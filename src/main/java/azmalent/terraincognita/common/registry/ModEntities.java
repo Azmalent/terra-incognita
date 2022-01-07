@@ -8,12 +8,12 @@ import azmalent.terraincognita.common.entity.CactusNeedleEntity;
 import azmalent.terraincognita.common.entity.ModBoatEntity;
 import azmalent.terraincognita.common.entity.butterfly.AbstractButterflyEntity;
 import azmalent.terraincognita.common.entity.butterfly.ButterflyEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityClassification;
-import net.minecraft.entity.EntitySpawnPlacementRegistry;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
-import net.minecraft.world.gen.Heightmap;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.attributes.DefaultAttributes;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.RegistryObject;
@@ -25,15 +25,15 @@ public class ModEntities {
     public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, TerraIncognita.MODID);
 
     public static final RegistryObject<EntityType<ModBoatEntity>> BOAT = register("boat",
-        EntityType.Builder.<ModBoatEntity>create(ModBoatEntity::new, EntityClassification.MISC).size(1.375F, 0.5625F).setCustomClientFactory(ModBoatEntity::new).trackingRange(10)
+        EntityType.Builder.<ModBoatEntity>of(ModBoatEntity::new, MobCategory.MISC).sized(1.375F, 0.5625F).setCustomClientFactory(ModBoatEntity::new).clientTrackingRange(10)
     );
 
     public static final RegistryObject<EntityType<ButterflyEntity>> BUTTERFLY = register("butterfly",
-        EntityType.Builder.<ButterflyEntity>create(ButterflyEntity::new, EntityClassification.AMBIENT).size(0.5f, 0.5f).setCustomClientFactory(ButterflyEntity::new).trackingRange(5)
+        EntityType.Builder.<ButterflyEntity>of(ButterflyEntity::new, MobCategory.AMBIENT).sized(0.5f, 0.5f).setCustomClientFactory(ButterflyEntity::new).clientTrackingRange(5)
     );
 
     public static final RegistryObject<EntityType<CactusNeedleEntity>> CACTUS_NEEDLE = register("cactus_needle",
-        EntityType.Builder.<CactusNeedleEntity>create(CactusNeedleEntity::new, EntityClassification.MISC).size(0.5F, 0.5F).trackingRange(4).func_233608_b_(20)
+        EntityType.Builder.<CactusNeedleEntity>of(CactusNeedleEntity::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20)
     );
 
     private static <T extends Entity> RegistryObject<EntityType<T>> register(String id, EntityType.Builder<T> builder) {
@@ -41,11 +41,11 @@ public class ModEntities {
     }
 
     public static void registerAttributes() {
-        GlobalEntityTypeAttributes.put(BUTTERFLY.get(), AbstractButterflyEntity.bakeAttributes().create());
+        DefaultAttributes.put(BUTTERFLY.get(), AbstractButterflyEntity.bakeAttributes().build());
     }
 
     public static void registerSpawns() {
-        EntitySpawnPlacementRegistry.register(BUTTERFLY.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ButterflyEntity::canSpawn);
+        SpawnPlacements.register(BUTTERFLY.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ButterflyEntity::canSpawn);
     }
 
     @OnlyIn(Dist.CLIENT)

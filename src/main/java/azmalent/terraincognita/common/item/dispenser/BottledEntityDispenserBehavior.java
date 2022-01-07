@@ -1,35 +1,35 @@
 package azmalent.terraincognita.common.item.dispenser;
 
 import azmalent.terraincognita.common.item.BottledEntityItem;
-import net.minecraft.block.DispenserBlock;
-import net.minecraft.dispenser.DefaultDispenseItemBehavior;
-import net.minecraft.dispenser.IBlockSource;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.level.block.DispenserBlock;
+import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
+import net.minecraft.core.BlockSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.core.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 
 import javax.annotation.Nonnull;
 
 public final class BottledEntityDispenserBehavior extends DefaultDispenseItemBehavior {
     @Nonnull
     @Override
-    protected ItemStack dispenseStack(IBlockSource source, ItemStack bottle) {
+    protected ItemStack execute(BlockSource source, ItemStack bottle) {
         Item item = bottle.getItem();
         if (!(item instanceof BottledEntityItem)) {
             return bottle;
         }
 
-        ServerWorld world = source.getWorld();
-        Direction facing = source.getBlockState().get(DispenserBlock.FACING);
-        BlockPos spawnPos = source.getBlockPos().offset(facing);
+        ServerLevel world = source.getLevel();
+        Direction facing = source.getBlockState().getValue(DispenserBlock.FACING);
+        BlockPos spawnPos = source.getPos().relative(facing);
 
-        Entity entity = ((BottledEntityItem<?>) item).type.get().spawn(world, bottle, null, spawnPos, SpawnReason.DISPENSER, facing != Direction.UP, false);
+        Entity entity = ((BottledEntityItem<?>) item).type.get().spawn(world, bottle, null, spawnPos, MobSpawnType.DISPENSER, facing != Direction.UP, false);
         if (entity != null) {
             BottledEntityItem.initReleasedEntity((LivingEntity) entity, bottle);
         }

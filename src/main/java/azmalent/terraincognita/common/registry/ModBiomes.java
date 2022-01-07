@@ -9,8 +9,8 @@ import azmalent.terraincognita.common.world.biome.normal.TundraBiome;
 import azmalent.terraincognita.common.world.biome.sub.BasicHillsSubBiome;
 import azmalent.terraincognita.common.world.biome.sub.RockyTundraSubBiome;
 import com.google.common.collect.Maps;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.biome.Biome;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 

@@ -1,8 +1,8 @@
 package azmalent.terraincognita.common.inventory;
 
 import azmalent.terraincognita.common.data.ModItemTags;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.core.NonNullList;
 import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nonnull;
@@ -17,7 +17,7 @@ public class BasketStackHandler extends ItemStackHandler {
     @Override
     public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
         validateSlotIndex(slot);
-        return !stack.isEmpty() && stack.getItem().isIn(ModItemTags.BASKET_STORABLE);
+        return !stack.isEmpty() && stack.getItem().is(ModItemTags.BASKET_STORABLE);
     }
 
     public NonNullList<ItemStack> getContents() {

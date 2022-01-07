@@ -1,12 +1,12 @@
 package azmalent.terraincognita.common.entity.butterfly.ai;
 
 import azmalent.terraincognita.common.entity.butterfly.ButterflyEntity;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.level.Level;
 
 import java.util.EnumSet;
 import java.util.List;
@@ -20,13 +20,13 @@ public class ButterflyRestGoal extends Goal {
 
     public ButterflyRestGoal(ButterflyEntity butterfly) {
         this.butterfly = butterfly;
-        setMutexFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.JUMP));
+        setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.JUMP));
     }
 
     @Override
-    public boolean shouldExecute() {
+    public boolean canUse() {
         if (butterfly.isLanded() && !butterfly.hasPlayersNearby()) {
-            restingPos = butterfly.getPosition();
+            restingPos = butterfly.blockPosition();
             return true;
         }
 
@@ -34,18 +34,18 @@ public class ButterflyRestGoal extends Goal {
     }
 
     @Override
-    public boolean shouldContinueExecuting() {
-        return butterfly.isLanded() && (butterfly.isTired() || butterfly.world.isNightTime()) && !butterfly.hasPlayersNearby();
+    public boolean canContinueToUse() {
+        return butterfly.isLanded() && (butterfly.isTired() || butterfly.level.isNight()) && !butterfly.hasPlayersNearby();
     }
 
     @Override
-    public void startExecuting() {
-        initialBlockState = butterfly.world.getBlockState(restingPos);
+    public void start() {
+        initialBlockState = butterfly.level.getBlockState(restingPos);
         ticks = 0;
     }
 
     @Override
-    public void resetTask() {
+    public void stop() {
         butterfly.setNotLanded();
         restingPos = null;
         initialBlockState = null;
@@ -54,31 +54,31 @@ public class ButterflyRestGoal extends Goal {
 
     @Override
     public void tick() {
-        if (restingPos == null) restingPos = butterfly.getPosition();
+        if (restingPos == null) restingPos = butterfly.blockPosition();
         ticks++;
 
-        if (blockStateUpdated() || isBlockTaken(butterfly.world, restingPos)) {
+        if (blockStateUpdated() || isBlockTaken(butterfly.level, restingPos)) {
             butterfly.setNotLanded();
         }
-        else if (butterfly.getRNG().nextInt(200) == 0) {
+        else if (butterfly.getRandom().nextInt(200) == 0) {
             if (ticks > 300) {
                 butterfly.setTired(false);
-                if (!butterfly.world.isNightTime()) butterfly.setNotLanded();
+                if (!butterfly.level.isNight()) butterfly.setNotLanded();
             } else {
-                butterfly.rotationYawHead = butterfly.getRNG().nextInt(360);
+                butterfly.yHeadRot = butterfly.getRandom().nextInt(360);
             }
         }
     }
 
-    private boolean isBlockTaken(World world, BlockPos pos) {
+    private boolean isBlockTaken(Level world, BlockPos pos) {
         VoxelShape shape = world.getBlockState(pos).getShape(world, pos);
         if (shape.isEmpty()) return true;
 
-        List<Entity> entities = world.getEntitiesWithinAABB(ButterflyEntity.class, shape.getBoundingBox().expand(0.5, 0.5, 0.5).offset(pos));
+        List<Entity> entities = world.getEntitiesOfClass(ButterflyEntity.class, shape.bounds().expandTowards(0.5, 0.5, 0.5).move(pos));
         return entities.stream().anyMatch(e -> e != butterfly && pos.equals(((ButterflyEntity) e).restGoal.restingPos));
     }
 
     private boolean blockStateUpdated() {
-        return initialBlockState != butterfly.world.getBlockState(butterfly.getPosition());
+        return initialBlockState != butterfly.level.getBlockState(butterfly.blockPosition());
     }
 }

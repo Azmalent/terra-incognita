@@ -3,9 +3,9 @@ package azmalent.terraincognita.common.world.biome;
 import azmalent.cuneiform.lib.util.BiomeUtil;
 import azmalent.terraincognita.util.NoiseWeightedList;
 import com.mojang.datafixers.util.Function3;
-import net.minecraft.util.RegistryKey;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.INoiseRandom;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.newbiome.context.Context;
 import net.minecraftforge.common.BiomeManager;
 
 import java.util.function.Supplier;
@@ -21,7 +21,7 @@ public abstract class NormalBiomeEntry extends BiomeEntry {
         super.register();
 
         if (spawnWeight > 0) {
-            RegistryKey<Biome> key = BiomeUtil.getBiomeKey(id);
+            ResourceKey<Biome> key = BiomeUtil.getBiomeKey(id);
             BiomeManager.addBiome(getBiomeType(), new BiomeManager.BiomeEntry(key, spawnWeight));
         }
     }
@@ -34,7 +34,7 @@ public abstract class NormalBiomeEntry extends BiomeEntry {
         return constructor.apply(id, this, weight);
     }
 
-    public final SubBiomeEntry getRandomSubBiome(INoiseRandom random) {
+    public final SubBiomeEntry getRandomSubBiome(Context random) {
         return subBiomes.getRandomItem(random);
     }
 }

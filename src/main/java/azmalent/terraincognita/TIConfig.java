@@ -10,7 +10,7 @@ import azmalent.cuneiform.lib.config.options.IntOption;
 import azmalent.cuneiform.lib.config.options.lazy.RegistryListOption;
 import azmalent.terraincognita.common.world.biome.BiomeEntry;
 import com.google.common.collect.Lists;
-import net.minecraft.world.biome.Biome;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.function.Supplier;

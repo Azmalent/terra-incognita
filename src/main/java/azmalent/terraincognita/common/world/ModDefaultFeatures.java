@@ -3,7 +3,7 @@ package azmalent.terraincognita.common.world;
 import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.common.registry.ModFeatures;
 import azmalent.terraincognita.util.WorldGenUtil;
-import net.minecraft.world.biome.DefaultBiomeFeatures;
+import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 
 public class ModDefaultFeatures {
@@ -123,7 +123,7 @@ public class ModDefaultFeatures {
     //Vanilla biome tweaks
     public static void withExtraTundraFeatures(BiomeGenerationSettingsBuilder builder) {
         if (TIConfig.Misc.betterTundras.get()) {
-            DefaultBiomeFeatures.withSparseBerries(builder);
+            BiomeDefaultFeatures.addSparseBerryBushes(builder);
 
             WorldGenUtil.addVegetation(builder, ModTreeFeatures.SPRUCE_SHRUB, ModTreeFeatures.TUNDRA_BIRCH);
         }

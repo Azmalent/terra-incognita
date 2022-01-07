@@ -1,7 +1,7 @@
 package azmalent.terraincognita.util;
 
 import com.google.common.collect.Lists;
-import net.minecraft.world.gen.INoiseRandom;
+import net.minecraft.world.level.newbiome.context.Context;
 
 import java.util.List;
 
@@ -34,10 +34,10 @@ public class NoiseWeightedList<T> {
         return totalWeight == 0;
     }
 
-    public T getRandomItem(INoiseRandom random) {
+    public T getRandomItem(Context random) {
         if (items.isEmpty()) return null;
 
-        int i = random.random(totalWeight);
+        int i = random.nextRandom(totalWeight);
         for (Node<T> item : items) {
             if (i < item.weight) {
                 return item.value;

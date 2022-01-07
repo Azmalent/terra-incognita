@@ -5,18 +5,18 @@ import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.common.registry.ModBlocks;
 import azmalent.terraincognita.common.world.ModFlowerFeatures;
 import azmalent.terraincognita.util.WorldGenUtil;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.GrassBlock;
-import net.minecraft.util.RegistryKey;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IWorldReader;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.Biomes;
-import net.minecraft.world.gen.feature.BlockClusterFeatureConfig;
-import net.minecraft.world.gen.feature.FlowersFeature;
-import net.minecraft.world.gen.feature.IFeatureConfig;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.GrassBlock;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.Biomes;
+import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
+import net.minecraft.world.level.levelgen.feature.AbstractFlowerFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.common.BiomeDictionary;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -29,9 +29,9 @@ import static net.minecraftforge.common.BiomeDictionary.Type.HOT;
 
 @Mixin(GrassBlock.class)
 public class GrassBlockMixin {
-    private static BlockClusterFeatureConfig getCustomFlowerConfig(Random rand, IWorldReader world, BlockPos pos) {
+    private static RandomPatchConfiguration getCustomFlowerConfig(Random rand, LevelReader world, BlockPos pos) {
         Biome biome = world.getBiome(pos);
-        RegistryKey<Biome> biomeKey = BiomeUtil.getBiomeKey(biome);
+        ResourceKey<Biome> biomeKey = BiomeUtil.getBiomeKey(biome);
 
         if (biomeKey != Biomes.FLOWER_FOREST && rand.nextBoolean()) {
             switch (WorldGenUtil.getProperBiomeCategory(biome)) {
@@ -76,21 +76,21 @@ public class GrassBlockMixin {
     }
     
     @Redirect(method = "grow", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/gen/feature/FlowersFeature;getFlowerToPlace(Ljava/util/Random;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/world/gen/feature/IFeatureConfig;)Lnet/minecraft/block/BlockState;"))
-    private <TConfig extends IFeatureConfig> BlockState getFlowerToPlace(FlowersFeature<TConfig> self, Random rand, BlockPos pos, TConfig config, ServerWorld world, Random random1, BlockPos pos1, BlockState blockState) {
-        BlockClusterFeatureConfig customFlowerConfig = getCustomFlowerConfig(rand, world, pos);
+    private <TConfig extends FeatureConfiguration> BlockState getFlowerToPlace(AbstractFlowerFeature<TConfig> self, Random rand, BlockPos pos, TConfig config, ServerLevel world, Random random1, BlockPos pos1, BlockState blockState) {
+        RandomPatchConfiguration customFlowerConfig = getCustomFlowerConfig(rand, world, pos);
         if (customFlowerConfig != null) {
-            return customFlowerConfig.stateProvider.getBlockState(rand, pos);
+            return customFlowerConfig.stateProvider.getState(rand, pos);
         }
 
-        BlockState flower = self.getFlowerToPlace(rand, pos, config);
-        if (flower.isIn(Blocks.DANDELION) && TIConfig.Flora.dandelionPuff.get()) {
+        BlockState flower = self.getRandomFlower(rand, pos, config);
+        if (flower.is(Blocks.DANDELION) && TIConfig.Flora.dandelionPuff.get()) {
             if (rand.nextFloat() < TIConfig.Flora.dandelionPuffChance.get()) {
-                flower = ModBlocks.DANDELION_PUFF.getBlock().getDefaultState();
+                flower = ModBlocks.DANDELION_PUFF.getBlock().defaultBlockState();
             }
         }
-        else if (flower.isIn(Blocks.POPPY) && TIConfig.Flora.arcticFlowers.get()) {
-            if (world.getBiome(pos).getCategory() == Biome.Category.ICY && rand.nextFloat() < TIConfig.Flora.arcticPoppyChance.get()) {
-                flower = ModBlocks.ARCTIC_POPPY.getBlock().getDefaultState();
+        else if (flower.is(Blocks.POPPY) && TIConfig.Flora.arcticFlowers.get()) {
+            if (world.getBiome(pos).getBiomeCategory() == Biome.BiomeCategory.ICY && rand.nextFloat() < TIConfig.Flora.arcticPoppyChance.get()) {
+                flower = ModBlocks.ARCTIC_POPPY.getBlock().defaultBlockState();
             }
         }
 

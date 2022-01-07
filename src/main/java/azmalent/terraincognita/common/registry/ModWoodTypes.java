@@ -6,8 +6,8 @@ import azmalent.terraincognita.common.block.woodtypes.ModWoodType;
 import azmalent.terraincognita.common.block.trees.AppleTree;
 import azmalent.terraincognita.common.block.trees.HazelTree;
 import com.google.common.collect.Lists;
-import net.minecraft.block.Block;
-import net.minecraft.block.material.MaterialColor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.material.MaterialColor;
 
 import java.util.List;
 import java.util.Map;
@@ -16,8 +16,8 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class ModWoodTypes {
-    public static final AppleWoodType APPLE = new AppleWoodType("apple", new AppleTree(), MaterialColor.WOOD, MaterialColor.ORANGE_TERRACOTTA);
-    public static final HazelWoodType HAZEL = new HazelWoodType("hazel", new HazelTree(), MaterialColor.WOOD, MaterialColor.BROWN);
+    public static final AppleWoodType APPLE = new AppleWoodType("apple", new AppleTree(), MaterialColor.WOOD, MaterialColor.TERRACOTTA_ORANGE);
+    public static final HazelWoodType HAZEL = new HazelWoodType("hazel", new HazelTree(), MaterialColor.WOOD, MaterialColor.COLOR_BROWN);
 
     public static List<ModWoodType> VALUES;
     public static Map<String, ModWoodType> VALUES_BY_NAME;

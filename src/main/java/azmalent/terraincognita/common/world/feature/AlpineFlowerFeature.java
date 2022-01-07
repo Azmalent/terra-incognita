@@ -1,32 +1,32 @@
 package azmalent.terraincognita.common.world.feature;
 
 import azmalent.terraincognita.common.registry.ModBlocks;
-import net.minecraft.block.BlockState;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ISeedReader;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.feature.BlockClusterFeatureConfig;
-import net.minecraft.world.gen.feature.DefaultFlowersFeature;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
+import net.minecraft.world.level.levelgen.feature.DefaultFlowerFeature;
 import net.minecraftforge.common.Tags;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public class AlpineFlowerFeature extends DefaultFlowersFeature {
+public class AlpineFlowerFeature extends DefaultFlowerFeature {
     public AlpineFlowerFeature() {
-        super(BlockClusterFeatureConfig.field_236587_a_);
+        super(RandomPatchConfiguration.CODEC);
     }
 
     @Override
-    public boolean generate(@Nonnull ISeedReader reader, ChunkGenerator generator, @Nonnull Random rand, @Nonnull BlockPos pos, BlockClusterFeatureConfig config) {
+    public boolean place(@Nonnull WorldGenLevel reader, ChunkGenerator generator, @Nonnull Random rand, @Nonnull BlockPos pos, RandomPatchConfiguration config) {
         BlockState flower = this.getFlowerToPlace(reader, rand, pos, config);
         boolean success = false;
 
-        for(int j = 0; j < this.getFlowerCount(config); ++j) {
-            BlockPos nextPos = this.getNearbyPos(rand, pos, config);
-            if (reader.isAirBlock(nextPos) && nextPos.getY() < 255 && flower.isValidPosition(reader, nextPos) && this.isValidPosition(reader, nextPos, config)) {
-                reader.setBlockState(nextPos, flower, 2);
+        for(int j = 0; j < this.getCount(config); ++j) {
+            BlockPos nextPos = this.getPos(rand, pos, config);
+            if (reader.isEmptyBlock(nextPos) && nextPos.getY() < 255 && flower.canSurvive(reader, nextPos) && this.isValid(reader, nextPos, config)) {
+                reader.setBlock(nextPos, flower, 2);
                 success = true;
             }
         }
@@ -34,17 +34,17 @@ public class AlpineFlowerFeature extends DefaultFlowersFeature {
         return success;
     }
 
-    private BlockState getFlowerToPlace(ISeedReader reader, Random rand, BlockPos pos, BlockClusterFeatureConfig config) {
-        BlockState soil = reader.getBlockState(pos.down());
-        if (soil.isIn(Tags.Blocks.STONE) || soil.isIn(Tags.Blocks.COBBLESTONE)) {
-            return ModBlocks.SAXIFRAGE.getBlock().getDefaultState();
+    private BlockState getFlowerToPlace(WorldGenLevel reader, Random rand, BlockPos pos, RandomPatchConfiguration config) {
+        BlockState soil = reader.getBlockState(pos.below());
+        if (soil.is(Tags.Blocks.STONE) || soil.is(Tags.Blocks.COBBLESTONE)) {
+            return ModBlocks.SAXIFRAGE.getBlock().defaultBlockState();
         }
 
-        return getFlowerToPlace(rand, pos, config);
+        return getRandomFlower(rand, pos, config);
     }
 
     @Override
-    public boolean isValidPosition(IWorld world, @Nonnull BlockPos pos, BlockClusterFeatureConfig config) {
-        return world.canBlockSeeSky(pos) && (pos.getY() >= 64) && super.isValidPosition(world, pos, config);
+    public boolean isValid(LevelAccessor world, @Nonnull BlockPos pos, RandomPatchConfiguration config) {
+        return world.canSeeSkyFromBelowWater(pos) && (pos.getY() >= 64) && super.isValid(world, pos, config);
     }
 }

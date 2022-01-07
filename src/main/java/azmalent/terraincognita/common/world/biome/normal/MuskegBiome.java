@@ -5,14 +5,14 @@ import azmalent.terraincognita.common.world.*;
 import azmalent.terraincognita.common.world.biome.NormalBiomeEntry;
 import azmalent.terraincognita.util.WorldGenUtil;
 import com.google.common.collect.Lists;
-import net.minecraft.entity.EntityClassification;
-import net.minecraft.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.biome.*;
-import net.minecraft.world.gen.feature.Features;
-import net.minecraft.world.gen.feature.structure.StructureFeatures;
-import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
+import net.minecraft.data.worldgen.Features;
+import net.minecraft.data.worldgen.StructureFeatures;
+import net.minecraft.world.level.levelgen.surfacebuilders.ConfiguredSurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilders;
-import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
+import net.minecraft.world.level.levelgen.surfacebuilders.SurfaceBuilder;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
@@ -20,7 +20,17 @@ import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import java.util.List;
 import java.util.function.Supplier;
 
-import static net.minecraft.world.biome.Biome.*;
+import static net.minecraft.world.level.biome.Biome.*;
+
+import net.minecraft.world.level.biome.Biome.BiomeCategory;
+import net.minecraft.world.level.biome.Biome.ClimateSettings;
+import net.minecraft.world.level.biome.Biome.Precipitation;
+import net.minecraft.world.level.biome.Biome.TemperatureModifier;
+
+import net.minecraft.data.worldgen.BiomeDefaultFeatures;
+import net.minecraft.world.level.biome.AmbientMoodSettings;
+import net.minecraft.world.level.biome.BiomeSpecialEffects;
+import net.minecraft.world.level.biome.MobSpawnSettings;
 
 public class MuskegBiome extends NormalBiomeEntry {
     public MuskegBiome(String id, Supplier<Integer> spawnWeight) {
@@ -28,13 +38,13 @@ public class MuskegBiome extends NormalBiomeEntry {
     }
 
     @Override
-    protected Category getCategory() {
-        return Category.SWAMP;
+    protected BiomeCategory getCategory() {
+        return BiomeCategory.SWAMP;
     }
 
     @Override
-    protected Climate getClimate() {
-        return new Climate(RainType.RAIN, 0.25f, TemperatureModifier.NONE, 0.8f);
+    protected ClimateSettings getClimate() {
+        return new ClimateSettings(Precipitation.RAIN, 0.25f, TemperatureModifier.NONE, 0.8f);
     }
 
     @Override
@@ -48,17 +58,17 @@ public class MuskegBiome extends NormalBiomeEntry {
     }
 
     @Override
-    protected BiomeAmbience getAmbience() {
-        return (new BiomeAmbience.Builder())
-            .setWaterColor(0x787360).setWaterFogColor(0x232317).setFogColor(0xc0d8ff)
-            .withSkyColor(getSkyColorWithTemperatureModifier(0.25F))
-            .withFoliageColor(0x6a7039).withGrassColorModifier(BiomeAmbience.GrassColorModifier.SWAMP)
-            .setMoodSound(MoodSoundAmbience.DEFAULT_CAVE).build();
+    protected BiomeSpecialEffects getAmbience() {
+        return (new BiomeSpecialEffects.Builder())
+            .waterColor(0x787360).waterFogColor(0x232317).fogColor(0xc0d8ff)
+            .skyColor(getSkyColorWithTemperatureModifier(0.25F))
+            .foliageColorOverride(0x6a7039).grassColorModifier(BiomeSpecialEffects.GrassColorModifier.SWAMP)
+            .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS).build();
     }
 
     @Override
     protected ConfiguredSurfaceBuilder<?> getSurfaceBuilder() {
-        return ModSurfaceBuilders.MUSKEG.get().func_242929_a(SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG);
+        return ModSurfaceBuilders.MUSKEG.get().configured(SurfaceBuilder.CONFIG_GRASS);
     }
 
     @Override
@@ -72,12 +82,12 @@ public class MuskegBiome extends NormalBiomeEntry {
     }
 
     @Override
-    protected MobSpawnInfo.Builder initSpawns() {
-        MobSpawnInfo.Builder spawns = new MobSpawnInfo.Builder();
-        DefaultBiomeFeatures.withPassiveMobs(spawns);
-        DefaultBiomeFeatures.withBats(spawns);
-        DefaultBiomeFeatures.withHostileMobs(spawns, 95, 5, 50);
-        spawns.withSpawner(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(EntityType.STRAY, 50, 4, 4));
+    protected MobSpawnSettings.Builder initSpawns() {
+        MobSpawnSettings.Builder spawns = new MobSpawnSettings.Builder();
+        BiomeDefaultFeatures.farmAnimals(spawns);
+        BiomeDefaultFeatures.ambientSpawns(spawns);
+        BiomeDefaultFeatures.monsters(spawns, 95, 5, 50);
+        spawns.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityType.STRAY, 50, 4, 4));
 
         return spawns;
     }
@@ -86,20 +96,20 @@ public class MuskegBiome extends NormalBiomeEntry {
     public void initFeatures(BiomeGenerationSettingsBuilder builder) {
         initDefaultFeatures(builder);
 
-        builder.withStructure(StructureFeatures.SWAMP_HUT)
-               .withStructure(StructureFeatures.PILLAGER_OUTPOST)
-               .withStructure(StructureFeatures.MINESHAFT)
-               .withStructure(StructureFeatures.RUINED_PORTAL_SWAMP);
+        builder.addStructureStart(StructureFeatures.SWAMP_HUT)
+               .addStructureStart(StructureFeatures.PILLAGER_OUTPOST)
+               .addStructureStart(StructureFeatures.MINESHAFT)
+               .addStructureStart(StructureFeatures.RUINED_PORTAL_SWAMP);
 
-        DefaultBiomeFeatures.withClayDisks(builder);
-        DefaultBiomeFeatures.withFossils(builder);
-        DefaultBiomeFeatures.withNormalMushroomGeneration(builder);
-        DefaultBiomeFeatures.withSwampSugarcaneAndPumpkin(builder);
-        DefaultBiomeFeatures.withLavaAndWaterSprings(builder);
-        DefaultBiomeFeatures.withDefaultFlowers(builder);
-        DefaultBiomeFeatures.withFrozenTopLayer(builder);
-        DefaultBiomeFeatures.withGiantTaigaGrassVegetation(builder);
-        DefaultBiomeFeatures.withLargeFern(builder);
+        BiomeDefaultFeatures.addSwampClayDisk(builder);
+        BiomeDefaultFeatures.addFossilDecoration(builder);
+        BiomeDefaultFeatures.addDefaultMushrooms(builder);
+        BiomeDefaultFeatures.addSwampExtraVegetation(builder);
+        BiomeDefaultFeatures.addDefaultSprings(builder);
+        BiomeDefaultFeatures.addDefaultFlowers(builder);
+        BiomeDefaultFeatures.addSurfaceFreezing(builder);
+        BiomeDefaultFeatures.addGiantTaigaVegetation(builder);
+        BiomeDefaultFeatures.addFerns(builder);
 
         ModDefaultFeatures.withArcticFlowers(builder);
         ModDefaultFeatures.withCaribouMoss(builder);

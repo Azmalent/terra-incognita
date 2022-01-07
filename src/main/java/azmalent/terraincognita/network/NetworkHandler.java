@@ -4,8 +4,8 @@ import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.network.message.s2c.S2CEditSignMessage;
 import azmalent.terraincognita.network.message.UpdateSignMessage;
 import azmalent.terraincognita.network.message.s2c.S2CSpawnParticleMessage;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.fml.network.NetworkDirection;
 import net.minecraftforge.fml.network.NetworkRegistry;
@@ -29,9 +29,9 @@ public class NetworkHandler {
         CHANNEL.sendToServer(message);
     }
 
-    public static void sendToPlayer(ServerPlayerEntity player, Object message) {
+    public static void sendToPlayer(ServerPlayer player, Object message) {
         if (!(player instanceof FakePlayer)) {
-            CHANNEL.sendTo(message, player.connection.netManager, NetworkDirection.PLAY_TO_CLIENT);
+            CHANNEL.sendTo(message, player.connection.connection, NetworkDirection.PLAY_TO_CLIENT);
         }
     }
 

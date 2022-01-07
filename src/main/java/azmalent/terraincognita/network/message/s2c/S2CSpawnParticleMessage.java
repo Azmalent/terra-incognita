@@ -1,11 +1,11 @@
 package azmalent.terraincognita.network.message.s2c;
 
 import azmalent.terraincognita.TerraIncognita;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.particles.BasicParticleType;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.World;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.fml.network.NetworkDirection;
 import net.minecraftforge.fml.network.NetworkEvent;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -17,11 +17,11 @@ public final class S2CSpawnParticleMessage {
     private final double xPos, yPos, zPos;
     private final double xSpeed, ySpeed, zSpeed;
 
-    public S2CSpawnParticleMessage(BasicParticleType type, Vector3d pos, Vector3d speed) {
+    public S2CSpawnParticleMessage(SimpleParticleType type, Vec3 pos, Vec3 speed) {
         this(type.getRegistryName(), pos.x, pos.y, pos.z, speed.x, speed.y, speed.z);
     }
 
-    public S2CSpawnParticleMessage(BasicParticleType type, double xPos, double yPos, double zPos, double xSpeed, double ySpeed, double zSpeed) {
+    public S2CSpawnParticleMessage(SimpleParticleType type, double xPos, double yPos, double zPos, double xSpeed, double ySpeed, double zSpeed) {
         this(type.getRegistryName(), xPos, yPos, zPos, xSpeed, ySpeed, zSpeed);
     }
 
@@ -35,7 +35,7 @@ public final class S2CSpawnParticleMessage {
         this.zSpeed = zSpeed;
     }
 
-    public static void encode(final S2CSpawnParticleMessage message, PacketBuffer buffer) {
+    public static void encode(final S2CSpawnParticleMessage message, FriendlyByteBuf buffer) {
         buffer.writeResourceLocation(message.name);
         buffer.writeDouble(message.xPos);
         buffer.writeDouble(message.yPos);
@@ -45,7 +45,7 @@ public final class S2CSpawnParticleMessage {
         buffer.writeDouble(message.zSpeed);
     }
 
-    public static S2CSpawnParticleMessage decode(PacketBuffer buffer) {
+    public static S2CSpawnParticleMessage decode(FriendlyByteBuf buffer) {
         ResourceLocation name = buffer.readResourceLocation();
         double posX = buffer.readDouble();
         double posY = buffer.readDouble();
@@ -61,8 +61,8 @@ public final class S2CSpawnParticleMessage {
         NetworkEvent.Context context = contextSupplier.get();
         if (context.getDirection() == NetworkDirection.PLAY_TO_CLIENT) {
             context.enqueueWork(() -> {
-                World world = TerraIncognita.PROXY.getClientWorld();
-                BasicParticleType type = (BasicParticleType) ForgeRegistries.PARTICLE_TYPES.getValue(message.name);
+                Level world = TerraIncognita.PROXY.getClientWorld();
+                SimpleParticleType type = (SimpleParticleType) ForgeRegistries.PARTICLE_TYPES.getValue(message.name);
                 if (type != null) {
                     world.addParticle(type, message.xPos, message.yPos, message.zPos, message.xSpeed, message.ySpeed, message.zSpeed);
                 }

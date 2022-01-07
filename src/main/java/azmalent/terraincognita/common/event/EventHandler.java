@@ -12,25 +12,25 @@ import azmalent.terraincognita.common.recipe.WreathRecipe;
 import azmalent.terraincognita.common.registry.*;
 import azmalent.terraincognita.common.world.ModConfiguredFeatures;
 import azmalent.terraincognita.util.InventoryUtil;
-import net.minecraft.block.Block;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.DyeItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.ICraftingRecipe;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.potion.EffectInstance;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.DyeItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.world.World;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.client.event.RecipesUpdatedEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.Tags;
@@ -93,16 +93,16 @@ public class EventHandler {
 
     //Build flower to dye map for the wreath recipe
     public static void onUpdateRecipes(RecipesUpdatedEvent event) {
-        for (ICraftingRecipe recipe : event.getRecipeManager().getRecipesForType(IRecipeType.CRAFTING)) {
+        for (CraftingRecipe recipe : event.getRecipeManager().getAllRecipesFor(RecipeType.CRAFTING)) {
             List<Ingredient> ingredients = recipe.getIngredients();
             if (ingredients.size() != 1) continue;
 
-            ItemStack[] matchingStacks = ingredients.get(0).getMatchingStacks();
+            ItemStack[] matchingStacks = ingredients.get(0).getItems();
             for (int i = 0, n = matchingStacks.length; i < n; i++) {
                 Item input = matchingStacks[i].getItem();
-                Item output = recipe.getRecipeOutput().getItem();
+                Item output = recipe.getResultItem().getItem();
 
-                if (input.isIn(ItemTags.SMALL_FLOWERS) && output.isIn(Tags.Items.DYES)) {
+                if (input.is(ItemTags.SMALL_FLOWERS) && output.is(Tags.Items.DYES)) {
                     WreathRecipe.FLOWER_TO_DYE_MAP.put(input, (DyeItem) output.getItem());
                 }
             }
@@ -111,11 +111,11 @@ public class EventHandler {
 
     //Eating speed adjustment
     public static void onPlayerUseItem(LivingEntityUseItemEvent.Start event) {
-        if (!(event.getEntity() instanceof PlayerEntity)) return;
+        if (!(event.getEntity() instanceof Player)) return;
 
-        PlayerEntity player = (PlayerEntity) event.getEntityLiving();
-        EffectInstance effect = player.getActivePotionEffect(ModEffects.STICKY_MOUTH.get());
-        if (effect != null && event.getItem().isFood()) {
+        Player player = (Player) event.getEntityLiving();
+        MobEffectInstance effect = player.getEffect(ModEffects.STICKY_MOUTH.get());
+        if (effect != null && event.getItem().isEdible()) {
             int multiplier = 2 << effect.getAmplifier();
             event.setDuration(event.getDuration() * multiplier);
         }
@@ -123,35 +123,35 @@ public class EventHandler {
 
     //Entity bottling
     public static void onPlayerInteract(PlayerInteractEvent.EntityInteractSpecific event) {
-        if (!(event.getTarget() instanceof LivingEntity) || event.getWorld().isRemote) {
+        if (!(event.getTarget() instanceof LivingEntity) || event.getWorld().isClientSide) {
             return;
         }
 
-        PlayerEntity player = event.getPlayer();
-        Hand hand = event.getHand();
-        ItemStack heldStack = player.getHeldItem(hand);
+        Player player = event.getPlayer();
+        InteractionHand hand = event.getHand();
+        ItemStack heldStack = player.getItemInHand(hand);
         LivingEntity living = (LivingEntity) event.getTarget();
 
         if (heldStack.getItem() == Items.GLASS_BOTTLE && living instanceof IBottleableEntity && living.isAlive()) {
-            World world = event.getWorld();
+            Level world = event.getWorld();
 
             heldStack.shrink(1);
 
             ItemStack bottle = new ItemStack(((IBottleableEntity) living).getBottledItem());
             if (living.hasCustomName()) {
-                bottle.setDisplayName(living.getCustomName());
+                bottle.setHoverName(living.getCustomName());
             }
 
             BottledEntityItem.setBottledEntity(bottle, living);
             living.remove();
-            world.playSound(player, event.getPos(), SoundEvents.ITEM_BOTTLE_FILL_DRAGONBREATH, SoundCategory.NEUTRAL, 1.0f, 1.0f);
-            player.addStat(Stats.ITEM_USED.get(Items.GLASS_BOTTLE));
+            world.playSound(player, event.getPos(), SoundEvents.BOTTLE_FILL_DRAGONBREATH, SoundSource.NEUTRAL, 1.0f, 1.0f);
+            player.awardStat(Stats.ITEM_USED.get(Items.GLASS_BOTTLE));
 
             InventoryUtil.giveStackToPlayer(player, bottle, hand);
-            player.swingArm(hand);
+            player.swing(hand);
 
             event.setCanceled(true);
-            event.setCancellationResult(ActionResultType.CONSUME);
+            event.setCancellationResult(InteractionResult.CONSUME);
         }
     }
 
@@ -163,10 +163,10 @@ public class EventHandler {
 
         ItemEntity itemEntity = event.getItem();
         ItemStack stack = itemEntity.getItem().copy();
-        PlayerEntity player = event.getPlayer();
+        Player player = event.getPlayer();
         ItemStack basket = BasketItem.getBasketInHand(player);
 
-        if (basket != null && !stack.isEmpty() && stack.getItem().isIn(ModItemTags.BASKET_STORABLE)) {
+        if (basket != null && !stack.isEmpty() && stack.getItem().is(ModItemTags.BASKET_STORABLE)) {
             BasketStackHandler stackHandler = BasketItem.getStackHandler(basket);
             ItemStack remainingStack = ItemHandlerHelper.insertItemStacked(stackHandler, stack, false);
 
@@ -176,14 +176,14 @@ public class EventHandler {
                 itemEntity.getItem().shrink(numPickedUp);
 
                 if (!itemEntity.isSilent()) {
-                    itemEntity.world.playSound(player, player.getPosX(), player.getPosY(), player.getPosZ(),
-                        SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2F,
-                        ((itemEntity.world.rand.nextFloat() - itemEntity.world.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F
+                    itemEntity.level.playSound(player, player.getX(), player.getY(), player.getZ(),
+                        SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, 0.2F,
+                        ((itemEntity.level.random.nextFloat() - itemEntity.level.random.nextFloat()) * 0.7F + 1.0F) * 2.0F
                     );
                 }
 
-                player.onItemPickup(itemEntity, numPickedUp);
-                player.openContainer.detectAndSendChanges();
+                player.take(itemEntity, numPickedUp);
+                player.containerMenu.broadcastChanges();
             }
         }
     }

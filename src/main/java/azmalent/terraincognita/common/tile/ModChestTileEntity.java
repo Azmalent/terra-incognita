@@ -1,12 +1,12 @@
 package azmalent.terraincognita.common.tile;
 
 import azmalent.terraincognita.common.registry.ModTileEntities;
-import net.minecraft.tileentity.ChestTileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.world.level.block.entity.ChestBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.phys.AABB;
 
-public class ModChestTileEntity extends ChestTileEntity {
-    protected ModChestTileEntity(TileEntityType type) {
+public class ModChestTileEntity extends ChestBlockEntity {
+    protected ModChestTileEntity(BlockEntityType type) {
         super(type);
     }
 
@@ -15,7 +15,7 @@ public class ModChestTileEntity extends ChestTileEntity {
     }
 
     @Override
-    public AxisAlignedBB getRenderBoundingBox() {
-        return new AxisAlignedBB(pos.getX() - 1, pos.getY(), pos.getZ() - 1, pos.getX() + 2, pos.getY() + 2, pos.getZ() + 2);
+    public AABB getRenderBoundingBox() {
+        return new AABB(worldPosition.getX() - 1, worldPosition.getY(), worldPosition.getZ() - 1, worldPosition.getX() + 2, worldPosition.getY() + 2, worldPosition.getZ() + 2);
     }
 }

@@ -3,14 +3,14 @@ package azmalent.terraincognita.client.event;
 import azmalent.terraincognita.common.registry.ModBlocks;
 import azmalent.terraincognita.common.registry.ModItems;
 import azmalent.terraincognita.common.registry.ModWoodTypes;
-import net.minecraft.block.BlockState;
-import net.minecraft.client.renderer.color.BlockColors;
-import net.minecraft.client.renderer.color.ItemColors;
-import net.minecraft.item.BlockItem;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.world.FoliageColors;
-import net.minecraft.world.GrassColors;
-import net.minecraft.world.biome.BiomeColors;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.client.color.block.BlockColors;
+import net.minecraft.client.color.item.ItemColors;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.FoliageColor;
+import net.minecraft.world.level.GrassColor;
+import net.minecraft.client.renderer.BiomeColors;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ColorHandlerEvent;
@@ -35,17 +35,17 @@ public class ColorHandler {
         );
 
         colors.register((state, reader, pos, color) ->
-            reader != null && pos != null ? BiomeColors.getGrassColor(reader, pos) : -1,
+            reader != null && pos != null ? BiomeColors.getAverageGrassColor(reader, pos) : -1,
             ModBlocks.REEDS.getBlock(), ModBlocks.REEDS.getPotted()
         );
 
         colors.register((state, reader, pos, color) -> MOSS_COLOR, ModBlocks.HANGING_MOSS.getBlock());
 
-        colors.register((state, reader, pos, color) -> reader != null && pos != null ? BiomeColors.getFoliageColor(reader, pos) : FoliageColors.get(0.5D, 1.0D),
+        colors.register((state, reader, pos, color) -> reader != null && pos != null ? BiomeColors.getAverageFoliageColor(reader, pos) : FoliageColor.get(0.5D, 1.0D),
             ModWoodTypes.APPLE.LEAVES.getBlock(), ModWoodTypes.APPLE.BLOSSOMING_LEAVES.getBlock(), ModWoodTypes.HAZEL.LEAVES.getBlock()
         );
 
-        colors.register((state, reader, pos, color) -> reader != null && pos != null ? BiomeColors.getGrassColor(reader, pos) : GrassColors.get(0.5D, 1.0D),
+        colors.register((state, reader, pos, color) -> reader != null && pos != null ? BiomeColors.getAverageGrassColor(reader, pos) : GrassColor.get(0.5D, 1.0D),
             ModBlocks.FLOWERING_GRASS.getBlock()
         );
     }
@@ -62,9 +62,9 @@ public class ColorHandler {
         colors.register((stack, index) -> index > 0 ? -1 : ModItems.WREATH.get().getColor(stack), ModItems.WREATH.get());
     }
 
-    public static void registerDefaultItemColors(ItemColors colors, BlockColors blockColors, IItemProvider... items) {
+    public static void registerDefaultItemColors(ItemColors colors, BlockColors blockColors, ItemLike... items) {
         colors.register((stack, index) -> {
-            BlockState blockstate = ((BlockItem) stack.getItem()).getBlock().getDefaultState();
+            BlockState blockstate = ((BlockItem) stack.getItem()).getBlock().defaultBlockState();
             return blockColors.getColor(blockstate, null, null, index);
         }, items );
     }

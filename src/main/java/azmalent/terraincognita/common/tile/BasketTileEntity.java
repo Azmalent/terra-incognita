@@ -6,30 +6,30 @@ import azmalent.terraincognita.common.registry.ModTileEntities;
 import azmalent.terraincognita.common.inventory.BasketContainer;
 import azmalent.terraincognita.common.inventory.BasketStackHandler;
 import azmalent.terraincognita.common.item.block.BasketItem;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.inventory.ItemStackHelper;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.WorldlyContainer;
+import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.core.Direction;
+import net.minecraft.core.NonNullList;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.common.util.Constants;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.stream.IntStream;
 
-public class BasketTileEntity extends TileEntity implements INamedContainerProvider, ISidedInventory {
+public class BasketTileEntity extends BlockEntity implements MenuProvider, WorldlyContainer {
     private static final int[] SLOTS = IntStream.range(0, BasketContainer.SIZE).toArray();
 
-    private ITextComponent customName = null;
+    private Component customName = null;
     private BasketStackHandler stackHandler = null;
 
     public BasketTileEntity() {
@@ -46,8 +46,8 @@ public class BasketTileEntity extends TileEntity implements INamedContainerProvi
                 }
             }
 
-            if (stack.hasDisplayName()) {
-                setCustomName(stack.getDisplayName());
+            if (stack.hasCustomHoverName()) {
+                setCustomName(stack.getHoverName());
             }
         }
     }
@@ -60,7 +60,7 @@ public class BasketTileEntity extends TileEntity implements INamedContainerProvi
         }
 
         if (customName != null) {
-            stack.setDisplayName(customName);
+            stack.setHoverName(customName);
         }
 
         return stack;
@@ -68,8 +68,8 @@ public class BasketTileEntity extends TileEntity implements INamedContainerProvi
 
     @Nonnull
     @Override
-    public CompoundNBT write(CompoundNBT tag) {
-        super.write(tag);
+    public CompoundTag save(CompoundTag tag) {
+        super.save(tag);
         if (stackHandler != null) {
             NonNullList<ItemStack> itemList = NonNullList.withSize(BasketContainer.SIZE, ItemStack.EMPTY);
             for (int i = 0; i < BasketContainer.SIZE; i++) {
@@ -77,69 +77,69 @@ public class BasketTileEntity extends TileEntity implements INamedContainerProvi
                 itemList.set(i, stack);
             }
 
-            ItemStackHelper.saveAllItems(tag, itemList, false);
+            ContainerHelper.saveAllItems(tag, itemList, false);
         }
 
         if (customName != null) {
             if (!tag.contains("display", Constants.NBT.TAG_COMPOUND)) {
-                tag.put("display", new CompoundNBT());
+                tag.put("display", new CompoundTag());
             }
 
-            CompoundNBT display = tag.getCompound("display");
-            display.putString("Name", ITextComponent.Serializer.toJson(customName));
+            CompoundTag display = tag.getCompound("display");
+            display.putString("Name", Component.Serializer.toJson(customName));
         }
 
         return tag;
     }
 
     @Override
-    public void read(BlockState state, CompoundNBT tag) {
-        super.read(state, tag);
+    public void load(BlockState state, CompoundTag tag) {
+        super.load(state, tag);
 
         stackHandler = new BasketStackHandler();
         if (tag.contains("Items", Constants.NBT.TAG_LIST)) {
             NonNullList<ItemStack> items = NonNullList.withSize(BasketContainer.SIZE, ItemStack.EMPTY);
-            ItemStackHelper.loadAllItems(tag, items);
+            ContainerHelper.loadAllItems(tag, items);
 
             stackHandler.setContents(items);
         }
 
         if (tag.contains("display", Constants.NBT.TAG_COMPOUND)) {
-            CompoundNBT display = tag.getCompound("display");
+            CompoundTag display = tag.getCompound("display");
             if (display.contains("Name", Constants.NBT.TAG_STRING)) {
                 String name = display.getString("Name");
-                setCustomName(ITextComponent.Serializer.getComponentFromJson(name));
+                setCustomName(Component.Serializer.fromJson(name));
             }
         }
     }
 
     @Override
-    public boolean isUsableByPlayer(@Nonnull PlayerEntity player) {
-        if (world.getTileEntity(pos) != this) return false;
+    public boolean stillValid(@Nonnull Player player) {
+        if (level.getBlockEntity(worldPosition) != this) return false;
 
         final double MAXIMUM_DISTANCE_SQ = 8.0 * 8.0;
-        return player.getDistanceSq(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5) < MAXIMUM_DISTANCE_SQ;
+        return player.distanceToSqr(worldPosition.getX() + 0.5, worldPosition.getY() + 0.5, worldPosition.getZ() + 0.5) < MAXIMUM_DISTANCE_SQ;
     }
 
     @Nonnull
     @Override
-    public ITextComponent getDisplayName() {
-        return customName != null ? customName : new TranslationTextComponent(ModBlocks.BASKET.getBlock().getTranslationKey());
+    public Component getDisplayName() {
+        return customName != null ? customName : new TranslatableComponent(ModBlocks.BASKET.getBlock().getDescriptionId());
     }
 
     @Nullable
     @Override
-    public Container createMenu(int i, @Nonnull PlayerInventory playerInventory, @Nonnull PlayerEntity playerEntity) {
-        return new BasketContainer(i, playerInventory, stackHandler, this.world, this.pos);
+    public AbstractContainerMenu createMenu(int i, @Nonnull Inventory playerInventory, @Nonnull Player playerEntity) {
+        return new BasketContainer(i, playerInventory, stackHandler, this.level, this.worldPosition);
     }
 
-    public void setCustomName(ITextComponent customName) {
+    public void setCustomName(Component customName) {
         this.customName = customName;
     }
 
     //IInventory implementation
     @Override
-    public int getSizeInventory() {
+    public int getContainerSize() {
         return stackHandler.getSlots();
     }
 
@@ -150,30 +150,30 @@ public class BasketTileEntity extends TileEntity implements INamedContainerProvi
 
     @Nonnull
     @Override
-    public ItemStack getStackInSlot(int i) {
+    public ItemStack getItem(int i) {
         return stackHandler.getStackInSlot(i);
     }
 
     @Nonnull
     @Override
-    public ItemStack decrStackSize(int i, int amount) {
+    public ItemStack removeItem(int i, int amount) {
         return stackHandler.extractItem(i, amount, false);
     }
 
     @Nonnull
     @Override
-    public ItemStack removeStackFromSlot(int i) {
+    public ItemStack removeItemNoUpdate(int i) {
         int limit = stackHandler.getSlotLimit(i);
         return stackHandler.extractItem(i, limit, false);
     }
 
     @Override
-    public void setInventorySlotContents(int i, @Nonnull ItemStack itemStack) {
+    public void setItem(int i, @Nonnull ItemStack itemStack) {
         stackHandler.setStackInSlot(i, itemStack);
     }
 
     @Override
-    public void clear() {
+    public void clearContent() {
         for (int i = 0; i < stackHandler.getSlots(); i++) {
             stackHandler.setStackInSlot(i, ItemStack.EMPTY);
         }
@@ -187,12 +187,12 @@ public class BasketTileEntity extends TileEntity implements INamedContainerProvi
     }
 
     @Override
-    public boolean canInsertItem(int index, ItemStack itemStackIn, @Nullable Direction direction) {
-        return itemStackIn.getItem().isIn(ModItemTags.BASKET_STORABLE);
+    public boolean canPlaceItemThroughFace(int index, ItemStack itemStackIn, @Nullable Direction direction) {
+        return itemStackIn.getItem().is(ModItemTags.BASKET_STORABLE);
     }
 
     @Override
-    public boolean canExtractItem(int index, @Nonnull ItemStack stack, @Nonnull Direction direction) {
+    public boolean canTakeItemThroughFace(int index, @Nonnull ItemStack stack, @Nonnull Direction direction) {
         return true;
     }
 }

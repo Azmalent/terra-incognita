@@ -1,10 +1,10 @@
 package azmalent.terraincognita.common.entity.butterfly.ai;
 
 import azmalent.terraincognita.common.entity.butterfly.AbstractButterflyEntity;
-import net.minecraft.entity.ai.RandomPositionGenerator;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.entity.ai.util.RandomPos;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -13,39 +13,39 @@ public class ButterflyWanderGoal extends Goal {
     private final AbstractButterflyEntity butterfly;
 
     public ButterflyWanderGoal(AbstractButterflyEntity butterfly) {
-        setMutexFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.JUMP));
+        setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.JUMP));
         this.butterfly = butterfly;
     }
 
     @Override
-    public boolean shouldExecute() {
-        return !butterfly.isLanded() && butterfly.getNavigator().noPath() && butterfly.getRNG().nextInt(5) == 0;
+    public boolean canUse() {
+        return !butterfly.isLanded() && butterfly.getNavigation().isDone() && butterfly.getRandom().nextInt(5) == 0;
     }
 
     @Override
-    public boolean shouldContinueExecuting() {
-        return butterfly.getNavigator().hasPath();
+    public boolean canContinueToUse() {
+        return butterfly.getNavigation().isInProgress();
     }
 
-    public void startExecuting() {
-        Vector3d randomLocation = getRandomLocation();
+    public void start() {
+        Vec3 randomLocation = getRandomLocation();
         if (randomLocation != null) {
-            butterfly.getNavigator().setPath(butterfly.getNavigator().getPathToPos(new BlockPos(randomLocation), 1), 1.0D);
+            butterfly.getNavigation().moveTo(butterfly.getNavigation().createPath(new BlockPos(randomLocation), 1), 1.0D);
         }
     }
 
     @Nullable
-    private Vector3d getRandomLocation() {
-        BlockPos home = butterfly.getHomePosition();
+    private Vec3 getRandomLocation() {
+        BlockPos home = butterfly.getRestrictCenter();
 
-        Vector3d direction;
-        if (!butterfly.isWithinHomeDistanceFromPosition(home)) {
-            direction = Vector3d.copyCentered(home).subtract(butterfly.getPositionVec()).normalize();
+        Vec3 direction;
+        if (!butterfly.isWithinRestriction(home)) {
+            direction = Vec3.atCenterOf(home).subtract(butterfly.position()).normalize();
         } else {
-            direction = butterfly.getLook(0.0F);
+            direction = butterfly.getViewVector(0.0F);
         }
 
-        Vector3d airTarget = RandomPositionGenerator.findAirTarget(butterfly, 8, 7, direction, (float) Math.PI / 2F, 2, 1);
-        return airTarget != null ? airTarget : RandomPositionGenerator.findGroundTarget(butterfly, 8, 4, -2, direction, (float) Math.PI / 2F);
+        Vec3 airTarget = RandomPos.getAboveLandPos(butterfly, 8, 7, direction, (float) Math.PI / 2F, 2, 1);
+        return airTarget != null ? airTarget : RandomPos.getAirPos(butterfly, 8, 4, -2, direction, (float) Math.PI / 2F);
     }
 }

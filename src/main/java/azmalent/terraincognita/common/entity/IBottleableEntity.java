@@ -1,6 +1,6 @@
 package azmalent.terraincognita.common.entity;
 
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
 
 public interface IBottleableEntity {
     Item getBottledItem();

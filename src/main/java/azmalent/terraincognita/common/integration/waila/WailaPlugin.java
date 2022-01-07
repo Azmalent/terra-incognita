@@ -2,7 +2,7 @@ package azmalent.terraincognita.common.integration.waila;
 
 import azmalent.terraincognita.common.entity.butterfly.ButterflyEntity;
 import mcp.mobius.waila.api.*;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.network.chat.Component;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ public class WailaPlugin implements IWailaPlugin {
 
     private static class ButterflyProvider implements IEntityComponentProvider {
         @Override
-        public void appendBody(List<ITextComponent> tooltip, IEntityAccessor accessor, IPluginConfig config) {
+        public void appendBody(List<Component> tooltip, IEntityAccessor accessor, IPluginConfig config) {
             ButterflyEntity butterfly = (ButterflyEntity) accessor.getEntity();
             tooltip.add(butterfly.getTypeDisplayName());
         }

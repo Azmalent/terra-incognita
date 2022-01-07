@@ -1,61 +1,63 @@
 package azmalent.terraincognita.common.block.plants;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.LilyPadBlock;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.state.IntegerProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.WaterlilyBlock;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.level.BlockGetter;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class SmallLilypadBlock extends LilyPadBlock {
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+
+public class SmallLilypadBlock extends WaterlilyBlock {
     public static final IntegerProperty LILYPADS = IntegerProperty.create("lilypads", 1, 4);
 
-    private static final VoxelShape SINGLE_LILYPAD_SHAPE = makeCuboidShape(4, 0, 4, 12, 1.5, 12);
-    private static final VoxelShape TWO_LILYPAD_SHAPE = makeCuboidShape(2, 0, 2, 14, 1.5, 14);
-    private static final VoxelShape MULTIPLE_LILYPAD_SHAPE = makeCuboidShape(1, 0, 1, 15, 1.5, 15);
+    private static final VoxelShape SINGLE_LILYPAD_SHAPE = box(4, 0, 4, 12, 1.5, 12);
+    private static final VoxelShape TWO_LILYPAD_SHAPE = box(2, 0, 2, 14, 1.5, 14);
+    private static final VoxelShape MULTIPLE_LILYPAD_SHAPE = box(1, 0, 1, 15, 1.5, 15);
 
     public SmallLilypadBlock() {
-        super(Properties.from(Blocks.LILY_PAD));
-        setDefaultState(getStateContainer().getBaseState().with(LILYPADS, 1));
+        super(Properties.copy(Blocks.LILY_PAD));
+        registerDefaultState(getStateDefinition().any().setValue(LILYPADS, 1));
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(LILYPADS);
     }
 
     @Nonnull
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader reader, BlockPos blockPos, ISelectionContext context) {
-        int n = state.get(LILYPADS);
+    public VoxelShape getShape(BlockState state, BlockGetter reader, BlockPos blockPos, CollisionContext context) {
+        int n = state.getValue(LILYPADS);
        	return n == 1 ? SINGLE_LILYPAD_SHAPE : (n == 2 ? TWO_LILYPAD_SHAPE : MULTIPLE_LILYPAD_SHAPE);
     }
 
     @Nullable
     @Override
-    public BlockState getStateForPlacement(BlockItemUseContext context) {
-        BlockState blockstate = context.getWorld().getBlockState(context.getPos());
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        BlockState blockstate = context.getLevel().getBlockState(context.getClickedPos());
         if (blockstate.getBlock() == this) {
-            return blockstate.with(LILYPADS, Math.min(4, blockstate.get(LILYPADS) + 1));
+            return blockstate.setValue(LILYPADS, Math.min(4, blockstate.getValue(LILYPADS) + 1));
         }
 
         return super.getStateForPlacement(context);
     }
 
     @Override
-    public boolean isReplaceable(BlockState state, BlockItemUseContext useContext) {
-        if (useContext.getItem().getItem() == this.asItem() && state.get(LILYPADS) < 4) {
+    public boolean canBeReplaced(BlockState state, BlockPlaceContext useContext) {
+        if (useContext.getItemInHand().getItem() == this.asItem() && state.getValue(LILYPADS) < 4) {
             return true;
         }
 
-        return super.isReplaceable(state, useContext);
+        return super.canBeReplaced(state, useContext);
     }
 }

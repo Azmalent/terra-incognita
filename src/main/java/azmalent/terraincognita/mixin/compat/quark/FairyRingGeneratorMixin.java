@@ -2,14 +2,14 @@ package azmalent.terraincognita.mixin.compat.quark;
 
 import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.common.registry.ModBlocks;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.material.Material;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.WorldGenRegion;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraft.server.level.WorldGenRegion;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -31,13 +31,13 @@ public class FairyRingGeneratorMixin {
 
         Biome biome = worldIn.getBiomeManager().getBiome(center);
 
-        Biome.Category category = biome.getCategory();
+        Biome.BiomeCategory category = biome.getBiomeCategory();
         double chance = 0;
-        if(category == Biome.Category.FOREST) {
+        if(category == Biome.BiomeCategory.FOREST) {
             chance = FairyRingsModule.forestChance;
-        } else if(category == Biome.Category.PLAINS) {
+        } else if(category == Biome.BiomeCategory.PLAINS) {
             chance = FairyRingsModule.plainsChance;
-        } else if (category == Biome.Category.SAVANNA) {
+        } else if (category == Biome.BiomeCategory.SAVANNA) {
             chance = TIConfig.Integration.Quark.savannaFairyRingChance.get();
         }
 
@@ -45,24 +45,24 @@ public class FairyRingGeneratorMixin {
             BlockPos pos = center;
             BlockState state = worldIn.getBlockState(pos);
 
-            while(state.getMaterial() != Material.ORGANIC && pos.getY() > 30) {
-                pos = pos.down();
+            while(state.getMaterial() != Material.GRASS && pos.getY() > 30) {
+                pos = pos.below();
                 state = worldIn.getBlockState(pos);
             }
 
-            if(state.getMaterial() == Material.ORGANIC)
-                FairyRingGenerator.spawnFairyRing(worldIn, pos.down(), rand);
+            if(state.getMaterial() == Material.GRASS)
+                FairyRingGenerator.spawnFairyRing(worldIn, pos.below(), rand);
         }
 
         ci.cancel();
     }
 
     @Redirect(method = "spawnFairyRing", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/Block;getDefaultState()Lnet/minecraft/block/BlockState;"))
-    private static BlockState selectFlower(Block self, IWorld world, BlockPos pos, Random rand) {
-        if (world.getBiome(pos).getCategory() == Biome.Category.SAVANNA && TIConfig.Flora.savannaFlowers.get()) {
-            return ModBlocks.MARIGOLD.getBlock().getDefaultState();
+    private static BlockState selectFlower(Block self, LevelAccessor world, BlockPos pos, Random rand) {
+        if (world.getBiome(pos).getBiomeCategory() == Biome.BiomeCategory.SAVANNA && TIConfig.Flora.savannaFlowers.get()) {
+            return ModBlocks.MARIGOLD.getBlock().defaultBlockState();
         }
 
-        return self.getDefaultState();
+        return self.defaultBlockState();
     }
 }

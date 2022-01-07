@@ -3,20 +3,26 @@ package azmalent.terraincognita.common.recipe;
 import azmalent.terraincognita.common.registry.ModItems;
 import azmalent.terraincognita.common.registry.ModRecipes;
 import com.google.common.collect.Maps;
-import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.item.*;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.SpecialRecipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class WreathRecipe extends SpecialRecipe {
+import net.minecraft.world.item.DyeItem;
+import net.minecraft.world.item.DyeableLeatherItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+
+public class WreathRecipe extends CustomRecipe {
     public static final Map<Item, DyeItem> FLOWER_TO_DYE_MAP = Maps.newHashMap();
     private static final ItemStack DUMMY = new ItemStack(ModItems.WREATH.get());
 
@@ -25,12 +31,12 @@ public class WreathRecipe extends SpecialRecipe {
     }
 
     @Override
-    public boolean matches(CraftingInventory inv, @Nonnull World worldIn) {
+    public boolean matches(CraftingContainer inv, @Nonnull Level worldIn) {
         int numFlowers = 0;
 
-        for (int i = 0; i < inv.getSizeInventory(); i++) {
-            ItemStack stack = inv.getStackInSlot(i);
-            if (stack.getItem().isIn(ItemTags.SMALL_FLOWERS)) numFlowers++;
+        for (int i = 0; i < inv.getContainerSize(); i++) {
+            ItemStack stack = inv.getItem(i);
+            if (stack.getItem().is(ItemTags.SMALL_FLOWERS)) numFlowers++;
             else if (!stack.isEmpty()) return false;
         }
 
@@ -38,10 +44,10 @@ public class WreathRecipe extends SpecialRecipe {
             for (int row = 0; row < inv.getHeight() - 1; row++) {
                 for (int col = 0; col < inv.getWidth() - 1; col++) {
                     int i = row * inv.getWidth() + col;
-                    if (!inv.getStackInSlot(i).isEmpty()) {
-                        return !inv.getStackInSlot(i + 1).isEmpty() &&
-                            !inv.getStackInSlot(i + inv.getWidth()).isEmpty() &&
-                            !inv.getStackInSlot(i + inv.getWidth() + 1).isEmpty();
+                    if (!inv.getItem(i).isEmpty()) {
+                        return !inv.getItem(i + 1).isEmpty() &&
+                            !inv.getItem(i + inv.getWidth()).isEmpty() &&
+                            !inv.getItem(i + inv.getWidth() + 1).isEmpty();
                     }
                 }
             }
@@ -52,33 +58,33 @@ public class WreathRecipe extends SpecialRecipe {
 
     @Nonnull
     @Override
-    public ItemStack getCraftingResult(CraftingInventory inv) {
+    public ItemStack assemble(CraftingContainer inv) {
         List<DyeItem> dyes = new ArrayList<>();
-        for (int i = 0; i < inv.getSizeInventory(); i++) {
-            if (!inv.getStackInSlot(i).isEmpty()) {
-                DyeItem dye = FLOWER_TO_DYE_MAP.getOrDefault(inv.getStackInSlot(i).getItem(), (DyeItem) Items.WHITE_DYE);
+        for (int i = 0; i < inv.getContainerSize(); i++) {
+            if (!inv.getItem(i).isEmpty()) {
+                DyeItem dye = FLOWER_TO_DYE_MAP.getOrDefault(inv.getItem(i).getItem(), (DyeItem) Items.WHITE_DYE);
                 dyes.add(dye);
             }
         }
 
         ItemStack output = new ItemStack(ModItems.WREATH.get());
-        return IDyeableArmorItem.dyeItem(output, dyes);
+        return DyeableLeatherItem.dyeArmor(output, dyes);
     }
 
     @Override
-    public boolean canFit(int width, int height) {
+    public boolean canCraftInDimensions(int width, int height) {
         return width >= 2 && height >= 2;
     }
 
     @Nonnull
     @Override
-    public ItemStack getRecipeOutput() {
+    public ItemStack getResultItem() {
         return DUMMY;
     }
 
     @Nonnull
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<?> getSerializer() {
         return ModRecipes.WREATH.get();
     }
 }

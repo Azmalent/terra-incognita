@@ -3,85 +3,92 @@ package azmalent.terraincognita.common.block.plants;
 import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.common.registry.ModBlocks;
 import net.minecraft.block.*;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.material.MaterialColor;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.IWorldReader;
+import net.minecraft.core.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class ReedsBlock extends SugarCaneBlock implements IWaterLoggable {
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.SugarCaneBlock;
+import net.minecraft.world.level.block.state.BlockState;
+
+public class ReedsBlock extends SugarCaneBlock implements SimpleWaterloggedBlock {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     public ReedsBlock() {
-        super(Block.Properties.create(Material.PLANTS, MaterialColor.WOOD)
-                .doesNotBlockMovement()
-                .tickRandomly()
-                .zeroHardnessAndResistance()
-                .sound(SoundType.PLANT));
+        super(Block.Properties.of(Material.PLANT, MaterialColor.WOOD)
+                .noCollission()
+                .randomTicks()
+                .instabreak()
+                .sound(SoundType.GRASS));
 
-        setDefaultState(stateContainer.getBaseState().with(AGE, 0).with(WATERLOGGED, false));
+        registerDefaultState(stateDefinition.any().setValue(AGE, 0).setValue(WATERLOGGED, false));
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        super.fillStateContainer(builder);
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        super.createBlockStateDefinition(builder);
         builder.add(WATERLOGGED);
     }
 
     @Override
     @Nullable
-    public BlockState getStateForPlacement(BlockItemUseContext context) {
-        FluidState fluidState = context.getWorld().getFluidState(context.getPos());
-        boolean waterlogged = fluidState.getFluid() == Fluids.WATER;
-        return super.getStateForPlacement(context).with(WATERLOGGED, waterlogged);
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
+        boolean waterlogged = fluidState.getType() == Fluids.WATER;
+        return super.getStateForPlacement(context).setValue(WATERLOGGED, waterlogged);
     }
 
     @Nonnull
     public FluidState getFluidState(BlockState state) {
-        return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
+        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
     @Nonnull
     @Override
-    public BlockState updatePostPlacement(BlockState stateIn, @Nonnull Direction facing, @Nonnull BlockState facingState, @Nonnull IWorld worldIn, @Nonnull BlockPos currentPos, @Nonnull BlockPos facingPos) {
-        if (stateIn.get(WATERLOGGED)) {
-            worldIn.getPendingFluidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickRate(worldIn));
+    public BlockState updateShape(BlockState stateIn, @Nonnull Direction facing, @Nonnull BlockState facingState, @Nonnull LevelAccessor worldIn, @Nonnull BlockPos currentPos, @Nonnull BlockPos facingPos) {
+        if (stateIn.getValue(WATERLOGGED)) {
+            worldIn.getLiquidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(worldIn));
         }
 
-        return super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
+        return super.updateShape(stateIn, facing, facingState, worldIn, currentPos, facingPos);
     }
 
     @Override
-    public boolean isValidPosition(BlockState state, IWorldReader world, BlockPos pos) {
-        BlockPos up = pos.up();
-        if (world.getFluidState(up).isTagged(FluidTags.WATER) || world.getBlockState(up).isIn(Blocks.FROSTED_ICE)) {
+    public boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
+        BlockPos up = pos.above();
+        if (world.getFluidState(up).is(FluidTags.WATER) || world.getBlockState(up).is(Blocks.FROSTED_ICE)) {
             return false;
         }
 
-        BlockPos down = pos.down();
+        BlockPos down = pos.below();
         BlockState soil = world.getBlockState(down);
         if (soil.getBlock() == this || soil.canSustainPlant(world, down, Direction.UP, this)) return true;
 
-        if (soil.isIn(Blocks.GRASS_BLOCK) || soil.isIn(Blocks.DIRT) || soil.isIn(Blocks.COARSE_DIRT) || soil.isIn(Blocks.PODZOL) || soil.isIn(Blocks.SAND) || soil.isIn(Blocks.RED_SAND) || TIConfig.Misc.peat.get() && soil.isIn(ModBlocks.PEAT.getBlock())) {
-            if (state.get(WATERLOGGED)) {
+        if (soil.is(Blocks.GRASS_BLOCK) || soil.is(Blocks.DIRT) || soil.is(Blocks.COARSE_DIRT) || soil.is(Blocks.PODZOL) || soil.is(Blocks.SAND) || soil.is(Blocks.RED_SAND) || TIConfig.Misc.peat.get() && soil.is(ModBlocks.PEAT.getBlock())) {
+            if (state.getValue(WATERLOGGED)) {
                 return true;
             }
 
             for(Direction direction : Direction.Plane.HORIZONTAL) {
-                BlockState neighbor = world.getBlockState(down.offset(direction));
-                FluidState fluidState = world.getFluidState(down.offset(direction));
-                if (fluidState.isTagged(FluidTags.WATER) || neighbor.isIn(Blocks.FROSTED_ICE)) {
+                BlockState neighbor = world.getBlockState(down.relative(direction));
+                FluidState fluidState = world.getFluidState(down.relative(direction));
+                if (fluidState.is(FluidTags.WATER) || neighbor.is(Blocks.FROSTED_ICE)) {
                     return true;
                 }
             }

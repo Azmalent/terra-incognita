@@ -2,104 +2,110 @@ package azmalent.terraincognita.common.block.plants;
 
 import azmalent.terraincognita.common.registry.ModItems;
 import net.minecraft.block.*;
-import net.minecraft.block.material.Material;
+import net.minecraft.world.level.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.BoatEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.item.LilyPadItem;
-import net.minecraft.state.IntegerProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.common.ForgeHooks;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
 
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.WaterlilyBlock;
+import net.minecraft.world.level.block.state.BlockState;
+
 @SuppressWarnings("deprecation")
-public class SourBerryBushBlock extends LilyPadBlock implements IGrowable {
-    public static final IntegerProperty AGE = BlockStateProperties.AGE_0_3;
+public class SourBerryBushBlock extends WaterlilyBlock implements BonemealableBlock {
+    public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
 
     public SourBerryBushBlock() {
-        super(Block.Properties.create(Material.PLANTS).sound(SoundType.SWEET_BERRY_BUSH).doesNotBlockMovement().zeroHardnessAndResistance());
-        setDefaultState(stateContainer.getBaseState().with(AGE, 0));
+        super(Block.Properties.of(Material.PLANT).sound(SoundType.SWEET_BERRY_BUSH).noCollission().instabreak());
+        registerDefaultState(stateDefinition.any().setValue(AGE, 0));
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        super.fillStateContainer(builder);
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        super.createBlockStateDefinition(builder);
         builder.add(AGE);
     }
 
     @Override
-    public boolean ticksRandomly(BlockState state) {
-        return state.get(AGE) < 3;
+    public boolean isRandomlyTicking(BlockState state) {
+        return state.getValue(AGE) < 3;
     }
 
     @Override
-    public void randomTick(BlockState state, @Nonnull ServerWorld worldIn, @Nonnull BlockPos pos, @Nonnull Random random) {
-        int i = state.get(AGE);
-        if (i < 3 && worldIn.getLightSubtracted(pos.up(), 0) >= 9 && ForgeHooks.onCropsGrowPre(worldIn, pos, state,random.nextInt(5) == 0)) {
-            worldIn.setBlockState(pos, state.with(AGE, i + 1), 2);
+    public void randomTick(BlockState state, @Nonnull ServerLevel worldIn, @Nonnull BlockPos pos, @Nonnull Random random) {
+        int i = state.getValue(AGE);
+        if (i < 3 && worldIn.getRawBrightness(pos.above(), 0) >= 9 && ForgeHooks.onCropsGrowPre(worldIn, pos, state,random.nextInt(5) == 0)) {
+            worldIn.setBlock(pos, state.setValue(AGE, i + 1), 2);
             ForgeHooks.onCropsGrowPost(worldIn, pos, state);
         }
     }
 
     @Nonnull
     @Override
-    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-        int age = state.get(AGE);
-        if (age < 3 && player.getHeldItem(handIn).getItem() == Items.BONE_MEAL) {
-            return ActionResultType.PASS;
+    public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
+        int age = state.getValue(AGE);
+        if (age < 3 && player.getItemInHand(handIn).getItem() == Items.BONE_MEAL) {
+            return InteractionResult.PASS;
         }
 
         if (age > 1) {
-            int amount = 1 + worldIn.rand.nextInt(2) + (age == 3 ? 1 : 0);
-            spawnAsEntity(worldIn, pos, new ItemStack(ModItems.SOUR_BERRIES.get(), amount));
-            worldIn.playSound(null, pos, SoundEvents.ITEM_SWEET_BERRIES_PICK_FROM_BUSH, SoundCategory.BLOCKS, 1.0F, 0.8F + worldIn.rand.nextFloat() * 0.4F);
-            worldIn.setBlockState(pos, state.with(AGE, 1), 2);
-            return ActionResultType.func_233537_a_(worldIn.isRemote);
+            int amount = 1 + worldIn.random.nextInt(2) + (age == 3 ? 1 : 0);
+            popResource(worldIn, pos, new ItemStack(ModItems.SOUR_BERRIES.get(), amount));
+            worldIn.playSound(null, pos, SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES, SoundSource.BLOCKS, 1.0F, 0.8F + worldIn.random.nextFloat() * 0.4F);
+            worldIn.setBlock(pos, state.setValue(AGE, 1), 2);
+            return InteractionResult.sidedSuccess(worldIn.isClientSide);
         }
 
-        return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
+        return super.use(state, worldIn, pos, player, handIn, hit);
     }
 
     @Nonnull
     @Override
-    public ItemStack getItem(IBlockReader worldIn, BlockPos pos, BlockState state) {
+    public ItemStack getCloneItemStack(BlockGetter worldIn, BlockPos pos, BlockState state) {
         return new ItemStack(ModItems.SOUR_BERRIES.get());
     }
 
     //IGrowable implementation
     @Override
-    public boolean canGrow(@Nonnull IBlockReader worldIn, @Nonnull BlockPos pos, BlockState state, boolean isClient) {
-        return state.get(AGE) < 3;
+    public boolean isValidBonemealTarget(@Nonnull BlockGetter worldIn, @Nonnull BlockPos pos, BlockState state, boolean isClient) {
+        return state.getValue(AGE) < 3;
     }
 
     @Override
-    public boolean canUseBonemeal(@Nonnull World worldIn, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull BlockState state) {
+    public boolean isBonemealSuccess(@Nonnull Level worldIn, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull BlockState state) {
         return true;
     }
 
     @Override
-    public void grow(ServerWorld worldIn, @Nonnull Random rand, @Nonnull BlockPos pos, BlockState state) {
-        int age = Math.min(3, state.get(AGE) + 1);
-        worldIn.setBlockState(pos, state.with(AGE, age), 2);
+    public void performBonemeal(ServerLevel worldIn, @Nonnull Random rand, @Nonnull BlockPos pos, BlockState state) {
+        int age = Math.min(3, state.getValue(AGE) + 1);
+        worldIn.setBlock(pos, state.setValue(AGE, age), 2);
     }
 }

@@ -2,9 +2,9 @@ package azmalent.terraincognita.client.event;
 
 import azmalent.terraincognita.client.gui.BasketContainerScreen;
 import azmalent.terraincognita.common.registry.*;
-import net.minecraft.client.gui.ScreenManager;
-import net.minecraft.client.renderer.Atlases;
-import net.minecraft.state.properties.ChestType;
+import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.Sheets;
+import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -31,7 +31,7 @@ public class ClientEventHandler {
         event.enqueueWork(ModBlocks.HELPER::initRenderTypes);
         event.enqueueWork(ModItems::registerPropertyOverrides);
 
-        ScreenManager.registerFactory(ModContainers.BASKET.get(), BasketContainerScreen::new);
+        MenuScreens.register(ModContainers.BASKET.get(), BasketContainerScreen::new);
     }
 
     public static void onRegisterModels(ModelRegistryEvent event) {
@@ -40,14 +40,14 @@ public class ClientEventHandler {
     }
 
     public static void onStitch(TextureStitchEvent.Pre event) {
-        if (event.getMap().getTextureLocation().equals(Atlases.SIGN_ATLAS)) {
+        if (event.getMap().location().equals(Sheets.SIGN_SHEET)) {
             ModWoodTypes.VALUES.forEach(woodType -> event.addSprite(woodType.SIGN_TEXTURE));
             return;
         }
 
-        if (event.getMap().getTextureLocation().equals(Atlases.CHEST_ATLAS)) {
+        if (event.getMap().location().equals(Sheets.CHEST_SHEET)) {
             ModWoodTypes.VALUES.forEach(woodType -> {
-                for (ChestType type : ChestType.VALUES) {
+                for (ChestType type : ChestType.BY_ID) {
                     event.addSprite(woodType.getChestTexture(type, false));
                     event.addSprite(woodType.getChestTexture(type, true));
                 }

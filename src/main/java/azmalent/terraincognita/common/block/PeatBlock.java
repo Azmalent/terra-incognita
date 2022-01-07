@@ -5,11 +5,11 @@ import azmalent.terraincognita.common.data.ModBlockTags;
 import azmalent.terraincognita.network.NetworkHandler;
 import azmalent.terraincognita.network.message.s2c.S2CSpawnParticleMessage;
 import net.minecraft.block.*;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.ToolType;
 
@@ -17,10 +17,18 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Random;
 
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.level.block.SugarCaneBlock;
+import net.minecraft.world.level.block.state.BlockState;
+
 @SuppressWarnings("deprecation")
 public class PeatBlock extends Block {
     public PeatBlock() {
-        super(Properties.from(Blocks.DIRT).tickRandomly());
+        super(Properties.copy(Blocks.DIRT).randomTicks());
     }
 
     @Nullable
@@ -30,26 +38,26 @@ public class PeatBlock extends Block {
     }
 
     @Override
-    public void randomTick(@Nonnull BlockState state, @Nonnull ServerWorld world, @Nonnull BlockPos pos, @Nonnull Random random) {
+    public void randomTick(@Nonnull BlockState state, @Nonnull ServerLevel world, @Nonnull BlockPos pos, @Nonnull Random random) {
         super.randomTick(state, world, pos, random);
 
-        BlockPos plantPos = pos.up();
+        BlockPos plantPos = pos.above();
         BlockState plant = world.getBlockState(plantPos);
-        if (plant.isIn(ModBlockTags.PEAT_MULTIBLOCK_PLANTS)) {
-            while (world.getBlockState(plantPos.up()).isIn(ModBlockTags.PEAT_MULTIBLOCK_PLANTS)) {
-                plantPos = plantPos.up();
+        if (plant.is(ModBlockTags.PEAT_MULTIBLOCK_PLANTS)) {
+            while (world.getBlockState(plantPos.above()).is(ModBlockTags.PEAT_MULTIBLOCK_PLANTS)) {
+                plantPos = plantPos.above();
             }
 
             plant = world.getBlockState(plantPos);
         }
 
-        if ((plant.getBlock() instanceof IGrowable || plant.getBlock() instanceof SugarCaneBlock) && plant.ticksRandomly()) {
+        if ((plant.getBlock() instanceof BonemealableBlock || plant.getBlock() instanceof SugarCaneBlock) && plant.isRandomlyTicking()) {
         	if (random.nextDouble() < TIConfig.Misc.peatGrowthRateBonus.get()) {
-        	    BlockPos up = plantPos.up();
+        	    BlockPos up = plantPos.above();
         	    BlockState above = world.getBlockState(up);
 
             	plant.randomTick(world, plantPos, random);
-            	if (plant.isIn(ModBlockTags.PEAT_MULTIBLOCK_PLANTS)) {
+            	if (plant.is(ModBlockTags.PEAT_MULTIBLOCK_PLANTS)) {
             	    if (world.getBlockState(up) != above) {
             	        makeParticles(up, random);
                     }
@@ -62,8 +70,8 @@ public class PeatBlock extends Block {
     }
 
     @Override
-    public boolean canSustainPlant(@Nonnull BlockState state, @Nonnull IBlockReader world, BlockPos pos, @Nonnull Direction facing, IPlantable plant) {
-        return Blocks.DIRT.canSustainPlant(Blocks.DIRT.getDefaultState(), world, pos, facing, plant);
+    public boolean canSustainPlant(@Nonnull BlockState state, @Nonnull BlockGetter world, BlockPos pos, @Nonnull Direction facing, IPlantable plant) {
+        return Blocks.DIRT.canSustainPlant(Blocks.DIRT.defaultBlockState(), world, pos, facing, plant);
     }
 
     public static void makeParticles(BlockPos pos, Random random) {

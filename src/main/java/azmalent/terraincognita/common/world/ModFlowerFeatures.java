@@ -5,93 +5,102 @@ import azmalent.terraincognita.common.registry.ModBlocks;
 import azmalent.terraincognita.common.registry.ModFeatures;
 import azmalent.terraincognita.common.world.blockstateprovider.AlpineFlowerBlockStateProvider;
 import com.google.common.collect.Lists;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.world.gen.blockplacer.DoublePlantBlockPlacer;
-import net.minecraft.world.gen.blockplacer.SimpleBlockPlacer;
-import net.minecraft.world.gen.blockstateprovider.BlockStateProvider;
-import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
-import net.minecraft.world.gen.blockstateprovider.WeightedBlockStateProvider;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.feature.blockplacers.DoublePlantPlacer;
+import net.minecraft.world.level.levelgen.feature.blockplacers.SimpleBlockPlacer;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
+import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.gen.feature.*;
 
 import static azmalent.terraincognita.common.world.ModFlowerFeatures.States.*;
 
+import net.minecraft.data.worldgen.Features;
+import net.minecraft.util.UniformInt;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.RandomFeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.SimpleRandomFeatureConfiguration;
+
 public class ModFlowerFeatures {
     public static class States {
-        static final BlockState WILD_GARLIC     = ModBlocks.WILD_GARLIC.getBlock().getDefaultState();
-        static final BlockState FOXGLOVE        = ModBlocks.FOXGLOVE.getBlock().getDefaultState();
-        static final BlockState YELLOW_PRIMROSE = ModBlocks.YELLOW_PRIMROSE.getBlock().getDefaultState();
-        static final BlockState PINK_PRIMROSE   = ModBlocks.PINK_PRIMROSE.getBlock().getDefaultState();
-        static final BlockState PURPLE_PRIMROSE = ModBlocks.PURPLE_PRIMROSE.getBlock().getDefaultState();
-        static final BlockState FORGET_ME_NOT   = ModBlocks.FORGET_ME_NOT.getBlock().getDefaultState();
-        static final BlockState GLOBEFLOWER     = ModBlocks.GLOBEFLOWER.getBlock().getDefaultState();
-        static final BlockState WATER_FLAG      = ModBlocks.WATER_FLAG.getBlock().getDefaultState();
-        static final BlockState DWARF_FIREWEED  = ModBlocks.DWARF_FIREWEED.getBlock().getDefaultState();
-        static final BlockState WHITE_DRYAD     = ModBlocks.WHITE_DRYAD.getBlock().getDefaultState();
-        static final BlockState FIREWEED        = ModBlocks.FIREWEED.getBlock().getDefaultState();
-        static final BlockState WHITE_RHODODENDRON = ModBlocks.WHITE_RHODODENDRON.getBlock().getDefaultState();
-        static final BlockState MARIGOLD        = ModBlocks.MARIGOLD.getBlock().getDefaultState();
-        static final BlockState BLUE_LUPINE     = ModBlocks.BLUE_LUPINE.getBlock().getDefaultState();
-        static final BlockState SNAPDRAGON  = ModBlocks.SNAPDRAGON.getBlock().getDefaultState();
-        static final BlockState GLADIOLUS   = ModBlocks.GLADIOLUS.getBlock().getDefaultState();
-        static final BlockState GERANIUM    = ModBlocks.GERANIUM.getBlock().getDefaultState();
-        static final BlockState OLEANDER    = ModBlocks.OLEANDER.getBlock().getDefaultState();
-        static final BlockState SAGE        = ModBlocks.SAGE.getBlock().getDefaultState();
-        static final BlockState BLUE_IRIS       = ModBlocks.BLUE_IRIS.getBlock().getDefaultState();
-        static final BlockState PURPLE_IRIS     = ModBlocks.PURPLE_IRIS.getBlock().getDefaultState();
-        static final BlockState BLACK_IRIS      = ModBlocks.BLACK_IRIS.getBlock().getDefaultState();
-        static final BlockState CACTUS_FLOWER   = ModBlocks.CACTUS_FLOWER.getBlock().getDefaultState();
+        static final BlockState WILD_GARLIC     = ModBlocks.WILD_GARLIC.getBlock().defaultBlockState();
+        static final BlockState FOXGLOVE        = ModBlocks.FOXGLOVE.getBlock().defaultBlockState();
+        static final BlockState YELLOW_PRIMROSE = ModBlocks.YELLOW_PRIMROSE.getBlock().defaultBlockState();
+        static final BlockState PINK_PRIMROSE   = ModBlocks.PINK_PRIMROSE.getBlock().defaultBlockState();
+        static final BlockState PURPLE_PRIMROSE = ModBlocks.PURPLE_PRIMROSE.getBlock().defaultBlockState();
+        static final BlockState FORGET_ME_NOT   = ModBlocks.FORGET_ME_NOT.getBlock().defaultBlockState();
+        static final BlockState GLOBEFLOWER     = ModBlocks.GLOBEFLOWER.getBlock().defaultBlockState();
+        static final BlockState WATER_FLAG      = ModBlocks.WATER_FLAG.getBlock().defaultBlockState();
+        static final BlockState DWARF_FIREWEED  = ModBlocks.DWARF_FIREWEED.getBlock().defaultBlockState();
+        static final BlockState WHITE_DRYAD     = ModBlocks.WHITE_DRYAD.getBlock().defaultBlockState();
+        static final BlockState FIREWEED        = ModBlocks.FIREWEED.getBlock().defaultBlockState();
+        static final BlockState WHITE_RHODODENDRON = ModBlocks.WHITE_RHODODENDRON.getBlock().defaultBlockState();
+        static final BlockState MARIGOLD        = ModBlocks.MARIGOLD.getBlock().defaultBlockState();
+        static final BlockState BLUE_LUPINE     = ModBlocks.BLUE_LUPINE.getBlock().defaultBlockState();
+        static final BlockState SNAPDRAGON  = ModBlocks.SNAPDRAGON.getBlock().defaultBlockState();
+        static final BlockState GLADIOLUS   = ModBlocks.GLADIOLUS.getBlock().defaultBlockState();
+        static final BlockState GERANIUM    = ModBlocks.GERANIUM.getBlock().defaultBlockState();
+        static final BlockState OLEANDER    = ModBlocks.OLEANDER.getBlock().defaultBlockState();
+        static final BlockState SAGE        = ModBlocks.SAGE.getBlock().defaultBlockState();
+        static final BlockState BLUE_IRIS       = ModBlocks.BLUE_IRIS.getBlock().defaultBlockState();
+        static final BlockState PURPLE_IRIS     = ModBlocks.PURPLE_IRIS.getBlock().defaultBlockState();
+        static final BlockState BLACK_IRIS      = ModBlocks.BLACK_IRIS.getBlock().defaultBlockState();
+        static final BlockState CACTUS_FLOWER   = ModBlocks.CACTUS_FLOWER.getBlock().defaultBlockState();
 
-        static final BlockState ROSE_BUSH   = Blocks.ROSE_BUSH.getDefaultState();
-        static final BlockState PEONY       = Blocks.PEONY.getDefaultState();
-        static final BlockState LILAC       = Blocks.LILAC.getDefaultState();
-        static final BlockState SUNFLOWER   = Blocks.SUNFLOWER.getDefaultState();
-        static final BlockState WITHER_ROSE = Blocks.WITHER_ROSE.getDefaultState();
+        static final BlockState ROSE_BUSH   = Blocks.ROSE_BUSH.defaultBlockState();
+        static final BlockState PEONY       = Blocks.PEONY.defaultBlockState();
+        static final BlockState LILAC       = Blocks.LILAC.defaultBlockState();
+        static final BlockState SUNFLOWER   = Blocks.SUNFLOWER.defaultBlockState();
+        static final BlockState WITHER_ROSE = Blocks.WITHER_ROSE.defaultBlockState();
     }
 
     public static class StateProviders {
-        static final WeightedBlockStateProvider FOREST_FLOWERS = new WeightedBlockStateProvider().addWeightedBlockstate(WILD_GARLIC, 2).addWeightedBlockstate(FOXGLOVE, 2).addWeightedBlockstate(YELLOW_PRIMROSE, 1).addWeightedBlockstate(PINK_PRIMROSE, 1).addWeightedBlockstate(PURPLE_PRIMROSE, 1);
-        static final WeightedBlockStateProvider SWAMP_FLOWERS  = new WeightedBlockStateProvider().addWeightedBlockstate(FORGET_ME_NOT, 1).addWeightedBlockstate(GLOBEFLOWER, 1);
-        static final WeightedBlockStateProvider SAVANNA_FLOWERS = new WeightedBlockStateProvider().addWeightedBlockstate(MARIGOLD, 2).addWeightedBlockstate(BLUE_LUPINE, 3).addWeightedBlockstate(GLADIOLUS, 1).addWeightedBlockstate(SNAPDRAGON, 1).addWeightedBlockstate(GERANIUM, 1);
-        static final WeightedBlockStateProvider SAVANNA_TALL_FLOWERS = new WeightedBlockStateProvider().addWeightedBlockstate(OLEANDER, 2).addWeightedBlockstate(SAGE, 3);
-        static final WeightedBlockStateProvider ARCTIC_FLOWERS = new WeightedBlockStateProvider().addWeightedBlockstate(DWARF_FIREWEED, 2).addWeightedBlockstate(WHITE_DRYAD, 3);
-        static final WeightedBlockStateProvider ARCTIC_TALL_FLOWERS = new WeightedBlockStateProvider().addWeightedBlockstate(FIREWEED, 2).addWeightedBlockstate(WHITE_RHODODENDRON, 1);
-        static final WeightedBlockStateProvider JUNGLE_FLOWERS = new WeightedBlockStateProvider().addWeightedBlockstate(BLUE_IRIS, 1).addWeightedBlockstate(PURPLE_IRIS, 1).addWeightedBlockstate(BLACK_IRIS, 1);
+        static final WeightedStateProvider FOREST_FLOWERS = new WeightedStateProvider().add(WILD_GARLIC, 2).add(FOXGLOVE, 2).add(YELLOW_PRIMROSE, 1).add(PINK_PRIMROSE, 1).add(PURPLE_PRIMROSE, 1);
+        static final WeightedStateProvider SWAMP_FLOWERS  = new WeightedStateProvider().add(FORGET_ME_NOT, 1).add(GLOBEFLOWER, 1);
+        static final WeightedStateProvider SAVANNA_FLOWERS = new WeightedStateProvider().add(MARIGOLD, 2).add(BLUE_LUPINE, 3).add(GLADIOLUS, 1).add(SNAPDRAGON, 1).add(GERANIUM, 1);
+        static final WeightedStateProvider SAVANNA_TALL_FLOWERS = new WeightedStateProvider().add(OLEANDER, 2).add(SAGE, 3);
+        static final WeightedStateProvider ARCTIC_FLOWERS = new WeightedStateProvider().add(DWARF_FIREWEED, 2).add(WHITE_DRYAD, 3);
+        static final WeightedStateProvider ARCTIC_TALL_FLOWERS = new WeightedStateProvider().add(FIREWEED, 2).add(WHITE_RHODODENDRON, 1);
+        static final WeightedStateProvider JUNGLE_FLOWERS = new WeightedStateProvider().add(BLUE_IRIS, 1).add(PURPLE_IRIS, 1).add(BLACK_IRIS, 1);
 
-        static final WeightedBlockStateProvider LUSH_PLAINS_TALL_FLOWERS = new WeightedBlockStateProvider().addWeightedBlockstate(States.ROSE_BUSH, 2).addWeightedBlockstate(States.PEONY, 2).addWeightedBlockstate(States.LILAC, 2).addWeightedBlockstate(States.SUNFLOWER, 2);
+        static final WeightedStateProvider LUSH_PLAINS_TALL_FLOWERS = new WeightedStateProvider().add(States.ROSE_BUSH, 2).add(States.PEONY, 2).add(States.LILAC, 2).add(States.SUNFLOWER, 2);
         static {
             EnvironmentalIntegration.addDelphiniums(LUSH_PLAINS_TALL_FLOWERS);
         }
     }
 
     public static class Configs {
-        public static final BlockClusterFeatureConfig FOREST_FLOWERS = flowerConfig(StateProviders.FOREST_FLOWERS, 16);
+        public static final RandomPatchConfiguration FOREST_FLOWERS = flowerConfig(StateProviders.FOREST_FLOWERS, 16);
 
-        public static BlockClusterFeatureConfig SWAMP_SMALL_FLOWERS = flowerConfig(StateProviders.SWAMP_FLOWERS, 32);
-        public static BlockClusterFeatureConfig WATER_FLAG = new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(States.WATER_FLAG), DoublePlantBlockPlacer.PLACER).tries(24).func_227317_b_().requiresWater().replaceable().build();
-        public static SingleRandomFeature SWAMP_FLOWERS = new SingleRandomFeature(Lists.newArrayList(() -> initFlowerFeature(SWAMP_SMALL_FLOWERS), () -> initTallFlowerFeature(WATER_FLAG, -1, 4)));
+        public static RandomPatchConfiguration SWAMP_SMALL_FLOWERS = flowerConfig(StateProviders.SWAMP_FLOWERS, 32);
+        public static RandomPatchConfiguration WATER_FLAG = new RandomPatchConfiguration.GrassConfigurationBuilder(new SimpleStateProvider(States.WATER_FLAG), DoublePlantPlacer.INSTANCE).tries(24).noProjection().needWater().canReplace().build();
+        public static SimpleRandomFeatureConfiguration SWAMP_FLOWERS = new SimpleRandomFeatureConfiguration(Lists.newArrayList(() -> initFlowerFeature(SWAMP_SMALL_FLOWERS), () -> initTallFlowerFeature(WATER_FLAG, -1, 4)));
 
-        public static BlockClusterFeatureConfig ALPINE_FLOWERS = flowerConfig(AlpineFlowerBlockStateProvider.INSTANCE, 32);
+        public static RandomPatchConfiguration ALPINE_FLOWERS = flowerConfig(AlpineFlowerBlockStateProvider.INSTANCE, 32);
 
-        public static BlockClusterFeatureConfig SAVANNA_SMALL_FLOWERS = flowerConfig(StateProviders.SAVANNA_FLOWERS, 32);
-        public static BlockClusterFeatureConfig SAVANNA_TALL_FLOWERS = new BlockClusterFeatureConfig.Builder(StateProviders.SAVANNA_TALL_FLOWERS, DoublePlantBlockPlacer.PLACER).tries(12).func_227317_b_().build();
-        public static SingleRandomFeature SAVANNA_FLOWERS = new SingleRandomFeature(Lists.newArrayList(() -> initFlowerFeature(SAVANNA_SMALL_FLOWERS), () -> initTallFlowerFeature(SAVANNA_TALL_FLOWERS, -3, 4)));
+        public static RandomPatchConfiguration SAVANNA_SMALL_FLOWERS = flowerConfig(StateProviders.SAVANNA_FLOWERS, 32);
+        public static RandomPatchConfiguration SAVANNA_TALL_FLOWERS = new RandomPatchConfiguration.GrassConfigurationBuilder(StateProviders.SAVANNA_TALL_FLOWERS, DoublePlantPlacer.INSTANCE).tries(12).noProjection().build();
+        public static SimpleRandomFeatureConfiguration SAVANNA_FLOWERS = new SimpleRandomFeatureConfiguration(Lists.newArrayList(() -> initFlowerFeature(SAVANNA_SMALL_FLOWERS), () -> initTallFlowerFeature(SAVANNA_TALL_FLOWERS, -3, 4)));
 
-        public static BlockClusterFeatureConfig JUNGLE_FLOWERS = flowerConfig(StateProviders.JUNGLE_FLOWERS, 64);
+        public static RandomPatchConfiguration JUNGLE_FLOWERS = flowerConfig(StateProviders.JUNGLE_FLOWERS, 64);
 
-        public static BlockClusterFeatureConfig ARCTIC_SMALL_FLOWERS = flowerConfig(StateProviders.ARCTIC_FLOWERS, 16);
-        public static BlockClusterFeatureConfig ARCTIC_TALL_FLOWERS = new BlockClusterFeatureConfig.Builder(StateProviders.ARCTIC_TALL_FLOWERS, DoublePlantBlockPlacer.PLACER).tries(12).func_227317_b_().build();
-        public static SingleRandomFeature ARCTIC_FLOWERS = new SingleRandomFeature(Lists.newArrayList(() -> initFlowerFeature(ARCTIC_SMALL_FLOWERS), () -> initTallFlowerFeature(ARCTIC_TALL_FLOWERS, -3, 4)));
+        public static RandomPatchConfiguration ARCTIC_SMALL_FLOWERS = flowerConfig(StateProviders.ARCTIC_FLOWERS, 16);
+        public static RandomPatchConfiguration ARCTIC_TALL_FLOWERS = new RandomPatchConfiguration.GrassConfigurationBuilder(StateProviders.ARCTIC_TALL_FLOWERS, DoublePlantPlacer.INSTANCE).tries(12).noProjection().build();
+        public static SimpleRandomFeatureConfiguration ARCTIC_FLOWERS = new SimpleRandomFeatureConfiguration(Lists.newArrayList(() -> initFlowerFeature(ARCTIC_SMALL_FLOWERS), () -> initTallFlowerFeature(ARCTIC_TALL_FLOWERS, -3, 4)));
 
-        public static BlockClusterFeatureConfig CACTUS_FLOWERS = flowerConfig(new SimpleBlockStateProvider(CACTUS_FLOWER), 1024);
+        public static RandomPatchConfiguration CACTUS_FLOWERS = flowerConfig(new SimpleStateProvider(CACTUS_FLOWER), 1024);
 
-        public static BlockClusterFeatureConfig LUSH_PLAINS_TALL_FLOWERS = new BlockClusterFeatureConfig.Builder(StateProviders.LUSH_PLAINS_TALL_FLOWERS, DoublePlantBlockPlacer.PLACER).tries(12).func_227317_b_().build();
-        public static MultipleRandomFeatureConfig LUSH_PLAINS_FLOWERS = new MultipleRandomFeatureConfig(Lists.newArrayList(Features.FLOWER_PLAIN_DECORATED.withChance(0.8f)), initTallFlowerFeature(LUSH_PLAINS_TALL_FLOWERS, -2, 4));
+        public static RandomPatchConfiguration LUSH_PLAINS_TALL_FLOWERS = new RandomPatchConfiguration.GrassConfigurationBuilder(StateProviders.LUSH_PLAINS_TALL_FLOWERS, DoublePlantPlacer.INSTANCE).tries(12).noProjection().build();
+        public static RandomFeatureConfiguration LUSH_PLAINS_FLOWERS = new RandomFeatureConfiguration(Lists.newArrayList(Features.FLOWER_PLAIN_DECORATED.weighted(0.8f)), initTallFlowerFeature(LUSH_PLAINS_TALL_FLOWERS, -2, 4));
 
-        public static BlockClusterFeatureConfig WITHER_ROSE = flowerConfig(new SimpleBlockStateProvider(States.WITHER_ROSE), 128);
+        public static RandomPatchConfiguration WITHER_ROSE = flowerConfig(new SimpleStateProvider(States.WITHER_ROSE), 128);
 
-        private static BlockClusterFeatureConfig flowerConfig(BlockStateProvider provider, int tries) {
-            return new BlockClusterFeatureConfig.Builder(provider, SimpleBlockPlacer.PLACER).tries(tries).build();
+        private static RandomPatchConfiguration flowerConfig(BlockStateProvider provider, int tries) {
+            return new RandomPatchConfiguration.GrassConfigurationBuilder(provider, SimpleBlockPlacer.INSTANCE).tries(tries).build();
         }
     }
 
@@ -107,29 +116,29 @@ public class ModFlowerFeatures {
     public static ConfiguredFeature<?, ?> LUSH_PLAINS_FLOWERS;
     public static ConfiguredFeature<?, ?> WITHER_ROSE;
 
-    private static ConfiguredFeature<?, ?> initFlowerFeature(BlockClusterFeatureConfig config) {
-        return Feature.FLOWER.withConfiguration(config).withPlacement(Features.Placements.VEGETATION_PLACEMENT).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).func_242731_b(4);
+    private static ConfiguredFeature<?, ?> initFlowerFeature(RandomPatchConfiguration config) {
+        return Feature.FLOWER.configured(config).decorated(Features.Decorators.ADD_32).decorated(Features.Decorators.HEIGHTMAP_SQUARE).count(4);
     }
 
-    private static ConfiguredFeature<?, ?> initTallFlowerFeature(BlockClusterFeatureConfig config, int min, int max) {
-        return Feature.RANDOM_PATCH.withConfiguration(config).func_242730_a(FeatureSpread.func_242253_a(min, max)).withPlacement(Features.Placements.VEGETATION_PLACEMENT).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).func_242731_b(5);
+    private static ConfiguredFeature<?, ?> initTallFlowerFeature(RandomPatchConfiguration config, int min, int max) {
+        return Feature.RANDOM_PATCH.configured(config).count(UniformInt.of(min, max)).decorated(Features.Decorators.ADD_32).decorated(Features.Decorators.HEIGHTMAP_SQUARE).count(5);
     }
 
-    private static ConfiguredFeature<?, ?> initSimpleRandomFeature(SingleRandomFeature config) {
-        return Feature.SIMPLE_RANDOM_SELECTOR.withConfiguration(config).withPlacement(Features.Placements.VEGETATION_PLACEMENT).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).func_242731_b(4);
+    private static ConfiguredFeature<?, ?> initSimpleRandomFeature(SimpleRandomFeatureConfiguration config) {
+        return Feature.SIMPLE_RANDOM_SELECTOR.configured(config).decorated(Features.Decorators.ADD_32).decorated(Features.Decorators.HEIGHTMAP_SQUARE).count(4);
     }
 
     public static void registerFeatures() {
         FOREST_FLOWERS = ModConfiguredFeatures.register("forest_flowers", initFlowerFeature(Configs.FOREST_FLOWERS));
         SWAMP_FLOWERS = ModConfiguredFeatures.register("swamp_flowers", initSimpleRandomFeature(Configs.SWAMP_FLOWERS));
-        ALPINE_FLOWERS = ModConfiguredFeatures.register("alpine_flowers", ModFeatures.ALPINE_FLOWERS.get().withConfiguration(Configs.ALPINE_FLOWERS).withPlacement(Features.Placements.VEGETATION_PLACEMENT).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).func_242731_b(4));
+        ALPINE_FLOWERS = ModConfiguredFeatures.register("alpine_flowers", ModFeatures.ALPINE_FLOWERS.get().configured(Configs.ALPINE_FLOWERS).decorated(Features.Decorators.ADD_32).decorated(Features.Decorators.HEIGHTMAP_SQUARE).count(4));
         SAVANNA_FLOWERS = ModConfiguredFeatures.register("savanna_flowers", initSimpleRandomFeature(Configs.SAVANNA_FLOWERS));
         JUNGLE_FLOWERS = ModConfiguredFeatures.register("jungle_flowers", initFlowerFeature(Configs.JUNGLE_FLOWERS));
         ARCTIC_FLOWERS = ModConfiguredFeatures.register("arctic_flowers", initSimpleRandomFeature(Configs.ARCTIC_FLOWERS));
         CACTUS_FLOWERS = ModConfiguredFeatures.register("cactus_flowers", initFlowerFeature(Configs.CACTUS_FLOWERS));
-        SWEET_PEAS = ModConfiguredFeatures.register("sweet_peas", ModFeatures.SWEET_PEAS.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).square());
+        SWEET_PEAS = ModConfiguredFeatures.register("sweet_peas", ModFeatures.SWEET_PEAS.get().configured(FeatureConfiguration.NONE).squared());
 
-        LUSH_PLAINS_FLOWERS = ModConfiguredFeatures.register("lush_plains_flowers", Feature.RANDOM_SELECTOR.withConfiguration(Configs.LUSH_PLAINS_FLOWERS).withPlacement(Features.Placements.VEGETATION_PLACEMENT).withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).func_242731_b(4));
+        LUSH_PLAINS_FLOWERS = ModConfiguredFeatures.register("lush_plains_flowers", Feature.RANDOM_SELECTOR.configured(Configs.LUSH_PLAINS_FLOWERS).decorated(Features.Decorators.ADD_32).decorated(Features.Decorators.HEIGHTMAP_SQUARE).count(4));
         WITHER_ROSE = ModConfiguredFeatures.register("wither_rose", initFlowerFeature(Configs.WITHER_ROSE));
     }
 }

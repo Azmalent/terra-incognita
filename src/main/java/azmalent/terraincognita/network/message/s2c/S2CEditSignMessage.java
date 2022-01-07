@@ -1,8 +1,8 @@
 package azmalent.terraincognita.network.message.s2c;
 
 import azmalent.terraincognita.TerraIncognita;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.core.BlockPos;
 import net.minecraftforge.fml.network.NetworkDirection;
 import net.minecraftforge.fml.network.NetworkEvent;
 
@@ -15,11 +15,11 @@ public final class S2CEditSignMessage {
         this.pos = pos;
     }
 
-    public static void encode(final S2CEditSignMessage message, PacketBuffer buffer) {
+    public static void encode(final S2CEditSignMessage message, FriendlyByteBuf buffer) {
         buffer.writeBlockPos(message.pos);
     }
 
-    public static S2CEditSignMessage decode(PacketBuffer buffer) {
+    public static S2CEditSignMessage decode(FriendlyByteBuf buffer) {
         return new S2CEditSignMessage(buffer.readBlockPos());
     }
 

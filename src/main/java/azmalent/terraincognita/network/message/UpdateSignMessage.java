@@ -3,13 +3,13 @@ package azmalent.terraincognita.network.message;
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.tile.ModSignTileEntity;
 import azmalent.terraincognita.network.NetworkHandler;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.DyeColor;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.network.NetworkEvent;
 
@@ -17,10 +17,10 @@ import java.util.function.Supplier;
 
 public final class UpdateSignMessage {
     private final BlockPos pos;
-    private final ITextComponent[] lines;
+    private final Component[] lines;
     private final int color;
 
-    public UpdateSignMessage(BlockPos pos, ITextComponent[] lines, int color) {
+    public UpdateSignMessage(BlockPos pos, Component[] lines, int color) {
         if (lines.length != 4) {
             throw new IllegalArgumentException("Expected 4 lines of text, got " + lines.length);
         }
@@ -30,19 +30,19 @@ public final class UpdateSignMessage {
         this.color = color;
     }
 
-    public static void encode(final UpdateSignMessage message, PacketBuffer buffer) {
+    public static void encode(final UpdateSignMessage message, FriendlyByteBuf buffer) {
         buffer.writeBlockPos(message.pos);
         for (int i = 0; i < 4; i++) {
-            buffer.writeTextComponent(message.lines[i]);
+            buffer.writeComponent(message.lines[i]);
         }
         buffer.writeInt(message.color);
     }
 
-    public static UpdateSignMessage decode(PacketBuffer buffer) {
+    public static UpdateSignMessage decode(FriendlyByteBuf buffer) {
         BlockPos pos = buffer.readBlockPos();
-        ITextComponent[] lines = new ITextComponent[4];
+        Component[] lines = new Component[4];
         for (int i = 0; i < 4; i++) {
-            lines[i] = buffer.readTextComponent();
+            lines[i] = buffer.readComponent();
         }
         int color = buffer.readInt();
 
@@ -54,21 +54,21 @@ public final class UpdateSignMessage {
         NetworkEvent.Context context = contextSupplier.get();
         if (context.getDirection().getReceptionSide() == LogicalSide.SERVER) {
             context.enqueueWork(() -> {
-                ServerPlayerEntity player = context.getSender();
-                player.markPlayerActive();
+                ServerPlayer player = context.getSender();
+                player.resetLastActionTime();
 
-                ServerWorld world = player.getServerWorld();
+                ServerLevel world = player.getLevel();
                 if (world.isAreaLoaded(message.pos, 1)) {
-                    TileEntity te = world.getTileEntity(message.pos);
+                    BlockEntity te = world.getBlockEntity(message.pos);
                     if (te instanceof ModSignTileEntity) {
                         ModSignTileEntity sign = (ModSignTileEntity) te;
                         for (int i = 0; i < 4; i++) {
                             sign.setText(i, message.lines[i]);
                         }
 
-                        sign.markDirty();
+                        sign.setChanged();
                         sign.setTextColor(DyeColor.byId(message.color));
-                        world.notifyBlockUpdate(message.pos, sign.getBlockState(), sign.getBlockState(), 3);
+                        world.sendBlockUpdated(message.pos, sign.getBlockState(), sign.getBlockState(), 3);
 
                         NetworkHandler.sendToAllPlayers(message);
                     }

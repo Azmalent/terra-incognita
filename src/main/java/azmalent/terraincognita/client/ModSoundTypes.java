@@ -1,6 +1,6 @@
 package azmalent.terraincognita.client;
 
-import net.minecraft.block.SoundType;
+import net.minecraft.world.level.block.SoundType;
 
 public class ModSoundTypes {
     public static final SoundType CALTROPS = new SoundType(0.8f, 1.4f,

@@ -4,23 +4,23 @@ import azmalent.terraincognita.common.registry.ModEntities;
 import azmalent.terraincognita.common.registry.ModWoodTypes;
 import azmalent.terraincognita.common.block.woodtypes.ModWoodType;
 import azmalent.terraincognita.mixin.accessor.BoatEntityAccessor;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.item.BoatEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.IPacket;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.vehicle.Boat;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.GameRules;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.level.GameRules;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.Constants;
@@ -30,43 +30,43 @@ import net.minecraftforge.fml.network.NetworkHooks;
 import javax.annotation.Nonnull;
 
 @SuppressWarnings("unused")
-public class ModBoatEntity extends BoatEntity {
-    private static final DataParameter<String> WOOD_TYPE = EntityDataManager.createKey(ModBoatEntity.class, DataSerializers.STRING);
+public class ModBoatEntity extends Boat {
+    private static final EntityDataAccessor<String> WOOD_TYPE = SynchedEntityData.defineId(ModBoatEntity.class, EntityDataSerializers.STRING);
 
-    public ModBoatEntity(EntityType<ModBoatEntity> type, World world) {
+    public ModBoatEntity(EntityType<ModBoatEntity> type, Level world) {
         super(type, world);
-        this.preventEntitySpawning = true;
+        this.blocksBuilding = true;
     }
 
-    public ModBoatEntity(World world, double x, double y, double z) {
+    public ModBoatEntity(Level world, double x, double y, double z) {
         this(ModEntities.BOAT.get(), world);
-        this.setPosition(x, y, z);
-        this.setMotion(Vector3d.ZERO);
-        this.prevPosX = x;
-        this.prevPosY = y;
-        this.prevPosZ = z;
+        this.setPos(x, y, z);
+        this.setDeltaMovement(Vec3.ZERO);
+        this.xo = x;
+        this.yo = y;
+        this.zo = z;
     }
 
-    public ModBoatEntity(FMLPlayMessages.SpawnEntity spawnEntity, World world) {
+    public ModBoatEntity(FMLPlayMessages.SpawnEntity spawnEntity, Level world) {
         this(ModEntities.BOAT.get(), world);
     }
 
     @Override
-    public void registerData() {
-        super.registerData();
-        this.dataManager.register(WOOD_TYPE, ModWoodTypes.APPLE.name);
+    public void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(WOOD_TYPE, ModWoodTypes.APPLE.name);
     }
 
     @Override
-    protected void writeAdditional(CompoundNBT compound) {
-        compound.putString("Type", this.dataManager.get(WOOD_TYPE));
+    protected void addAdditionalSaveData(CompoundTag compound) {
+        compound.putString("Type", this.entityData.get(WOOD_TYPE));
     }
 
     @Override
-    protected void readAdditional(CompoundNBT compound) {
+    protected void readAdditionalSaveData(CompoundTag compound) {
         if (compound.contains("Type", Constants.NBT.TAG_STRING)) {
             String type = compound.getString("Type");
-            dataManager.set(WOOD_TYPE, type);
+            entityData.set(WOOD_TYPE, type);
         } else {
             this.setWoodType(ModWoodTypes.APPLE);
         }
@@ -75,16 +75,16 @@ public class ModBoatEntity extends BoatEntity {
     @Nonnull
     @Override
     @OnlyIn(Dist.CLIENT)
-    public ITextComponent getName() {
-        ITextComponent customName = getCustomName();
-        return customName != null ? customName : new TranslationTextComponent("entity.minecraft.boat");
+    public Component getName() {
+        Component customName = getCustomName();
+        return customName != null ? customName : new TranslatableComponent("entity.minecraft.boat");
     }
 
     @Override
-    protected void updateFallState(double y, boolean onGroundIn, BlockState state, BlockPos pos) {
+    protected void checkFallDamage(double y, boolean onGroundIn, BlockState state, BlockPos pos) {
         BoatEntityAccessor accessor = (BoatEntityAccessor) this;
 
-        accessor.ti_setLastYd(this.getMotion().y);
+        accessor.ti_setLastYd(this.getDeltaMovement().y);
         if (!this.isPassenger()) {
             if (onGroundIn) {
                 if (this.fallDistance > 3.0F) {
@@ -93,23 +93,23 @@ public class ModBoatEntity extends BoatEntity {
                         return;
                     }
 
-                    this.onLivingFall(this.fallDistance, 1.0F);
-                    if (!this.world.isRemote && this.isAlive()) {
+                    this.causeFallDamage(this.fallDistance, 1.0F);
+                    if (!this.level.isClientSide && this.isAlive()) {
                         this.remove();
-                        if (this.world.getGameRules().getBoolean(GameRules.DO_ENTITY_DROPS)) {
+                        if (this.level.getGameRules().getBoolean(GameRules.RULE_DOENTITYDROPS)) {
                             for (int i = 0; i < 3; ++i) {
-                                this.entityDropItem(this.getPlanks());
+                                this.spawnAtLocation(this.getPlanks());
                             }
 
                             for (int j = 0; j < 2; ++j) {
-                                this.entityDropItem(Items.STICK);
+                                this.spawnAtLocation(Items.STICK);
                             }
                         }
                     }
                 }
 
                 this.fallDistance = 0.0F;
-            } else if (!this.world.getFluidState((new BlockPos(this.getPositionVec())).down()).isTagged(FluidTags.WATER) && y < 0.0D) {
+            } else if (!this.level.getFluidState((new BlockPos(this.position())).below()).is(FluidTags.WATER) && y < 0.0D) {
                 this.fallDistance = (float) ((double) this.fallDistance - y);
             }
         }
@@ -124,7 +124,7 @@ public class ModBoatEntity extends BoatEntity {
 
     @Nonnull
     @Override
-    public Item getItemBoat() {
+    public Item getDropItem() {
         ModWoodType woodType = getWoodType();
         if (woodType != null) return woodType.BOAT.get();
 
@@ -132,16 +132,16 @@ public class ModBoatEntity extends BoatEntity {
     }
 
     public void setWoodType(ModWoodType type) {
-        this.dataManager.set(WOOD_TYPE, type.name);
+        this.entityData.set(WOOD_TYPE, type.name);
     }
 
     public ModWoodType getWoodType() {
-        return ModWoodTypes.byName(this.dataManager.get(WOOD_TYPE));
+        return ModWoodTypes.byName(this.entityData.get(WOOD_TYPE));
     }
 
     @Nonnull
     @Override
-    public IPacket<?> createSpawnPacket() {
+    public Packet<?> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

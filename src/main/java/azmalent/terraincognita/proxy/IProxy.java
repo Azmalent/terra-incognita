@@ -1,21 +1,21 @@
 package azmalent.terraincognita.proxy;
 
-import net.minecraft.particles.IParticleData;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.world.World;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.level.Level;
 
 public interface IProxy {
-    default void spawnParticle(World world, IParticleData data, boolean alwaysRender, Vector3d pos, Vector3d speed) {
+    default void spawnParticle(Level world, ParticleOptions data, boolean alwaysRender, Vec3 pos, Vec3 speed) {
         spawnParticle(world, data, alwaysRender, pos.x, pos.y, pos.z, speed.x, speed.y, speed.z);
     }
 
-    World getClientWorld();
+    Level getClientWorld();
 
-    void spawnParticle(World world, IParticleData data, boolean alwaysRender, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed);
+    void spawnParticle(Level world, ParticleOptions data, boolean alwaysRender, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed);
 
     void openSignEditor(BlockPos pos);
 
-    void updateSignOnClient(BlockPos pos, ITextComponent[] lines, int color);
+    void updateSignOnClient(BlockPos pos, Component[] lines, int color);
 }

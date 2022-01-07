@@ -7,14 +7,14 @@ import azmalent.terraincognita.common.registry.ModItems;
 import knightminer.simplytea.core.Registration;
 import knightminer.simplytea.core.config.TeaDrink;
 import knightminer.simplytea.item.TeaCupItem;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.Food;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Effect;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
 
@@ -32,18 +32,18 @@ public class SimplyTeaIntegration implements IModIntegration {
     @Override
     public void register(IEventBus bus) {
         TerraIncognita.LOGGER.info("Integrating with Simply Tea...");
-        ItemGroup group = Registration.group;
+        CreativeModeTab group = Registration.group;
 
-        FIREWEED_TEA_BAG = ModItems.ITEMS.register("fireweed_teabag", () -> new Item(new Item.Properties().group(group)));
+        FIREWEED_TEA_BAG = ModItems.ITEMS.register("fireweed_teabag", () -> new Item(new Item.Properties().tab(group)));
         FIREWEED_TEA_CUP = ModItems.ITEMS.register("fireweed_tea_cup", () -> new ModTeaItem(FIREWEED_TEA_STATS));
     }
 
-    private static class ModTeaStats extends Food {
-        private Effect effect;
+    private static class ModTeaStats extends FoodProperties {
+        private MobEffect effect;
         private int duration;
         private int amplifier;
 
-        public ModTeaStats(int hunger, float saturation, Effect effect, int duration, int amplifier) {
+        public ModTeaStats(int hunger, float saturation, MobEffect effect, int duration, int amplifier) {
             super(hunger, saturation, false, true, true, Collections.emptyList());
 
             this.effect = effect;
@@ -51,29 +51,29 @@ public class SimplyTeaIntegration implements IModIntegration {
             this.amplifier = amplifier;
         }
 
-        public EffectInstance getEffect(boolean hasHoney) {
-            return new EffectInstance(effect, duration, amplifier + (hasHoney ? 1 : 0));
+        public MobEffectInstance getEffect(boolean hasHoney) {
+            return new MobEffectInstance(effect, duration, amplifier + (hasHoney ? 1 : 0));
         }
     }
 
     private static class ModTeaItem extends TeaCupItem {
         public ModTeaItem(ModTeaStats stats) {
-            super(new Item.Properties().group(Registration.group).maxStackSize(1).maxDamage(2).setNoRepair().food(stats));
+            super(new Item.Properties().tab(Registration.group).stacksTo(1).durability(2).setNoRepair().food(stats));
         }
 
         @Nonnull
         @Override
-        public ItemStack onItemUseFinish(@Nonnull ItemStack stack, @Nonnull World worldIn, @Nonnull LivingEntity living) {
-            if (this.isFood()) {
+        public ItemStack finishUsingItem(@Nonnull ItemStack stack, @Nonnull Level worldIn, @Nonnull LivingEntity living) {
+            if (this.isEdible()) {
                 ItemStack result = stack.getContainerItem();
                 boolean hasHoney = hasHoney(stack, "with_honey");
                 living.curePotionEffects(stack);
-                living.onFoodEaten(worldIn, stack);
-                Food food = this.getFood();
+                living.eat(worldIn, stack);
+                FoodProperties food = this.getFoodProperties();
                 if (food instanceof ModTeaStats) {
-                    EffectInstance effectInstance = ((ModTeaStats)food).getEffect(hasHoney);
+                    MobEffectInstance effectInstance = ((ModTeaStats)food).getEffect(hasHoney);
                     if (effectInstance != null) {
-                        living.addPotionEffect(effectInstance);
+                        living.addEffect(effectInstance);
                     }
                 }
 

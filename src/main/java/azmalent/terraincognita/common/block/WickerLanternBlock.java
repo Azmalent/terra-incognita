@@ -1,27 +1,29 @@
 package azmalent.terraincognita.common.block;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.LanternBlock;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.Lantern;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.level.BlockGetter;
 
 import javax.annotation.Nonnull;
 
-public class WickerLanternBlock extends LanternBlock {
-    private static final VoxelShape GROUNDED_SHAPE = makeCuboidShape(4.0D, 0.0D, 4.0D, 12.0D, 8.0D, 12.0D);
-    private static final VoxelShape HANGING_SHAPE  = makeCuboidShape(4.0D, 2.0D, 4.0D, 12.0D, 10.0D, 12.0D);
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+
+public class WickerLanternBlock extends Lantern {
+    private static final VoxelShape GROUNDED_SHAPE = box(4.0D, 0.0D, 4.0D, 12.0D, 8.0D, 12.0D);
+    private static final VoxelShape HANGING_SHAPE  = box(4.0D, 2.0D, 4.0D, 12.0D, 10.0D, 12.0D);
 
     public WickerLanternBlock() {
-        super(Properties.create(Material.WOOD).hardnessAndResistance(3.5F).sound(SoundType.WOOD).setLightLevel((state) -> 15).notSolid());
+        super(Properties.of(Material.WOOD).strength(3.5F).sound(SoundType.WOOD).lightLevel((state) -> 15).noOcclusion());
     }
 
     @Nonnull
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext context) {
-        return state.get(HANGING) ? HANGING_SHAPE : GROUNDED_SHAPE;
+    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+        return state.getValue(HANGING) ? HANGING_SHAPE : GROUNDED_SHAPE;
     }
 }

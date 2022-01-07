@@ -1,10 +1,10 @@
 package azmalent.terraincognita.common.world.biome;
 
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.BiomeAmbience;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.biome.BiomeGenerationSettings;
-import net.minecraft.world.biome.MobSpawnInfo;
-import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
+import net.minecraft.world.level.biome.MobSpawnSettings;
+import net.minecraft.world.level.levelgen.surfacebuilders.ConfiguredSurfaceBuilder;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
@@ -26,12 +26,12 @@ public abstract class SubBiomeEntry extends BiomeEntry {
     }
 
     @Override
-    protected Biome.Category getCategory() {
+    protected Biome.BiomeCategory getCategory() {
         return baseBiome.getCategory();
     }
 
     @Override
-    protected Biome.Climate getClimate() {
+    protected Biome.ClimateSettings getClimate() {
         return baseBiome.getClimate();
     }
 
@@ -46,7 +46,7 @@ public abstract class SubBiomeEntry extends BiomeEntry {
     }
 
     @Override
-    protected BiomeAmbience getAmbience() {
+    protected BiomeSpecialEffects getAmbience() {
         return baseBiome.getAmbience();
     }
 
@@ -66,7 +66,7 @@ public abstract class SubBiomeEntry extends BiomeEntry {
     }
 
     @Override
-    protected MobSpawnInfo.Builder initSpawns() {
+    protected MobSpawnSettings.Builder initSpawns() {
         return baseBiome.initSpawns();
     }
 

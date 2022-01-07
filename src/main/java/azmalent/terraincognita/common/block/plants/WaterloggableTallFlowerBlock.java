@@ -1,124 +1,132 @@
 package azmalent.terraincognita.common.block.plants;
 
 import net.minecraft.block.*;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.state.properties.DoubleBlockHalf;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.IWorldReader;
-import net.minecraft.world.World;
+import net.minecraft.core.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.Level;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class WaterloggableTallFlowerBlock extends TallFlowerBlock implements IWaterLoggable {
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.TallFlowerBlock;
+import net.minecraft.world.level.block.state.BlockState;
+
+public class WaterloggableTallFlowerBlock extends TallFlowerBlock implements SimpleWaterloggedBlock {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     public WaterloggableTallFlowerBlock() {
-        super(Properties.from(Blocks.ROSE_BUSH));
-        setDefaultState(this.stateContainer.getBaseState().with(HALF, DoubleBlockHalf.LOWER).with(WATERLOGGED, false));
+        super(Properties.copy(Blocks.ROSE_BUSH));
+        registerDefaultState(this.stateDefinition.any().setValue(HALF, DoubleBlockHalf.LOWER).setValue(WATERLOGGED, false));
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        super.fillStateContainer(builder);
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        super.createBlockStateDefinition(builder);
         builder.add(WATERLOGGED);
     }
 
     @Nullable
     @Override
-    public BlockState getStateForPlacement(BlockItemUseContext context) {
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
         BlockState state = super.getStateForPlacement(context);
         if (state != null) {
-            FluidState fluidState = context.getWorld().getFluidState(context.getPos());
-            boolean waterlogged = fluidState.getFluid() == Fluids.WATER;
-            state = state.with(WATERLOGGED, waterlogged);
+            FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
+            boolean waterlogged = fluidState.getType() == Fluids.WATER;
+            state = state.setValue(WATERLOGGED, waterlogged);
         }
 
         return state;
     }
 
     @Override
-    public void placeAt(IWorld world, BlockPos pos, int flags) {
+    public void placeAt(LevelAccessor world, BlockPos pos, int flags) {
         FluidState fluidState = world.getFluidState(pos);
-        boolean waterlogged = fluidState.getFluid() == Fluids.WATER;
-        world.setBlockState(pos, this.getDefaultState().with(HALF, DoubleBlockHalf.LOWER).with(WATERLOGGED, waterlogged), flags);
-        world.setBlockState(pos.up(), this.getDefaultState().with(HALF, DoubleBlockHalf.UPPER), flags);
+        boolean waterlogged = fluidState.getType() == Fluids.WATER;
+        world.setBlock(pos, this.defaultBlockState().setValue(HALF, DoubleBlockHalf.LOWER).setValue(WATERLOGGED, waterlogged), flags);
+        world.setBlock(pos.above(), this.defaultBlockState().setValue(HALF, DoubleBlockHalf.UPPER), flags);
     }
 
     @Override
-    public boolean isValidPosition(BlockState state, IWorldReader world, BlockPos pos) {
-        if (state.get(HALF) == DoubleBlockHalf.LOWER) {
-            BlockPos up = pos.up();
-            if (world.getFluidState(up).isTagged(FluidTags.WATER) || world.getBlockState(up).isIn(Blocks.FROSTED_ICE)) {
+    public boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
+        if (state.getValue(HALF) == DoubleBlockHalf.LOWER) {
+            BlockPos up = pos.above();
+            if (world.getFluidState(up).is(FluidTags.WATER) || world.getBlockState(up).is(Blocks.FROSTED_ICE)) {
                 return false;
             }
 
-            BlockPos down = pos.down();
+            BlockPos down = pos.below();
             if (state.getBlock() == this) { //Forge: This function is called during world gen and placement, before this block is set, so if we are not 'here' then assume it's the pre-check.
                 return world.getBlockState(down).canSustainPlant(world, down, Direction.UP, this);
             }
 
-            return isValidGround(world.getBlockState(down), world, down);
+            return mayPlaceOn(world.getBlockState(down), world, down);
         }
 
-        return super.isValidPosition(state, world, pos);
+        return super.canSurvive(state, world, pos);
     }
 
     @Override
-    protected boolean isValidGround(BlockState state, IBlockReader world, BlockPos pos) {
-        return state.isIn(Blocks.CLAY) || super.isValidGround(state, world, pos);
+    protected boolean mayPlaceOn(BlockState state, BlockGetter world, BlockPos pos) {
+        return state.is(Blocks.CLAY) || super.mayPlaceOn(state, world, pos);
     }
 
     @Override
-    public void onBlockHarvested(World world, @Nonnull BlockPos pos, @Nonnull BlockState state, @Nonnull PlayerEntity player) {
-        if (!world.isRemote) {
+    public void playerWillDestroy(Level world, @Nonnull BlockPos pos, @Nonnull BlockState state, @Nonnull Player player) {
+        if (!world.isClientSide) {
             if (player.isCreative()) {
-                if (state.get(HALF) == DoubleBlockHalf.UPPER) {
-                    BlockPos down = pos.down();
+                if (state.getValue(HALF) == DoubleBlockHalf.UPPER) {
+                    BlockPos down = pos.below();
                     BlockState downState = world.getBlockState(down);
-                    if (downState.getBlock() == this && downState.get(HALF) == DoubleBlockHalf.LOWER) {
-                        BlockState newState = downState.get(WATERLOGGED) ? Blocks.WATER.getDefaultState() : Blocks.AIR.getDefaultState();
-                        world.setBlockState(down, newState, 35);
-                        world.playEvent(player, 2001, down, Block.getStateId(downState));
+                    if (downState.getBlock() == this && downState.getValue(HALF) == DoubleBlockHalf.LOWER) {
+                        BlockState newState = downState.getValue(WATERLOGGED) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState();
+                        world.setBlock(down, newState, 35);
+                        world.levelEvent(player, 2001, down, Block.getId(downState));
                     }
                 }
             } else {
-                spawnDrops(state, world, pos, null, player, player.getHeldItemMainhand());
+                dropResources(state, world, pos, null, player, player.getMainHandItem());
             }
         }
 
-        super.onBlockHarvested(world, pos, state, player);
+        super.playerWillDestroy(world, pos, state, player);
     }
 
     @Override
-    public boolean canContainFluid(IBlockReader world, BlockPos pos, BlockState state, Fluid fluid) {
-        return state.get(HALF) == DoubleBlockHalf.LOWER && !state.get(BlockStateProperties.WATERLOGGED) && fluid == Fluids.WATER;
+    public boolean canPlaceLiquid(BlockGetter world, BlockPos pos, BlockState state, Fluid fluid) {
+        return state.getValue(HALF) == DoubleBlockHalf.LOWER && !state.getValue(BlockStateProperties.WATERLOGGED) && fluid == Fluids.WATER;
     }
 
     @Nonnull
     @Override
     public FluidState getFluidState(BlockState state) {
-        return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
+        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
     @Nonnull
     @Override
-    public BlockState updatePostPlacement(BlockState stateIn, Direction facing, @Nonnull BlockState facingState, @Nonnull IWorld worldIn, @Nonnull BlockPos currentPos, @Nonnull BlockPos facingPos) {
-        if (stateIn.get(WATERLOGGED)) {
-            worldIn.getPendingFluidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickRate(worldIn));
+    public BlockState updateShape(BlockState stateIn, Direction facing, @Nonnull BlockState facingState, @Nonnull LevelAccessor worldIn, @Nonnull BlockPos currentPos, @Nonnull BlockPos facingPos) {
+        if (stateIn.getValue(WATERLOGGED)) {
+            worldIn.getLiquidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(worldIn));
         }
 
-        return super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
+        return super.updateShape(stateIn, facing, facingState, worldIn, currentPos, facingPos);
     }
 }

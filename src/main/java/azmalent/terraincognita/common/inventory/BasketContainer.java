@@ -3,22 +3,22 @@ package azmalent.terraincognita.common.inventory;
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.tile.BasketTileEntity;
 import azmalent.terraincognita.common.registry.ModContainers;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.SlotItemHandler;
 
 import javax.annotation.Nonnull;
 
-public class BasketContainer extends Container {
+public class BasketContainer extends AbstractContainerMenu {
     public static final int WIDTH = 3;
     public static final int HEIGHT = 3;
     public static final int SIZE = WIDTH * HEIGHT;
@@ -40,15 +40,15 @@ public class BasketContainer extends Container {
 
     private final IUseContext useContext;
 
-    public BasketContainer(int windowId, PlayerInventory playerInventory, BasketStackHandler stackHandler, ItemStack stack) {
+    public BasketContainer(int windowId, Inventory playerInventory, BasketStackHandler stackHandler, ItemStack stack) {
         this(windowId, playerInventory, stackHandler, new IUseContext.Item(stack));
     }
 
-    public BasketContainer(int windowId, PlayerInventory playerInventory, BasketStackHandler stackHandler, World world, BlockPos pos) {
+    public BasketContainer(int windowId, Inventory playerInventory, BasketStackHandler stackHandler, Level world, BlockPos pos) {
         this(windowId, playerInventory, stackHandler, new IUseContext.Block(world, pos));
     }
 
-    private BasketContainer(int windowId, PlayerInventory playerInventory, BasketStackHandler stackHandler, IUseContext useContext) {
+    private BasketContainer(int windowId, Inventory playerInventory, BasketStackHandler stackHandler, IUseContext useContext) {
         super(ModContainers.BASKET.get(), windowId);
         this.useContext = useContext;
 
@@ -77,7 +77,7 @@ public class BasketContainer extends Container {
         }
     }
 
-    public static BasketContainer createOnClientSide(int windowId, PlayerInventory playerInventory, PacketBuffer buffer) {
+    public static BasketContainer createOnClientSide(int windowId, Inventory playerInventory, FriendlyByteBuf buffer) {
         try {
             return new BasketContainer(windowId, playerInventory, new BasketStackHandler(), ItemStack.EMPTY);
         } catch (IllegalArgumentException e) {
@@ -89,17 +89,17 @@ public class BasketContainer extends Container {
 
     @Nonnull
     @Override
-    public ItemStack transferStackInSlot(PlayerEntity player, int index) {
-        Slot sourceSlot = inventorySlots.get(index);
-        if (sourceSlot == null || !sourceSlot.getHasStack()) return ItemStack.EMPTY;
-        ItemStack sourceStack = sourceSlot.getStack();
+    public ItemStack quickMoveStack(Player player, int index) {
+        Slot sourceSlot = slots.get(index);
+        if (sourceSlot == null || !sourceSlot.hasItem()) return ItemStack.EMPTY;
+        ItemStack sourceStack = sourceSlot.getItem();
 
         if (index < VANILLA_SLOT_COUNT) {
-            if (!mergeItemStack(sourceStack, VANILLA_SLOT_COUNT, VANILLA_SLOT_COUNT + SIZE, false)){
+            if (!moveItemStackTo(sourceStack, VANILLA_SLOT_COUNT, VANILLA_SLOT_COUNT + SIZE, false)){
                 return ItemStack.EMPTY;
             }
         } else if (index < VANILLA_SLOT_COUNT + SIZE) {
-            if (!mergeItemStack(sourceStack, 0, VANILLA_SLOT_COUNT, false)) {
+            if (!moveItemStackTo(sourceStack, 0, VANILLA_SLOT_COUNT, false)) {
                 return ItemStack.EMPTY;
             }
         } else {
@@ -108,9 +108,9 @@ public class BasketContainer extends Container {
         }
 
         if (sourceStack.getCount() == 0) {
-            sourceSlot.putStack(ItemStack.EMPTY);
+            sourceSlot.set(ItemStack.EMPTY);
         } else {
-            sourceSlot.onSlotChanged();
+            sourceSlot.setChanged();
         }
 
         sourceSlot.onTake(player, sourceStack);
@@ -118,27 +118,27 @@ public class BasketContainer extends Container {
     }
 
     @Override
-    public boolean canInteractWith(@Nonnull PlayerEntity player) {
+    public boolean stillValid(@Nonnull Player player) {
         return useContext.canInteractWith(player);
     }
 
     private interface IUseContext {
-        boolean canInteractWith(@Nonnull PlayerEntity player);
+        boolean canInteractWith(@Nonnull Player player);
 
         final class Block implements IUseContext {
-            private final World world;
+            private final Level world;
             private final BlockPos pos;
 
-            public Block(World world, BlockPos pos) {
+            public Block(Level world, BlockPos pos) {
                 this.world = world;
                 this.pos = pos;
             }
 
             @Override
-            public boolean canInteractWith(@Nonnull PlayerEntity player) {
-                TileEntity te = world.getTileEntity(pos);
+            public boolean canInteractWith(@Nonnull Player player) {
+                BlockEntity te = world.getBlockEntity(pos);
                 if (te instanceof BasketTileEntity) {
-                    return player.getDistanceSq(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5) < 64;
+                    return player.distanceToSqr(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5) < 64;
                 }
 
                 return false;
@@ -153,9 +153,9 @@ public class BasketContainer extends Container {
             }
 
             @Override
-            public boolean canInteractWith(@Nonnull PlayerEntity player) {
-                ItemStack main = player.getHeldItemMainhand();
-                ItemStack off = player.getHeldItemOffhand();
+            public boolean canInteractWith(@Nonnull Player player) {
+                ItemStack main = player.getMainHandItem();
+                ItemStack off = player.getOffhandItem();
                 return !main.isEmpty() && main == heldStack || !off.isEmpty() && off == heldStack;
             }
         }

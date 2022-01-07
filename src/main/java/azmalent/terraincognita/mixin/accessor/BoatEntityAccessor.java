@@ -1,13 +1,13 @@
 package azmalent.terraincognita.mixin.accessor;
 
-import net.minecraft.entity.item.BoatEntity;
+import net.minecraft.world.entity.vehicle.Boat;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(BoatEntity.class)
+@Mixin(Boat.class)
 public interface BoatEntityAccessor {
     @Accessor("status")
-    BoatEntity.Status ti_getStatus();
+    Boat.Status ti_getStatus();
 
     @Accessor("lastYd")
     void ti_setLastYd(double value);

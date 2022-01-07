@@ -1,15 +1,15 @@
 package azmalent.terraincognita.common.effect;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Effect;
-import net.minecraft.potion.EffectType;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectCategory;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class StickyMouthEffect extends Effect {
+public class StickyMouthEffect extends MobEffect {
     public StickyMouthEffect() {
-        super(EffectType.HARMFUL, 0xe868db);
+        super(MobEffectCategory.HARMFUL, 0xe868db);
     }
 
     @Override

@@ -1,11 +1,11 @@
 package azmalent.terraincognita.common.data.loot;
 
 import com.google.gson.JsonObject;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.loot.LootContext;
-import net.minecraft.loot.conditions.ILootCondition;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.common.loot.LootModifier;
 
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class OakLeavesLootModifier extends LootModifier {
-    public OakLeavesLootModifier(ILootCondition[] conditionsIn) {
+    public OakLeavesLootModifier(LootItemCondition[] conditionsIn) {
         super(conditionsIn);
     }
 
@@ -26,7 +26,7 @@ public class OakLeavesLootModifier extends LootModifier {
 
     public static class Serializer extends GlobalLootModifierSerializer<OakLeavesLootModifier> {
         @Override
-        public OakLeavesLootModifier read(ResourceLocation name, JsonObject json, ILootCondition[] conditionsIn) {
+        public OakLeavesLootModifier read(ResourceLocation name, JsonObject json, LootItemCondition[] conditionsIn) {
             return new OakLeavesLootModifier(conditionsIn);
         }
 

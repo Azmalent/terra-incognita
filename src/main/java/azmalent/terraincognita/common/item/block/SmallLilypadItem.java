@@ -1,26 +1,28 @@
 package azmalent.terraincognita.common.item.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.item.LilyPadItem;
-import net.minecraft.util.ActionResultType;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.item.WaterLilyBlockItem;
+import net.minecraft.world.InteractionResult;
 
 import javax.annotation.Nonnull;
 
-public class SmallLilypadItem extends LilyPadItem {
+import net.minecraft.world.item.Item.Properties;
+
+public class SmallLilypadItem extends WaterLilyBlockItem {
     public SmallLilypadItem(Block block) {
-        super(block, (new Properties()).group(ItemGroup.DECORATIONS));
+        super(block, (new Properties()).tab(CreativeModeTab.TAB_DECORATIONS));
     }
 
     @Nonnull
     @Override
-    public ActionResultType onItemUse(ItemUseContext context) {
-        if (context.getWorld().getBlockState(context.getPos()).getBlock() == this.getBlock()) {
-            return tryPlace(new BlockItemUseContext(context));
+    public InteractionResult useOn(UseOnContext context) {
+        if (context.getLevel().getBlockState(context.getClickedPos()).getBlock() == this.getBlock()) {
+            return place(new BlockPlaceContext(context));
         }
 
-        return super.onItemUse(context);
+        return super.useOn(context);
     }
 }

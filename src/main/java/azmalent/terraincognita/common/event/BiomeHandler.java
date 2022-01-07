@@ -9,11 +9,11 @@ import azmalent.terraincognita.common.registry.ModEntities;
 import azmalent.terraincognita.common.world.ModDefaultFeatures;
 import azmalent.terraincognita.common.world.biome.BiomeEntry;
 import azmalent.terraincognita.util.WorldGenUtil;
-import net.minecraft.entity.EntityClassification;
-import net.minecraft.util.RegistryKey;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.Biomes;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.Biomes;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import net.minecraftforge.common.world.MobSpawnInfoBuilder;
@@ -30,14 +30,14 @@ public class BiomeHandler {
             applyVanillaBiomeTweaks(event);
         }
 
-        RegistryKey<Biome> biomeKey = BiomeUtil.getBiomeKey(event.getName());
+        ResourceKey<Biome> biomeKey = BiomeUtil.getBiomeKey(event.getName());
         Biome biome = ForgeRegistries.BIOMES.getValue(event.getName());
         if (biome == null || BiomeUtil.hasAnyType(biomeKey, END, NETHER, VOID, OCEAN, BEACH, DEAD)) return;
 
         //Spawns
         MobSpawnInfoBuilder spawns = event.getSpawns();
         if (BiomeUtil.hasAnyType(biomeKey, PLAINS, FOREST) && BiomeUtil.hasNoneOfTypes(biomeKey, COLD, DENSE)) {
-            WorldGenUtil.addSpawner(spawns, ModEntities.BUTTERFLY, EntityClassification.AMBIENT, TIConfig.Fauna.butterflySpawnWeight.get(), 4, 8);
+            WorldGenUtil.addSpawner(spawns, ModEntities.BUTTERFLY, MobCategory.AMBIENT, TIConfig.Fauna.butterflySpawnWeight.get(), 4, 8);
         }
 
         //Features
@@ -116,7 +116,7 @@ public class BiomeHandler {
     }
 
     private static void applyVanillaBiomeTweaks(BiomeLoadingEvent event) {
-        RegistryKey<Biome> biome = BiomeUtil.getBiomeKey(event.getName());
+        ResourceKey<Biome> biome = BiomeUtil.getBiomeKey(event.getName());
         BiomeGenerationSettingsBuilder builder = event.getGeneration();
 
         if (biome == Biomes.SNOWY_TUNDRA || biome == Biomes.ICE_SPIKES) {

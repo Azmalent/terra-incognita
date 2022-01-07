@@ -5,9 +5,9 @@ import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.common.registry.ModBlocks;
 import azmalent.terraincognita.common.registry.ModItems;
 import azmalent.terraincognita.common.registry.ModWoodTypes;
-import net.minecraft.entity.merchant.villager.VillagerTrades;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.IItemProvider;
+import net.minecraft.world.entity.npc.VillagerTrades;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.BasicTrade;
 import net.minecraftforge.event.village.WandererTradesEvent;
 
@@ -15,7 +15,7 @@ import java.util.List;
 
 public class TradeHandler {
     public static void setupWandererTrades(WandererTradesEvent event) {
-        List<VillagerTrades.ITrade> generic = event.getGenericTrades();
+        List<VillagerTrades.ItemListing> generic = event.getGenericTrades();
 
         //Flowers
         if (TIConfig.Flora.dandelionPuff.get()) {
@@ -106,14 +106,14 @@ public class TradeHandler {
         }
 
         //Rares
-        List<VillagerTrades.ITrade> rare = event.getRareTrades();
+        List<VillagerTrades.ItemListing> rare = event.getRareTrades();
 
         if (TIConfig.Food.taffy.get()) {
             sell(rare, 2, new ItemStack(ModItems.TAFFY.get()), 3);
         }
 
         if (TIConfig.Flora.sweetPeas.get()) {
-            IItemProvider[] items = ModBlocks.SWEET_PEAS.toArray(new IItemProvider[0]);
+            ItemLike[] items = ModBlocks.SWEET_PEAS.toArray(new ItemLike[0]);
             rare.add(new RandomItemForEmeraldsTrade(3, items, 5, 1));
         }
 
@@ -122,19 +122,19 @@ public class TradeHandler {
         }
     }
 
-    private static void sell(List<VillagerTrades.ITrade> trades, int price, ItemStack stack, int maxTrades) {
+    private static void sell(List<VillagerTrades.ItemListing> trades, int price, ItemStack stack, int maxTrades) {
         trades.add(new BasicTrade(price, stack, maxTrades, 1));
     }
 
-    private static void sell(List<VillagerTrades.ITrade> trades, ItemStack stack, int maxTrades) {
+    private static void sell(List<VillagerTrades.ItemListing> trades, ItemStack stack, int maxTrades) {
         sell(trades, 1, stack, maxTrades);
     }
 
-    private static void sell(List<VillagerTrades.ITrade> trades, IItemProvider itemProvider, int maxTrades) {
+    private static void sell(List<VillagerTrades.ItemListing> trades, ItemLike itemProvider, int maxTrades) {
         sell(trades, 1, itemProvider, maxTrades);
     }
 
-    private static void sell(List<VillagerTrades.ITrade> trades, int price, IItemProvider itemProvider, int maxTrades) {
+    private static void sell(List<VillagerTrades.ItemListing> trades, int price, ItemLike itemProvider, int maxTrades) {
         sell(trades, price, new ItemStack(itemProvider.asItem()), maxTrades);
     }
 }

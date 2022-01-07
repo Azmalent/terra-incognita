@@ -5,19 +5,19 @@ import azmalent.terraincognita.common.capability.BasketCapabilityProvider;
 import azmalent.terraincognita.common.registry.ModBlocks;
 import azmalent.terraincognita.common.inventory.BasketContainer;
 import azmalent.terraincognita.common.inventory.BasketStackHandler;
-import net.minecraft.block.Block;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.container.SimpleNamedContainerProvider;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.SimpleMenuProvider;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -28,26 +28,26 @@ import javax.annotation.Nullable;
 
 public class BasketItem extends BlockItem {
     public BasketItem(Block block) {
-        super(block, new Item.Properties().group(ItemGroup.TOOLS).maxStackSize(1));
+        super(block, new Item.Properties().tab(CreativeModeTab.TAB_TOOLS).stacksTo(1));
     }
 
     @Nonnull
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
-        ItemStack stack = player.getHeldItem(hand);
-        if (!world.isRemote && player instanceof ServerPlayerEntity) {
-            NetworkHooks.openGui((ServerPlayerEntity) player, new SimpleNamedContainerProvider((id, inventory, playerEntity) ->
+    public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
+        ItemStack stack = player.getItemInHand(hand);
+        if (!world.isClientSide && player instanceof ServerPlayer) {
+            NetworkHooks.openGui((ServerPlayer) player, new SimpleMenuProvider((id, inventory, playerEntity) ->
                 new BasketContainer(id, inventory, getStackHandler(stack), stack),
-                stack.getDisplayName()
+                stack.getHoverName()
             ));
         }
 
-        return new ActionResult<>(ActionResultType.SUCCESS, stack);
+        return new InteractionResultHolder<>(InteractionResult.SUCCESS, stack);
     }
 
     @Nullable
     @Override
-    public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundNBT nbt) {
+    public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
         return new BasketCapabilityProvider();
     }
 
@@ -62,13 +62,13 @@ public class BasketItem extends BlockItem {
         return null;
     }
 
-    public static ItemStack getBasketInHand(PlayerEntity player) {
-        if (player.getHeldItemMainhand().getItem() == ModBlocks.BASKET.getItem()) {
-            return player.getHeldItemMainhand();
+    public static ItemStack getBasketInHand(Player player) {
+        if (player.getMainHandItem().getItem() == ModBlocks.BASKET.getItem()) {
+            return player.getMainHandItem();
         }
 
-        if (player.getHeldItemOffhand().getItem() == ModBlocks.BASKET.getItem()) {
-            return player.getHeldItemOffhand();
+        if (player.getOffhandItem().getItem() == ModBlocks.BASKET.getItem()) {
+            return player.getOffhandItem();
         }
 
         return null;
@@ -76,12 +76,12 @@ public class BasketItem extends BlockItem {
 
     @Nullable
     @Override
-    public CompoundNBT getShareTag(ItemStack stack) {
-        CompoundNBT baseTag = stack.getTag();
+    public CompoundTag getShareTag(ItemStack stack) {
+        CompoundTag baseTag = stack.getTag();
         BasketStackHandler stackHandler = getStackHandler(stack);
-        CompoundNBT capabilityTag = stackHandler.serializeNBT();
+        CompoundTag capabilityTag = stackHandler.serializeNBT();
 
-        CompoundNBT combinedTag = new CompoundNBT();
+        CompoundTag combinedTag = new CompoundTag();
         if (baseTag != null) {
             combinedTag.put("base", baseTag);
         }
@@ -92,14 +92,14 @@ public class BasketItem extends BlockItem {
     }
 
     @Override
-    public void readShareTag(ItemStack stack, @Nullable CompoundNBT tag) {
+    public void readShareTag(ItemStack stack, @Nullable CompoundTag tag) {
         if (tag == null) {
             stack.setTag(null);
             return;
         }
 
-        CompoundNBT baseTag = tag.getCompound("base");
-        CompoundNBT capabilityTag = tag.getCompound("cap");
+        CompoundTag baseTag = tag.getCompound("base");
+        CompoundTag capabilityTag = tag.getCompound("cap");
         stack.setTag(baseTag);
 
         getStackHandler(stack).deserializeNBT(capabilityTag);

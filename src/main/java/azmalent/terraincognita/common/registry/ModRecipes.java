@@ -5,14 +5,14 @@ import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.recipe.FiddleheadSuspiciousStewAdditionRecipe;
 import azmalent.terraincognita.common.recipe.FiddleheadSuspiciousStewRecipe;
 import azmalent.terraincognita.common.recipe.WreathRecipe;
-import net.minecraft.block.ComposterBlock;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.SpecialRecipe;
-import net.minecraft.item.crafting.SpecialRecipeSerializer;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.level.block.ComposterBlock;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.CustomRecipe;
+import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -21,22 +21,22 @@ import java.util.function.Function;
 
 @SuppressWarnings("unused")
 public class ModRecipes {
-    public static final DeferredRegister<IRecipeSerializer<?>> RECIPES = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, TerraIncognita.MODID);
+    public static final DeferredRegister<RecipeSerializer<?>> RECIPES = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, TerraIncognita.MODID);
 
-    public static final RegistryObject<SpecialRecipeSerializer<?>> FIDDLEHEAD_SUSPICIOUS_STEW = registerRecipe("fiddlehead_suspicious_stew", FiddleheadSuspiciousStewRecipe::new);
-    public static RegistryObject<SpecialRecipeSerializer<?>> FIDDLEHEAD_SUSPICIOUS_STEW_ADDITION = registerRecipe("fiddlehead_suspicious_stew_addition", FiddleheadSuspiciousStewAdditionRecipe::new);
-    public static final RegistryObject<SpecialRecipeSerializer<?>> WREATH = registerRecipe("wreath", WreathRecipe::new);
+    public static final RegistryObject<SimpleRecipeSerializer<?>> FIDDLEHEAD_SUSPICIOUS_STEW = registerRecipe("fiddlehead_suspicious_stew", FiddleheadSuspiciousStewRecipe::new);
+    public static RegistryObject<SimpleRecipeSerializer<?>> FIDDLEHEAD_SUSPICIOUS_STEW_ADDITION = registerRecipe("fiddlehead_suspicious_stew_addition", FiddleheadSuspiciousStewAdditionRecipe::new);
+    public static final RegistryObject<SimpleRecipeSerializer<?>> WREATH = registerRecipe("wreath", WreathRecipe::new);
 
-    private static RegistryObject<SpecialRecipeSerializer<?>> registerRecipe(String id, Function<ResourceLocation, SpecialRecipe> constructor) {
-        return RECIPES.register(id, () -> new SpecialRecipeSerializer<>(constructor));
+    private static RegistryObject<SimpleRecipeSerializer<?>> registerRecipe(String id, Function<ResourceLocation, CustomRecipe> constructor) {
+        return RECIPES.register(id, () -> new SimpleRecipeSerializer<>(constructor));
     }
 
     public static void registerCompostable(RegistryObject<? extends Item> item, float value) {
-        ComposterBlock.CHANCES.put(item.get(), value);
+        ComposterBlock.COMPOSTABLES.put(item.get(), value);
     }
 
-    public static void registerCompostable(IItemProvider itemProvider, float value) {
-        ComposterBlock.CHANCES.put(itemProvider.asItem(), value);
+    public static void registerCompostable(ItemLike itemProvider, float value) {
+        ComposterBlock.COMPOSTABLES.put(itemProvider.asItem(), value);
     }
 
     public static void initCompostables() {

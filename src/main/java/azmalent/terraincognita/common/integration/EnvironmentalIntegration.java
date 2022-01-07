@@ -1,8 +1,8 @@
 package azmalent.terraincognita.common.integration;
 
 import azmalent.terraincognita.TIConfig;
-import net.minecraft.block.Block;
-import net.minecraft.world.gen.blockstateprovider.WeightedBlockStateProvider;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.ObjectHolder;
 
@@ -22,12 +22,12 @@ public class EnvironmentalIntegration {
     public static final Block WHITE_DELPHINIUM = null;
 
     @SuppressWarnings("ConstantConditions")
-    public static void addDelphiniums(WeightedBlockStateProvider provider) {
+    public static void addDelphiniums(WeightedStateProvider provider) {
         if (ModList.get().isLoaded(MODID) && TIConfig.Integration.Environmental.delphiniumsInLushPlains.get()) {
-            provider.addWeightedBlockstate(BLUE_DELPHINIUM.getDefaultState(), 1);
-            provider.addWeightedBlockstate(PINK_DELPHINIUM.getDefaultState(), 1);
-            provider.addWeightedBlockstate(PURPLE_DELPHINIUM.getDefaultState(), 1);
-            provider.addWeightedBlockstate(WHITE_DELPHINIUM.getDefaultState(), 1);
+            provider.add(BLUE_DELPHINIUM.defaultBlockState(), 1);
+            provider.add(PINK_DELPHINIUM.defaultBlockState(), 1);
+            provider.add(PURPLE_DELPHINIUM.defaultBlockState(), 1);
+            provider.add(WHITE_DELPHINIUM.defaultBlockState(), 1);
         }
     }
 }
