@@ -10,6 +10,7 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
@@ -18,7 +19,7 @@ public final class ModBoatDispenserBehavior extends DefaultDispenseItemBehavior 
 
     @Nonnull
     @SuppressWarnings("deprecation")
-    public ItemStack execute(BlockSource iBlockSource, ItemStack stack) {
+    public ItemStack execute(BlockSource iBlockSource, @NotNull ItemStack stack) {
         Direction direction = iBlockSource.getBlockState().getValue(DispenserBlock.FACING);
         Level world = iBlockSource.getLevel();
         double x = iBlockSource.x() + (double) ((float) direction.getStepX() * 1.125f);

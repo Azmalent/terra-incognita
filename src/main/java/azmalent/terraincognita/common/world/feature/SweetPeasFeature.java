@@ -1,6 +1,7 @@
 package azmalent.terraincognita.common.world.feature;
 
 import azmalent.terraincognita.common.registry.ModBlocks;
+import net.minecraft.Util;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.VineBlock;
 import net.minecraft.tags.BlockTags;
@@ -21,7 +22,7 @@ public class SweetPeasFeature extends Feature<NoneFeatureConfiguration> {
 
     @Override
     public boolean place(@Nonnull WorldGenLevel reader, @Nonnull ChunkGenerator generator, Random rand, @Nonnull BlockPos pos, @Nonnull NoneFeatureConfiguration config) {
-        BlockState state = ModBlocks.SWEET_PEAS.get(rand.nextInt(ModBlocks.SWEET_PEAS.size())).getDefaultState();
+        BlockState state = Util.getRandom(ModBlocks.SWEET_PEAS, rand).defaultBlockState();
         boolean success = false;
 
         BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();

@@ -17,7 +17,7 @@ public class BasketStackHandler extends ItemStackHandler {
     @Override
     public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
         validateSlotIndex(slot);
-        return !stack.isEmpty() && stack.getItem().is(ModItemTags.BASKET_STORABLE);
+        return !stack.isEmpty() && stack.is(ModItemTags.BASKET_STORABLE);
     }
 
     public NonNullList<ItemStack> getContents() {

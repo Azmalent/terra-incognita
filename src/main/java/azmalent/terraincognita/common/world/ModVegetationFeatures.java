@@ -29,7 +29,6 @@ public class ModVegetationFeatures {
         static final BlockState PINK_LOTUS   = ModBlocks.PINK_LOTUS.getBlock().defaultBlockState();
         static final BlockState YELLOW_LOTUS = ModBlocks.YELLOW_LOTUS.getBlock().defaultBlockState();
 
-        static final BlockState CATTAIL = ModBlocks.CATTAIL.getBlock().defaultBlockState();
         static final BlockState ROOTS = ModBlocks.ROOTS.getDefaultState();
         static final BlockState SMALL_CACTUS = ModBlocks.SMALL_CACTUS.getBlock().defaultBlockState();
     }
@@ -48,7 +47,6 @@ public class ModVegetationFeatures {
     }
 
     public static class Configs {
-        static final RandomPatchConfiguration CATTAILS = new RandomPatchConfiguration.GrassConfigurationBuilder(new SimpleStateProvider(States.CATTAIL), DoublePlantPlacer.INSTANCE).tries(48).noProjection().needWater().canReplace().build();
         static final RandomPatchConfiguration ROOTS = new RandomPatchConfiguration.GrassConfigurationBuilder(new SimpleStateProvider(States.ROOTS), SimpleBlockPlacer.INSTANCE).tries(60).xspread(4).yspread(16).zspread(4).noProjection().build();
         static final RandomPatchConfiguration SMALL_CACTUS = new RandomPatchConfiguration.GrassConfigurationBuilder(new SimpleStateProvider(States.SMALL_CACTUS), SimpleBlockPlacer.INSTANCE).tries(4).build();
     }
@@ -56,7 +54,6 @@ public class ModVegetationFeatures {
     public static ConfiguredFeature<?, ?> LOTUS;
     public static ConfiguredFeature<?, ?> SMALL_LILY_PADS;
     public static ConfiguredFeature<?, ?> SOUR_BERRIES;
-    public static ConfiguredFeature<?, ?> CATTAILS;
     public static ConfiguredFeature<?, ?> REEDS;
     public static ConfiguredFeature<?, ?> ROOTS;
     public static ConfiguredFeature<?, ?> HANGING_MOSS;
@@ -74,7 +71,6 @@ public class ModVegetationFeatures {
         LOTUS = ModConfiguredFeatures.register("lotus", initLilypadFeature(StateProviders.LOTUS, 10));
         SMALL_LILY_PADS = ModConfiguredFeatures.register("small_lily_pad", initLilypadFeature(StateProviders.SMALL_LILY_PAD, 10));
         SOUR_BERRIES = ModConfiguredFeatures.register("sour_berries", initLilypadFeature(StateProviders.SOUR_BERRIES, 4).chance(2));
-        CATTAILS = ModConfiguredFeatures.register("cattails", Feature.RANDOM_PATCH.configured(Configs.CATTAILS).count(UniformInt.of(2, 4)).decorated(Features.Decorators.ADD_32).decorated(Features.Decorators.HEIGHTMAP_SQUARE).count(5));
         REEDS = ModConfiguredFeatures.register("reeds", ModFeatures.REEDS.get().configured(FeatureConfiguration.NONE).decorated(Features.Decorators.HEIGHTMAP_DOUBLE_SQUARE).count(12).chance(12));
         ROOTS = ModConfiguredFeatures.register("roots", Feature.RANDOM_PATCH.configured(Configs.ROOTS).decorated(Features.Decorators.HEIGHTMAP_DOUBLE_SQUARE).count(20));
         HANGING_MOSS = ModConfiguredFeatures.register("hanging_moss", ModFeatures.HANGING_MOSS.get().configured(FeatureConfiguration.NONE).decorated(Features.Decorators.HEIGHTMAP_DOUBLE_SQUARE).count(20));

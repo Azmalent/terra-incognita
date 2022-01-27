@@ -7,12 +7,12 @@ import azmalent.terraincognita.mixin.accessor.TreeDecoratorTypeAccessor;
 import com.mojang.serialization.Codec;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class ModTreeDecorators {
-    public static final DeferredRegister<TreeDecoratorType<?>> TREE_DECORATORS = DeferredRegister.create(ForgeRegistries.TREE_DECORATOR_TYPES, TerraIncognita.MODID);
+    public static final DeferredRegister<TreeDecoratorType<?>> TREE_DECORATORS = TerraIncognita.REG_HELPER.getOrCreateRegistry(ForgeRegistries.TREE_DECORATOR_TYPES);
 
     public static final RegistryObject<TreeDecoratorType<AppleTreeDecorator>> APPLES = register("apples", AppleTreeDecorator.CODEC);
     public static final RegistryObject<TreeDecoratorType<HazelnutTreeDecorator>> HAZELNUTS = register("hazelnuts", HazelnutTreeDecorator.CODEC);

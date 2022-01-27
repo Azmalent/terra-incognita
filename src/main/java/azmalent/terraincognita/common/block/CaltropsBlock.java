@@ -1,7 +1,6 @@
 package azmalent.terraincognita.common.block;
 
 import azmalent.terraincognita.TIConfig;
-import azmalent.terraincognita.client.ModSoundTypes;
 import azmalent.terraincognita.common.ModDamageSources;
 import azmalent.terraincognita.common.registry.ModBlocks;
 import net.minecraft.world.level.block.Block;
@@ -16,7 +15,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.util.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -33,6 +31,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings({"ConstantConditions", "deprecation"})
 public class CaltropsBlock extends Block {
@@ -46,12 +45,12 @@ public class CaltropsBlock extends Block {
 
     @Override
     public SoundType getSoundType(BlockState state, LevelReader world, BlockPos pos, @Nullable Entity entity) {
-        return ModSoundTypes.CALTROPS;
+        return SoundType.CHAIN;
     }
 
     @Override
     @SuppressWarnings("deprecation")
-    public void neighborChanged(BlockState state, Level world, BlockPos pos, Block block, BlockPos neighborPos, boolean isMoving) {
+    public void neighborChanged(@NotNull BlockState state, @NotNull Level world, @NotNull BlockPos pos, @NotNull Block block, @NotNull BlockPos neighborPos, boolean isMoving) {
         if (!canSurvive(state, world, pos)) {
             world.destroyBlock(pos, true);
         }
@@ -60,7 +59,7 @@ public class CaltropsBlock extends Block {
     @Nonnull
     @Override
     @SuppressWarnings("deprecation")
-    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    public InteractionResult use(@NotNull BlockState state, Level world, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
         if (!world.isClientSide && player.getItemInHand(hand).isEmpty()) {
             ItemStack stack = ModBlocks.CALTROPS.makeStack();
 
@@ -77,20 +76,19 @@ public class CaltropsBlock extends Block {
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
+    public @NotNull VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         return SHAPE;
     }
 
     @Override
-    public boolean canSurvive(BlockState state, LevelReader worldIn, BlockPos pos) {
+    public boolean canSurvive(@NotNull BlockState state, LevelReader level, BlockPos pos) {
         BlockPos down = pos.below();
-        return worldIn.getBlockState(down).isFaceSturdy(worldIn, down, Direction.UP);
+        return level.getBlockState(down).isFaceSturdy(level, down, Direction.UP);
     }
 
     @Override
-    public void entityInside(BlockState state, Level world, BlockPos pos, Entity entity) {
-        if (!world.isClientSide && entity instanceof LivingEntity && entity.isOnGround()) {
-            LivingEntity living = (LivingEntity) entity;
+    public void entityInside(@NotNull BlockState state, Level world, @NotNull BlockPos pos, @NotNull Entity entity) {
+        if (!world.isClientSide && entity instanceof LivingEntity living && living.isOnGround()) {
             if (living.hurt(ModDamageSources.CALTROPS, STEP_DAMAGE)) {
                 living.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, STEP_DAMAGE * 100, 0, false, false));
                 if (world.random.nextFloat() < TIConfig.Tools.caltropsBreakChance.get()) {

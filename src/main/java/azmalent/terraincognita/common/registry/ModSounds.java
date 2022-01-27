@@ -2,12 +2,12 @@ package azmalent.terraincognita.common.registry;
 
 import azmalent.terraincognita.TerraIncognita;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class ModSounds {
-    public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, TerraIncognita.MODID);
+    public static final DeferredRegister<SoundEvent> SOUNDS = TerraIncognita.REG_HELPER.getOrCreateRegistry(ForgeRegistries.SOUND_EVENTS);
 
     public static final RegistryObject<SoundEvent> DANDELION_BLOW = makeSoundEvent("item.dandelion_puff.blow");
     public static final RegistryObject<SoundEvent> CALTROPS_THROWN  = makeSoundEvent("block.caltrops.throw");

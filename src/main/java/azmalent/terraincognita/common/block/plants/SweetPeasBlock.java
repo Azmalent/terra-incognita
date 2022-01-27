@@ -1,53 +1,50 @@
 package azmalent.terraincognita.common.block.plants;
 
+import azmalent.cuneiform.lib.util.ItemUtil;
 import azmalent.terraincognita.common.integration.ModIntegration;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.VineBlock;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.util.*;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.server.level.ServerLevel;
-
-import javax.annotation.Nonnull;
-import java.util.Random;
-
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
-
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.VineBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraftforge.common.ToolActions;
+import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.Nonnull;
+import java.util.Random;
 
 @SuppressWarnings("deprecation")
 public class SweetPeasBlock extends VineBlock {
-    public static final BooleanProperty BURNT = BooleanProperty.create("burnt");
+    public static final BooleanProperty CUT = BooleanProperty.create("cut");
 
     public SweetPeasBlock() {
         super(Properties.copy(Blocks.VINE));
-        registerDefaultState(super.defaultBlockState().setValue(BURNT, false));
+        registerDefaultState(super.defaultBlockState().setValue(CUT, false));
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
-        builder.add(BURNT);
+        builder.add(CUT);
     }
 
     @Override
-    public void randomTick(BlockState state, ServerLevel worldIn, @Nonnull BlockPos pos, @Nonnull Random random) {
-        if (!state.getValue(BURNT)) {
-            super.randomTick(state, worldIn, pos, random);
+    public void randomTick(BlockState state, @NotNull ServerLevel level, @Nonnull BlockPos pos, @Nonnull Random random) {
+        if (!state.getValue(CUT)) {
+            super.randomTick(state, level, pos, random);
         }
     }
 
@@ -65,7 +62,7 @@ public class SweetPeasBlock extends VineBlock {
                     attached = true;
                 } else {
                     BlockState vineAbove = blockReader.getBlockState(pos.above());
-                    attached = vineAbove.is(this) && !vineAbove.getValue(BURNT) && vineAbove.getValue(property);
+                    attached = vineAbove.is(this) && !vineAbove.getValue(CUT) && vineAbove.getValue(property);
                 }
 
                 state = state.setValue(property, attached);
@@ -77,19 +74,15 @@ public class SweetPeasBlock extends VineBlock {
 
     @Nonnull
     @Override
-    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        if (ModIntegration.QUARK.canBurnVineTips()) {
-            Item heldItem = player.getItemInHand(hand).getItem();
-            if (!state.getValue(BURNT) && (heldItem == Items.FLINT_AND_STEEL || heldItem == Items.FIRE_CHARGE)) {
-                BlockState newState = state.setValue(BURNT, true);
+    public InteractionResult use(@NotNull BlockState state, @NotNull Level world, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
+        if (ModIntegration.QUARK.canCutVines()) {
+            ItemStack heldItem = player.getItemInHand(hand);
+            if (!state.getValue(CUT) && heldItem.canPerformAction(ToolActions.SHEARS_CARVE)) {
+                BlockState newState = state.setValue(CUT, true);
                 world.setBlockAndUpdate(pos, newState);
 
-                world.playSound(player, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.PLAYERS, 0.5F, 1F);
-                if (world instanceof ServerLevel) {
-                    ServerLevel serverWorld = (ServerLevel) world;
-                    serverWorld.sendParticles(ParticleTypes.FLAME, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 5, 0.25, 0.25, 0.25, 0.01);
-                    serverWorld.sendParticles(ParticleTypes.SMOKE, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 20, 0.25, 0.25, 0.25, 0.01);
-                }
+                world.playSound(player, pos, SoundEvents.SHEEP_SHEAR, SoundSource.PLAYERS, 0.5F, 1F);
+                ItemUtil.damageHeldItem(player, hand);
 
                 return InteractionResult.SUCCESS;
             }

@@ -10,8 +10,10 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraftforge.common.Tags;
 
 import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("deprecation")
 public class SmallCactusBlock extends BushBlock {
@@ -23,12 +25,14 @@ public class SmallCactusBlock extends BushBlock {
 
     @Nonnull
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
+    @ParametersAreNonnullByDefault
+    public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         return SHAPE;
     }
 
     @Override
-    protected boolean mayPlaceOn(BlockState state, BlockGetter worldIn, BlockPos pos) {
+    @ParametersAreNonnullByDefault
+    protected boolean mayPlaceOn(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
         return state.is(Tags.Blocks.SAND);
     }
 }

@@ -24,6 +24,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
+import org.jetbrains.annotations.NotNull;
 
 public class DandelionPuffItem extends BlockItem {
     public DandelionPuffItem(Block blockIn) {
@@ -32,18 +33,18 @@ public class DandelionPuffItem extends BlockItem {
 
     @Nonnull
     @Override
-    public UseAnim getUseAnimation(ItemStack stack) {
+    public UseAnim getUseAnimation(@NotNull ItemStack stack) {
         return UseAnim.BLOCK;
     }
 
     @Override
-    public int getUseDuration(ItemStack stack) {
+    public int getUseDuration(@NotNull ItemStack stack) {
         return 100;
     }
 
     @Nonnull
     @Override
-    public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, @Nonnull InteractionHand handIn) {
+    public InteractionResultHolder<ItemStack> use(@NotNull Level level, Player playerIn, @Nonnull InteractionHand handIn) {
         ItemStack stack = playerIn.getItemInHand(handIn);
         playerIn.startUsingItem(handIn);
         return new InteractionResultHolder<>(InteractionResult.SUCCESS, stack);
@@ -74,14 +75,14 @@ public class DandelionPuffItem extends BlockItem {
     }
 
     @Override
-    public void releaseUsing(ItemStack stack, Level worldIn, LivingEntity entityLiving, int timeLeft) {
-        finishUsingItem(stack, worldIn, entityLiving);
+    public void releaseUsing(@NotNull ItemStack stack, @NotNull Level level, @NotNull LivingEntity entityLiving, int timeLeft) {
+        finishUsingItem(stack, level, entityLiving);
     }
 
     @Nonnull
     @Override
-    public ItemStack finishUsingItem(@Nonnull ItemStack stack, Level worldIn, @Nonnull LivingEntity entityLiving) {
-        if (!worldIn.isClientSide && entityLiving instanceof Player) {
+    public ItemStack finishUsingItem(@Nonnull ItemStack stack, Level level, @Nonnull LivingEntity entityLiving) {
+        if (!level.isClientSide && entityLiving instanceof Player) {
             Player player = (Player) entityLiving;
             player.awardStat(Stats.ITEM_USED.get(this));
 

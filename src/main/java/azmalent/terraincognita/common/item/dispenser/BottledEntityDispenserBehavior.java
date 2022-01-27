@@ -13,13 +13,14 @@ import net.minecraft.world.item.Items;
 import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
 public final class BottledEntityDispenserBehavior extends DefaultDispenseItemBehavior {
     @Nonnull
     @Override
-    protected ItemStack execute(BlockSource source, ItemStack bottle) {
+    protected ItemStack execute(@NotNull BlockSource source, ItemStack bottle) {
         Item item = bottle.getItem();
         if (!(item instanceof BottledEntityItem)) {
             return bottle;

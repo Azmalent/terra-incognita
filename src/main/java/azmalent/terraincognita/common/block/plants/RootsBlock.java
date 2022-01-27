@@ -12,22 +12,25 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.common.Tags;
 
 import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Random;
 
 import net.minecraft.world.level.block.state.BlockBehaviour.OffsetType;
+import org.jetbrains.annotations.NotNull;
 
 public class RootsBlock extends HangingPlantBlock implements BonemealableBlock {
 	public static final VoxelShape SHAPE = box(3, 6, 3, 13, 16, 13);
 
     @Nonnull
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter reader, BlockPos blockPos, CollisionContext context) {
+    @ParametersAreNonnullByDefault
+    public VoxelShape getShape(BlockState state, @NotNull BlockGetter reader, @NotNull BlockPos blockPos, @NotNull CollisionContext context) {
         Vec3 offset = state.getOffset(reader, blockPos);
         return SHAPE.move(offset.x, offset.y, offset.z);
     }
 
     @Override
-    protected boolean isValidGround(BlockState state, BlockState ground, BlockGetter worldIn, BlockPos groundPos) {
+    protected boolean isValidGround(BlockState state, BlockState ground, BlockGetter level, BlockPos groundPos) {
         return ground.is(Tags.Blocks.DIRT);
     }
 

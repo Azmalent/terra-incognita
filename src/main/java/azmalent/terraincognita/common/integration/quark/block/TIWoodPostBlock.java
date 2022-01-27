@@ -31,6 +31,7 @@ import net.minecraft.world.level.block.Lantern;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 
 public class TIWoodPostBlock extends Block implements SimpleWaterloggedBlock {
     private static final VoxelShape SHAPE_X = Block.box(0F, 6F, 6F, 16F, 10F, 10F);
@@ -72,7 +73,7 @@ public class TIWoodPostBlock extends Block implements SimpleWaterloggedBlock {
 
     @Nonnull
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
+    public VoxelShape getShape(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         switch(state.getValue(AXIS)) {
             case X: return SHAPE_X;
             case Y: return SHAPE_Y;
@@ -126,12 +127,12 @@ public class TIWoodPostBlock extends Block implements SimpleWaterloggedBlock {
 
     @Override
     @SuppressWarnings("deprecation")
-    public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
-        super.neighborChanged(state, worldIn, pos, blockIn, fromPos, isMoving);
+    public void neighborChanged(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Block blockIn, @NotNull BlockPos fromPos, boolean isMoving) {
+        super.neighborChanged(state, level, pos, blockIn, fromPos, isMoving);
 
-        BlockState newState = getState(worldIn, pos, state.getValue(AXIS));
+        BlockState newState = getState(level, pos, state.getValue(AXIS));
         if(!newState.equals(state)) {
-            worldIn.setBlockAndUpdate(pos, newState);
+            level.setBlockAndUpdate(pos, newState);
         }
     }
 

@@ -2,25 +2,25 @@ package azmalent.terraincognita.common.block.plants;
 
 import azmalent.terraincognita.common.registry.ModBlocks;
 import azmalent.terraincognita.common.registry.ModItems;
-import net.minecraft.block.*;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraftforge.common.ForgeHooks;
-
-import javax.annotation.Nonnull;
-import java.util.Random;
-
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.WaterlilyBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.common.ForgeHooks;
+import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.Random;
 
 @SuppressWarnings("deprecation")
 public class SourBerrySproutBlock extends WaterlilyBlock implements BonemealableBlock {
@@ -31,38 +31,44 @@ public class SourBerrySproutBlock extends WaterlilyBlock implements Bonemealable
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
+    @ParametersAreNonnullByDefault
+    public @NotNull VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         return SHAPE;
     }
 
     @Nonnull
     @Override
-    public ItemStack getCloneItemStack(BlockGetter worldIn, BlockPos pos, BlockState state) {
+    @ParametersAreNonnullByDefault
+    public ItemStack getCloneItemStack(@NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull BlockState state) {
         return new ItemStack(ModItems.SOUR_BERRIES.get());
     }
 
     @Override
-    public void randomTick(BlockState state, ServerLevel worldIn, BlockPos pos, Random random) {
-        super.randomTick(state, worldIn, pos, random);
-        if (worldIn.getRawBrightness(pos, 0) >= 9 && ForgeHooks.onCropsGrowPre(worldIn, pos, state,random.nextInt(5) == 0)) {
-            worldIn.setBlock(pos, ModBlocks.SOUR_BERRY_BUSH.getDefaultState(), 2);
-            ForgeHooks.onCropsGrowPost(worldIn, pos, state);
+    @ParametersAreNonnullByDefault
+    public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull Random random) {
+        super.randomTick(state, level, pos, random);
+        if (level.getRawBrightness(pos, 0) >= 9 && ForgeHooks.onCropsGrowPre(level, pos, state,random.nextInt(5) == 0)) {
+            level.setBlock(pos, ModBlocks.SOUR_BERRY_BUSH.defaultBlockState(), 2);
+            ForgeHooks.onCropsGrowPost(level, pos, state);
         }
     }
 
-    //IGrowable implementation
+    //BonemealableBlock implementation
     @Override
-    public boolean isValidBonemealTarget(BlockGetter worldIn, BlockPos pos, BlockState state, boolean isClient) {
+    @ParametersAreNonnullByDefault
+    public boolean isValidBonemealTarget(@NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull BlockState state, boolean isClient) {
         return true;
     }
 
     @Override
-    public boolean isBonemealSuccess(Level worldIn, Random rand, BlockPos pos, BlockState state) {
+    @ParametersAreNonnullByDefault
+    public boolean isBonemealSuccess(@NotNull Level level, @NotNull Random rand, @NotNull BlockPos pos, @NotNull BlockState state) {
         return true;
     }
 
     @Override
-    public void performBonemeal(ServerLevel worldIn, Random rand, BlockPos pos, BlockState state) {
-        worldIn.setBlock(pos, ModBlocks.SOUR_BERRY_BUSH.getDefaultState(), 2);
+    @ParametersAreNonnullByDefault
+    public void performBonemeal(ServerLevel level, @NotNull Random rand, @NotNull BlockPos pos, @NotNull BlockState state) {
+        level.setBlock(pos, ModBlocks.SOUR_BERRY_BUSH.defaultBlockState(), 2);
     }
 }

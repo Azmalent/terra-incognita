@@ -20,7 +20,7 @@ public class AlpineFlowerBlockStateProvider extends BlockStateProvider {
     public static final Codec<AlpineFlowerBlockStateProvider> CODEC = Codec.unit(() -> INSTANCE);
 
     private static final Lazy<BlockState[]> FLOWERS = Lazy.of(
-        () -> Lists.newArrayList(ModBlocks.SAXIFRAGE, ModBlocks.ALPINE_PINK, ModBlocks.GENTIAN).stream().map(flower -> flower.getBlock().defaultBlockState()).toArray(BlockState[]::new)
+        () -> Lists.newArrayList(ModBlocks.YELLOW_SAXIFRAGE, ModBlocks.ALPINE_PINK, ModBlocks.GENTIAN).stream().map(flower -> flower.getBlock().defaultBlockState()).toArray(BlockState[]::new)
     );
 
     private static final Lazy<BlockState> EDELWEISS = Lazy.of(() -> ModBlocks.EDELWEISS.getBlock().defaultBlockState());

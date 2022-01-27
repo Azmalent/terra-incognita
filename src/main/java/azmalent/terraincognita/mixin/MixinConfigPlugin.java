@@ -28,14 +28,6 @@ public class MixinConfigPlugin implements IMixinConfigPlugin {
             }
         }
 
-        if (mixinClassName.equals("azmalent.terraincognita.mixin.compat.botania.HornHarvestablesMixin")) {
-            try {
-                Class.forName("vazkii.botania.api.item.IHornHarvestable");
-            } catch (ClassNotFoundException e) {
-                return false;
-            }
-        }
-
         return true;
     }
 

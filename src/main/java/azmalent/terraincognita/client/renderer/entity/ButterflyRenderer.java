@@ -1,9 +1,9 @@
 package azmalent.terraincognita.client.renderer.entity;
 
-import azmalent.terraincognita.common.entity.butterfly.AbstractButterflyEntity;
+import azmalent.terraincognita.common.entity.butterfly.AbstractButterfly;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -13,12 +13,11 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nonnull;
-import java.util.Random;
 
 @OnlyIn(Dist.CLIENT)
-public class ButterflyRenderer<T extends AbstractButterflyEntity> extends MobRenderer<T, ButterflyRenderer.ButterflyModel<T>> {
-    public ButterflyRenderer(EntityRenderDispatcher renderManagerIn) {
-        super(renderManagerIn, new ButterflyModel<T>(), 0.2f);
+public class ButterflyRenderer<T extends AbstractButterfly> extends MobRenderer<T, ButterflyRenderer.ButterflyModel<T>> {
+    public ButterflyRenderer(EntityRendererProvider.Context context) {
+        super(context, new ButterflyModel<T>(), 0.2f);
     }
 
     @Nonnull
@@ -43,7 +42,7 @@ public class ButterflyRenderer<T extends AbstractButterflyEntity> extends MobRen
     }
 
     @SuppressWarnings("FieldCanBeLocal")
-    public static class ButterflyModel<T extends AbstractButterflyEntity> extends EntityModel<T> {
+    public static class ButterflyModel<T extends AbstractButterfly> extends EntityModel<T> {
         private final ModelPart body;
         private final ModelPart antennae;
         private final ModelPart leftWing;

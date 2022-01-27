@@ -1,10 +1,11 @@
 package azmalent.terraincognita.common.registry;
 
+import azmalent.cuneiform.lib.registry.BlockEntry;
+import azmalent.terraincognita.common.block.trees.AppleTree;
+import azmalent.terraincognita.common.block.trees.HazelTree;
 import azmalent.terraincognita.common.block.woodtypes.AppleWoodType;
 import azmalent.terraincognita.common.block.woodtypes.HazelWoodType;
 import azmalent.terraincognita.common.block.woodtypes.ModWoodType;
-import azmalent.terraincognita.common.block.trees.AppleTree;
-import azmalent.terraincognita.common.block.trees.HazelTree;
 import com.google.common.collect.Lists;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.MaterialColor;
@@ -32,25 +33,25 @@ public class ModWoodTypes {
     }
 
     @SuppressWarnings("unchecked")
-    private static Supplier<Block>[] getWoodBlockSuppliers(BiConsumer<List<Supplier<Block>>, ModWoodType> func) {
-        List<Supplier<Block>> suppliers = Lists.newArrayList();
+    private static List<Supplier<? extends Block>> getWoodBlockSuppliers(BiConsumer<List<Supplier<? extends Block>>, ModWoodType> func) {
+        List<Supplier<? extends Block>> suppliers = Lists.newArrayList();
         ModWoodTypes.VALUES.forEach(woodType -> func.accept(suppliers, woodType));
 
-        return suppliers.toArray(new Supplier[0]);
+        return suppliers;
     }
 
-    public static Supplier<Block>[] getChests() {
-        return getWoodBlockSuppliers((list, wood) -> list.add(wood.CHEST::getBlock));
+    public static List<Supplier<? extends Block>> getChests() {
+        return getWoodBlockSuppliers((list, wood) -> list.add(wood.CHEST));
     }
 
-    public static Supplier<Block>[] getTrappedChests() {
-        return getWoodBlockSuppliers((list, wood) -> list.add(wood.TRAPPED_CHEST::getBlock));
+    public static List<Supplier<? extends Block>> getTrappedChests() {
+        return getWoodBlockSuppliers((list, wood) -> list.add(wood.TRAPPED_CHEST));
     }
 
-    public static Supplier<Block>[] getSigns() {
+    public static List<Supplier<? extends Block>> getSigns() {
         return getWoodBlockSuppliers((list, wood) -> {
-            list.add(wood.SIGN::getBlock);
-            list.add(wood.WALL_SIGN::getBlock);
+            list.add(wood.SIGN);
+            list.add(wood.WALL_SIGN);
         });
     }
 }

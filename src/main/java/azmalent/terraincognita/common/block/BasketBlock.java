@@ -1,6 +1,6 @@
 package azmalent.terraincognita.common.block;
 
-import azmalent.terraincognita.common.tile.BasketTileEntity;
+import azmalent.terraincognita.common.tile.BasketBlockEntity;
 import net.minecraft.block.*;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
@@ -18,7 +18,6 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.util.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -30,8 +29,6 @@ import net.minecraft.world.level.Level;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
-
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -42,6 +39,7 @@ import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("deprecation")
 public class BasketBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock {
@@ -57,12 +55,12 @@ public class BasketBlock extends HorizontalDirectionalBlock implements SimpleWat
 
     @Nonnull
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+    public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter world, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         return SHAPE;
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
         builder.add(FACING, WATERLOGGED);
     }
@@ -88,12 +86,12 @@ public class BasketBlock extends HorizontalDirectionalBlock implements SimpleWat
 
     @Nonnull
     @Override
-    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor worldIn, BlockPos currentPos, BlockPos facingPos) {
+    public BlockState updateShape(BlockState stateIn, @NotNull Direction facing, @NotNull BlockState facingState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos facingPos) {
         if (stateIn.getValue(WATERLOGGED)) {
-            worldIn.getLiquidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(worldIn));
+            level.getLiquidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
 
-        return super.updateShape(stateIn, facing, facingState, worldIn, currentPos, facingPos);
+        return super.updateShape(stateIn, facing, facingState, level, currentPos, facingPos);
     }
 
     @Nonnull
@@ -104,7 +102,7 @@ public class BasketBlock extends HorizontalDirectionalBlock implements SimpleWat
 
     @Nonnull
     @Override
-    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    public InteractionResult use(@NotNull BlockState state, Level world, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
         if (world.isClientSide) {
             return InteractionResult.SUCCESS;
         }
@@ -114,8 +112,8 @@ public class BasketBlock extends HorizontalDirectionalBlock implements SimpleWat
         }
 
         BlockEntity te = world.getBlockEntity(pos);
-        if (te instanceof BasketTileEntity) {
-            BasketTileEntity basket = (BasketTileEntity) te;
+        if (te instanceof BasketBlockEntity) {
+            BasketBlockEntity basket = (BasketBlockEntity) te;
             player.openMenu(basket);
 
             return InteractionResult.CONSUME;
@@ -132,16 +130,16 @@ public class BasketBlock extends HorizontalDirectionalBlock implements SimpleWat
     @Nullable
     @Override
     public BlockEntity createTileEntity(BlockState state, BlockGetter world) {
-        return new BasketTileEntity();
+        return new BasketBlockEntity();
     }
 
     @Override
-    public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+    public void setPlacedBy(@NotNull Level world, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable LivingEntity placer, @NotNull ItemStack stack) {
         super.setPlacedBy(world, pos, state, placer, stack);
 
         BlockEntity te = world.getBlockEntity(pos);
-        if (te instanceof BasketTileEntity) {
-            BasketTileEntity basket = (BasketTileEntity) te;
+        if (te instanceof BasketBlockEntity) {
+            BasketBlockEntity basket = (BasketBlockEntity) te;
             basket.readFromStack(stack);
             if (stack.hasCustomHoverName()) {
                 basket.setCustomName(stack.getHoverName());
@@ -152,7 +150,7 @@ public class BasketBlock extends HorizontalDirectionalBlock implements SimpleWat
     @Override
     public void onRemove(BlockState state, @Nonnull Level world, @Nonnull BlockPos pos, BlockState newState, boolean isMoving) {
         if (!state.is(newState.getBlock())) {
-            if (world.getBlockEntity(pos) instanceof BasketTileEntity) {
+            if (world.getBlockEntity(pos) instanceof BasketBlockEntity) {
                 world.updateNeighbourForOutputSignal(pos, state.getBlock());
             }
 
@@ -161,11 +159,11 @@ public class BasketBlock extends HorizontalDirectionalBlock implements SimpleWat
     }
 
     @Override
-    public void playerWillDestroy(Level world, @Nonnull BlockPos pos, BlockState state, @Nonnull Player player) {
+    public void playerWillDestroy(Level world, @Nonnull BlockPos pos, @NotNull BlockState state, @Nonnull Player player) {
         if (!world.isClientSide) {
             BlockEntity te = world.getBlockEntity(pos);
-            if (te instanceof BasketTileEntity) {
-                BasketTileEntity basket = (BasketTileEntity) te;
+            if (te instanceof BasketBlockEntity) {
+                BasketBlockEntity basket = (BasketBlockEntity) te;
                 if (!player.isCreative() || !basket.isEmpty()) {
                     ItemStack stack = basket.saveToStack();
 
@@ -180,12 +178,12 @@ public class BasketBlock extends HorizontalDirectionalBlock implements SimpleWat
     }
 
     @Override
-    public boolean hasAnalogOutputSignal(BlockState state) {
+    public boolean hasAnalogOutputSignal(@NotNull BlockState state) {
         return true;
     }
 
     @Override
-    public int getAnalogOutputSignal(BlockState blockState, Level worldIn, BlockPos pos) {
-        return AbstractContainerMenu.getRedstoneSignalFromContainer((Container) worldIn.getBlockEntity(pos));
+    public int getAnalogOutputSignal(@NotNull BlockState blockState, Level level, @NotNull BlockPos pos) {
+        return AbstractContainerMenu.getRedstoneSignalFromContainer((Container) level.getBlockEntity(pos));
     }
 }

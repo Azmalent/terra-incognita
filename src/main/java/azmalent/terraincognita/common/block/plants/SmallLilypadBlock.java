@@ -14,8 +14,10 @@ import net.minecraft.world.level.BlockGetter;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
 
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+import org.jetbrains.annotations.NotNull;
 
 public class SmallLilypadBlock extends WaterlilyBlock {
     public static final IntegerProperty LILYPADS = IntegerProperty.create("lilypads", 1, 4);
@@ -36,7 +38,8 @@ public class SmallLilypadBlock extends WaterlilyBlock {
 
     @Nonnull
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter reader, BlockPos blockPos, CollisionContext context) {
+    @ParametersAreNonnullByDefault
+    public VoxelShape getShape(BlockState state, @NotNull BlockGetter reader, @NotNull BlockPos blockPos, @NotNull CollisionContext context) {
         int n = state.getValue(LILYPADS);
        	return n == 1 ? SINGLE_LILYPAD_SHAPE : (n == 2 ? TWO_LILYPAD_SHAPE : MULTIPLE_LILYPAD_SHAPE);
     }
@@ -53,7 +56,8 @@ public class SmallLilypadBlock extends WaterlilyBlock {
     }
 
     @Override
-    public boolean canBeReplaced(BlockState state, BlockPlaceContext useContext) {
+    @SuppressWarnings("deprecation")
+    public boolean canBeReplaced(@NotNull BlockState state, BlockPlaceContext useContext) {
         if (useContext.getItemInHand().getItem() == this.asItem() && state.getValue(LILYPADS) < 4) {
             return true;
         }

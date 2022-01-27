@@ -17,6 +17,7 @@ import net.minecraft.world.level.LevelReader;
 import javax.annotation.Nonnull;
 
 import net.minecraft.world.level.block.state.BlockBehaviour.OffsetType;
+import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("deprecation")
 public class HazelnutBlock extends AbstractFruitBlock {
@@ -28,8 +29,8 @@ public class HazelnutBlock extends AbstractFruitBlock {
 
     @Nonnull
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
-        Vec3 offset = state.getOffset(worldIn, pos);
+    public VoxelShape getShape(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+        Vec3 offset = state.getOffset(level, pos);
         return SHAPE.move(offset.x, offset.y, offset.z);
     }
 
@@ -40,8 +41,8 @@ public class HazelnutBlock extends AbstractFruitBlock {
     }
 
     @Override
-    public boolean canSurvive(BlockState state, LevelReader worldIn, BlockPos pos) {
-        BlockState up = worldIn.getBlockState(pos.above());
-        return up.is(ModWoodTypes.HAZEL.LEAVES.getBlock()) && !up.getValue(LeavesBlock.PERSISTENT);
+    public boolean canSurvive(@NotNull BlockState state, LevelReader level, BlockPos pos) {
+        BlockState up = level.getBlockState(pos.above());
+        return up.is(ModWoodTypes.HAZEL.LEAVES.get()) && !up.getValue(LeavesBlock.PERSISTENT);
     }
 }

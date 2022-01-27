@@ -12,6 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(VineBlock.class)
 public class VineBlockMixin {
+    @SuppressWarnings("ConstantConditions")
     @Inject(method = "getUpdatedState", at = @At("HEAD"), cancellable = true)
     private void getConnections(BlockState state, BlockGetter blockReader, BlockPos pos, CallbackInfoReturnable<BlockState> cir) {
         if (state.getBlock() instanceof SweetPeasBlock) {

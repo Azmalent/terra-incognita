@@ -2,6 +2,7 @@ package azmalent.terraincognita.common.integration.quark;
 
 import azmalent.cuneiform.common.event.FuelHandler;
 import azmalent.cuneiform.lib.compat.ModProxyImpl;
+import azmalent.cuneiform.lib.integration.IntegrationImpl;
 import azmalent.cuneiform.lib.registry.BlockEntry;
 import azmalent.cuneiform.lib.util.DataUtil;
 import azmalent.terraincognita.TerraIncognita;
@@ -14,6 +15,7 @@ import azmalent.terraincognita.common.registry.ModRecipes;
 import azmalent.terraincognita.common.registry.ModWoodTypes;
 import com.google.common.collect.Lists;
 import net.minecraft.block.*;
+import net.minecraft.world.level.block.LanternBlock;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.client.color.block.BlockColors;
@@ -46,19 +48,19 @@ import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 
-@ModProxyImpl("quark")
-public class QuarkIntegration implements IQuarkIntegration {
+@IntegrationImpl("quark")
+public class QuarkIntegration implements IQuarkProxy {
     private static final ResourceLocation BASKET_DROP_IN_CAP = TerraIncognita.prefix("basket_drop_in");
 
     private final QuarkWoodBlockSet APPLE = new QuarkWoodBlockSet(ModWoodTypes.APPLE);
-    private final BlockEntry BLOSSOMING_APPLE_LEAF_CARPET = ModBlocks.HELPER.newBuilder("blossoming_apple_leaf_carpet", TILeafCarpetBlock::new).cutoutMippedRender().build();
-    private final BlockEntry BLOSSOMING_APPLE_HEDGE = ModBlocks.HELPER.newBuilder("blossoming_apple_hedge", () -> new TIHedgeBlock(MaterialColor.TERRACOTTA_ORANGE)).cutoutMippedRender().build();
+    private final BlockEntry<TILeafCarpetBlock> BLOSSOMING_APPLE_LEAF_CARPET = TerraIncognita.REG_HELPER.createBlock("blossoming_apple_leaf_carpet", TILeafCarpetBlock::new).cutoutMippedRender().build();
+    private final BlockEntry<TIHedgeBlock> BLOSSOMING_APPLE_HEDGE = TerraIncognita.REG_HELPER.createBlock("blossoming_apple_hedge", () -> new TIHedgeBlock(MaterialColor.TERRACOTTA_ORANGE)).cutoutMippedRender().build();
 
     private final QuarkWoodBlockSet HAZEL = new QuarkWoodBlockSet(ModWoodTypes.HAZEL);
 
-    private final BlockEntry HAZELNUT_SACK = ModBlocks.HELPER.newBuilder("hazelnut_sack", Block.Properties.of(Material.WOOL, MaterialColor.COLOR_BROWN).strength(0.5F).sound(SoundType.WOOL)).build();
-    private final BlockEntry SOUR_BERRY_SACK = ModBlocks.HELPER.newBuilder("sour_berry_sack", RotatedPillarBlock::new, Block.Properties.of(Material.WOOL, MaterialColor.TERRACOTTA_ORANGE).strength(0.5F).sound(SoundType.WOOL)).build();
-    private final BlockEntry REEDS_BUNDLE = ModBlocks.HELPER.newBuilder("reeds_block", RotatedPillarBlock::new, Block.Properties.of(Material.WOOD).strength(0.5F).sound(SoundType.WOOD)).withItemGroup(CreativeModeTab.TAB_BUILDING_BLOCKS).build();
+    private final BlockEntry<Block> HAZELNUT_SACK = TerraIncognita.REG_HELPER.createBlock("hazelnut_sack", Block.Properties.of(Material.WOOL, MaterialColor.COLOR_BROWN).strength(0.5F).sound(SoundType.WOOL)).build();
+    private final BlockEntry<Block> SOUR_BERRY_SACK = TerraIncognita.REG_HELPER.createBlock("sour_berry_sack", Block.Properties.of(Material.WOOL, MaterialColor.TERRACOTTA_ORANGE).strength(0.5F).sound(SoundType.WOOL)).build();
+    private final BlockEntry<RotatedPillarBlock> REEDS_BUNDLE = TerraIncognita.REG_HELPER.createBlock("reeds_block", RotatedPillarBlock::new, Block.Properties.of(Material.WOOD).strength(0.5F).sound(SoundType.WOOD)).withItemGroup(CreativeModeTab.TAB_BUILDING_BLOCKS).build();
 
     private final List<QuarkWoodBlockSet> WOOD_BLOCK_SETS = Lists.newArrayList(APPLE, HAZEL);
 
@@ -147,12 +149,12 @@ public class QuarkIntegration implements IQuarkIntegration {
     }
 
     @Override
-    public boolean canLanternConnect(BlockState state, LevelReader worldIn, BlockPos pos) {
-        return state.getValue(Lantern.HANGING) && (worldIn.getBlockState(pos.above()).getBlock() instanceof TIWoodPostBlock);
+    public boolean canLanternConnect(BlockState state, LevelReader level, BlockPos pos) {
+        return state.getValue(LanternBlock.HANGING) && (level.getBlockState(pos.above()).getBlock() instanceof TIWoodPostBlock);
     }
 
     @Override
-    public boolean canBurnVineTips() {
+    public boolean canCutVines() {
         return ModuleLoader.INSTANCE.isModuleEnabled(BurnVinesModule.class);
     }
 }

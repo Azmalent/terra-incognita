@@ -1,18 +1,19 @@
 package azmalent.terraincognita.common.item;
 
-import azmalent.terraincognita.util.InventoryUtil;
+import azmalent.cuneiform.lib.util.MiscUtil;
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.stats.Stats;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.UseAnim;
-import net.minecraft.stats.Stats;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
@@ -23,10 +24,9 @@ public class JamItem extends Item {
 
     @Nonnull
     @Override
-    public ItemStack finishUsingItem(@Nonnull ItemStack stack, @Nonnull Level world, @Nonnull LivingEntity living) {
-        super.finishUsingItem(stack, world, living);
-        if (living instanceof ServerPlayer) {
-            ServerPlayer serverPlayer = (ServerPlayer) living;
+    public ItemStack finishUsingItem(@Nonnull ItemStack stack, @Nonnull Level world, @Nonnull LivingEntity entity) {
+        super.finishUsingItem(stack, world, entity);
+        if (entity instanceof ServerPlayer serverPlayer) {
             CriteriaTriggers.CONSUME_ITEM.trigger(serverPlayer, stack);
             serverPlayer.awardStat(Stats.ITEM_USED.get(this));
         }
@@ -36,10 +36,9 @@ public class JamItem extends Item {
             return bottle;
         }
 
-        if (living instanceof Player) {
-            Player player = (Player) living;
+        if (entity instanceof Player player) {
             if (!player.isCreative()) {
-                InventoryUtil.giveStackToPlayer(player, bottle);
+                MiscUtil.giveStackToPlayer(player, bottle);
             }
         }
 
@@ -48,7 +47,7 @@ public class JamItem extends Item {
 
     @Nonnull
     @Override
-    public UseAnim getUseAnimation(ItemStack stack) {
+    public UseAnim getUseAnimation(@NotNull @NotNull ItemStack stack) {
         return UseAnim.DRINK;
     }
 
@@ -59,7 +58,7 @@ public class JamItem extends Item {
     }
 
     @Override
-    public SoundEvent getDrinkingSound() {
+    public @NotNull @NotNull SoundEvent getDrinkingSound() {
         return SoundEvents.HONEY_DRINK;
     }
 }

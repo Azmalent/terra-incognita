@@ -1,6 +1,6 @@
 package azmalent.terraincognita.common.entity.butterfly.ai;
 
-import azmalent.terraincognita.common.entity.butterfly.ButterflyEntity;
+import azmalent.terraincognita.common.entity.butterfly.Butterfly;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.WaterlilyBlock;
 import net.minecraft.world.level.block.TallFlowerBlock;
@@ -18,9 +18,9 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 public class ButterflyLandOnFlowerGoal extends MoveToBlockGoal {
-    private final ButterflyEntity butterfly;
+    private final Butterfly butterfly;
 
-    public ButterflyLandOnFlowerGoal(ButterflyEntity butterfly, double speed, int searchRadius) {
+    public ButterflyLandOnFlowerGoal(Butterfly butterfly, double speed, int searchRadius) {
         super(butterfly, speed, searchRadius);
         this.butterfly = butterfly;
     }
@@ -58,9 +58,9 @@ public class ButterflyLandOnFlowerGoal extends MoveToBlockGoal {
         VoxelShape shape = world.getBlockState(pos).getShape(world, pos);
         if (shape.isEmpty()) return true;
 
-        List<Entity> entities = butterfly.level.getEntitiesOfClass(ButterflyEntity.class, shape.bounds().expandTowards(0.5, 0.5, 0.5).move(pos));
+        List<Entity> entities = butterfly.level.getEntitiesOfClass(Butterfly.class, shape.bounds().expandTowards(0.5, 0.5, 0.5).move(pos));
 
-        return entities.stream().anyMatch(e -> pos.equals(((ButterflyEntity) e).restGoal.restingPos));
+        return entities.stream().anyMatch(e -> pos.equals(((Butterfly) e).restGoal.restingPos));
     }
 
     @Override

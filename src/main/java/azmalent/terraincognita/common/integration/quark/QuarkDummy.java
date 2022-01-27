@@ -8,7 +8,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraftforge.eventbus.api.IEventBus;
 
 @ModProxyDummy("quark")
-public class QuarkDummy implements IQuarkIntegration {
+public class QuarkDummy implements IQuarkProxy {
     @Override
     public void register(IEventBus iEventBus) {
         //NO-OP
@@ -25,12 +25,12 @@ public class QuarkDummy implements IQuarkIntegration {
     }
 
     @Override
-    public boolean canLanternConnect(BlockState state, LevelReader worldIn, BlockPos pos) {
+    public boolean canLanternConnect(BlockState state, LevelReader level, BlockPos pos) {
         return false;
     }
 
     @Override
-    public boolean canBurnVineTips() {
+    public boolean canCutVines() {
         return false;
     }
 }

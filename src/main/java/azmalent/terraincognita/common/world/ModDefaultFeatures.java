@@ -1,7 +1,6 @@
 package azmalent.terraincognita.common.world;
 
 import azmalent.terraincognita.TIConfig;
-import azmalent.terraincognita.common.registry.ModFeatures;
 import azmalent.terraincognita.util.WorldGenUtil;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
@@ -56,10 +55,6 @@ public class ModDefaultFeatures {
     public static void withSwampVegetation(BiomeGenerationSettingsBuilder builder) {
         if (TIConfig.Flora.smallLilypad.get()) {
             WorldGenUtil.addVegetation(builder, ModVegetationFeatures.SMALL_LILY_PADS);
-        }
-
-        if (TIConfig.Flora.cattails.get()) {
-            WorldGenUtil.addVegetation(builder, ModVegetationFeatures.CATTAILS);
         }
 
         if (TIConfig.Flora.reeds.get()) {

@@ -1,31 +1,36 @@
+//file:noinspection GroovyAssignabilityCheck
 buildscript {
     repositories {
         maven { url = 'https://maven.minecraftforge.net/' }
+        maven { url = 'https://maven.parchmentmc.org' }
         maven { url = 'https://repo.spongepowered.org/maven' }
         mavenCentral()
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath group: 'org.parchmentmc', name: 'librarian', version: '1.+'
         classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-SNAPSHOT'
     }
 }
 
 apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'org.parchmentmc.librarian.forgegradle'
 apply plugin: 'org.spongepowered.mixin'
 
 ext.configFile = file('build.properties')
 ext.config = parseConfig(configFile)
 
+version = "${config.minecraft_version}-${config.mod_version}"
 group = "azmalent.${config.modid}"
 archivesBaseName = config.modid
-version = "${config.minecraft_version}-${config.mod_version}"
 
-sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+compileJava.options.compilerArgs << "-Xlint:all,-deprecation"
 
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 
 minecraft {
-    mappings channel: 'official', version: config.minecraft_version
+    mappings channel: config.mappings_channel, version: config.mappings_version
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
     runs {
@@ -72,6 +77,66 @@ minecraft {
     }
 }
 
+
+mixin {
+    add sourceSets.main, "${config.modid}.mixins.refmap.json"
+}
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+    maven {
+        name = "CurseMaven"
+        url = "https://www.cursemaven.com"
+    }
+    maven { // JEI
+        name = "Progwml6 maven"
+        url = "https://dvs1.progwml6.com/files/maven/"
+    }
+    maven { // TOP
+        name 'tterrag'
+        url 'https://maven.tterrag.com/'
+    }
+    maven { // Quark
+        name "blamejared"
+        url "https://maven.blamejared.com/"
+    }
+}
+
+dependencies {
+    minecraft "net.minecraftforge:forge:${config.minecraft_version}-${config.forge_version}"
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+    implementation name: "cuneiform-${config.minecraft_version}-${config.cuneiform_version}"
+
+    compileOnly fg.deobf("mezz.jei:jei-${config.minecraft_version}:${config.jei_version}:api")
+    compileOnly fg.deobf("curse.maven:jade-api-324717:${config.jade_api_file_id}")
+    implementation fg.deobf("curse.maven:jade-324717:${config.jade_file_id}")
+/*    compileOnly fg.deobf("mcjty.theoneprobe:TheOneProbe-1.18:${config.top_version}:api")
+    runtimeOnly fg.deobf("mcjty.theoneprobe:TheOneProbe-1.18:${config.top_version}")*/
+    implementation fg.deobf("curse.maven:the-one-probe-245211:3550084") //not yet on maven
+
+    compileOnly fg.deobf("vazkii.quark:Quark:${config.quark_version}")
+    compileOnly fg.deobf("curse.maven:farmers-delight-398521:${config.farmers_delight_file_id}")
+}
+
+processResources {
+    from(sourceSets.main.resources.srcDirs) {
+        include 'META-INF/mods.toml'
+
+        expand 'mod_name': config.mod_name, 'mod_version': config.project.version,
+                'minecraft_version': config.minecraft_version, 'minecraft_version_range': config.minecraft_version_range,
+                'fml_min': config.fml_min, 'forge_version': config.forge_version,
+                'cuneiform_version': config.cuneiform_version
+    }
+
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'META-INF/mods.toml'
+    }
+
+    duplicatesStrategy 'include'
+}
+
 jar {
     manifest {
         attributes([
@@ -89,68 +154,6 @@ jar {
                 'ForceLoadAsMod': 'true'
         ])
     }
-}
-
-repositories {
-    flatDir {
-        dirs 'libs'
-    }
-    maven {
-        name = "CurseMaven"
-        url = "https://www.cursemaven.com"
-    }
-    maven {
-        name "blamejared"
-        url "https://maven.blamejared.com/"
-    }
-    maven {
-        name = "Progwml6 maven"
-        url = "https://dvs1.progwml6.com/files/maven/"
-    }
-    maven {
-        name 'tterrag'
-        url 'https://maven.tterrag.com/'
-    }
-}
-
-dependencies {
-    minecraft "net.minecraftforge:forge:${config.minecraft_version}-${config.forge_version}"
-    implementation name: "cuneiform-${config.minecraft_version}-${config.cuneiform_version}"
-
-    compileOnly fg.deobf("mezz.jei:jei-${config.minecraft_version}:${config.jei_version}:api")
-    compileOnly fg.deobf("curse.maven:jade-api-324717:${config.jade_api_file_id}")
-    runtimeOnly fg.deobf("curse.maven:jade-324717:${config.jade_file_id}")
-    compileOnly fg.deobf("mcjty.theoneprobe:TheOneProbe-1.16:${config.top_version}:api")
-    runtimeOnly fg.deobf("mcjty.theoneprobe:TheOneProbe-1.16:${config.top_version}")
-
-    compileOnly fg.deobf("vazkii.autoreglib:AutoRegLib:${config.autoreglib_version}")
-    compileOnly fg.deobf("vazkii.quark:Quark:${config.quark_version}")
-
-    compileOnly fg.deobf("curse.maven:abnormals-core-382216:${config.abnormals_core_file_id}")
-    compileOnly fg.deobf("curse.maven:upgrade-aquatic-326895:${config.upgrade_aquatic_file_id}")
-
-    compileOnly fg.deobf("curse.maven:farmers-delight-398521:${config.farmers_delight_file_id}")
-    compileOnly fg.deobf("curse.maven:simply-tea-268373:${config.simply_tea_file_id}")
-    compileOnly fg.deobf("vazkii.botania:Botania:${config.botania_version}:api")
-}
-
-processResources {
-    from(sourceSets.main.resources.srcDirs) {
-        include 'META-INF/mods.toml'
-
-        expand 'mod_name': config.mod_name, 'mod_version': config.project.version,
-                'minecraft_version': config.minecraft_version, 'minecraft_version_range': config.minecraft_version_range,
-                'fml_min': config.fml_min, 'forge_version': config.forge_version,
-                'cuneiform_version': config.cuneiform_version
-    }
-
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'META-INF/mods.toml'
-    }
-}
-
-mixin {
-    add sourceSets.main, "${config.modid}.mixins.refmap.json"
 }
 
 static def parseConfig(File config) {

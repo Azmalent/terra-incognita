@@ -1,7 +1,7 @@
 package azmalent.terraincognita.common.integration.theoneprobe;
 
 import azmalent.terraincognita.TerraIncognita;
-import azmalent.terraincognita.common.entity.butterfly.ButterflyEntity;
+import azmalent.terraincognita.common.entity.butterfly.Butterfly;
 import mcjty.theoneprobe.api.*;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -23,8 +23,7 @@ public class ButterflyProvider implements IProbeInfoEntityProvider, Function<ITh
 
     @Override
     public void addProbeEntityInfo(ProbeMode mode, IProbeInfo probeInfo, Player player, Level world, Entity entity, IProbeHitEntityData hit) {
-        if (entity instanceof ButterflyEntity) {
-            ButterflyEntity butterfly = (ButterflyEntity) entity;
+        if (entity instanceof Butterfly butterfly) {
             probeInfo.text(butterfly.getTypeDisplayName());
         }
     }

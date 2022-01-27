@@ -1,6 +1,5 @@
 package azmalent.terraincognita.mixin.client;
 
-import azmalent.terraincognita.common.registry.ModBiomes;
 import azmalent.terraincognita.common.world.biome.BiomeEntry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.biome.Biome;

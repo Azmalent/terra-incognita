@@ -37,7 +37,7 @@ public class AlpineFlowerFeature extends DefaultFlowerFeature {
     private BlockState getFlowerToPlace(WorldGenLevel reader, Random rand, BlockPos pos, RandomPatchConfiguration config) {
         BlockState soil = reader.getBlockState(pos.below());
         if (soil.is(Tags.Blocks.STONE) || soil.is(Tags.Blocks.COBBLESTONE)) {
-            return ModBlocks.SAXIFRAGE.getBlock().defaultBlockState();
+            return ModBlocks.YELLOW_SAXIFRAGE.getBlock().defaultBlockState();
         }
 
         return getRandomFlower(rand, pos, config);

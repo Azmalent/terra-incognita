@@ -2,7 +2,7 @@ package azmalent.terraincognita.common.item.block;
 
 import azmalent.terraincognita.common.block.woodtypes.ModWoodType;
 import azmalent.terraincognita.network.NetworkHandler;
-import azmalent.terraincognita.network.message.s2c.S2CEditSignMessage;
+import azmalent.terraincognita.network.S2CEditSignMessage;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.server.level.ServerPlayer;
@@ -22,8 +22,8 @@ public class ModSignItem extends StandingAndWallBlockItem {
     }
 
     @Override
-    protected boolean updateCustomBlockEntityTag(BlockPos pos, Level worldIn, @Nullable Player player, ItemStack stack, BlockState state) {
-        boolean flag = super.updateCustomBlockEntityTag(pos, worldIn, player, stack, state);
+    protected boolean updateCustomBlockEntityTag(BlockPos pos, Level level, @Nullable Player player, ItemStack stack, BlockState state) {
+        boolean flag = super.updateCustomBlockEntityTag(pos, level, player, stack, state);
         if (!flag && player instanceof ServerPlayer) {
             NetworkHandler.sendToPlayer((ServerPlayer) player, new S2CEditSignMessage(pos));
         }

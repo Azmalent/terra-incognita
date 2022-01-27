@@ -16,6 +16,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.Level;
 import net.minecraft.server.level.ServerLevel;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -55,24 +56,24 @@ public class HangingMossBlock extends HangingPlantBlock implements BonemealableB
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
         builder.add(VARIANT);
     }
 
     @Nonnull
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+    public VoxelShape getShape(BlockState state, @NotNull BlockGetter world, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         return state.getValue(VARIANT) == Variant.TOP ? TOP_SHAPE : BOTTOM_SHAPE;
     }
 
     @Override
-    protected boolean isValidGround(BlockState state, BlockState ground, BlockGetter worldIn, BlockPos groundPos) {
+    protected boolean isValidGround(BlockState state, BlockState ground, BlockGetter level, BlockPos groundPos) {
         if (ground.getBlock() == this) {
             return ground.getValue(VARIANT) != Variant.BOTTOM;
         }
 
-        return ground.isFaceSturdy(worldIn, groundPos, Direction.DOWN) && ground.is(ModBlockTags.HANGING_MOSS_PLANTABLE_ON);
+        return ground.isFaceSturdy(level, groundPos, Direction.DOWN) && ground.is(ModBlockTags.HANGING_MOSS_PLANTABLE_ON);
     }
 
     @Nullable
@@ -88,13 +89,13 @@ public class HangingMossBlock extends HangingPlantBlock implements BonemealableB
 
     @Nonnull
     @Override
-    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor worldIn, BlockPos currentPos, BlockPos facingPos) {
+    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor level, BlockPos currentPos, BlockPos facingPos) {
         if (facing == Direction.DOWN) {
             if (stateIn.getValue(VARIANT) == Variant.SINGLE && facingState.getBlock() == this) {
-                return super.updateShape(stateIn.setValue(VARIANT, Variant.TOP), facing, facingState, worldIn, currentPos, facingPos);
+                return super.updateShape(stateIn.setValue(VARIANT, Variant.TOP), facing, facingState, level, currentPos, facingPos);
             }
             else if (stateIn.getValue(VARIANT) == Variant.TOP && facingState.getBlock() != this) {
-                return super.updateShape(defaultBlockState(), facing, facingState, worldIn, currentPos, facingPos);
+                return super.updateShape(defaultBlockState(), facing, facingState, level, currentPos, facingPos);
             }
         }
         else if (facing == Direction.UP) {
@@ -102,12 +103,12 @@ public class HangingMossBlock extends HangingPlantBlock implements BonemealableB
                 return stateIn.setValue(VARIANT, Variant.BOTTOM);
             }
 
-            if (isValidGround(stateIn, facingState, worldIn, facingPos)) {
+            if (isValidGround(stateIn, facingState, level, facingPos)) {
                 return stateIn.setValue(VARIANT, Variant.SINGLE);
             }
         }
 
-        return super.updateShape(stateIn, facing, facingState, worldIn, currentPos, facingPos);
+        return super.updateShape(stateIn, facing, facingState, level, currentPos, facingPos);
     }
 
     @Override

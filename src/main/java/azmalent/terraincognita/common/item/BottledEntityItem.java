@@ -2,23 +2,25 @@ package azmalent.terraincognita.common.item;
 
 import azmalent.terraincognita.common.entity.IBottleableEntity;
 import azmalent.terraincognita.common.item.dispenser.BottledEntityDispenserBehavior;
-import net.minecraft.world.level.block.DispenserBlock;
-import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.item.*;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.stats.Stats;
-import net.minecraft.util.*;
-import net.minecraft.core.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceContext;
-import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraftforge.common.util.Constants;
+import net.minecraft.world.level.block.DispenserBlock;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -26,18 +28,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
-
-import net.minecraft.world.item.Item.Properties;
-
-import net.minecraft.core.Direction;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.context.UseOnContext;
 
 public class BottledEntityItem<T extends LivingEntity & IBottleableEntity> extends Item {
     private static final BottledEntityDispenserBehavior DISPENSER_BEHAVIOR = new BottledEntityDispenserBehavior();
@@ -62,7 +52,7 @@ public class BottledEntityItem<T extends LivingEntity & IBottleableEntity> exten
     }
 
     public static CompoundTag getBottledEntity(ItemStack bottle) {
-        if (!bottle.getOrCreateTag().contains(ENTITY_KEY, Constants.NBT.TAG_COMPOUND)) {
+        if (!bottle.getOrCreateTag().contains(ENTITY_KEY, Tag.TAG_COMPOUND)) {
             return new CompoundTag();
         }
 
@@ -77,7 +67,7 @@ public class BottledEntityItem<T extends LivingEntity & IBottleableEntity> exten
             entity.setCustomName(bottle.getHoverName());
         }
 
-        ((IBottleableEntity) entity).onUnbottled();
+        ((IBottleableEntity) entity).onRelease();
     }
 
     @Nonnull
@@ -112,8 +102,8 @@ public class BottledEntityItem<T extends LivingEntity & IBottleableEntity> exten
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
-        super.appendHoverText(stack, worldIn, tooltip, flagIn);
+    public void appendHoverText(@NotNull ItemStack stack, @Nullable Level level, @NotNull List<Component> tooltip, @NotNull TooltipFlag flagIn) {
+        super.appendHoverText(stack, level, tooltip, flagIn);
         tooltipHandler.accept(getBottledEntity(stack), tooltip);
     }
 }

@@ -1,25 +1,12 @@
 package azmalent.terraincognita.client.event;
 
 import azmalent.terraincognita.TerraIncognita;
-import azmalent.terraincognita.common.registry.ModBlocks;
 import azmalent.terraincognita.common.registry.ModItems;
-import azmalent.terraincognita.common.integration.ModIntegration;
-import azmalent.terraincognita.common.inventory.BasketContainer;
-import azmalent.terraincognita.common.inventory.BasketStackHandler;
-import azmalent.terraincognita.common.item.block.BasketItem;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.platform.Window;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiComponent;
-import net.minecraft.client.renderer.entity.ItemRenderer;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.RenderTooltipEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 
@@ -33,7 +20,7 @@ public class TooltipHandler {
 
     public static void registerListeners() {
         MinecraftForge.EVENT_BUS.addListener(TooltipHandler::removeDyedWreathTooltip);
-        MinecraftForge.EVENT_BUS.addListener(TooltipHandler::renderBasketTooltip);
+        //MinecraftForge.EVENT_BUS.addListener(TooltipHandler::renderBasketTooltip);
     }
 
     public static void removeDyedWreathTooltip(ItemTooltipEvent event) {
@@ -53,6 +40,8 @@ public class TooltipHandler {
         }
     }
 
+    //TODO: basket tooltip
+    /*
 	//Copied from Quark ShulkerBoxTooltips#renderTooltip() with edits
     public static void renderBasketTooltip(RenderTooltipEvent.PostText event) {
         if (event.getStack().getItem() != ModBlocks.BASKET.getItem()) {
@@ -134,5 +123,5 @@ public class TooltipHandler {
         }
 
         RenderSystem.color3f(1F, 1F, 1F);
-    }
+    }*/
 }

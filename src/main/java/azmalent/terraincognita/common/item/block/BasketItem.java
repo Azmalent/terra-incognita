@@ -2,26 +2,26 @@ package azmalent.terraincognita.common.item.block;
 
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.capability.BasketCapabilityProvider;
-import azmalent.terraincognita.common.registry.ModBlocks;
 import azmalent.terraincognita.common.inventory.BasketContainer;
 import azmalent.terraincognita.common.inventory.BasketStackHandler;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.SimpleMenuProvider;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.ItemStack;
+import azmalent.terraincognita.common.registry.ModBlocks;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.SimpleMenuProvider;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.network.NetworkHooks;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -63,11 +63,11 @@ public class BasketItem extends BlockItem {
     }
 
     public static ItemStack getBasketInHand(Player player) {
-        if (player.getMainHandItem().getItem() == ModBlocks.BASKET.getItem()) {
+        if (player.getMainHandItem().getItem() == ModBlocks.BASKET.asItem()) {
             return player.getMainHandItem();
         }
 
-        if (player.getOffhandItem().getItem() == ModBlocks.BASKET.getItem()) {
+        if (player.getOffhandItem().getItem() == ModBlocks.BASKET.asItem()) {
             return player.getOffhandItem();
         }
 

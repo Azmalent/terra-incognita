@@ -5,6 +5,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
@@ -15,12 +16,12 @@ public class NotchCarrotItem extends Item {
 
     @Nonnull
     @Override
-    public Rarity getRarity(ItemStack stack) {
+    public Rarity getRarity(@NotNull ItemStack stack) {
         return Rarity.EPIC;
     }
 
     @Override
-    public boolean isFoil(ItemStack stack) {
+    public boolean isFoil(@NotNull ItemStack stack) {
         return true;
     }
 }

@@ -8,12 +8,9 @@ import azmalent.cuneiform.lib.config.options.BooleanOption;
 import azmalent.cuneiform.lib.config.options.DoubleOption;
 import azmalent.cuneiform.lib.config.options.IntOption;
 import azmalent.cuneiform.lib.config.options.lazy.RegistryListOption;
-import azmalent.terraincognita.common.world.biome.BiomeEntry;
 import com.google.common.collect.Lists;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraftforge.registries.ForgeRegistries;
-
-import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
 public class TIConfig extends CommonConfigFile {
@@ -77,10 +74,6 @@ public class TIConfig extends CommonConfigFile {
         @Name("Swamp Flowers Enabled")
         @Comment("Adds forget-me-not, globeflowers and water flags to temperate and hot swamps.")
         public static final BooleanOption swampFlowers = new BooleanOption(true).withFlag("swamp_flowers");
-
-        @Name("Cattails Enabled")
-        @Comment("Adds cattails to swamps. Cattails can be duplicated using bonemeal and crafted into brown dye.")
-        public static final BooleanOption cattails = new BooleanOption(true).withFlag("cattails");
 
         @Name("Small Lilypads Enabled")
         @Comment("Small lilypads can be found in swamps. They can be stacked up to 4, like sea pickles.")
@@ -231,10 +224,6 @@ public class TIConfig extends CommonConfigFile {
         public static class Quark extends Category {
             @Comment("Chance to generate a marigold fairy ring in savanna biome chunk. Set to 0 to disable.")
             public static final DoubleOption savannaFairyRingChance = new DoubleOption(0.0025).inUnitRange();
-        }
-
-        public static class Environmental extends Category {
-            public static final BooleanOption delphiniumsInLushPlains = new BooleanOption(true);
         }
     }
 }

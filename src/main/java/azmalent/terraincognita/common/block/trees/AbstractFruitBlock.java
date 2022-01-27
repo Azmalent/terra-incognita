@@ -13,7 +13,6 @@ import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.util.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.level.BlockGetter;
@@ -30,6 +29,7 @@ import java.util.function.Supplier;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("deprecation")
 public abstract class AbstractFruitBlock extends Block {
@@ -53,14 +53,14 @@ public abstract class AbstractFruitBlock extends Block {
 
     @Nonnull
     @Override
-    public BlockState updateShape(@Nonnull BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor worldIn, BlockPos currentPos, BlockPos facingPos) {
-        return !this.canSurvive(stateIn, worldIn, currentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(stateIn, facing, facingState, worldIn, currentPos, facingPos);
+    public BlockState updateShape(@Nonnull BlockState stateIn, @NotNull Direction facing, @NotNull BlockState facingState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos facingPos) {
+        return !this.canSurvive(stateIn, level, currentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(stateIn, facing, facingState, level, currentPos, facingPos);
     }
 
     @Nonnull
     @Override
-    public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
-        if (worldIn.isClientSide) {
+    public InteractionResult use(@NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand handIn, @NotNull BlockHitResult hit) {
+        if (level.isClientSide) {
             return InteractionResult.SUCCESS;
         }
 
@@ -69,17 +69,17 @@ public abstract class AbstractFruitBlock extends Block {
         }
 
         if (state.getValue(AGE) == 7) {
-            worldIn.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+            level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
 
             ItemStack stack = new ItemStack(item.get());
-            ItemEntity itemEntity = new ItemEntity(worldIn, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, stack);
+            ItemEntity itemEntity = new ItemEntity(level, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, stack);
             itemEntity.setDefaultPickUpDelay();
-            worldIn.addFreshEntity(itemEntity);
+            level.addFreshEntity(itemEntity);
 
             return InteractionResult.SUCCESS;
         }
 
-        return super.use(state, worldIn, pos, player, handIn, hit);
+        return super.use(state, level, pos, player, handIn, hit);
     }
 
     @Override
@@ -88,10 +88,10 @@ public abstract class AbstractFruitBlock extends Block {
     }
 
     @Override
-    public void randomTick(@Nonnull BlockState state, @Nonnull ServerLevel worldIn, @Nonnull BlockPos pos, Random random) {
-        if (ForgeHooks.onCropsGrowPre(worldIn, pos, state, random.nextInt(growthChance) == 0)) {
-            worldIn.setBlock(pos, state.setValue(AGE,state.getValue(AGE) + 1), 2);
-            ForgeHooks.onCropsGrowPost(worldIn, pos, state);
+    public void randomTick(@Nonnull BlockState state, @Nonnull ServerLevel level, @Nonnull BlockPos pos, Random random) {
+        if (ForgeHooks.onCropsGrowPre(level, pos, state, random.nextInt(growthChance) == 0)) {
+            level.setBlock(pos, state.setValue(AGE,state.getValue(AGE) + 1), 2);
+            ForgeHooks.onCropsGrowPost(level, pos, state);
         }
     }
 
@@ -108,7 +108,7 @@ public abstract class AbstractFruitBlock extends Block {
 
     @Nonnull
     @Override
-    public ItemStack getCloneItemStack(BlockGetter worldIn, BlockPos pos, BlockState state) {
+    public ItemStack getCloneItemStack(@NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull BlockState state) {
         return new ItemStack(item.get());
     }
 

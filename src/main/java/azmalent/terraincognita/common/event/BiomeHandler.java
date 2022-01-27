@@ -4,7 +4,6 @@ import azmalent.cuneiform.lib.util.BiomeUtil;
 import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.ModTweaks;
-import azmalent.terraincognita.common.registry.ModBiomes;
 import azmalent.terraincognita.common.registry.ModEntities;
 import azmalent.terraincognita.common.world.ModDefaultFeatures;
 import azmalent.terraincognita.common.world.biome.BiomeEntry;

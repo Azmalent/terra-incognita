@@ -1,7 +1,7 @@
 package azmalent.terraincognita.common.inventory;
 
 import azmalent.terraincognita.TerraIncognita;
-import azmalent.terraincognita.common.tile.BasketTileEntity;
+import azmalent.terraincognita.common.tile.BasketBlockEntity;
 import azmalent.terraincognita.common.registry.ModContainers;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.Inventory;
@@ -12,9 +12,8 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.SlotItemHandler;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
@@ -89,7 +88,7 @@ public class BasketContainer extends AbstractContainerMenu {
 
     @Nonnull
     @Override
-    public ItemStack quickMoveStack(Player player, int index) {
+    public ItemStack quickMoveStack(@NotNull Player player, int index) {
         Slot sourceSlot = slots.get(index);
         if (sourceSlot == null || !sourceSlot.hasItem()) return ItemStack.EMPTY;
         ItemStack sourceStack = sourceSlot.getItem();
@@ -137,7 +136,7 @@ public class BasketContainer extends AbstractContainerMenu {
             @Override
             public boolean canInteractWith(@Nonnull Player player) {
                 BlockEntity te = world.getBlockEntity(pos);
-                if (te instanceof BasketTileEntity) {
+                if (te instanceof BasketBlockEntity) {
                     return player.distanceToSqr(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5) < 64;
                 }
 

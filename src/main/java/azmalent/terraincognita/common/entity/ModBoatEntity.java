@@ -4,6 +4,7 @@ import azmalent.terraincognita.common.registry.ModEntities;
 import azmalent.terraincognita.common.registry.ModWoodTypes;
 import azmalent.terraincognita.common.block.woodtypes.ModWoodType;
 import azmalent.terraincognita.mixin.accessor.BoatEntityAccessor;
+import net.minecraft.nbt.Tag;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.vehicle.Boat;
@@ -24,8 +25,10 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.fml.network.FMLPlayMessages;
+import net.minecraftforge.fml.network.PlayMessages;
 import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraftforge.network.PlayMessages;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
@@ -47,8 +50,8 @@ public class ModBoatEntity extends Boat {
         this.zo = z;
     }
 
-    public ModBoatEntity(FMLPlayMessages.SpawnEntity spawnEntity, Level world) {
-        this(ModEntities.BOAT.get(), world);
+    public ModBoatEntity(PlayMessages.SpawnEntity spawnEntity, Level level) {
+        this(ModEntities.BOAT.get(), level);
     }
 
     @Override
@@ -64,7 +67,7 @@ public class ModBoatEntity extends Boat {
 
     @Override
     protected void readAdditionalSaveData(CompoundTag compound) {
-        if (compound.contains("Type", Constants.NBT.TAG_STRING)) {
+        if (compound.contains("Type", Tag.TAG_STRING)) {
             String type = compound.getString("Type");
             entityData.set(WOOD_TYPE, type);
         } else {
@@ -81,7 +84,7 @@ public class ModBoatEntity extends Boat {
     }
 
     @Override
-    protected void checkFallDamage(double y, boolean onGroundIn, BlockState state, BlockPos pos) {
+    protected void checkFallDamage(double y, boolean onGroundIn, @NotNull BlockState state, @NotNull BlockPos pos) {
         BoatEntityAccessor accessor = (BoatEntityAccessor) this;
 
         accessor.ti_setLastYd(this.getDeltaMovement().y);

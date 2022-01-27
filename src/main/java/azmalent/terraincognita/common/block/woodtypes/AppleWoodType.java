@@ -13,7 +13,7 @@ public final class AppleWoodType extends ModWoodType {
 
     public AppleWoodType(String id, AbstractTreeGrower tree, MaterialColor woodColor, MaterialColor barkColor) {
         super(id, tree, woodColor, barkColor);
-        BLOSSOMING_LEAVES = ModBlocks.HELPER.newBuilder("blossoming_" + id + "_leaves", this::createLeaves).cutoutMippedRender().build();
+        BLOSSOMING_LEAVES = TerraIncognita.REG_HELPER.createBlock("blossoming_" + id + "_leaves", this::createLeaves).cutoutMippedRender().build();
     }
 
     @Override

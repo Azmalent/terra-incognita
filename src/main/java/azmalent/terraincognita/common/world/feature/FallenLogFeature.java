@@ -2,7 +2,6 @@ package azmalent.terraincognita.common.world.feature;
 
 import azmalent.terraincognita.common.block.plants.CaribouMossWallBlock;
 import azmalent.terraincognita.common.registry.ModBlocks;
-import com.mojang.serialization.Codec;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.block.HorizontalBlock;
@@ -13,7 +12,6 @@ import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
-import net.minecraftforge.common.Tags;
 
 import javax.annotation.Nonnull;
 import java.util.Random;

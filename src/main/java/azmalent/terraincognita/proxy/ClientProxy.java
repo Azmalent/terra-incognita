@@ -1,8 +1,8 @@
 package azmalent.terraincognita.proxy;
 
-import azmalent.terraincognita.client.ClientHelper;
 import azmalent.terraincognita.client.gui.ModEditSignScreen;
-import azmalent.terraincognita.common.tile.ModSignTileEntity;
+import azmalent.terraincognita.common.tile.ModSignBlockEntity;
+import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -20,17 +20,17 @@ public class ClientProxy implements IProxy {
 
     @Override
     public Level getClientWorld() {
-        return ClientHelper.getWorld();
+        return Minecraft.getInstance().level;
     }
 
     public void openSignEditor(BlockPos pos) {
         BlockEntity te = ClientHelper.getWorld().getBlockEntity(pos);
-        if (!(te instanceof ModSignTileEntity)) {
-            te = new ModSignTileEntity();
+        if (!(te instanceof ModSignBlockEntity)) {
+            te = new ModSignBlockEntity();
             te.setLevelAndPosition(ClientHelper.getWorld(), pos);
         }
 
-        ModSignTileEntity sign = (ModSignTileEntity) te;
+        ModSignBlockEntity sign = (ModSignBlockEntity) te;
         ClientHelper.MC.setScreen(new ModEditSignScreen(sign));
     }
 
@@ -39,8 +39,8 @@ public class ClientProxy implements IProxy {
         Level world = ClientHelper.getWorld();
         if (world.isAreaLoaded(pos, 1)) {
             BlockEntity te = world.getBlockEntity(pos);
-            if (te instanceof ModSignTileEntity) {
-                ModSignTileEntity sign = (ModSignTileEntity) te;
+            if (te instanceof ModSignBlockEntity) {
+                ModSignBlockEntity sign = (ModSignBlockEntity) te;
                 for (int i = 0; i < 4; i++) {
                     sign.setText(i, lines[i]);
                 }

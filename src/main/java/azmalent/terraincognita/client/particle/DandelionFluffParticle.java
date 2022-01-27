@@ -11,13 +11,14 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.BlockPos;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+@SuppressWarnings("FieldCanBeLocal")
 @OnlyIn(Dist.CLIENT)
 public class DandelionFluffParticle extends TextureSheetParticle {
-
     private final float PARTICLE_SCALE_FOR_ONE_BLOCK = 0.5f;
     private final float BASE_SIZE = 0.2f;
 
@@ -44,17 +45,10 @@ public class DandelionFluffParticle extends TextureSheetParticle {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static class Factory implements ParticleProvider<SimpleParticleType> {
-        private final SpriteSet sprite;
-
-        public Factory(SpriteSet sprite) {
-            this.sprite = sprite;
-        }
-
-        @Nullable
+    public record Factory(SpriteSet sprite) implements ParticleProvider<SimpleParticleType> {
         @Override
-        public Particle createParticle(@Nonnull SimpleParticleType data, @Nonnull ClientLevel worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-            DandelionFluffParticle particle = new DandelionFluffParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed);
+        public @NotNull Particle createParticle(@Nonnull SimpleParticleType data, @Nonnull ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+            DandelionFluffParticle particle = new DandelionFluffParticle(level, x, y, z, xSpeed, ySpeed, zSpeed);
             particle.pickSprite(sprite);
             return particle;
         }

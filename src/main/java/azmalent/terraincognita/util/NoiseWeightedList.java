@@ -1,20 +1,12 @@
 package azmalent.terraincognita.util;
 
 import com.google.common.collect.Lists;
-import net.minecraft.world.level.newbiome.context.Context;
+import net.minecraft.world.level.biome.newbiome.context.Context;
 
 import java.util.List;
 
 public class NoiseWeightedList<T> {
-    private static class Node<T> {
-        protected final T value;
-        protected final int weight;
-
-        private Node(T value, int weight) {
-            this.value = value;
-            this.weight = weight;
-        }
-    }
+    private record Node<T>(T value, int weight) { }
 
     private final List<Node<T>> items = Lists.newArrayList();
     private int totalWeight = 0;

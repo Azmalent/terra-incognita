@@ -13,6 +13,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.PlantType;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
@@ -23,29 +24,29 @@ public abstract class HangingPlantBlock extends Block implements IPlantable {
     }
 
     @Override
-    public boolean propagatesSkylightDown(BlockState p_200123_1_, @Nonnull BlockGetter p_200123_2_, @Nonnull BlockPos p_200123_3_) {
+    public boolean propagatesSkylightDown(@NotNull BlockState p_200123_1_, @Nonnull BlockGetter p_200123_2_, @Nonnull BlockPos p_200123_3_) {
         return true;
     }
 
-    protected abstract boolean isValidGround(BlockState state, BlockState ground, BlockGetter worldIn, BlockPos groundPos);
+    protected abstract boolean isValidGround(BlockState state, BlockState ground, BlockGetter level, BlockPos groundPos);
 
     @Nonnull
     @Override
-    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor worldIn, BlockPos currentPos, BlockPos facingPos) {
-        return !stateIn.canSurvive(worldIn, currentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(stateIn, facing, facingState, worldIn, currentPos, facingPos);
+    public BlockState updateShape(BlockState stateIn, @NotNull Direction facing, @NotNull BlockState facingState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos facingPos) {
+        return !stateIn.canSurvive(level, currentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(stateIn, facing, facingState, level, currentPos, facingPos);
     }
 
     @Override
-    public boolean canSurvive(BlockState state, LevelReader worldIn, BlockPos pos) {
+    public boolean canSurvive(@NotNull BlockState state, @NotNull LevelReader level, BlockPos pos) {
         if (pos.getY() >= 255) return false;
 
         BlockPos up = pos.above();
-        return this.isValidGround(state, worldIn.getBlockState(up), worldIn, up);
+        return this.isValidGround(state, level.getBlockState(up), level, up);
     }
 
     @Override
-    public boolean isPathfindable(@Nonnull BlockState state, @Nonnull BlockGetter worldIn, @Nonnull BlockPos pos, PathComputationType type) {
-        return type == PathComputationType.AIR || super.isPathfindable(state, worldIn, pos, type);
+    public boolean isPathfindable(@Nonnull BlockState state, @Nonnull BlockGetter level, @Nonnull BlockPos pos, @NotNull PathComputationType type) {
+        return type == PathComputationType.AIR || super.isPathfindable(state, level, pos, type);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package azmalent.terraincognita.common.entity.butterfly.ai;
 
-import azmalent.terraincognita.common.entity.butterfly.AbstractButterflyEntity;
+import azmalent.terraincognita.common.entity.butterfly.AbstractButterfly;
 import net.minecraft.world.entity.ai.util.RandomPos;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.core.BlockPos;
@@ -10,9 +10,9 @@ import javax.annotation.Nullable;
 import java.util.EnumSet;
 
 public class ButterflyWanderGoal extends Goal {
-    private final AbstractButterflyEntity butterfly;
+    private final AbstractButterfly butterfly;
 
-    public ButterflyWanderGoal(AbstractButterflyEntity butterfly) {
+    public ButterflyWanderGoal(AbstractButterfly butterfly) {
         setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.JUMP));
         this.butterfly = butterfly;
     }

@@ -20,7 +20,7 @@ import net.minecraft.world.level.Level;
 import java.util.Random;
 
 public class CaltropsItem extends BlockItem {
-    private static CaltropsDispenserBehavior DISPENSER_BEHAVIOR = new CaltropsDispenserBehavior();
+    private static final CaltropsDispenserBehavior DISPENSER_BEHAVIOR = new CaltropsDispenserBehavior();
 
     public CaltropsItem(Block block) {
         super(block, new Item.Properties().tab(CreativeModeTab.TAB_COMBAT).stacksTo(16));
@@ -32,7 +32,7 @@ public class CaltropsItem extends BlockItem {
         BlockState down = world.getBlockState(pos.below());
 
         if (down.isFaceSturdy(world, pos.below(), Direction.UP) && blockState.is(Blocks.AIR)) {
-            world.setBlockAndUpdate(pos, ModBlocks.CALTROPS.getBlock().defaultBlockState());
+            world.setBlockAndUpdate(pos, ModBlocks.CALTROPS.get().defaultBlockState());
             return true;
         }
 

@@ -8,13 +8,14 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
 public final class CaltropsDispenserBehavior extends DefaultDispenseItemBehavior {
     @Nonnull
     @Override
-    protected ItemStack execute(BlockSource source, ItemStack stack) {
+    protected ItemStack execute(BlockSource source, @NotNull ItemStack stack) {
         Direction direction = source.getBlockState().getValue(DispenserBlock.FACING);
         Position pos = DispenserBlock.getDispensePosition(source);
         Level world = source.getLevel();

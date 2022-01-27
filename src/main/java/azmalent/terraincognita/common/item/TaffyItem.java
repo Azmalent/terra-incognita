@@ -13,6 +13,7 @@ import net.minecraft.world.item.Rarity;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
@@ -25,7 +26,7 @@ public class TaffyItem extends Item {
 
     @Nonnull
     @Override
-    public Rarity getRarity(ItemStack stack) {
+    public Rarity getRarity(@NotNull @NotNull ItemStack stack) {
         return Rarity.UNCOMMON;
     }
 
@@ -36,9 +37,8 @@ public class TaffyItem extends Item {
 
     @Nonnull
     @Override
-    public ItemStack finishUsingItem(@Nonnull ItemStack stack, Level worldIn, @Nonnull LivingEntity entityLiving) {
-        if (!worldIn.isClientSide && entityLiving instanceof ServerPlayer) {
-            ServerPlayer player = (ServerPlayer) entityLiving;
+    public ItemStack finishUsingItem(@Nonnull ItemStack stack, Level level, @Nonnull LivingEntity entityLiving) {
+        if (!level.isClientSide && entityLiving instanceof ServerPlayer player) {
             MobEffectInstance effect = player.getEffect(ModEffects.STICKY_MOUTH.get());
 
             int amplifier = 0;
@@ -56,6 +56,6 @@ public class TaffyItem extends Item {
             player.awardStat(Stats.ITEM_USED.get(this));
         }
 
-        return super.finishUsingItem(stack, worldIn, entityLiving);
+        return super.finishUsingItem(stack, level, entityLiving);
     }
 }

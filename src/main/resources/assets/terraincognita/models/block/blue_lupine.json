@@ -1,6 +1,0 @@
-{
-  "parent": "block/cross",
-  "textures": {
-    "cross": "terraincognita:block/blue_lupine"
-  }
-}

@@ -16,6 +16,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.PlantType;
+import org.jetbrains.annotations.NotNull;
 import vazkii.quark.content.building.module.HedgesModule;
 
 import javax.annotation.Nonnull;
@@ -30,41 +31,41 @@ public class TIHedgeBlock extends FenceBlock {
 
     @Override
     public boolean connectsTo(BlockState state, boolean isSideSolid, @Nonnull Direction direction) {
-        return state.getBlock().is(HedgesModule.hedgesTag);
+        return state.is(HedgesModule.hedgesTag);
     }
 
     @Override
-    public boolean canSustainPlant(@Nonnull BlockState state, @Nonnull BlockGetter world, BlockPos pos, @Nonnull Direction facing, IPlantable plantable) {
+    public boolean canSustainPlant(@Nonnull BlockState state, @Nonnull BlockGetter world, @NotNull BlockPos pos, @Nonnull Direction facing, @NotNull IPlantable plantable) {
         return facing == Direction.UP && !state.getValue(WATERLOGGED) && plantable.getPlantType(world, pos) == PlantType.PLAINS;
     }
 
     @Override
+    @SuppressWarnings("ConstantConditions")
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        BlockGetter iblockreader = context.getLevel();
+        BlockGetter level = context.getLevel();
         BlockPos blockpos = context.getClickedPos();
         BlockPos down = blockpos.below();
-        BlockState downState = iblockreader.getBlockState(down);
+        BlockState downState = level.getBlockState(down);
 
-        return super.getStateForPlacement(context)
-                .setValue(EXTEND, downState.getBlock() instanceof TIHedgeBlock);
+        return super.getStateForPlacement(context).setValue(EXTEND, downState.getBlock() instanceof TIHedgeBlock);
     }
 
     @Nonnull
     @Override
-    public BlockState updateShape(BlockState stateIn, Direction facing, @Nonnull BlockState facingState, @Nonnull LevelAccessor worldIn, @Nonnull BlockPos currentPos, @Nonnull BlockPos facingPos) {
-        if (stateIn.getValue(WATERLOGGED)) {
-            worldIn.getLiquidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(worldIn));
+    public BlockState updateShape(BlockState state, @NotNull Direction facing, @Nonnull BlockState facingState, @Nonnull LevelAccessor level, @Nonnull BlockPos currentPos, @Nonnull BlockPos facingPos) {
+        if (state.getValue(WATERLOGGED)) {
+            level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
 
         if(facing == Direction.DOWN) {
-            return stateIn.setValue(EXTEND, facingState.getBlock() instanceof TIHedgeBlock);
+            return state.setValue(EXTEND, facingState.getBlock() instanceof TIHedgeBlock);
         }
 
-        return super.updateShape(stateIn, facing, facingState, worldIn, currentPos, facingPos);
+        return super.updateShape(state, facing, facingState, level, currentPos, facingPos);
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
         builder.add(EXTEND);
     }

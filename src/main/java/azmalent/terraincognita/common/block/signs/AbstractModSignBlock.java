@@ -1,11 +1,12 @@
 package azmalent.terraincognita.common.block.signs;
 
+import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.block.woodtypes.ModWoodType;
 import azmalent.terraincognita.common.integration.ModIntegration;
-import azmalent.terraincognita.common.tile.ModSignTileEntity;
+import azmalent.terraincognita.common.tile.ModSignBlockEntity;
 import azmalent.terraincognita.network.NetworkHandler;
-import azmalent.terraincognita.network.message.UpdateSignMessage;
-import azmalent.terraincognita.network.message.s2c.S2CEditSignMessage;
+import azmalent.terraincognita.network.S2CUpdateSignMessage;
+import azmalent.terraincognita.network.S2CEditSignMessage;
 import net.minecraft.block.*;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.block.material.MaterialColor;
@@ -34,6 +35,7 @@ import net.minecraft.world.level.block.SignBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.WoodType;
+import org.jetbrains.annotations.NotNull;
 
 public abstract class AbstractModSignBlock extends SignBlock {
     protected final ModWoodType woodType;
@@ -50,23 +52,23 @@ public abstract class AbstractModSignBlock extends SignBlock {
 
     @Nonnull
     @Override
-    public InteractionResult use(BlockState state, Level worldIn, @Nonnull BlockPos pos, Player player, @Nonnull InteractionHand handIn, BlockHitResult hit) {
+    public InteractionResult use(@NotNull BlockState state, Level level, @Nonnull BlockPos pos, Player player, @Nonnull InteractionHand handIn, @NotNull BlockHitResult hit) {
         ItemStack heldStack = player.getItemInHand(handIn);
-        boolean canEdit = player.abilities.mayBuild;
+        boolean canEdit = player.getAbilities().mayBuild;
         boolean canDye = heldStack.getItem() instanceof DyeItem && canEdit;
 
-        if (worldIn.isClientSide) {
+        if (level.isClientSide) {
             return canDye ? InteractionResult.SUCCESS : InteractionResult.CONSUME;
         }
 
-        BlockEntity te = worldIn.getBlockEntity(pos);
-        if (te instanceof ModSignTileEntity) {
-            ModSignTileEntity sign = (ModSignTileEntity) te;
+        BlockEntity te = level.getBlockEntity(pos);
+        if (te instanceof ModSignBlockEntity) {
+            ModSignBlockEntity sign = (ModSignBlockEntity) te;
             if (canDye) {
                 boolean setColor = sign.setTextColor(((DyeItem) heldStack.getItem()).getDyeColor());
                 if (setColor) {
-                    UpdateSignMessage message = new UpdateSignMessage(pos, sign.signText, sign.getTextColor().getId());
-                    NetworkHandler.sendToAllPlayers(message);
+                    S2CUpdateSignMessage message = new S2CUpdateSignMessage(pos, sign.signText, sign.getTextColor().getId());
+                    TerraIncognita.NETWORK.sendToAllPlayers(message);
 
                     if (!player.isCreative()) {
                         heldStack.shrink(1);
@@ -74,7 +76,7 @@ public abstract class AbstractModSignBlock extends SignBlock {
                 }
             } else {
                 if (canEdit && !this.doesSignHaveCommand(sign) && ModIntegration.QUARK.canEditSign(heldStack) && !player.isShiftKeyDown()) {
-                    NetworkHandler.sendToPlayer((ServerPlayer) player, new S2CEditSignMessage(pos));
+                    TerraIncognita.NETWORK.sendToPlayer((ServerPlayer) player, new S2CEditSignMessage(pos));
                     return InteractionResult.SUCCESS;
                 }
             }
@@ -85,7 +87,7 @@ public abstract class AbstractModSignBlock extends SignBlock {
         return InteractionResult.PASS;
     }
 
-    private boolean doesSignHaveCommand(ModSignTileEntity sign) {
+    private boolean doesSignHaveCommand(ModSignBlockEntity sign) {
         for (Component itextcomponent : sign.signText) {
             Style style = itextcomponent == null ? null : itextcomponent.getStyle();
             if (style != null && style.getClickEvent() != null) {
@@ -104,12 +106,12 @@ public abstract class AbstractModSignBlock extends SignBlock {
 
     @Override
     public BlockEntity newBlockEntity(BlockGetter world) {
-        return new ModSignTileEntity();
+        return new ModSignBlockEntity();
     }
 
     @Nonnull
     @Override
-    public RenderShape getRenderShape(BlockState state) {
+    public RenderShape getRenderShape(@NotNull BlockState state) {
         return RenderShape.ENTITYBLOCK_ANIMATED;
     }
 }

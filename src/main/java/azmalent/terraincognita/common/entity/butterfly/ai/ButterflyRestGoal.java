@@ -1,6 +1,6 @@
 package azmalent.terraincognita.common.entity.butterfly.ai;
 
-import azmalent.terraincognita.common.entity.butterfly.ButterflyEntity;
+import azmalent.terraincognita.common.entity.butterfly.Butterfly;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -12,20 +12,20 @@ import java.util.EnumSet;
 import java.util.List;
 
 public class ButterflyRestGoal extends Goal {
-    private final ButterflyEntity butterfly;
+    private final Butterfly butterfly;
 
     public BlockPos restingPos;
     private BlockState initialBlockState;
     private int ticks;
 
-    public ButterflyRestGoal(ButterflyEntity butterfly) {
+    public ButterflyRestGoal(Butterfly butterfly) {
         this.butterfly = butterfly;
         setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.JUMP));
     }
 
     @Override
     public boolean canUse() {
-        if (butterfly.isLanded() && !butterfly.hasPlayersNearby()) {
+        if (butterfly.isLanded() && !butterfly.noPlayersNearby()) {
             restingPos = butterfly.blockPosition();
             return true;
         }
@@ -35,7 +35,7 @@ public class ButterflyRestGoal extends Goal {
 
     @Override
     public boolean canContinueToUse() {
-        return butterfly.isLanded() && (butterfly.isTired() || butterfly.level.isNight()) && !butterfly.hasPlayersNearby();
+        return butterfly.isLanded() && (butterfly.isTired() || butterfly.level.isNight()) && !butterfly.noPlayersNearby();
     }
 
     @Override
@@ -74,8 +74,8 @@ public class ButterflyRestGoal extends Goal {
         VoxelShape shape = world.getBlockState(pos).getShape(world, pos);
         if (shape.isEmpty()) return true;
 
-        List<Entity> entities = world.getEntitiesOfClass(ButterflyEntity.class, shape.bounds().expandTowards(0.5, 0.5, 0.5).move(pos));
-        return entities.stream().anyMatch(e -> e != butterfly && pos.equals(((ButterflyEntity) e).restGoal.restingPos));
+        List<Entity> entities = world.getEntitiesOfClass(Butterfly.class, shape.bounds().expandTowards(0.5, 0.5, 0.5).move(pos));
+        return entities.stream().anyMatch(e -> e != butterfly && pos.equals(((Butterfly) e).restGoal.restingPos));
     }
 
     private boolean blockStateUpdated() {

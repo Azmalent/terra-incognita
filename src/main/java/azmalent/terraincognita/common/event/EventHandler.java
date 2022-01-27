@@ -1,5 +1,6 @@
 package azmalent.terraincognita.common.event;
 
+import azmalent.cuneiform.lib.util.ItemUtil;
 import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.common.ModTweaks;
 import azmalent.terraincognita.common.data.ModItemTags;
@@ -11,8 +12,13 @@ import azmalent.terraincognita.common.item.block.BasketItem;
 import azmalent.terraincognita.common.recipe.WreathRecipe;
 import azmalent.terraincognita.common.registry.*;
 import azmalent.terraincognita.common.world.ModConfiguredFeatures;
-import azmalent.terraincognita.util.InventoryUtil;
-import net.minecraft.world.level.block.Block;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -21,16 +27,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CraftingRecipe;
-import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.stats.Stats;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.event.RecipesUpdatedEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.Tags;
@@ -54,13 +54,11 @@ public class EventHandler {
         bus.addListener(EventHandler::setup);
         bus.addListener(EventHandler::sendIMCMessages);
 
-        MinecraftForge.EVENT_BUS.addGenericListener(Block.class, IdRemappingHandler::onMissingBlockMappings);
-        MinecraftForge.EVENT_BUS.addGenericListener(Item.class, IdRemappingHandler::onMissingItemMappings);
-
         if (TIConfig.Flora.wreath.get()) {
             MinecraftForge.EVENT_BUS.addListener(EventHandler::onUpdateRecipes);
         }
 
+        MinecraftForge.EVENT_BUS.addListener(ModEntities::onAttributeCreation);
         MinecraftForge.EVENT_BUS.addListener(EventHandler::onPlayerUseItem);
         MinecraftForge.EVENT_BUS.addListener(EventHandler::onPlayerInteract);
         MinecraftForge.EVENT_BUS.addListener(EventHandler::onItemPickup);
@@ -79,7 +77,6 @@ public class EventHandler {
         ModBlocks.initToolInteractions();
         ModBlocks.initFlammability();
         ModItems.initFuelValues();
-        ModEntities.registerAttributes();
         ModEntities.registerSpawns();
         ModRecipes.initCompostables();
         ModTweaks.modifyFlowerGradients();
@@ -97,13 +94,11 @@ public class EventHandler {
             List<Ingredient> ingredients = recipe.getIngredients();
             if (ingredients.size() != 1) continue;
 
-            ItemStack[] matchingStacks = ingredients.get(0).getItems();
-            for (int i = 0, n = matchingStacks.length; i < n; i++) {
-                Item input = matchingStacks[i].getItem();
-                Item output = recipe.getResultItem().getItem();
+            for (ItemStack input : ingredients.get(0).getItems()) {
+                ItemStack output = recipe.getResultItem();
 
                 if (input.is(ItemTags.SMALL_FLOWERS) && output.is(Tags.Items.DYES)) {
-                    WreathRecipe.FLOWER_TO_DYE_MAP.put(input, (DyeItem) output.getItem());
+                    WreathRecipe.FLOWER_TO_DYE_MAP.put(input.getItem(), (DyeItem) output.getItem());
                 }
             }
         }
@@ -123,14 +118,13 @@ public class EventHandler {
 
     //Entity bottling
     public static void onPlayerInteract(PlayerInteractEvent.EntityInteractSpecific event) {
-        if (!(event.getTarget() instanceof LivingEntity) || event.getWorld().isClientSide) {
+        if (!(event.getTarget() instanceof LivingEntity living) || event.getWorld().isClientSide) {
             return;
         }
 
         Player player = event.getPlayer();
         InteractionHand hand = event.getHand();
         ItemStack heldStack = player.getItemInHand(hand);
-        LivingEntity living = (LivingEntity) event.getTarget();
 
         if (heldStack.getItem() == Items.GLASS_BOTTLE && living instanceof IBottleableEntity && living.isAlive()) {
             Level world = event.getWorld();
@@ -143,11 +137,11 @@ public class EventHandler {
             }
 
             BottledEntityItem.setBottledEntity(bottle, living);
-            living.remove();
+            living.discard();
             world.playSound(player, event.getPos(), SoundEvents.BOTTLE_FILL_DRAGONBREATH, SoundSource.NEUTRAL, 1.0f, 1.0f);
             player.awardStat(Stats.ITEM_USED.get(Items.GLASS_BOTTLE));
 
-            InventoryUtil.giveStackToPlayer(player, bottle, hand);
+            ItemUtil.giveStackToPlayer(player, bottle, hand);
             player.swing(hand);
 
             event.setCanceled(true);
@@ -166,7 +160,7 @@ public class EventHandler {
         Player player = event.getPlayer();
         ItemStack basket = BasketItem.getBasketInHand(player);
 
-        if (basket != null && !stack.isEmpty() && stack.getItem().is(ModItemTags.BASKET_STORABLE)) {
+        if (basket != null && !stack.isEmpty() && stack.is(ModItemTags.BASKET_STORABLE)) {
             BasketStackHandler stackHandler = BasketItem.getStackHandler(basket);
             ItemStack remainingStack = ItemHandlerHelper.insertItemStacked(stackHandler, stack, false);
 

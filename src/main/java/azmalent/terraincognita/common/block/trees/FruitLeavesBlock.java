@@ -10,6 +10,7 @@ import net.minecraftforge.common.ForgeHooks;
 import java.util.Random;
 
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+import org.jetbrains.annotations.NotNull;
 
 public class FruitLeavesBlock extends LeavesBlock {
     private final BlockState fruitState;
@@ -27,16 +28,16 @@ public class FruitLeavesBlock extends LeavesBlock {
     }
 
     @Override
-    public void randomTick(BlockState state, ServerLevel worldIn, BlockPos pos, Random random) {
+    public void randomTick(@NotNull BlockState state, ServerLevel level, BlockPos pos, @NotNull Random random) {
         BlockPos down = pos.below();
 
-        if (worldIn.isEmptyBlock(down) && ForgeHooks.onCropsGrowPre(worldIn, down, fruitState, random.nextInt(growthChance) == 0)) {
-            worldIn.setBlock(down, fruitState, 2);
-            ForgeHooks.onCropsGrowPost(worldIn, down, fruitState);
+        if (level.isEmptyBlock(down) && ForgeHooks.onCropsGrowPre(level, down, fruitState, random.nextInt(growthChance) == 0)) {
+            level.setBlock(down, fruitState, 2);
+            ForgeHooks.onCropsGrowPost(level, down, fruitState);
         }
 
         if (super.isRandomlyTicking(state)) {
-            super.randomTick(state, worldIn, pos, random);
+            super.randomTick(state, level, pos, random);
         }
     }
 }

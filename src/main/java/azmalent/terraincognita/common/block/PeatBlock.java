@@ -24,6 +24,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.SugarCaneBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("deprecation")
 public class PeatBlock extends Block {
@@ -70,7 +71,7 @@ public class PeatBlock extends Block {
     }
 
     @Override
-    public boolean canSustainPlant(@Nonnull BlockState state, @Nonnull BlockGetter world, BlockPos pos, @Nonnull Direction facing, IPlantable plant) {
+    public boolean canSustainPlant(@Nonnull BlockState state, @Nonnull BlockGetter world, @NotNull BlockPos pos, @Nonnull Direction facing, @NotNull IPlantable plant) {
         return Blocks.DIRT.canSustainPlant(Blocks.DIRT.defaultBlockState(), world, pos, facing, plant);
     }
 

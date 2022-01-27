@@ -3,24 +3,22 @@ package azmalent.terraincognita.common.recipe;
 import azmalent.terraincognita.common.registry.ModItems;
 import azmalent.terraincognita.common.registry.ModRecipes;
 import com.google.common.collect.Maps;
-import net.minecraft.world.inventory.CraftingContainer;
-import net.minecraft.item.*;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.CustomRecipe;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.item.DyeItem;
+import net.minecraft.world.item.DyeableLeatherItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.CustomRecipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import net.minecraft.world.item.DyeItem;
-import net.minecraft.world.item.DyeableLeatherItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 
 public class WreathRecipe extends CustomRecipe {
     public static final Map<Item, DyeItem> FLOWER_TO_DYE_MAP = Maps.newHashMap();
@@ -31,12 +29,12 @@ public class WreathRecipe extends CustomRecipe {
     }
 
     @Override
-    public boolean matches(CraftingContainer inv, @Nonnull Level worldIn) {
+    public boolean matches(CraftingContainer inv, @Nonnull Level level) {
         int numFlowers = 0;
 
         for (int i = 0; i < inv.getContainerSize(); i++) {
             ItemStack stack = inv.getItem(i);
-            if (stack.getItem().is(ItemTags.SMALL_FLOWERS)) numFlowers++;
+            if (stack.is(ItemTags.SMALL_FLOWERS)) numFlowers++;
             else if (!stack.isEmpty()) return false;
         }
 

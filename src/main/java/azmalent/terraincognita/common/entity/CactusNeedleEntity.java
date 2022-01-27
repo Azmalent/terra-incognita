@@ -21,7 +21,7 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.ForgeEventFactory;
-import net.minecraftforge.fml.network.FMLPlayMessages;
+import net.minecraftforge.fml.network.PlayMessages;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -38,6 +38,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
+import org.jetbrains.annotations.NotNull;
 
 public class CactusNeedleEntity extends Projectile {
     private double damage = 1.5D;
@@ -49,21 +50,21 @@ public class CactusNeedleEntity extends Projectile {
     protected int ticksInGround;
     public int arrowShake;
 
-    public CactusNeedleEntity(EntityType<? extends CactusNeedleEntity> type, Level worldIn) {
-        super(type, worldIn);
+    public CactusNeedleEntity(EntityType<? extends CactusNeedleEntity> type, Level level) {
+        super(type, level);
     }
 
-    public CactusNeedleEntity(double x, double y, double z, Level worldIn) {
-        this(ModEntities.CACTUS_NEEDLE.get(), worldIn);
+    public CactusNeedleEntity(double x, double y, double z, Level level) {
+        this(ModEntities.CACTUS_NEEDLE.get(), level);
         this.setPos(x, y, z);
     }
 
-    public CactusNeedleEntity(LivingEntity shooter, Level worldIn) {
-        this(shooter.getX(), shooter.getEyeY() - (double)0.1F, shooter.getZ(), worldIn);
+    public CactusNeedleEntity(LivingEntity shooter, Level level) {
+        this(shooter.getX(), shooter.getEyeY() - (double)0.1F, shooter.getZ(), level);
         this.setOwner(shooter);
     }
 
-    public CactusNeedleEntity(FMLPlayMessages.SpawnEntity spawnEntity, Level world) {
+    public CactusNeedleEntity(PlayMessages.SpawnEntity spawnEntity, Level world) {
         this(ModEntities.CACTUS_NEEDLE.get(), world);
     }
 
@@ -262,7 +263,7 @@ public class CactusNeedleEntity extends Projectile {
         compound.putDouble("damage", this.damage);
     }
 
-    public void readAdditionalSaveData(CompoundTag compound) {
+    public void readAdditionalSaveData(@NotNull CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.ticksInGround = compound.getShort("life");
         if (compound.contains("inBlockState", 10)) {
@@ -299,7 +300,7 @@ public class CactusNeedleEntity extends Projectile {
         return false;
     }
 
-    protected float getEyeHeight(Pose poseIn, EntityDimensions sizeIn) {
+    protected float getEyeHeight(@NotNull Pose poseIn, @NotNull EntityDimensions sizeIn) {
         return 0.13F;
     }
 

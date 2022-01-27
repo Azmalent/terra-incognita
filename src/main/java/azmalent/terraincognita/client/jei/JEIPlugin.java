@@ -9,6 +9,7 @@ import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
@@ -22,7 +23,7 @@ public class JEIPlugin implements IModPlugin {
     }
 
     @Override
-    public void registerRecipes(IRecipeRegistration registration) {
+    public void registerRecipes(@NotNull IRecipeRegistration registration) {
         if (TIConfig.Flora.wreath.get()) {
             registration.addRecipes(WreathRecipeMaker.getRecipes(), VanillaRecipeCategoryUid.CRAFTING);
         }

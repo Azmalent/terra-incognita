@@ -3,10 +3,10 @@ package azmalent.terraincognita.common.registry;
 import azmalent.terraincognita.TerraIncognita;
 import com.google.common.collect.Maps;
 import net.minecraft.world.item.BannerPatternItem;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.entity.BannerPattern;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.Map;
 
@@ -19,20 +19,18 @@ public class ModBanners {
     public static BannerPattern BUTTERFLY;
 
     public static void register() {
-        FLEUR_DE_LIS = registerBanner("fleur_de_lis", "fdl", true);
-        FERN = registerBanner("fern", "fern", true);
-        BUTTERFLY = registerBanner("butterfly", "btrfly", true);
+        FLEUR_DE_LIS = registerBanner("fleur_de_lis", "fdl");
+        FERN = registerBanner("fern", "fern");
+        BUTTERFLY = registerBanner("butterfly", "btrfly");
     }
 
-    private static BannerPattern registerBanner(String name, String hashName, boolean requiresItem) {
+    private static BannerPattern registerBanner(String name, String hashName) {
         String enumName = TerraIncognita.prefix(name).toString().replace(':', '_').toUpperCase();
-        BannerPattern pattern = BannerPattern.create(enumName, "ti_" + name, "ti_" + hashName, requiresItem);
+        BannerPattern pattern = BannerPattern.create(enumName, "ti_" + name, "ti_" + hashName, true);
 
-        if (requiresItem) {
-            String itemName = name + "_banner_pattern";
-            RegistryObject<BannerPatternItem> item = ModItems.ITEMS.register(itemName, () -> new BannerPatternItem(pattern, PATTERN_PROPS));
-            PATTERN_ITEMS.put(pattern, item);
-        }
+        String itemName = name + "_banner_pattern";
+        RegistryObject<BannerPatternItem> item = ModItems.ITEMS.register(itemName, () -> new BannerPatternItem(pattern, PATTERN_PROPS));
+        PATTERN_ITEMS.put(pattern, item);
 
         return pattern;
     }

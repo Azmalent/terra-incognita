@@ -24,12 +24,12 @@ import java.util.Random;
 public class FairyRingGeneratorMixin {
     //TODO: rewrite this mixin properly
     @Inject(method = "generateChunk", at = @At(value = "HEAD"), cancellable = true, remap = false)
-    private void generateChunk(WorldGenRegion worldIn, ChunkGenerator generator, Random rand, BlockPos corner, CallbackInfo ci) {
+    private void generateChunk(WorldGenRegion level, ChunkGenerator generator, Random rand, BlockPos corner, CallbackInfo ci) {
         int x = corner.getX() + rand.nextInt(16);
         int z = corner.getZ() + rand.nextInt(16);
         BlockPos center = new BlockPos(x, 128, z);
 
-        Biome biome = worldIn.getBiomeManager().getBiome(center);
+        Biome biome = level.getBiomeManager().getBiome(center);
 
         Biome.BiomeCategory category = biome.getBiomeCategory();
         double chance = 0;
@@ -43,15 +43,15 @@ public class FairyRingGeneratorMixin {
 
         if(rand.nextDouble() < chance) {
             BlockPos pos = center;
-            BlockState state = worldIn.getBlockState(pos);
+            BlockState state = level.getBlockState(pos);
 
             while(state.getMaterial() != Material.GRASS && pos.getY() > 30) {
                 pos = pos.below();
-                state = worldIn.getBlockState(pos);
+                state = level.getBlockState(pos);
             }
 
             if(state.getMaterial() == Material.GRASS)
-                FairyRingGenerator.spawnFairyRing(worldIn, pos.below(), rand);
+                FairyRingGenerator.spawnFairyRing(level, pos.below(), rand);
         }
 
         ci.cancel();

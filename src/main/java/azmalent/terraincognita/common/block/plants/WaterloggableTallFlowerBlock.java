@@ -28,6 +28,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.TallFlowerBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 
 public class WaterloggableTallFlowerBlock extends TallFlowerBlock implements SimpleWaterloggedBlock {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
@@ -38,14 +39,14 @@ public class WaterloggableTallFlowerBlock extends TallFlowerBlock implements Sim
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
         builder.add(WATERLOGGED);
     }
 
     @Nullable
     @Override
-    public BlockState getStateForPlacement(BlockPlaceContext context) {
+    public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
         BlockState state = super.getStateForPlacement(context);
         if (state != null) {
             FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
@@ -65,7 +66,7 @@ public class WaterloggableTallFlowerBlock extends TallFlowerBlock implements Sim
     }
 
     @Override
-    public boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
+    public boolean canSurvive(BlockState state, @NotNull LevelReader world, @NotNull BlockPos pos) {
         if (state.getValue(HALF) == DoubleBlockHalf.LOWER) {
             BlockPos up = pos.above();
             if (world.getFluidState(up).is(FluidTags.WATER) || world.getBlockState(up).is(Blocks.FROSTED_ICE)) {
@@ -84,7 +85,7 @@ public class WaterloggableTallFlowerBlock extends TallFlowerBlock implements Sim
     }
 
     @Override
-    protected boolean mayPlaceOn(BlockState state, BlockGetter world, BlockPos pos) {
+    protected boolean mayPlaceOn(BlockState state, @NotNull BlockGetter world, @NotNull BlockPos pos) {
         return state.is(Blocks.CLAY) || super.mayPlaceOn(state, world, pos);
     }
 
@@ -110,7 +111,7 @@ public class WaterloggableTallFlowerBlock extends TallFlowerBlock implements Sim
     }
 
     @Override
-    public boolean canPlaceLiquid(BlockGetter world, BlockPos pos, BlockState state, Fluid fluid) {
+    public boolean canPlaceLiquid(@NotNull BlockGetter world, @NotNull BlockPos pos, BlockState state, @NotNull Fluid fluid) {
         return state.getValue(HALF) == DoubleBlockHalf.LOWER && !state.getValue(BlockStateProperties.WATERLOGGED) && fluid == Fluids.WATER;
     }
 
@@ -122,11 +123,11 @@ public class WaterloggableTallFlowerBlock extends TallFlowerBlock implements Sim
 
     @Nonnull
     @Override
-    public BlockState updateShape(BlockState stateIn, Direction facing, @Nonnull BlockState facingState, @Nonnull LevelAccessor worldIn, @Nonnull BlockPos currentPos, @Nonnull BlockPos facingPos) {
+    public BlockState updateShape(BlockState stateIn, @NotNull Direction facing, @Nonnull BlockState facingState, @Nonnull LevelAccessor level, @Nonnull BlockPos currentPos, @Nonnull BlockPos facingPos) {
         if (stateIn.getValue(WATERLOGGED)) {
-            worldIn.getLiquidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(worldIn));
+            level.getLiquidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
 
-        return super.updateShape(stateIn, facing, facingState, worldIn, currentPos, facingPos);
+        return super.updateShape(stateIn, facing, facingState, level, currentPos, facingPos);
     }
 }

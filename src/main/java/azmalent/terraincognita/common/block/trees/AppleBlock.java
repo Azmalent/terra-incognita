@@ -1,25 +1,22 @@
 package azmalent.terraincognita.common.block.trees;
 
 import azmalent.terraincognita.common.registry.ModWoodTypes;
-import net.minecraft.block.*;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
-import net.minecraft.world.item.Items;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelReader;
-
-import javax.annotation.Nonnull;
-
-import net.minecraft.world.level.block.state.BlockBehaviour.OffsetType;
-
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.Nonnull;
 
 @SuppressWarnings("deprecation")
 public class AppleBlock extends AbstractFruitBlock {
@@ -32,8 +29,8 @@ public class AppleBlock extends AbstractFruitBlock {
 
     @Nonnull
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
-        Vec3 offset = state.getOffset(worldIn, pos);
+    public VoxelShape getShape(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+        Vec3 offset = state.getOffset(level, pos);
         return (state.getValue(AGE) < 2 ? SMALL_SHAPE : BIG_SHAPE).move(offset.x, offset.y, offset.z);
     }
 
@@ -44,8 +41,8 @@ public class AppleBlock extends AbstractFruitBlock {
     }
 
     @Override
-    public boolean canSurvive(BlockState state, LevelReader worldIn, BlockPos pos) {
-        BlockState up = worldIn.getBlockState(pos.above());
-        return (up.is(ModWoodTypes.APPLE.LEAVES.getBlock()) || up.is(ModWoodTypes.APPLE.BLOSSOMING_LEAVES.getBlock())  && !up.getValue(LeavesBlock.PERSISTENT));
+    public boolean canSurvive(@NotNull BlockState state, LevelReader level, BlockPos pos) {
+        BlockState up = level.getBlockState(pos.above());
+        return (up.is(ModWoodTypes.APPLE.LEAVES.get()) || up.is(ModWoodTypes.APPLE.BLOSSOMING_LEAVES.get())  && !up.getValue(LeavesBlock.PERSISTENT));
     }
 }

@@ -1,45 +1,40 @@
 package azmalent.terraincognita.client.gui;
 
-import azmalent.terraincognita.client.renderer.tile.ModSignRenderer;
+import azmalent.terraincognita.client.renderer.blockentity.ModSignRenderer;
 import azmalent.terraincognita.common.block.signs.ModStandingSignBlock;
-import azmalent.terraincognita.common.tile.ModSignTileEntity;
+import azmalent.terraincognita.common.tile.ModSignBlockEntity;
 import azmalent.terraincognita.network.NetworkHandler;
-import azmalent.terraincognita.network.message.UpdateSignMessage;
-import com.mojang.blaze3d.vertex.PoseStack;
+import azmalent.terraincognita.network.S2CUpdateSignMessage;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import java.util.stream.IntStream;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.network.chat.CommonComponents;
+import com.mojang.blaze3d.vertex.*;
+import com.mojang.math.Matrix4f;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.font.TextFieldHelper;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.multiplayer.ClientPacketListener;
-import com.mojang.blaze3d.vertex.BufferBuilder;
 import net.minecraft.client.renderer.MultiBufferSource;
-import com.mojang.blaze3d.platform.Lighting;
-import com.mojang.blaze3d.vertex.Tesselator;
-import com.mojang.blaze3d.vertex.BufferUploader;
-import net.minecraft.client.resources.model.Material;
-import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
-import com.mojang.math.Matrix4f;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.resources.model.Material;
+import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nonnull;
+import java.util.stream.IntStream;
 
 @SuppressWarnings({"ConstantConditions", "CodeBlock2Expr"})
 @OnlyIn(Dist.CLIENT)
 public class ModEditSignScreen extends Screen {
     private final SignRenderer.SignModel signModel = new SignRenderer.SignModel();
     /** Reference to the sign object. */
-    private final ModSignTileEntity sign;
+    private final ModSignBlockEntity sign;
     /** Counts the number of screen updates. */
     private int updateCounter;
     /** The index of the line that is being edited. */
@@ -47,7 +42,7 @@ public class ModEditSignScreen extends Screen {
     private TextFieldHelper textInputUtil;
     private final String[] text;
 
-    public ModEditSignScreen(ModSignTileEntity sign) {
+    public ModEditSignScreen(ModSignBlockEntity sign) {
         super(new TranslatableComponent("sign.edit"));
         this.text = IntStream.range(0, 4).mapToObj(sign::getText).map(Component::getString).toArray(String[]::new);
         this.sign = sign;
@@ -77,7 +72,7 @@ public class ModEditSignScreen extends Screen {
         this.minecraft.keyboardHandler.setSendRepeatsToGui(false);
         ClientPacketListener connection = this.minecraft.getConnection();
         if (connection != null) {
-            UpdateSignMessage signMessage = new UpdateSignMessage(sign.getBlockPos(), sign.signText, sign.getTextColor().getId());
+            S2CUpdateSignMessage signMessage = new S2CUpdateSignMessage(sign.getBlockPos(), sign.signText, sign.getTextColor().getId());
             NetworkHandler.sendToServer(signMessage);
         }
 
