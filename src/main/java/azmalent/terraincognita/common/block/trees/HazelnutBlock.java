@@ -21,7 +21,7 @@ public class HazelnutBlock extends AbstractFruitBlock {
     private static final VoxelShape SHAPE = makeCuboidShape(6, 12, 6, 10, 16, 10);
 
     public HazelnutBlock() {
-        super(Block.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(0.2F).sound(SoundType.WOOD), ModItems.HAZELNUT, 10);
+        super(Block.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(0.2F).sound(SoundType.WOOD), ModItems.HAZELNUT, 7);
     }
 
     @Nonnull
@@ -40,6 +40,6 @@ public class HazelnutBlock extends AbstractFruitBlock {
     @Override
     public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
         BlockState up = worldIn.getBlockState(pos.up());
-        return up.isIn(ModWoodTypes.HAZEL.LEAVES.getBlock()) && !up.get(LeavesBlock.PERSISTENT);
+        return up.isIn(ModWoodTypes.HAZEL.LEAVES.getBlock());
     }
 }

@@ -2,6 +2,7 @@ package azmalent.terraincognita.common.event;
 
 import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.common.ModTweaks;
+import azmalent.terraincognita.common.block.trees.AbstractFruitBlock;
 import azmalent.terraincognita.common.data.ModItemTags;
 import azmalent.terraincognita.common.entity.IBottleableEntity;
 import azmalent.terraincognita.common.integration.theoneprobe.ButterflyProvider;
@@ -13,6 +14,7 @@ import azmalent.terraincognita.common.registry.*;
 import azmalent.terraincognita.common.world.ModConfiguredFeatures;
 import azmalent.terraincognita.util.InventoryUtil;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -26,10 +28,8 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.util.*;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RecipesUpdatedEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -62,7 +62,8 @@ public class EventHandler {
         }
 
         MinecraftForge.EVENT_BUS.addListener(EventHandler::onPlayerUseItem);
-        MinecraftForge.EVENT_BUS.addListener(EventHandler::onPlayerInteract);
+        MinecraftForge.EVENT_BUS.addListener(EventHandler::onPlayerInteractWithBlock);
+        MinecraftForge.EVENT_BUS.addListener(EventHandler::onPlayerInteractWithEntity);
         MinecraftForge.EVENT_BUS.addListener(EventHandler::onItemPickup);
 
         MinecraftForge.EVENT_BUS.addListener(BiomeHandler::onLoadBiome);
@@ -121,8 +122,38 @@ public class EventHandler {
         }
     }
 
+    //Placing fruits
+    public static void onPlayerInteractWithBlock(PlayerInteractEvent.RightClickBlock event) {
+        if (event.getFace() != Direction.DOWN) {
+            return;
+        }
+
+        PlayerEntity player = event.getPlayer();
+        Hand hand = event.getHand();
+        ItemStack heldStack = player.getHeldItem(hand);
+
+        BlockPos pos = event.getPos();
+        World world = player.world;
+        Block block = world.getBlockState(pos).getBlock();
+
+        BlockState fruit = null;
+        if (heldStack.getItem() == Items.APPLE && (block == ModWoodTypes.APPLE.LEAVES.getBlock() || block == ModWoodTypes.APPLE.BLOSSOMING_LEAVES.getBlock())) {
+            fruit = ModBlocks.APPLE.getDefaultState();
+        } else if (heldStack.getItem() == ModItems.HAZELNUT.get() && block == ModWoodTypes.HAZEL.LEAVES.getBlock()) {
+            fruit = ModBlocks.HAZELNUT.getDefaultState();
+        }
+
+        if (fruit != null) {
+            world.setBlockState(pos.down(), fruit.with(AbstractFruitBlock.AGE, 7), 2);
+
+            heldStack.shrink(1);
+            event.setCanceled(true);
+            event.setCancellationResult(ActionResultType.CONSUME);
+        }
+    }
+
     //Entity bottling
-    public static void onPlayerInteract(PlayerInteractEvent.EntityInteractSpecific event) {
+    public static void onPlayerInteractWithEntity(PlayerInteractEvent.EntityInteractSpecific event) {
         if (!(event.getTarget() instanceof LivingEntity) || event.getWorld().isRemote) {
             return;
         }

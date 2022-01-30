@@ -13,6 +13,6 @@ public final class HazelWoodType extends ModWoodType {
 
     @Override
     protected Block createLeaves() {
-        return new FruitLeavesBlock(ModBlocks.HAZELNUT.getDefaultState(), 50);
+        return new FruitLeavesBlock(ModBlocks.HAZELNUT.getDefaultState(), 20);
     }
 }

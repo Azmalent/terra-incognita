@@ -18,7 +18,7 @@ public final class AppleWoodType extends ModWoodType {
 
     @Override
     protected Block createLeaves() {
-        return new FruitLeavesBlock(ModBlocks.APPLE.getDefaultState(), 100);
+        return new FruitLeavesBlock(ModBlocks.APPLE.getDefaultState(), 50);
     }
 
     @Override

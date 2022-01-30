@@ -24,10 +24,15 @@ import static net.minecraftforge.common.BiomeDictionary.Type.*;
 
 public class BiomeHandler {
     public static void onLoadBiome(BiomeLoadingEvent event) {
-        if (event.getName().getNamespace().equals(TerraIncognita.MODID)) {
-            initCustomBiome(event);
-        } else if (event.getName().getNamespace().equals("minecraft")) {
-            applyVanillaBiomeTweaks(event);
+        switch (event.getName().getNamespace()) {
+            case TerraIncognita.MODID:
+                initCustomBiome(event);
+                break;
+            case "minecraft":
+                applyVanillaBiomeTweaks(event);
+                break;
+            case "cavebiomeapi": case "cavesandcliffs": case "darkerdepths":
+                return;
         }
 
         RegistryKey<Biome> biomeKey = BiomeUtil.getBiomeKey(event.getName());

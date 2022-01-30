@@ -20,7 +20,7 @@ public class AppleBlock extends AbstractFruitBlock {
     private static final VoxelShape BIG_SHAPE = makeCuboidShape(5, 7, 5, 11, 13, 11);
 
     public AppleBlock() {
-        super(Block.Properties.create(Material.MISCELLANEOUS, MaterialColor.RED).hardnessAndResistance(0.2F).sound(SoundType.WOOD), () -> Items.APPLE, 25);
+        super(Block.Properties.create(Material.MISCELLANEOUS, MaterialColor.RED).hardnessAndResistance(0.2F).sound(SoundType.WOOD), () -> Items.APPLE, 15);
     }
 
     @Nonnull
@@ -39,6 +39,6 @@ public class AppleBlock extends AbstractFruitBlock {
     @Override
     public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
         BlockState up = worldIn.getBlockState(pos.up());
-        return (up.isIn(ModWoodTypes.APPLE.LEAVES.getBlock()) || up.isIn(ModWoodTypes.APPLE.BLOSSOMING_LEAVES.getBlock())  && !up.get(LeavesBlock.PERSISTENT));
+        return (up.isIn(ModWoodTypes.APPLE.LEAVES.getBlock()) || up.isIn(ModWoodTypes.APPLE.BLOSSOMING_LEAVES.getBlock()));
     }
 }

@@ -1,10 +1,7 @@
 package azmalent.terraincognita.common.block.trees;
 
 import com.google.common.collect.Lists;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import net.minecraft.block.*;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -16,6 +13,7 @@ import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
@@ -28,7 +26,7 @@ import java.util.Random;
 import java.util.function.Supplier;
 
 @SuppressWarnings("deprecation")
-public abstract class AbstractFruitBlock extends Block {
+public abstract class AbstractFruitBlock extends Block implements IGrowable {
     public static final IntegerProperty AGE = BlockStateProperties.AGE_0_7;
 
     private final Supplier<Item> item;
@@ -112,5 +110,19 @@ public abstract class AbstractFruitBlock extends Block {
     @Override
     public String getTranslationKey() {
         return item.get().getTranslationKey();
+    }
+
+    //IGrowable implementation
+    public boolean canGrow(IBlockReader worldIn, BlockPos pos, BlockState state, boolean isClient) {
+        return state.get(AGE) < 7;
+    }
+
+    public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, BlockState state) {
+        return true;
+    }
+
+    public void grow(ServerWorld worldIn, Random rand, BlockPos pos, BlockState state) {
+        int age = Math.min(state.get(AGE) + MathHelper.nextInt(rand,2, 6), 7);
+        worldIn.setBlockState(pos, state.with(AGE, age), 2);
     }
 }
