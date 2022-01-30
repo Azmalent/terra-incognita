@@ -143,7 +143,7 @@ public class EventHandler {
             fruit = ModBlocks.HAZELNUT.getDefaultState();
         }
 
-        if (fruit != null) {
+        if (fruit != null && world.getBlockState(pos.down()).isAir()) {
             world.setBlockState(pos.down(), fruit.with(AbstractFruitBlock.AGE, 7), 2);
 
             if (!player.isCreative()) {
