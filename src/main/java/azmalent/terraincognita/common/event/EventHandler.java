@@ -146,7 +146,11 @@ public class EventHandler {
         if (fruit != null) {
             world.setBlockState(pos.down(), fruit.with(AbstractFruitBlock.AGE, 7), 2);
 
-            heldStack.shrink(1);
+            if (!player.isCreative()) {
+                heldStack.shrink(1);
+            }
+
+            player.swingArm(hand);
             event.setCanceled(true);
             event.setCancellationResult(ActionResultType.CONSUME);
         }
