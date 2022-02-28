@@ -1,0 +1,7 @@
+{
+  "parent": "quark:block/hedge_post",
+  "textures": {
+    "log": "terraincognita:block/larch/log",
+    "leaf": "terraincognita:block/larch/leaves"
+  }
+}

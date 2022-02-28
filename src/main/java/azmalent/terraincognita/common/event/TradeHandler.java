@@ -2,18 +2,24 @@ package azmalent.terraincognita.common.event;
 
 import azmalent.cuneiform.lib.util.TradeBuilder;
 import azmalent.terraincognita.TIConfig;
+import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.registry.ModBlocks;
 import azmalent.terraincognita.common.registry.ModItems;
 import azmalent.terraincognita.common.registry.ModWoodTypes;
 import net.minecraft.world.entity.npc.VillagerTrades;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.village.WandererTradesEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 
 import java.util.List;
 
 import static azmalent.cuneiform.common.data.WanderingTraderHandler.addCommonTrade;
 import static azmalent.cuneiform.common.data.WanderingTraderHandler.addRareTrade;
 
+@Mod.EventBusSubscriber(modid = TerraIncognita.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class TradeHandler {
+    @SubscribeEvent
     public static void setupWandererTrades(WandererTradesEvent event) {
         //Flowers
         if (TIConfig.Flora.dandelionPuff.get()) {
@@ -58,7 +64,7 @@ public class TradeHandler {
 
         if (TIConfig.Flora.arcticFlowers.get()) {
             addCommonTrade(TradeBuilder.sell(ModBlocks.ARCTIC_POPPY).maxTrades(12).build());
-            addCommonTrade(TradeBuilder.sell(ModBlocks.DWARF_FIREWEED).maxTrades(12).build());
+            addCommonTrade(TradeBuilder.sell(ModBlocks.HEATHER).maxTrades(12).build());
             addCommonTrade(TradeBuilder.sell(ModBlocks.WHITE_DRYAD).maxTrades(12).build());
             addCommonTrade(TradeBuilder.sell(ModBlocks.FIREWEED).maxTrades(12).build());
             addCommonTrade(TradeBuilder.sell(ModBlocks.WHITE_RHODODENDRON).maxTrades(12).build());

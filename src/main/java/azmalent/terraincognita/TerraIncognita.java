@@ -1,41 +1,37 @@
 package azmalent.terraincognita;
 
-import azmalent.cuneiform.lib.compat.ModCompatUtil;
 import azmalent.cuneiform.lib.integration.ModIntegrationManager;
-import azmalent.cuneiform.lib.network.CuneiformChannel;
-import azmalent.cuneiform.lib.network.SerializationHandler;
 import azmalent.cuneiform.lib.registry.RegistryHelper;
-import azmalent.terraincognita.client.event.ClientEventHandler;
-import azmalent.terraincognita.common.data.ModBlockTags;
-import azmalent.terraincognita.common.data.ModItemTags;
-import azmalent.terraincognita.common.event.EventHandler;
+import azmalent.terraincognita.common.ModBlockTags;
+import azmalent.terraincognita.common.ModItemTags;
 import azmalent.terraincognita.common.registry.*;
-import azmalent.terraincognita.common.integration.ModIntegration;
-import azmalent.terraincognita.network.NetworkHandler;
+import azmalent.terraincognita.common.world.configured.ModConfiguredFeatures;
+import azmalent.terraincognita.integration.ModIntegration;
+import azmalent.terraincognita.integration.theoneprobe.ButterflyInfoProvider;
 import azmalent.terraincognita.proxy.ClientProxy;
-import azmalent.terraincognita.proxy.ServerProxy;
 import azmalent.terraincognita.proxy.IProxy;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.CactusBlock;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.chat.Component;
+import azmalent.terraincognita.proxy.ServerProxy;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.InterModComms;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 @Mod(TerraIncognita.MODID)
+@Mod.EventBusSubscriber(modid = TerraIncognita.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class TerraIncognita {
     public static final String MODID = "terraincognita";
     public static final Logger LOGGER = LogManager.getLogger(MODID);
 
     public static final IProxy PROXY = DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> ServerProxy::new);
     public static final RegistryHelper REG_HELPER = new RegistryHelper(MODID);
-    public static final CuneiformChannel NETWORK = new CuneiformChannel(prefix("channel"), 1);
 
     public TerraIncognita() {
         TIConfig.init();
@@ -44,7 +40,7 @@ public class TerraIncognita {
         ModBlocks.BLOCKS.register(bus);
         ModItems.ITEMS.register(bus);
         ModBlockStateProviders.PROVIDERS.register(bus);
-        ModContainers.CONTAINERS.register(bus);
+        ModMenus.MENUS.register(bus);
         ModEffects.EFFECTS.register(bus);
         ModEntities.ENTITIES.register(bus);
         ModFeatures.FEATURES.register(bus);
@@ -62,15 +58,25 @@ public class TerraIncognita {
 
         ModItemTags.init();
         ModBlockTags.init();
-        registerMessages();
-
-        EventHandler.registerListeners();
-        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> ClientEventHandler::registerListeners);
     }
 
-    private static void registerMessages() {
-        SerializationHandler.registerSerializer(Component.class, FriendlyByteBuf::readComponent, FriendlyByteBuf::writeComponent);
+    @SubscribeEvent
+    public static void setup(FMLCommonSetupEvent event) {
+        event.enqueueWork(ModConfiguredFeatures::registerFeatures);
 
+        ModBlocks.initToolInteractions();
+        ModBlocks.initFlammability();
+        ModItems.initFuelValues();
+        ModEntities.registerSpawns();
+        ModRecipes.initCompostables();
+        ModTweaks.modifyFlowerGradients();
+    }
+
+    @SubscribeEvent
+    public static void sendIMCMessages(InterModEnqueueEvent event) {
+        if (ModList.get().isLoaded("theoneprobe")) {
+            InterModComms.sendTo("theoneprobe", "getTheOneProbe", ButterflyInfoProvider::new);
+        }
     }
 
     public static ResourceLocation prefix(String name) {

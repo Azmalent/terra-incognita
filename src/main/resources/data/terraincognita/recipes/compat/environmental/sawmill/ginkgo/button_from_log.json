@@ -1,0 +1,23 @@
+{
+  "type": "environmental:sawing",
+  "ingredient": {
+    "tag": "terraincognita:ginkgo_logs"
+  },
+  "result": "terraincognita:ginkgo_button",
+  "count": 4,
+  "conditions":[
+    {
+      "type": "forge:and",
+      "values": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "environmental"
+        },
+        {
+          "type": "cuneiform:config",
+          "config": "terraincognita:ginkgo"
+        }
+      ]
+    }
+  ]
+}

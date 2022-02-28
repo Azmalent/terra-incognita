@@ -26,7 +26,7 @@ public class TaffyItem extends Item {
 
     @Nonnull
     @Override
-    public Rarity getRarity(@NotNull @NotNull ItemStack stack) {
+    public Rarity getRarity(@NotNull ItemStack stack) {
         return Rarity.UNCOMMON;
     }
 

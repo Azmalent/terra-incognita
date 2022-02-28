@@ -57,7 +57,7 @@ public class FairyRingGeneratorMixin {
         ci.cancel();
     }
 
-    @Redirect(method = "spawnFairyRing", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/Block;getDefaultState()Lnet/minecraft/block/BlockState;"))
+    @Redirect(method = "spawnFairyRing", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/Block;defaultBlockState()Lnet/minecraft/world/level/block/state/BlockState;"))
     private static BlockState selectFlower(Block self, LevelAccessor world, BlockPos pos, Random rand) {
         if (world.getBiome(pos).getBiomeCategory() == Biome.BiomeCategory.SAVANNA && TIConfig.Flora.savannaFlowers.get()) {
             return ModBlocks.MARIGOLD.getBlock().defaultBlockState();

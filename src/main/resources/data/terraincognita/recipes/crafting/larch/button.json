@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "terraincognita:larch_planks"
+    }
+  ],
+  "result": {
+    "item": "terraincognita:larch_button",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "cuneiform:config",
+      "config": "terraincognita:larch"
+    }
+  ]
+}

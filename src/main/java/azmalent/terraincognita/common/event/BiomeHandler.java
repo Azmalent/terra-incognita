@@ -1,41 +1,42 @@
 package azmalent.terraincognita.common.event;
 
-import azmalent.cuneiform.lib.util.BiomeUtil;
 import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.TerraIncognita;
-import azmalent.terraincognita.common.ModTweaks;
 import azmalent.terraincognita.common.registry.ModEntities;
 import azmalent.terraincognita.common.world.ModDefaultFeatures;
-import azmalent.terraincognita.common.world.biome.BiomeEntry;
 import azmalent.terraincognita.util.WorldGenUtil;
-import net.minecraft.world.entity.MobCategory;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
-import net.minecraftforge.common.world.MobSpawnInfoBuilder;
+import net.minecraftforge.common.world.MobSpawnSettingsBuilder;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import static net.minecraftforge.common.BiomeDictionary.Type.*;
 
+@Mod.EventBusSubscriber(modid = TerraIncognita.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class BiomeHandler {
+    @SubscribeEvent
+    @SuppressWarnings("ConstantConditions")
     public static void onLoadBiome(BiomeLoadingEvent event) {
-        if (event.getName().getNamespace().equals(TerraIncognita.MODID)) {
-            initCustomBiome(event);
-        } else if (event.getName().getNamespace().equals("minecraft")) {
-            applyVanillaBiomeTweaks(event);
+        switch (event.getName().getNamespace()) {
+            case TerraIncognita.MODID -> initCustomBiome(event);
+            case "minecraft" -> applyVanillaBiomeTweaks(event);
         }
 
-        ResourceKey<Biome> biomeKey = BiomeUtil.getBiomeKey(event.getName());
+
+        ResourceKey<Biome> biomeKey = WorldGenUtil.getBiomeKey(event.getName());
         Biome biome = ForgeRegistries.BIOMES.getValue(event.getName());
-        if (biome == null || BiomeUtil.hasAnyType(biomeKey, END, NETHER, VOID, OCEAN, BEACH, DEAD)) return;
+        if (biome == null || WorldGenUtil.hasAnyBiomeType(biomeKey, END, NETHER, VOID, OCEAN, BEACH, DEAD)) return;
 
         //Spawns
-        MobSpawnInfoBuilder spawns = event.getSpawns();
-        if (BiomeUtil.hasAnyType(biomeKey, PLAINS, FOREST) && BiomeUtil.hasNoneOfTypes(biomeKey, COLD, DENSE)) {
+        MobSpawnSettingsBuilder spawns = event.getSpawns();
+        if (WorldGenUtil.hasAnyBiomeType(biomeKey, PLAINS, FOREST) && !WorldGenUtil.hasAnyBiomeType(biomeKey, COLD, DENSE)) {
             WorldGenUtil.addSpawner(spawns, ModEntities.BUTTERFLY, MobCategory.AMBIENT, TIConfig.Fauna.butterflySpawnWeight.get(), 4, 8);
         }
 
@@ -44,9 +45,9 @@ public class BiomeHandler {
         BiomeGenerationSettingsBuilder builder = event.getGeneration();
 
         //Roots and hanging moss
-        if (BiomeUtil.hasNoneOfTypes(biomeKey, SANDY, MESA, WASTELAND)) {
+        if (!WorldGenUtil.hasAnyBiomeType(biomeKey, SANDY, MESA, WASTELAND)) {
             ModDefaultFeatures.withHangingRoots(builder);
-            if (BiomeUtil.hasNoneOfTypes(biomeKey, COLD, SAVANNA, DRY)) {
+            if (!WorldGenUtil.hasAnyBiomeType(biomeKey, COLD, SAVANNA, DRY)) {
                 ModDefaultFeatures.withHangingMoss(builder);
             }
         }
@@ -103,7 +104,9 @@ public class BiomeHandler {
     }
 
     private static void initCustomBiome(BiomeLoadingEvent event) {
-        ResourceLocation id = event.getName();
+        //TODO: init custom biome
+
+        /*        ResourceLocation id = event.getName();
 
         BiomeEntry biome = ModBiomes.ID_TO_BIOME_MAP.get(id);
         if (biome == null) {
@@ -111,18 +114,14 @@ public class BiomeHandler {
             return;
         }
 
-        biome.initFeatures(event.getGeneration());
+        biome.initFeatures(event.getGeneration());*/
     }
 
     private static void applyVanillaBiomeTweaks(BiomeLoadingEvent event) {
-        ResourceKey<Biome> biome = BiomeUtil.getBiomeKey(event.getName());
+        ResourceKey<Biome> biome = WorldGenUtil.getBiomeKey(event.getName());
         BiomeGenerationSettingsBuilder builder = event.getGeneration();
 
-        if (biome == Biomes.SNOWY_TUNDRA || biome == Biomes.ICE_SPIKES) {
-            ModDefaultFeatures.withExtraTundraFeatures(builder);
-            ModTweaks.addExtraTundraSpawns(event.getSpawns());
-        }
-        else if (biome == Biomes.SOUL_SAND_VALLEY) {
+        if (biome == Biomes.SOUL_SAND_VALLEY) {
             ModDefaultFeatures.withWitherRoses(builder);
         }
     }

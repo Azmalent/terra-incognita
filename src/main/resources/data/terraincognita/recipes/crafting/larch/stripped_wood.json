@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "terraincognita:stripped_larch_log"
+    }
+  },
+  "result": {
+    "item": "terraincognita:stripped_larch_wood",
+    "count": 3
+  },
+  "conditions": [
+    {
+      "type": "cuneiform:config",
+      "config": "terraincognita:larch"
+    }
+  ]
+}

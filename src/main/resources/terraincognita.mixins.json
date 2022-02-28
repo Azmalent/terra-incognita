@@ -8,8 +8,7 @@
   "mixins": [
     "CactusBlockMixin",
     "EatGrassGoalMixin",
-    "FlowersFeatureMixin",
-    "GrassBlockMixin",
+    "SimpleBlockFeatureMixin",
     "SugarCaneBlockMixin",
     "VineBlockMixin",
     "accessor.BlockStateProviderTypeAccessor",
@@ -19,7 +18,6 @@
     "compat.quark.LanternBlockMixin"
   ],
   "client": [
-    "client.BiomeMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "#",
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "terraincognita:larch_slab"
+    }
+  },
+  "result": {
+    "item": "terraincognita:larch_vertical_slab",
+    "count": 3
+  },
+  "conditions": [
+    {
+	  "type": "forge:and",
+	  "values": [
+	    {
+		  "type": "forge:mod_loaded",
+		  "modid": "quark"
+		},
+		{
+		  "type": "cuneiform:config",
+		  "config": "terraincognita:larch"
+		}
+	  ]
+	}
+  ]
+}

@@ -1,7 +1,6 @@
 package azmalent.terraincognita.common.entity.butterfly;
 
 import azmalent.cuneiform.lib.collections.WeightedList;
-import azmalent.cuneiform.lib.util.BiomeUtil;
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.entity.butterfly.ai.ButterflyLandOnFlowerGoal;
 import azmalent.terraincognita.common.entity.butterfly.ai.ButterflyRestGoal;
@@ -9,40 +8,31 @@ import azmalent.terraincognita.common.entity.butterfly.ai.ButterflyWanderGoal;
 import azmalent.terraincognita.common.registry.ModEntities;
 import azmalent.terraincognita.common.registry.ModItems;
 import azmalent.terraincognita.util.WorldGenUtil;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.SpawnGroupData;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
-import net.minecraft.world.entity.ai.goal.FloatGoal;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Util;
-import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraft.util.registry.WorldGenRegistries;
-import net.minecraft.network.chat.Component;
-import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraftforge.fml.network.PlayMessages;
 import net.minecraftforge.network.PlayMessages;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -61,8 +51,8 @@ public class Butterfly extends AbstractButterfly {
         return !player.isCreative() && !player.isSpectator() && player.getItemBySlot(EquipmentSlot.HEAD).getItem() != ModItems.WREATH.get();
     };
 
-    public boolean noPlayersNearby() {
-        return !level.getEntitiesOfClass(Player.class, getBoundingBox().expandTowards(4, 4, 4), SHOULD_AVOID).isEmpty();
+    public boolean hasPlayersNearby() {
+        return level.getEntitiesOfClass(Player.class, getBoundingBox().expandTowards(4, 4, 4), SHOULD_AVOID).isEmpty();
     }
 
     public Butterfly(EntityType<Butterfly> type, Level world) {
@@ -233,9 +223,9 @@ public class Butterfly extends AbstractButterfly {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
-        ResourceKey<Biome> biomeKey = BiomeUtil.getBiomeKey(level, this.blockPosition());
-        Type type = Type.getRandomType(biomeKey, level.getRandom());
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn, CompoundTag dataTag) {
+        Biome biome = level.getBiome(this.blockPosition());
+        Type type = Type.getRandomType(biome, level.getRandom());
         setButterflyType(type);
 
         return super.finalizeSpawn(level, difficultyIn, reason, spawnDataIn, dataTag);
@@ -353,9 +343,8 @@ public class Butterfly extends AbstractButterfly {
         }
 
         @SuppressWarnings("ConstantConditions")
-        public static Type getRandomType(ResourceKey<Biome> biomeKey, Random random) {
+        public static Type getRandomType(Biome biome, Random random) {
             if (random.nextFloat() < 0.66) {
-                Biome biome = ForgeRegistries.BIOMES.getValue(biomeKey.location());
                 Biome.BiomeCategory category = WorldGenUtil.getProperBiomeCategory(biome);
                 switch (category) {
                     case PLAINS:

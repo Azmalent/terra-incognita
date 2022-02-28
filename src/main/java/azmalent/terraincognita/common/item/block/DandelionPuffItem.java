@@ -3,28 +3,22 @@ package azmalent.terraincognita.common.item.block;
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.registry.ModParticles;
 import azmalent.terraincognita.common.registry.ModSounds;
-import net.minecraft.world.level.block.Block;
+import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.item.*;
-import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraft.stats.Stats;
-import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
-
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.UseAnim;
-import org.jetbrains.annotations.NotNull;
 
 public class DandelionPuffItem extends BlockItem {
     public DandelionPuffItem(Block blockIn) {
@@ -82,11 +76,10 @@ public class DandelionPuffItem extends BlockItem {
     @Nonnull
     @Override
     public ItemStack finishUsingItem(@Nonnull ItemStack stack, Level level, @Nonnull LivingEntity entityLiving) {
-        if (!level.isClientSide && entityLiving instanceof Player) {
-            Player player = (Player) entityLiving;
+        if (!level.isClientSide && entityLiving instanceof Player player) {
             player.awardStat(Stats.ITEM_USED.get(this));
 
-            if (!player.abilities.instabuild) {
+            if (!player.isCreative()) {
                 stack.shrink(1);
             }
         }

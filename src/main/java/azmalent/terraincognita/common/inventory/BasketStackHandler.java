@@ -1,6 +1,6 @@
 package azmalent.terraincognita.common.inventory;
 
-import azmalent.terraincognita.common.data.ModItemTags;
+import azmalent.terraincognita.common.ModItemTags;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.core.NonNullList;
 import net.minecraftforge.items.ItemStackHandler;
@@ -8,7 +8,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import javax.annotation.Nonnull;
 
 public class BasketStackHandler extends ItemStackHandler {
-    private static final int SIZE = BasketContainer.SIZE;
+    private static final int SIZE = BasketMenu.SIZE;
 
     public BasketStackHandler() {
         super(SIZE);

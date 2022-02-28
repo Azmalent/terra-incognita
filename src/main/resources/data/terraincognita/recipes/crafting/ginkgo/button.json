@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "terraincognita:ginkgo_planks"
+    }
+  ],
+  "result": {
+    "item": "terraincognita:ginkgo_button",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "cuneiform:config",
+      "config": "terraincognita:ginkgo"
+    }
+  ]
+}

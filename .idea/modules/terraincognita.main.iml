@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module version="4">
+<<<<<<< HEAD
   <component name="FacetManager">
     <facet type="minecraft" name="Minecraft">
       <configuration>
@@ -11,6 +12,8 @@
       </configuration>
     </facet>
   </component>
+=======
+>>>>>>> eabd9d8dc9da253c8e8c9b039247a354e1a61750
   <component name="McpModuleSettings">
     <option name="srgType" value="SRG" />
   </component>

@@ -17,11 +17,4 @@ public class ModParticles {
     public static final DeferredRegister<ParticleType<?>> PARTICLES = TerraIncognita.REG_HELPER.getOrCreateRegistry(ForgeRegistries.PARTICLE_TYPES);
 
     public static final RegistryObject<SimpleParticleType> DANDELION_FLUFF = PARTICLES.register("dandelion_fluff", () -> new SimpleParticleType(false));
-
-    @OnlyIn(Dist.CLIENT)
-    public static void registerParticleFactories(ParticleFactoryRegisterEvent event) {
-        ParticleEngine particles = Minecraft.getInstance().particleEngine;
-
-        particles.register(DANDELION_FLUFF.get(), DandelionFluffParticle.Factory::new);
-    }
 }

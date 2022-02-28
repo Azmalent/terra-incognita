@@ -1,17 +1,20 @@
 package azmalent.terraincognita.common.event;
 
 import azmalent.cuneiform.lib.util.ItemUtil;
-import azmalent.terraincognita.TIConfig;
-import azmalent.terraincognita.common.ModTweaks;
-import azmalent.terraincognita.common.data.ModItemTags;
+import azmalent.terraincognita.TerraIncognita;
+import azmalent.terraincognita.common.ModItemTags;
+import azmalent.terraincognita.common.block.fruit.AbstractFruitBlock;
 import azmalent.terraincognita.common.entity.IBottleableEntity;
-import azmalent.terraincognita.common.integration.theoneprobe.ButterflyProvider;
 import azmalent.terraincognita.common.inventory.BasketStackHandler;
 import azmalent.terraincognita.common.item.BottledEntityItem;
 import azmalent.terraincognita.common.item.block.BasketItem;
 import azmalent.terraincognita.common.recipe.WreathRecipe;
-import azmalent.terraincognita.common.registry.*;
-import azmalent.terraincognita.common.world.ModConfiguredFeatures;
+import azmalent.terraincognita.common.registry.ModBlocks;
+import azmalent.terraincognita.common.registry.ModEffects;
+import azmalent.terraincognita.common.registry.ModItems;
+import azmalent.terraincognita.common.registry.ModWoodTypes;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
@@ -23,7 +26,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeItem;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CraftingRecipe;
@@ -31,64 +33,24 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.event.RecipesUpdatedEvent;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.Event;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.InterModComms;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.items.ItemHandlerHelper;
 
 import java.util.List;
 
+
+@Mod.EventBusSubscriber(modid = TerraIncognita.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class EventHandler {
-    public static void registerListeners() {
-        IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-        bus.addListener(EventHandler::setup);
-        bus.addListener(EventHandler::sendIMCMessages);
-
-        if (TIConfig.Flora.wreath.get()) {
-            MinecraftForge.EVENT_BUS.addListener(EventHandler::onUpdateRecipes);
-        }
-
-        MinecraftForge.EVENT_BUS.addListener(ModEntities::onAttributeCreation);
-        MinecraftForge.EVENT_BUS.addListener(EventHandler::onPlayerUseItem);
-        MinecraftForge.EVENT_BUS.addListener(EventHandler::onPlayerInteract);
-        MinecraftForge.EVENT_BUS.addListener(EventHandler::onItemPickup);
-
-        MinecraftForge.EVENT_BUS.addListener(BiomeHandler::onLoadBiome);
-        MinecraftForge.EVENT_BUS.addListener(LootHandler::onLoadLootTable);
-        MinecraftForge.EVENT_BUS.addListener(TradeHandler::setupWandererTrades);
-
-        BonemealHandler.registerListeners();
-    }
-
-    public static void setup(FMLCommonSetupEvent event) {
-        event.enqueueWork(ModConfiguredFeatures::registerFeatures);
-        event.enqueueWork(ModBiomes::registerBiomes);
-
-        ModBlocks.initToolInteractions();
-        ModBlocks.initFlammability();
-        ModItems.initFuelValues();
-        ModEntities.registerSpawns();
-        ModRecipes.initCompostables();
-        ModTweaks.modifyFlowerGradients();
-    }
-
-    public static void sendIMCMessages(InterModEnqueueEvent event) {
-        if (ModList.get().isLoaded("theoneprobe")) {
-            InterModComms.sendTo("theoneprobe", "getTheOneProbe", ButterflyProvider::new);
-        }
-    }
-
     //Build flower to dye map for the wreath recipe
+    @SubscribeEvent
     public static void onUpdateRecipes(RecipesUpdatedEvent event) {
         for (CraftingRecipe recipe : event.getRecipeManager().getAllRecipesFor(RecipeType.CRAFTING)) {
             List<Ingredient> ingredients = recipe.getIngredients();
@@ -105,6 +67,7 @@ public class EventHandler {
     }
 
     //Eating speed adjustment
+    @SubscribeEvent
     public static void onPlayerUseItem(LivingEntityUseItemEvent.Start event) {
         if (!(event.getEntity() instanceof Player)) return;
 
@@ -116,8 +79,44 @@ public class EventHandler {
         }
     }
 
+    //Placing fruits
+    @SubscribeEvent
+    public static void onPlayerInteractWithBlock(PlayerInteractEvent.RightClickBlock event) {
+        if (event.getFace() != Direction.DOWN) {
+            return;
+        }
+
+        Player player = event.getPlayer();
+        InteractionHand hand = event.getHand();
+        ItemStack heldStack = player.getItemInHand(hand);
+
+        BlockPos pos = event.getPos();
+        Level level = player.level;
+        Block block = level.getBlockState(pos).getBlock();
+
+        BlockState fruit = null;
+        if (heldStack.getItem() == Items.APPLE && (block == ModWoodTypes.APPLE.LEAVES.get() || block == ModWoodTypes.APPLE.BLOSSOMING_LEAVES.get())) {
+            fruit = ModBlocks.APPLE.defaultBlockState();
+        } else if (heldStack.getItem() == ModItems.HAZELNUT.get() && block == ModWoodTypes.HAZEL.LEAVES.get()) {
+            fruit = ModBlocks.HAZELNUT.defaultBlockState();
+        }
+
+        if (fruit != null && level.getBlockState(pos.below()).isAir()) {
+            level.setBlock(pos.below(), fruit.setValue(AbstractFruitBlock.AGE, 7), 2);
+
+            if (!player.isCreative()) {
+                heldStack.shrink(1);
+            }
+
+            player.swing(hand);
+            event.setCanceled(true);
+            event.setCancellationResult(InteractionResult.CONSUME);
+        }
+    }
+
     //Entity bottling
-    public static void onPlayerInteract(PlayerInteractEvent.EntityInteractSpecific event) {
+    @SubscribeEvent
+    public static void onPlayerInteractWithEntity(PlayerInteractEvent.EntityInteractSpecific event) {
         if (!(event.getTarget() instanceof LivingEntity living) || event.getWorld().isClientSide) {
             return;
         }
@@ -150,6 +149,7 @@ public class EventHandler {
     }
 
     //Basket auto-pickup
+    @SubscribeEvent
     public static void onItemPickup(EntityItemPickupEvent event) {
         if (event.isCanceled() || event.getResult() == Event.Result.ALLOW) {
             return;

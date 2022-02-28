@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "XXX",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "terraincognita:larch_planks"
+    },
+    "X": {
+      "item": "minecraft:book"
+    }
+  },
+  "result": {
+    "item": "terraincognita:larch_bookshelf",
+    "count": 1
+  },
+  "conditions": [
+	  {
+	    "type": "forge:and",
+	    "values": [
+	      {
+	        "type": "forge:mod_loaded",
+	        "modid": "quark"
+	      },
+	      {
+	        "type": "cuneiform:config",
+	        "config": "terraincognita:larch"
+	      }
+	    ]
+	  }
+  ]
+}

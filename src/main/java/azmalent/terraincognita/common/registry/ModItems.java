@@ -2,7 +2,7 @@ package azmalent.terraincognita.common.registry;
 
 import azmalent.cuneiform.common.data.FuelHandler;
 import azmalent.cuneiform.lib.registry.ItemEntry;
-import azmalent.terraincognita.common.block.woodtypes.ModWoodType;
+import azmalent.terraincognita.common.woodtype.ModWoodType;
 import azmalent.terraincognita.common.entity.IBottleableEntity;
 import azmalent.terraincognita.common.entity.butterfly.Butterfly;
 import azmalent.terraincognita.common.item.*;
@@ -46,8 +46,6 @@ public class ModItems {
 
         public static final FoodProperties FIDDLEHEAD = new FoodProperties.Builder().nutrition(3).saturationMod(0.5f).fast().build();
 
-        public static final FoodProperties BAKED_ROOT = new FoodProperties.Builder().nutrition(5).saturationMod(0.6f).effect(() -> new MobEffectInstance(MobEffects.DIG_SPEED, 15 * 20), 1.0f).build();
-
         public static final FoodProperties KELP_SOUP = new FoodProperties.Builder().nutrition(6).saturationMod(0.6f).build();
 
         public static final FoodProperties BERRY_SORBET = new FoodProperties.Builder().nutrition(5).saturationMod(0.5f).build();
@@ -66,8 +64,6 @@ public class ModItems {
     public static final ItemEntry<TaffyItem> TAFFY = REG_HELPER.createItem("taffy", TaffyItem::new);
     public static final ItemEntry<NotchCarrotItem> NOTCH_CARROT  = REG_HELPER.createItem("notch_carrot", NotchCarrotItem::new);
     public static final ItemEntry<Item> FIDDLEHEAD    = REG_HELPER.createFood("fiddlehead", Foods.FIDDLEHEAD);
-    public static final ItemEntry<Item> CLAYED_ROOT   = REG_HELPER.createItem("clayed_root", CreativeModeTab.TAB_FOOD);
-    public static final ItemEntry<Item> BAKED_ROOT    = REG_HELPER.createFood("baked_root", Foods.BAKED_ROOT);
     public static final ItemEntry<BowlFoodItem> KELP_SOUP     = REG_HELPER.createItem("kelp_soup", BowlFoodItem::new, foodProps(Foods.KELP_SOUP).stacksTo(1));
     public static final ItemEntry<BowlFoodItem> BERRY_SORBET  = REG_HELPER.createItem("berry_sorbet", BowlFoodItem::new, foodProps(Foods.BERRY_SORBET).stacksTo(1));
 

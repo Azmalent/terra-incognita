@@ -1,16 +1,11 @@
 package azmalent.terraincognita.common.registry;
 
 import azmalent.cuneiform.lib.registry.BlockEntityEntry;
-import azmalent.terraincognita.client.renderer.blockentity.ModChestRenderer;
-import azmalent.terraincognita.client.renderer.blockentity.ModSignRenderer;
-import azmalent.terraincognita.common.tile.BasketBlockEntity;
-import azmalent.terraincognita.common.tile.ModChestBlockEntity;
-import azmalent.terraincognita.common.tile.ModSignBlockEntity;
-import azmalent.terraincognita.common.tile.ModTrappedChestBlockEntity;
+import azmalent.terraincognita.common.blockentity.BasketBlockEntity;
+import azmalent.terraincognita.common.blockentity.ModChestBlockEntity;
+import azmalent.terraincognita.common.blockentity.ModSignBlockEntity;
+import azmalent.terraincognita.common.blockentity.ModTrappedChestBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -24,11 +19,4 @@ public class ModBlockEntities {
     public static final BlockEntityEntry<ModSignBlockEntity> SIGN = REG_HELPER.createBlockEntity("sign", ModSignBlockEntity::new, ModWoodTypes.getSigns());
 
     public static final BlockEntityEntry<BasketBlockEntity> BASKET = REG_HELPER.createBlockEntity("basket", BasketBlockEntity::new, ModBlocks.BASKET);
-
-    @OnlyIn(Dist.CLIENT)
-    public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerBlockEntityRenderer(CHEST.get(), ModChestRenderer::new);
-        event.registerBlockEntityRenderer(TRAPPED_CHEST.get(), ModChestRenderer::new);
-        event.registerBlockEntityRenderer(SIGN.get(), ModSignRenderer::new);
-    }
 }

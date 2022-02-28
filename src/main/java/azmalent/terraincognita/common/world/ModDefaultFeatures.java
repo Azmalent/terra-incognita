@@ -1,8 +1,11 @@
 package azmalent.terraincognita.common.world;
 
 import azmalent.terraincognita.TIConfig;
+import azmalent.terraincognita.common.world.configured.ModConfiguredFeatures;
+import azmalent.terraincognita.common.world.configured.ModFlowerFeatures;
+import azmalent.terraincognita.common.world.configured.ModTreeFeatures;
+import azmalent.terraincognita.common.world.configured.ModVegetationFeatures;
 import azmalent.terraincognita.util.WorldGenUtil;
-import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 
 public class ModDefaultFeatures {
@@ -31,10 +34,6 @@ public class ModDefaultFeatures {
     }
 
     public static void withJungleVegetation(BiomeGenerationSettingsBuilder builder) {
-        if (TIConfig.Flora.jungleFlowers.get()) {
-            WorldGenUtil.addVegetation(builder, ModFlowerFeatures.JUNGLE_FLOWERS);
-        }
-
         if (TIConfig.Flora.lotus.get()) {
             WorldGenUtil.addVegetation(builder, ModVegetationFeatures.LOTUS);
         }
@@ -116,14 +115,6 @@ public class ModDefaultFeatures {
     }
 
     //Vanilla biome tweaks
-    public static void withExtraTundraFeatures(BiomeGenerationSettingsBuilder builder) {
-        if (TIConfig.Misc.betterTundras.get()) {
-            BiomeDefaultFeatures.addSparseBerryBushes(builder);
-
-            WorldGenUtil.addVegetation(builder, ModTreeFeatures.SPRUCE_SHRUB, ModTreeFeatures.TUNDRA_BIRCH);
-        }
-    }
-
     public static void withWitherRoses(BiomeGenerationSettingsBuilder builder) {
         if (TIConfig.Misc.witherRoseGeneration.get()) {
             WorldGenUtil.addVegetation(builder, ModFlowerFeatures.WITHER_ROSE);

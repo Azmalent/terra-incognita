@@ -2,7 +2,7 @@ package azmalent.terraincognita.common.item.block;
 
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.capability.BasketCapabilityProvider;
-import azmalent.terraincognita.common.inventory.BasketContainer;
+import azmalent.terraincognita.common.inventory.BasketMenu;
 import azmalent.terraincognita.common.inventory.BasketStackHandler;
 import azmalent.terraincognita.common.registry.ModBlocks;
 import net.minecraft.nbt.CompoundTag;
@@ -37,7 +37,7 @@ public class BasketItem extends BlockItem {
         ItemStack stack = player.getItemInHand(hand);
         if (!world.isClientSide && player instanceof ServerPlayer) {
             NetworkHooks.openGui((ServerPlayer) player, new SimpleMenuProvider((id, inventory, playerEntity) ->
-                new BasketContainer(id, inventory, getStackHandler(stack), stack),
+                new BasketMenu(id, inventory, getStackHandler(stack), stack),
                 stack.getHoverName()
             ));
         }

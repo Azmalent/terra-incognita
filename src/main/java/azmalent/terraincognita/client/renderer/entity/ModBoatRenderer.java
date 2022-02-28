@@ -3,16 +3,16 @@ package azmalent.terraincognita.client.renderer.entity;
 import azmalent.terraincognita.common.entity.ModBoatEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Quaternion;
+import com.mojang.math.Vector3f;
+import net.minecraft.client.model.BoatModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;
-import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
-import net.minecraft.client.model.BoatModel;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import com.mojang.math.Quaternion;
-import com.mojang.math.Vector3f;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -20,10 +20,10 @@ import javax.annotation.Nonnull;
 
 @OnlyIn(Dist.CLIENT)
 public class ModBoatRenderer extends EntityRenderer<ModBoatEntity> {
-    private final BoatModel boatModel = new BoatModel();
+    private final BoatModel boatModel = new BoatModel( BoatModel.createBodyModel().bakeRoot() );
 
-    public ModBoatRenderer(EntityRenderDispatcher renderManagerIn) {
-        super(renderManagerIn);
+    public ModBoatRenderer(EntityRendererProvider.Context context) {
+        super(context);
         this.shadowRadius = 0.8F;
     }
 

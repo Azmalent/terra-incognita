@@ -2,6 +2,8 @@
   "replace": false,
   "values": [
 	"terraincognita:apple_sign",
-	"terraincognita:hazel_sign"
+	"terraincognita:ginkgo_sign",
+	"terraincognita:hazel_sign",
+	"terraincognita:larch_sign"
   ]
 }

@@ -2,6 +2,8 @@
   "replace": false,
   "values": [
 	{"id": "terraincognita:apple_vertical_slab", "required": false},
-	{"id": "terraincognita:hazel_vertical_slab", "required": false}
+	{"id": "terraincognita:ginkgo_vertical_slab", "required": false},
+	{"id": "terraincognita:hazel_vertical_slab", "required": false},
+	{"id": "terraincognita:larch_vertical_slab", "required": false}
   ]
 }

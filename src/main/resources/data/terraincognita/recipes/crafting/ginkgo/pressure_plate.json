@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "terraincognita:ginkgo_planks"
+    }
+  },
+  "result": {
+    "item": "terraincognita:ginkgo_pressure_plate"
+  },
+  "conditions": [
+    {
+      "type": "cuneiform:config",
+      "config": "terraincognita:ginkgo"
+    }
+  ]
+}

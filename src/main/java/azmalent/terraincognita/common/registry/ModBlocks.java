@@ -3,17 +3,16 @@ package azmalent.terraincognita.common.registry;
 import azmalent.cuneiform.lib.registry.BlockEntry;
 import azmalent.cuneiform.lib.util.DataUtil;
 import azmalent.terraincognita.common.block.*;
-import azmalent.terraincognita.common.block.plants.*;
-import azmalent.terraincognita.common.block.plants.RootsBlock;
-import azmalent.terraincognita.common.block.plants.ModFlowerBlock.StewEffect;
-import azmalent.terraincognita.common.block.trees.AppleBlock;
-import azmalent.terraincognita.common.block.trees.HazelnutBlock;
-import azmalent.terraincognita.common.block.woodtypes.ModWoodType;
+import azmalent.terraincognita.common.block.plant.*;
+import azmalent.terraincognita.common.block.plant.ModFlowerBlock.StewEffect;
+import azmalent.terraincognita.common.block.fruit.AppleBlock;
+import azmalent.terraincognita.common.block.fruit.HazelnutBlock;
+import azmalent.terraincognita.common.woodtype.ModWoodType;
 import azmalent.terraincognita.common.item.block.BasketItem;
 import azmalent.terraincognita.common.item.block.CaltropsItem;
 import azmalent.terraincognita.common.item.block.DandelionPuffItem;
 import azmalent.terraincognita.common.item.block.SmallLilypadItem;
-import com.google.common.collect.Lists;
+import azmalent.terraincognita.util.PottablePlantEntry;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -23,7 +22,6 @@ import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.List;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -72,10 +70,9 @@ public class ModBlocks {
     public static final PottablePlantEntry WATER_FLAG         = createTallWaterloggablePlant("water_flag");
 
     //Arctic flowers
-    public static final PottablePlantEntry DWARF_FIREWEED = createPlant("dwarf_fireweed", () -> new ModFlowerBlock(StewEffect.SPEED));
-    public static final PottablePlantEntry ARCTIC_POPPY   = createPlant("arctic_poppy", () -> new ModFlowerBlock(StewEffect.NIGHT_VISION));
+    public static final PottablePlantEntry HEATHER        = createPlant("heather", () -> new ModFlowerBlock(StewEffect.SPEED));
     public static final PottablePlantEntry WHITE_DRYAD    = createPlant("white_dryad", () -> new ModFlowerBlock(StewEffect.SLOWNESS));
-    public static final PottablePlantEntry FIREWEED = createTallPlant("fireweed");
+    public static final PottablePlantEntry FIREWEED           = createTallPlant("fireweed");
     public static final PottablePlantEntry WHITE_RHODODENDRON = createTallPlant("white_rhododendron");
 
     //Sweet peas
@@ -93,14 +90,14 @@ public class ModBlocks {
     public static final BlockEntry<WaterlilyBlock> PINK_LOTUS   = createLotus("pink");
     public static final BlockEntry<WaterlilyBlock> WHITE_LOTUS  = createLotus("white");
     public static final BlockEntry<WaterlilyBlock> YELLOW_LOTUS = createLotus("yellow");
-    public static final BlockEntry<SmallLilypadBlock> SMALL_LILY_PAD = REG_HELPER.createBlock("small_lilypad", SmallLilypadBlock::new).blockItem(SmallLilypadItem::new).cutoutRender().build();
+    public static final BlockEntry<SmallLilyPadBlock> SMALL_LILY_PAD = REG_HELPER.createBlock("small_lilypad", SmallLilyPadBlock::new).blockItem(SmallLilypadItem::new).cutoutRender().build();
 
     //Fruits
     public static final BlockEntry<AppleBlock> APPLE = REG_HELPER.createBlock("apple", AppleBlock::new).noItemForm().cutoutRender().build();
     public static final BlockEntry<HazelnutBlock> HAZELNUT = REG_HELPER.createBlock("hazelnut", HazelnutBlock::new).noItemForm().cutoutRender().build();
 
     //Other vegetation
-    public static final PottablePlantEntry SEDGE = createPlant("reeds", ReedsBlock::new);
+    public static final PottablePlantEntry SEDGE = createPlant("reeds", SedgeBlock::new);
 
     public static final BlockEntry<SourBerrySproutBlock> SOUR_BERRY_SPROUTS = REG_HELPER.createBlock("sour_berry_sprouts", SourBerrySproutBlock::new).blockItem(WaterLilyBlockItem::new, CreativeModeTab.TAB_MISC).cutoutRender().build();
     public static final BlockEntry<SourBerryBushBlock> SOUR_BERRY_BUSH = REG_HELPER.createBlock("sour_berry_bush", SourBerryBushBlock::new).noItemForm().cutoutRender().build();
@@ -108,7 +105,6 @@ public class ModBlocks {
     public static final BlockEntry<CaribouMossWallBlock> CARIBOU_MOSS_WALL = REG_HELPER.createBlock("caribou_moss_wall", CaribouMossWallBlock::new).noItemForm().cutoutRender().build();
     public static final PottablePlantEntry CARIBOU_MOSS = createPlant("caribou_moss", CaribouMossBlock::new, block -> new StandingAndWallBlockItem(block, CARIBOU_MOSS_WALL.get(), new Item.Properties().tab(TAB_DECORATIONS)));
 
-    public static final BlockEntry<RootsBlock> ROOTS = REG_HELPER.createBlock("roots", RootsBlock::new).cutoutRender().build();
     public static final BlockEntry<HangingMossBlock> HANGING_MOSS = REG_HELPER.createBlock("hanging_moss", HangingMossBlock::new).cutoutRender().build();
 
     public static final PottablePlantEntry SMALL_CACTUS = createPlant("small_cactus", SmallCactusBlock::new);
@@ -131,7 +127,7 @@ public class ModBlocks {
         FLOWERS = new PottablePlantEntry[]{
             DANDELION_PUFF, CHICORY, YARROW, DAFFODIL, YELLOW_PRIMROSE, PINK_PRIMROSE, PURPLE_PRIMROSE, FOXGLOVE, WILD_GARLIC,
             MARIGOLD, GLADIOLUS, SNAPDRAGON, EDELWEISS, ALPINE_PINK, YELLOW_SAXIFRAGE,
-            GENTIAN, FORGET_ME_NOT, BLUE_IRIS, PURPLE_IRIS, BLACK_IRIS, DWARF_FIREWEED, ARCTIC_POPPY, WHITE_DRYAD,
+        	GENTIAN, FORGET_ME_NOT, BLUE_IRIS, PURPLE_IRIS, BLACK_IRIS, HEATHER, WHITE_DRYAD,
             WATER_FLAG, FIREWEED, WHITE_RHODODENDRON, OLEANDER, SAGE, CACTUS_FLOWER
         };
 

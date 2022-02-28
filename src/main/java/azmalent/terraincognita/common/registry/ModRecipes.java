@@ -4,7 +4,7 @@ import azmalent.cuneiform.lib.registry.BlockEntry;
 import azmalent.cuneiform.lib.util.DataUtil;
 import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.TerraIncognita;
-import azmalent.terraincognita.common.block.PottablePlantEntry;
+import azmalent.terraincognita.util.PottablePlantEntry;
 import azmalent.terraincognita.common.recipe.FiddleheadStewAdditionRecipe;
 import azmalent.terraincognita.common.recipe.FiddleheadStewRecipe;
 import azmalent.terraincognita.common.recipe.WreathRecipe;
@@ -65,7 +65,6 @@ public class ModRecipes {
         DataUtil.registerCompostable(ModBlocks.SOUR_BERRY_SPROUTS, 0.3f);
         DataUtil.registerCompostable(ModItems.CACTUS_NEEDLE, 0.3f);
         DataUtil.registerCompostable(ModBlocks.SEDGE, 0.5f);
-        DataUtil.registerCompostable(ModBlocks.ROOTS, 0.5f);
         DataUtil.registerCompostable(ModBlocks.SMOOTH_CACTUS, 0.5f);
         DataUtil.registerCompostable(ModItems.FIDDLEHEAD, 0.65f);
         DataUtil.registerCompostable(ModItems.WREATH, 1);

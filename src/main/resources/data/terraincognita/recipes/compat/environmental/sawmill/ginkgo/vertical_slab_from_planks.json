@@ -1,0 +1,27 @@
+{
+  "type": "environmental:sawing",
+  "ingredient": {
+    "item": "terraincognita:ginkgo_planks"
+  },
+  "result": "terraincognita:ginkgo_vertical_slab",
+  "count": 1,
+  "conditions":[
+    {
+      "type": "forge:and",
+      "values": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "environmental"
+        },
+        {
+          "type": "forge:mod_loaded",
+          "modid": "quark"
+        },
+        {
+          "type": "cuneiform:config",
+          "config": "terraincognita:ginkgo"
+        }
+      ]
+    }
+  ]
+}

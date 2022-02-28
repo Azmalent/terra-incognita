@@ -15,11 +15,13 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
-import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
+@Mod.EventBusSubscriber(modid = TerraIncognita.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ModEntities {
     public static final DeferredRegister<EntityType<?>> ENTITIES = TerraIncognita.REG_HELPER.getOrCreateRegistry(ForgeRegistries.ENTITIES);
 
@@ -41,17 +43,12 @@ public class ModEntities {
         return ENTITIES.register(id, () -> builder.build(TerraIncognita.prefix(id).toString()));
     }
 
+    @SubscribeEvent
     public static void onAttributeCreation(EntityAttributeCreationEvent event) {
         event.put(BUTTERFLY.get(), AbstractButterfly.bakeAttributes().build());
     }
 
     public static void registerSpawns() {
         SpawnPlacements.register(BUTTERFLY.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Butterfly::canSpawn);
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerEntityRenderer(BOAT.get(), ModBoatRenderer::new);
-        event.registerEntityRenderer(BUTTERFLY.get(), ButterflyRenderer<Butterfly>::new);
     }
 }

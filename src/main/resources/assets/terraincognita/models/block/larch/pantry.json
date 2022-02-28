@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "side": "terraincognita:block/larch/pantry_side",
+    "front": "terraincognita:block/larch/pantry_front",
+    "top": "terraincognita:block/larch/pantry_top"
+  }
+}

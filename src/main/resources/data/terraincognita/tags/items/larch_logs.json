@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "terraincognita:larch_log",
+    "terraincognita:stripped_larch_log",
+    "terraincognita:larch_wood",
+    "terraincognita:stripped_larch_wood"
+  ]
+}

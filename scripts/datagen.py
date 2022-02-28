@@ -167,21 +167,13 @@ def make_wood_type(type):
     copy_item_tag('wood', type + '_logs', variables)
     add_to_item_and_block_tags('logs_that_burn', '#%s:%s_logs' % (MODID, type))
 
-    # Planks, vertical planks, stairs and slabs
+    # Planks, stairs and slabs
     planks = type + '_planks'
     make_basic_block(planks)
     copy_crafting_recipe('planks', type + '/planks', {'type': type})
 
-    vertical_planks = 'vertical_' + planks
-    variables = {'type': type, 'block': vertical_planks}
-    copy_blockstate('simple_blockstate', vertical_planks, variables)
-    copy_block_model('vertical_planks', vertical_planks, variables)
-    copy_item_model('block', vertical_planks, variables)
-    drop_itself(vertical_planks, variables)
-    copy_recipe('vertical_planks', 'compat/quark/%s/vertical_planks' % type, {'type': type})
-
     make_stairs_and_slabs(type, planks, type)
-    add_to_item_and_block_tags('planks', '%s:%s' % (MODID, planks), '%s:%s' % (MODID, vertical_planks), optional=True)
+    add_to_item_and_block_tags('planks', '%s:%s' % (MODID, planks))
     add_to_item_and_block_tags('wooden_stairs', '%s:%s_stairs' % (MODID, type))
     add_to_item_and_block_tags('wooden_slabs', '%s:%s_slab' % (MODID, type))
 
@@ -320,11 +312,6 @@ def make_wood_type(type):
     copy_sawmill_recipe('item_from_log', type, 'trapdoor_from_log', {'output': type + '_trapdoor', 'count': '1'})
 
     # Quark Compat
-    copy_sawmill_recipe('quark_item_from_log', type, 'vertical_planks_from_log', {'output': vertical_planks, 'count': '4'})
-    copy_sawmill_recipe('quark_item_from_planks', type, 'vertical_planks_from_planks', {'output': vertical_planks, 'count': '1'})
-    copy_sawmill_recipe('quark_recipe', type, 'vertical_planks_from_planks', {'input': planks, 'output': vertical_planks, 'count': '1'})
-    copy_sawmill_recipe('quark_recipe', type, 'planks_from_vertical_planks', {'input': vertical_planks, 'output': planks, 'count': '1'})
-
     copy_sawmill_recipe('quark_item_from_log', type, 'ladder_from_log', {'output': ladder, 'count': '8'})
     copy_sawmill_recipe('quark_item_from_planks', type, 'ladder_from_planks', {'output': ladder, 'count': '2'})
 

@@ -1,6 +1,6 @@
 package azmalent.terraincognita.mixin.compat.quark;
 
-import azmalent.terraincognita.common.integration.ModIntegration;
+import azmalent.terraincognita.integration.ModIntegration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.LanternBlock;

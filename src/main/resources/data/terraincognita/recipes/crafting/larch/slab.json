@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "terraincognita:larch_planks"
+    }
+  },
+  "result": {
+    "item": "terraincognita:larch_slab",
+    "count": 6
+  },
+  "conditions": [
+    {
+      "type": "cuneiform:config",
+      "config": "terraincognita:larch"
+    }
+  ]
+}

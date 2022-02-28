@@ -1,0 +1,8 @@
+{
+    "parent": "quark:block/vertical_slab",
+    "textures": {
+        "bottom": "terraincognita:block/ginkgo/planks",
+        "top": "terraincognita:block/ginkgo/planks",
+        "side": "terraincognita:block/ginkgo/planks"
+    }
+}

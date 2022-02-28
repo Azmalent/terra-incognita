@@ -1,32 +1,31 @@
 package azmalent.terraincognita.common.entity;
 
+import azmalent.terraincognita.common.woodtype.ModWoodType;
 import azmalent.terraincognita.common.registry.ModEntities;
 import azmalent.terraincognita.common.registry.ModWoodTypes;
-import azmalent.terraincognita.common.block.woodtypes.ModWoodType;
 import azmalent.terraincognita.mixin.accessor.BoatEntityAccessor;
-import net.minecraft.nbt.Tag;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.vehicle.Boat;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.phys.Vec3;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.vehicle.Boat;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.fml.network.PlayMessages;
-import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.network.PlayMessages;
 import org.jetbrains.annotations.NotNull;
 
@@ -96,9 +95,9 @@ public class ModBoatEntity extends Boat {
                         return;
                     }
 
-                    this.causeFallDamage(this.fallDistance, 1.0F);
+                    this.causeFallDamage(this.fallDistance, 1.0F, DamageSource.FALL);
                     if (!this.level.isClientSide && this.isAlive()) {
-                        this.remove();
+                        this.kill();
                         if (this.level.getGameRules().getBoolean(GameRules.RULE_DOENTITYDROPS)) {
                             for (int i = 0; i < 3; ++i) {
                                 this.spawnAtLocation(this.getPlanks());
@@ -120,7 +119,7 @@ public class ModBoatEntity extends Boat {
 
     private Item getPlanks() {
         ModWoodType woodType = getWoodType();
-        if (woodType != null) return woodType.PLANKS.getItem();
+        if (woodType != null) return woodType.PLANKS.asItem();
 
         return Items.OAK_PLANKS;
     }

@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "# #",
+    "#W#",
+    "# #"
+  ],
+  "key": {
+    "#": {
+      "tag": "forge:rods/wooden"
+    },
+    "W": {
+      "item": "terraincognita:ginkgo_planks"
+    }
+  },
+  "result": {
+    "item": "terraincognita:ginkgo_ladder",
+    "count": 4
+  },
+  "conditions": [
+	  {
+	    "type": "forge:and",
+	    "values": [
+	      {
+	        "type": "forge:mod_loaded",
+	        "modid": "quark"
+	      },
+	      {
+	        "type": "cuneiform:config",
+	        "config": "terraincognita:ginkgo"
+	      }
+	    ]
+	  }
+  ]
+}

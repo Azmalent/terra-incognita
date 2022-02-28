@@ -1,6 +1,6 @@
 package azmalent.terraincognita.mixin;
 
-import azmalent.terraincognita.common.block.plants.SweetPeasBlock;
+import azmalent.terraincognita.common.block.plant.SweetPeasBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.VineBlock;
 import net.minecraft.core.BlockPos;

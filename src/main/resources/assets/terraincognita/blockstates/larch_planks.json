@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "terraincognita:block/larch_planks"
+      "model": "terraincognita:block/larch/planks"
     }
   }
 }

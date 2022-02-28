@@ -20,6 +20,7 @@ import javax.annotation.Nonnull;
 
 public class FiddleheadStewAdditionRecipe extends SimpleShapelessRecipe {
     private static final ItemStack DUMMY = new ItemStack(Items.SUSPICIOUS_STEW, 1);
+    
     private static final ShapelessRecipeMatcher MATCHER = CraftingUtil.defineShapelessRecipe()
         .addIngredient(stack -> stack.is(Items.SUSPICIOUS_STEW) && !stack.getOrCreateTag().contains("fiddlehead"))
         .addIngredient(ModItems.FIDDLEHEAD)

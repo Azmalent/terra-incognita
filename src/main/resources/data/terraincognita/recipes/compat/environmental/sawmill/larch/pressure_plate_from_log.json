@@ -1,0 +1,23 @@
+{
+  "type": "environmental:sawing",
+  "ingredient": {
+    "tag": "terraincognita:larch_logs"
+  },
+  "result": "terraincognita:larch_pressure_plate",
+  "count": 2,
+  "conditions":[
+    {
+      "type": "forge:and",
+      "values": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "environmental"
+        },
+        {
+          "type": "cuneiform:config",
+          "config": "terraincognita:larch"
+        }
+      ]
+    }
+  ]
+}

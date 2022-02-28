@@ -9,25 +9,25 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 
 import java.util.List;
 
 @SuppressWarnings("deprecation")
 @OnlyIn(Dist.CLIENT)
+@Mod.EventBusSubscriber(modid = TerraIncognita.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class TooltipHandler {
 	//Copied from Quark shulker_widget.png
     private static final ResourceLocation SLOT_WIDGET = TerraIncognita.prefix("textures/gui/slot_widget.png");
 
-    public static void registerListeners() {
-        MinecraftForge.EVENT_BUS.addListener(TooltipHandler::removeDyedWreathTooltip);
-        //MinecraftForge.EVENT_BUS.addListener(TooltipHandler::renderBasketTooltip);
-    }
-
-    public static void removeDyedWreathTooltip(ItemTooltipEvent event) {
+    @SubscribeEvent
+    public static void onItemTooltip(ItemTooltipEvent event) {
         if (event.getItemStack().getItem() != ModItems.WREATH.get() || event.getFlags().isAdvanced()) {
             return;
         }
 
+        //Remove "dyed" tooltip from wreaths
         List<Component> tooltip = event.getToolTip();
         for (Component line : tooltip) {
             if (line instanceof TranslatableComponent) {

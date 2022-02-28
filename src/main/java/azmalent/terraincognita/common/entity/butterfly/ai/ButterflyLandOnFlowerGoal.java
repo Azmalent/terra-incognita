@@ -1,18 +1,17 @@
 package azmalent.terraincognita.common.entity.butterfly.ai;
 
 import azmalent.terraincognita.common.entity.butterfly.Butterfly;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.WaterlilyBlock;
-import net.minecraft.world.level.block.TallFlowerBlock;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
-import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.TallFlowerBlock;
+import net.minecraft.world.level.block.WaterlilyBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -58,9 +57,8 @@ public class ButterflyLandOnFlowerGoal extends MoveToBlockGoal {
         VoxelShape shape = world.getBlockState(pos).getShape(world, pos);
         if (shape.isEmpty()) return true;
 
-        List<Entity> entities = butterfly.level.getEntitiesOfClass(Butterfly.class, shape.bounds().expandTowards(0.5, 0.5, 0.5).move(pos));
-
-        return entities.stream().anyMatch(e -> pos.equals(((Butterfly) e).restGoal.restingPos));
+        List<Butterfly> entities = butterfly.level.getEntitiesOfClass(Butterfly.class, shape.bounds().expandTowards(0.5, 0.5, 0.5).move(pos));
+        return entities.stream().anyMatch(e -> pos.equals(e.restGoal.restingPos));
     }
 
     @Override

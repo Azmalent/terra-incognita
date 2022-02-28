@@ -1,12 +1,13 @@
 package azmalent.terraincognita.common.world.feature;
 
-import azmalent.terraincognita.common.block.plants.HangingMossBlock;
+import azmalent.terraincognita.common.block.plant.HangingMossBlock;
 import azmalent.terraincognita.common.registry.ModBlocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 
 import javax.annotation.Nonnull;
@@ -27,27 +28,32 @@ public class HangingMossFeature extends Feature<NoneFeatureConfiguration> {
         super(NoneFeatureConfiguration.CODEC);
     }
 
-    public boolean place(@Nonnull WorldGenLevel world, @Nonnull ChunkGenerator generator, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull NoneFeatureConfiguration config) {
-        int y = rand.nextInt(MAX_Y - MIN_Y) + MIN_Y;
-        BlockPos centerPos = new BlockPos(pos.getX(), y, pos.getZ());
+    @Override
+    public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
+        WorldGenLevel level = context.level();
+        BlockPos origin = context.origin();
+        Random random = context.random();
+
+        int y = random.nextInt(MAX_Y - MIN_Y) + MIN_Y;
+        BlockPos centerPos = new BlockPos(origin.getX(), y, origin.getZ());
 
         BlockPos.MutableBlockPos nextPos = new BlockPos.MutableBlockPos();
         boolean success = false;
 
-        BlockState moss = ModBlocks.HANGING_MOSS.getBlock().defaultBlockState();
+        BlockState moss = ModBlocks.HANGING_MOSS.defaultBlockState();
 
         for(int i = 0; i < TRIES; i++) {
-            nextPos.setWithOffset(centerPos, rand.nextInt(X_SPREAD + 1) - rand.nextInt(X_SPREAD + 1), rand.nextInt(Y_SPREAD + 1) - rand.nextInt(Y_SPREAD + 1), rand.nextInt(Z_SPREAD + 1) - rand.nextInt(Z_SPREAD + 1));
+            nextPos.setWithOffset(centerPos, random.nextInt(X_SPREAD + 1) - random.nextInt(X_SPREAD + 1), random.nextInt(Y_SPREAD + 1) - random.nextInt(Y_SPREAD + 1), random.nextInt(Z_SPREAD + 1) - random.nextInt(Z_SPREAD + 1));
             if (nextPos.getY() < MIN_Y) {
                 continue;
             }
 
-            if (hasEnoughVerticalSpace(world, nextPos) && moss.canSurvive(world, nextPos) && !world.getBlockState(nextPos.above()).is(ModBlocks.HANGING_MOSS.getBlock())) {
-                if (rand.nextBoolean()) {
-                    world.setBlock(nextPos, moss, 2);
+            if (hasEnoughVerticalSpace(level, nextPos) && moss.canSurvive(level, nextPos) && !level.getBlockState(nextPos.above()).is(ModBlocks.HANGING_MOSS.get())) {
+                if (random.nextBoolean()) {
+                    level.setBlock(nextPos, moss, 2);
                 } else {
-                    world.setBlock(nextPos, moss.setValue(HangingMossBlock.VARIANT, HangingMossBlock.Variant.TOP), 2);
-                    world.setBlock(nextPos.below(), moss.setValue(HangingMossBlock.VARIANT, HangingMossBlock.Variant.BOTTOM), 2);
+                    level.setBlock(nextPos, moss.setValue(HangingMossBlock.VARIANT, HangingMossBlock.Variant.TOP), 2);
+                    level.setBlock(nextPos.below(), moss.setValue(HangingMossBlock.VARIANT, HangingMossBlock.Variant.BOTTOM), 2);
                 }
 
                 success = true;

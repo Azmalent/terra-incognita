@@ -1,14 +1,12 @@
 package azmalent.terraincognita.common.world.treedecorator;
 
-import azmalent.terraincognita.common.block.trees.AbstractFruitBlock;
+import azmalent.terraincognita.common.block.fruit.AbstractFruitBlock;
 import azmalent.terraincognita.common.registry.ModBlocks;
 import azmalent.terraincognita.common.registry.ModTreeDecorators;
 import com.mojang.serialization.Codec;
 import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.levelgen.structure.BoundingBox;
-import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
@@ -17,7 +15,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
 import java.util.function.BiConsumer;
 
 public class AppleTreeDecorator extends TreeDecorator {

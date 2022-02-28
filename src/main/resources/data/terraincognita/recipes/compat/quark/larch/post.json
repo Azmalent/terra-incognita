@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "F",
+    "F",
+    "F"
+  ],
+  "key": {
+    "F": {
+      "item": "terraincognita:larch_wood"
+    }
+  },
+  "result": {
+    "item": "terraincognita:larch_post",
+    "count": 8
+  },
+  "conditions": [
+	  {
+	    "type": "forge:and",
+	    "values": [
+	      {
+	        "type": "forge:mod_loaded",
+	        "modid": "quark"
+	      },
+	      {
+	        "type": "cuneiform:config",
+	        "config": "terraincognita:larch"
+	      }
+	    ]
+	  }
+  ]
+}

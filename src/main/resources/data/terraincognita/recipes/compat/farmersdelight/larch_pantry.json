@@ -1,0 +1,34 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PPP",
+    "T T",
+    "PPP"
+  ],
+  "key": {
+    "P": {
+      "item": "terraincognita:larch_planks"
+    },
+    "T": {
+      "item": "terraincognita:larch_trapdoor"
+    }
+  },
+  "result": {
+    "item": "terraincognita:larch_pantry"
+  },
+  "conditions": [
+    {
+      "type": "forge:and",
+      "values": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "farmersdelight"
+        },
+        {
+          "type": "cuneiform:config",
+          "config": "terraincognita:larch"
+        }
+      ]
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 package azmalent.terraincognita.common.item;
 
-import azmalent.cuneiform.lib.util.MiscUtil;
+import azmalent.cuneiform.lib.util.ItemUtil;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -38,7 +38,7 @@ public class JamItem extends Item {
 
         if (entity instanceof Player player) {
             if (!player.isCreative()) {
-                MiscUtil.giveStackToPlayer(player, bottle);
+                ItemUtil.giveStackToPlayer(player, bottle);
             }
         }
 
@@ -47,7 +47,7 @@ public class JamItem extends Item {
 
     @Nonnull
     @Override
-    public UseAnim getUseAnimation(@NotNull @NotNull ItemStack stack) {
+    public UseAnim getUseAnimation(@NotNull ItemStack stack) {
         return UseAnim.DRINK;
     }
 
@@ -58,7 +58,7 @@ public class JamItem extends Item {
     }
 
     @Override
-    public @NotNull @NotNull SoundEvent getDrinkingSound() {
+    public @NotNull SoundEvent getDrinkingSound() {
         return SoundEvents.HONEY_DRINK;
     }
 }

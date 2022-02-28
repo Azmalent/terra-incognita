@@ -2,7 +2,6 @@ package azmalent.terraincognita.common.entity.butterfly.ai;
 
 import azmalent.terraincognita.common.entity.butterfly.Butterfly;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -25,7 +24,7 @@ public class ButterflyRestGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        if (butterfly.isLanded() && !butterfly.noPlayersNearby()) {
+        if (butterfly.isLanded() && butterfly.hasPlayersNearby()) {
             restingPos = butterfly.blockPosition();
             return true;
         }
@@ -35,7 +34,7 @@ public class ButterflyRestGoal extends Goal {
 
     @Override
     public boolean canContinueToUse() {
-        return butterfly.isLanded() && (butterfly.isTired() || butterfly.level.isNight()) && !butterfly.noPlayersNearby();
+        return butterfly.isLanded() && (butterfly.isTired() || butterfly.level.isNight()) && butterfly.hasPlayersNearby();
     }
 
     @Override
@@ -70,12 +69,12 @@ public class ButterflyRestGoal extends Goal {
         }
     }
 
-    private boolean isBlockTaken(Level world, BlockPos pos) {
-        VoxelShape shape = world.getBlockState(pos).getShape(world, pos);
+    private boolean isBlockTaken(Level level, BlockPos pos) {
+        VoxelShape shape = level.getBlockState(pos).getShape(level, pos);
         if (shape.isEmpty()) return true;
 
-        List<Entity> entities = world.getEntitiesOfClass(Butterfly.class, shape.bounds().expandTowards(0.5, 0.5, 0.5).move(pos));
-        return entities.stream().anyMatch(e -> e != butterfly && pos.equals(((Butterfly) e).restGoal.restingPos));
+        List<Butterfly> entities = level.getEntitiesOfClass(Butterfly.class, shape.bounds().expandTowards(0.5, 0.5, 0.5).move(pos));
+        return entities.stream().anyMatch(e -> e != butterfly && pos.equals(e.restGoal.restingPos));
     }
 
     private boolean blockStateUpdated() {

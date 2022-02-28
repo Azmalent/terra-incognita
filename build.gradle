@@ -39,7 +39,6 @@ minecraft {
             arg "-mixin.config=terraincognita.mixins.json"
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
-
             mods {
                 terraincognita {
                     source sourceSets.main
@@ -52,7 +51,6 @@ minecraft {
             arg "-mixin.config=terraincognita.mixins.json"
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
-
             mods {
                 terraincognita {
                     source sourceSets.main
@@ -62,12 +60,9 @@ minecraft {
 
         data {
             workingDirectory project.file('run')
-            arg "-mixin.config=terraincognita.mixins.json"
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
-
-            args '--mod', 'terraincognita', '--all', '--output', file('src/generated/resources/')
-
+            args '--mod', 'terraincognita', '--all', '--output', file('src/generated/resources/'), '-mixin.config=terraincognita.mixins.json'
             mods {
                 terraincognita {
                     source sourceSets.main
@@ -108,12 +103,11 @@ dependencies {
     minecraft "net.minecraftforge:forge:${config.minecraft_version}-${config.forge_version}"
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
     implementation name: "cuneiform-${config.minecraft_version}-${config.cuneiform_version}"
+    implementation fg.deobf("com.github.glitchfiend:TerraBlender-forge:${config.minecraft_version}-${config.terrablender_version}")
 
     compileOnly fg.deobf("mezz.jei:jei-${config.minecraft_version}:${config.jei_version}:api")
     compileOnly fg.deobf("curse.maven:jade-api-324717:${config.jade_api_file_id}")
     implementation fg.deobf("curse.maven:jade-324717:${config.jade_file_id}")
-/*    compileOnly fg.deobf("mcjty.theoneprobe:TheOneProbe-1.18:${config.top_version}:api")
-    runtimeOnly fg.deobf("mcjty.theoneprobe:TheOneProbe-1.18:${config.top_version}")*/
     implementation fg.deobf("curse.maven:the-one-probe-245211:3550084") //not yet on maven
 
     compileOnly fg.deobf("vazkii.quark:Quark:${config.quark_version}")

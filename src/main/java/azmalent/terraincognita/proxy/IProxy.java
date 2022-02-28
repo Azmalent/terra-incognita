@@ -11,11 +11,5 @@ public interface IProxy {
         spawnParticle(world, data, alwaysRender, pos.x, pos.y, pos.z, speed.x, speed.y, speed.z);
     }
 
-    Level getClientWorld();
-
     void spawnParticle(Level world, ParticleOptions data, boolean alwaysRender, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed);
-
-    void openSignEditor(BlockPos pos);
-
-    void updateSignOnClient(BlockPos pos, Component[] lines, int color);
 }

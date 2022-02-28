@@ -2,6 +2,8 @@
   "replace": false,
   "values": [
 	"terraincognita:apple_fence_gate",
-	"terraincognita:hazel_fence_gate"
+	"terraincognita:ginkgo_fence_gate",
+	"terraincognita:hazel_fence_gate",
+	"terraincognita:larch_fence_gate"
   ]
 }

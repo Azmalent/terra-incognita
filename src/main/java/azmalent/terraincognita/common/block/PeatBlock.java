@@ -1,41 +1,28 @@
 package azmalent.terraincognita.common.block;
 
+import azmalent.cuneiform.lib.network.CuneiformNetwork;
 import azmalent.terraincognita.TIConfig;
-import azmalent.terraincognita.common.data.ModBlockTags;
-import azmalent.terraincognita.network.NetworkHandler;
-import azmalent.terraincognita.network.message.s2c.S2CSpawnParticleMessage;
-import net.minecraft.block.*;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.Direction;
+import azmalent.terraincognita.common.ModBlockTags;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.BlockGetter;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraftforge.common.IPlantable;
-import net.minecraftforge.common.ToolType;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.Random;
-
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
-
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.SugarCaneBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.IPlantable;
 import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.Nonnull;
+import java.util.Random;
 
 @SuppressWarnings("deprecation")
 public class PeatBlock extends Block {
     public PeatBlock() {
         super(Properties.copy(Blocks.DIRT).randomTicks());
-    }
-
-    @Nullable
-    @Override
-    public ToolType getHarvestTool(BlockState state) {
-        return ToolType.SHOVEL;
     }
 
     @Override
@@ -84,8 +71,7 @@ public class PeatBlock extends Block {
             double ySpeed = random.nextGaussian() * 0.02D;
             double zSpeed = random.nextGaussian() * 0.02D;
 
-            S2CSpawnParticleMessage message = new S2CSpawnParticleMessage(ParticleTypes.HAPPY_VILLAGER, x, y, z, xSpeed, ySpeed, zSpeed);
-            NetworkHandler.sendToAllPlayers(message);
+            CuneiformNetwork.spawnParticle(ParticleTypes.HAPPY_VILLAGER, x, y, z, xSpeed, ySpeed, zSpeed);
         }
     }
 }

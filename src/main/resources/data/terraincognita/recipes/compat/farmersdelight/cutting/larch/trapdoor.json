@@ -1,0 +1,32 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "terraincognita:larch_trapdoor"
+    }
+  ],
+  "tool": {
+    "type": "farmersdelight:tool",
+    "tool": "axe"
+  },
+  "result": [
+    {
+      "item": "terraincognita:larch_planks"
+    }
+  ],
+  "conditions": [
+    {
+      "type": "forge:and",
+      "values": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "farmersdelight"
+        },
+        {
+          "type": "cuneiform:config",
+          "config": "terraincognita:larch"
+        }
+      ]
+    }
+  ]
+}

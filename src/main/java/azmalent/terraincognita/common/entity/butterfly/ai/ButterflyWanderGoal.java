@@ -1,9 +1,10 @@
 package azmalent.terraincognita.common.entity.butterfly.ai;
 
 import azmalent.terraincognita.common.entity.butterfly.AbstractButterfly;
-import net.minecraft.world.entity.ai.util.RandomPos;
-import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.util.AirAndWaterRandomPos;
+import net.minecraft.world.entity.ai.util.HoverRandomPos;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
@@ -45,7 +46,7 @@ public class ButterflyWanderGoal extends Goal {
             direction = butterfly.getViewVector(0.0F);
         }
 
-        Vec3 airTarget = RandomPos.getAboveLandPos(butterfly, 8, 7, direction, (float) Math.PI / 2F, 2, 1);
-        return airTarget != null ? airTarget : RandomPos.getAirPos(butterfly, 8, 4, -2, direction, (float) Math.PI / 2F);
+        Vec3 airTarget = HoverRandomPos.getPos(butterfly, 8, 7, direction.x, direction.z, (float) Math.PI / 2F, 2, 1);
+        return airTarget != null ? airTarget : AirAndWaterRandomPos.getPos(butterfly, 8, 4, -2, direction.x, direction.z, (float) Math.PI / 2F);
     }
 }

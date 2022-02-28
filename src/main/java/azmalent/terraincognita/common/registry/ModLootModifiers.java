@@ -1,8 +1,8 @@
 package azmalent.terraincognita.common.registry;
 
 import azmalent.terraincognita.TerraIncognita;
-import azmalent.terraincognita.common.data.loot.FernLootModifier;
-import azmalent.terraincognita.common.data.loot.OakLeavesLootModifier;
+import azmalent.terraincognita.common.lootmodifier.FernLootModifier;
+import azmalent.terraincognita.common.lootmodifier.OakLeavesLootModifier;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;

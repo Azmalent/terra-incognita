@@ -10,6 +10,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 
 import javax.annotation.Nonnull;
@@ -21,17 +22,21 @@ public class SweetPeasFeature extends Feature<NoneFeatureConfiguration> {
     }
 
     @Override
-    public boolean place(@Nonnull WorldGenLevel reader, @Nonnull ChunkGenerator generator, Random rand, @Nonnull BlockPos pos, @Nonnull NoneFeatureConfiguration config) {
-        BlockState state = Util.getRandom(ModBlocks.SWEET_PEAS, rand).defaultBlockState();
+    public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
+        WorldGenLevel level = context.level();
+        BlockPos origin = context.origin();
+        Random random = context.random();
+
+        BlockState state = Util.getRandom(ModBlocks.SWEET_PEAS, random).defaultBlockState();
         boolean success = false;
 
         BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
         for(int y = 64; y < 128; y++) {
-            mutablePos.set(pos);
-            mutablePos.move(rand.nextInt(8) - rand.nextInt(8), 0, rand.nextInt(8) - rand.nextInt(8));
+            mutablePos.set(origin);
+            mutablePos.move(random.nextInt(8) - random.nextInt(8), 0, random.nextInt(8) - random.nextInt(8));
             mutablePos.setY(y);
             for (Direction direction : Direction.Plane.HORIZONTAL) {
-                if (tryPlaceVine(reader, state, direction, mutablePos, rand)) {
+                if (tryPlaceVine(level, state, direction, mutablePos, random)) {
                     success = true;
                     break;
                 }

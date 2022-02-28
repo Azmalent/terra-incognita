@@ -1,8 +1,10 @@
 package azmalent.terraincognita.common.event;
 
 import azmalent.terraincognita.TIConfig;
-import azmalent.terraincognita.common.block.plants.SmallLilypadBlock;
+import azmalent.terraincognita.TerraIncognita;
+import azmalent.terraincognita.common.block.plant.SmallLilyPadBlock;
 import azmalent.terraincognita.common.registry.ModBlocks;
+import net.minecraft.Util;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BonemealableBlock;
@@ -10,19 +12,15 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.BonemealEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 
 import java.util.Random;
 
+@Mod.EventBusSubscriber(modid = TerraIncognita.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class BonemealHandler {
     private static final int MAX_LILYPAD_GROWING_DEPTH = 4;
-
-    public static void registerListeners() {
-        if (TIConfig.Misc.bonemealLilypadGrowing.get()) {
-            MinecraftForge.EVENT_BUS.addListener(BonemealHandler::onBonemealUnderwater);
-        }
-    }
 
     private static boolean isInShallowWater(Level world, BlockPos pos) {
         if (world.getFluidState(pos.above()).getType() != Fluids.WATER) return false;
@@ -36,22 +34,27 @@ public class BonemealHandler {
         return false;
     }
 
-    private static void placeRandomLilypad(Level world, BlockPos pos, boolean isJungle) {
+    private static void placeRandomLilyPad(Level world, BlockPos pos, boolean isJungle) {
         BlockState blockState;
         Random rand = world.getRandom();
         float f = rand.nextFloat();
 
         if (f < 0.5 && isJungle && TIConfig.Flora.lotus.get()) {
-            blockState = ModBlocks.LOTUSES.get(rand.nextInt(3)).getBlock().defaultBlockState();
+            blockState = Util.getRandom(ModBlocks.LOTUSES, rand).defaultBlockState();
         } else if (f < 0.5 && !isJungle && TIConfig.Flora.smallLilypad.get()) {
-            blockState = ModBlocks.SMALL_LILY_PAD.getBlock().defaultBlockState().setValue(SmallLilypadBlock.LILYPADS, 1 + rand.nextInt(4));
+            blockState = ModBlocks.SMALL_LILY_PAD.defaultBlockState().setValue(SmallLilyPadBlock.LILY_PADS, 1 + rand.nextInt(4));
         }
         else blockState = Blocks.LILY_PAD.defaultBlockState();
 
         world.setBlockAndUpdate(pos, blockState);
     }
 
+    @SubscribeEvent
     public static void onBonemealUnderwater(BonemealEvent event) {
+        if (!TIConfig.Misc.bonemealLilypadGrowing.get()) {
+            return;
+        }
+
         Level world = event.getWorld();
         BlockPos pos = event.getPos();
 
@@ -72,7 +75,7 @@ public class BonemealHandler {
 
                 BlockPos lilypadPos = pos.offset(x, y, z);
                 if (world.isEmptyBlock(lilypadPos) && world.getFluidState(lilypadPos.below()).getType() == Fluids.WATER) {
-                    placeRandomLilypad(world, lilypadPos, category == Biome.BiomeCategory.JUNGLE);
+                    placeRandomLilyPad(world, lilypadPos, category == Biome.BiomeCategory.JUNGLE);
                 }
             }
         }

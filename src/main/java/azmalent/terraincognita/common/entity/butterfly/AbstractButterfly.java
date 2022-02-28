@@ -2,43 +2,34 @@ package azmalent.terraincognita.common.entity.butterfly;
 
 import azmalent.terraincognita.common.ModDamageSources;
 import azmalent.terraincognita.common.entity.IBottleableEntity;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.entity.*;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.control.FlyingMoveControl;
-import net.minecraft.world.entity.animal.FlyingAnimal;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
-import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.FlyingMoveControl;
+import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.animal.FlyingAnimal;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityDimensions;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.MobType;
-import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.entity.Pose;
-import net.minecraft.world.entity.SpawnGroupData;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.ParametersAreNonnullByDefault;
 
 public abstract class AbstractButterfly extends PathfinderMob implements FlyingAnimal, IBottleableEntity {
     public static final EntityDataAccessor<Float> SIZE_MODIFIER = SynchedEntityData.defineId(Butterfly.class, EntityDataSerializers.FLOAT);
@@ -140,7 +131,8 @@ public abstract class AbstractButterfly extends PathfinderMob implements FlyingA
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficultyIn, @NotNull MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
+    @ParametersAreNonnullByDefault
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn, CompoundTag dataTag) {
         restrictTo(this.blockPosition(), 22);
         setSizeModifier(getRandomSizeModifier());
 
@@ -148,11 +140,6 @@ public abstract class AbstractButterfly extends PathfinderMob implements FlyingA
     }
 
     public abstract ResourceLocation getTexture();
-
-    @Override
-    protected boolean makeFlySound() {
-        return false;
-    }
 
     @Override
     public boolean canBeLeashed(@NotNull Player player) {
@@ -165,17 +152,12 @@ public abstract class AbstractButterfly extends PathfinderMob implements FlyingA
     }
 
     @Override
-    protected boolean isMovementNoisy() {
-        return false;
-    }
-
-    @Override
     public boolean isPushable() {
         return false;
     }
 
     @Override
-    public boolean causeFallDamage(float p_225503_1_, float p_225503_2_) {
+    public boolean causeFallDamage(float pFallDistance, float pMultiplier, @NotNull DamageSource pSource) {
         return false;
     }
 

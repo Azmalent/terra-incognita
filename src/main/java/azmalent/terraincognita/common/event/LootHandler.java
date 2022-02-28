@@ -2,6 +2,7 @@ package azmalent.terraincognita.common.event;
 
 import azmalent.cuneiform.lib.util.DataUtil;
 import azmalent.terraincognita.TIConfig;
+import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.registry.ModItems;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.resources.ResourceLocation;
@@ -9,10 +10,14 @@ import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.LootTableLoadEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 
 import java.util.Map;
 
+@Mod.EventBusSubscriber(modid = TerraIncognita.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class LootHandler {
     private static final Map<ResourceLocation, Integer> TAFFY_WEIGHTS = new ImmutableMap.Builder<ResourceLocation, Integer>()
         .put(BuiltInLootTables.SIMPLE_DUNGEON, 20)
@@ -35,6 +40,7 @@ public class LootHandler {
         .put(BuiltInLootTables.WOODLAND_MANSION, 2)
         .build();
 
+    @SubscribeEvent
     public static void onLoadLootTable(LootTableLoadEvent event) {
         ResourceLocation tableName = event.getName();
 

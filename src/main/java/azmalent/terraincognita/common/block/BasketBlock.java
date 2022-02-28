@@ -1,7 +1,7 @@
 package azmalent.terraincognita.common.block;
 
-import azmalent.terraincognita.common.tile.BasketBlockEntity;
-import net.minecraft.block.*;
+import azmalent.terraincognita.common.blockentity.BasketBlockEntity;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.entity.LivingEntity;
@@ -32,17 +32,11 @@ import javax.annotation.Nullable;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
-import net.minecraft.world.level.block.Mirror;
-import net.minecraft.world.level.block.Rotation;
-import net.minecraft.world.level.block.SimpleWaterloggedBlock;
-import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("deprecation")
-public class BasketBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock {
+public class BasketBlock extends HorizontalDirectionalBlock implements EntityBlock, SimpleWaterloggedBlock {
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
@@ -88,7 +82,7 @@ public class BasketBlock extends HorizontalDirectionalBlock implements SimpleWat
     @Override
     public BlockState updateShape(BlockState stateIn, @NotNull Direction facing, @NotNull BlockState facingState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos facingPos) {
         if (stateIn.getValue(WATERLOGGED)) {
-            level.getLiquidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+            level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
 
         return super.updateShape(stateIn, facing, facingState, level, currentPos, facingPos);
@@ -112,10 +106,8 @@ public class BasketBlock extends HorizontalDirectionalBlock implements SimpleWat
         }
 
         BlockEntity te = world.getBlockEntity(pos);
-        if (te instanceof BasketBlockEntity) {
-            BasketBlockEntity basket = (BasketBlockEntity) te;
+        if (te instanceof BasketBlockEntity basket) {
             player.openMenu(basket);
-
             return InteractionResult.CONSUME;
         }
 
@@ -123,23 +115,11 @@ public class BasketBlock extends HorizontalDirectionalBlock implements SimpleWat
     }
 
     @Override
-    public boolean hasTileEntity(BlockState state) {
-        return true;
-    }
-
-    @Nullable
-    @Override
-    public BlockEntity createTileEntity(BlockState state, BlockGetter world) {
-        return new BasketBlockEntity();
-    }
-
-    @Override
     public void setPlacedBy(@NotNull Level world, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable LivingEntity placer, @NotNull ItemStack stack) {
         super.setPlacedBy(world, pos, state, placer, stack);
 
         BlockEntity te = world.getBlockEntity(pos);
-        if (te instanceof BasketBlockEntity) {
-            BasketBlockEntity basket = (BasketBlockEntity) te;
+        if (te instanceof BasketBlockEntity basket) {
             basket.readFromStack(stack);
             if (stack.hasCustomHoverName()) {
                 basket.setCustomName(stack.getHoverName());
@@ -162,8 +142,7 @@ public class BasketBlock extends HorizontalDirectionalBlock implements SimpleWat
     public void playerWillDestroy(Level world, @Nonnull BlockPos pos, @NotNull BlockState state, @Nonnull Player player) {
         if (!world.isClientSide) {
             BlockEntity te = world.getBlockEntity(pos);
-            if (te instanceof BasketBlockEntity) {
-                BasketBlockEntity basket = (BasketBlockEntity) te;
+            if (te instanceof BasketBlockEntity basket) {
                 if (!player.isCreative() || !basket.isEmpty()) {
                     ItemStack stack = basket.saveToStack();
 
