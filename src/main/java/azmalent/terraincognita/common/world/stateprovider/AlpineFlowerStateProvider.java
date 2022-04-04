@@ -1,4 +1,4 @@
-package azmalent.terraincognita.common.world.blockstateprovider;
+package azmalent.terraincognita.common.world.stateprovider;
 
 import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.common.registry.ModBlockStateProviders;
@@ -15,12 +15,15 @@ import net.minecraftforge.common.util.Lazy;
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public class AlpineFlowerBlockStateProvider extends BlockStateProvider {
-    public static final AlpineFlowerBlockStateProvider INSTANCE = new AlpineFlowerBlockStateProvider();
-    public static final Codec<AlpineFlowerBlockStateProvider> CODEC = Codec.unit(() -> INSTANCE);
+public class AlpineFlowerStateProvider extends BlockStateProvider {
+    public static final AlpineFlowerStateProvider INSTANCE = new AlpineFlowerStateProvider();
+    public static final Codec<AlpineFlowerStateProvider> CODEC = Codec.unit(() -> INSTANCE);
 
     private static final Lazy<BlockState[]> FLOWERS = Lazy.of(
-        () -> Lists.newArrayList(ModBlocks.YELLOW_SAXIFRAGE, ModBlocks.ALPINE_PINK, ModBlocks.GENTIAN).stream().map(flower -> flower.getBlock().defaultBlockState()).toArray(BlockState[]::new)
+        () -> Lists.newArrayList(ModBlocks.YELLOW_SAXIFRAGE, ModBlocks.ALPINE_PINK, ModBlocks.ASTER, ModBlocks.GENTIAN)
+            .stream()
+            .map(flower -> flower.getBlock().defaultBlockState())
+            .toArray(BlockState[]::new)
     );
 
     private static final Lazy<BlockState> EDELWEISS = Lazy.of(() -> ModBlocks.EDELWEISS.getBlock().defaultBlockState());

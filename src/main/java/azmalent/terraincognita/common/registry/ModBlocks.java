@@ -51,7 +51,6 @@ public class ModBlocks {
     //Savanna flowers
     public static final PottablePlantEntry MARIGOLD       = createPlant("marigold", () -> new ModFlowerBlock(StewEffect.REGENERATION));
     public static final PottablePlantEntry SNAPDRAGON     = createPlant("snapdragon", () -> new ModFlowerBlock(StewEffect.HASTE));
-    public static final PottablePlantEntry GLADIOLUS      = createPlant("gladiolus", () -> new ModFlowerBlock(StewEffect.STRENGTH));
     public static final PottablePlantEntry BLUE_IRIS      = createPlant("blue_iris", () -> new ModFlowerBlock(StewEffect.INVISIBILITY));
     public static final PottablePlantEntry PURPLE_IRIS    = createPlant("purple_iris", () -> new ModFlowerBlock(StewEffect.INVISIBILITY));
     public static final PottablePlantEntry BLACK_IRIS     = createPlant("black_iris", () -> new ModFlowerBlock(StewEffect.INVISIBILITY));
@@ -60,6 +59,7 @@ public class ModBlocks {
 
     //Alpine flowers
     public static final PottablePlantEntry ALPINE_PINK    = createPlant("alpine_pink", () -> new AlpineFlowerBlock(StewEffect.SLOWNESS));
+    public static final PottablePlantEntry ASTER          = createPlant("aster", () -> new AlpineFlowerBlock(StewEffect.NIGHT_VISION));
     public static final PottablePlantEntry GENTIAN        = createPlant("gentian", () -> new AlpineFlowerBlock(StewEffect.WEAKNESS));
     public static final PottablePlantEntry EDELWEISS      = createPlant("edelweiss", () -> new AlpineFlowerBlock(StewEffect.HASTE));
     public static final PottablePlantEntry YELLOW_SAXIFRAGE = createPlant("yellow_saxifrage", SaxifrageBlock::new);
@@ -107,7 +107,6 @@ public class ModBlocks {
 
     public static final BlockEntry<HangingMossBlock> HANGING_MOSS = REG_HELPER.createBlock("hanging_moss", HangingMossBlock::new).cutoutRender().build();
 
-    public static final PottablePlantEntry SMALL_CACTUS = createPlant("small_cactus", SmallCactusBlock::new);
     public static final BlockEntry<SmoothCactusBlock> SMOOTH_CACTUS = REG_HELPER.createBlock("smooth_cactus", SmoothCactusBlock::new).cutoutRender().build();
     public static final PottablePlantEntry CACTUS_FLOWER = createPlant("cactus_flower", CactusFlowerBlock::new);
 
@@ -126,7 +125,7 @@ public class ModBlocks {
 
         FLOWERS = new PottablePlantEntry[]{
             DANDELION_PUFF, CHICORY, YARROW, DAFFODIL, YELLOW_PRIMROSE, PINK_PRIMROSE, PURPLE_PRIMROSE, FOXGLOVE, WILD_GARLIC,
-            MARIGOLD, GLADIOLUS, SNAPDRAGON, EDELWEISS, ALPINE_PINK, YELLOW_SAXIFRAGE,
+            MARIGOLD, SNAPDRAGON, EDELWEISS, ALPINE_PINK, ASTER, YELLOW_SAXIFRAGE,
         	GENTIAN, FORGET_ME_NOT, BLUE_IRIS, PURPLE_IRIS, BLACK_IRIS, HEATHER, WHITE_DRYAD,
             WATER_FLAG, FIREWEED, WHITE_RHODODENDRON, OLEANDER, SAGE, CACTUS_FLOWER
         };

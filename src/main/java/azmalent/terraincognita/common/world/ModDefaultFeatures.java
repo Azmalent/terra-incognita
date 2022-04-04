@@ -1,10 +1,7 @@
 package azmalent.terraincognita.common.world;
 
 import azmalent.terraincognita.TIConfig;
-import azmalent.terraincognita.common.world.configured.ModConfiguredFeatures;
-import azmalent.terraincognita.common.world.configured.ModFlowerFeatures;
 import azmalent.terraincognita.common.world.configured.ModTreeFeatures;
-import azmalent.terraincognita.common.world.configured.ModVegetationFeatures;
 import azmalent.terraincognita.util.WorldGenUtil;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 
@@ -68,10 +65,6 @@ public class ModDefaultFeatures {
     }
 
     public static void withDesertVegetation(BiomeGenerationSettingsBuilder builder) {
-        if (TIConfig.Flora.smallCacti.get()) {
-            WorldGenUtil.addVegetation(builder, ModVegetationFeatures.SMALL_CACTUS);
-        }
-
         if (TIConfig.Flora.cactusFlowers.get()) {
             WorldGenUtil.addVegetation(builder, ModFlowerFeatures.CACTUS_FLOWERS);
         }

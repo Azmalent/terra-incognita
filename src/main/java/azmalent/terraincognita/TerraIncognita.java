@@ -5,7 +5,7 @@ import azmalent.cuneiform.lib.registry.RegistryHelper;
 import azmalent.terraincognita.common.ModBlockTags;
 import azmalent.terraincognita.common.ModItemTags;
 import azmalent.terraincognita.common.registry.*;
-import azmalent.terraincognita.common.world.configured.ModConfiguredFeatures;
+import azmalent.terraincognita.common.world.ModConfiguredFeatures;
 import azmalent.terraincognita.integration.ModIntegration;
 import azmalent.terraincognita.integration.theoneprobe.ButterflyInfoProvider;
 import azmalent.terraincognita.proxy.ClientProxy;
@@ -62,14 +62,12 @@ public class TerraIncognita {
 
     @SubscribeEvent
     public static void setup(FMLCommonSetupEvent event) {
-        event.enqueueWork(ModConfiguredFeatures::registerFeatures);
-
         ModBlocks.initToolInteractions();
         ModBlocks.initFlammability();
         ModItems.initFuelValues();
         ModEntities.registerSpawns();
         ModRecipes.initCompostables();
-        ModTweaks.modifyFlowerGradients();
+        //ModTweaks.modifyFlowerGradients();
     }
 
     @SubscribeEvent

@@ -56,7 +56,6 @@ public class TradeHandler {
         if (TIConfig.Flora.savannaFlowers.get()) {
             addCommonTrade(TradeBuilder.sell(ModBlocks.MARIGOLD).maxTrades(12).build());
             addCommonTrade(TradeBuilder.sell(ModBlocks.SNAPDRAGON).maxTrades(12).build());
-            addCommonTrade(TradeBuilder.sell(ModBlocks.GLADIOLUS).maxTrades(12).build());
             addCommonTrade(TradeBuilder.sell(ModBlocks.BLUE_IRIS).maxTrades(12).build());
             addCommonTrade(TradeBuilder.sell(ModBlocks.PURPLE_IRIS).maxTrades(12).build());
             addCommonTrade(TradeBuilder.sell(ModBlocks.BLACK_IRIS).maxTrades(12).build());

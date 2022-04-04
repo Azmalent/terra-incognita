@@ -1,5 +1,6 @@
 package azmalent.terraincognita.util;
 
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -55,20 +56,20 @@ public class WorldGenUtil {
         }
     }
 
-    public static void addVegetation(BiomeGenerationSettingsBuilder builder, PlacedFeature... features) {
-        for (PlacedFeature feature : features) {
+    public static void addVegetation(BiomeGenerationSettingsBuilder builder, Holder<PlacedFeature>... features) {
+        for (Holder<PlacedFeature> feature : features) {
             builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, feature);
         }
     }
 
-    public static void addOre(BiomeGenerationSettingsBuilder builder, PlacedFeature... features) {
-        for (PlacedFeature feature : features) {
+    public static void addOre(BiomeGenerationSettingsBuilder builder, Holder<PlacedFeature>... features) {
+        for (Holder<PlacedFeature> feature : features) {
             builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, feature);
         }
     }
 
-    public static void addModification(BiomeGenerationSettingsBuilder builder, PlacedFeature... features) {
-        for (PlacedFeature feature : features) {
+    public static void addModification(BiomeGenerationSettingsBuilder builder, Holder<PlacedFeature>... features) {
+        for (Holder<PlacedFeature> feature : features) {
             builder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, feature);
         }
     }

@@ -108,10 +108,9 @@ dependencies {
     compileOnly fg.deobf("mezz.jei:jei-${config.minecraft_version}:${config.jei_version}:api")
     compileOnly fg.deobf("curse.maven:jade-api-324717:${config.jade_api_file_id}")
     implementation fg.deobf("curse.maven:jade-324717:${config.jade_file_id}")
-    implementation fg.deobf("curse.maven:the-one-probe-245211:3550084") //not yet on maven
+    implementation fg.deobf("curse.maven:the-one-probe-245211:3671753") //not yet on maven
 
     compileOnly fg.deobf("vazkii.quark:Quark:${config.quark_version}")
-    compileOnly fg.deobf("curse.maven:farmers-delight-398521:${config.farmers_delight_file_id}")
 }
 
 processResources {

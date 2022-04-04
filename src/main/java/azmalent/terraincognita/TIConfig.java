@@ -85,20 +85,16 @@ public class TIConfig extends CommonConfigFile {
         public static final BooleanOption reeds = new BooleanOption(true).withFlag("reeds");
 
         @Name("Savanna Flowers Enabled")
-        @Comment("Adds marigolds, blue lupines, snapdragons, gladioluses, geraniums, oleanders and sage to savannas.")
+        @Comment("Adds marigolds, snapdragons, irises, oleanders and sage to savannas.")
         public static final BooleanOption savannaFlowers = new BooleanOption(true).withFlag("savanna_flowers");
-
-        @Name("Jungle Flowers Enabled")
-        @Comment("Adds blue, black and purple irises to jungles.")
-        public static final BooleanOption jungleFlowers = new BooleanOption(true).withFlag("jungle_flowers");
 
         @Name("Lotus Enabled")
         @Comment("Lotus is a beautiful aquatic flower found in jungle lakes. It comes in yellow, pink and white colors.")
         public static final BooleanOption lotus = new BooleanOption(true).withFlag("lotus");
 
         @Name("Alpine Flowers Enabled")
-        @Comment({"Adds edelweiss, alpine pink, saxifrage and gentian to temperate and cold mountain biomes.",
-                "All of these flowers can grow on gravel, and saxifrage can grow on stone as well.",
+        @Comment({"Adds edelweiss, alpine pink, saxifrage, asters and and gentian to temperate and cold mountain biomes.",
+                "All of these flowers can grow on gravel, and saxifrages can grow on stone as well.",
                 "Edelweiss has a minimum altitude requirement to generate."})
         public static final BooleanOption alpineFlowers = new BooleanOption(true).withFlag("alpine_flowers");
 
@@ -107,12 +103,8 @@ public class TIConfig extends CommonConfigFile {
         public static final IntOption edelweissMinimumY = new IntOption(90).inRange(64, 128);
 
         @Name("Arctic Flowers Enabled")
-        @Comment("Adds white dryads, fireweed, arctic poppies and white rhododendrons to taiga and tundra biomes.")
+        @Comment("Adds heather, white dryads, fireweed and white rhododendrons to taiga and tundra biomes.")
         public static final BooleanOption arcticFlowers = new BooleanOption(true).withFlag("arctic_flowers");
-
-        @Name("Arctic Poppy Ratio")
-        @Comment("Chance to replace a vanilla poppy with an arctic poppy in tundra biomes.")
-        public static final DoubleOption arcticPoppyChance = new DoubleOption(0.5).inUnitRange();
 
         @Name("Sweet Peas Enabled")
         @Comment("Sweet peas are flowering vines found in flower forests. They come in seven different colors.")
@@ -128,23 +120,14 @@ public class TIConfig extends CommonConfigFile {
         public static final BooleanOption caribouMoss = new BooleanOption(true);
 
         @Name("Sour Berries Enabled")
-        @Comment("Sour berries can be found growing on water in boreal swamps.")
+        @Comment("Sour berries can be found growing on water in muskeg biomes.")
         public static final BooleanOption sourBerries = new BooleanOption(true).withFlag("sour_berries");
-
-        @Name("Roots Enabled")
-        @Comment({"Roots can be found on dirt cave ceilings and overhangs in most biomes.",
-            "They can be collected with shears. You can spread roots by using bonemeal on one.",
-            "Roots can be crafted into brown dye or covered in clay and baked on a campfire. Baked roots grant 15 seconds of Haste when eaten."})
-        public static final BooleanOption roots = new BooleanOption(true).withFlag("roots");
 
         @Name("Hanging Moss Enabled")
         public static final BooleanOption hangingMoss = new BooleanOption(true).withFlag("hanging_moss");
 
         @Name("Cactus Flowers Enabled")
         public static final BooleanOption cactusFlowers = new BooleanOption(true).withFlag("cactus_flowers");
-
-        @Name("Small Cacti Enabled")
-        public static final BooleanOption smallCacti = new BooleanOption(true).withFlag("small_cacti");
     }
 
     public static class Fauna extends Category {
@@ -210,9 +193,6 @@ public class TIConfig extends CommonConfigFile {
 
         @Comment("Allows growing lily pads by using bonemeal in shallow water pools.")
         public static final BooleanOption bonemealLilypadGrowing = new BooleanOption(true);
-
-        @Comment("Adds foxes, sheep, berry bushes, birches and shrubs to tundras to make them less lackluster.")
-        public static final BooleanOption betterTundras = new BooleanOption(true);
 
         @Comment("If enabled, wither roses will generate naturally in Soul Sand Valleys.")
         public static final BooleanOption witherRoseGeneration = new BooleanOption(true);

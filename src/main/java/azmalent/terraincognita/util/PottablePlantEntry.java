@@ -9,6 +9,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nonnull;
 
@@ -26,6 +27,10 @@ public final class PottablePlantEntry implements ItemLike {
 
     public Block getBlock() {
         return plant.get();
+    }
+
+    public BlockState defaultBlockState() {
+        return plant.defaultBlockState();
     }
 
     @Nonnull

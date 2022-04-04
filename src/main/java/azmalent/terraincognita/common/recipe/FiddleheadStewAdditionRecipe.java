@@ -63,11 +63,6 @@ public class FiddleheadStewAdditionRecipe extends SimpleShapelessRecipe {
         return stew;
     }
 
-    @Override
-    public boolean canCraftInDimensions(int width, int height) {
-        return MATCHER.canCraftInDimensions(width, height);
-    }
-
     @Nonnull
     @Override
     public ItemStack getResultItem() {
