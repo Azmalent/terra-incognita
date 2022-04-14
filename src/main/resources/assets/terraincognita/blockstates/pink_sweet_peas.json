@@ -1,236 +1,256 @@
 {
-  "variants": {
-    "burnt=false,east=false,north=false,south=false,up=false,west=false": {
-      "model": "terraincognita:block/sweet_peas/pink/1"
+  "multipart": [
+    {
+      "when": {
+	    "cut": "false",
+        "up": "true"
+      },
+      "apply": {
+        "model": "terraincognita:block/sweet_peas/pink",
+        "x": 270,
+        "uvlock": true
+      }
     },
-    "burnt=false,east=false,north=false,south=false,up=false,west=true": {
-      "model": "terraincognita:block/sweet_peas/pink/1",
-      "y": 90
+    {
+      "when": {
+	    "cut": "false",
+        "up": "false",
+        "north": "false",
+        "west": "false",
+        "south": "false",
+        "east": "false"
+      },
+      "apply": {
+        "model": "terraincognita:block/sweet_peas/pink",
+        "x": 270,
+        "uvlock": true
+      }
     },
-    "burnt=false,east=false,north=false,south=false,up=true,west=false": {
-      "model": "terraincognita:block/sweet_peas/pink/u"
+    {
+      "when": {
+	    "cut": "false",
+        "north": "true"
+      },
+      "apply": {
+        "model": "terraincognita:block/sweet_peas/pink"
+      }
     },
-    "burnt=false,east=false,north=false,south=false,up=true,west=true": {
-      "model": "terraincognita:block/sweet_peas/pink/1u",
-      "y": 90
+    {
+      "when": {
+	    "cut": "false",
+        "up": "false",
+        "north": "false",
+        "west": "false",
+        "south": "false",
+        "east": "false"
+      },
+      "apply": {
+        "model": "terraincognita:block/sweet_peas/pink"
+      }
     },
-    "burnt=false,east=false,north=false,south=true,up=false,west=false": {
-      "model": "terraincognita:block/sweet_peas/pink/1"
+    {
+      "when": {
+	    "cut": "false",
+        "west": "true"
+      },
+      "apply": {
+        "model": "terraincognita:block/sweet_peas/pink",
+        "y": 270,
+        "uvlock": true
+      }
     },
-    "burnt=false,east=false,north=false,south=true,up=false,west=true": {
-      "model": "terraincognita:block/sweet_peas/pink/2",
-      "y": 180
+    {
+      "when": {
+	    "cut": "false",
+        "up": "false",
+        "north": "false",
+        "west": "false",
+        "south": "false",
+        "east": "false"
+      },
+      "apply": {
+        "model": "terraincognita:block/sweet_peas/pink",
+        "y": 270,
+        "uvlock": true
+      }
     },
-    "burnt=false,east=false,north=false,south=true,up=true,west=false": {
-      "model": "terraincognita:block/sweet_peas/pink/1u"
+    {
+      "when": {
+	    "cut": "false",
+        "south": "true"
+      },
+      "apply": {
+        "model": "terraincognita:block/sweet_peas/pink",
+        "y": 180,
+        "uvlock": true
+      }
     },
-    "burnt=false,east=false,north=false,south=true,up=true,west=true": {
-      "model": "terraincognita:block/sweet_peas/pink/2u",
-      "y": 180
+    {
+      "when": {
+	    "cut": "false",
+        "up": "false",
+        "north": "false",
+        "west": "false",
+        "south": "false",
+        "east": "false"
+      },
+      "apply": {
+        "model": "terraincognita:block/sweet_peas/pink",
+        "y": 180,
+        "uvlock": true
+      }
     },
-    "burnt=false,east=false,north=true,south=false,up=false,west=false": {
-      "model": "terraincognita:block/sweet_peas/pink/1",
-      "y": 180
+    {
+      "when": {
+	    "cut": "false",
+        "east": "true"
+      },
+      "apply": {
+        "model": "terraincognita:block/sweet_peas/pink",
+        "y": 90,
+        "uvlock": true
+      }
     },
-    "burnt=false,east=false,north=true,south=false,up=false,west=true": {
-      "model": "terraincognita:block/sweet_peas/pink/2",
-      "y": 270
+    {
+      "when": {
+	    "cut": "false",
+        "up": "false",
+        "north": "false",
+        "west": "false",
+        "south": "false",
+        "east": "false"
+      },
+      "apply": {
+        "model": "terraincognita:block/sweet_peas/pink",
+        "y": 90,
+        "uvlock": true
+      }
     },
-    "burnt=false,east=false,north=true,south=false,up=true,west=false": {
-      "model": "terraincognita:block/sweet_peas/pink/1u",
-      "y": 180
+	    {
+      "when": {
+	    "cut": "false",
+        "up": "true"
+      },
+      "apply": {
+        "model": "terraincognita:block/sweet_peas/pink",
+        "x": 270,
+        "uvlock": true
+      }
     },
-    "burnt=false,east=false,north=true,south=false,up=true,west=true": {
-      "model": "terraincognita:block/sweet_peas/pink/2u",
-      "y": 270
+    {
+      "when": {
+	    "cut": "false",
+        "up": "false",
+        "north": "false",
+        "west": "false",
+        "south": "false",
+        "east": "false"
+      },
+      "apply": {
+        "model": "terraincognita:block/sweet_peas/pink",
+        "x": 270,
+        "uvlock": true
+      }
     },
-    "burnt=false,east=false,north=true,south=true,up=false,west=false": {
-      "model": "terraincognita:block/sweet_peas/pink/2_opposite",
-      "y": 90
+    {
+      "when": {
+	    "cut": "true",
+        "north": "true"
+      },
+      "apply": {
+        "model": "terraincognita:block/sweet_peas/pink_cut"
+      }
     },
-    "burnt=false,east=false,north=true,south=true,up=false,west=true": {
-      "model": "terraincognita:block/sweet_peas/pink/3",
-      "y": 180
+    {
+      "when": {
+	    "cut": "true",
+        "up": "false",
+        "north": "false",
+        "west": "false",
+        "south": "false",
+        "east": "false"
+      },
+      "apply": {
+        "model": "terraincognita:block/sweet_peas/pink_cut"
+      }
     },
-    "burnt=false,east=false,north=true,south=true,up=true,west=false": {
-      "model": "terraincognita:block/sweet_peas/pink/2u_opposite",
-      "y": 90
+    {
+      "when": {
+	    "cut": "true",
+        "west": "true"
+      },
+      "apply": {
+        "model": "terraincognita:block/sweet_peas/pink_cut",
+        "y": 270,
+        "uvlock": true
+      }
     },
-    "burnt=false,east=false,north=true,south=true,up=true,west=true": {
-      "model": "terraincognita:block/sweet_peas/pink/3u",
-      "y": 180
+    {
+      "when": {
+	    "cut": "true",
+        "up": "false",
+        "north": "false",
+        "west": "false",
+        "south": "false",
+        "east": "false"
+      },
+      "apply": {
+        "model": "terraincognita:block/sweet_peas/pink_cut",
+        "y": 270,
+        "uvlock": true
+      }
     },
-    "burnt=false,east=true,north=false,south=false,up=false,west=false": {
-      "model": "terraincognita:block/sweet_peas/pink/1",
-      "y": 270
+    {
+      "when": {
+	    "cut": "true",
+        "south": "true"
+      },
+      "apply": {
+        "model": "terraincognita:block/sweet_peas/pink_cut",
+        "y": 180,
+        "uvlock": true
+      }
     },
-    "burnt=false,east=true,north=false,south=false,up=false,west=true": {
-      "model": "terraincognita:block/sweet_peas/pink/2_opposite"
+    {
+      "when": {
+	    "cut": "true",
+        "up": "false",
+        "north": "false",
+        "west": "false",
+        "south": "false",
+        "east": "false"
+      },
+      "apply": {
+        "model": "terraincognita:block/sweet_peas/pink",
+        "y": 180,
+        "uvlock": true
+      }
     },
-    "burnt=false,east=true,north=false,south=false,up=true,west=false": {
-      "model": "terraincognita:block/sweet_peas/pink/1u",
-      "y": 270
+    {
+      "when": {
+	    "cut": "true",
+        "east": "true"
+      },
+      "apply": {
+        "model": "terraincognita:block/sweet_peas/pink_cut",
+        "y": 90,
+        "uvlock": true
+      }
     },
-    "burnt=false,east=true,north=false,south=false,up=true,west=true": {
-      "model": "terraincognita:block/sweet_peas/pink/2u_opposite"
-    },
-    "burnt=false,east=true,north=false,south=true,up=false,west=false": {
-      "model": "terraincognita:block/sweet_peas/pink/2",
-      "y": 90
-    },
-    "burnt=false,east=true,north=false,south=true,up=false,west=true": {
-      "model": "terraincognita:block/sweet_peas/pink/3",
-      "y": 90
-    },
-    "burnt=false,east=true,north=false,south=true,up=true,west=false": {
-      "model": "terraincognita:block/sweet_peas/pink/2u",
-      "y": 90
-    },
-    "burnt=false,east=true,north=false,south=true,up=true,west=true": {
-      "model": "terraincognita:block/sweet_peas/pink/3u",
-      "y": 90
-    },
-    "burnt=false,east=true,north=true,south=false,up=false,west=false": {
-      "model": "terraincognita:block/sweet_peas/pink/2"
-    },
-    "burnt=false,east=true,north=true,south=false,up=false,west=true": {
-      "model": "terraincognita:block/sweet_peas/pink/3",
-      "y": 270
-    },
-    "burnt=false,east=true,north=true,south=false,up=true,west=false": {
-      "model": "terraincognita:block/sweet_peas/pink/2u"
-    },
-    "burnt=false,east=true,north=true,south=false,up=true,west=true": {
-      "model": "terraincognita:block/sweet_peas/pink/3u",
-      "y": 270
-    },
-    "burnt=false,east=true,north=true,south=true,up=false,west=false": {
-      "model": "terraincognita:block/sweet_peas/pink/3"
-    },
-    "burnt=false,east=true,north=true,south=true,up=false,west=true": {
-      "model": "terraincognita:block/sweet_peas/pink/4"
-    },
-    "burnt=false,east=true,north=true,south=true,up=true,west=false": {
-      "model": "terraincognita:block/sweet_peas/pink/3u"
-    },
-    "burnt=false,east=true,north=true,south=true,up=true,west=true": {
-      "model": "terraincognita:block/sweet_peas/pink/4u"
-    },
-    "burnt=true,east=false,north=false,south=false,up=false,west=false": {
-      "model": "terraincognita:block/sweet_peas/pink/burnt_1"
-    },
-    "burnt=true,east=false,north=false,south=false,up=false,west=true": {
-      "model": "terraincognita:block/sweet_peas/pink/burnt_1",
-      "y": 90
-    },
-    "burnt=true,east=false,north=false,south=false,up=true,west=false": {
-      "model": "terraincognita:block/sweet_peas/pink/burnt_u"
-    },
-    "burnt=true,east=false,north=false,south=false,up=true,west=true": {
-      "model": "terraincognita:block/sweet_peas/pink/burnt_1u",
-      "y": 90
-    },
-    "burnt=true,east=false,north=false,south=true,up=false,west=false": {
-      "model": "terraincognita:block/sweet_peas/pink/burnt_1"
-    },
-    "burnt=true,east=false,north=false,south=true,up=false,west=true": {
-      "model": "terraincognita:block/sweet_peas/pink/burnt_2",
-      "y": 180
-    },
-    "burnt=true,east=false,north=false,south=true,up=true,west=false": {
-      "model": "terraincognita:block/sweet_peas/pink/burnt_1u"
-    },
-    "burnt=true,east=false,north=false,south=true,up=true,west=true": {
-      "model": "terraincognita:block/sweet_peas/pink/burnt_2u",
-      "y": 180
-    },
-    "burnt=true,east=false,north=true,south=false,up=false,west=false": {
-      "model": "terraincognita:block/sweet_peas/pink/burnt_1",
-      "y": 180
-    },
-    "burnt=true,east=false,north=true,south=false,up=false,west=true": {
-      "model": "terraincognita:block/sweet_peas/pink/burnt_2",
-      "y": 270
-    },
-    "burnt=true,east=false,north=true,south=false,up=true,west=false": {
-      "model": "terraincognita:block/sweet_peas/pink/burnt_1u",
-      "y": 180
-    },
-    "burnt=true,east=false,north=true,south=false,up=true,west=true": {
-      "model": "terraincognita:block/sweet_peas/pink/burnt_2u",
-      "y": 270
-    },
-    "burnt=true,east=false,north=true,south=true,up=false,west=false": {
-      "model": "terraincognita:block/sweet_peas/pink/burnt_2_opposite",
-      "y": 90
-    },
-    "burnt=true,east=false,north=true,south=true,up=false,west=true": {
-      "model": "terraincognita:block/sweet_peas/pink/burnt_3",
-      "y": 180
-    },
-    "burnt=true,east=false,north=true,south=true,up=true,west=false": {
-      "model": "terraincognita:block/sweet_peas/pink/burnt_2u_opposite",
-      "y": 90
-    },
-    "burnt=true,east=false,north=true,south=true,up=true,west=true": {
-      "model": "terraincognita:block/sweet_peas/pink/burnt_3u",
-      "y": 180
-    },
-    "burnt=true,east=true,north=false,south=false,up=false,west=false": {
-      "model": "terraincognita:block/sweet_peas/pink/burnt_1",
-      "y": 270
-    },
-    "burnt=true,east=true,north=false,south=false,up=false,west=true": {
-      "model": "terraincognita:block/sweet_peas/pink/burnt_2_opposite"
-    },
-    "burnt=true,east=true,north=false,south=false,up=true,west=false": {
-      "model": "terraincognita:block/sweet_peas/pink/burnt_1u",
-      "y": 270
-    },
-    "burnt=true,east=true,north=false,south=false,up=true,west=true": {
-      "model": "terraincognita:block/sweet_peas/pink/burnt_2u_opposite"
-    },
-    "burnt=true,east=true,north=false,south=true,up=false,west=false": {
-      "model": "terraincognita:block/sweet_peas/pink/burnt_2",
-      "y": 90
-    },
-    "burnt=true,east=true,north=false,south=true,up=false,west=true": {
-      "model": "terraincognita:block/sweet_peas/pink/burnt_3",
-      "y": 90
-    },
-    "burnt=true,east=true,north=false,south=true,up=true,west=false": {
-      "model": "terraincognita:block/sweet_peas/pink/burnt_2u",
-      "y": 90
-    },
-    "burnt=true,east=true,north=false,south=true,up=true,west=true": {
-      "model": "terraincognita:block/sweet_peas/pink/burnt_3u",
-      "y": 90
-    },
-    "burnt=true,east=true,north=true,south=false,up=false,west=false": {
-      "model": "terraincognita:block/sweet_peas/pink/burnt_2"
-    },
-    "burnt=true,east=true,north=true,south=false,up=false,west=true": {
-      "model": "terraincognita:block/sweet_peas/pink/burnt_3",
-      "y": 270
-    },
-    "burnt=true,east=true,north=true,south=false,up=true,west=false": {
-      "model": "terraincognita:block/sweet_peas/pink/burnt_2u"
-    },
-    "burnt=true,east=true,north=true,south=false,up=true,west=true": {
-      "model": "terraincognita:block/sweet_peas/pink/burnt_3u",
-      "y": 270
-    },
-    "burnt=true,east=true,north=true,south=true,up=false,west=false": {
-      "model": "terraincognita:block/sweet_peas/pink/burnt_3"
-    },
-    "burnt=true,east=true,north=true,south=true,up=false,west=true": {
-      "model": "terraincognita:block/sweet_peas/pink/burnt_4"
-    },
-    "burnt=true,east=true,north=true,south=true,up=true,west=false": {
-      "model": "terraincognita:block/sweet_peas/pink/burnt_3u"
-    },
-    "burnt=true,east=true,north=true,south=true,up=true,west=true": {
-      "model": "terraincognita:block/sweet_peas/pink/burnt_4u"
+    {
+      "when": {
+	    "cut": "true",
+        "up": "false",
+        "north": "false",
+        "west": "false",
+        "south": "false",
+        "east": "false"
+      },
+      "apply": {
+        "model": "terraincognita:block/sweet_peas/pink_cut",
+        "y": 90,
+        "uvlock": true
+      }
     }
-  }
+  ]
 }

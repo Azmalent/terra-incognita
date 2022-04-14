@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/vine_3",
-  "textures": {
-    "vine": "terraincognita:block/sweet_peas/red_sweet_peas"
-  }
-}

@@ -6,13 +6,9 @@ import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.registry.ModBlocks;
 import azmalent.terraincognita.common.registry.ModItems;
 import azmalent.terraincognita.common.registry.ModWoodTypes;
-import net.minecraft.world.entity.npc.VillagerTrades;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.village.WandererTradesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-
-import java.util.List;
 
 import static azmalent.cuneiform.common.data.WanderingTraderHandler.addCommonTrade;
 import static azmalent.cuneiform.common.data.WanderingTraderHandler.addRareTrade;
@@ -23,59 +19,58 @@ public class TradeHandler {
     public static void setupWandererTrades(WandererTradesEvent event) {
         //Flowers
         if (TIConfig.Flora.dandelionPuff.get()) {
-            addCommonTrade(TradeBuilder.sell(ModBlocks.DANDELION_PUFF).maxTrades(12).build());
+            addCommonTrade(TradeBuilder.sell(ModBlocks.DANDELION_PUFF.makeStack()).maxTrades(12).build());
         }
 
         if (TIConfig.Flora.fieldFlowers.get()) {
-            addCommonTrade(TradeBuilder.sell(ModBlocks.CHICORY).maxTrades(12).build());
-            addCommonTrade(TradeBuilder.sell(ModBlocks.YARROW).maxTrades(12).build());
-            addCommonTrade(TradeBuilder.sell(ModBlocks.DAFFODIL).maxTrades(12).build());
+            addCommonTrade(TradeBuilder.sell(ModBlocks.CHICORY.makeStack()).maxTrades(12).build());
+            addCommonTrade(TradeBuilder.sell(ModBlocks.YARROW.makeStack()).maxTrades(12).build());
+            addCommonTrade(TradeBuilder.sell(ModBlocks.DAFFODIL.makeStack()).maxTrades(12).build());
         }
 
         if (TIConfig.Flora.forestFlowers.get()) {
-            addCommonTrade(TradeBuilder.sell(ModBlocks.WILD_GARLIC).maxTrades(12).build());
-            addCommonTrade(TradeBuilder.sell(ModBlocks.FOXGLOVE).maxTrades(12).build());
-            addCommonTrade(TradeBuilder.sell(ModBlocks.YELLOW_PRIMROSE).maxTrades(12).build());
-            addCommonTrade(TradeBuilder.sell(ModBlocks.PINK_PRIMROSE).maxTrades(12).build());
-            addCommonTrade(TradeBuilder.sell(ModBlocks.PURPLE_PRIMROSE).maxTrades(12).build());
+            addCommonTrade(TradeBuilder.sell(ModBlocks.WILD_GARLIC.makeStack()).maxTrades(12).build());
+            addCommonTrade(TradeBuilder.sell(ModBlocks.FOXGLOVE.makeStack()).maxTrades(12).build());
+            addCommonTrade(TradeBuilder.sell(ModBlocks.YELLOW_PRIMROSE.makeStack()).maxTrades(12).build());
+            addCommonTrade(TradeBuilder.sell(ModBlocks.PINK_PRIMROSE.makeStack()).maxTrades(12).build());
+            addCommonTrade(TradeBuilder.sell(ModBlocks.PURPLE_PRIMROSE.makeStack()).maxTrades(12).build());
         }
 
         if (TIConfig.Flora.swampFlowers.get()) {
-            addCommonTrade(TradeBuilder.sell(ModBlocks.FORGET_ME_NOT).maxTrades(12).build());
-            addCommonTrade(TradeBuilder.sell(ModBlocks.GLOBEFLOWER).maxTrades(12).build());
-            addCommonTrade(TradeBuilder.sell(ModBlocks.WATER_FLAG).maxTrades(12).build());
+            addCommonTrade(TradeBuilder.sell(ModBlocks.FORGET_ME_NOT.makeStack()).maxTrades(12).build());
+            addCommonTrade(TradeBuilder.sell(ModBlocks.GLOBEFLOWER.makeStack()).maxTrades(12).build());
+            addCommonTrade(TradeBuilder.sell(ModBlocks.WATER_FLAG.makeStack()).maxTrades(12).build());
         }
 
         if (TIConfig.Flora.alpineFlowers.get()) {
-            addCommonTrade(TradeBuilder.sell(ModBlocks.ALPINE_PINK).maxTrades(12).build());
-            addCommonTrade(TradeBuilder.sell(ModBlocks.GENTIAN).maxTrades(12).build());
-            addCommonTrade(TradeBuilder.sell(ModBlocks.EDELWEISS).maxTrades(12).build());
-            addCommonTrade(TradeBuilder.sell(ModBlocks.YELLOW_SAXIFRAGE).maxTrades(12).build());
+            addCommonTrade(TradeBuilder.sell(ModBlocks.ALPINE_PINK.makeStack()).maxTrades(12).build());
+            addCommonTrade(TradeBuilder.sell(ModBlocks.GENTIAN.makeStack()).maxTrades(12).build());
+            addCommonTrade(TradeBuilder.sell(ModBlocks.EDELWEISS.makeStack()).maxTrades(12).build());
+            addCommonTrade(TradeBuilder.sell(ModBlocks.YELLOW_SAXIFRAGE.makeStack()).maxTrades(12).build());
         }
 
         if (TIConfig.Flora.savannaFlowers.get()) {
-            addCommonTrade(TradeBuilder.sell(ModBlocks.MARIGOLD).maxTrades(12).build());
-            addCommonTrade(TradeBuilder.sell(ModBlocks.SNAPDRAGON).maxTrades(12).build());
-            addCommonTrade(TradeBuilder.sell(ModBlocks.BLUE_IRIS).maxTrades(12).build());
-            addCommonTrade(TradeBuilder.sell(ModBlocks.PURPLE_IRIS).maxTrades(12).build());
-            addCommonTrade(TradeBuilder.sell(ModBlocks.BLACK_IRIS).maxTrades(12).build());
+            addCommonTrade(TradeBuilder.sell(ModBlocks.MARIGOLD.makeStack()).maxTrades(12).build());
+            addCommonTrade(TradeBuilder.sell(ModBlocks.SNAPDRAGON.makeStack()).maxTrades(12).build());
+            addCommonTrade(TradeBuilder.sell(ModBlocks.BLUE_IRIS.makeStack()).maxTrades(12).build());
+            addCommonTrade(TradeBuilder.sell(ModBlocks.PURPLE_IRIS.makeStack()).maxTrades(12).build());
+            addCommonTrade(TradeBuilder.sell(ModBlocks.BLACK_IRIS.makeStack()).maxTrades(12).build());
         }
 
         if (TIConfig.Flora.arcticFlowers.get()) {
-            addCommonTrade(TradeBuilder.sell(ModBlocks.ARCTIC_POPPY).maxTrades(12).build());
-            addCommonTrade(TradeBuilder.sell(ModBlocks.HEATHER).maxTrades(12).build());
-            addCommonTrade(TradeBuilder.sell(ModBlocks.WHITE_DRYAD).maxTrades(12).build());
-            addCommonTrade(TradeBuilder.sell(ModBlocks.FIREWEED).maxTrades(12).build());
-            addCommonTrade(TradeBuilder.sell(ModBlocks.WHITE_RHODODENDRON).maxTrades(12).build());
+            addCommonTrade(TradeBuilder.sell(ModBlocks.HEATHER.makeStack()).maxTrades(12).build());
+            addCommonTrade(TradeBuilder.sell(ModBlocks.WHITE_DRYAD.makeStack()).maxTrades(12).build());
+            addCommonTrade(TradeBuilder.sell(ModBlocks.FIREWEED.makeStack()).maxTrades(12).build());
+            addCommonTrade(TradeBuilder.sell(ModBlocks.WHITE_RHODODENDRON.makeStack()).maxTrades(12).build());
         }
 
         //Saplings
         if (TIConfig.Trees.apple.get()) {
-            addCommonTrade(TradeBuilder.sell(ModWoodTypes.APPLE.SAPLING).maxTrades(8).build());
+            addCommonTrade(TradeBuilder.sell(ModWoodTypes.APPLE.SAPLING.makeStack()).maxTrades(8).build());
         }
 
         if (TIConfig.Trees.hazel.get()) {
-            addCommonTrade(TradeBuilder.sell(ModWoodTypes.HAZEL.SAPLING).maxTrades(8).build());
+            addCommonTrade(TradeBuilder.sell(ModWoodTypes.HAZEL.SAPLING.makeStack()).maxTrades(8).build());
         }
 
         //Other stuff
@@ -84,17 +79,17 @@ public class TradeHandler {
         }
 
         if (TIConfig.Flora.lotus.get()) {
-            addCommonTrade(TradeBuilder.sell(ModBlocks.PINK_LOTUS).maxTrades(5).build());
-            addCommonTrade(TradeBuilder.sell(ModBlocks.WHITE_LOTUS).maxTrades(5).build());
-            addCommonTrade(TradeBuilder.sell(ModBlocks.YELLOW_LOTUS).maxTrades(5).build());
+            addCommonTrade(TradeBuilder.sell(ModBlocks.PINK_LOTUS.makeStack()).maxTrades(5).build());
+            addCommonTrade(TradeBuilder.sell(ModBlocks.WHITE_LOTUS.makeStack()).maxTrades(5).build());
+            addCommonTrade(TradeBuilder.sell(ModBlocks.YELLOW_LOTUS.makeStack()).maxTrades(5).build());
         }
 
         if (TIConfig.Flora.caribouMoss.get()) {
-            addCommonTrade(TradeBuilder.sell(ModBlocks.CARIBOU_MOSS).maxTrades(12).build());
+            addCommonTrade(TradeBuilder.sell(ModBlocks.CARIBOU_MOSS.makeStack()).maxTrades(12).build());
         }
 
-        if (TIConfig.Flora.reeds.get()) {
-            addCommonTrade(TradeBuilder.sell(ModBlocks.SEDGE).maxTrades(8).build());
+        if (TIConfig.Flora.sedge.get()) {
+            addCommonTrade(TradeBuilder.sell(ModBlocks.SEDGE.makeStack()).maxTrades(8).build());
         }
 
         if (TIConfig.Misc.peat.get()) {
@@ -102,12 +97,9 @@ public class TradeHandler {
         }
 
         //Rares
+        //TODO: re-add sweet peas
         if (TIConfig.Food.taffy.get()) {
-            addRareTrade(TradeBuilder.sell(2, ModItems.TAFFY).maxTrades(3).build());
-        }
-
-        if (TIConfig.Flora.sweetPeas.get()) {
-            addRareTrade(TradeBuilder.sellRandom(3, ModBlocks.SWEET_PEAS).maxTrades(3).build());
+            addRareTrade(TradeBuilder.sell(2, ModItems.TAFFY.makeStack()).maxTrades(3).build());
         }
 
         if (TIConfig.Biomes.lushPlainsWeight.get() > 0) {

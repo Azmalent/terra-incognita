@@ -15,7 +15,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.WaterlilyBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -30,7 +29,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Random;
 
 @SuppressWarnings("deprecation")
-public class SourBerryBushBlock extends WaterlilyBlock implements BonemealableBlock {
+public class SourBerryBushBlock extends TILilyPadBlock implements BonemealableBlock {
     public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
 
     public SourBerryBushBlock() {

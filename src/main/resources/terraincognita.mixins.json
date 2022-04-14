@@ -8,6 +8,8 @@
   "mixins": [
     "CactusBlockMixin",
     "EatGrassGoalMixin",
+    "NoiseProviderMixin",
+    "NoiseThresholdProviderMixin",
     "SimpleBlockFeatureMixin",
     "SugarCaneBlockMixin",
     "VineBlockMixin",

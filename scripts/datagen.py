@@ -115,7 +115,7 @@ def make_sweet_peas(color):
 
     for suffix in ['1', '1u', '2', '2_opposite', '2u', '2u_opposite', '3', '3u', '4', '4u', 'u']:
         copy_block_model('vine', 'sweet_peas/%s/%s' % (color, suffix), {'suffix': suffix, 'block': block})
-        copy_block_model('vine', 'sweet_peas/%s/burnt_%s' % (color, suffix), {'suffix': suffix, 'block': block + '_burnt'})
+        copy_block_model('vine', 'sweet_peas/%s/cut_%s' % (color, suffix), {'suffix': suffix, 'block': block + '_cut'})
 
     copy_loot_table('requires_shears', block, {'block': block})
     copy_crafting_recipe('shapeless_one_ingredient', 'dyes/dye_from_' + block, {

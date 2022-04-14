@@ -1,26 +1,16 @@
 package azmalent.terraincognita.common.world.tree;
 
-import azmalent.terraincognita.common.registry.ModWoodTypes;
-import azmalent.terraincognita.common.world.ModConfiguredFeatures;
-import azmalent.terraincognita.common.world.configured.ModTreeFeatures;
-import azmalent.terraincognita.common.world.treedecorator.AppleTreeDecorator;
-import azmalent.terraincognita.common.world.treedecorator.HazelnutTreeDecorator;
+import azmalent.terraincognita.common.world.configured.ModConfiguredTreeFeatures;
+import azmalent.terraincognita.common.world.tree.decorator.HazelnutTreeDecorator;
 import net.minecraft.core.Holder;
-import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.block.grower.AbstractTreeGrower;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
-import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FancyFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
-import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.FancyTrunkPlacer;
-import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -50,6 +40,6 @@ public class HazelTree extends AbstractTreeGrower {
     @Nullable
     @Override
     protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(@Nonnull Random random, boolean largeHive) {
-        return ModConfiguredFeatures.HAZEL_GROWN;
+        return ModConfiguredTreeFeatures.HAZEL_GROWN;
     }
 }

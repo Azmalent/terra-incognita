@@ -1,236 +1,236 @@
 {
   "variants": {
-    "burnt=false,east=false,north=false,south=false,up=false,west=false": {
+    "cut=false,east=false,north=false,south=false,up=false,west=false": {
       "model": "$MODID:block/sweet_peas/$COLOR/1"
     },
-    "burnt=false,east=false,north=false,south=false,up=false,west=true": {
+    "cut=false,east=false,north=false,south=false,up=false,west=true": {
       "model": "$MODID:block/sweet_peas/$COLOR/1",
       "y": 90
     },
-    "burnt=false,east=false,north=false,south=false,up=true,west=false": {
+    "cut=false,east=false,north=false,south=false,up=true,west=false": {
       "model": "$MODID:block/sweet_peas/$COLOR/u"
     },
-    "burnt=false,east=false,north=false,south=false,up=true,west=true": {
+    "cut=false,east=false,north=false,south=false,up=true,west=true": {
       "model": "$MODID:block/sweet_peas/$COLOR/1u",
       "y": 90
     },
-    "burnt=false,east=false,north=false,south=true,up=false,west=false": {
+    "cut=false,east=false,north=false,south=true,up=false,west=false": {
       "model": "$MODID:block/sweet_peas/$COLOR/1"
     },
-    "burnt=false,east=false,north=false,south=true,up=false,west=true": {
+    "cut=false,east=false,north=false,south=true,up=false,west=true": {
       "model": "$MODID:block/sweet_peas/$COLOR/2",
       "y": 180
     },
-    "burnt=false,east=false,north=false,south=true,up=true,west=false": {
+    "cut=false,east=false,north=false,south=true,up=true,west=false": {
       "model": "$MODID:block/sweet_peas/$COLOR/1u"
     },
-    "burnt=false,east=false,north=false,south=true,up=true,west=true": {
+    "cut=false,east=false,north=false,south=true,up=true,west=true": {
       "model": "$MODID:block/sweet_peas/$COLOR/2u",
       "y": 180
     },
-    "burnt=false,east=false,north=true,south=false,up=false,west=false": {
+    "cut=false,east=false,north=true,south=false,up=false,west=false": {
       "model": "$MODID:block/sweet_peas/$COLOR/1",
       "y": 180
     },
-    "burnt=false,east=false,north=true,south=false,up=false,west=true": {
+    "cut=false,east=false,north=true,south=false,up=false,west=true": {
       "model": "$MODID:block/sweet_peas/$COLOR/2",
       "y": 270
     },
-    "burnt=false,east=false,north=true,south=false,up=true,west=false": {
+    "cut=false,east=false,north=true,south=false,up=true,west=false": {
       "model": "$MODID:block/sweet_peas/$COLOR/1u",
       "y": 180
     },
-    "burnt=false,east=false,north=true,south=false,up=true,west=true": {
+    "cut=false,east=false,north=true,south=false,up=true,west=true": {
       "model": "$MODID:block/sweet_peas/$COLOR/2u",
       "y": 270
     },
-    "burnt=false,east=false,north=true,south=true,up=false,west=false": {
+    "cut=false,east=false,north=true,south=true,up=false,west=false": {
       "model": "$MODID:block/sweet_peas/$COLOR/2_opposite",
       "y": 90
     },
-    "burnt=false,east=false,north=true,south=true,up=false,west=true": {
+    "cut=false,east=false,north=true,south=true,up=false,west=true": {
       "model": "$MODID:block/sweet_peas/$COLOR/3",
       "y": 180
     },
-    "burnt=false,east=false,north=true,south=true,up=true,west=false": {
+    "cut=false,east=false,north=true,south=true,up=true,west=false": {
       "model": "$MODID:block/sweet_peas/$COLOR/2u_opposite",
       "y": 90
     },
-    "burnt=false,east=false,north=true,south=true,up=true,west=true": {
+    "cut=false,east=false,north=true,south=true,up=true,west=true": {
       "model": "$MODID:block/sweet_peas/$COLOR/3u",
       "y": 180
     },
-    "burnt=false,east=true,north=false,south=false,up=false,west=false": {
+    "cut=false,east=true,north=false,south=false,up=false,west=false": {
       "model": "$MODID:block/sweet_peas/$COLOR/1",
       "y": 270
     },
-    "burnt=false,east=true,north=false,south=false,up=false,west=true": {
+    "cut=false,east=true,north=false,south=false,up=false,west=true": {
       "model": "$MODID:block/sweet_peas/$COLOR/2_opposite"
     },
-    "burnt=false,east=true,north=false,south=false,up=true,west=false": {
+    "cut=false,east=true,north=false,south=false,up=true,west=false": {
       "model": "$MODID:block/sweet_peas/$COLOR/1u",
       "y": 270
     },
-    "burnt=false,east=true,north=false,south=false,up=true,west=true": {
+    "cut=false,east=true,north=false,south=false,up=true,west=true": {
       "model": "$MODID:block/sweet_peas/$COLOR/2u_opposite"
     },
-    "burnt=false,east=true,north=false,south=true,up=false,west=false": {
+    "cut=false,east=true,north=false,south=true,up=false,west=false": {
       "model": "$MODID:block/sweet_peas/$COLOR/2",
       "y": 90
     },
-    "burnt=false,east=true,north=false,south=true,up=false,west=true": {
+    "cut=false,east=true,north=false,south=true,up=false,west=true": {
       "model": "$MODID:block/sweet_peas/$COLOR/3",
       "y": 90
     },
-    "burnt=false,east=true,north=false,south=true,up=true,west=false": {
+    "cut=false,east=true,north=false,south=true,up=true,west=false": {
       "model": "$MODID:block/sweet_peas/$COLOR/2u",
       "y": 90
     },
-    "burnt=false,east=true,north=false,south=true,up=true,west=true": {
+    "cut=false,east=true,north=false,south=true,up=true,west=true": {
       "model": "$MODID:block/sweet_peas/$COLOR/3u",
       "y": 90
     },
-    "burnt=false,east=true,north=true,south=false,up=false,west=false": {
+    "cut=false,east=true,north=true,south=false,up=false,west=false": {
       "model": "$MODID:block/sweet_peas/$COLOR/2"
     },
-    "burnt=false,east=true,north=true,south=false,up=false,west=true": {
+    "cut=false,east=true,north=true,south=false,up=false,west=true": {
       "model": "$MODID:block/sweet_peas/$COLOR/3",
       "y": 270
     },
-    "burnt=false,east=true,north=true,south=false,up=true,west=false": {
+    "cut=false,east=true,north=true,south=false,up=true,west=false": {
       "model": "$MODID:block/sweet_peas/$COLOR/2u"
     },
-    "burnt=false,east=true,north=true,south=false,up=true,west=true": {
+    "cut=false,east=true,north=true,south=false,up=true,west=true": {
       "model": "$MODID:block/sweet_peas/$COLOR/3u",
       "y": 270
     },
-    "burnt=false,east=true,north=true,south=true,up=false,west=false": {
+    "cut=false,east=true,north=true,south=true,up=false,west=false": {
       "model": "$MODID:block/sweet_peas/$COLOR/3"
     },
-    "burnt=false,east=true,north=true,south=true,up=false,west=true": {
+    "cut=false,east=true,north=true,south=true,up=false,west=true": {
       "model": "$MODID:block/sweet_peas/$COLOR/4"
     },
-    "burnt=false,east=true,north=true,south=true,up=true,west=false": {
+    "cut=false,east=true,north=true,south=true,up=true,west=false": {
       "model": "$MODID:block/sweet_peas/$COLOR/3u"
     },
-    "burnt=false,east=true,north=true,south=true,up=true,west=true": {
+    "cut=false,east=true,north=true,south=true,up=true,west=true": {
       "model": "$MODID:block/sweet_peas/$COLOR/4u"
     },
-    "burnt=true,east=false,north=false,south=false,up=false,west=false": {
-      "model": "$MODID:block/sweet_peas/$COLOR/burnt_1"
+    "cut=true,east=false,north=false,south=false,up=false,west=false": {
+      "model": "$MODID:block/sweet_peas/$COLOR/cut_1"
     },
-    "burnt=true,east=false,north=false,south=false,up=false,west=true": {
-      "model": "$MODID:block/sweet_peas/$COLOR/burnt_1",
+    "cut=true,east=false,north=false,south=false,up=false,west=true": {
+      "model": "$MODID:block/sweet_peas/$COLOR/cut_1",
       "y": 90
     },
-    "burnt=true,east=false,north=false,south=false,up=true,west=false": {
-      "model": "$MODID:block/sweet_peas/$COLOR/burnt_u"
+    "cut=true,east=false,north=false,south=false,up=true,west=false": {
+      "model": "$MODID:block/sweet_peas/$COLOR/cut_u"
     },
-    "burnt=true,east=false,north=false,south=false,up=true,west=true": {
-      "model": "$MODID:block/sweet_peas/$COLOR/burnt_1u",
+    "cut=true,east=false,north=false,south=false,up=true,west=true": {
+      "model": "$MODID:block/sweet_peas/$COLOR/cut_1u",
       "y": 90
     },
-    "burnt=true,east=false,north=false,south=true,up=false,west=false": {
-      "model": "$MODID:block/sweet_peas/$COLOR/burnt_1"
+    "cut=true,east=false,north=false,south=true,up=false,west=false": {
+      "model": "$MODID:block/sweet_peas/$COLOR/cut_1"
     },
-    "burnt=true,east=false,north=false,south=true,up=false,west=true": {
-      "model": "$MODID:block/sweet_peas/$COLOR/burnt_2",
+    "cut=true,east=false,north=false,south=true,up=false,west=true": {
+      "model": "$MODID:block/sweet_peas/$COLOR/cut_2",
       "y": 180
     },
-    "burnt=true,east=false,north=false,south=true,up=true,west=false": {
-      "model": "$MODID:block/sweet_peas/$COLOR/burnt_1u"
+    "cut=true,east=false,north=false,south=true,up=true,west=false": {
+      "model": "$MODID:block/sweet_peas/$COLOR/cut_1u"
     },
-    "burnt=true,east=false,north=false,south=true,up=true,west=true": {
-      "model": "$MODID:block/sweet_peas/$COLOR/burnt_2u",
+    "cut=true,east=false,north=false,south=true,up=true,west=true": {
+      "model": "$MODID:block/sweet_peas/$COLOR/cut_2u",
       "y": 180
     },
-    "burnt=true,east=false,north=true,south=false,up=false,west=false": {
-      "model": "$MODID:block/sweet_peas/$COLOR/burnt_1",
+    "cut=true,east=false,north=true,south=false,up=false,west=false": {
+      "model": "$MODID:block/sweet_peas/$COLOR/cut_1",
       "y": 180
     },
-    "burnt=true,east=false,north=true,south=false,up=false,west=true": {
-      "model": "$MODID:block/sweet_peas/$COLOR/burnt_2",
+    "cut=true,east=false,north=true,south=false,up=false,west=true": {
+      "model": "$MODID:block/sweet_peas/$COLOR/cut_2",
       "y": 270
     },
-    "burnt=true,east=false,north=true,south=false,up=true,west=false": {
-      "model": "$MODID:block/sweet_peas/$COLOR/burnt_1u",
+    "cut=true,east=false,north=true,south=false,up=true,west=false": {
+      "model": "$MODID:block/sweet_peas/$COLOR/cut_1u",
       "y": 180
     },
-    "burnt=true,east=false,north=true,south=false,up=true,west=true": {
-      "model": "$MODID:block/sweet_peas/$COLOR/burnt_2u",
+    "cut=true,east=false,north=true,south=false,up=true,west=true": {
+      "model": "$MODID:block/sweet_peas/$COLOR/cut_2u",
       "y": 270
     },
-    "burnt=true,east=false,north=true,south=true,up=false,west=false": {
-      "model": "$MODID:block/sweet_peas/$COLOR/burnt_2_opposite",
+    "cut=true,east=false,north=true,south=true,up=false,west=false": {
+      "model": "$MODID:block/sweet_peas/$COLOR/cut_2_opposite",
       "y": 90
     },
-    "burnt=true,east=false,north=true,south=true,up=false,west=true": {
-      "model": "$MODID:block/sweet_peas/$COLOR/burnt_3",
+    "cut=true,east=false,north=true,south=true,up=false,west=true": {
+      "model": "$MODID:block/sweet_peas/$COLOR/cut_3",
       "y": 180
     },
-    "burnt=true,east=false,north=true,south=true,up=true,west=false": {
-      "model": "$MODID:block/sweet_peas/$COLOR/burnt_2u_opposite",
+    "cut=true,east=false,north=true,south=true,up=true,west=false": {
+      "model": "$MODID:block/sweet_peas/$COLOR/cut_2u_opposite",
       "y": 90
     },
-    "burnt=true,east=false,north=true,south=true,up=true,west=true": {
-      "model": "$MODID:block/sweet_peas/$COLOR/burnt_3u",
+    "cut=true,east=false,north=true,south=true,up=true,west=true": {
+      "model": "$MODID:block/sweet_peas/$COLOR/cut_3u",
       "y": 180
     },
-    "burnt=true,east=true,north=false,south=false,up=false,west=false": {
-      "model": "$MODID:block/sweet_peas/$COLOR/burnt_1",
+    "cut=true,east=true,north=false,south=false,up=false,west=false": {
+      "model": "$MODID:block/sweet_peas/$COLOR/cut_1",
       "y": 270
     },
-    "burnt=true,east=true,north=false,south=false,up=false,west=true": {
-      "model": "$MODID:block/sweet_peas/$COLOR/burnt_2_opposite"
+    "cut=true,east=true,north=false,south=false,up=false,west=true": {
+      "model": "$MODID:block/sweet_peas/$COLOR/cut_2_opposite"
     },
-    "burnt=true,east=true,north=false,south=false,up=true,west=false": {
-      "model": "$MODID:block/sweet_peas/$COLOR/burnt_1u",
+    "cut=true,east=true,north=false,south=false,up=true,west=false": {
+      "model": "$MODID:block/sweet_peas/$COLOR/cut_1u",
       "y": 270
     },
-    "burnt=true,east=true,north=false,south=false,up=true,west=true": {
-      "model": "$MODID:block/sweet_peas/$COLOR/burnt_2u_opposite"
+    "cut=true,east=true,north=false,south=false,up=true,west=true": {
+      "model": "$MODID:block/sweet_peas/$COLOR/cut_2u_opposite"
     },
-    "burnt=true,east=true,north=false,south=true,up=false,west=false": {
-      "model": "$MODID:block/sweet_peas/$COLOR/burnt_2",
+    "cut=true,east=true,north=false,south=true,up=false,west=false": {
+      "model": "$MODID:block/sweet_peas/$COLOR/cut_2",
       "y": 90
     },
-    "burnt=true,east=true,north=false,south=true,up=false,west=true": {
-      "model": "$MODID:block/sweet_peas/$COLOR/burnt_3",
+    "cut=true,east=true,north=false,south=true,up=false,west=true": {
+      "model": "$MODID:block/sweet_peas/$COLOR/cut_3",
       "y": 90
     },
-    "burnt=true,east=true,north=false,south=true,up=true,west=false": {
-      "model": "$MODID:block/sweet_peas/$COLOR/burnt_2u",
+    "cut=true,east=true,north=false,south=true,up=true,west=false": {
+      "model": "$MODID:block/sweet_peas/$COLOR/cut_2u",
       "y": 90
     },
-    "burnt=true,east=true,north=false,south=true,up=true,west=true": {
-      "model": "$MODID:block/sweet_peas/$COLOR/burnt_3u",
+    "cut=true,east=true,north=false,south=true,up=true,west=true": {
+      "model": "$MODID:block/sweet_peas/$COLOR/cut_3u",
       "y": 90
     },
-    "burnt=true,east=true,north=true,south=false,up=false,west=false": {
-      "model": "$MODID:block/sweet_peas/$COLOR/burnt_2"
+    "cut=true,east=true,north=true,south=false,up=false,west=false": {
+      "model": "$MODID:block/sweet_peas/$COLOR/cut_2"
     },
-    "burnt=true,east=true,north=true,south=false,up=false,west=true": {
-      "model": "$MODID:block/sweet_peas/$COLOR/burnt_3",
+    "cut=true,east=true,north=true,south=false,up=false,west=true": {
+      "model": "$MODID:block/sweet_peas/$COLOR/cut_3",
       "y": 270
     },
-    "burnt=true,east=true,north=true,south=false,up=true,west=false": {
-      "model": "$MODID:block/sweet_peas/$COLOR/burnt_2u"
+    "cut=true,east=true,north=true,south=false,up=true,west=false": {
+      "model": "$MODID:block/sweet_peas/$COLOR/cut_2u"
     },
-    "burnt=true,east=true,north=true,south=false,up=true,west=true": {
-      "model": "$MODID:block/sweet_peas/$COLOR/burnt_3u",
+    "cut=true,east=true,north=true,south=false,up=true,west=true": {
+      "model": "$MODID:block/sweet_peas/$COLOR/cut_3u",
       "y": 270
     },
-    "burnt=true,east=true,north=true,south=true,up=false,west=false": {
-      "model": "$MODID:block/sweet_peas/$COLOR/burnt_3"
+    "cut=true,east=true,north=true,south=true,up=false,west=false": {
+      "model": "$MODID:block/sweet_peas/$COLOR/cut_3"
     },
-    "burnt=true,east=true,north=true,south=true,up=false,west=true": {
-      "model": "$MODID:block/sweet_peas/$COLOR/burnt_4"
+    "cut=true,east=true,north=true,south=true,up=false,west=true": {
+      "model": "$MODID:block/sweet_peas/$COLOR/cut_4"
     },
-    "burnt=true,east=true,north=true,south=true,up=true,west=false": {
-      "model": "$MODID:block/sweet_peas/$COLOR/burnt_3u"
+    "cut=true,east=true,north=true,south=true,up=true,west=false": {
+      "model": "$MODID:block/sweet_peas/$COLOR/cut_3u"
     },
-    "burnt=true,east=true,north=true,south=true,up=true,west=true": {
-      "model": "$MODID:block/sweet_peas/$COLOR/burnt_4u"
+    "cut=true,east=true,north=true,south=true,up=true,west=true": {
+      "model": "$MODID:block/sweet_peas/$COLOR/cut_4u"
     }
   }
 }

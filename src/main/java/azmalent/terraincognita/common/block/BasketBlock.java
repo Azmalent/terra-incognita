@@ -59,6 +59,12 @@ public class BasketBlock extends HorizontalDirectionalBlock implements EntityBlo
         builder.add(FACING, WATERLOGGED);
     }
 
+    @Nullable
+    @Override
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new BasketBlockEntity(pos, state);
+    }
+
     @Nonnull
     @Override
     public BlockState rotate(BlockState state, Rotation rot) {

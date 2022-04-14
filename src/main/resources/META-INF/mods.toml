@@ -4,7 +4,7 @@ license="GPL v3.0"
 
 [[mods]]
 modId="terraincognita"
-version="${mod_version}"
+version="1.18.2-2.0"
 displayName="${mod_name}"
 logoFile="terraincognita.png"
 authors="Azmalent"
@@ -34,43 +34,22 @@ An expansion focusing on nature and exploration.
     side="BOTH"
 
 [[dependencies.terraincognita]]
+    modId="terrablender"
+    mandatory=true
+    versionRange="[${terrablender_version},)"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.terraincognita]]
     modId="jei"
     mandatory=false
-    versionRange="[7.6.0,)"
+    versionRange="[${jei_version},)"
     ordering="AFTER"
     side="CLIENT"
 
 [[dependencies.terraincognita]]
     modId="quark"
     mandatory=false
-    versionRange="[r2.4-312,)"
-    ordering="AFTER"
-    side="BOTH"
-
-[[dependencies.terraincognita]]
-    modId="buzzier_bees"
-    mandatory=false
-    versionRange="[3,)"
-    ordering="AFTER"
-    side="BOTH"
-
-[[dependencies.terraincognita]]
-    modId="upgrade_aquatic"
-    mandatory=false
-    versionRange="[3,)"
-    ordering="AFTER"
-    side="BOTH"
-
-[[dependencies.terraincognita]]
-    modId="farmersdelight"
-    mandatory=false
-    versionRange="[0.4,)"
-    ordering="AFTER"
-    side="BOTH"
-
-[[dependencies.terraincognita]]
-    modId="simplytea"
-    mandatory=false
-    versionRange="[2.4.0,)"
+    versionRange="[${quark_version},)"
     ordering="AFTER"
     side="BOTH"

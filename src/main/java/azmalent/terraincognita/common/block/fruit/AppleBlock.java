@@ -23,7 +23,7 @@ public class AppleBlock extends AbstractFruitBlock {
     private static final VoxelShape BIG_SHAPE = box(5, 7, 5, 11, 13, 11);
 
     public AppleBlock() {
-        super(Block.Properties.of(Material.DECORATION, MaterialColor.COLOR_RED).strength(0.2F).sound(SoundType.WOOD), () -> Items.APPLE, 15);
+        super(Block.Properties.of(Material.DECORATION, MaterialColor.COLOR_RED).strength(0.2F).sound(SoundType.WOOD).dynamicShape(), () -> Items.APPLE, 15);
     }
 
     @Nonnull

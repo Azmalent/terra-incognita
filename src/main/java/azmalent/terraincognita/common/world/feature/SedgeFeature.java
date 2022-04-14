@@ -46,11 +46,11 @@ public class SedgeFeature extends Feature<NoneFeatureConfiguration> {
                 nextPos.setY(nextPos.getY() + j);
 
                 boolean isWater = level.getFluidState(nextPos).getType() == Fluids.WATER;
-                BlockState reeds = ModBlocks.SEDGE.getBlock().defaultBlockState()
+                BlockState sedge = ModBlocks.SEDGE.getBlock().defaultBlockState()
                     .setValue(SedgeBlock.WATERLOGGED, isWater);
 
-                if ((isWater || level.isEmptyBlock(nextPos) || level.getBlockState(nextPos).getMaterial().isReplaceable()) && reeds.canSurvive(level, nextPos)) {
-                    level.setBlock(nextPos, reeds, 2);
+                if ((isWater || level.isEmptyBlock(nextPos) || level.getBlockState(nextPos).getMaterial().isReplaceable()) && sedge.canSurvive(level, nextPos)) {
+                    level.setBlock(nextPos, sedge, 2);
                     success = true;
                 }
                 else {

@@ -23,8 +23,8 @@ public class WorldGenUtil {
         return ResourceKey.create(Registry.BIOME_REGISTRY, location);
     }
 
-    public static ResourceKey<Biome> getBiomeKey(Biome biome) {
-        return getBiomeKey(biome.getRegistryName());
+    public static ResourceKey<Biome> getBiomeKey(Holder<Biome> biome) {
+        return getBiomeKey(biome.value().getRegistryName());
     }
 
     public static boolean hasAnyBiomeType(ResourceKey<Biome> biome, BiomeDictionary.Type... types) {
@@ -35,8 +35,9 @@ public class WorldGenUtil {
         return false;
     }
 
-    public static Biome.BiomeCategory getProperBiomeCategory(Biome biome) {
-        Biome.BiomeCategory category = biome.getBiomeCategory();
+    @SuppressWarnings("deprecation")
+    public static Biome.BiomeCategory getProperBiomeCategory(Holder<Biome> biome) {
+        Biome.BiomeCategory category = Biome.getBiomeCategory(biome);
         ResourceKey<Biome> key = getBiomeKey(biome);
 
         if (category == Biome.BiomeCategory.PLAINS) {
@@ -56,18 +57,21 @@ public class WorldGenUtil {
         }
     }
 
+    @SafeVarargs
     public static void addVegetation(BiomeGenerationSettingsBuilder builder, Holder<PlacedFeature>... features) {
         for (Holder<PlacedFeature> feature : features) {
             builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, feature);
         }
     }
 
+    @SafeVarargs
     public static void addOre(BiomeGenerationSettingsBuilder builder, Holder<PlacedFeature>... features) {
         for (Holder<PlacedFeature> feature : features) {
             builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, feature);
         }
     }
 
+    @SafeVarargs
     public static void addModification(BiomeGenerationSettingsBuilder builder, Holder<PlacedFeature>... features) {
         for (Holder<PlacedFeature> feature : features) {
             builder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, feature);

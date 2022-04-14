@@ -10,7 +10,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.WaterlilyBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -23,7 +22,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Random;
 
 @SuppressWarnings("deprecation")
-public class SourBerrySproutBlock extends WaterlilyBlock implements BonemealableBlock {
+public class SourBerrySproutBlock extends TILilyPadBlock implements BonemealableBlock {
     protected static final VoxelShape SHAPE = Block.box(4.0D, 0.0D, 4.0D, 12.0D, 1.5D, 12.0D);
 
     public SourBerrySproutBlock() {

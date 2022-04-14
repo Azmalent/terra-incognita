@@ -22,7 +22,7 @@ public class HazelnutBlock extends AbstractFruitBlock {
     private static final VoxelShape SHAPE = box(6, 12, 6, 10, 16, 10);
 
     public HazelnutBlock() {
-        super(Block.Properties.of(Material.DECORATION).strength(0.2F).sound(SoundType.WOOD), ModItems.HAZELNUT, 7);
+        super(Block.Properties.of(Material.DECORATION).strength(0.2F).sound(SoundType.WOOD).dynamicShape(), ModItems.HAZELNUT, 7);
     }
 
     @Nonnull

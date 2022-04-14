@@ -160,7 +160,7 @@ public class EventHandler {
         Player player = event.getPlayer();
         ItemStack basket = BasketItem.getBasketInHand(player);
 
-        if (basket != null && !stack.isEmpty() && stack.is(ModItemTags.BASKET_STORABLE)) {
+        if (basket != null && !stack.isEmpty() && stack.getItem().canFitInsideContainerItems() && stack.is(ModItemTags.BASKET_STORABLE)) {
             BasketStackHandler stackHandler = BasketItem.getStackHandler(basket);
             ItemStack remainingStack = ItemHandlerHelper.insertItemStacked(stackHandler, stack, false);
 

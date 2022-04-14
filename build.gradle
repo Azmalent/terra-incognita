@@ -36,7 +36,6 @@ minecraft {
     runs {
         client {
             workingDirectory project.file('run')
-            arg "-mixin.config=terraincognita.mixins.json"
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
             mods {
@@ -48,7 +47,6 @@ minecraft {
 
         server {
             workingDirectory project.file('run')
-            arg "-mixin.config=terraincognita.mixins.json"
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
             mods {
@@ -62,7 +60,7 @@ minecraft {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
-            args '--mod', 'terraincognita', '--all', '--output', file('src/generated/resources/'), '-mixin.config=terraincognita.mixins.json'
+            args '--mod', 'terraincognita', '--all', '--output', file('src/generated/resources/')
             mods {
                 terraincognita {
                     source sourceSets.main
@@ -75,6 +73,7 @@ minecraft {
 
 mixin {
     add sourceSets.main, "${config.modid}.mixins.refmap.json"
+    config "${config.modid}.mixins.json"
 }
 
 repositories {
@@ -102,25 +101,30 @@ repositories {
 dependencies {
     minecraft "net.minecraftforge:forge:${config.minecraft_version}-${config.forge_version}"
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
-    implementation name: "cuneiform-${config.minecraft_version}-${config.cuneiform_version}"
+
+    implementation fg.deobf("curse.maven:cuneiform-419176:${config.cuneiform_file_id}")
     implementation fg.deobf("com.github.glitchfiend:TerraBlender-forge:${config.minecraft_version}-${config.terrablender_version}")
 
-    compileOnly fg.deobf("mezz.jei:jei-${config.minecraft_version}:${config.jei_version}:api")
+    implementation fg.deobf("mezz.jei:jei-${config.minecraft_version}:${config.jei_version}:api")
     compileOnly fg.deobf("curse.maven:jade-api-324717:${config.jade_api_file_id}")
     implementation fg.deobf("curse.maven:jade-324717:${config.jade_file_id}")
     implementation fg.deobf("curse.maven:the-one-probe-245211:3671753") //not yet on maven
 
-    compileOnly fg.deobf("vazkii.quark:Quark:${config.quark_version}")
+    runtimeOnly fg.deobf("vazkii.autoreglib:AutoRegLib:1.7-54.112")
+    implementation fg.deobf("vazkii.quark:Quark:${config.quark_version}.${config.quark_build_number}")
 }
 
 processResources {
     from(sourceSets.main.resources.srcDirs) {
         include 'META-INF/mods.toml'
 
-        expand 'mod_name': config.mod_name, 'mod_version': config.project.version,
+        expand 'mod_name': config.mod_name, 'mod_version': project.version,
                 'minecraft_version': config.minecraft_version, 'minecraft_version_range': config.minecraft_version_range,
                 'fml_min': config.fml_min, 'forge_version': config.forge_version,
-                'cuneiform_version': config.cuneiform_version
+                'cuneiform_version': config.cuneiform_version,
+                'terrablender_version': config.terrablender_version,
+                'jei_version': config.jei_version,
+                'quark_version': config.quark_version
     }
 
     from(sourceSets.main.resources.srcDirs) {

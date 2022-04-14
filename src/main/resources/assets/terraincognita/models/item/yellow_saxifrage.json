@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "terraincognita:block/saxifrage"
+    "layer0": "terraincognita:block/yellow_saxifrage"
   }
 }

@@ -2,7 +2,7 @@ package azmalent.terraincognita.common.registry;
 
 import azmalent.cuneiform.common.data.FuelHandler;
 import azmalent.cuneiform.lib.registry.ItemEntry;
-import azmalent.terraincognita.common.woodtype.ModWoodType;
+import azmalent.terraincognita.common.woodtype.TIWoodType;
 import azmalent.terraincognita.common.entity.IBottleableEntity;
 import azmalent.terraincognita.common.entity.butterfly.Butterfly;
 import azmalent.terraincognita.common.item.*;
@@ -87,12 +87,12 @@ public class ModItems {
     }
 
     @SuppressWarnings("SameParameterValue")
-    private static <T extends LivingEntity & IBottleableEntity> ItemEntry bottledEntity(String entityId, Supplier<EntityType<T>> type, BiConsumer<CompoundTag, List<Component>> tooltipHandler) {
-        return REG_HELPER.createItem("bottled_" + entityId, () -> new BottledEntityItem<T>(type, tooltipHandler));
+    private static <T extends LivingEntity & IBottleableEntity> ItemEntry<BottledEntityItem<T>> bottledEntity(String entityId, Supplier<EntityType<T>> type, BiConsumer<CompoundTag, List<Component>> tooltipHandler) {
+        return REG_HELPER.createItem("bottled_" + entityId, () -> new BottledEntityItem<>(type, tooltipHandler));
     }
 
     public static void initFuelValues() {
-        for (ModWoodType woodType : ModWoodTypes.VALUES) {
+        for (TIWoodType woodType : ModWoodTypes.VALUES) {
             FuelHandler.registerFuel(1.5f,woodType.LOG, woodType.STRIPPED_LOG, woodType.WOOD, woodType.STRIPPED_WOOD);
             FuelHandler.registerFuel(1.5f, woodType.PLANKS);
             FuelHandler.registerFuel(0.75f, woodType.SLAB);

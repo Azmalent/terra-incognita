@@ -39,6 +39,10 @@ public final class PottablePlantEntry implements ItemLike {
         return plant.asItem();
     }
 
+    public ItemStack makeStack() {
+        return new ItemStack(this.asItem());
+    }
+
     public Block getPotted() {
         return potted.get();
     }

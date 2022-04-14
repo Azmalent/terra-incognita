@@ -8,29 +8,8 @@
   "cookingtime": 200,
   "conditions": [
     {
-      "type": "forge:and",
-      "values": [
-        {
-          "type": "cuneiform:config",
-          "config": "terraincognita:blowpipe"
-        },
-        {
-          "type": "forge:not",
-          "value": {
-            "type": "forge:and",
-            "values": [
-              {
-                "type": "forge:mod_loaded",
-                "modid": "quark"
-              },
-              {
-                "type": "quark:flag",
-                "flag": "midori"
-              }
-            ]
-          }
-        }
-      ]
+      "type": "cuneiform:config",
+      "config": "terraincognita:blowpipe"
     }
   ]
 }

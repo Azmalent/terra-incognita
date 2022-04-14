@@ -115,7 +115,7 @@ public abstract class CactusBlockMixin extends Block {
     @SuppressWarnings("deprecation")
     public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, Player player, @NotNull InteractionHand handIn, @NotNull BlockHitResult hit) {
         ItemStack shears = player.getItemInHand(handIn);
-        if (this == Blocks.CACTUS && Tags.Items.SHEARS.contains(shears.getItem())) {
+        if (this == Blocks.CACTUS && shears.is(Tags.Items.SHEARS)) {
             level.setBlockAndUpdate(pos, ModBlocks.SMOOTH_CACTUS.defaultBlockState());
 
             level.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.SHEEP_SHEAR, SoundSource.BLOCKS, 0.5F, 1.0F);

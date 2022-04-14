@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:meadow"
+  ],
+  "optional": [
+    "byg:canadian_shield",
+    "byg:skyris_vale",
+    "byg:black_forest",
+    "byg:guiana_shield"
+  ]
+}

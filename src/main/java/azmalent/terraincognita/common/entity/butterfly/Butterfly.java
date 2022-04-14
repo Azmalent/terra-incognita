@@ -2,6 +2,7 @@ package azmalent.terraincognita.common.entity.butterfly;
 
 import azmalent.cuneiform.lib.collections.WeightedList;
 import azmalent.terraincognita.TerraIncognita;
+import azmalent.terraincognita.common.ModBiomeTags;
 import azmalent.terraincognita.common.entity.butterfly.ai.ButterflyLandOnFlowerGoal;
 import azmalent.terraincognita.common.entity.butterfly.ai.ButterflyRestGoal;
 import azmalent.terraincognita.common.entity.butterfly.ai.ButterflyWanderGoal;
@@ -10,6 +11,7 @@ import azmalent.terraincognita.common.registry.ModItems;
 import azmalent.terraincognita.util.WorldGenUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -18,6 +20,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -224,7 +227,7 @@ public class Butterfly extends AbstractButterfly {
     @Nullable
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn, CompoundTag dataTag) {
-        Biome biome = level.getBiome(this.blockPosition());
+        Holder<Biome> biome = level.getBiome(this.blockPosition());
         Type type = Type.getRandomType(biome, level.getRandom());
         setButterflyType(type);
 
@@ -270,29 +273,38 @@ public class Butterfly extends AbstractButterfly {
         WHITE_ADMIRAL(6, "white_admiral", 0.6f, 0.1f),
         RED_ADMIRAL(7, "red_admiral", 0.6f, 0.15f),
         SPECKLED_WOOD(8, "speckled_wood", 0.5f, 0.1f),
-        PURPLE_EMPEROR(9, "purple_emperor", 0.7f, 0.15f);
+        PURPLE_EMPEROR(9, "purple_emperor", 0.7f, 0.15f),
+        RINGLET(10, "ringlet", 0.7f, 0.15f),
+        SWALLOWTAIL(11, "swallowtail", 0.7f, 0.15f),
+        MOURNING_CLOAK(12, "mourning_cloak", 0.7f, 0.15f);
 
         private static final Type[] VALUES = Arrays.stream(values()).sorted(Comparator.comparingInt(Type::getIndex)).toArray(Type[]::new);
         private static final Map<String, Type> TYPES_BY_NAME = Arrays.stream(values()).collect(Collectors.toMap(Type::getName, name -> name));
 
-        private static final WeightedList<Type> COMMON_TYPES = new WeightedList<>();
-        private static final WeightedList<Type> PLAINS_TYPES = new WeightedList<>();
-        private static final WeightedList<Type> FOREST_TYPES = new WeightedList<>();
+        private static final SimpleWeightedRandomList<Type> COMMON_TYPES = SimpleWeightedRandomList.<Type>builder()
+            .add(CABBAGE_WHITE, 5)
+            .add(PEACOCK, 4)
+            .add(MONARCH, 3)
+            .add(RED_ADMIRAL, 2)
+            .build();
 
-        static {
-            COMMON_TYPES.add(CABBAGE_WHITE, 5);
-            COMMON_TYPES.add(PEACOCK, 4);
-            COMMON_TYPES.add(MONARCH, 3);
-            COMMON_TYPES.add(RED_ADMIRAL, 2);
+        private static final SimpleWeightedRandomList<Type> PLAINS_TYPES = SimpleWeightedRandomList.<Type>builder()
+            .add(BRIMSTONE, 5)
+            .add(COMMON_BLUE, 4)
+            .add(ORANGE_TIP, 1)
+            .build();
 
-            PLAINS_TYPES.add(BRIMSTONE, 5);
-            PLAINS_TYPES.add(COMMON_BLUE, 4);
-            PLAINS_TYPES.add(ORANGE_TIP, 1);
+        private static final SimpleWeightedRandomList<Type> FOREST_TYPES = SimpleWeightedRandomList.<Type>builder()
+            .add(WHITE_ADMIRAL, 5)
+            .add(SPECKLED_WOOD, 4)
+            .add(PURPLE_EMPEROR, 1)
+            .build();
 
-            FOREST_TYPES.add(WHITE_ADMIRAL, 5);
-            FOREST_TYPES.add(SPECKLED_WOOD, 4);
-            FOREST_TYPES.add(PURPLE_EMPEROR, 1);
-        }
+        private static final SimpleWeightedRandomList<Type> MOUNTAIN_TYPES = SimpleWeightedRandomList.<Type>builder()
+            .add(RINGLET, 5)
+            .add(SWALLOWTAIL, 3)
+            .add(MOURNING_CLOAK, 1)
+            .build();
 
         private final int index;
         private final String name;
@@ -342,19 +354,19 @@ public class Butterfly extends AbstractButterfly {
             return VALUES[indexIn];
         }
 
-        @SuppressWarnings("ConstantConditions")
-        public static Type getRandomType(Biome biome, Random random) {
-            if (random.nextFloat() < 0.66) {
-                Biome.BiomeCategory category = WorldGenUtil.getProperBiomeCategory(biome);
-                switch (category) {
-                    case PLAINS:
-                        return PLAINS_TYPES.sample(random);
-                    case FOREST:
-                        return FOREST_TYPES.sample(random);
+        public static Type getRandomType(Holder<Biome> biome, Random random) {
+            SimpleWeightedRandomList<Type> list = COMMON_TYPES;
+            if (random.nextDouble() < 0.66) {
+                if (biome.is(ModBiomeTags.SPAWNS_PLAINS_BUTTERFLIES)) {
+                    list = PLAINS_TYPES;
+                } else if (biome.is(ModBiomeTags.SPAWNS_FOREST_BUTTERFLIES)) {
+                    list = FOREST_TYPES;
+                } else if (biome.is(ModBiomeTags.SPAWNS_MOUNTAIN_BUTTERFLIES)) {
+                    list = MOUNTAIN_TYPES;
                 }
             }
 
-            return COMMON_TYPES.sample(random);
+            return list.getRandomValue(random).orElse(CABBAGE_WHITE);
         }
     }
 }

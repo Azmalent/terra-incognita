@@ -51,6 +51,7 @@ public class BasketMenu extends AbstractContainerMenu {
         super(ModMenus.BASKET.get(), windowId);
         this.useContext = useContext;
 
+        //todo: use ContainerUtil
         // Add the players hotbar to the gui - the [xpos, ypos] location of each item
         for (int i = 0; i < HOTBAR_SLOT_COUNT; i++) {
             addSlot(new Slot(playerInventory, i, PLAYER_INVENTORY_X + SLOT_OFFSET * i, HOTBAR_Y));
@@ -90,7 +91,7 @@ public class BasketMenu extends AbstractContainerMenu {
     @Override
     public ItemStack quickMoveStack(@NotNull Player player, int index) {
         Slot sourceSlot = slots.get(index);
-        if (sourceSlot == null || !sourceSlot.hasItem()) return ItemStack.EMPTY;
+        if (!sourceSlot.hasItem()) return ItemStack.EMPTY;
         ItemStack sourceStack = sourceSlot.getItem();
 
         if (index < VANILLA_SLOT_COUNT) {
@@ -124,33 +125,19 @@ public class BasketMenu extends AbstractContainerMenu {
     private interface IUseContext {
         boolean canInteractWith(@Nonnull Player player);
 
-        final class Block implements IUseContext {
-            private final Level world;
-            private final BlockPos pos;
-
-            public Block(Level world, BlockPos pos) {
-                this.world = world;
-                this.pos = pos;
-            }
-
+        record Block(Level world, BlockPos pos) implements IUseContext {
             @Override
             public boolean canInteractWith(@Nonnull Player player) {
                 BlockEntity te = world.getBlockEntity(pos);
-                if (te instanceof BasketBlockEntity) {
-                    return player.distanceToSqr(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5) < 64;
+                if (te instanceof BasketBlockEntity basket) {
+                    return basket.stillValid(player);
                 }
 
                 return false;
             }
         }
 
-        final class Item implements IUseContext {
-            private final ItemStack heldStack;
-
-            public Item(ItemStack heldStack) {
-                this.heldStack = heldStack;
-            }
-
+        record Item(ItemStack heldStack) implements IUseContext {
             @Override
             public boolean canInteractWith(@Nonnull Player player) {
                 ItemStack main = player.getMainHandItem();

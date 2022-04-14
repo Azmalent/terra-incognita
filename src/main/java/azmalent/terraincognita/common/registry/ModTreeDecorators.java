@@ -1,8 +1,8 @@
 package azmalent.terraincognita.common.registry;
 
 import azmalent.terraincognita.TerraIncognita;
-import azmalent.terraincognita.common.world.treedecorator.AppleTreeDecorator;
-import azmalent.terraincognita.common.world.treedecorator.HazelnutTreeDecorator;
+import azmalent.terraincognita.common.world.tree.decorator.AppleTreeDecorator;
+import azmalent.terraincognita.common.world.tree.decorator.HazelnutTreeDecorator;
 import azmalent.terraincognita.mixin.accessor.TreeDecoratorTypeAccessor;
 import com.mojang.serialization.Codec;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;

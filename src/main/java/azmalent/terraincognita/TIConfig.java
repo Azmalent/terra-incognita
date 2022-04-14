@@ -22,9 +22,6 @@ public class TIConfig extends CommonConfigFile {
         new TIConfig().register();
     }
 
-    @Comment("Worldgen features will not be added to the biomes listed here.")
-    public static final RegistryListOption<Biome> biomeBlacklist = new RegistryListOption<>(ForgeRegistries.BIOMES, Lists.newArrayList());
-
     public static class Food extends Category {
         @Name("Fern Fiddlehead Enabled")
         @Comment({"Fern fiddleheads can be found when breaking ferns. You can eat them raw or add them to suspicious stews.",
@@ -64,7 +61,7 @@ public class TIConfig extends CommonConfigFile {
         public static final DoubleOption dandelionPuffChance = new DoubleOption(0.5).inUnitRange();
 
         @Name("Field Flowers Enabled")
-        @Comment("Adds chicory, yarrow and daffodils to plains. Daffodils are rare, but they can also be found in flower forests.")
+        @Comment("Adds chicory, yarrow and daffodils to plains. These flowers can also be found in flower forests.")
         public static final BooleanOption fieldFlowers = new BooleanOption(true).withFlag("field_flowers");
 
 		@Name("Forest Flowers Enabled")
@@ -79,10 +76,10 @@ public class TIConfig extends CommonConfigFile {
         @Comment("Small lilypads can be found in swamps. They can be stacked up to 4, like sea pickles.")
         public static final BooleanOption smallLilypad = new BooleanOption(true);
 
-        @Name("Reeds Enabled")
-        @Comment({"Reeds are a sugarcane-like plant that can be found in swamps. They can be grown in the same way as sugar cane, or, alternatively, in one block deep water.",
-            "Reeds can be crafted into a variety of decorative wicker blocks and baskets."})
-        public static final BooleanOption reeds = new BooleanOption(true).withFlag("reeds");
+        @Name("Sedge Enabled")
+        @Comment({"Sedge is a sugarcane-like plant that can be found in swamps. It can be grown in the same way as sugar cane, or, alternatively, in one block deep water.",
+            "Sedge can be crafted into a variety of decorative wicker blocks and baskets."})
+        public static final BooleanOption sedge = new BooleanOption(true).withFlag("sedge");
 
         @Name("Savanna Flowers Enabled")
         @Comment("Adds marigolds, snapdragons, irises, oleanders and sage to savannas.")
@@ -150,7 +147,7 @@ public class TIConfig extends CommonConfigFile {
 
     public static class Tools extends Category {
         @Name("Basket Enabled")
-        @Comment({"Basket is a portable container crafted from swamp reeds (or sugar cane if reeds are disabled). It can be placed or opened from inventory.",
+        @Comment({"Basket is a portable container crafted from sedge (or sugar cane if sedge is disabled). It can be placed or opened from inventory.",
                 "Baskets have 9 slots and can only store forage such as flowers, saplings, mushrooms, seeds and eggs.",
                 "When you have a basket in your hand, it will automatically collect compatible items."})
         public static final BooleanOption basket = new BooleanOption(true).withFlag("basket");
@@ -168,7 +165,6 @@ public class TIConfig extends CommonConfigFile {
         public static final BooleanOption blowpipe = new BooleanOption(true).withFlag("blowpipe");
     }
 
-    @SuppressWarnings("GrazieInspection")
     public static class Misc extends Category {
         @Name("Peat Enabled")
         @Comment({"Peat is a block found underwater in swamps similar to clay.",
@@ -185,7 +181,7 @@ public class TIConfig extends CommonConfigFile {
         @Comment("This tweak only applies if apple trees are enabled.")
         public static final BooleanOption disableAppleDropFromOaks = new BooleanOption(true).withFlag("remove_oak_apples");
 
-        @Comment("Adds height variation to cacti, sugarcane and reeds.")
+        @Comment("Adds height variation to cacti, sugarcane and sedge.")
         public static final BooleanOption plantHeightVariation = new BooleanOption(true);
 
         @Comment("Adds composting recipes for dead bushes, bamboo, poisonous potatoes and chorus fruits/flowers.")

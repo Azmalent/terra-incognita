@@ -4,7 +4,7 @@ import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.TerraIncognita;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
-import mezz.jei.api.constants.VanillaRecipeCategoryUid;
+import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -25,7 +25,7 @@ public class JEIPlugin implements IModPlugin {
     @Override
     public void registerRecipes(@NotNull IRecipeRegistration registration) {
         if (TIConfig.Flora.wreath.get()) {
-            registration.addRecipes(WreathRecipeMaker.getRecipes(), VanillaRecipeCategoryUid.CRAFTING);
+            registration.addRecipes(RecipeTypes.CRAFTING, WreathRecipeMaker.getRecipes());
         }
     }
 }

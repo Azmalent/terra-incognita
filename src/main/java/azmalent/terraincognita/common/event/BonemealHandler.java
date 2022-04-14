@@ -4,6 +4,7 @@ import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.block.plant.SmallLilyPadBlock;
 import azmalent.terraincognita.common.registry.ModBlocks;
+import azmalent.terraincognita.util.WorldGenUtil;
 import net.minecraft.Util;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.Blocks;
@@ -61,7 +62,7 @@ public class BonemealHandler {
         //Don't grow lilypads when bonemealing growable plants
         if (world.getBlockState(pos).getBlock() instanceof BonemealableBlock) return;
 
-        Biome.BiomeCategory category = world.getBiome(pos).getBiomeCategory();
+        Biome.BiomeCategory category = WorldGenUtil.getProperBiomeCategory(world.getBiome(pos));
         if(category != Biome.BiomeCategory.SWAMP && category != Biome.BiomeCategory.JUNGLE) {
             return;
         }

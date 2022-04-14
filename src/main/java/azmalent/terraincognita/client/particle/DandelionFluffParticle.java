@@ -39,6 +39,7 @@ public class DandelionFluffParticle extends TextureSheetParticle {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     protected int getLightColor(float partialTick) {
         BlockPos blockPos = new BlockPos(this.x, this.y, this.z);
         return this.level.hasChunkAt(blockPos) ? LevelRenderer.getLightColor(this.level, blockPos) : 0;

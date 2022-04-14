@@ -7,7 +7,7 @@ import azmalent.terraincognita.common.block.plant.*;
 import azmalent.terraincognita.common.block.plant.ModFlowerBlock.StewEffect;
 import azmalent.terraincognita.common.block.fruit.AppleBlock;
 import azmalent.terraincognita.common.block.fruit.HazelnutBlock;
-import azmalent.terraincognita.common.woodtype.ModWoodType;
+import azmalent.terraincognita.common.woodtype.TIWoodType;
 import azmalent.terraincognita.common.item.block.BasketItem;
 import azmalent.terraincognita.common.item.block.CaltropsItem;
 import azmalent.terraincognita.common.item.block.DandelionPuffItem;
@@ -86,10 +86,10 @@ public class ModBlocks {
     public static final BlockEntry<SweetPeasBlock> LIGHT_BLUE_SWEET_PEAS  = createSweetPeas("light_blue");
 
     //Lily pads
-    public static final BlockEntry<WaterlilyBlock>[] LOTUSES;
-    public static final BlockEntry<WaterlilyBlock> PINK_LOTUS   = createLotus("pink");
-    public static final BlockEntry<WaterlilyBlock> WHITE_LOTUS  = createLotus("white");
-    public static final BlockEntry<WaterlilyBlock> YELLOW_LOTUS = createLotus("yellow");
+    public static final BlockEntry<TILilyPadBlock>[] LOTUSES;
+    public static final BlockEntry<TILilyPadBlock> PINK_LOTUS   = createLotus("pink");
+    public static final BlockEntry<TILilyPadBlock> WHITE_LOTUS  = createLotus("white");
+    public static final BlockEntry<TILilyPadBlock> YELLOW_LOTUS = createLotus("yellow");
     public static final BlockEntry<SmallLilyPadBlock> SMALL_LILY_PAD = REG_HELPER.createBlock("small_lilypad", SmallLilyPadBlock::new).blockItem(SmallLilypadItem::new).cutoutRender().build();
 
     //Fruits
@@ -97,7 +97,7 @@ public class ModBlocks {
     public static final BlockEntry<HazelnutBlock> HAZELNUT = REG_HELPER.createBlock("hazelnut", HazelnutBlock::new).noItemForm().cutoutRender().build();
 
     //Other vegetation
-    public static final PottablePlantEntry SEDGE = createPlant("reeds", SedgeBlock::new);
+    public static final PottablePlantEntry SEDGE = createPlant("sedge", SedgeBlock::new);
 
     public static final BlockEntry<SourBerrySproutBlock> SOUR_BERRY_SPROUTS = REG_HELPER.createBlock("sour_berry_sprouts", SourBerrySproutBlock::new).blockItem(WaterLilyBlockItem::new, CreativeModeTab.TAB_MISC).cutoutRender().build();
     public static final BlockEntry<SourBerryBushBlock> SOUR_BERRY_BUSH = REG_HELPER.createBlock("sour_berry_bush", SourBerryBushBlock::new).noItemForm().cutoutRender().build();
@@ -107,8 +107,8 @@ public class ModBlocks {
 
     public static final BlockEntry<HangingMossBlock> HANGING_MOSS = REG_HELPER.createBlock("hanging_moss", HangingMossBlock::new).cutoutRender().build();
 
-    public static final BlockEntry<SmoothCactusBlock> SMOOTH_CACTUS = REG_HELPER.createBlock("smooth_cactus", SmoothCactusBlock::new).cutoutRender().build();
     public static final PottablePlantEntry CACTUS_FLOWER = createPlant("cactus_flower", CactusFlowerBlock::new);
+    public static final BlockEntry<SmoothCactusBlock> SMOOTH_CACTUS = REG_HELPER.createBlock("smooth_cactus", SmoothCactusBlock::new).cutoutRender().build();
 
     //Other blocks
     public static final BlockEntry<PeatBlock> PEAT = REG_HELPER.createBlock("peat", PeatBlock::new).blockItem(CreativeModeTab.TAB_BUILDING_BLOCKS).build();
@@ -159,8 +159,8 @@ public class ModBlocks {
         return new PottablePlantEntry(id, builder.build());
     }
 
-    private static BlockEntry<WaterlilyBlock> createLotus(String color) {
-        return REG_HELPER.createBlock(color + "_lotus", WaterlilyBlock::new, Properties.copy(Blocks.LILY_PAD)).blockItem(WaterLilyBlockItem::new, TAB_DECORATIONS).cutoutRender().build();
+    private static BlockEntry<TILilyPadBlock> createLotus(String color) {
+        return REG_HELPER.createBlock(color + "_lotus", TILilyPadBlock::new, Properties.copy(Blocks.LILY_PAD)).blockItem(WaterLilyBlockItem::new, TAB_DECORATIONS).cutoutRender().build();
     }
 
     private static BlockEntry<SweetPeasBlock> createSweetPeas(String color) {
@@ -193,7 +193,7 @@ public class ModBlocks {
             DataUtil.registerFlammable(sweetPea, 15, 100);
         }
 
-        for (ModWoodType woodType : ModWoodTypes.VALUES) {
+        for (TIWoodType woodType : ModWoodTypes.VALUES) {
             woodType.initFlammability();
         }
 

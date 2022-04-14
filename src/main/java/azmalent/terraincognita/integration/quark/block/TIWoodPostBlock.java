@@ -28,6 +28,7 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
 
+@SuppressWarnings("deprecation")
 public class TIWoodPostBlock extends Block implements SimpleWaterloggedBlock {
     private static final VoxelShape SHAPE_X = Block.box(0F, 6F, 6F, 16F, 10F, 10F);
     private static final VoxelShape SHAPE_Y = Block.box(6F, 0F, 6F, 10F, 16F, 10F);
@@ -69,11 +70,11 @@ public class TIWoodPostBlock extends Block implements SimpleWaterloggedBlock {
     @Nonnull
     @Override
     public VoxelShape getShape(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
-        switch(state.getValue(AXIS)) {
-            case X: return SHAPE_X;
-            case Y: return SHAPE_Y;
-            default: return SHAPE_Z;
-        }
+        return switch (state.getValue(AXIS)) {
+            case X -> SHAPE_X;
+            case Y -> SHAPE_Y;
+            default -> SHAPE_Z;
+        };
     }
 
     @Nullable

@@ -6,7 +6,7 @@ import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.level.block.grower.AbstractTreeGrower;
 
-public final class HazelWoodType extends ModWoodType {
+public final class HazelWoodType extends TIWoodType {
     public HazelWoodType(String id, AbstractTreeGrower tree, MaterialColor woodColor, MaterialColor barkColor) {
         super(id, tree, woodColor, barkColor);
     }

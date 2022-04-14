@@ -82,6 +82,7 @@ public class WaterloggableTallFlowerBlock extends TallFlowerBlock implements Sim
 
     @Nonnull
     @Override
+    @SuppressWarnings("deprecation")
     public FluidState getFluidState(BlockState state) {
         return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }

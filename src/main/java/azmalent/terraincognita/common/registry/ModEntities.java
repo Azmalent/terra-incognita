@@ -1,9 +1,7 @@
 package azmalent.terraincognita.common.registry;
 
 import azmalent.terraincognita.TerraIncognita;
-import azmalent.terraincognita.client.renderer.entity.ButterflyRenderer;
-import azmalent.terraincognita.client.renderer.entity.ModBoatRenderer;
-import azmalent.terraincognita.common.entity.ModBoatEntity;
+import azmalent.terraincognita.common.entity.TIBoat;
 import azmalent.terraincognita.common.entity.butterfly.AbstractButterfly;
 import azmalent.terraincognita.common.entity.butterfly.Butterfly;
 import net.minecraft.world.entity.Entity;
@@ -11,9 +9,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -21,14 +16,14 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-@Mod.EventBusSubscriber(modid = TerraIncognita.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+@Mod.EventBusSubscriber(modid = TerraIncognita.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModEntities {
     public static final DeferredRegister<EntityType<?>> ENTITIES = TerraIncognita.REG_HELPER.getOrCreateRegistry(ForgeRegistries.ENTITIES);
 
-    public static final RegistryObject<EntityType<ModBoatEntity>> BOAT = register("boat",
-        EntityType.Builder.<ModBoatEntity>of(ModBoatEntity::new, MobCategory.MISC)
+    public static final RegistryObject<EntityType<TIBoat>> BOAT = register("boat",
+                                                                           EntityType.Builder.<TIBoat>of(TIBoat::new, MobCategory.MISC)
                 .sized(1.375F, 0.5625F)
-                .setCustomClientFactory(ModBoatEntity::new)
+                .setCustomClientFactory(TIBoat::new)
                 .clientTrackingRange(10)
     );
 
@@ -45,7 +40,7 @@ public class ModEntities {
 
     @SubscribeEvent
     public static void onAttributeCreation(EntityAttributeCreationEvent event) {
-        event.put(BUTTERFLY.get(), AbstractButterfly.bakeAttributes().build());
+        event.put(BUTTERFLY.get(), AbstractButterfly.createAttributes());
     }
 
     public static void registerSpawns() {

@@ -68,10 +68,9 @@ public class BasketBlockEntity extends BlockEntity implements MenuProvider, Worl
         return stack;
     }
 
-    @Nonnull
     @Override
-    public CompoundTag save(@NotNull CompoundTag tag) {
-        super.save(tag);
+    public void saveAdditional(@NotNull CompoundTag tag) {
+        super.saveAdditional(tag);
         if (stackHandler != null) {
             NonNullList<ItemStack> itemList = NonNullList.withSize(BasketMenu.SIZE, ItemStack.EMPTY);
             for (int i = 0; i < BasketMenu.SIZE; i++) {
@@ -90,8 +89,6 @@ public class BasketBlockEntity extends BlockEntity implements MenuProvider, Worl
             CompoundTag display = tag.getCompound("display");
             display.putString("Name", Component.Serializer.toJson(customName));
         }
-
-        return tag;
     }
 
     @Override
@@ -116,6 +113,7 @@ public class BasketBlockEntity extends BlockEntity implements MenuProvider, Worl
     }
 
     @Override
+    @SuppressWarnings("ConstantConditions")
     public boolean stillValid(@Nonnull Player player) {
         if (level.getBlockEntity(worldPosition) != this) return false;
 
@@ -190,7 +188,7 @@ public class BasketBlockEntity extends BlockEntity implements MenuProvider, Worl
 
     @Override
     public boolean canPlaceItemThroughFace(int index, ItemStack stack, @Nullable Direction direction) {
-        return stack.is(ModItemTags.BASKET_STORABLE);
+        return stack.getItem().canFitInsideContainerItems() && stack.is(ModItemTags.BASKET_STORABLE);
     }
 
     @Override

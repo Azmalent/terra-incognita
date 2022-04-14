@@ -6,7 +6,7 @@
   ],
   "key": {
     "R": {
-      "item": "terraincognita:reeds"
+      "item": "terraincognita:sedge"
     }
   },
   "result": {
@@ -19,7 +19,7 @@
       "values": [
         {
           "type": "cuneiform:config",
-          "config": "terraincognita:reeds"
+          "config": "terraincognita:sedge"
         },
         {
           "type": "cuneiform:config",

@@ -31,7 +31,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 //Copied from Quark VerticalSlabBlock with minor edits
-@SuppressWarnings("deprecation")
+@SuppressWarnings({"deprecation", "ConstantConditions"})
 public class TIVerticalSlabBlock extends Block implements SimpleWaterloggedBlock {
     public static final EnumProperty<VerticalSlabType> TYPE = EnumProperty.create("type", VerticalSlabType.class);
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
@@ -128,7 +128,7 @@ public class TIVerticalSlabBlock extends Block implements SimpleWaterloggedBlock
     @SuppressWarnings("deprecation")
     public BlockState updateShape(@Nonnull BlockState stateIn, @NotNull Direction facing, @NotNull BlockState facingState, @NotNull LevelAccessor level, @NotNull BlockPos currentPos, @NotNull BlockPos facingPos) {
         if(stateIn.getValue(WATERLOGGED))
-            level.getLiquidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+            level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
 
         return super.updateShape(stateIn, facing, facingState, level, currentPos, facingPos);
     }

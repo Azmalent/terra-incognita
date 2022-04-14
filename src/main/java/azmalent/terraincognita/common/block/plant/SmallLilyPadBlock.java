@@ -18,7 +18,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 import org.jetbrains.annotations.NotNull;
 
-public class SmallLilyPadBlock extends WaterlilyBlock {
+public class SmallLilyPadBlock extends TILilyPadBlock {
     public static final IntegerProperty LILY_PADS = IntegerProperty.create("lily_pads", 1, 4);
 
     private static final VoxelShape SINGLE_LILYPAD_SHAPE = box(4, 0, 4, 12, 1.5, 12);

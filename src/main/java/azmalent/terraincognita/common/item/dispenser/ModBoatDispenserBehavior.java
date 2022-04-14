@@ -1,7 +1,7 @@
 package azmalent.terraincognita.common.item.dispenser;
 
-import azmalent.terraincognita.common.entity.ModBoatEntity;
-import azmalent.terraincognita.common.item.ModBoatItem;
+import azmalent.terraincognita.common.entity.TIBoat;
+import azmalent.terraincognita.common.item.TIBoatItem;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.BlockSource;
@@ -36,10 +36,10 @@ public final class ModBoatDispenserBehavior extends DefaultDispenseItemBehavior 
             adjustY = 0d;
         }
 
-        ModBoatItem item = (ModBoatItem) stack.getItem();
-        ModBoatEntity boat = new ModBoatEntity(world, x, y + adjustY, z);
+        TIBoatItem item = (TIBoatItem) stack.getItem();
+        TIBoat boat = new TIBoat(world, x, y + adjustY, z);
         boat.setWoodType(item.woodType);
-        boat.yRot = direction.toYRot();
+        boat.setYRot(direction.toYRot());
         world.addFreshEntity(boat);
         stack.shrink(1);
         return stack;

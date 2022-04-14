@@ -10,7 +10,7 @@
       "item": "minecraft:torch"
     },
     "X": {
-      "item": "terraincognita:reeds"
+      "item": "terraincognita:sedge"
     }
   },
   "result": {
@@ -19,7 +19,7 @@
   "conditions": [
     {
       "type": "cuneiform:config",
-      "config": "terraincognita:reeds"
+      "config": "terraincognita:sedge"
     }
   ]
 }

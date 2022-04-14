@@ -1,7 +1,7 @@
 package azmalent.terraincognita.integration.quark;
 
 import azmalent.cuneiform.lib.registry.BlockEntry;
-import azmalent.terraincognita.common.woodtype.ModWoodType;
+import azmalent.terraincognita.common.woodtype.TIWoodType;
 import azmalent.terraincognita.integration.quark.block.*;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.level.block.Block;
@@ -22,7 +22,7 @@ public class QuarkWoodBlockSet {
     public final BlockEntry<TIHedgeBlock> HEDGE;
     public final BlockEntry<TILeafCarpetBlock> LEAF_CARPET;
 
-    public QuarkWoodBlockSet(ModWoodType woodType) {
+    public QuarkWoodBlockSet(TIWoodType woodType) {
         String name = woodType.name;
         MaterialColor barkColor = woodType.barkColor;
         MaterialColor woodColor = woodType.woodColor;

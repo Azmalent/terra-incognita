@@ -2,9 +2,14 @@ package azmalent.terraincognita.common.event;
 
 import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.TerraIncognita;
+import azmalent.terraincognita.common.ModBiomeTags;
 import azmalent.terraincognita.common.registry.ModEntities;
 import azmalent.terraincognita.common.world.ModDefaultFeatures;
 import azmalent.terraincognita.util.WorldGenUtil;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.data.BuiltinRegistries;
+import net.minecraft.resources.RegistryOps;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
@@ -29,27 +34,23 @@ public class BiomeHandler {
             case "minecraft" -> applyVanillaBiomeTweaks(event);
         }
 
-
         ResourceKey<Biome> biomeKey = WorldGenUtil.getBiomeKey(event.getName());
         Biome biome = ForgeRegistries.BIOMES.getValue(event.getName());
-        if (biome == null || WorldGenUtil.hasAnyBiomeType(biomeKey, END, NETHER, VOID, OCEAN, BEACH, DEAD)) return;
+        if (biome == null || WorldGenUtil.hasAnyBiomeType(biomeKey, END, NETHER, VOID, OCEAN, BEACH, DEAD)) {
+            return;
+        }
+
+        MobSpawnSettingsBuilder spawns = event.getSpawns();
+        BiomeGenerationSettingsBuilder builder = event.getGeneration();
 
         //Spawns
-        MobSpawnSettingsBuilder spawns = event.getSpawns();
         if (WorldGenUtil.hasAnyBiomeType(biomeKey, PLAINS, FOREST) && !WorldGenUtil.hasAnyBiomeType(biomeKey, COLD, DENSE)) {
             WorldGenUtil.addSpawner(spawns, ModEntities.BUTTERFLY, MobCategory.AMBIENT, TIConfig.Fauna.butterflySpawnWeight.get(), 4, 8);
         }
 
-        //Features
-        if (TIConfig.biomeBlacklist.contains(biome)) return;
-        BiomeGenerationSettingsBuilder builder = event.getGeneration();
-
-        //Roots and hanging moss
-        if (!WorldGenUtil.hasAnyBiomeType(biomeKey, SANDY, MESA, WASTELAND)) {
-            ModDefaultFeatures.withHangingRoots(builder);
-            if (!WorldGenUtil.hasAnyBiomeType(biomeKey, COLD, SAVANNA, DRY)) {
-                ModDefaultFeatures.withHangingMoss(builder);
-            }
+        //Hanging moss
+        if (!WorldGenUtil.hasAnyBiomeType(biomeKey, SANDY, MESA, WASTELAND, COLD, SAVANNA, DRY)) {
+            ModDefaultFeatures.withHangingMoss(builder);
         }
 
         //Sweet peas
@@ -58,7 +59,7 @@ public class BiomeHandler {
             return;
         }
 
-        switch (WorldGenUtil.getProperBiomeCategory(biome)) {
+        switch (WorldGenUtil.getProperBiomeCategory(Holder.direct(biome))) {
             case PLAINS:
                 ModDefaultFeatures.withAppleTrees(builder);
                 break;

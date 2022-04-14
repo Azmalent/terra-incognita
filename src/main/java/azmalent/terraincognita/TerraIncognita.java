@@ -2,10 +2,10 @@ package azmalent.terraincognita;
 
 import azmalent.cuneiform.lib.integration.ModIntegrationManager;
 import azmalent.cuneiform.lib.registry.RegistryHelper;
+import azmalent.terraincognita.common.ModBiomeTags;
 import azmalent.terraincognita.common.ModBlockTags;
 import azmalent.terraincognita.common.ModItemTags;
 import azmalent.terraincognita.common.registry.*;
-import azmalent.terraincognita.common.world.ModConfiguredFeatures;
 import azmalent.terraincognita.integration.ModIntegration;
 import azmalent.terraincognita.integration.theoneprobe.ButterflyInfoProvider;
 import azmalent.terraincognita.proxy.ClientProxy;
@@ -58,6 +58,7 @@ public class TerraIncognita {
 
         ModItemTags.init();
         ModBlockTags.init();
+        ModBiomeTags.init();
     }
 
     @SubscribeEvent

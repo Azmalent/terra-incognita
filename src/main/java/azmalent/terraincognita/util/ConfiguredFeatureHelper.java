@@ -22,7 +22,7 @@ public class ConfiguredFeatureHelper {
     }
 
     public static <FC extends FeatureConfiguration, F extends Feature<FC>> Holder<ConfiguredFeature<FC, F>> registerFeature(String id, F feature, FC config) {
-        return BuiltinRegistries.registerExact(BuiltinRegistries.CONFIGURED_FEATURE, TerraIncognita.prefix(id).toString(), new ConfiguredFeature<FC, F>(feature, config));
+        return BuiltinRegistries.registerExact(BuiltinRegistries.CONFIGURED_FEATURE, TerraIncognita.prefix(id).toString(), new ConfiguredFeature<>(feature, config));
     }
 
     public static Holder<ConfiguredFeature<RandomPatchConfiguration, Feature<RandomPatchConfiguration>>> registerRandomPatchFeature(String id, int tries, BlockStateProvider stateProvider) {
@@ -33,10 +33,7 @@ public class ConfiguredFeatureHelper {
         return registerFeature(id, Feature.FLOWER, randomPatchConfig(tries, stateProvider));
     }
 
-    public static Holder<ConfiguredFeature<DiskConfiguration, Feature<DiskConfiguration>>> registerDiskFeature(String id, DiskConfiguration config) {
-        return registerFeature(id, Feature.DISK, config);
-    }
-
+    @SafeVarargs
     public static Holder<ConfiguredFeature<SimpleRandomFeatureConfiguration, Feature<SimpleRandomFeatureConfiguration>>> registerRandomFeature(String id, Holder<PlacedFeature>... features) {
         return registerFeature(id, Feature.SIMPLE_RANDOM_SELECTOR, new SimpleRandomFeatureConfiguration(HolderSet.direct(features)));
     }

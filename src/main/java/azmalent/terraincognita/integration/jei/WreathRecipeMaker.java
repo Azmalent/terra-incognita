@@ -4,6 +4,7 @@ import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.registry.ModItems;
 import com.google.common.collect.Lists;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.tags.ItemTags;
@@ -21,7 +22,7 @@ public class WreathRecipeMaker {
     private static final Ingredient flowerIngredient = Ingredient.of(ItemTags.SMALL_FLOWERS);
 
     //TODO: display different colors
-    public static List<IShapedRecipe<?>> getRecipes() {
+    public static List<CraftingRecipe> getRecipes() {
         NonNullList<Ingredient> inputs = NonNullList.of(Ingredient.EMPTY,
             flowerIngredient, flowerIngredient,
             flowerIngredient, flowerIngredient

@@ -41,14 +41,13 @@ public class FiddleheadStewAdditionRecipe extends SimpleShapelessRecipe {
 
     @Nonnull
     @Override
-    @SuppressWarnings("ConstantConditions")
     public ItemStack assemble(@NotNull CraftingContainer inv) {
         ItemStack stew = CraftingUtil.findItemInGrid(inv, stack -> stack.is(Items.SUSPICIOUS_STEW));
 
         CompoundTag tag = stew.getOrCreateTag();
         if (tag.contains("Effects", Tag.TAG_LIST)) {
             ListTag effects = tag.getList("Effects", Tag.TAG_COMPOUND);
-            for(int i = 0; i < effects.size(); ++i) {
+            for(int i = 0; i < effects.size(); i++) {
                 CompoundTag effectTag = effects.getCompound(i);
 
                 MobEffect effect = MobEffect.byId(effectTag.getByte("EffectId"));

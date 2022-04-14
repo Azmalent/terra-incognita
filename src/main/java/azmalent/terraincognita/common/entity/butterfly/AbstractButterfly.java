@@ -71,11 +71,12 @@ public abstract class AbstractButterfly extends PathfinderMob implements FlyingA
         }
     }
 
-    public static AttributeSupplier.Builder bakeAttributes() {
+    public static AttributeSupplier createAttributes() {
         return Mob.createMobAttributes()
             .add(Attributes.MAX_HEALTH, 4.0D)
             .add(Attributes.FLYING_SPEED, 2.4F)
-            .add(Attributes.MOVEMENT_SPEED, 0.3F);
+            .add(Attributes.MOVEMENT_SPEED, 0.3F)
+            .build();
     }
 
     @Nonnull

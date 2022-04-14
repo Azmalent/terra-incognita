@@ -15,5 +15,4 @@ public class ModFeatures {
     public static final RegistryObject<HangingMossFeature> HANGING_MOSS   = FEATURES.register("hanging_moss", HangingMossFeature::new);
     public static final RegistryObject<CaribouMossFeature> CARIBOU_MOSS   = FEATURES.register("caribou_moss", CaribouMossFeature::new);
     public static final RegistryObject<FallenLogFeature> FALLEN_LOG       = FEATURES.register("fallen_log", FallenLogFeature::new);
-    public static final RegistryObject<MossyBoulderFeature> MOSSY_BOULDER = FEATURES.register("mossy_boulder", MossyBoulderFeature::new);
 }
