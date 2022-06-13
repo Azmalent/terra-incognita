@@ -1,6 +1,6 @@
 package azmalent.terraincognita.common.event;
 
-import azmalent.cuneiform.lib.util.DataUtil;
+import azmalent.cuneiform.util.DataUtil;
 import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.registry.ModItems;

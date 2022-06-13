@@ -1,6 +1,6 @@
 package azmalent.terraincognita.integration.quark;
 
-import azmalent.cuneiform.lib.integration.IModProxy;
+import azmalent.cuneiform.integration.IModProxy;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.LevelReader;

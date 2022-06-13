@@ -1,6 +1,6 @@
 package azmalent.terraincognita.mixin;
 
-import azmalent.cuneiform.lib.util.ItemUtil;
+import azmalent.cuneiform.util.ItemUtil;
 import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.common.registry.ModBlocks;
 import azmalent.terraincognita.common.registry.ModItems;

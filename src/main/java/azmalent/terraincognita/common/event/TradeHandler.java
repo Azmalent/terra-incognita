@@ -1,6 +1,6 @@
 package azmalent.terraincognita.common.event;
 
-import azmalent.cuneiform.lib.util.TradeBuilder;
+import azmalent.cuneiform.util.TradeBuilder;
 import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.registry.ModBlocks;
@@ -102,7 +102,7 @@ public class TradeHandler {
             addRareTrade(TradeBuilder.sell(2, ModItems.TAFFY.makeStack()).maxTrades(3).build());
         }
 
-        if (TIConfig.Biomes.lushPlainsWeight.get() > 0) {
+        if (TIConfig.Biomes.lushPlains.get()) {
             addRareTrade(TradeBuilder.sell(3, ModBlocks.FLOWERING_GRASS.makeStack(3)).maxTrades(6).build());
         }
     }

@@ -1,6 +1,6 @@
 package azmalent.terraincognita.common.block.plant;
 
-import azmalent.cuneiform.lib.util.ItemUtil;
+import azmalent.cuneiform.util.ItemUtil;
 import azmalent.terraincognita.integration.ModIntegration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

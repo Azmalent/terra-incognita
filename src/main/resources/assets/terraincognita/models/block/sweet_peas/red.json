@@ -1,6 +1,7 @@
 {
   "parent": "minecraft:block/vine",
   "textures": {
-    "vine": "terraincognita:block/sweet_peas/red"
+    "vine": "terraincognita:block/sweet_peas/red",
+    "particle": "#vine"
   }
 }

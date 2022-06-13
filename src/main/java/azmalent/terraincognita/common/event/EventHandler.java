@@ -1,6 +1,6 @@
 package azmalent.terraincognita.common.event;
 
-import azmalent.cuneiform.lib.util.ItemUtil;
+import azmalent.cuneiform.util.ItemUtil;
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.ModItemTags;
 import azmalent.terraincognita.common.block.fruit.AbstractFruitBlock;

@@ -1,10 +1,11 @@
 package azmalent.terraincognita;
 
-import azmalent.cuneiform.lib.integration.ModIntegrationManager;
-import azmalent.cuneiform.lib.registry.RegistryHelper;
+import azmalent.cuneiform.integration.ModIntegrationManager;
+import azmalent.cuneiform.registry.RegistryHelper;
 import azmalent.terraincognita.common.ModBiomeTags;
 import azmalent.terraincognita.common.ModBlockTags;
 import azmalent.terraincognita.common.ModItemTags;
+import azmalent.terraincognita.common.event.ToolInteractionHandler;
 import azmalent.terraincognita.common.registry.*;
 import azmalent.terraincognita.integration.ModIntegration;
 import azmalent.terraincognita.integration.theoneprobe.ButterflyInfoProvider;
@@ -34,7 +35,8 @@ public class TerraIncognita {
     public static final RegistryHelper REG_HELPER = new RegistryHelper(MODID);
 
     public TerraIncognita() {
-        TIConfig.init();
+        TIConfig.INSTANCE.register();
+        TIMixinConfig.INSTANCE.register();
 
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         ModBlocks.BLOCKS.register(bus);
@@ -63,12 +65,13 @@ public class TerraIncognita {
 
     @SubscribeEvent
     public static void setup(FMLCommonSetupEvent event) {
-        ModBlocks.initToolInteractions();
+        event.enqueueWork(ModBiomes::registerBiomes);
+
         ModBlocks.initFlammability();
         ModItems.initFuelValues();
         ModEntities.registerSpawns();
         ModRecipes.initCompostables();
-        //ModTweaks.modifyFlowerGradients();
+        ToolInteractionHandler.initToolInteractions();
     }
 
     @SubscribeEvent

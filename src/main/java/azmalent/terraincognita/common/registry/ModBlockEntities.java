@@ -1,6 +1,6 @@
 package azmalent.terraincognita.common.registry;
 
-import azmalent.cuneiform.lib.registry.BlockEntityEntry;
+import azmalent.cuneiform.registry.BlockEntityEntry;
 import azmalent.terraincognita.common.blockentity.BasketBlockEntity;
 import azmalent.terraincognita.common.blockentity.TIChestBlockEntity;
 import azmalent.terraincognita.common.blockentity.TITrappedChestBlockEntity;

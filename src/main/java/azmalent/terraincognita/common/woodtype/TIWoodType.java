@@ -1,9 +1,9 @@
 package azmalent.terraincognita.common.woodtype;
 
-import azmalent.cuneiform.lib.registry.BlockEntry;
-import azmalent.cuneiform.lib.registry.ItemEntry;
-import azmalent.cuneiform.lib.util.DataUtil;
-import azmalent.cuneiform.lib.util.ItemUtil;
+import azmalent.cuneiform.registry.BlockEntry;
+import azmalent.cuneiform.registry.ItemEntry;
+import azmalent.cuneiform.util.DataUtil;
+import azmalent.cuneiform.util.ItemUtil;
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.block.chest.TIChestBlock;
 import azmalent.terraincognita.common.block.chest.TITrappedChestBlock;

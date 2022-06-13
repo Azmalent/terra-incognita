@@ -1,6 +1,6 @@
 {
   "parent": "block/flower_pot_cross",
   "textures": {
-    "plant": "terraincognita:block/magenta_saxifrage"
+    "plant": "terraincognita:block/potted/magenta_saxifrage"
   }
 }

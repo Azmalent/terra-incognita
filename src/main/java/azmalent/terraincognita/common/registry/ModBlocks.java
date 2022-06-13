@@ -1,7 +1,7 @@
 package azmalent.terraincognita.common.registry;
 
-import azmalent.cuneiform.lib.registry.BlockEntry;
-import azmalent.cuneiform.lib.util.DataUtil;
+import azmalent.cuneiform.registry.BlockEntry;
+import azmalent.cuneiform.util.DataUtil;
 import azmalent.terraincognita.common.block.*;
 import azmalent.terraincognita.common.block.plant.*;
 import azmalent.terraincognita.common.block.plant.ModFlowerBlock.StewEffect;
@@ -63,6 +63,7 @@ public class ModBlocks {
     public static final PottablePlantEntry GENTIAN        = createPlant("gentian", () -> new AlpineFlowerBlock(StewEffect.WEAKNESS));
     public static final PottablePlantEntry EDELWEISS      = createPlant("edelweiss", () -> new AlpineFlowerBlock(StewEffect.HASTE));
     public static final PottablePlantEntry YELLOW_SAXIFRAGE = createPlant("yellow_saxifrage", SaxifrageBlock::new);
+    public static final PottablePlantEntry MAGENTA_SAXIFRAGE = createPlant("magenta_saxifrage", SaxifrageBlock::new);
 
     //Swamp flowers
     public static final PottablePlantEntry FORGET_ME_NOT  = createPlant("forget_me_not", () -> new ModFlowerBlock(StewEffect.SLOWNESS));
@@ -165,23 +166,6 @@ public class ModBlocks {
 
     private static BlockEntry<SweetPeasBlock> createSweetPeas(String color) {
         return REG_HELPER.createBlock(color + "_sweet_peas", SweetPeasBlock::new).cutoutRender().build();
-    }
-
-    //TODO: fix tool interactions
-    public static void initToolInteractions() {
-/*        AxeItem.getAxeStrippingState()
-        AxeItem.STRIPABLES = Maps.newHashMap(AxeItem.STRIPABLES);
-        for (ModWoodType woodType : ModWoodTypes.VALUES) {
-            AxeItem.STRIPABLES.put(woodType.LOG.getBlock(), woodType.STRIPPED_LOG.getBlock());
-            AxeItem.STRIPABLES.put(woodType.WOOD.getBlock(), woodType.STRIPPED_WOOD.getBlock());
-        }
-
-        HoeItem.TILLABLES = Maps.newHashMap(HoeItem.TILLABLES);
-        HoeItem.TILLABLES.put(PEAT.getBlock(), TILLED_PEAT.getBlock().defaultBlockState());
-        HoeItem.TILLABLES.put(FLOWERING_GRASS.getBlock(), Blocks.FARMLAND.defaultBlockState());
-
-        ShovelItem.FLATTENABLES = Maps.newHashMap(ShovelItem.FLATTENABLES);
-        ShovelItem.FLATTENABLES.put(FLOWERING_GRASS.getBlock(), Blocks.GRASS_PATH.defaultBlockState());*/
     }
 
     public static void initFlammability() {

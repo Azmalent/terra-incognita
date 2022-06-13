@@ -1,6 +1,6 @@
 package azmalent.terraincognita.client.renderer.blockentity;
 
-import azmalent.cuneiform.lib.util.ItemUtil;
+import azmalent.cuneiform.util.ItemUtil;
 import azmalent.terraincognita.common.block.chest.TIChestBlock;
 import azmalent.terraincognita.common.blockentity.TIChestBlockEntity;
 import com.google.common.collect.Maps;

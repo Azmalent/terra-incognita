@@ -1,10 +1,10 @@
 package azmalent.terraincognita.integration.quark;
 
 import azmalent.cuneiform.common.data.FuelHandler;
-import azmalent.cuneiform.lib.integration.IntegrationImpl;
-import azmalent.cuneiform.lib.registry.BlockEntry;
-import azmalent.cuneiform.lib.util.DataUtil;
-import azmalent.cuneiform.lib.util.ItemUtil;
+import azmalent.cuneiform.integration.IntegrationImpl;
+import azmalent.cuneiform.registry.BlockEntry;
+import azmalent.cuneiform.util.DataUtil;
+import azmalent.cuneiform.util.ItemUtil;
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.registry.ModWoodTypes;
 import azmalent.terraincognita.integration.quark.block.TIHedgeBlock;

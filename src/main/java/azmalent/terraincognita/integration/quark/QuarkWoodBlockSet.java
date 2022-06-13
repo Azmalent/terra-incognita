@@ -1,6 +1,6 @@
 package azmalent.terraincognita.integration.quark;
 
-import azmalent.cuneiform.lib.registry.BlockEntry;
+import azmalent.cuneiform.registry.BlockEntry;
 import azmalent.terraincognita.common.woodtype.TIWoodType;
 import azmalent.terraincognita.integration.quark.block.*;
 import net.minecraft.world.item.CreativeModeTab;

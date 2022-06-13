@@ -1,6 +1,6 @@
 package azmalent.terraincognita.common.item;
 
-import azmalent.cuneiform.lib.util.ItemUtil;
+import azmalent.cuneiform.util.ItemUtil;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;

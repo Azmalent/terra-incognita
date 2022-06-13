@@ -1,7 +1,7 @@
 package azmalent.terraincognita.common.registry;
 
-import azmalent.cuneiform.lib.registry.BlockEntry;
-import azmalent.cuneiform.lib.util.DataUtil;
+import azmalent.cuneiform.registry.BlockEntry;
+import azmalent.cuneiform.util.DataUtil;
 import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.util.PottablePlantEntry;

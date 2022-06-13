@@ -1,7 +1,7 @@
 package azmalent.terraincognita.common.registry;
 
 import azmalent.cuneiform.common.data.FuelHandler;
-import azmalent.cuneiform.lib.registry.ItemEntry;
+import azmalent.cuneiform.registry.ItemEntry;
 import azmalent.terraincognita.common.woodtype.TIWoodType;
 import azmalent.terraincognita.common.entity.IBottleableEntity;
 import azmalent.terraincognita.common.entity.butterfly.Butterfly;

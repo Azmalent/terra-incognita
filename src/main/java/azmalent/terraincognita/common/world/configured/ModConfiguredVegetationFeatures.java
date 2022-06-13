@@ -31,7 +31,7 @@ import static net.minecraft.data.worldgen.placement.PlacementUtils.inlinePlaced;
 
 public class ModConfiguredVegetationFeatures {
     public static final Holder<ConfiguredFeature<RandomPatchConfiguration, Feature<RandomPatchConfiguration>>> FOREST_FLOWERS = registerFlowerFeature(
-        "forest_flowers", 16,
+        "forest_flowers", 32,
         new WeightedStateProvider(
             SimpleWeightedRandomList.<BlockState>builder()
                 .add(WILD_GARLIC.defaultBlockState(), 2)
@@ -99,6 +99,7 @@ public class ModConfiguredVegetationFeatures {
         )))
     );
 
+    //TODO: rewrite more optimally
     public static final Holder<ConfiguredFeature<RandomPatchConfiguration, Feature<RandomPatchConfiguration>>> CACTUS_FLOWERS = registerFeature(
         "cactus_flowers", Feature.RANDOM_PATCH, randomPatchConfig(1024, BlockStateProvider.simple(CACTUS_FLOWER.defaultBlockState()))
     );

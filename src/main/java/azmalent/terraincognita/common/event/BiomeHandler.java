@@ -98,8 +98,10 @@ public class BiomeHandler {
 
             case ICY:
                 ModDefaultFeatures.withCaribouMoss(builder);
+                //Intentional fall-through!
             case TAIGA:
                 ModDefaultFeatures.withArcticFlowers(builder);
+                ModDefaultFeatures.withAlpineFlowers(builder);
                 break;
         }
     }

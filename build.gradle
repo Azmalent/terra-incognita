@@ -29,6 +29,11 @@ compileJava.options.compilerArgs << "-Xlint:all,-deprecation"
 
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 
+mixin {
+    add sourceSets.main, "${config.modid}.mixins.refmap.json"
+    config "${config.modid}.mixins.json"
+}
+
 minecraft {
     mappings channel: config.mappings_channel, version: config.mappings_version
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
@@ -36,8 +41,12 @@ minecraft {
     runs {
         client {
             workingDirectory project.file('run')
+
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
+            property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
+            property 'mixin.env.remapRefMap', 'true'
+
             mods {
                 terraincognita {
                     source sourceSets.main
@@ -47,8 +56,12 @@ minecraft {
 
         server {
             workingDirectory project.file('run')
+
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
+            property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
+            property 'mixin.env.remapRefMap', 'true'
+
             mods {
                 terraincognita {
                     source sourceSets.main
@@ -58,9 +71,14 @@ minecraft {
 
         data {
             workingDirectory project.file('run')
+
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
+            property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
+            property 'mixin.env.remapRefMap', 'true'
+
             args '--mod', 'terraincognita', '--all', '--output', file('src/generated/resources/')
+
             mods {
                 terraincognita {
                     source sourceSets.main
@@ -70,16 +88,7 @@ minecraft {
     }
 }
 
-
-mixin {
-    add sourceSets.main, "${config.modid}.mixins.refmap.json"
-    config "${config.modid}.mixins.json"
-}
-
 repositories {
-    flatDir {
-        dirs 'libs'
-    }
     maven {
         name = "CurseMaven"
         url = "https://www.cursemaven.com"

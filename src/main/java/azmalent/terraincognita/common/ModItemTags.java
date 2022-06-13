@@ -12,7 +12,9 @@ public class ModItemTags {
     }
 
     public static final TagKey<Item> APPLE_LOGS = createTag("apple_logs");
+    public static final TagKey<Item> GINKGO_LOGS = createTag("ginkgo_logs");
     public static final TagKey<Item> HAZEL_LOGS = createTag("hazel_logs");
+    public static final TagKey<Item> LARCH_LOGS = createTag("larch_logs");
 
     public static final TagKey<Item> LOTUSES = createTag("lotuses");
     public static final TagKey<Item> SWEET_PEAS = createTag("sweet_peas");

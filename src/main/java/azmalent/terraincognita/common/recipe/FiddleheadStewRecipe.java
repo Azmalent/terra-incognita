@@ -2,8 +2,8 @@ package azmalent.terraincognita.common.recipe;
 
 import azmalent.cuneiform.common.crafting.ShapelessRecipeMatcher;
 import azmalent.cuneiform.common.crafting.SimpleShapelessRecipe;
-import azmalent.cuneiform.lib.util.CraftingUtil;
-import azmalent.cuneiform.lib.util.ItemUtil;
+import azmalent.cuneiform.util.CraftingUtil;
+import azmalent.cuneiform.util.ItemUtil;
 import azmalent.terraincognita.common.registry.ModItems;
 import azmalent.terraincognita.common.registry.ModRecipes;
 import net.minecraft.resources.ResourceLocation;

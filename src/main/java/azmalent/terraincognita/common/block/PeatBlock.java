@@ -1,6 +1,6 @@
 package azmalent.terraincognita.common.block;
 
-import azmalent.cuneiform.lib.network.CuneiformNetwork;
+import azmalent.cuneiform.network.CuneiformNetwork;
 import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.common.ModBlockTags;
 import net.minecraft.core.BlockPos;

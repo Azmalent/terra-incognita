@@ -1,6 +1,5 @@
 package azmalent.terraincognita.common.entity.butterfly;
 
-import azmalent.cuneiform.lib.collections.WeightedList;
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.ModBiomeTags;
 import azmalent.terraincognita.common.entity.butterfly.ai.ButterflyLandOnFlowerGoal;
@@ -8,7 +7,6 @@ import azmalent.terraincognita.common.entity.butterfly.ai.ButterflyRestGoal;
 import azmalent.terraincognita.common.entity.butterfly.ai.ButterflyWanderGoal;
 import azmalent.terraincognita.common.registry.ModEntities;
 import azmalent.terraincognita.common.registry.ModItems;
-import azmalent.terraincognita.util.WorldGenUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -36,6 +34,7 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.PlayMessages;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -62,6 +61,7 @@ public class Butterfly extends AbstractButterfly {
         super(type, world);
     }
 
+    @SuppressWarnings("unused")
     public Butterfly(Level world, double x, double y, double z) {
         super(ModEntities.BUTTERFLY.get(), world);
         this.setPos(x, y, z);
@@ -71,6 +71,7 @@ public class Butterfly extends AbstractButterfly {
         this.zo = z;
     }
 
+    @SuppressWarnings("unused")
     public Butterfly(PlayMessages.SpawnEntity spawnEntity, Level world) {
         super(ModEntities.BUTTERFLY.get(), world);
     }
@@ -87,7 +88,7 @@ public class Butterfly extends AbstractButterfly {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag tag) {
+    public void addAdditionalSaveData(@NotNull CompoundTag tag) {
         super.addAdditionalSaveData(tag);
 
         tag.putString("Type", getButterflyType().getName());
@@ -97,7 +98,7 @@ public class Butterfly extends AbstractButterfly {
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag tag) {
+    public void readAdditionalSaveData(@NotNull CompoundTag tag) {
         super.readAdditionalSaveData(tag);
 
         setButterflyType(Type.getTypeByName(tag.getString("Type")));
@@ -117,7 +118,7 @@ public class Butterfly extends AbstractButterfly {
         goalSelector.addGoal(4, new FloatGoal(this));
     }
 
-    @SuppressWarnings("deprecation")
+    @SuppressWarnings({"deprecation", "unused"})
     public static boolean canSpawn(EntityType<Butterfly> butterfly, LevelAccessor world, MobSpawnType reason, BlockPos pos, Random randomIn) {
         return pos.getY() >= world.getSeaLevel() && world.getRawBrightness(pos, 0) > 8;
     }
@@ -226,7 +227,7 @@ public class Butterfly extends AbstractButterfly {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn, CompoundTag dataTag) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, @NotNull DifficultyInstance difficultyIn, @NotNull MobSpawnType reason, @NotNull SpawnGroupData spawnDataIn, @NotNull CompoundTag dataTag) {
         Holder<Biome> biome = level.getBiome(this.blockPosition());
         Type type = Type.getRandomType(biome, level.getRandom());
         setButterflyType(type);
