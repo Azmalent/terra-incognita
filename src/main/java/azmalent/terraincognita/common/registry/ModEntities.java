@@ -2,9 +2,7 @@ package azmalent.terraincognita.common.registry;
 
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.client.renderer.entity.ButterflyRenderer;
-import azmalent.terraincognita.client.renderer.entity.CactusNeedleRenderer;
 import azmalent.terraincognita.client.renderer.entity.ModBoatRenderer;
-import azmalent.terraincognita.common.entity.CactusNeedleEntity;
 import azmalent.terraincognita.common.entity.ModBoatEntity;
 import azmalent.terraincognita.common.entity.butterfly.AbstractButterflyEntity;
 import azmalent.terraincognita.common.entity.butterfly.ButterflyEntity;
@@ -32,10 +30,6 @@ public class ModEntities {
         EntityType.Builder.<ButterflyEntity>create(ButterflyEntity::new, EntityClassification.AMBIENT).size(0.5f, 0.5f).setCustomClientFactory(ButterflyEntity::new).trackingRange(5)
     );
 
-    public static final RegistryObject<EntityType<CactusNeedleEntity>> CACTUS_NEEDLE = register("cactus_needle",
-        EntityType.Builder.<CactusNeedleEntity>create(CactusNeedleEntity::new, EntityClassification.MISC).size(0.5F, 0.5F).trackingRange(4).func_233608_b_(20)
-    );
-
     private static <T extends Entity> RegistryObject<EntityType<T>> register(String id, EntityType.Builder<T> builder) {
         return ENTITIES.register(id, () -> builder.build(TerraIncognita.prefix(id).toString()));
     }
@@ -52,6 +46,5 @@ public class ModEntities {
     public static void registerRenderers() {
         RenderingRegistry.registerEntityRenderingHandler(BOAT.get(), ModBoatRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(BUTTERFLY.get(), ButterflyRenderer<ButterflyEntity>::new);
-        RenderingRegistry.registerEntityRenderingHandler(CACTUS_NEEDLE.get(), CactusNeedleRenderer::new);
     }
 }

@@ -9,6 +9,8 @@ import azmalent.terraincognita.common.entity.butterfly.ai.ButterflyWanderGoal;
 import azmalent.terraincognita.common.registry.ModEntities;
 import azmalent.terraincognita.common.registry.ModItems;
 import azmalent.terraincognita.util.WorldGenUtil;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.GrassBlock;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.LivingEntity;
@@ -40,6 +42,7 @@ import net.minecraft.world.IServerWorld;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.fml.network.FMLPlayMessages;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -126,7 +129,9 @@ public class ButterflyEntity extends AbstractButterflyEntity {
 
     @SuppressWarnings("deprecation")
     public static boolean canSpawn(EntityType<ButterflyEntity> butterfly, IWorld world, SpawnReason reason, BlockPos pos, Random randomIn) {
-        return pos.getY() >= world.getSeaLevel() && world.getLightSubtracted(pos, 0) > 8;
+        return world.getBlockState(pos.down()).getBlock() instanceof GrassBlock
+            && pos.getY() >= world.getSeaLevel()
+            && world.getLightSubtracted(pos, 0) > 8;
     }
 
     public boolean preventDespawn() {
