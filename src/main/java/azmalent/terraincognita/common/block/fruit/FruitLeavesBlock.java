@@ -51,6 +51,7 @@ public class FruitLeavesBlock extends LeavesBlock implements BonemealableBlock {
         return !state.getValue(PERSISTENT) && level.getBlockState(pos.below()).isAir();
     }
 
+    @Override
     @ParametersAreNonnullByDefault
     public boolean isBonemealSuccess(Level level, Random random, BlockPos pos, BlockState state) {
         return true;

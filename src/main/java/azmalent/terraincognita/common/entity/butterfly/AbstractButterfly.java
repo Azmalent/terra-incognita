@@ -29,10 +29,10 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
 
 public abstract class AbstractButterfly extends PathfinderMob implements FlyingAnimal, IBottleableEntity {
-    public static final EntityDataAccessor<Float> SIZE_MODIFIER = SynchedEntityData.defineId(Butterfly.class, EntityDataSerializers.FLOAT);
+    public static final EntityDataAccessor<Float> SIZE_MODIFIER = SynchedEntityData.defineId(AbstractButterfly.class, EntityDataSerializers.FLOAT);
+    public static final EntityDataAccessor<Boolean> FROM_BOTTLE = SynchedEntityData.defineId(AbstractButterfly.class, EntityDataSerializers.BOOLEAN);
 
     protected int flyingTicks = 0;
     protected int underWaterTicks = 0;
@@ -54,21 +54,27 @@ public abstract class AbstractButterfly extends PathfinderMob implements FlyingA
     }
 
     @Override
-    public void addAdditionalSaveData(@NotNull CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
 
-        compound.putFloat("SizeModifier", getSizeModifier());
+        entityData.define(FROM_BOTTLE, false);
+        entityData.define(SIZE_MODIFIER, 0.7f);
     }
 
     @Override
-    public void readAdditionalSaveData(@NotNull CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
+    public void addAdditionalSaveData(@NotNull CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
 
-        if (compound.contains("SizeModifier")) {
-            setSizeModifier(compound.getFloat("SizeModifier"));
-        } else {
-            setSizeModifier(getRandomSizeModifier());
-        }
+        tag.putFloat("SizeModifier", getSizeModifier());
+        tag.putBoolean("IsFromBottle", isFromBottle());
+    }
+
+    @Override
+    public void readAdditionalSaveData(@NotNull CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+
+        setSizeModifier(tag.getFloat("SizeModifier"));
+        setFromBottle(tag.getBoolean("IsFromBottle"));
     }
 
     public static AttributeSupplier createAttributes() {
@@ -132,8 +138,7 @@ public abstract class AbstractButterfly extends PathfinderMob implements FlyingA
 
     @Nullable
     @Override
-    @ParametersAreNonnullByDefault
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficultyIn, MobSpawnType reason, SpawnGroupData spawnDataIn, CompoundTag dataTag) {
+    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficultyIn, @NotNull MobSpawnType reason, SpawnGroupData spawnDataIn, CompoundTag dataTag) {
         restrictTo(this.blockPosition(), 22);
         setSizeModifier(getRandomSizeModifier());
 
@@ -205,8 +210,20 @@ public abstract class AbstractButterfly extends PathfinderMob implements FlyingA
     protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
         return SoundEvents.SILVERFISH_HURT;
     }
+
     @Override
     protected SoundEvent getDeathSound() {
         return SoundEvents.SILVERFISH_DEATH;
+    }
+
+    //IBottleableEntity partial implementation
+    @Override
+    public void setFromBottle(boolean fromBottle) {
+        entityData.set(FROM_BOTTLE, fromBottle);
+    }
+
+    @Override
+    public boolean isFromBottle() {
+        return entityData.get(FROM_BOTTLE);
     }
 }

@@ -1,6 +1,6 @@
 package azmalent.terraincognita.common.item;
 
-import azmalent.terraincognita.TIConfig;
+import azmalent.terraincognita.TIServerConfig;
 import azmalent.terraincognita.common.registry.ModEffects;
 import azmalent.terraincognita.common.registry.ModItems;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -50,7 +50,7 @@ public class TaffyItem extends Item {
             }
 
             player.addEffect(new MobEffectInstance(ModEffects.STICKY_MOUTH.get(), duration, amplifier, false, false));
-            player.heal(TIConfig.Food.taffyHealing.get());
+            player.heal(TIServerConfig.Food.taffyHealing.get());
 
             CriteriaTriggers.CONSUME_ITEM.trigger(player, stack);
             player.awardStat(Stats.ITEM_USED.get(this));

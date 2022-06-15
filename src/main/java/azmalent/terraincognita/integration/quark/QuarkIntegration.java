@@ -6,6 +6,7 @@ import azmalent.cuneiform.registry.BlockEntry;
 import azmalent.cuneiform.util.DataUtil;
 import azmalent.cuneiform.util.ItemUtil;
 import azmalent.terraincognita.TerraIncognita;
+import azmalent.terraincognita.common.event.ToolInteractionHandler;
 import azmalent.terraincognita.common.registry.ModWoodTypes;
 import azmalent.terraincognita.integration.quark.block.TIHedgeBlock;
 import azmalent.terraincognita.integration.quark.block.TILeafCarpetBlock;
@@ -65,7 +66,7 @@ public class QuarkIntegration implements IQuarkProxy {
 
     public void setup(FMLCommonSetupEvent event) {
         for (QuarkWoodBlockSet set : WOOD_BLOCK_SETS) {
-			set.POST.get().strippedBlock = set.STRIPPED_POST.get();
+            ToolInteractionHandler.AXE_STRIPPABLES.put(set.POST.get(), set.STRIPPED_POST.get());
 
             DataUtil.registerFlammable(set.BOOKSHELF, 30, 20);
             DataUtil.registerFlammable(set.POST, 5, 20);
@@ -76,6 +77,7 @@ public class QuarkIntegration implements IQuarkProxy {
             FuelHandler.registerFuel(1.5f, set.BOOKSHELF, set.LADDER, set.POST, set.STRIPPED_POST);
 
             DataUtil.registerCompostable(set.LEAF_CARPET, 0.2f);
+
         }
 
         DataUtil.registerFlammable(BLOSSOMING_APPLE_HEDGE, 5, 20);

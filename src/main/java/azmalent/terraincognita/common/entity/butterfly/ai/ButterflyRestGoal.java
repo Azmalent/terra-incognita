@@ -1,6 +1,7 @@
 package azmalent.terraincognita.common.entity.butterfly.ai;
 
 import azmalent.terraincognita.common.entity.butterfly.Butterfly;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.core.BlockPos;
@@ -24,7 +25,7 @@ public class ButterflyRestGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        if (butterfly.isLanded() && butterfly.hasPlayersNearby()) {
+        if (butterfly.isLanded() && hasPlayersNearby()) {
             restingPos = butterfly.blockPosition();
             return true;
         }
@@ -34,7 +35,7 @@ public class ButterflyRestGoal extends Goal {
 
     @Override
     public boolean canContinueToUse() {
-        return butterfly.isLanded() && (butterfly.isTired() || butterfly.level.isNight()) && butterfly.hasPlayersNearby();
+        return butterfly.isLanded() && (butterfly.isTired() || butterfly.level.isNight()) && hasPlayersNearby();
     }
 
     @Override
@@ -67,6 +68,13 @@ public class ButterflyRestGoal extends Goal {
                 butterfly.yHeadRot = butterfly.getRandom().nextInt(360);
             }
         }
+    }
+
+    private boolean hasPlayersNearby() {
+        var level = butterfly.level;
+        var aabb = butterfly.getBoundingBox();
+
+        return level.getEntitiesOfClass(Player.class, aabb.expandTowards(4, 4, 4), Butterfly.SHOULD_AVOID).isEmpty();
     }
 
     private boolean isBlockTaken(Level level, BlockPos pos) {

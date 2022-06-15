@@ -17,7 +17,6 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
-import java.util.Objects;
 
 public record BasketTooltipComponent(ItemStack basket) implements TooltipComponent, ClientTooltipComponent {
     @SuppressWarnings("ConstantConditions")

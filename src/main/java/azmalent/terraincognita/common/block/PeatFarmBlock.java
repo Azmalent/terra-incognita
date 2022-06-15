@@ -1,6 +1,6 @@
 package azmalent.terraincognita.common.block;
 
-import azmalent.terraincognita.TIConfig;
+import azmalent.terraincognita.TIServerConfig;
 import azmalent.terraincognita.common.registry.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -30,6 +30,7 @@ public class PeatFarmBlock extends FarmBlock {
         super(Properties.copy(Blocks.FARMLAND));
     }
 
+    @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         return !defaultBlockState().canSurvive(context.getLevel(), context.getClickedPos()) ? ModBlocks.PEAT.defaultBlockState() : defaultBlockState();
     }
@@ -53,7 +54,7 @@ public class PeatFarmBlock extends FarmBlock {
         int moisture = state.getValue(MOISTURE);
         if (moisture > 0 && hasCrops(world, pos)) {
             BlockState crop = world.getBlockState(up);
-            if (crop.isRandomlyTicking() && random.nextDouble() < TIConfig.Misc.peatGrowthRateBonus.get()) {
+            if (crop.isRandomlyTicking() && random.nextDouble() < TIServerConfig.Peat.growthRateBonus.get()) {
                 crop.randomTick(world, up, random);
 
                 if (world.getBlockState(up) != crop) {

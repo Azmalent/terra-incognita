@@ -64,6 +64,7 @@ public class TIBoatRenderer extends EntityRenderer<TIBoat> {
     /**
      * Returns the location of an entity's texture.
      */
+    @Override
     @Nonnull
     public ResourceLocation getTextureLocation(TIBoat entity) {
         return entity.getWoodType().BOAT_TEXTURE;

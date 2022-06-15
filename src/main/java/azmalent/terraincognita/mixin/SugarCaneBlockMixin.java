@@ -1,6 +1,6 @@
 package azmalent.terraincognita.mixin;
 
-import azmalent.terraincognita.TIConfig;
+import azmalent.terraincognita.TIServerConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.Block;
@@ -34,7 +34,7 @@ public class SugarCaneBlockMixin {
 
     @Inject(method = "randomTick", at = @At("HEAD"), cancellable = true)
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, Random random, CallbackInfo ci) {
-        if (!TIConfig.Misc.plantHeightVariation.get()) {
+        if (!TIServerConfig.Tweaks.plantHeightVariation.get()) {
             return;
         }
 

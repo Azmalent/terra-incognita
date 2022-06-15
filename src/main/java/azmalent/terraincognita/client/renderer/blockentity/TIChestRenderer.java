@@ -62,6 +62,7 @@ public class TIChestRenderer<TChest extends TIChestBlockEntity> implements Block
         this.rightLock = right.getChild("lock");
     }
 
+    @Override
     @SuppressWarnings("rawtypes")
     public void render(TChest tileEntityIn, float partialTicks, @Nonnull PoseStack matrixStackIn, @Nonnull MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
         Level world = tileEntityIn.getLevel();

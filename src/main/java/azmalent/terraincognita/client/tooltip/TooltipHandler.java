@@ -1,7 +1,6 @@
 package azmalent.terraincognita.client.tooltip;
 
 import azmalent.terraincognita.TerraIncognita;
-import azmalent.terraincognita.common.inventory.BasketStackHandler;
 import azmalent.terraincognita.common.item.block.BasketItem;
 import azmalent.terraincognita.common.registry.ModBlocks;
 import azmalent.terraincognita.common.registry.ModItems;

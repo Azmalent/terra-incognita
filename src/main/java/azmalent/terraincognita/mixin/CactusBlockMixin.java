@@ -2,6 +2,7 @@ package azmalent.terraincognita.mixin;
 
 import azmalent.cuneiform.util.ItemUtil;
 import azmalent.terraincognita.TIConfig;
+import azmalent.terraincognita.TIServerConfig;
 import azmalent.terraincognita.common.registry.ModBlocks;
 import azmalent.terraincognita.common.registry.ModItems;
 import net.minecraft.world.level.block.Block;
@@ -50,7 +51,7 @@ public abstract class CactusBlockMixin extends Block {
 
     private int getMaxHeight(BlockPos pos) {
         //TODO: optimize
-        if (TIConfig.Misc.plantHeightVariation.get()) {
+        if (TIServerConfig.Tweaks.plantHeightVariation.get()) {
             return new Random(pos.asLong()).nextInt(3) + 2;
         }
 

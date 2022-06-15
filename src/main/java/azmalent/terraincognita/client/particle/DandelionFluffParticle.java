@@ -14,7 +14,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 @SuppressWarnings("FieldCanBeLocal")
 @OnlyIn(Dist.CLIENT)

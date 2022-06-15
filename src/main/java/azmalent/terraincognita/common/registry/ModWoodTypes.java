@@ -1,7 +1,5 @@
 package azmalent.terraincognita.common.registry;
 
-import azmalent.terraincognita.common.block.chest.TIChestBlock;
-import azmalent.terraincognita.common.block.chest.TITrappedChestBlock;
 import azmalent.terraincognita.common.world.tree.AppleTree;
 import azmalent.terraincognita.common.world.tree.GinkgoTree;
 import azmalent.terraincognita.common.world.tree.HazelTree;

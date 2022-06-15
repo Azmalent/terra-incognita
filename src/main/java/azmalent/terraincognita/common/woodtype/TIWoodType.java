@@ -12,7 +12,6 @@ import azmalent.terraincognita.common.block.sign.TIWallSignBlock;
 import azmalent.terraincognita.common.item.TIBoatItem;
 import azmalent.terraincognita.common.item.block.TIChestItem;
 import azmalent.terraincognita.common.registry.ModBlocks;
-import azmalent.terraincognita.common.registry.ModWoodTypes;
 import azmalent.terraincognita.util.PottablePlantEntry;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.color.item.ItemColors;

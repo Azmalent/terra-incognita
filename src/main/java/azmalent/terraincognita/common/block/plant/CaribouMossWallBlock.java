@@ -69,6 +69,7 @@ public class CaribouMossWallBlock extends Block implements BonemealableBlock {
         return level.getBlockState(offset).isFaceSturdy(level, offset, direction);
     }
 
+    @Override
     @Nullable
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         LevelReader world = context.getLevel();

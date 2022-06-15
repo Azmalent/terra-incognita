@@ -2,6 +2,7 @@ package azmalent.terraincognita.common.event;
 
 import azmalent.cuneiform.util.DataUtil;
 import azmalent.terraincognita.TIConfig;
+import azmalent.terraincognita.TIServerConfig;
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.registry.ModItems;
 import com.google.common.collect.ImmutableMap;
@@ -10,7 +11,6 @@ import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -44,7 +44,7 @@ public class LootHandler {
     public static void onLoadLootTable(LootTableLoadEvent event) {
         ResourceLocation tableName = event.getName();
 
-        if (TIConfig.Food.taffy.get() && TAFFY_WEIGHTS.containsKey(tableName)) {
+        if (TIServerConfig.Food.taffy.get() && TAFFY_WEIGHTS.containsKey(tableName)) {
             int weight = TAFFY_WEIGHTS.get(tableName);
             DataUtil.addLoot(event.getTable(), LootItem.lootTableItem(ModItems.TAFFY.get())
                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 4.0F)))
@@ -53,7 +53,7 @@ public class LootHandler {
             );
         }
 
-        if (TIConfig.Food.notchCarrot.get() && NOTCH_CARROT_WEIGHTS.containsKey(tableName)) {
+        if (TIServerConfig.Food.notchCarrot.get() && NOTCH_CARROT_WEIGHTS.containsKey(tableName)) {
             int weight = NOTCH_CARROT_WEIGHTS.get(tableName);
             DataUtil.addLoot(event.getTable(), LootItem.lootTableItem(ModItems.NOTCH_CARROT.get()).setWeight(weight).build());
         }

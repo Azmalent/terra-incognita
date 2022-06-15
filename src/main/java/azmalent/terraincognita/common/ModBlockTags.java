@@ -3,7 +3,6 @@ package azmalent.terraincognita.common;
 import azmalent.terraincognita.TerraIncognita;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
 @SuppressWarnings("unused")

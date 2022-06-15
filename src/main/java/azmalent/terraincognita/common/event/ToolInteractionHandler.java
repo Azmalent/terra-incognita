@@ -45,7 +45,11 @@ public class ToolInteractionHandler {
     }
 
     @SubscribeEvent
-    public static void onToolInteraction(BlockEvent.BlockToolInteractEvent event) {
+    public static void onToolInteraction(BlockEvent.BlockToolModificationEvent event) {
+        if (event.isSimulated()) {
+            return;
+        }
+
         Map<Block, Block> map = null;
         if (event.getToolAction() == ToolActions.AXE_STRIP) {
             map = AXE_STRIPPABLES;

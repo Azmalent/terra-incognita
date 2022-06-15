@@ -16,7 +16,6 @@ import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 
 import static azmalent.terraincognita.util.ConfiguredFeatureHelper.*;
-import static net.minecraft.data.worldgen.placement.PlacementUtils.inlinePlaced;
 
 public class ModConfiguredMiscFeatures {
     public static final Holder<ConfiguredFeature<DiskConfiguration, Feature<DiskConfiguration>>> PEAT_DISK = registerFeature(

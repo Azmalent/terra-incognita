@@ -1,14 +1,20 @@
 package azmalent.terraincognita.common.event;
 
+import azmalent.cuneiform.registry.BlockEntry;
 import azmalent.cuneiform.util.TradeBuilder;
 import azmalent.terraincognita.TIConfig;
+import azmalent.terraincognita.TIServerConfig;
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.registry.ModBlocks;
 import azmalent.terraincognita.common.registry.ModItems;
 import azmalent.terraincognita.common.registry.ModWoodTypes;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.village.WandererTradesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 import static azmalent.cuneiform.common.data.WanderingTraderHandler.addCommonTrade;
 import static azmalent.cuneiform.common.data.WanderingTraderHandler.addRareTrade;
@@ -97,13 +103,17 @@ public class TradeHandler {
         }
 
         //Rares
-        //TODO: re-add sweet peas
-        if (TIConfig.Food.taffy.get()) {
+        if (TIServerConfig.Food.taffy.get()) {
             addRareTrade(TradeBuilder.sell(2, ModItems.TAFFY.makeStack()).maxTrades(3).build());
         }
 
         if (TIConfig.Biomes.lushPlains.get()) {
             addRareTrade(TradeBuilder.sell(3, ModBlocks.FLOWERING_GRASS.makeStack(3)).maxTrades(6).build());
+        }
+
+        if (TIConfig.Flora.sweetPeas.get()) {
+            var peas = Arrays.stream(ModBlocks.SWEET_PEAS).map(BlockEntry::makeStack).toArray(ItemStack[]::new);
+            addRareTrade(TradeBuilder.sellRandom(3, peas).maxTrades(5).build());
         }
     }
 }

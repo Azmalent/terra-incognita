@@ -1,6 +1,6 @@
 package azmalent.terraincognita.common.lootmodifier;
 
-import azmalent.terraincognita.TIConfig;
+import azmalent.terraincognita.TIServerConfig;
 import azmalent.terraincognita.common.registry.ModItems;
 import com.google.gson.JsonObject;
 import net.minecraft.world.item.ItemStack;
@@ -21,7 +21,7 @@ public class FernLootModifier extends LootModifier {
     @Nonnull
     @Override
     protected List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
-        if (generatedLoot.isEmpty() && context.getRandom().nextFloat() < TIConfig.Food.fiddleheadDropChance.get()) {
+        if (generatedLoot.isEmpty() && context.getRandom().nextFloat() < TIServerConfig.Food.fiddleheadDropChance.get()) {
             ItemStack fiddlehead = new ItemStack(ModItems.FIDDLEHEAD.get());
             generatedLoot.add(fiddlehead);
         }

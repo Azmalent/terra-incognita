@@ -17,6 +17,7 @@ import javax.annotation.Nonnull;
 public final class ModBoatDispenserBehavior extends DefaultDispenseItemBehavior {
     private final DefaultDispenseItemBehavior defaultDispenseItemBehavior = new DefaultDispenseItemBehavior();
 
+    @Override
     @Nonnull
     @SuppressWarnings("deprecation")
     public ItemStack execute(BlockSource iBlockSource, @NotNull ItemStack stack) {
@@ -45,6 +46,7 @@ public final class ModBoatDispenserBehavior extends DefaultDispenseItemBehavior 
         return stack;
     }
 
+    @Override
     protected void playSound(BlockSource iBlockSource) {
         iBlockSource.getLevel().levelEvent(1000, iBlockSource.getPos(), 0);
     }

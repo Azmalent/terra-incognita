@@ -1,6 +1,7 @@
 package azmalent.terraincognita.common.event;
 
 import azmalent.terraincognita.TIConfig;
+import azmalent.terraincognita.TIServerConfig;
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.block.plant.SmallLilyPadBlock;
 import azmalent.terraincognita.common.registry.ModBlocks;
@@ -52,7 +53,7 @@ public class BonemealHandler {
 
     @SubscribeEvent
     public static void onBonemealUnderwater(BonemealEvent event) {
-        if (!TIConfig.Misc.bonemealLilypadGrowing.get()) {
+        if (!TIServerConfig.Tweaks.bonemealLilypadGrowing.get()) {
             return;
         }
 

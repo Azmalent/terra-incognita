@@ -49,6 +49,7 @@ public class SedgeBlock extends SugarCaneBlock implements SimpleWaterloggedBlock
         return super.getStateForPlacement(context).setValue(WATERLOGGED, waterlogged);
     }
 
+    @Override
     @Nonnull
     @SuppressWarnings("deprecation")
     public FluidState getFluidState(BlockState state) {

@@ -1,8 +1,6 @@
 package azmalent.terraincognita.proxy;
 
 import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.Level;
 
 public class ServerProxy implements IProxy {

@@ -10,7 +10,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 @SuppressWarnings("unused")
 public class ModLootModifiers {
-    public static final DeferredRegister<GlobalLootModifierSerializer<?>> LOOT_MODIFIERS = TerraIncognita.REG_HELPER.getOrCreateRegistry(ForgeRegistries.LOOT_MODIFIER_SERIALIZERS);
+    public static final DeferredRegister<GlobalLootModifierSerializer<?>> LOOT_MODIFIERS = DeferredRegister.create(ForgeRegistries.Keys.LOOT_MODIFIER_SERIALIZERS, TerraIncognita.MODID);
 
     public static final RegistryObject<GlobalLootModifierSerializer<?>> FIDDLEHEADS = LOOT_MODIFIERS.register("fern_fiddlehead", FernLootModifier.Serializer::new);
     public static final RegistryObject<GlobalLootModifierSerializer<?>> REMOVE_OAK_APPLES = LOOT_MODIFIERS.register("remove_oak_apples", OakLeavesLootModifier.Serializer::new);

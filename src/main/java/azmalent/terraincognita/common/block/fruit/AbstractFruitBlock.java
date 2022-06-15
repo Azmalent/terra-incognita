@@ -127,6 +127,7 @@ public abstract class AbstractFruitBlock extends Block implements BonemealableBl
         return state.getValue(AGE) < 7;
     }
 
+    @Override
     @ParametersAreNonnullByDefault
     public boolean isBonemealSuccess(Level level, Random random, BlockPos pos, BlockState state) {
         return true;

@@ -5,7 +5,11 @@ import net.minecraft.world.item.Item;
 public interface IBottleableEntity {
     Item getBottledItem();
 
-    default void onRelease() {
+    default void onReleasedFromBottle() {
 
     }
+
+    boolean isFromBottle();
+
+    void setFromBottle(boolean fromBottle);
 }

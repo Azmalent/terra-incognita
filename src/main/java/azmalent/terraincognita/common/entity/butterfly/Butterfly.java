@@ -46,16 +46,14 @@ public class Butterfly extends AbstractButterfly {
     public static final EntityDataAccessor<Integer> BUTTERFLY_TYPE = SynchedEntityData.defineId(Butterfly.class, EntityDataSerializers.INT);
     public static final EntityDataAccessor<Boolean> TIRED = SynchedEntityData.defineId(Butterfly.class, EntityDataSerializers.BOOLEAN);
     public static final EntityDataAccessor<Boolean> LANDED = SynchedEntityData.defineId(Butterfly.class, EntityDataSerializers.BOOLEAN);
-    public static final EntityDataAccessor<Boolean> FROM_BOTTLE = SynchedEntityData.defineId(Butterfly.class, EntityDataSerializers.BOOLEAN);
 
     public static final Predicate<LivingEntity> SHOULD_AVOID = entity -> {
-        if (!(entity instanceof Player player)) return false;
-        return !player.isCreative() && !player.isSpectator() && player.getItemBySlot(EquipmentSlot.HEAD).getItem() != ModItems.WREATH.get();
-    };
+        if (entity instanceof Player player) {
+            return !player.isCreative() && !player.isSpectator() && player.getItemBySlot(EquipmentSlot.HEAD).getItem() != ModItems.WREATH.get();
+        }
 
-    public boolean hasPlayersNearby() {
-        return level.getEntitiesOfClass(Player.class, getBoundingBox().expandTowards(4, 4, 4), SHOULD_AVOID).isEmpty();
-    }
+        return false;
+    };
 
     public Butterfly(EntityType<Butterfly> type, Level world) {
         super(type, world);
@@ -83,8 +81,6 @@ public class Butterfly extends AbstractButterfly {
         entityData.define(BUTTERFLY_TYPE, 0);
         entityData.define(TIRED, false);
         entityData.define(LANDED, false);
-        entityData.define(FROM_BOTTLE, false);
-        entityData.define(SIZE_MODIFIER, 0.7f);
     }
 
     @Override
@@ -94,7 +90,6 @@ public class Butterfly extends AbstractButterfly {
         tag.putString("Type", getButterflyType().getName());
         tag.putBoolean("IsTired", isTired());
         tag.putBoolean("IsLanded", isLanded());
-        tag.putBoolean("IsFromBottle", isFromBottle());
     }
 
     @Override
@@ -104,7 +99,6 @@ public class Butterfly extends AbstractButterfly {
         setButterflyType(Type.getTypeByName(tag.getString("Type")));
         setTired(tag.getBoolean("IsTired"));
         setLanded(tag.getBoolean("IsLanded"));
-        setFromBottle(tag.getBoolean("IsFromBottle"));
     }
 
     public ButterflyRestGoal restGoal;
@@ -123,6 +117,7 @@ public class Butterfly extends AbstractButterfly {
         return pos.getY() >= world.getSeaLevel() && world.getRawBrightness(pos, 0) > 8;
     }
 
+    @Override
     public boolean requiresCustomPersistence() {
         return super.requiresCustomPersistence() || isFromBottle();
     }
@@ -167,14 +162,6 @@ public class Butterfly extends AbstractButterfly {
     public void setNotLanded() {
         setLanded(false);
         this.teleportTo(this.blockPosition().getX() + 0.5D, this.blockPosition().getY() + 0.5D, this.blockPosition().getZ() + 0.5D);
-    }
-
-    private void setFromBottle(boolean fromBottle) {
-        entityData.set(FROM_BOTTLE, fromBottle);
-    }
-
-    private boolean isFromBottle() {
-        return entityData.get(FROM_BOTTLE);
     }
 
     @Override
@@ -227,7 +214,7 @@ public class Butterfly extends AbstractButterfly {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, @NotNull DifficultyInstance difficultyIn, @NotNull MobSpawnType reason, @NotNull SpawnGroupData spawnDataIn, @NotNull CompoundTag dataTag) {
+    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficultyIn, @NotNull MobSpawnType reason, @NotNull SpawnGroupData spawnDataIn, @NotNull CompoundTag dataTag) {
         Holder<Biome> biome = level.getBiome(this.blockPosition());
         Type type = Type.getRandomType(biome, level.getRandom());
         setButterflyType(type);
@@ -252,7 +239,7 @@ public class Butterfly extends AbstractButterfly {
     }
 
     @Override
-    public void onRelease() {
+    public void onReleasedFromBottle() {
         setNotLanded();
         setTired(false);
         setFromBottle(true);

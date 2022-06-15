@@ -4,7 +4,6 @@ import azmalent.terraincognita.client.model.ButterflyModel;
 import azmalent.terraincognita.client.model.ModelHandler;
 import azmalent.terraincognita.common.entity.butterfly.AbstractButterfly;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;

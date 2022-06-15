@@ -28,6 +28,7 @@ public class ButterflyWanderGoal extends Goal {
         return butterfly.getNavigation().isInProgress();
     }
 
+    @Override
     public void start() {
         Vec3 randomLocation = getRandomLocation();
         if (randomLocation != null) {

@@ -67,7 +67,7 @@ public class BottledEntityItem<T extends LivingEntity & IBottleableEntity> exten
             entity.setCustomName(bottle.getHoverName());
         }
 
-        ((IBottleableEntity) entity).onRelease();
+        ((IBottleableEntity) entity).onReleasedFromBottle();
     }
 
     @Nonnull

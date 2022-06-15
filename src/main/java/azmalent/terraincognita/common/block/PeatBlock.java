@@ -1,7 +1,7 @@
 package azmalent.terraincognita.common.block;
 
 import azmalent.cuneiform.network.CuneiformNetwork;
-import azmalent.terraincognita.TIConfig;
+import azmalent.terraincognita.TIServerConfig;
 import azmalent.terraincognita.common.ModBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -40,7 +40,7 @@ public class PeatBlock extends Block {
         }
 
         if ((plant.getBlock() instanceof BonemealableBlock || plant.getBlock() instanceof SugarCaneBlock) && plant.isRandomlyTicking()) {
-        	if (random.nextDouble() < TIConfig.Misc.peatGrowthRateBonus.get()) {
+        	if (random.nextDouble() < TIServerConfig.Peat.growthRateBonus.get()) {
         	    BlockPos up = plantPos.above();
         	    BlockState above = world.getBlockState(up);
 
@@ -63,6 +63,8 @@ public class PeatBlock extends Block {
     }
 
     public static void makeParticles(BlockPos pos, Random random) {
+        if (!TIServerConfig.Peat.particlesEnabled.get()) return;
+
         for(int i = 0; i < 8; i++) {
             double x = pos.getX() + random.nextDouble();
             double y = pos.getY() + random.nextDouble();

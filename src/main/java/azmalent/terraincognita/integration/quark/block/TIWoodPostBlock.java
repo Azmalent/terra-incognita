@@ -5,6 +5,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -46,8 +47,6 @@ public class TIWoodPostBlock extends Block implements SimpleWaterloggedBlock {
         BooleanProperty.create("chain_east")
     };
 
-	public Block strippedBlock = null;
-
     public TIWoodPostBlock(MaterialColor color) {
         super(Block.Properties.of(Material.WOOD, color).strength(2.0F, 3.0F).sound(SoundType.WOOD));
 
@@ -75,22 +74,6 @@ public class TIWoodPostBlock extends Block implements SimpleWaterloggedBlock {
             case Y -> SHAPE_Y;
             default -> SHAPE_Z;
         };
-    }
-
-    @Nullable
-    @Override
-    @SuppressWarnings({"rawtypes", "unchecked"})
-    public BlockState getToolModifiedState(BlockState state, Level world, BlockPos pos, Player player, ItemStack stack, ToolAction toolAction) {
-        if (strippedBlock != null && toolAction == ToolActions.AXE_STRIP) {
-            BlockState newState = strippedBlock.defaultBlockState();
-            for(Property p : state.getProperties()) {
-                newState = newState.setValue(p, state.getValue(p));
-            }
-
-            return newState;
-        }
-
-        return super.getToolModifiedState(state, world, pos, player, stack, toolAction);
     }
 
     @Override

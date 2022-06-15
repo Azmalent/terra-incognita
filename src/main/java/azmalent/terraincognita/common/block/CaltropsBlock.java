@@ -1,6 +1,6 @@
 package azmalent.terraincognita.common.block;
 
-import azmalent.terraincognita.TIConfig;
+import azmalent.terraincognita.TIServerConfig;
 import azmalent.terraincognita.common.ModDamageSources;
 import azmalent.terraincognita.common.registry.ModBlocks;
 import net.minecraft.world.level.block.Block;
@@ -91,7 +91,7 @@ public class CaltropsBlock extends Block {
         if (!world.isClientSide && entity instanceof LivingEntity living && living.isOnGround()) {
             if (living.hurt(ModDamageSources.CALTROPS, STEP_DAMAGE)) {
                 living.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, STEP_DAMAGE * 100, 0, false, false));
-                if (world.random.nextFloat() < TIConfig.Tools.caltropsBreakChance.get()) {
+                if (world.random.nextFloat() < TIServerConfig.Tools.caltropsBreakChance.get()) {
                     world.destroyBlock(pos, false);
                 }
             }

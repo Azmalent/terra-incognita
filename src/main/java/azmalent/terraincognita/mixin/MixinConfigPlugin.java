@@ -1,7 +1,7 @@
 package azmalent.terraincognita.mixin;
 
+import azmalent.cuneiform.util.ReflectionUtil;
 import azmalent.terraincognita.TIMixinConfig;
-import azmalent.terraincognita.TerraIncognita;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Set;
 
 public class MixinConfigPlugin implements IMixinConfigPlugin {
+    private boolean quarkLoaded = false;
+
     private String getRelativeClassName(String className) {
         String packageName = getClass().getPackageName();
         return className.substring(packageName.length() + 1);
@@ -19,6 +21,8 @@ public class MixinConfigPlugin implements IMixinConfigPlugin {
     public void onLoad(String mixinPackage) {
         TIMixinConfig.INSTANCE.buildSpec();
         TIMixinConfig.INSTANCE.sync();
+
+        quarkLoaded = ReflectionUtil.getClassOrNull("vazkii.quark.base.Quark") != null;
     }
 
     @Override
@@ -34,12 +38,8 @@ public class MixinConfigPlugin implements IMixinConfigPlugin {
         }
 
         //Ignore compat mixins if the corresponding mod is not loaded
-        if (relativeMixinClassName.startsWith("compat.quark")) {
-            try {
-                Class.forName("vazkii.quark.base.Quark");
-            } catch (ClassNotFoundException e) {
-                return false;
-            }
+        if (!quarkLoaded && relativeMixinClassName.startsWith("compat.quark")) {
+            return false;
         }
 
         String key = relativeMixinClassName.replace('.', '/');

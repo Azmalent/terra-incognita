@@ -37,6 +37,7 @@ public class TIBoatItem extends Item {
         DispenserBlock.registerBehavior(this, DISPENSER_BEHAVIOR);
     }
 
+    @Override
     @Nonnull
     public InteractionResultHolder<ItemStack> use(Level level, Player player, @Nonnull InteractionHand handIn) {
         ItemStack stack = player.getItemInHand(handIn);

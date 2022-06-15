@@ -36,6 +36,7 @@ public class TerraIncognita {
 
     public TerraIncognita() {
         TIConfig.INSTANCE.register();
+        TIServerConfig.INSTANCE.register();
         TIMixinConfig.INSTANCE.register();
 
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();

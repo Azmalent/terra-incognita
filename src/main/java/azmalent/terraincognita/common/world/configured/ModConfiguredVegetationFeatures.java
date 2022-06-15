@@ -26,7 +26,6 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStatePr
 
 import static azmalent.terraincognita.common.registry.ModBlocks.*;
 import static azmalent.terraincognita.util.ConfiguredFeatureHelper.*;
-import static azmalent.terraincognita.util.ConfiguredFeatureHelper.registerFeature;
 import static net.minecraft.data.worldgen.placement.PlacementUtils.inlinePlaced;
 
 public class ModConfiguredVegetationFeatures {

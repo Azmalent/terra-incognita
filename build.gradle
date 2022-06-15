@@ -25,13 +25,12 @@ group = "azmalent.${config.modid}"
 archivesBaseName = config.modid
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
-compileJava.options.compilerArgs << "-Xlint:all,-deprecation"
+compileJava.options.compilerArgs << "-Xlint:all,-deprecation,-processing"
 
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 
-mixin {
-    add sourceSets.main, "${config.modid}.mixins.refmap.json"
-    config "${config.modid}.mixins.json"
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
 }
 
 minecraft {
@@ -121,6 +120,11 @@ dependencies {
 
     runtimeOnly fg.deobf("vazkii.autoreglib:AutoRegLib:1.7-54.112")
     implementation fg.deobf("vazkii.quark:Quark:${config.quark_version}.${config.quark_build_number}")
+}
+
+mixin {
+    add sourceSets.main, "${config.modid}.mixins.refmap.json"
+    config "${config.modid}.mixins.json"
 }
 
 processResources {
