@@ -57,7 +57,6 @@ public class TerraIncognita {
 
         ModIntegrationManager.initModProxies(ModIntegration.class, MODID);
         ModIntegration.QUARK.register(bus);
-        ModIntegration.FARMERS_DELIGHT.register(bus);
 
         ModItemTags.init();
         ModBlockTags.init();
