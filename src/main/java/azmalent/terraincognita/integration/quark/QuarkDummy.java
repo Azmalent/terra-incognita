@@ -8,7 +8,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.eventbus.api.IEventBus;
 
 @IntegrationDummy("quark")
-public class QuarkDummy implements IQuarkProxy {
+public final class QuarkDummy implements IQuarkProxy {
     @Override
     public void register(IEventBus iEventBus) {
         //NO-OP

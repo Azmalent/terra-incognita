@@ -4,6 +4,7 @@ import azmalent.terraincognita.common.world.configured.ModConfiguredVegetationFe
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.placement.*;
 
@@ -20,8 +21,7 @@ public class ModVegetationPlacements {
 
     public static final Holder<PlacedFeature> ALPINE_FLOWERS = PlacementUtils.register(
         "alpine_flowers", ModConfiguredVegetationFeatures.ALPINE_FLOWERS,
-        RarityFilter.onAverageOnceEvery(16), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP,
-        HeightBiomeFilter.above(96)
+        RarityFilter.onAverageOnceEvery(16), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
     );
 
     public static final Holder<PlacedFeature> SAVANNA_FLOWERS = PlacementUtils.register(
@@ -31,13 +31,12 @@ public class ModVegetationPlacements {
 
     public static final Holder<PlacedFeature> ARCTIC_FLOWERS = PlacementUtils.register(
         "arctic_flowers", ModConfiguredVegetationFeatures.ARCTIC_FLOWERS,
-        RarityFilter.onAverageOnceEvery(16), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP,
-        HeightBiomeFilter.below(96)
+        RarityFilter.onAverageOnceEvery(16), InSquarePlacement.spread(),
+        HeightmapPlacement.onHeightmap(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES), BiomeFilter.biome()
     );
 
     public static final Holder<PlacedFeature> CACTUS_FLOWERS = PlacementUtils.register(
-        "cactus_flowers", ModConfiguredVegetationFeatures.CACTUS_FLOWERS,
-        RarityFilter.onAverageOnceEvery(32), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
+        "cactus_flowers", ModConfiguredVegetationFeatures.CACTUS_FLOWERS, BiomeFilter.biome()
     );
 
     public static final Holder<PlacedFeature> SWEET_PEAS = PlacementUtils.register(
@@ -53,11 +52,6 @@ public class ModVegetationPlacements {
 
     public static final Holder<PlacedFeature> LOTUS = PlacementUtils.register(
         "lotus", ModConfiguredVegetationFeatures.LOTUS,
-        VegetationPlacements.worldSurfaceSquaredWithCount(4)
-    );
-
-    public static final Holder<PlacedFeature> SMALL_LILY_PADS = PlacementUtils.register(
-        "small_lilypad", ModConfiguredVegetationFeatures.SMALL_LILY_PADS,
         VegetationPlacements.worldSurfaceSquaredWithCount(4)
     );
 

@@ -21,7 +21,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -29,7 +28,7 @@ import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
-import static azmalent.terraincognita.TerraIncognita.REG_HELPER;
+import static azmalent.terraincognita.TerraIncognita.REGISTRY_HELPER;
 
 @SuppressWarnings({"ConstantConditions", "unused"})
 public class ModItems {
@@ -44,7 +43,7 @@ public class ModItems {
                 .alwaysEat()
                 .build();
 
-        public static final FoodProperties FIDDLEHEAD = new FoodProperties.Builder().nutrition(3).saturationMod(0.5f).fast().build();
+        public static final FoodProperties FIDDLEHEAD = new FoodProperties.Builder().nutrition(3).saturationMod(0.3f).fast().build();
 
         public static final FoodProperties KELP_SOUP = new FoodProperties.Builder().nutrition(6).saturationMod(0.6f).build();
 
@@ -56,31 +55,30 @@ public class ModItems {
 
         public static final FoodProperties HAZELNUT = new FoodProperties.Builder().nutrition(2).saturationMod(0.1f).fast().build();
         public static final FoodProperties CANDIED_HAZELNUT = new FoodProperties.Builder().nutrition(4).saturationMod(0.4f).fast().build();
-        public static final FoodProperties HAZELNUT_COOKIE = new FoodProperties.Builder().nutrition(2).saturationMod(0.2f).build();
+        public static final FoodProperties HAZELNUT_COOKIE = new FoodProperties.Builder().nutrition(2).saturationMod(0.3f).build();
     }
 
-    public static final DeferredRegister<Item> ITEMS = REG_HELPER.getOrCreateRegistry(ForgeRegistries.ITEMS);
+    public static final DeferredRegister<Item> ITEMS = REGISTRY_HELPER.getOrCreateRegistry(ForgeRegistries.ITEMS);
 
-    public static final ItemEntry<TaffyItem> TAFFY = REG_HELPER.createItem("taffy", TaffyItem::new);
-    public static final ItemEntry<NotchCarrotItem> NOTCH_CARROT  = REG_HELPER.createItem("notch_carrot", NotchCarrotItem::new);
-    public static final ItemEntry<Item> FIDDLEHEAD    = REG_HELPER.createFood("fiddlehead", Foods.FIDDLEHEAD);
-    public static final ItemEntry<BowlFoodItem> KELP_SOUP     = REG_HELPER.createItem("kelp_soup", BowlFoodItem::new, foodProps(Foods.KELP_SOUP).stacksTo(1));
-    public static final ItemEntry<BowlFoodItem> BERRY_SORBET  = REG_HELPER.createItem("berry_sorbet", BowlFoodItem::new, foodProps(Foods.BERRY_SORBET).stacksTo(1));
+    public static final ItemEntry<TaffyItem> TAFFY = REGISTRY_HELPER.createItem("taffy", TaffyItem::new);
+    public static final ItemEntry<NotchCarrotItem> NOTCH_CARROT  = REGISTRY_HELPER.createItem("notch_carrot", NotchCarrotItem::new);
+    public static final ItemEntry<Item> FIDDLEHEAD    = REGISTRY_HELPER.createFood("fiddlehead", Foods.FIDDLEHEAD);
+    public static final ItemEntry<BowlFoodItem> KELP_SOUP     = REGISTRY_HELPER.createItem("kelp_soup", BowlFoodItem::new, foodProps(Foods.KELP_SOUP).stacksTo(1));
+    public static final ItemEntry<BowlFoodItem> BERRY_SORBET  = REGISTRY_HELPER.createItem("berry_sorbet", BowlFoodItem::new, foodProps(Foods.BERRY_SORBET).stacksTo(1));
 
-    public static final ItemEntry<Item> SOUR_BERRIES   = REG_HELPER.createFood("sour_berries", Foods.SOUR_BERRIES);
-    public static final ItemEntry<Item> SOUR_BERRY_PIE = REG_HELPER.createFood("sour_berry_pie", Foods.SOUR_BERRY_PIE);
-    public static final ItemEntry<JamItem> SOUR_BERRY_JAM = REG_HELPER.createItem("sour_berry_jam", JamItem::new, foodProps(Foods.SOUR_BERRY_JAM).stacksTo(16));
+    public static final ItemEntry<Item> SOUR_BERRIES   = REGISTRY_HELPER.createFood("sour_berries", Foods.SOUR_BERRIES);
+    public static final ItemEntry<Item> SOUR_BERRY_PIE = REGISTRY_HELPER.createFood("sour_berry_pie", Foods.SOUR_BERRY_PIE);
+    public static final ItemEntry<JamItem> SOUR_BERRY_JAM = REGISTRY_HELPER.createItem("sour_berry_jam", JamItem::new, foodProps(Foods.SOUR_BERRY_JAM).stacksTo(16));
 
-    public static final ItemEntry<Item> HAZELNUT = REG_HELPER.createFood("hazelnut", Foods.HAZELNUT);
-    public static final ItemEntry<Item> CANDIED_HAZELNUT = REG_HELPER.createFood("candied_hazelnut", Foods.CANDIED_HAZELNUT);
-    public static final ItemEntry<Item> HAZELNUT_COOKIE = REG_HELPER.createFood("hazelnut_cookie", Foods.HAZELNUT_COOKIE);
+    public static final ItemEntry<Item> HAZELNUT = REGISTRY_HELPER.createFood("hazelnut", Foods.HAZELNUT);
+    public static final ItemEntry<Item> CANDIED_HAZELNUT = REGISTRY_HELPER.createFood("candied_hazelnut", Foods.CANDIED_HAZELNUT);
+    public static final ItemEntry<Item> HAZELNUT_COOKIE = REGISTRY_HELPER.createFood("hazelnut_cookie", Foods.HAZELNUT_COOKIE);
 
-    public static final ItemEntry<Item> CACTUS_NEEDLE = REG_HELPER.createItem("cactus_needle", CreativeModeTab.TAB_MISC);
+    public static final ItemEntry<Item> CACTUS_NEEDLE = REGISTRY_HELPER.createItem("cactus_needle", CreativeModeTab.TAB_MISC);
 
-    public static final ItemEntry<WreathItem> WREATH = REG_HELPER.createItem("wreath", WreathItem::new);
+    public static final ItemEntry<WreathItem> WREATH = REGISTRY_HELPER.createItem("wreath", WreathItem::new);
 
     public static final ItemEntry<BottledEntityItem<Butterfly>> BOTTLED_BUTTERFLY = bottledEntity("butterfly", ModEntities.BUTTERFLY, Butterfly::addBottleTooltip);
-    public static final ItemEntry<ForgeSpawnEggItem> BUTTERFLY_SPAWN_EGG = REG_HELPER.createSpawnEgg("butterfly", ModEntities.BUTTERFLY, 0xc02f03, 0x0f1016);
 
     private static Item.Properties foodProps(FoodProperties food) {
         return new Item.Properties().tab(CreativeModeTab.TAB_FOOD).food(food);
@@ -88,7 +86,7 @@ public class ModItems {
 
     @SuppressWarnings("SameParameterValue")
     private static <T extends LivingEntity & IBottleableEntity> ItemEntry<BottledEntityItem<T>> bottledEntity(String entityId, Supplier<EntityType<T>> type, BiConsumer<CompoundTag, List<Component>> tooltipHandler) {
-        return REG_HELPER.createItem("bottled_" + entityId, () -> new BottledEntityItem<>(type, tooltipHandler));
+        return REGISTRY_HELPER.createItem("bottled_" + entityId, () -> new BottledEntityItem<>(type, tooltipHandler));
     }
 
     public static void initFuelValues() {

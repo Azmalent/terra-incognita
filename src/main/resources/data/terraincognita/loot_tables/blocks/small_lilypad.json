@@ -14,7 +14,7 @@
                   "condition": "minecraft:block_state_property",
                   "block": "terraincognita:small_lilypad",
                   "properties": {
-                    "lilypads": "2"
+                    "lily_pads": "2"
                   }
                 }
               ],
@@ -27,7 +27,7 @@
                   "condition": "minecraft:block_state_property",
                   "block": "terraincognita:small_lilypad",
                   "properties": {
-                    "lilypads": "3"
+                    "lily_pads": "3"
                   }
                 }
               ],
@@ -40,7 +40,7 @@
                   "condition": "minecraft:block_state_property",
                   "block": "terraincognita:small_lilypad",
                   "properties": {
-                    "lilypads": "4"
+                    "lily_pads": "4"
                   }
                 }
               ],

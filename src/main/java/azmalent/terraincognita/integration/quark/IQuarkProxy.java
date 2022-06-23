@@ -6,7 +6,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
 
-public interface IQuarkProxy extends IModProxy {
+public sealed interface IQuarkProxy extends IModProxy permits QuarkDummy, QuarkIntegration {
     boolean namesMatch(ItemStack stack);
 
     boolean canLanternConnect(BlockState state, LevelReader level, BlockPos pos);

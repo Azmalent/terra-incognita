@@ -1,19 +1,25 @@
 package azmalent.terraincognita.common.event;
 
-import azmalent.terraincognita.TIConfig;
+import azmalent.terraincognita.TIConfig.Flora;
 import azmalent.terraincognita.TIServerConfig;
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.block.plant.SmallLilyPadBlock;
 import azmalent.terraincognita.common.registry.ModBlocks;
+import azmalent.terraincognita.common.world.placement.ModVegetationPlacements;
 import azmalent.terraincognita.util.WorldGenUtil;
 import net.minecraft.Util;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.material.Fluids;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.level.block.GrassBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.event.entity.player.BonemealEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -39,21 +45,21 @@ public class BonemealHandler {
     private static void placeRandomLilyPad(Level world, BlockPos pos, boolean isJungle) {
         BlockState blockState;
         Random rand = world.getRandom();
-        float f = rand.nextFloat();
 
-        if (f < 0.5 && isJungle && TIConfig.Flora.lotus.get()) {
+        if (isJungle && Flora.lotus.get() && rand.nextFloat() < 0.5) {
             blockState = Util.getRandom(ModBlocks.LOTUSES, rand).defaultBlockState();
-        } else if (f < 0.5 && !isJungle && TIConfig.Flora.smallLilypad.get()) {
+        } else if (Flora.smallLilyPads.get() && rand.nextFloat() < Flora.smallLilyPadChance.get()) {
             blockState = ModBlocks.SMALL_LILY_PAD.defaultBlockState().setValue(SmallLilyPadBlock.LILY_PADS, 1 + rand.nextInt(4));
+        } else {
+            blockState = Blocks.LILY_PAD.defaultBlockState();
         }
-        else blockState = Blocks.LILY_PAD.defaultBlockState();
 
         world.setBlockAndUpdate(pos, blockState);
     }
 
     @SubscribeEvent
     public static void onBonemealUnderwater(BonemealEvent event) {
-        if (!TIServerConfig.Tweaks.bonemealLilypadGrowing.get()) {
+        if (!TIServerConfig.bonemealLilypadGrowing.get()) {
             return;
         }
 

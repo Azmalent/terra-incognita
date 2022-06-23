@@ -21,6 +21,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * @reason Modifies the plain flower gradient.
+ */
 @Mixin(NoiseThresholdProvider.class)
 public class NoiseThresholdProviderMixin {
     private static final List<BlockState> LOW_STATES = List.of(

@@ -1,10 +1,10 @@
 {
-  "_comment":  "The comments in this file are for the translators, you do not need to translate them as well.",
+  "_comment1":  "The comments in this file are for the translators, you do not need to translate them as well.",
 
-  "_comment": "Dandelion Puff refers to a white fluffy dandelion",
+  "_comment2": "Dandelion Puff refers to a white fluffy dandelion",
   "block.terraincognita.dandelion_puff": "Dandelion Puff",
   "block.terraincognita.potted_dandelion_puff": "Potted Dandelion Puff",
-  "_comment": "Chicory as in the field flower, not the vegetable",
+  "_comment3": "Chicory as in the field flower, not the vegetable",
   "block.terraincognita.chicory": "Chicory",
   "block.terraincognita.potted_chicory": "Potted Chicory",
   "block.terraincognita.yarrow": "Yarrow",
@@ -51,7 +51,7 @@
   "block.terraincognita.potted_heather": "Potted Heather",
   "block.terraincognita.white_dryad": "White Dryad",
   "block.terraincognita.potted_white_dryad": "Potted White Dryad",
-  "_comment": "Water Flag is a colloquial name for Iris Pseudacorus. 'Swamp Iris' is a good way to translate it.",
+  "_comment4": "Water Flag is a colloquial name for Iris Pseudacorus. 'Swamp Iris' is a good way to translate it.",
   "block.terraincognita.water_flag": "Water Flag",
   "block.terraincognita.potted_water_flag": "Potted Water Flag",
   "block.terraincognita.fireweed": "Fireweed",
@@ -123,7 +123,7 @@
   "block.terraincognita.apple_leaf_carpet": "Apple Leaf Carpet",
   "block.terraincognita.blossoming_apple_leaf_carpet": "Blossoming Apple Leaf Carpet",
   "block.terraincognita.apple_beehive": "Apple Beehive",
-  "block.terraincognita.apple_pantry": "Apple Pantry",
+  "block.terraincognita.apple_cabinet": "Apple Cabinet",
 
   "block.terraincognita.ginkgo_sapling": "Ginkgo Sapling",
   "block.terraincognita.potted_ginkgo_sapling": "Potted Ginkgo Sapling",
@@ -152,7 +152,7 @@
   "block.terraincognita.ginkgo_hedge": "Ginkgo Hedge",
   "block.terraincognita.ginkgo_leaf_carpet": "Ginkgo Leaf Carpet",
   "block.terraincognita.ginkgo_beehive": "Ginkgo Beehive",
-  "block.terraincognita.ginkgo_pantry": "Ginkgo Pantry",
+  "block.terraincognita.ginkgo_cabinet": "Ginkgo Cabinet",
 
   "block.terraincognita.hazel_sapling": "Hazel Sapling",
   "block.terraincognita.potted_hazel_sapling": "Potted Hazel Sapling",
@@ -181,7 +181,7 @@
   "block.terraincognita.hazel_hedge": "Hazel Hedge",
   "block.terraincognita.hazel_leaf_carpet": "Hazel Leaf Carpet",
   "block.terraincognita.hazel_beehive": "Hazel Beehive",
-  "block.terraincognita.hazel_pantry": "Hazel Pantry",
+  "block.terraincognita.hazel_cabinet": "Hazel Cabinet",
   "block.terraincognita.hazelnut_sack": "Hazelnut Sack",
 
   "block.terraincognita.larch_sapling": "Larch Sapling",
@@ -211,7 +211,7 @@
   "block.terraincognita.larch_hedge": "Larch Hedge",
   "block.terraincognita.larch_leaf_carpet": "Larch Leaf Carpet",
   "block.terraincognita.larch_beehive": "Larch Beehive",
-  "block.terraincognita.larch_pantry": "Larch Pantry",
+  "block.terraincognita.larch_cabinet": "Larch Cabinet",
 
   "item.terraincognita.taffy": "Taffy",
   "item.terraincognita.notch_carrot": "Enchanted Golden Carrot",

@@ -44,7 +44,7 @@ public class LootHandler {
     public static void onLoadLootTable(LootTableLoadEvent event) {
         ResourceLocation tableName = event.getName();
 
-        if (TIServerConfig.Food.taffy.get() && TAFFY_WEIGHTS.containsKey(tableName)) {
+        if (TIConfig.Food.taffy.get() && TAFFY_WEIGHTS.containsKey(tableName)) {
             int weight = TAFFY_WEIGHTS.get(tableName);
             DataUtil.addLoot(event.getTable(), LootItem.lootTableItem(ModItems.TAFFY.get())
                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 4.0F)))
@@ -53,7 +53,7 @@ public class LootHandler {
             );
         }
 
-        if (TIServerConfig.Food.notchCarrot.get() && NOTCH_CARROT_WEIGHTS.containsKey(tableName)) {
+        if (TIConfig.Food.notchCarrot.get() && NOTCH_CARROT_WEIGHTS.containsKey(tableName)) {
             int weight = NOTCH_CARROT_WEIGHTS.get(tableName);
             DataUtil.addLoot(event.getTable(), LootItem.lootTableItem(ModItems.NOTCH_CARROT.get()).setWeight(weight).build());
         }

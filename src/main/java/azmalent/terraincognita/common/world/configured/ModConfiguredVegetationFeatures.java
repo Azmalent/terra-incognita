@@ -1,12 +1,8 @@
 package azmalent.terraincognita.common.world.configured;
 
-import azmalent.terraincognita.common.block.plant.SmallLilyPadBlock;
 import azmalent.terraincognita.common.block.plant.SourBerryBushBlock;
 import azmalent.terraincognita.common.registry.ModFeatures;
-import azmalent.terraincognita.common.world.feature.CaribouMossFeature;
-import azmalent.terraincognita.common.world.feature.HangingMossFeature;
-import azmalent.terraincognita.common.world.feature.SedgeFeature;
-import azmalent.terraincognita.common.world.feature.SweetPeasFeature;
+import azmalent.terraincognita.common.world.feature.*;
 import azmalent.terraincognita.common.world.stateprovider.AlpineFlowerStateProvider;
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.features.FeatureUtils;
@@ -98,10 +94,7 @@ public class ModConfiguredVegetationFeatures {
         )))
     );
 
-    //TODO: rewrite more optimally
-    public static final Holder<ConfiguredFeature<RandomPatchConfiguration, Feature<RandomPatchConfiguration>>> CACTUS_FLOWERS = registerFeature(
-        "cactus_flowers", Feature.RANDOM_PATCH, randomPatchConfig(1024, BlockStateProvider.simple(CACTUS_FLOWER.defaultBlockState()))
-    );
+    public static final Holder<ConfiguredFeature<NoneFeatureConfiguration, CactusFlowerFeature>> CACTUS_FLOWERS = registerFeature("cactus_flowers", ModFeatures.CACTUS_FLOWERS);
 
     public static final Holder<ConfiguredFeature<NoneFeatureConfiguration, SweetPeasFeature>> SWEET_PEAS = registerFeature("sweet_peas", ModFeatures.SWEET_PEAS);
 
@@ -131,18 +124,6 @@ public class ModConfiguredVegetationFeatures {
                 .add(PINK_LOTUS.defaultBlockState(), 1)
                 .add(WHITE_LOTUS.defaultBlockState(), 1)
                 .add(YELLOW_LOTUS.defaultBlockState(), 1)
-                .build()
-        )
-    );
-
-    public static final Holder<ConfiguredFeature<RandomPatchConfiguration, Feature<RandomPatchConfiguration>>> SMALL_LILY_PADS = registerRandomPatchFeature(
-        "small_lilypad", 10,
-        new WeightedStateProvider(
-            SimpleWeightedRandomList.<BlockState>builder()
-                .add(SMALL_LILY_PAD.defaultBlockState().setValue(SmallLilyPadBlock.LILY_PADS, 1), 1)
-                .add(SMALL_LILY_PAD.defaultBlockState().setValue(SmallLilyPadBlock.LILY_PADS, 2), 1)
-                .add(SMALL_LILY_PAD.defaultBlockState().setValue(SmallLilyPadBlock.LILY_PADS, 3), 1)
-                .add(SMALL_LILY_PAD.defaultBlockState().setValue(SmallLilyPadBlock.LILY_PADS, 4), 1)
                 .build()
         )
     );

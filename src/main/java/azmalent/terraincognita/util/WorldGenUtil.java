@@ -1,11 +1,11 @@
 package azmalent.terraincognita.util;
 
+import azmalent.cuneiform.registry.EntityEntry;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MobSpawnSettings;
@@ -14,7 +14,6 @@ import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import net.minecraftforge.common.world.MobSpawnSettingsBuilder;
-import net.minecraftforge.registries.RegistryObject;
 
 import static net.minecraftforge.common.BiomeDictionary.Type.*;
 
@@ -51,9 +50,9 @@ public class WorldGenUtil {
         return category;
     }
 
-    public static <T extends Entity> void addSpawner(MobSpawnSettingsBuilder spawns, RegistryObject<EntityType<T>> entityType, MobCategory classification, int weight, int minCount, int maxCount) {
+    public static <T extends Entity> void addSpawner(MobSpawnSettingsBuilder spawns, EntityEntry<T> entity, MobCategory classification, int weight, int minCount, int maxCount) {
         if (weight > 0) {
-            spawns.addSpawn(classification, new MobSpawnSettings.SpawnerData(entityType.get(), weight, minCount, maxCount));
+            spawns.addSpawn(classification, new MobSpawnSettings.SpawnerData(entity.get(), weight, minCount, maxCount));
         }
     }
 

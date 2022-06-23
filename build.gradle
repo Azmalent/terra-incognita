@@ -1,4 +1,3 @@
-//file:noinspection GroovyAssignabilityCheck
 buildscript {
     repositories {
         maven { url = 'https://maven.minecraftforge.net/' }
@@ -113,13 +112,20 @@ dependencies {
     implementation fg.deobf("curse.maven:cuneiform-419176:${config.cuneiform_file_id}")
     implementation fg.deobf("com.github.glitchfiend:TerraBlender-forge:${config.minecraft_version}-${config.terrablender_version}")
 
-    implementation fg.deobf("mezz.jei:jei-${config.minecraft_version}:${config.jei_version}:api")
+    compileOnly fg.deobf("mezz.jei:jei-${config.minecraft_version}:${config.jei_version}:api")
+    runtimeOnly fg.deobf("mezz.jei:jei-${config.minecraft_version}:${config.jei_version}")
+
     compileOnly fg.deobf("curse.maven:jade-api-324717:${config.jade_api_file_id}")
-    implementation fg.deobf("curse.maven:jade-324717:${config.jade_file_id}")
+    runtimeOnly fg.deobf("curse.maven:jade-324717:${config.jade_file_id}")
+
     implementation fg.deobf("curse.maven:the-one-probe-245211:3671753") //not yet on maven
 
     runtimeOnly fg.deobf("vazkii.autoreglib:AutoRegLib:1.7-54.112")
     implementation fg.deobf("vazkii.quark:Quark:${config.quark_version}.${config.quark_build_number}")
+
+    implementation fg.deobf("curse.maven:farmers-delight-398521:${config.farmers_delight_file_id}")
+
+    compileOnly fg.deobf("vazkii.botania:Botania:${config.botania_version}:api")
 }
 
 mixin {

@@ -24,7 +24,7 @@ public class CaribouMossFeature extends Feature<NoneFeatureConfiguration> {
         Random random = context.random();
         
         boolean success = false;
-        if (level.isEmptyBlock(origin) && ModBlocks.CARIBOU_MOSS.getBlock().defaultBlockState().canSurvive(level, origin)) {
+        if (level.isEmptyBlock(origin) && ModBlocks.CARIBOU_MOSS.defaultBlockState().canSurvive(level, origin)) {
             int x = 4 + random.nextInt(6);
             int z = 4 + random.nextInt(6);
             int count = (int) (x * z * (random.nextDouble() + random.nextDouble() + 2));
@@ -55,7 +55,7 @@ public class CaribouMossFeature extends Feature<NoneFeatureConfiguration> {
             }
         }
 
-        BlockState state = ModBlocks.CARIBOU_MOSS.getBlock().defaultBlockState();
+        BlockState state = ModBlocks.CARIBOU_MOSS.defaultBlockState();
         if (state.canSurvive(level, pos)) {
             level.setBlock(pos, state, 2);
             return true;

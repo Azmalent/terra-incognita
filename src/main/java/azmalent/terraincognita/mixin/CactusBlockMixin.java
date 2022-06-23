@@ -30,6 +30,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import javax.annotation.Nonnull;
 import java.util.Random;
 
+/**
+ * @reason Required for cactus flowers, needle harvesting and height variation.
+ */
 @Mixin(CactusBlock.class)
 public abstract class CactusBlockMixin extends Block {
     public CactusBlockMixin(Properties properties) {
@@ -50,8 +53,7 @@ public abstract class CactusBlockMixin extends Block {
     }
 
     private int getMaxHeight(BlockPos pos) {
-        //TODO: optimize
-        if (TIServerConfig.Tweaks.plantHeightVariation.get()) {
+        if (TIServerConfig.plantHeightVariation.get()) {
             return new Random(pos.asLong()).nextInt(3) + 2;
         }
 
@@ -68,7 +70,7 @@ public abstract class CactusBlockMixin extends Block {
 
     private boolean canGrowFlower(ServerLevel world, BlockPos pos, Random random) {
         if (!TIConfig.Flora.cactusFlowers.get()) return false;
-        return random.nextInt(300) == 0 && world.canSeeSkyFromBelowWater(pos);
+        return random.nextInt(120) == 0 && world.canSeeSkyFromBelowWater(pos);
     }
 
     @Inject(method = "randomTick", at = @At("HEAD"), cancellable = true)
@@ -85,20 +87,20 @@ public abstract class CactusBlockMixin extends Block {
                         grow(level, pos, up);
                     }
                 } else if (canGrowFlower(level, pos, random)) {
-                    level.setBlockAndUpdate(up, ModBlocks.CACTUS_FLOWER.getBlock().defaultBlockState());
+                    level.setBlockAndUpdate(up, ModBlocks.CACTUS_FLOWER.defaultBlockState());
                 } else {
                     level.setBlock(pos, state.setValue(CactusBlock.AGE, age + 1), 4);
                 }
 
                 ForgeHooks.onCropsGrowPost(level, pos, state);
             }
-        } else if (level.getBlockState(up).getBlock() == ModBlocks.CACTUS_FLOWER.getBlock()) {
+        } else if (level.getBlockState(up).getBlock() == ModBlocks.CACTUS_FLOWER.get()) {
             if(ForgeHooks.onCropsGrowPre(level, up, state, true)) {
                 BlockPos up2 = up.above();
                 if (level.isEmptyBlock(up2) && up2.getY() < 255 && height < maxHeight) {
                     if (age == 15) {
                         grow(level, pos, up);
-                        level.setBlockAndUpdate(up2, ModBlocks.CACTUS_FLOWER.getBlock().defaultBlockState());
+                        level.setBlockAndUpdate(up2, ModBlocks.CACTUS_FLOWER.defaultBlockState());
                     } else {
                         level.setBlock(pos, state.setValue(CactusBlock.AGE, age + 1), 4);
                     }
@@ -120,7 +122,7 @@ public abstract class CactusBlockMixin extends Block {
             level.setBlockAndUpdate(pos, ModBlocks.SMOOTH_CACTUS.defaultBlockState());
 
             level.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.SHEEP_SHEAR, SoundSource.BLOCKS, 0.5F, 1.0F);
-            popResource(level, pos, new ItemStack(ModItems.CACTUS_NEEDLE.get(), 1 + level.random.nextInt(2)));
+            popResource(level, pos.relative(hit.getDirection()), new ItemStack(ModItems.CACTUS_NEEDLE.get(), 1 + level.random.nextInt(2)));
             ItemUtil.damageHeldItem(player, handIn);
 
             return InteractionResult.sidedSuccess(level.isClientSide);

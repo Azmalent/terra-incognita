@@ -100,13 +100,13 @@ public class CaribouMossWallBlock extends Block implements BonemealableBlock {
     @Nonnull
     @Override
     public List<ItemStack> getDrops(@Nonnull BlockState state, @Nonnull LootContext.Builder builder) {
-        return ModBlocks.CARIBOU_MOSS.getBlock().defaultBlockState().getDrops(builder);
+        return ModBlocks.CARIBOU_MOSS.defaultBlockState().getDrops(builder);
     }
 
     @Nonnull
     @Override
     public String getDescriptionId() {
-        return ModBlocks.CARIBOU_MOSS.getBlock().getDescriptionId();
+        return ModBlocks.CARIBOU_MOSS.get().getDescriptionId();
     }
 
     //IGrowable implementation

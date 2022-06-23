@@ -31,6 +31,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.GrassBlock;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.PlayMessages;
@@ -114,7 +115,9 @@ public class Butterfly extends AbstractButterfly {
 
     @SuppressWarnings({"deprecation", "unused"})
     public static boolean canSpawn(EntityType<Butterfly> butterfly, LevelAccessor world, MobSpawnType reason, BlockPos pos, Random randomIn) {
-        return pos.getY() >= world.getSeaLevel() && world.getRawBrightness(pos, 0) > 8;
+        return world.getBlockState(pos.below()).getBlock() instanceof GrassBlock
+            && pos.getY() >= world.getSeaLevel()
+            && world.getRawBrightness(pos, 0) > 8;
     }
 
     @Override
@@ -214,7 +217,7 @@ public class Butterfly extends AbstractButterfly {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficultyIn, @NotNull MobSpawnType reason, @NotNull SpawnGroupData spawnDataIn, @NotNull CompoundTag dataTag) {
+    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficultyIn, @NotNull MobSpawnType reason, SpawnGroupData spawnDataIn, CompoundTag dataTag) {
         Holder<Biome> biome = level.getBiome(this.blockPosition());
         Type type = Type.getRandomType(biome, level.getRandom());
         setButterflyType(type);
@@ -224,7 +227,7 @@ public class Butterfly extends AbstractButterfly {
 
     @Override
     public ItemStack getPickedResult(HitResult target) {
-        return new ItemStack(ModItems.BUTTERFLY_SPAWN_EGG.get());
+        return ModEntities.BUTTERFLY.SPAWN_EGG.makeStack();
     }
 
     @Override

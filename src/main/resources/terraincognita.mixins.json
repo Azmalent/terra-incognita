@@ -8,6 +8,7 @@
   "mixins": [
     "CactusBlockMixin",
     "EatGrassGoalMixin",
+    "GrassBlockMixin",
     "NoiseProviderMixin",
     "NoiseThresholdProviderMixin",
     "SimpleBlockFeatureMixin",
@@ -17,7 +18,7 @@
     "accessor.BoatEntityAccessor",
     "accessor.HoeItemAccessor",
     "accessor.TreeDecoratorTypeAccessor",
-    "compat.quark.FairyRingGeneratorMixin",
+    "compat.botania.HornHarvestablesMixin",
     "compat.quark.LanternBlockMixin"
   ],
   "client": [

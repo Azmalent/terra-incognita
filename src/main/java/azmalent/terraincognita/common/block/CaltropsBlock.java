@@ -91,7 +91,7 @@ public class CaltropsBlock extends Block {
         if (!world.isClientSide && entity instanceof LivingEntity living && living.isOnGround()) {
             if (living.hurt(ModDamageSources.CALTROPS, STEP_DAMAGE)) {
                 living.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, STEP_DAMAGE * 100, 0, false, false));
-                if (world.random.nextFloat() < TIServerConfig.Tools.caltropsBreakChance.get()) {
+                if (world.random.nextFloat() < TIServerConfig.caltropsBreakChance.get()) {
                     world.destroyBlock(pos, false);
                 }
             }

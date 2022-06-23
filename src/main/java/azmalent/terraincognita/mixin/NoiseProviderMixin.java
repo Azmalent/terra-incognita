@@ -18,8 +18,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
+/**
+ * @reason Modifies the flower forest gradient.
+ */
 @Mixin(NoiseProvider.class)
 public class NoiseProviderMixin {
     private static final List<BlockState> FLOWER_FOREST_BLOCKSTATES = List.of(
@@ -54,7 +58,7 @@ public class NoiseProviderMixin {
 
     @Inject(method = "<init>", at = @At("RETURN"))
     private void constructorInject(long p_191442_, NormalNoise.NoiseParameters p_191443_, float p_191444_, List<BlockState> p_191445_, CallbackInfo ci) {
-        isFlowerForestProvider = states.containsAll(FLOWER_FOREST_BLOCKSTATES);
+        isFlowerForestProvider = new HashSet<>(states).containsAll(FLOWER_FOREST_BLOCKSTATES);
     }
 
     @Inject(method = "getRandomState(Ljava/util/List;D)Lnet/minecraft/world/level/block/state/BlockState;", at = @At("HEAD"), cancellable = true)

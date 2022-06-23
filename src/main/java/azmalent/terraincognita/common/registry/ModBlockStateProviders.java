@@ -1,6 +1,5 @@
 package azmalent.terraincognita.common.registry;
 
-import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.world.stateprovider.AlpineFlowerStateProvider;
 import azmalent.terraincognita.mixin.accessor.BlockStateProviderTypeAccessor;
 import com.mojang.serialization.Codec;
@@ -10,8 +9,10 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
+import static azmalent.terraincognita.TerraIncognita.REGISTRY_HELPER;
+
 public class ModBlockStateProviders {
-    public static final DeferredRegister<BlockStateProviderType<?>> PROVIDERS = TerraIncognita.REG_HELPER.getOrCreateRegistry(ForgeRegistries.BLOCK_STATE_PROVIDER_TYPES);
+    public static final DeferredRegister<BlockStateProviderType<?>> PROVIDERS = REGISTRY_HELPER.getOrCreateRegistry(ForgeRegistries.BLOCK_STATE_PROVIDER_TYPES);
 
     public static final RegistryObject<BlockStateProviderType<?>> ALPINE_FLOWERS = register("alpine_flower_provider", AlpineFlowerStateProvider.CODEC);
 

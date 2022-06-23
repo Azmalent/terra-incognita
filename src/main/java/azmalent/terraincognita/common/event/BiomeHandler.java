@@ -18,8 +18,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import static net.minecraftforge.common.BiomeDictionary.Type.*;
-
+@SuppressWarnings("deprecation")
 @Mod.EventBusSubscriber(modid = TerraIncognita.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class BiomeHandler {
     @SubscribeEvent
@@ -32,7 +31,7 @@ public class BiomeHandler {
 
         ResourceKey<Biome> biomeKey = WorldGenUtil.getBiomeKey(event.getName());
         Biome biome = ForgeRegistries.BIOMES.getValue(event.getName());
-        if (biome == null || WorldGenUtil.hasAnyBiomeType(biomeKey, END, NETHER, VOID, OCEAN, BEACH, DEAD)) {
+        if (biome == null || WorldGenUtil.hasAnyBiomeType(biomeKey, BiomeDictionary.Type.END, BiomeDictionary.Type.NETHER, BiomeDictionary.Type.VOID, BiomeDictionary.Type.OCEAN, BiomeDictionary.Type.BEACH, BiomeDictionary.Type.DEAD)) {
             return;
         }
 
@@ -40,12 +39,12 @@ public class BiomeHandler {
         BiomeGenerationSettingsBuilder builder = event.getGeneration();
 
         //Spawns
-        if (WorldGenUtil.hasAnyBiomeType(biomeKey, PLAINS, FOREST) && !WorldGenUtil.hasAnyBiomeType(biomeKey, COLD, DENSE)) {
+        if (WorldGenUtil.hasAnyBiomeType(biomeKey, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.FOREST) && !WorldGenUtil.hasAnyBiomeType(biomeKey, BiomeDictionary.Type.COLD, BiomeDictionary.Type.DENSE)) {
             WorldGenUtil.addSpawner(spawns, ModEntities.BUTTERFLY, MobCategory.AMBIENT, TIConfig.Fauna.butterflySpawnWeight.get(), 4, 8);
         }
 
         //Hanging moss
-        if (!WorldGenUtil.hasAnyBiomeType(biomeKey, SANDY, MESA, WASTELAND, COLD, SAVANNA, DRY)) {
+        if (!WorldGenUtil.hasAnyBiomeType(biomeKey, BiomeDictionary.Type.SANDY, BiomeDictionary.Type.MESA, BiomeDictionary.Type.WASTELAND, BiomeDictionary.Type.COLD, BiomeDictionary.Type.SAVANNA, BiomeDictionary.Type.DRY)) {
             ModDefaultFeatures.withHangingMoss(builder);
         }
 
@@ -62,14 +61,13 @@ public class BiomeHandler {
 
             case FOREST:
                 ModDefaultFeatures.withForestFlowers(builder);
-                ModDefaultFeatures.withAppleTrees(builder);
                 ModDefaultFeatures.withHazelTrees(builder);
                 break;
 
             case SWAMP:
                 ModDefaultFeatures.withSwampVegetation(builder);
                 ModDefaultFeatures.withPeatAndMossyGravel(builder);
-                if (!BiomeDictionary.hasType(biomeKey, COLD)) {
+                if (!BiomeDictionary.hasType(biomeKey, BiomeDictionary.Type.COLD)) {
                     ModDefaultFeatures.withSwampFlowers(builder);
                 }
                 break;
@@ -83,7 +81,7 @@ public class BiomeHandler {
                 break;
 
             case EXTREME_HILLS:
-                if (!BiomeDictionary.hasType(biomeKey, HOT)) {
+                if (!BiomeDictionary.hasType(biomeKey, BiomeDictionary.Type.HOT)) {
                     ModDefaultFeatures.withAlpineFlowers(builder);
                 }
                 break;
@@ -97,7 +95,6 @@ public class BiomeHandler {
                 //Intentional fall-through!
             case TAIGA:
                 ModDefaultFeatures.withArcticFlowers(builder);
-                ModDefaultFeatures.withAlpineFlowers(builder);
                 break;
         }
     }

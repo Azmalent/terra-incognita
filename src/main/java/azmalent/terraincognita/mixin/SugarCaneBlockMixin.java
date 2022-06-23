@@ -14,10 +14,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Random;
 
+/**
+ * @reason Required for height variation. Also affects sedge as it's a subclass of SugarCaneBlock
+ */
 @Mixin(SugarCaneBlock.class)
 public class SugarCaneBlockMixin {
     private int getMaxHeight(BlockPos pos) {
-        //TODO: optimize
         return new Random(pos.asLong()).nextInt(3) + 2;
     }
 
@@ -34,7 +36,7 @@ public class SugarCaneBlockMixin {
 
     @Inject(method = "randomTick", at = @At("HEAD"), cancellable = true)
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, Random random, CallbackInfo ci) {
-        if (!TIServerConfig.Tweaks.plantHeightVariation.get()) {
+        if (!TIServerConfig.plantHeightVariation.get()) {
             return;
         }
 

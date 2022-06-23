@@ -38,19 +38,14 @@ import vazkii.quark.content.client.module.ChestSearchingModule;
 import java.util.List;
 
 @IntegrationImpl("quark")
-public class QuarkIntegration implements IQuarkProxy {
-    private final QuarkWoodBlockSet APPLE = new QuarkWoodBlockSet(ModWoodTypes.APPLE);
-    private final QuarkWoodBlockSet HAZEL = new QuarkWoodBlockSet(ModWoodTypes.HAZEL);
-    private final QuarkWoodBlockSet LARCH = new QuarkWoodBlockSet(ModWoodTypes.LARCH);
-    private final QuarkWoodBlockSet GINKGO = new QuarkWoodBlockSet(ModWoodTypes.GINKGO);
+public final class QuarkIntegration implements IQuarkProxy {
+    private final List<QuarkWoodBlockSet> WOOD_BLOCK_SETS = ModWoodTypes.VALUES.stream().map(QuarkWoodBlockSet::new).toList();
 
-    private final BlockEntry<TILeafCarpetBlock> BLOSSOMING_APPLE_LEAF_CARPET = TerraIncognita.REG_HELPER.createBlock("blossoming_apple_leaf_carpet", TILeafCarpetBlock::new).cutoutMippedRender().build();
-    private final BlockEntry<TIHedgeBlock> BLOSSOMING_APPLE_HEDGE = TerraIncognita.REG_HELPER.createBlock("blossoming_apple_hedge", () -> new TIHedgeBlock(MaterialColor.TERRACOTTA_ORANGE)).cutoutMippedRender().build();
+    private final BlockEntry<TILeafCarpetBlock> BLOSSOMING_APPLE_LEAF_CARPET = TerraIncognita.REGISTRY_HELPER.createBlock("blossoming_apple_leaf_carpet", TILeafCarpetBlock::new).cutoutMippedRender().build();
+    private final BlockEntry<TIHedgeBlock> BLOSSOMING_APPLE_HEDGE = TerraIncognita.REGISTRY_HELPER.createBlock("blossoming_apple_hedge", () -> new TIHedgeBlock(MaterialColor.TERRACOTTA_ORANGE)).cutoutMippedRender().build();
 
-    private final BlockEntry<Block> HAZELNUT_SACK = TerraIncognita.REG_HELPER.createBlock("hazelnut_sack", Block.Properties.of(Material.WOOL, MaterialColor.COLOR_BROWN).strength(0.5F).sound(SoundType.WOOL)).build();
-    private final BlockEntry<Block> SOUR_BERRY_SACK = TerraIncognita.REG_HELPER.createBlock("sour_berry_sack", Block.Properties.of(Material.WOOL, MaterialColor.TERRACOTTA_ORANGE).strength(0.5F).sound(SoundType.WOOL)).build();
-
-    private final List<QuarkWoodBlockSet> WOOD_BLOCK_SETS = Lists.newArrayList(APPLE, HAZEL);
+    private final BlockEntry<Block> HAZELNUT_SACK = TerraIncognita.REGISTRY_HELPER.createBlock("hazelnut_sack", Block.Properties.of(Material.WOOL, MaterialColor.COLOR_BROWN).strength(0.5F).sound(SoundType.WOOL)).build();
+    private final BlockEntry<Block> SOUR_BERRY_SACK = TerraIncognita.REGISTRY_HELPER.createBlock("sour_berry_sack", Block.Properties.of(Material.WOOL, MaterialColor.TERRACOTTA_ORANGE).strength(0.5F).sound(SoundType.WOOL)).build();
 
     @Override
     public void register(IEventBus bus) {
@@ -94,10 +89,14 @@ public class QuarkIntegration implements IQuarkProxy {
     public void registerBlockColorHandlers(ColorHandlerEvent.Block event) {
         BlockColors colors = event.getBlockColors();
 
+        List<Block> foliageColoredBlocks = Lists.newArrayList(BLOSSOMING_APPLE_LEAF_CARPET.get(), BLOSSOMING_APPLE_HEDGE.get());
+        WOOD_BLOCK_SETS.forEach(set -> {
+            foliageColoredBlocks.add(set.LEAF_CARPET.get());
+            foliageColoredBlocks.add(set.HEDGE.get());
+        });
+
         colors.register((state, reader, pos, color) -> reader != null && pos != null ? BiomeColors.getAverageFoliageColor(reader, pos) : FoliageColor.get(0.5D, 1.0D),
-            APPLE.LEAF_CARPET.get(), BLOSSOMING_APPLE_LEAF_CARPET.get(), APPLE.HEDGE.get(), BLOSSOMING_APPLE_HEDGE.get(),
-            HAZEL.LEAF_CARPET.get(), HAZEL.HEDGE.get(), LARCH.LEAF_CARPET.get(), LARCH.HEDGE.get(),
-            GINKGO.LEAF_CARPET.get(), GINKGO.HEDGE.get()
+            foliageColoredBlocks.toArray(Block[]::new)
         );
     }
 
@@ -106,9 +105,14 @@ public class QuarkIntegration implements IQuarkProxy {
         ItemColors colors = event.getItemColors();
         BlockColors blockColors = event.getBlockColors();
 
+        List<Block> foliageColoredBlocks = Lists.newArrayList(BLOSSOMING_APPLE_LEAF_CARPET.get(), BLOSSOMING_APPLE_HEDGE.get());
+        WOOD_BLOCK_SETS.forEach(set -> {
+            foliageColoredBlocks.add(set.LEAF_CARPET.get());
+            foliageColoredBlocks.add(set.HEDGE.get());
+        });
+
         colors.register((stack, index) -> blockColors.getColor(ItemUtil.getBlockFromItem(stack).defaultBlockState(), null, null, index),
-            APPLE.LEAF_CARPET, BLOSSOMING_APPLE_LEAF_CARPET, APPLE.HEDGE, BLOSSOMING_APPLE_HEDGE,
-            HAZEL.LEAF_CARPET, HAZEL.HEDGE, LARCH.LEAF_CARPET, LARCH.HEDGE, GINKGO.LEAF_CARPET, GINKGO.HEDGE
+            foliageColoredBlocks.toArray(Block[]::new)
         );
     }
 

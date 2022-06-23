@@ -21,7 +21,7 @@ public class FernLootModifier extends LootModifier {
     @Nonnull
     @Override
     protected List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
-        if (generatedLoot.isEmpty() && context.getRandom().nextFloat() < TIServerConfig.Food.fiddleheadDropChance.get()) {
+        if (generatedLoot.isEmpty() && context.getRandom().nextFloat() < TIServerConfig.fiddleheadDropChance.get()) {
             ItemStack fiddlehead = new ItemStack(ModItems.FIDDLEHEAD.get());
             generatedLoot.add(fiddlehead);
         }

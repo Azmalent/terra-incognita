@@ -125,7 +125,7 @@ public class EventHandler {
         InteractionHand hand = event.getHand();
         ItemStack heldStack = player.getItemInHand(hand);
 
-        if (heldStack.getItem() == Items.GLASS_BOTTLE && living instanceof IBottleableEntity && living.isAlive()) {
+        if (heldStack.is(Items.GLASS_BOTTLE) && living instanceof IBottleableEntity && living.isAlive()) {
             Level world = event.getWorld();
 
             heldStack.shrink(1);

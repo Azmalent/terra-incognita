@@ -14,7 +14,7 @@
     }
   },
   "result": {
-    "item": "$MODID:$TYPE_pantry"
+    "item": "$MODID:$TYPE_cabinet"
   },
   "conditions": [
     {

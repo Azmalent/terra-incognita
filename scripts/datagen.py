@@ -284,10 +284,10 @@ def make_wood_type(type):
     add_to_block_tag('beehives', '%s:%s' % (MODID, beehive), optional=True)
 
     # Farmer's Delight
-    pantry = variables['block'] = type + '_pantry'
-    copy_blockstate_and_models('pantry', pantry, variables, block_model_suffixes=['', '_open'])
-    copy_loot_table('named_tile_entity', pantry, variables)
-    copy_recipe('pantry', 'compat/farmersdelight/%s' % pantry, variables)
+    cabinet = variables['block'] = type + '_cabinet'
+    copy_blockstate_and_models('cabinet', cabinet, variables, block_model_suffixes=['', '_open'])
+    copy_loot_table('named_tile_entity', cabinet, variables)
+    copy_recipe('cabinet', 'compat/farmersdelight/%s' % cabinet, variables)
 
     copy_cutting_recipe('stripping', type, 'stripped_log', {'input': type + '_log'})
     copy_cutting_recipe('stripping', type, 'stripped_wood', {'input': type + '_wood'})

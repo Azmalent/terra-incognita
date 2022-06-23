@@ -37,9 +37,13 @@ public class TIConfig extends ConfigFile {
         @Comment("Adds forget-me-not, globeflowers and water flags to temperate and hot swamps.")
         public static final BooleanOption swampFlowers = BooleanOption.of(true, "swamp_flowers");
 
-        @Name("Small Lilypads Enabled")
-        @Comment("Small lilypads can be found in swamps. They can be stacked up to 4, like sea pickles.")
-        public static final BooleanOption smallLilypad = BooleanOption.of(true);
+        @Name("Small Lily Pads Enabled")
+        @Comment("Small lily pads spawn with regular ones. They can be stacked up to 4, like sea pickles.")
+        public static final BooleanOption smallLilyPads = BooleanOption.of(true);
+
+        @Name("Small Lilypad Ratio")
+        @Comment("Chance to replace a vanilla lily pad with small lily pads during generation.")
+        public static final DoubleOption smallLilyPadChance = DoubleOption.inUnitRange(0.5);
 
         @Name("Sedge Enabled")
         @Comment({"Sedge is a sugarcane-like plant that can be found in swamps. It can be grown in the same way as sugar cane, or, alternatively, in one block deep water.",
@@ -100,6 +104,9 @@ public class TIConfig extends ConfigFile {
         @Name("Apple Trees Enabled")
         public static final BooleanOption apple = BooleanOption.of(true, "apple");
 
+        @Comment("This tweak only applies if apple trees are enabled.")
+        public static final BooleanOption disableAppleDropFromOaks = BooleanOption.of(true, "remove_oak_apples");
+
         @Name("Hazel Trees Enabled")
         public static final BooleanOption hazel = BooleanOption.of(true, "hazel");
 
@@ -116,6 +123,44 @@ public class TIConfig extends ConfigFile {
         public static final BooleanOption lushPlains = BooleanOption.of(true);
         public static final BooleanOption tundra = BooleanOption.of(true);
         public static final BooleanOption muskeg = BooleanOption.of(true);
+    }
+
+    public static final class Food {
+        @Name("Fern Fiddlehead Enabled")
+        @Comment({"Fern fiddleheads can be found when breaking ferns. You can eat them raw or add them to suspicious stews.",
+            "Duration of suspicious stew's effect is doubled when a fiddlehead is added during or after cooking.",
+            "If the effect is negative, duration is halved instead."})
+        public static final BooleanOption fiddlehead = BooleanOption.of(true, "fiddlehead");
+
+        @Name("Taffy Enabled")
+        @Comment("Taffy is a food item that can only be found in dungeons. " +
+            "It restores some health, but also makes your mouth sticky, reducing eating speed with every taffy eaten.")
+        public static final BooleanOption taffy = BooleanOption.of(true);
+
+        @Name("Enchanted Golden Carrot Enabled")
+        @Comment({"Enchanted golden carrot grants 30 seconds of Regeneration II, 2 minutes of Absorption IV, 5 minutes of Speed II and 10 minutes of Night Vision when eaten.",
+            "It can be found in dungeon loot with the same rarity as enchanted golden apples."})
+        public static final BooleanOption notchCarrot = BooleanOption.of(true);
+
+        @Comment("Adds kelp soup and sweet berry sorbet.")
+        public static final BooleanOption extraVanillaFoods = BooleanOption.of(true, "vanilla_foods");
+    }
+
+    public static final class Tools {
+        @Name("Basket Enabled")
+        @Comment({"Basket is a portable container crafted from sedge (or sugar cane if sedge is disabled). It can be placed or opened from inventory.",
+            "Baskets have 9 slots and can only store forage such as flowers, saplings, mushrooms, seeds and eggs.",
+            "When you have a basket in your hand, it will automatically collect compatible items."})
+        public static final BooleanOption basket = BooleanOption.of(true, "basket");
+
+        @Name("Caltrops Enabled")
+        @Comment({"Caltrops are metal spikes that can be placed on the ground. Dropped caltrops will also place themselves if possible.",
+            "Caltrops deal one heart of damage and inflict slowness for 10 seconds when touched.",
+            "You can right click caltrops with an empty hand to pick them up. They will also be flushed away by flowing water."})
+        public static final BooleanOption caltrops = BooleanOption.of(true, "caltrops");
+
+        @Name("Cactus Shearing & Blowpipe Enabled")
+        public static final BooleanOption blowpipe = BooleanOption.of(true, "blowpipe");
     }
 
     public static final class Misc {
@@ -136,12 +181,5 @@ public class TIConfig extends ConfigFile {
         public static final BooleanOption witherRoseGeneration = BooleanOption.of(true);
 
         public static final BooleanOption bannerPatterns = BooleanOption.of(true, "banners");
-    }
-
-    public static final class Integration {
-        public static final class Quark {
-            @Comment("Chance to generate a marigold fairy ring in savanna biome chunk. Set to 0 to disable.")
-            public static final DoubleOption savannaFairyRingChance = DoubleOption.inUnitRange(0.0025);
-        }
     }
 }

@@ -1,18 +1,18 @@
 package azmalent.terraincognita.common.inventory;
 
+import azmalent.cuneiform.util.ContainerUtil;
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.blockentity.BasketBlockEntity;
 import azmalent.terraincognita.common.registry.ModMenus;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.items.SlotItemHandler;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
@@ -31,8 +31,6 @@ public class BasketMenu extends AbstractContainerMenu {
     private static final int SLOT_OFFSET = 18;
 
     private static final int PLAYER_INVENTORY_X = 8;
-    private static final int PLAYER_INVENTORY_Y = 84;
-    private static final int HOTBAR_Y = 142;
 
     private static final int BASKET_INVENTORY_X = PLAYER_INVENTORY_X + SLOT_OFFSET * 3;
     private static final int BASKET_INVENTORY_Y = 18;
@@ -51,32 +49,11 @@ public class BasketMenu extends AbstractContainerMenu {
         super(ModMenus.BASKET.get(), windowId);
         this.useContext = useContext;
 
-        //todo: use ContainerUtil
-        // Add the players hotbar to the gui - the [xpos, ypos] location of each item
-        for (int i = 0; i < HOTBAR_SLOT_COUNT; i++) {
-            addSlot(new Slot(playerInventory, i, PLAYER_INVENTORY_X + SLOT_OFFSET * i, HOTBAR_Y));
-        }
-
-        // Add the rest of the player's inventory to the gui
-        for (int y = 0; y < PLAYER_INVENTORY_HEIGHT; y++) {
-            for (int x = 0; x < PLAYER_INVENTORY_WIDTH; x++) {
-                int slotIndex = HOTBAR_SLOT_COUNT + y * PLAYER_INVENTORY_WIDTH + x;
-                int xpos = PLAYER_INVENTORY_X + x * SLOT_OFFSET;
-                int ypos = PLAYER_INVENTORY_Y + y * SLOT_OFFSET;
-                addSlot(new Slot(playerInventory, slotIndex, xpos, ypos));
-            }
-        }
-
-        // Add the tile inventory container to the gui
-        for (int row = 0; row < HEIGHT; row++) {
-            for (int col = 0; col < WIDTH; col++) {
-                int x = BASKET_INVENTORY_X + col * SLOT_OFFSET;
-                int y = BASKET_INVENTORY_Y + row * SLOT_OFFSET;
-                addSlot(new SlotItemHandler(stackHandler, row * HEIGHT + col, x, y));
-            }
-        }
+        ContainerUtil.addHotbarAndInventorySlots(this, playerInventory);
+        ContainerUtil.addContainerSlots(this, stackHandler, BASKET_INVENTORY_X, BASKET_INVENTORY_Y, WIDTH, HEIGHT);
     }
 
+    @SuppressWarnings("unused")
     public static BasketMenu fromNetwork(int windowId, Inventory playerInventory, FriendlyByteBuf buffer) {
         try {
             return new BasketMenu(windowId, playerInventory, new BasketStackHandler(), ItemStack.EMPTY);

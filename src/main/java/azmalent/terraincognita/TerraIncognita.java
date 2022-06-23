@@ -6,9 +6,10 @@ import azmalent.terraincognita.common.ModBiomeTags;
 import azmalent.terraincognita.common.ModBlockTags;
 import azmalent.terraincognita.common.ModItemTags;
 import azmalent.terraincognita.common.event.ToolInteractionHandler;
+import azmalent.terraincognita.common.ModTrades;
 import azmalent.terraincognita.common.registry.*;
 import azmalent.terraincognita.integration.ModIntegration;
-import azmalent.terraincognita.integration.theoneprobe.ButterflyInfoProvider;
+import azmalent.terraincognita.integration.top.ButterflyInfoProvider;
 import azmalent.terraincognita.proxy.ClientProxy;
 import azmalent.terraincognita.proxy.IProxy;
 import azmalent.terraincognita.proxy.ServerProxy;
@@ -32,12 +33,10 @@ public class TerraIncognita {
     public static final Logger LOGGER = LogManager.getLogger(MODID);
 
     public static final IProxy PROXY = DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> ServerProxy::new);
-    public static final RegistryHelper REG_HELPER = new RegistryHelper(MODID);
+    public static final RegistryHelper REGISTRY_HELPER = new RegistryHelper(MODID);
 
     public TerraIncognita() {
-        TIConfig.INSTANCE.register();
-        TIServerConfig.INSTANCE.register();
-        TIMixinConfig.INSTANCE.register();
+        initConfigs();
 
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         ModBlocks.BLOCKS.register(bus);
@@ -53,14 +52,25 @@ public class TerraIncognita {
         ModSounds.SOUNDS.register(bus);
         ModBlockEntities.BLOCK_ENTITIES.register(bus);
         ModTreeDecorators.TREE_DECORATORS.register(bus);
+
         ModBanners.register();
 
         ModIntegrationManager.initModProxies(ModIntegration.class, MODID);
         ModIntegration.QUARK.register(bus);
+        ModIntegration.FARMERS_DELIGHT.register(bus);
 
         ModItemTags.init();
         ModBlockTags.init();
         ModBiomeTags.init();
+    }
+
+    private static void initConfigs() {
+        TIConfig.INSTANCE.buildSpec();
+        TIConfig.INSTANCE.register();
+        TIConfig.INSTANCE.sync();
+
+        TIServerConfig.INSTANCE.buildSpec();
+        TIServerConfig.INSTANCE.register();
     }
 
     @SubscribeEvent
@@ -69,9 +79,9 @@ public class TerraIncognita {
 
         ModBlocks.initFlammability();
         ModItems.initFuelValues();
-        ModEntities.registerSpawns();
         ModRecipes.initCompostables();
         ToolInteractionHandler.initToolInteractions();
+        ModTrades.setupWandererTrades();
     }
 
     @SubscribeEvent

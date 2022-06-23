@@ -1,10 +1,7 @@
 package azmalent.terraincognita.common.registry;
 
-import azmalent.cuneiform.registry.BlockEntry;
 import azmalent.cuneiform.util.DataUtil;
 import azmalent.terraincognita.TIConfig;
-import azmalent.terraincognita.TerraIncognita;
-import azmalent.terraincognita.util.PottablePlantEntry;
 import azmalent.terraincognita.common.recipe.FiddleheadStewAdditionRecipe;
 import azmalent.terraincognita.common.recipe.FiddleheadStewRecipe;
 import azmalent.terraincognita.common.recipe.WreathRecipe;
@@ -19,9 +16,11 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.function.Function;
 
+import static azmalent.terraincognita.TerraIncognita.REGISTRY_HELPER;
+
 @SuppressWarnings("unused")
 public class ModRecipes {
-    public static final DeferredRegister<RecipeSerializer<?>> RECIPES = TerraIncognita.REG_HELPER.getOrCreateRegistry(ForgeRegistries.RECIPE_SERIALIZERS);
+    public static final DeferredRegister<RecipeSerializer<?>> RECIPES = REGISTRY_HELPER.getOrCreateRegistry(ForgeRegistries.RECIPE_SERIALIZERS);
 
     public static final RegistryObject<SimpleRecipeSerializer<?>> FIDDLEHEAD_SUSPICIOUS_STEW = registerRecipe("fiddlehead_suspicious_stew", FiddleheadStewRecipe::new);
     public static RegistryObject<SimpleRecipeSerializer<?>> FIDDLEHEAD_SUSPICIOUS_STEW_ADDITION = registerRecipe("fiddlehead_suspicious_stew_addition", FiddleheadStewAdditionRecipe::new);
@@ -41,15 +40,15 @@ public class ModRecipes {
             DataUtil.registerCompostable(Items.CHORUS_FLOWER, 1.0f);
         }
 
-        for (PottablePlantEntry flower : ModBlocks.FLOWERS) {
+        for (var flower : ModBlocks.FLOWERS) {
             DataUtil.registerCompostable(flower, 0.65f);
         }
 
-        for (BlockEntry<?> lotus : ModBlocks.LOTUSES) {
+        for (var lotus : ModBlocks.LOTUSES) {
             DataUtil.registerCompostable(lotus, 0.65f);
         }
 
-        for (BlockEntry<?> sweetPea : ModBlocks.SWEET_PEAS) {
+        for (var sweetPea : ModBlocks.SWEET_PEAS) {
             DataUtil.registerCompostable(sweetPea, 0.65f);
         }
 

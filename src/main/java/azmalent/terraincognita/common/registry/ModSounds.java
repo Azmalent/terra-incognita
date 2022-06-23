@@ -6,8 +6,10 @@ import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import static azmalent.terraincognita.TerraIncognita.REGISTRY_HELPER;
+
 public class ModSounds {
-    public static final DeferredRegister<SoundEvent> SOUNDS = TerraIncognita.REG_HELPER.getOrCreateRegistry(ForgeRegistries.SOUND_EVENTS);
+    public static final DeferredRegister<SoundEvent> SOUNDS = REGISTRY_HELPER.getOrCreateRegistry(ForgeRegistries.SOUND_EVENTS);
 
     public static final RegistryObject<SoundEvent> DANDELION_BLOW = makeSoundEvent("item.dandelion_puff.blow");
     public static final RegistryObject<SoundEvent> CALTROPS_THROWN  = makeSoundEvent("block.caltrops.throw");

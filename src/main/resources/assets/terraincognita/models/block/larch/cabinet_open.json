@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "side": "terraincognita:block/larch/cabinet_side",
+    "front": "terraincognita:block/larch/cabinet_front_open",
+    "top": "terraincognita:block/larch/cabinet_top"
+  }
+}

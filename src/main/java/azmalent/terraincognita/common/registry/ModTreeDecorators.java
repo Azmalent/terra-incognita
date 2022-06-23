@@ -1,6 +1,5 @@
 package azmalent.terraincognita.common.registry;
 
-import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.world.tree.decorator.AppleTreeDecorator;
 import azmalent.terraincognita.common.world.tree.decorator.HazelnutTreeDecorator;
 import azmalent.terraincognita.mixin.accessor.TreeDecoratorTypeAccessor;
@@ -11,8 +10,10 @@ import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import static azmalent.terraincognita.TerraIncognita.REGISTRY_HELPER;
+
 public class ModTreeDecorators {
-    public static final DeferredRegister<TreeDecoratorType<?>> TREE_DECORATORS = TerraIncognita.REG_HELPER.getOrCreateRegistry(ForgeRegistries.TREE_DECORATOR_TYPES);
+    public static final DeferredRegister<TreeDecoratorType<?>> TREE_DECORATORS = REGISTRY_HELPER.getOrCreateRegistry(ForgeRegistries.TREE_DECORATOR_TYPES);
 
     public static final RegistryObject<TreeDecoratorType<AppleTreeDecorator>> APPLES = register("apples", AppleTreeDecorator.CODEC);
     public static final RegistryObject<TreeDecoratorType<HazelnutTreeDecorator>> HAZELNUTS = register("hazelnuts", HazelnutTreeDecorator.CODEC);

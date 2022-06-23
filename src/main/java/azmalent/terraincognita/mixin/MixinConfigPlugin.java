@@ -11,6 +11,7 @@ import java.util.Set;
 
 public class MixinConfigPlugin implements IMixinConfigPlugin {
     private boolean quarkLoaded = false;
+    private boolean botaniaLoaded = false;
 
     private String getRelativeClassName(String className) {
         String packageName = getClass().getPackageName();
@@ -23,6 +24,7 @@ public class MixinConfigPlugin implements IMixinConfigPlugin {
         TIMixinConfig.INSTANCE.sync();
 
         quarkLoaded = ReflectionUtil.getClassOrNull("vazkii.quark.base.Quark") != null;
+        botaniaLoaded = ReflectionUtil.getClassOrNull("vazkii.botania.forge.ForgeCommonInitializer") != null;
     }
 
     @Override
@@ -32,17 +34,16 @@ public class MixinConfigPlugin implements IMixinConfigPlugin {
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        String relativeMixinClassName = getRelativeClassName(mixinClassName);
-        if (relativeMixinClassName.startsWith("accessor")) {
+        String key = getRelativeClassName(mixinClassName).replace('.', '/');
+        if (key.startsWith("accessor")) {
             return true;
         }
 
         //Ignore compat mixins if the corresponding mod is not loaded
-        if (!quarkLoaded && relativeMixinClassName.startsWith("compat.quark")) {
+        if (!quarkLoaded && key.startsWith("compat/quark") || !botaniaLoaded && key.startsWith("compat/botania")) {
             return false;
         }
 
-        String key = relativeMixinClassName.replace('.', '/');
         return TIMixinConfig.INSTANCE.mixins.getMap().getOrDefault(key, true);
     }
 
@@ -58,15 +59,16 @@ public class MixinConfigPlugin implements IMixinConfigPlugin {
 
     @Override
     public void preApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) {
-        String key = getRelativeClassName(mixinClassName).replace('.', '/');
 
-        if (!key.startsWith("accessor") && !TIMixinConfig.INSTANCE.mixins.contains(key)) {
-            TIMixinConfig.INSTANCE.mixins.put(key, true);
-        }
     }
 
     @Override
     public void postApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) {
+        String relativeMixinClassName = getRelativeClassName(mixinClassName);
+        String key = relativeMixinClassName.replace('.', '/');
 
+        if (!key.startsWith("accessor") && !TIMixinConfig.INSTANCE.mixins.contains(key)) {
+            TIMixinConfig.INSTANCE.mixins.put(key, true);
+        }
     }
 }

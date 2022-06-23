@@ -118,7 +118,7 @@
   "block.terraincognita.apple_leaf_carpet": "Ковёр из листьев яблони",
   "block.terraincognita.blossoming_apple_leaf_carpet": "Ковёр из цветущих листьев яблони",
   "block.terraincognita.apple_beehive": "Яблоневый улей",
-  "block.terraincognita.apple_pantry": "Яблоневая кладовая",
+  "block.terraincognita.apple_cabinet": "Яблоневая кладовая",
 
   "block.terraincognita.ginkgo_sapling": "Саженец гинкго",
   "block.terraincognita.potted_ginkgo_sapling": "Саженец гинкго в горшке",
@@ -147,7 +147,7 @@
   "block.terraincognita.ginkgo_hedge": "Гинкговая живая изгородь",
   "block.terraincognita.ginkgo_leaf_carpet": "Ковёр из листьев гинкго",
   "block.terraincognita.ginkgo_beehive": "Гинкговый улей",
-  "block.terraincognita.ginkgo_pantry": "Гинкговая кладовая",
+  "block.terraincognita.ginkgo_cabinet": "Гинкговая кладовая",
 
   "block.terraincognita.hazel_sapling": "Саженец орешника",
   "block.terraincognita.potted_hazel_sapling": "Саженец орешника в горшке",
@@ -176,7 +176,7 @@
   "block.terraincognita.hazel_hedge": "Орешниковая живая изгородь",
   "block.terraincognita.hazel_leaf_carpet": "Ковёр из листьев орешника",
   "block.terraincognita.hazel_beehive": "Орешниковый улей",
-  "block.terraincognita.hazel_pantry": "Орешниковая кладовая",
+  "block.terraincognita.hazel_cabinet": "Орешниковая кладовая",
   "block.terraincognita.hazelnut_sack": "Мешок фундука",
 
   "block.terraincognita.larch_sapling": "Саженец лиственницы",
@@ -206,7 +206,7 @@
   "block.terraincognita.larch_hedge": "Лиственничная живая изгородь",
   "block.terraincognita.larch_leaf_carpet": "Ковер из листьев лиственницы",
   "block.terraincognita.larch_beehive": "Лиственничный улей",
-  "block.terraincognita.larch_pantry": "Лиственничная кладовая",
+  "block.terraincognita.larch_cabinet": "Лиственничная кладовая",
 
   "item.terraincognita.taffy": "Ириска",
   "item.terraincognita.notch_carrot": "Зачарованная золотая морковь",

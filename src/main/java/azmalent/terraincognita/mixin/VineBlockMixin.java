@@ -10,6 +10,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+/**
+ * @reason Required for sweet peas to break if the supporting vine is sheared.
+ */
 @Mixin(VineBlock.class)
 public class VineBlockMixin {
     @SuppressWarnings("ConstantConditions")

@@ -5,7 +5,6 @@ import azmalent.cuneiform.config.ConfigFile;
 import azmalent.cuneiform.config.Name;
 import azmalent.cuneiform.config.options.MapOption;
 import com.google.common.collect.Maps;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig;
 
 public class TIMixinConfig extends ConfigFile {
@@ -13,14 +12,6 @@ public class TIMixinConfig extends ConfigFile {
 
     private TIMixinConfig() {
         super(TerraIncognita.MODID, ModConfig.Type.COMMON);
-    }
-
-    //Spec is built when mixins are loading, so we just need to register the file
-    //We also need to sync after potentially auto-adding mixins
-    @Override
-    public void register() {
-        ModLoadingContext.get().registerConfig(configType, spec, this.getConfigFilename());
-        sync();
     }
 
     @Override
@@ -35,5 +26,5 @@ public class TIMixinConfig extends ConfigFile {
         "Example: azmalent.terraincognita.mixin.compat.quark.LanternBlockMixin -> compat/quark/LanternBlockMixin",
         "DON'T CHANGE ANYTHING IF YOU DON'T KNOW WHAT YOU ARE DOING!"
     })
-    public MapOption<Boolean> mixins = MapOption.of(Maps.newTreeMap());
+    public MapOption<Boolean> mixins = MapOption.empty();
 }

@@ -50,7 +50,7 @@ public class TaffyItem extends Item {
             }
 
             player.addEffect(new MobEffectInstance(ModEffects.STICKY_MOUTH.get(), duration, amplifier, false, false));
-            player.heal(TIServerConfig.Food.taffyHealing.get());
+            player.heal(TIServerConfig.taffyHealingAmount.get());
 
             CriteriaTriggers.CONSUME_ITEM.trigger(player, stack);
             player.awardStat(Stats.ITEM_USED.get(this));

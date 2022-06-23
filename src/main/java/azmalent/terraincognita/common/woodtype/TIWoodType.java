@@ -12,7 +12,6 @@ import azmalent.terraincognita.common.block.sign.TIWallSignBlock;
 import azmalent.terraincognita.common.item.TIBoatItem;
 import azmalent.terraincognita.common.item.block.TIChestItem;
 import azmalent.terraincognita.common.registry.ModBlocks;
-import azmalent.terraincognita.util.PottablePlantEntry;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.client.renderer.BiomeColors;
@@ -37,7 +36,7 @@ public class TIWoodType extends WoodType {
     public final MaterialColor woodColor;
     public final MaterialColor barkColor;
 
-    public final PottablePlantEntry SAPLING;
+    public final BlockEntry<SaplingBlock> SAPLING;
     public final BlockEntry<LeavesBlock> LEAVES;
     public final BlockEntry<RotatedPillarBlock> LOG;
     public final BlockEntry<RotatedPillarBlock> STRIPPED_LOG;
@@ -72,31 +71,31 @@ public class TIWoodType extends WoodType {
         BOAT_TEXTURE = TerraIncognita.prefix("textures/entity/boat/" + name + ".png");
 
         SAPLING = ModBlocks.createPlant(id + "_sapling", () -> new SaplingBlock(tree, Block.Properties.copy(Blocks.OAK_SAPLING)));
-        LEAVES  = TerraIncognita.REG_HELPER.createBlock(id + "_leaves", this::createLeaves).cutoutMippedRender().build();
+        LEAVES  = TerraIncognita.REGISTRY_HELPER.createBlock(id + "_leaves", this::createLeaves).cutoutMippedRender().build();
 
-        LOG           = TerraIncognita.REG_HELPER.createBlock(id + "_log", () -> createLogBlock(woodColor, barkColor)).blockItem(CreativeModeTab.TAB_BUILDING_BLOCKS).build();
-        STRIPPED_LOG  = TerraIncognita.REG_HELPER.createBlock("stripped_" + id + "_log", () -> createLogBlock(woodColor, woodColor)).blockItem(CreativeModeTab.TAB_BUILDING_BLOCKS).build();
-        WOOD          = TerraIncognita.REG_HELPER.createBlock(id + "_wood", () -> createWoodBlock(barkColor)).blockItem(CreativeModeTab.TAB_BUILDING_BLOCKS).build();
-        STRIPPED_WOOD = TerraIncognita.REG_HELPER.createBlock("stripped_" + id + "_wood", () -> createWoodBlock(barkColor)).blockItem(CreativeModeTab.TAB_BUILDING_BLOCKS).build();
+        LOG           = TerraIncognita.REGISTRY_HELPER.createBlock(id + "_log", () -> createLogBlock(woodColor, barkColor)).blockItem(CreativeModeTab.TAB_BUILDING_BLOCKS).build();
+        STRIPPED_LOG  = TerraIncognita.REGISTRY_HELPER.createBlock("stripped_" + id + "_log", () -> createLogBlock(woodColor, woodColor)).blockItem(CreativeModeTab.TAB_BUILDING_BLOCKS).build();
+        WOOD          = TerraIncognita.REGISTRY_HELPER.createBlock(id + "_wood", () -> createWoodBlock(barkColor)).blockItem(CreativeModeTab.TAB_BUILDING_BLOCKS).build();
+        STRIPPED_WOOD = TerraIncognita.REGISTRY_HELPER.createBlock("stripped_" + id + "_wood", () -> createWoodBlock(barkColor)).blockItem(CreativeModeTab.TAB_BUILDING_BLOCKS).build();
 
-        PLANKS     = TerraIncognita.REG_HELPER.createBlock(id + "_planks", () -> createPlanks(woodColor)).blockItem(CreativeModeTab.TAB_BUILDING_BLOCKS).build();
-        STAIRS     = TerraIncognita.REG_HELPER.createBlock(id + "_stairs", () -> new StairBlock(PLANKS.defaultBlockState(), Block.Properties.copy(PLANKS.get()))).blockItem(CreativeModeTab.TAB_BUILDING_BLOCKS).build();
-        SLAB       = TerraIncognita.REG_HELPER.createBlock(id + "_slab", () -> new SlabBlock(Block.Properties.copy(PLANKS.get()))).blockItem(CreativeModeTab.TAB_BUILDING_BLOCKS).build();
-        FENCE      = TerraIncognita.REG_HELPER.createBlock(id + "_fence", FenceBlock::new, Block.Properties.of(Material.WOOD, woodColor).strength(2.0F, 3.0F).sound(SoundType.WOOD)).build();
-        FENCE_GATE = TerraIncognita.REG_HELPER.createBlock(id + "_fence_gate", FenceGateBlock::new, Block.Properties.of(Material.WOOD, woodColor).strength(2.0F, 3.0F).sound(SoundType.WOOD)).build();
+        PLANKS     = TerraIncognita.REGISTRY_HELPER.createBlock(id + "_planks", () -> createPlanks(woodColor)).blockItem(CreativeModeTab.TAB_BUILDING_BLOCKS).build();
+        STAIRS     = TerraIncognita.REGISTRY_HELPER.createBlock(id + "_stairs", () -> new StairBlock(PLANKS.defaultBlockState(), Block.Properties.copy(PLANKS.get()))).blockItem(CreativeModeTab.TAB_BUILDING_BLOCKS).build();
+        SLAB       = TerraIncognita.REGISTRY_HELPER.createBlock(id + "_slab", () -> new SlabBlock(Block.Properties.copy(PLANKS.get()))).blockItem(CreativeModeTab.TAB_BUILDING_BLOCKS).build();
+        FENCE      = TerraIncognita.REGISTRY_HELPER.createBlock(id + "_fence", FenceBlock::new, Block.Properties.of(Material.WOOD, woodColor).strength(2.0F, 3.0F).sound(SoundType.WOOD)).build();
+        FENCE_GATE = TerraIncognita.REGISTRY_HELPER.createBlock(id + "_fence_gate", FenceGateBlock::new, Block.Properties.of(Material.WOOD, woodColor).strength(2.0F, 3.0F).sound(SoundType.WOOD)).build();
 
-        BUTTON         = TerraIncognita.REG_HELPER.createBlock(id + "_button", WoodButtonBlock::new, Block.Properties.copy(Blocks.OAK_BUTTON)).blockItem(CreativeModeTab.TAB_REDSTONE).build();
-        PRESSURE_PLATE = TerraIncognita.REG_HELPER.createBlock(id + "_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, Block.Properties.of(Material.WOOD, woodColor).noCollission().strength(0.5F).sound(SoundType.WOOD))).blockItem(CreativeModeTab.TAB_REDSTONE).build();
+        BUTTON         = TerraIncognita.REGISTRY_HELPER.createBlock(id + "_button", WoodButtonBlock::new, Block.Properties.copy(Blocks.OAK_BUTTON)).blockItem(CreativeModeTab.TAB_REDSTONE).build();
+        PRESSURE_PLATE = TerraIncognita.REGISTRY_HELPER.createBlock(id + "_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, Block.Properties.of(Material.WOOD, woodColor).noCollission().strength(0.5F).sound(SoundType.WOOD))).blockItem(CreativeModeTab.TAB_REDSTONE).build();
 
-        DOOR     = TerraIncognita.REG_HELPER.createBlock(id + "_door", DoorBlock::new, Block.Properties.of(Material.WOOD, woodColor).strength(3.0F).sound(SoundType.WOOD).noOcclusion()).tallBlockItem(CreativeModeTab.TAB_REDSTONE).cutoutRender().build();
-        TRAPDOOR = TerraIncognita.REG_HELPER.createBlock(id + "_trapdoor",TrapDoorBlock::new, Block.Properties.of(Material.WOOD, woodColor).strength(3.0F).sound(SoundType.WOOD).noOcclusion().isValidSpawn((state, reader, pos, entity) -> false)).blockItem(CreativeModeTab.TAB_REDSTONE).cutoutRender().build();
+        DOOR     = TerraIncognita.REGISTRY_HELPER.createBlock(id + "_door", DoorBlock::new, Block.Properties.of(Material.WOOD, woodColor).strength(3.0F).sound(SoundType.WOOD).noOcclusion()).tallBlockItem(CreativeModeTab.TAB_REDSTONE).cutoutRender().build();
+        TRAPDOOR = TerraIncognita.REGISTRY_HELPER.createBlock(id + "_trapdoor", TrapDoorBlock::new, Block.Properties.of(Material.WOOD, woodColor).strength(3.0F).sound(SoundType.WOOD).noOcclusion().isValidSpawn((state, reader, pos, entity) -> false)).blockItem(CreativeModeTab.TAB_REDSTONE).cutoutRender().build();
 
-        WALL_SIGN     = TerraIncognita.REG_HELPER.createBlock(id + "_wall_sign", () -> new TIWallSignBlock(this)).noItemForm().build();
-        SIGN          = TerraIncognita.REG_HELPER.createBlock(id + "_sign", () -> new TIStandingSignBlock(this)).blockItem(block -> new SignItem(new Item.Properties().stacksTo(16).tab(CreativeModeTab.TAB_DECORATIONS), getSign(), WALL_SIGN.get())).build();
-        CHEST         = TerraIncognita.REG_HELPER.createBlock(id + "_chest", () -> new TIChestBlock(this)).blockItem(TIChestItem::new, CreativeModeTab.TAB_DECORATIONS).build();
-        TRAPPED_CHEST = TerraIncognita.REG_HELPER.createBlock(id + "_trapped_chest", () -> new TITrappedChestBlock(this)).blockItem(TIChestItem::new, CreativeModeTab.TAB_REDSTONE).build();
+        WALL_SIGN     = TerraIncognita.REGISTRY_HELPER.createBlock(id + "_wall_sign", () -> new TIWallSignBlock(this)).noItemForm().build();
+        SIGN          = TerraIncognita.REGISTRY_HELPER.createBlock(id + "_sign", () -> new TIStandingSignBlock(this)).blockItem(block -> new SignItem(new Item.Properties().stacksTo(16).tab(CreativeModeTab.TAB_DECORATIONS), getSign(), WALL_SIGN.get())).build();
+        CHEST         = TerraIncognita.REGISTRY_HELPER.createBlock(id + "_chest", () -> new TIChestBlock(this)).blockItem(TIChestItem::new, CreativeModeTab.TAB_DECORATIONS).build();
+        TRAPPED_CHEST = TerraIncognita.REGISTRY_HELPER.createBlock(id + "_trapped_chest", () -> new TITrappedChestBlock(this)).blockItem(TIChestItem::new, CreativeModeTab.TAB_REDSTONE).build();
 
-        BOAT          = TerraIncognita.REG_HELPER.createItem(id + "_boat", () -> new TIBoatItem(this));
+        BOAT          = TerraIncognita.REGISTRY_HELPER.createItem(id + "_boat", () -> new TIBoatItem(this));
     }
 
     //For use in the constructor

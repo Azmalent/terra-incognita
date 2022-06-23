@@ -7,13 +7,12 @@ import azmalent.terraincognita.common.woodtype.AppleWoodType;
 import azmalent.terraincognita.common.woodtype.HazelWoodType;
 import azmalent.terraincognita.common.woodtype.TIWoodType;
 import azmalent.terraincognita.common.world.tree.LarchTree;
-import com.google.common.collect.Lists;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.MaterialColor;
 
 import java.util.List;
 import java.util.Map;
-import java.util.function.BiConsumer;
+import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -27,26 +26,15 @@ public class ModWoodTypes {
     public static Map<String, TIWoodType> VALUES_BY_NAME;
 
     public static void init() {
-        VALUES = Lists.newArrayList(APPLE, HAZEL, LARCH, GINKGO);
-        VALUES_BY_NAME = VALUES.stream().collect(Collectors.toMap(type -> type.name, type -> type));
+        VALUES = List.of(APPLE, HAZEL, LARCH, GINKGO);
+        VALUES_BY_NAME = VALUES.stream().collect(Collectors.toMap(type -> type.name, Function.identity()));
     }
 
     public static TIWoodType byName(String name) {
         return VALUES_BY_NAME.get(name);
     }
 
-    private static List<Supplier<? extends Block>> getWoodBlockSuppliers(BiConsumer<List<Supplier<? extends Block>>, TIWoodType> func) {
-        List<Supplier<? extends Block>> suppliers = Lists.newArrayList();
-        ModWoodTypes.VALUES.forEach(woodType -> func.accept(suppliers, woodType));
-
-        return suppliers;
-    }
-
-    public static List<Supplier<? extends Block>> getChests() {
-        return getWoodBlockSuppliers((list, wood) -> list.add(wood.CHEST));
-    }
-
-    public static List<Supplier<? extends Block>> getTrappedChests() {
-        return getWoodBlockSuppliers((list, wood) -> list.add(wood.TRAPPED_CHEST));
+    public static List<Supplier<? extends Block>> getBlocks(Function<TIWoodType, Supplier<? extends Block>> func) {
+        return VALUES.stream().map(func).toList();
     }
 }

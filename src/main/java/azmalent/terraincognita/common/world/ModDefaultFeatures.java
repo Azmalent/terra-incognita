@@ -51,10 +51,6 @@ public class ModDefaultFeatures {
     }
 
     public static void withSwampVegetation(BiomeGenerationSettingsBuilder builder) {
-        if (TIConfig.Flora.smallLilypad.get()) {
-            WorldGenUtil.addVegetation(builder, ModVegetationPlacements.SMALL_LILY_PADS);
-        }
-
         if (TIConfig.Flora.sedge.get()) {
             WorldGenUtil.addVegetation(builder, ModVegetationPlacements.SEDGE);
         }
@@ -84,13 +80,13 @@ public class ModDefaultFeatures {
 
     public static void withAppleTrees(BiomeGenerationSettingsBuilder builder) {
         if (TIConfig.Trees.apple.get()) {
-            WorldGenUtil.addVegetation(builder, ModTreePlacements.APPLE_CHECKED);
+            WorldGenUtil.addVegetation(builder, ModTreePlacements.PLAINS_APPLE_TREES);
         }
     }
 
     public static void withHazelTrees(BiomeGenerationSettingsBuilder builder) {
         if (TIConfig.Trees.hazel.get()) {
-            WorldGenUtil.addVegetation(builder, ModTreePlacements.HAZEL_CHECKED);
+            WorldGenUtil.addVegetation(builder, ModTreePlacements.FOREST_HAZEL_TREES);
         }
     }
     public static void withPeatAndMossyGravel(BiomeGenerationSettingsBuilder builder) {

@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/orientable",
-  "textures": {
-    "side": "terraincognita:block/hazel/pantry_side",
-    "front": "terraincognita:block/hazel/pantry_front_open",
-    "top": "terraincognita:block/hazel/pantry_top"
-  }
-}

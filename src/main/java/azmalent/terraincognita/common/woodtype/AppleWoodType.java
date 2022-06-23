@@ -19,7 +19,7 @@ public final class AppleWoodType extends TIWoodType {
 
     public AppleWoodType(String id, AbstractTreeGrower tree, MaterialColor woodColor, MaterialColor barkColor) {
         super(id, tree, woodColor, barkColor);
-        BLOSSOMING_LEAVES = TerraIncognita.REG_HELPER.createBlock("blossoming_" + id + "_leaves", this::createLeaves).cutoutMippedRender().build();
+        BLOSSOMING_LEAVES = TerraIncognita.REGISTRY_HELPER.createBlock("blossoming_" + id + "_leaves", this::createLeaves).cutoutMippedRender().build();
     }
 
     @Override

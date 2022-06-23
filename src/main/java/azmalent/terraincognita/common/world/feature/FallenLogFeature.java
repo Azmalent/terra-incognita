@@ -85,7 +85,7 @@ public class FallenLogFeature extends Feature<FallenLogFeature.Config> {
     private void placeCaribouMossOnLog(WorldGenLevel reader, BlockPos pos, Direction logDirection, Random rand) {
         BlockPos up = pos.above();
         if (reader.isEmptyBlock(up) && rand.nextFloat() < 0.66f) {
-            BlockState moss = ModBlocks.CARIBOU_MOSS.getBlock().defaultBlockState();
+            BlockState moss = ModBlocks.CARIBOU_MOSS.defaultBlockState();
             reader.setBlock(up, moss, 2);
         }
 

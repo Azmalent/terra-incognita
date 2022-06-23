@@ -73,7 +73,9 @@ public abstract class AbstractButterfly extends PathfinderMob implements FlyingA
     public void readAdditionalSaveData(@NotNull CompoundTag tag) {
         super.readAdditionalSaveData(tag);
 
-        setSizeModifier(tag.getFloat("SizeModifier"));
+        float sizeModifier = tag.getFloat("SizeModifier");
+        setSizeModifier(sizeModifier > 0 ? sizeModifier : getRandomSizeModifier());
+
         setFromBottle(tag.getBoolean("IsFromBottle"));
     }
 
