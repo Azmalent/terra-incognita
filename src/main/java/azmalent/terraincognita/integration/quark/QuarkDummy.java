@@ -20,12 +20,7 @@ public final class QuarkDummy implements IQuarkProxy {
     }
 
     @Override
-    public boolean canLanternConnect(BlockState state, LevelReader level, BlockPos pos) {
-        return false;
-    }
-
-    @Override
     public boolean canCutVines() {
-        return false;
+        return true;
     }
 }

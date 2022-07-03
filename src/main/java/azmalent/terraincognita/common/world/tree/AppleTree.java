@@ -1,7 +1,7 @@
 package azmalent.terraincognita.common.world.tree;
 
 import azmalent.terraincognita.common.world.configured.ModConfiguredTreeFeatures;
-import azmalent.terraincognita.common.world.tree.decorator.AppleTreeDecorator;
+import azmalent.terraincognita.common.world.tree.decorator.AppleDecorator;
 import net.minecraft.core.Holder;
 import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.valueproviders.ConstantInt;
@@ -38,7 +38,7 @@ public class AppleTree extends AbstractTreeGrower {
             .ignoreVines();
 
         if (!grown) {
-            builder = builder.decorators(List.of(AppleTreeDecorator.INSTANCE));
+            builder = builder.decorators(List.of(AppleDecorator.INSTANCE));
         }
 
         return builder.build();

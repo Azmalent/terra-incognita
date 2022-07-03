@@ -1,77 +1,63 @@
 package azmalent.terraincognita.common.world.biome;
 
-import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.registry.ModBiomes;
-import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
-import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.BiomeGenerationSettings;
-import net.minecraft.world.level.biome.BiomeSpecialEffects;
-import net.minecraft.world.level.biome.MobSpawnSettings;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraft.world.level.biome.*;
 import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.common.BiomeManager;
-import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.List;
 
+@SuppressWarnings("deprecation")
 public abstract class TIBiomeEntry {
-    public final ResourceLocation id;
-    public final ResourceKey<Biome> resourceKey;
-    public Holder<Biome> biome;
+    public final RegistryObject<Biome> biome;
 
     public TIBiomeEntry(String name) {
-        id = TerraIncognita.prefix(name);
-        resourceKey = ResourceKey.create(Registry.BIOME_REGISTRY, id);
-
+        biome = ModBiomes.BIOMES.register(name, this::initBiome);
         ModBiomes.BIOME_LIST.add(this);
     }
 
     protected final Biome initBiome() {
-        Biome.ClimateSettings climate = getClimate();
         BiomeSpecialEffects specialEffects = getSpecialEffects();
-        MobSpawnSettings spawns = initSpawns();
 
-        return (new Biome.BiomeBuilder())
+        var generation = new BiomeGenerationSettings.Builder();
+        initFeatures(generation);
+
+        var spawns = new MobSpawnSettings.Builder();
+        initSpawns(spawns);
+
+        return new Biome.BiomeBuilder()
             .biomeCategory(getCategory())
-            .temperature(climate.temperature).temperatureAdjustment(climate.temperatureModifier)
-            .precipitation(climate.precipitation).downfall(climate.downfall)
+            .temperature(getTemperature()).temperatureAdjustment(getTemperatureModifier())
+            .precipitation(getPrecipitation()).downfall(getRainfall())
             .specialEffects(specialEffects)
-            .mobSpawnSettings(spawns)
+            .mobSpawnSettings(spawns.build())
+            .generationSettings(generation.build())
             .build();
     }
 
     @SuppressWarnings("deprecation")
-    public void register() {
-        biome = BuiltinRegistries.register(BuiltinRegistries.BIOME, resourceKey, this.initBiome());
-        BiomeDictionary.addTypes(resourceKey, getBiomeDictionaryTypes().toArray(new BiomeDictionary.Type[0]));
+    public final void initBiomeDictionary() {
+        BiomeDictionary.addTypes(biome.getKey(), getBiomeDictionaryTypes().toArray(new BiomeDictionary.Type[0]));
     }
 
     protected abstract Biome.BiomeCategory getCategory();
-    protected abstract Biome.ClimateSettings getClimate();
-    protected abstract BiomeSpecialEffects getSpecialEffects();
-    protected abstract MobSpawnSettings initSpawns();
-
-    protected abstract BiomeManager.BiomeType getBiomeType();
     protected abstract List<BiomeDictionary.Type> getBiomeDictionaryTypes();
 
-    public abstract void initFeatures(BiomeGenerationSettingsBuilder builder);
-
-    @OnlyIn(Dist.CLIENT)
-    public boolean hasCustomGrassModifier() {
-        return false;
+    protected Biome.Precipitation getPrecipitation() {
+        return Biome.Precipitation.RAIN;
     }
 
-    @OnlyIn(Dist.CLIENT)
-    public int getCustomGrassColor(double x, double z) {
-        throw new AssertionError("Custom grass color is not defined for biome " + id);
+    protected Biome.TemperatureModifier getTemperatureModifier() {
+        return Biome.TemperatureModifier.NONE;
     }
+    protected abstract float getTemperature();
+    protected abstract float getRainfall();
+    protected abstract BiomeSpecialEffects getSpecialEffects();
+
+    protected abstract void initFeatures(BiomeGenerationSettings.Builder builder);
+    protected abstract void initSpawns(MobSpawnSettings.Builder builder);
 
     protected static void initDefaultFeatures(BiomeGenerationSettings.Builder builder) {
         BiomeDefaultFeatures.addDefaultCarversAndLakes(builder);
@@ -80,6 +66,23 @@ public abstract class TIBiomeEntry {
         BiomeDefaultFeatures.addDefaultUndergroundVariety(builder);
         BiomeDefaultFeatures.addDefaultSprings(builder);
         BiomeDefaultFeatures.addSurfaceFreezing(builder);
+    }
+
+    protected final BiomeSpecialEffects.Builder defaultSpecialEffects(int waterColor, int waterFogColor) {
+        return defaultSpecialEffects(waterColor, waterFogColor, 0xC0D8FF);
+    }
+
+    protected final BiomeSpecialEffects.Builder defaultSpecialEffects(int waterColor, int waterFogColor, int fogColor) {
+        return defaultSpecialEffects(waterColor, waterFogColor, fogColor, calculateSkyColor(getTemperature()));
+    }
+
+    protected final BiomeSpecialEffects.Builder defaultSpecialEffects(int waterColor, int waterFogColor, int fogColor, int skyColor) {
+        return new BiomeSpecialEffects.Builder()
+            .waterColor(waterColor)
+            .waterFogColor(waterFogColor)
+            .fogColor(fogColor)
+            .skyColor(skyColor)
+            .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS);
     }
 
     protected static int calculateSkyColor(float temperature) {

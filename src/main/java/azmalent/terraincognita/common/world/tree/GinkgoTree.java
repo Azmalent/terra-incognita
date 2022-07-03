@@ -3,11 +3,13 @@ package azmalent.terraincognita.common.world.tree;
 import azmalent.terraincognita.common.world.configured.ModConfiguredTreeFeatures;
 import net.minecraft.core.Holder;
 import net.minecraft.util.valueproviders.ConstantInt;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.grower.AbstractTreeGrower;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FancyFoliagePlacer;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.RandomSpreadFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.FancyTrunkPlacer;
 import org.jetbrains.annotations.NotNull;
@@ -21,10 +23,10 @@ public class GinkgoTree extends AbstractTreeGrower {
     public static TreeConfiguration getTreeConfig() {
         return new TreeConfiguration.TreeConfigurationBuilder(
             SimpleStateProvider.simple(GINKGO.LOG.defaultBlockState()),
-            new FancyTrunkPlacer(5, 8, 0),
+            new FancyTrunkPlacer(8, 4, 4),
             SimpleStateProvider.simple(GINKGO.LEAVES.defaultBlockState()),
-            new FancyFoliagePlacer(ConstantInt.of(2), ConstantInt.of(4), 4),
-            new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4)))
+            new RandomSpreadFoliagePlacer(ConstantInt.of(4), ConstantInt.of(0), ConstantInt.of(3), 100),
+            new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(6)))
             .ignoreVines()
             .build();
     }

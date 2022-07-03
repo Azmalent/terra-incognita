@@ -1,4 +1,4 @@
-package azmalent.terraincognita.integration.quark.block;
+package azmalent.terraincognita.common.block.woodset;
 
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;

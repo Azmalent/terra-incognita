@@ -39,9 +39,10 @@ public class TerraIncognita {
         initConfigs();
 
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+        ModBiomes.BIOMES.register(bus);
         ModBlocks.BLOCKS.register(bus);
+        ModBlockEntities.BLOCK_ENTITIES.register(bus);
         ModItems.ITEMS.register(bus);
-        ModBlockStateProviders.PROVIDERS.register(bus);
         ModMenus.MENUS.register(bus);
         ModEffects.EFFECTS.register(bus);
         ModEntities.ENTITIES.register(bus);
@@ -50,7 +51,6 @@ public class TerraIncognita {
         ModParticles.PARTICLES.register(bus);
         ModRecipes.RECIPES.register(bus);
         ModSounds.SOUNDS.register(bus);
-        ModBlockEntities.BLOCK_ENTITIES.register(bus);
         ModTreeDecorators.TREE_DECORATORS.register(bus);
 
         ModBanners.register();
@@ -75,7 +75,8 @@ public class TerraIncognita {
 
     @SubscribeEvent
     public static void setup(FMLCommonSetupEvent event) {
-        event.enqueueWork(ModBiomes::registerBiomes);
+        event.enqueueWork(ModBiomes::initBiomes);
+        event.enqueueWork(ModWoodTypes::registerBeehivesToPOI);
 
         ModBlocks.initFlammability();
         ModItems.initFuelValues();

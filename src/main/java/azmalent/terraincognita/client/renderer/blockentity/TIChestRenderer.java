@@ -1,7 +1,7 @@
 package azmalent.terraincognita.client.renderer.blockentity;
 
-import azmalent.terraincognita.common.block.chest.TIChestBlock;
-import azmalent.terraincognita.common.block.chest.TITrappedChestBlock;
+import azmalent.terraincognita.common.block.woodset.chest.TIChestBlock;
+import azmalent.terraincognita.common.block.woodset.chest.TITrappedChestBlock;
 import azmalent.terraincognita.common.blockentity.TIChestBlockEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;

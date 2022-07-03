@@ -55,7 +55,11 @@ public class ModRecipes {
         ModWoodTypes.VALUES.forEach(woodType -> {
             DataUtil.registerCompostable(woodType.SAPLING, 0.3f);
             DataUtil.registerCompostable(woodType.LEAVES, 0.3f);
+            DataUtil.registerCompostable(woodType.LEAF_CARPET, 0.2f);
         });
+
+        DataUtil.registerCompostable(ModWoodTypes.APPLE.BLOSSOMING_LEAVES, 0.3f);
+        DataUtil.registerCompostable(ModWoodTypes.APPLE.BLOSSOMING_LEAF_CARPET, 0.2f);
 
         DataUtil.registerCompostable(ModBlocks.SMALL_LILY_PAD, 0.3f);
         DataUtil.registerCompostable(ModBlocks.HANGING_MOSS, 0.3f);
@@ -68,8 +72,10 @@ public class ModRecipes {
         DataUtil.registerCompostable(ModItems.FIDDLEHEAD, 0.65f);
         DataUtil.registerCompostable(ModItems.WREATH, 1);
 
-        DataUtil.registerCompostable(ModWoodTypes.APPLE.BLOSSOMING_LEAVES, 0.3f);
         DataUtil.registerCompostable(ModItems.HAZELNUT, 0.3f);
         DataUtil.registerCompostable(ModItems.HAZELNUT_COOKIE, 0.85f);
+
+        DataUtil.registerCompostable(ModBlocks.HAZELNUT_SACK, 1);
+        DataUtil.registerCompostable(ModBlocks.SOUR_BERRY_SACK, 1);
     }
 }

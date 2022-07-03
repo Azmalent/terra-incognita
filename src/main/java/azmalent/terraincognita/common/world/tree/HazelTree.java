@@ -1,7 +1,7 @@
 package azmalent.terraincognita.common.world.tree;
 
 import azmalent.terraincognita.common.world.configured.ModConfiguredTreeFeatures;
-import azmalent.terraincognita.common.world.tree.decorator.HazelnutTreeDecorator;
+import azmalent.terraincognita.common.world.tree.decorator.HazelnutDecorator;
 import net.minecraft.core.Holder;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.block.grower.AbstractTreeGrower;
@@ -31,7 +31,7 @@ public class HazelTree extends AbstractTreeGrower {
             .ignoreVines();
 
         if (!grown) {
-            builder = builder.decorators(List.of(HazelnutTreeDecorator.INSTANCE));
+            builder = builder.decorators(List.of(HazelnutDecorator.INSTANCE));
         }
 
         return builder.build();

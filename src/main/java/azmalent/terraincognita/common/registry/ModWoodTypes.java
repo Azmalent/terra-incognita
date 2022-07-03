@@ -1,14 +1,18 @@
 package azmalent.terraincognita.common.registry;
 
-import azmalent.terraincognita.common.world.tree.AppleTree;
-import azmalent.terraincognita.common.world.tree.GinkgoTree;
-import azmalent.terraincognita.common.world.tree.HazelTree;
 import azmalent.terraincognita.common.woodtype.AppleWoodType;
 import azmalent.terraincognita.common.woodtype.HazelWoodType;
 import azmalent.terraincognita.common.woodtype.TIWoodType;
+import azmalent.terraincognita.common.world.tree.AppleTree;
+import azmalent.terraincognita.common.world.tree.GinkgoTree;
+import azmalent.terraincognita.common.world.tree.HazelTree;
 import azmalent.terraincognita.common.world.tree.LarchTree;
+import com.google.common.collect.Sets;
+import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.MaterialColor;
+import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 
 import java.util.List;
 import java.util.Map;
@@ -36,5 +40,18 @@ public class ModWoodTypes {
 
     public static List<Supplier<? extends Block>> getBlocks(Function<TIWoodType, Supplier<? extends Block>> func) {
         return VALUES.stream().map(func).toList();
+    }
+
+    public static void registerBeehivesToPOI() {
+        PoiType.BEEHIVE.matchingStates = Sets.newHashSet(PoiType.BEEHIVE.matchingStates);
+        Map<BlockState, PoiType> poiTypeMap = ObfuscationReflectionHelper.getPrivateValue(PoiType.class, null, "f_27323_");
+        if (poiTypeMap != null) {
+            for (var beehive : getBlocks(type -> type.BEEHIVE)) {
+                beehive.get().getStateDefinition().getPossibleStates().forEach(state -> {
+                    poiTypeMap.put(state, PoiType.BEEHIVE);
+                    PoiType.BEEHIVE.matchingStates.add(state);
+                });
+            }
+        }
     }
 }

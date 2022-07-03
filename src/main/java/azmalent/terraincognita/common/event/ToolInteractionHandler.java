@@ -29,6 +29,7 @@ public class ToolInteractionHandler {
         for (TIWoodType woodType : ModWoodTypes.VALUES) {
             AXE_STRIPPABLES.put(woodType.LOG.get(), woodType.STRIPPED_LOG.get());
             AXE_STRIPPABLES.put(woodType.WOOD.get(), woodType.STRIPPED_WOOD.get());
+            AXE_STRIPPABLES.put(woodType.POST.get(), woodType.STRIPPED_POST.get());
         }
 
         SHOVEL_FLATTENABLES.put(ModBlocks.FLOWERING_GRASS.get(), Blocks.DIRT_PATH);

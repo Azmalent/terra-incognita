@@ -2,68 +2,47 @@ package azmalent.terraincognita.common.world.feature;
 
 import azmalent.terraincognita.common.block.plant.HangingMossBlock;
 import azmalent.terraincognita.common.registry.ModBlocks;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
-
-import java.util.Random;
+import org.jetbrains.annotations.NotNull;
 
 public class HangingMossFeature extends Feature<NoneFeatureConfiguration> {
-    private static final int MIN_VERTICAL_SPACE = 3;
-
-    private static final int MIN_Y = 40;
-    private static final int MAX_Y = 96;
-
-    private final static int X_SPREAD = 6;
-    private final static int Y_SPREAD = 4;
-    private final static int Z_SPREAD = 6;
-    private final static int TRIES = 20;
-
     public HangingMossFeature() {
         super(NoneFeatureConfiguration.CODEC);
     }
 
     @Override
-    public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
-        WorldGenLevel level = context.level();
-        BlockPos origin = context.origin();
-        Random random = context.random();
+    public boolean place(@NotNull FeaturePlaceContext<NoneFeatureConfiguration> context) {
+        var level = context.level();
+        var random = context.random();
+        var pos = context.origin();
 
-        int y = random.nextInt(MAX_Y - MIN_Y) + MIN_Y;
-        BlockPos centerPos = new BlockPos(origin.getX(), y, origin.getZ());
+        BlockState hangingMoss = ModBlocks.HANGING_MOSS.defaultBlockState();
 
-        BlockPos.MutableBlockPos nextPos = new BlockPos.MutableBlockPos();
-        boolean success = false;
-
-        BlockState moss = ModBlocks.HANGING_MOSS.defaultBlockState();
-
-        for(int i = 0; i < TRIES; i++) {
-            nextPos.setWithOffset(centerPos, random.nextInt(X_SPREAD + 1) - random.nextInt(X_SPREAD + 1), random.nextInt(Y_SPREAD + 1) - random.nextInt(Y_SPREAD + 1), random.nextInt(Z_SPREAD + 1) - random.nextInt(Z_SPREAD + 1));
-            if (nextPos.getY() < MIN_Y) {
-                continue;
+        if (hasEnoughVerticalSpace(level, pos) && hangingMoss.canSurvive(level, pos)) {
+            if (random.nextBoolean()) {
+                level.setBlock(pos, hangingMoss, 2);
+            } else {
+                level.setBlock(pos, hangingMoss.setValue(HangingMossBlock.VARIANT, HangingMossBlock.Variant.TOP), 2);
+                level.setBlock(pos.below(), hangingMoss.setValue(HangingMossBlock.VARIANT, HangingMossBlock.Variant.BOTTOM), 2);
             }
 
-            if (hasEnoughVerticalSpace(level, nextPos) && moss.canSurvive(level, nextPos) && !level.getBlockState(nextPos.above()).is(ModBlocks.HANGING_MOSS.get())) {
-                if (random.nextBoolean()) {
-                    level.setBlock(nextPos, moss, 2);
-                } else {
-                    level.setBlock(nextPos, moss.setValue(HangingMossBlock.VARIANT, HangingMossBlock.Variant.TOP), 2);
-                    level.setBlock(nextPos.below(), moss.setValue(HangingMossBlock.VARIANT, HangingMossBlock.Variant.BOTTOM), 2);
-                }
-
-                success = true;
-            }
+            return true;
         }
 
-        return success;
+        return false;
     }
 
     private boolean hasEnoughVerticalSpace(WorldGenLevel reader, BlockPos pos) {
-        for (int i = 0; i < MIN_VERTICAL_SPACE; i++) {
-            if (!reader.isEmptyBlock(pos.below(i))) {
+        var cursor = pos.mutable();
+        for (int i = 0; i < 3; i++) {
+            cursor.move(Direction.DOWN);
+            if (!reader.isEmptyBlock(cursor)) {
                 return false;
             }
         }

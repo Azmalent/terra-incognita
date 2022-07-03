@@ -1,6 +1,8 @@
 modLoader="javafml"
 loaderVersion="[${fml_min},)"
 license="GPL v3.0"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/terraincognita"
+issueTrackerURL="https://github.com/Azmalent/terra-incognita/issues"
 
 [[mods]]
 modId="terraincognita"
@@ -9,7 +11,7 @@ displayName="${mod_name}"
 logoFile="terraincognita.png"
 authors="Azmalent"
 description='''
-An expansion focusing on nature and exploration.
+An expansion mod focusing on nature and exploration.
 '''
 
 [[dependencies.terraincognita]]

@@ -1,4 +1,4 @@
-package azmalent.terraincognita.common.block.chest;
+package azmalent.terraincognita.common.block.woodset.chest;
 
 import azmalent.terraincognita.common.woodtype.TIWoodType;
 import azmalent.terraincognita.common.registry.ModBlockEntities;
@@ -29,11 +29,6 @@ public class TIChestBlock extends ChestBlock {
 
     public TIChestBlock(TIWoodType woodType) {
         this(woodType, ModBlockEntities.CHEST::get);
-    }
-
-    @Override
-    public boolean isFlammable(BlockState state, BlockGetter world, BlockPos pos, Direction face) {
-        return false;
     }
 
     @Override

@@ -17,9 +17,9 @@ import java.util.List;
 import java.util.Random;
 import java.util.function.BiConsumer;
 
-public class HazelnutTreeDecorator extends TreeDecorator {
-    public static final HazelnutTreeDecorator INSTANCE = new HazelnutTreeDecorator();
-    public static final Codec<HazelnutTreeDecorator> CODEC = Codec.unit(() -> INSTANCE);
+public class HazelnutDecorator extends TreeDecorator {
+    public static final HazelnutDecorator INSTANCE = new HazelnutDecorator();
+    public static final Codec<HazelnutDecorator> CODEC = Codec.unit(() -> INSTANCE);
 
     @Nonnull
     @Override

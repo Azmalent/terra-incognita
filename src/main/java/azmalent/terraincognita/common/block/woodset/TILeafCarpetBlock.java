@@ -1,4 +1,4 @@
-package azmalent.terraincognita.integration.quark.block;
+package azmalent.terraincognita.common.block.woodset;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.context.BlockPlaceContext;

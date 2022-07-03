@@ -1,4 +1,4 @@
-package azmalent.terraincognita.common.block.sign;
+package azmalent.terraincognita.common.block.woodset.sign;
 
 import azmalent.terraincognita.common.woodtype.TIWoodType;
 import com.google.common.collect.ImmutableSet;

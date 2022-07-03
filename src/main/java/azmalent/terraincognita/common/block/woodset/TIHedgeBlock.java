@@ -1,5 +1,6 @@
-package azmalent.terraincognita.integration.quark.block;
+package azmalent.terraincognita.common.block.woodset;
 
+import azmalent.terraincognita.common.ModBlockTags;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.FenceBlock;
@@ -17,10 +18,10 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.PlantType;
 import org.jetbrains.annotations.NotNull;
-import vazkii.quark.content.building.module.HedgesModule;
 
 import javax.annotation.Nonnull;
 
+//Copied from Quark HedgeBlock with minor edits
 public class TIHedgeBlock extends FenceBlock {
     public static final BooleanProperty EXTEND = BooleanProperty.create("extend");
 
@@ -31,7 +32,7 @@ public class TIHedgeBlock extends FenceBlock {
 
     @Override
     public boolean connectsTo(BlockState state, boolean isSideSolid, @Nonnull Direction direction) {
-        return state.is(HedgesModule.hedgesTag);
+        return state.is(ModBlockTags.HEDGES);
     }
 
     @Override

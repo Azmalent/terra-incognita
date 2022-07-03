@@ -1,6 +1,7 @@
 package azmalent.terraincognita.common;
 
 import azmalent.terraincognita.TerraIncognita;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
@@ -22,7 +23,14 @@ public class ModBlockTags {
     public static final TagKey<Block> HANGING_MOSS_PLANTABLE_ON = createTag("hanging_moss_plantable_on");
     public static final TagKey<Block> PEAT_MULTIBLOCK_PLANTS = createTag("peat_multiblock_plants");
 
+    //Compat tags
+    public static final TagKey<Block> HEDGES = createTag("quark", "hedges");
+
     private static TagKey<Block> createTag(String name) {
-        return BlockTags.create(TerraIncognita.prefix(name));
+        return createTag(TerraIncognita.MODID, name);
+    }
+
+    private static TagKey<Block> createTag(String modid, String name) {
+        return BlockTags.create(new ResourceLocation(modid, name));
     }
 }

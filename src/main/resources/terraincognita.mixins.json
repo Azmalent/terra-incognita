@@ -11,15 +11,14 @@
     "GrassBlockMixin",
     "NoiseProviderMixin",
     "NoiseThresholdProviderMixin",
+    "LanternBlockMixin",
     "SimpleBlockFeatureMixin",
     "SugarCaneBlockMixin",
     "VineBlockMixin",
-    "accessor.BlockStateProviderTypeAccessor",
     "accessor.BoatEntityAccessor",
     "accessor.HoeItemAccessor",
     "accessor.TreeDecoratorTypeAccessor",
-    "compat.botania.HornHarvestablesMixin",
-    "compat.quark.LanternBlockMixin"
+    "compat.botania.HornHarvestablesMixin"
   ],
   "client": [
   ],

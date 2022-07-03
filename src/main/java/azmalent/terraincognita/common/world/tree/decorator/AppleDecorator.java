@@ -17,9 +17,13 @@ import java.util.List;
 import java.util.Random;
 import java.util.function.BiConsumer;
 
-public class AppleTreeDecorator extends TreeDecorator {
-    public static final AppleTreeDecorator INSTANCE = new AppleTreeDecorator();
-    public static final Codec<AppleTreeDecorator> CODEC = Codec.unit(() -> INSTANCE);
+public class AppleDecorator extends TreeDecorator {
+    public static final AppleDecorator INSTANCE = new AppleDecorator();
+    public static final Codec<AppleDecorator> CODEC = Codec.unit(() -> INSTANCE);
+
+    public AppleDecorator() {
+
+    }
 
     @Nonnull
     @Override

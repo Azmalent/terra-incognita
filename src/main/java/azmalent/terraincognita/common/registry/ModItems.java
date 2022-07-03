@@ -91,15 +91,17 @@ public class ModItems {
 
     public static void initFuelValues() {
         for (TIWoodType woodType : ModWoodTypes.VALUES) {
-            FuelHandler.registerFuel(1.5f,woodType.LOG, woodType.STRIPPED_LOG, woodType.WOOD, woodType.STRIPPED_WOOD);
-            FuelHandler.registerFuel(1.5f, woodType.PLANKS);
+            FuelHandler.registerFuel(1.5f, woodType.LOG, woodType.STRIPPED_LOG, woodType.WOOD, woodType.STRIPPED_WOOD);
+            FuelHandler.registerFuel(1.5f, woodType.PLANKS, woodType.STAIRS);
             FuelHandler.registerFuel(0.75f, woodType.SLAB);
-            FuelHandler.registerFuel(1.5f, woodType.STAIRS);
             FuelHandler.registerFuel(1.5f, woodType.FENCE, woodType.FENCE_GATE);
-            FuelHandler.registerFuel(1, woodType.SIGN);
-            FuelHandler.registerFuel(1, woodType.DOOR);
+            FuelHandler.registerFuel(1, woodType.SIGN, woodType.DOOR);
             FuelHandler.registerFuel(1.5f, woodType.TRAPDOOR);
+
+            //Quark
+            FuelHandler.registerFuel(1.5f, woodType.BOOKSHELF, woodType.LADDER, woodType.POST, woodType.STRIPPED_POST);
         }
+
 
         FuelHandler.registerFuel(0.5f, ModBlocks.SEDGE);
         FuelHandler.registerFuel(12, ModBlocks.PEAT);

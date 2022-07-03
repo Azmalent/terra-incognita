@@ -262,8 +262,8 @@
   "entity.terraincognita.moth": "Moth",
   "item.terraincognita.moth_spawn_egg": "Moth Spawn Egg",
 
-  "_comment": "Halves eating speed with each level. Applied when eating taffies.",
   "effect.terraincognita.sticky_mouth": "Sticky Mouth",
+  "description.effect.terraincognita.sticky_mouth": "Halves eating speed with each level.",
   
   "item.terraincognita.fleur_de_lis_banner_pattern": "Banner Pattern",
   "item.terraincognita.fleur_de_lis_banner_pattern.desc": "Fleur de Lis",

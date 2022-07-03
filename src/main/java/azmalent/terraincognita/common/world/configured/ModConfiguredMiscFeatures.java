@@ -2,6 +2,7 @@ package azmalent.terraincognita.common.world.configured;
 
 import azmalent.terraincognita.common.registry.ModBlocks;
 import azmalent.terraincognita.common.registry.ModFeatures;
+import azmalent.terraincognita.common.registry.ModWoodTypes;
 import azmalent.terraincognita.common.world.feature.*;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.core.Holder;
@@ -14,6 +15,8 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
+
+import java.util.List;
 
 import static azmalent.terraincognita.util.ConfiguredFeatureHelper.*;
 
@@ -38,10 +41,10 @@ public class ModConfiguredMiscFeatures {
         "fallen_log", ModFeatures.FALLEN_LOG.get(), new FallenLogFeature.Config(
             new WeightedStateProvider(
                 SimpleWeightedRandomList.<BlockState>builder()
-                    .add(Blocks.SPRUCE_LOG.defaultBlockState(), 2)
-                    .add(Blocks.BIRCH_LOG.defaultBlockState(), 1)
+                    .add(Blocks.SPRUCE_LOG.defaultBlockState(), 1)
+                    .add(ModWoodTypes.LARCH.LOG.defaultBlockState(), 2)
                     .build()
-            ), true, true
+            ), UniformInt.of(4, 7)
         )
     );
 }

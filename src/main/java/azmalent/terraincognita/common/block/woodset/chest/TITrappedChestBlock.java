@@ -1,4 +1,4 @@
-package azmalent.terraincognita.common.block.chest;
+package azmalent.terraincognita.common.block.woodset.chest;
 
 import azmalent.terraincognita.common.woodtype.TIWoodType;
 import azmalent.terraincognita.common.registry.ModBlockEntities;

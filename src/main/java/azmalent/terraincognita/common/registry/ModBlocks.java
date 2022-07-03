@@ -2,6 +2,7 @@ package azmalent.terraincognita.common.registry;
 
 import azmalent.cuneiform.registry.BlockEntry;
 import azmalent.cuneiform.util.DataUtil;
+import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.block.*;
 import azmalent.terraincognita.common.block.plant.*;
 import azmalent.terraincognita.common.block.plant.ModFlowerBlock.StewEffect;
@@ -126,6 +127,9 @@ public class ModBlocks {
     public static final BlockEntry<BasketBlock> BASKET = REGISTRY_HELPER.createBlock("basket", BasketBlock::new).blockItem(BasketItem::new).build();
     public static final BlockEntry<CarpetBlock> WICKER_MAT = REGISTRY_HELPER.createBlock("wicker_mat", CarpetBlock::new, BlockBehaviour.Properties.of(Material.CLOTH_DECORATION, MaterialColor.COLOR_BROWN).strength(0.1F).sound(SoundType.WOOL)).build();
     public static final BlockEntry<WickerLanternBlock> WICKER_LANTERN = REGISTRY_HELPER.createBlock("wicker_lantern", WickerLanternBlock::new).cutoutRender().build();
+
+    public static final BlockEntry<Block> HAZELNUT_SACK = TerraIncognita.REGISTRY_HELPER.createBlock("hazelnut_sack", Block.Properties.of(Material.WOOL, MaterialColor.COLOR_BROWN).strength(0.5F).sound(SoundType.WOOL)).build();
+    public static final BlockEntry<Block> SOUR_BERRY_SACK = TerraIncognita.REGISTRY_HELPER.createBlock("sour_berry_sack", Block.Properties.of(Material.WOOL, MaterialColor.TERRACOTTA_ORANGE).strength(0.5F).sound(SoundType.WOOL)).build();
 
     static {
         ModWoodTypes.init();

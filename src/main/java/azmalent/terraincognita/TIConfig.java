@@ -61,12 +61,8 @@ public class TIConfig extends ConfigFile {
         @Name("Alpine Flowers Enabled")
         @Comment({"Adds edelweiss, alpine pink, saxifrage, asters and and gentian to temperate and cold mountain biomes.",
                 "All of these flowers can grow on gravel, and saxifrages can grow on stone as well.",
-                "Edelweiss has a minimum altitude requirement to generate."})
+                "Edelweiss is only found above Y = 128."})
         public static final BooleanOption alpineFlowers = BooleanOption.of(true, "alpine_flowers");
-
-        @Name("Minimum Altitude for Edelweiss")
-        @Comment("Minimum Y level where edelweiss can generate in the mountains.")
-        public static final IntOption edelweissMinimumY = IntOption.inRange(128, 96, 256);
 
         @Name("Arctic Flowers Enabled")
         @Comment("Adds heather, white dryads, fireweed and white rhododendrons to taiga and tundra biomes.")
@@ -120,8 +116,9 @@ public class TIConfig extends ConfigFile {
     public static final class Biomes {
         public static final IntOption biomeWeight = IntOption.nonNegative(3);
 
+        public static final BooleanOption borealForest = BooleanOption.of(true);
+        public static final BooleanOption ginkgoGrove = BooleanOption.of(true);
         public static final BooleanOption lushPlains = BooleanOption.of(true);
-        public static final BooleanOption tundra = BooleanOption.of(true);
         public static final BooleanOption muskeg = BooleanOption.of(true);
     }
 

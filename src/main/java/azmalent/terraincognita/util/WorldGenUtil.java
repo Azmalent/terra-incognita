@@ -8,22 +8,26 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
-import net.minecraftforge.common.world.MobSpawnSettingsBuilder;
 
 import static net.minecraftforge.common.BiomeDictionary.Type.*;
 
+@SuppressWarnings("deprecation")
 public class WorldGenUtil {
     public static ResourceKey<Biome> getBiomeKey(ResourceLocation location) {
         return ResourceKey.create(Registry.BIOME_REGISTRY, location);
     }
 
+    public static ResourceKey<Biome> getBiomeKey(Biome biome) {
+        return getBiomeKey(biome.getRegistryName());
+    }
+
     public static ResourceKey<Biome> getBiomeKey(Holder<Biome> biome) {
-        return getBiomeKey(biome.value().getRegistryName());
+        return getBiomeKey(biome.value());
     }
 
     public static boolean hasAnyBiomeType(ResourceKey<Biome> biome, BiomeDictionary.Type... types) {
@@ -34,7 +38,10 @@ public class WorldGenUtil {
         return false;
     }
 
-    @SuppressWarnings("deprecation")
+    public static Biome.BiomeCategory getProperBiomeCategory(Biome biome) {
+        return getProperBiomeCategory(Holder.direct(biome));
+    }
+
     public static Biome.BiomeCategory getProperBiomeCategory(Holder<Biome> biome) {
         Biome.BiomeCategory category = Biome.getBiomeCategory(biome);
         ResourceKey<Biome> key = getBiomeKey(biome);
@@ -50,28 +57,28 @@ public class WorldGenUtil {
         return category;
     }
 
-    public static <T extends Entity> void addSpawner(MobSpawnSettingsBuilder spawns, EntityEntry<T> entity, MobCategory classification, int weight, int minCount, int maxCount) {
+    public static <T extends Entity> void addSpawn(MobSpawnSettings.Builder spawns, EntityEntry<T> entity, MobCategory classification, int weight, int minCount, int maxCount) {
         if (weight > 0) {
             spawns.addSpawn(classification, new MobSpawnSettings.SpawnerData(entity.get(), weight, minCount, maxCount));
         }
     }
 
     @SafeVarargs
-    public static void addVegetation(BiomeGenerationSettingsBuilder builder, Holder<PlacedFeature>... features) {
+    public static void addVegetation(BiomeGenerationSettings.Builder builder, Holder<PlacedFeature>... features) {
         for (Holder<PlacedFeature> feature : features) {
             builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, feature);
         }
     }
 
     @SafeVarargs
-    public static void addOre(BiomeGenerationSettingsBuilder builder, Holder<PlacedFeature>... features) {
+    public static void addOre(BiomeGenerationSettings.Builder builder, Holder<PlacedFeature>... features) {
         for (Holder<PlacedFeature> feature : features) {
             builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, feature);
         }
     }
 
     @SafeVarargs
-    public static void addModification(BiomeGenerationSettingsBuilder builder, Holder<PlacedFeature>... features) {
+    public static void addModification(BiomeGenerationSettings.Builder builder, Holder<PlacedFeature>... features) {
         for (Holder<PlacedFeature> feature : features) {
             builder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, feature);
         }

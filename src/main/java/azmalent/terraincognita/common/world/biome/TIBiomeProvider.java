@@ -21,6 +21,14 @@ public class TIBiomeProvider extends Region {
 
     @Override
     public void addBiomes(Registry<Biome> registry, Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> mapper) {
+        if (TIConfig.Biomes.borealForest.get()) {
+
+        }
+
+        if (TIConfig.Biomes.ginkgoGrove.get()) {
+
+        }
+
         if (TIConfig.Biomes.lushPlains.get()) {
 
         }
@@ -29,9 +37,9 @@ public class TIBiomeProvider extends Region {
 
         }
 
-        if (TIConfig.Biomes.tundra.get()) {
-            addBiomeSimilar(mapper, Biomes.SNOWY_PLAINS, ModBiomes.TUNDRA.resourceKey);
+/*        if (TIConfig.Biomes.tundra.get()) {
+            addBiomeSimilar(mapper, Biomes.SNOWY_PLAINS, ModBiomes.TUNDRA.key);
             TerraIncognita.LOGGER.info("Registered tundra biome");
-        }
+        }*/
     }
 }

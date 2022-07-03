@@ -9,7 +9,5 @@ import net.minecraft.world.level.block.state.BlockState;
 public sealed interface IQuarkProxy extends IModProxy permits QuarkDummy, QuarkIntegration {
     boolean namesMatch(ItemStack stack);
 
-    boolean canLanternConnect(BlockState state, LevelReader level, BlockPos pos);
-
     boolean canCutVines();
 }

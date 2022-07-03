@@ -125,7 +125,6 @@ public class Butterfly extends AbstractButterfly {
         return super.requiresCustomPersistence() || isFromBottle();
     }
 
-
     public Butterfly.Type getButterflyType() {
         return Butterfly.Type.getTypeByIndex(entityData.get(BUTTERFLY_TYPE));
     }
@@ -357,7 +356,7 @@ public class Butterfly extends AbstractButterfly {
                 }
             }
 
-            return list.getRandomValue(random).orElse(CABBAGE_WHITE);
+            return list.getRandomValue(random).orElse(PEACOCK);
         }
     }
 }

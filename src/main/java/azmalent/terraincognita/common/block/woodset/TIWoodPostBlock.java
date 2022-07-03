@@ -1,4 +1,4 @@
-package azmalent.terraincognita.integration.quark.block;
+package azmalent.terraincognita.common.block.woodset;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -22,6 +22,7 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
+//Copied from Quark WoodPostBlock with minor edits
 @SuppressWarnings("deprecation")
 public class TIWoodPostBlock extends Block implements SimpleWaterloggedBlock {
     private static final VoxelShape SHAPE_X = Block.box(0F, 6F, 6F, 16F, 10F, 10F);

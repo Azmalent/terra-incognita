@@ -12,7 +12,7 @@ public class HeightBiomeFilter extends PlacementFilter {
     private final int minHeight;
     private final int maxHeight;
 
-    public HeightBiomeFilter(int minHeight, int maxHeight) {
+    private HeightBiomeFilter(int minHeight, int maxHeight) {
         this.minHeight = minHeight;
         this.maxHeight = maxHeight;
     }
@@ -23,6 +23,10 @@ public class HeightBiomeFilter extends PlacementFilter {
 
     public static HeightBiomeFilter below(int maxHeight) {
         return new HeightBiomeFilter(0, maxHeight);
+    }
+
+    public static HeightBiomeFilter between(int minHeight, int maxHeight) {
+        return new HeightBiomeFilter(minHeight, maxHeight);
     }
 
     @Override

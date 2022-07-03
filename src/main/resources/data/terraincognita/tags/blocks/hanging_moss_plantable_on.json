@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "minecraft:moss_block",
     "#minecraft:logs",
     "#minecraft:planks",
     "#forge:stone",
