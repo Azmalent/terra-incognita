@@ -129,7 +129,7 @@ public class TIWoodType extends WoodType {
     }
 
     public ResourceLocation getChestTexture(ChestType type, boolean trapped) {
-        String location = "entity/chest/" + name + "_";
+        String location = "entity/chest/" + name + "/";
         if (trapped) location += "trapped_";
         location += type.getSerializedName();
 
