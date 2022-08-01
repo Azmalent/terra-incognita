@@ -1,16 +1,24 @@
 package azmalent.terraincognita.common.world.placement;
 
+import azmalent.terraincognita.common.registry.ModBlocks;
 import azmalent.terraincognita.common.world.configured.ModConfiguredVegetationFeatures;
+import azmalent.terraincognita.util.WeightedStateProviderBuilder;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderSet;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.ConstantInt;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.SimpleRandomFeatureConfiguration;
 import net.minecraft.world.level.levelgen.placement.*;
+
+import static azmalent.terraincognita.util.ConfiguredFeatureHelper.randomPatchConfig;
 
 public class ModVegetationPlacements {
     //Common biome flowers
@@ -100,5 +108,10 @@ public class ModVegetationPlacements {
     public static final Holder<PlacedFeature> SOUR_BERRIES = PlacementUtils.register(
         "sour_berries", ModConfiguredVegetationFeatures.SOUR_BERRIES,
         VegetationPlacements.worldSurfaceSquaredWithCount(3)
+    );
+
+    public static final Holder<PlacedFeature> TUNDRA_VEGETATION_PATCH = PlacementUtils.register(
+        "tundra_vegetation_patch", ModConfiguredVegetationFeatures.TUNDRA_VEGETATION_PATCH,
+        RarityFilter.onAverageOnceEvery(12), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
     );
 }

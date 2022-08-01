@@ -6,6 +6,7 @@ import azmalent.cuneiform.config.Name;
 import azmalent.cuneiform.config.options.BooleanOption;
 import azmalent.cuneiform.config.options.DoubleOption;
 import azmalent.cuneiform.config.options.IntOption;
+import azmalent.terraincognita.mixin.GrassBlockMixin;
 import net.minecraftforge.fml.config.ModConfig;
 
 @SuppressWarnings("unused")
@@ -120,6 +121,7 @@ public class TIConfig extends ConfigFile {
         public static final BooleanOption ginkgoGrove = BooleanOption.of(true);
         public static final BooleanOption lushPlains = BooleanOption.of(true);
         public static final BooleanOption muskeg = BooleanOption.of(true);
+        public static final BooleanOption tundra = BooleanOption.of(true);
     }
 
     public static final class Food {

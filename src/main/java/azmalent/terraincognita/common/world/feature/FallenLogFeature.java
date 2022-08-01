@@ -68,11 +68,11 @@ public class FallenLogFeature extends Feature<FallenLogFeature.Config> {
     }
 
     public record Config(BlockStateProvider log, IntProvider length, List<TreeDecorator> decorators) implements FeatureConfiguration {
-        public static final Codec<FallenLogFeature.Config> CODEC = RecordCodecBuilder.create((something) -> something
+        public static final Codec<FallenLogFeature.Config> CODEC = RecordCodecBuilder.create((builder) -> builder
             .group(BlockStateProvider.CODEC.fieldOf("log").forGetter(FallenLogFeature.Config::log),
                    IntProvider.CODEC.fieldOf("length").forGetter(FallenLogFeature.Config::length),
                    TreeDecorator.CODEC.listOf().fieldOf("decorators").forGetter(FallenLogFeature.Config::decorators))
-            .apply(something, FallenLogFeature.Config::new)
+            .apply(builder, FallenLogFeature.Config::new)
         );
 
         public Config(BlockStateProvider log, IntProvider length) {

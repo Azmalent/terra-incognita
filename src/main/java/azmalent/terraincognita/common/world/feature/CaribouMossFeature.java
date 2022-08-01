@@ -4,7 +4,9 @@ import azmalent.terraincognita.common.block.plant.CaribouMossWallBlock;
 import azmalent.terraincognita.common.registry.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
@@ -29,16 +31,16 @@ public class CaribouMossFeature extends Feature<NoneFeatureConfiguration> {
             int z = 4 + random.nextInt(6);
             int count = (int) (x * z * (random.nextDouble() + random.nextDouble() + 2));
 
-            BlockPos.MutableBlockPos nextPos = new BlockPos.MutableBlockPos();
+            BlockPos.MutableBlockPos cursor = new BlockPos.MutableBlockPos();
             for (int i = 0; i < count; i++) {
-                nextPos.setWithOffset(origin,
+                cursor.setWithOffset(origin,
                     random.nextInt(x) - random.nextInt(x),
                     random.nextInt(2) - random.nextInt(2),
                     random.nextInt(z) - random.nextInt(z)
                 );
 
-                if (level.isEmptyBlock(nextPos)) {
-                    success |= tryPlaceMoss(level, nextPos, random);
+                if (level.isEmptyBlock(cursor)) {
+                    success |= tryPlaceMoss(level, cursor, random);
                 }
             }
         }
@@ -51,13 +53,25 @@ public class CaribouMossFeature extends Feature<NoneFeatureConfiguration> {
             BlockState state = ModBlocks.CARIBOU_MOSS_WALL.defaultBlockState().setValue(CaribouMossWallBlock.FACING, direction);
             if (random.nextBoolean() && state.canSurvive(level, pos)) {
                 level.setBlock(pos, state, 2);
+
+                BlockPos wall = pos.relative(direction.getOpposite());
+                if (level.getBlockState(wall).is(BlockTags.MOSS_REPLACEABLE) && random.nextBoolean()) {
+                    level.setBlock(wall, Blocks.MOSS_BLOCK.defaultBlockState(), 2);
+                }
+
                 return true;
             }
         }
 
         BlockState state = ModBlocks.CARIBOU_MOSS.defaultBlockState();
         if (state.canSurvive(level, pos)) {
-            level.setBlock(pos, state, 2);
+            level.setBlock(pos, random.nextBoolean() ? state : Blocks.MOSS_CARPET.defaultBlockState(), 2);
+
+            BlockPos under = pos.below();
+            if (level.getBlockState(under).is(BlockTags.MOSS_REPLACEABLE) && random.nextBoolean()) {
+                level.setBlock(under, Blocks.MOSS_BLOCK.defaultBlockState(), 2);
+            }
+
             return true;
         }
 

@@ -22,7 +22,7 @@ public class MuskegBiome extends TIBiomeEntry {
     }
 
     @Override
-    protected List<BiomeDictionary.Type> getBiomeDictionaryTypes() {
+    public List<BiomeDictionary.Type> getBiomeDictionaryTypes() {
         return List.of(BiomeDictionary.Type.OVERWORLD, BiomeDictionary.Type.SWAMP, BiomeDictionary.Type.COLD, BiomeDictionary.Type.CONIFEROUS);
     }
 
@@ -45,12 +45,12 @@ public class MuskegBiome extends TIBiomeEntry {
     }
 
     @Override
-    protected void initFeatures(BiomeGenerationSettings.Builder builder) {
+    public void initFeatures(BiomeGenerationSettings.Builder builder) {
 
     }
 
     @Override
-    protected void initSpawns(MobSpawnSettings.Builder builder) {
+    public void initSpawns(MobSpawnSettings.Builder builder) {
 
     }
 }

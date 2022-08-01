@@ -7,6 +7,7 @@ import azmalent.terraincognita.common.world.feature.*;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.core.Holder;
 
+import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
@@ -16,11 +17,10 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 
-import java.util.List;
-
 import static azmalent.terraincognita.util.ConfiguredFeatureHelper.*;
 
 public class ModConfiguredMiscFeatures {
+    //Disks
     public static final Holder<ConfiguredFeature<DiskConfiguration, Feature<DiskConfiguration>>> PEAT_DISK = registerFeature(
         "peat", Feature.DISK, new DiskConfiguration(
             ModBlocks.PEAT.defaultBlockState(),
@@ -37,6 +37,7 @@ public class ModConfiguredMiscFeatures {
         )
     );
 
+    //Fallen logs
     public static final Holder<ConfiguredFeature<FallenLogFeature.Config, FallenLogFeature>> FALLEN_LOG = registerFeature(
         "fallen_log", ModFeatures.FALLEN_LOG.get(), new FallenLogFeature.Config(
             new WeightedStateProvider(
@@ -46,5 +47,13 @@ public class ModConfiguredMiscFeatures {
                     .build()
             ), UniformInt.of(4, 7)
         )
+    );
+
+    //Boulders
+    public static final Holder<ConfiguredFeature<SimpleRandomFeatureConfiguration, Feature<SimpleRandomFeatureConfiguration>>> TUNDRA_BOULDER = registerRandomFeature(
+        "tundra_boulder",
+        PlacementUtils.inlinePlaced(Feature.FOREST_ROCK, new BlockStateConfiguration(Blocks.COBBLESTONE.defaultBlockState())),
+        PlacementUtils.inlinePlaced(Feature.FOREST_ROCK, new BlockStateConfiguration(Blocks.MOSSY_COBBLESTONE.defaultBlockState())),
+        PlacementUtils.inlinePlaced(Feature.FOREST_ROCK, new BlockStateConfiguration(Blocks.ANDESITE.defaultBlockState()))
     );
 }

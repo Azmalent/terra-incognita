@@ -24,7 +24,6 @@ import java.util.List;
 public class ColorHandler {
     public static final int LILYPAD_WORLD_COLOR = 2129968;
     public static final int LILYPAD_INVENTORY_COLOR = 2129968;
-    public static final int MOSS_COLOR = 0x5AAD41;
 
     @SubscribeEvent
     public static void registerBlockColors(ColorHandlerEvent.Block event) {
@@ -40,8 +39,6 @@ public class ColorHandler {
         colors.register((state, reader, pos, color) -> reader != null && pos != null ? LILYPAD_WORLD_COLOR : LILYPAD_INVENTORY_COLOR,
             ModBlocks.SMALL_LILY_PAD.get(), ModBlocks.PINK_LOTUS.get(), ModBlocks.WHITE_LOTUS.get(), ModBlocks.YELLOW_LOTUS.get()
         );
-
-        colors.register((state, reader, pos, color) -> MOSS_COLOR, ModBlocks.HANGING_MOSS.get());
     }
 
     @SubscribeEvent

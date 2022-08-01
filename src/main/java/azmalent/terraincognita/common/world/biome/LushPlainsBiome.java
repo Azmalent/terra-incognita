@@ -22,7 +22,7 @@ public class LushPlainsBiome extends TIBiomeEntry {
     }
 
     @Override
-    protected List<BiomeDictionary.Type> getBiomeDictionaryTypes() {
+    public List<BiomeDictionary.Type> getBiomeDictionaryTypes() {
         return List.of(BiomeDictionary.Type.OVERWORLD, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.LUSH);
     }
 
@@ -42,8 +42,8 @@ public class LushPlainsBiome extends TIBiomeEntry {
     }
 
     @Override
-    protected void initFeatures(BiomeGenerationSettings.Builder builder) {
-        initDefaultFeatures(builder);
+    public void initFeatures(BiomeGenerationSettings.Builder builder) {
+        defaultFeatures(builder);
 
         BiomeDefaultFeatures.addPlainGrass(builder);
         BiomeDefaultFeatures.addPlainVegetation(builder);
@@ -53,11 +53,11 @@ public class LushPlainsBiome extends TIBiomeEntry {
         BiomeDefaultFeatures.addDefaultOres(builder);
         BiomeDefaultFeatures.addDefaultSoftDisks(builder);
 
-        ModDefaultFeatures.addAppleTrees(builder);
+        ModDefaultFeatures.appleTrees(builder);
     }
 
     @Override
-    protected void initSpawns(MobSpawnSettings.Builder spawns) {
+    public void initSpawns(MobSpawnSettings.Builder spawns) {
         BiomeDefaultFeatures.plainsSpawns(spawns);
         ModDefaultFeatures.butterflies(spawns);
     }

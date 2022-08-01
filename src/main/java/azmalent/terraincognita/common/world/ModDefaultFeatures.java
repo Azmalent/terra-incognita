@@ -9,6 +9,7 @@ import azmalent.terraincognita.util.WorldGenUtil;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.MobSpawnSettings;
+import net.minecraft.world.level.levelgen.GenerationStep;
 
 public class ModDefaultFeatures {
     //Spawns
@@ -17,7 +18,7 @@ public class ModDefaultFeatures {
     }
 
     //Vegetation
-    public static void addAlpineFlowers(BiomeGenerationSettings.Builder builder) {
+    public static void alpineFlowers(BiomeGenerationSettings.Builder builder) {
         if (TIConfig.Flora.alpineFlowers.get()) {
             WorldGenUtil.addVegetation(builder, ModVegetationPlacements.ALPINE_FLOWERS);
             WorldGenUtil.addVegetation(builder, ModVegetationPlacements.EDELWEISS);
@@ -25,91 +26,95 @@ public class ModDefaultFeatures {
         }
     }
 
-    public static void addArcticFlowers(BiomeGenerationSettings.Builder builder) {
+    public static void arcticFlowers(BiomeGenerationSettings.Builder builder) {
         if (TIConfig.Flora.arcticFlowers.get()) {
             WorldGenUtil.addVegetation(builder, ModVegetationPlacements.ARCTIC_FLOWERS);
         }
     }
 
-    public static void addCaribouMoss(BiomeGenerationSettings.Builder builder) {
+    public static void caribouMoss(BiomeGenerationSettings.Builder builder) {
         if (TIConfig.Flora.caribouMoss.get()) {
             WorldGenUtil.addVegetation(builder, ModVegetationPlacements.CARIBOU_MOSS);
         }
     }
 
-    public static void addDesertVegetation(BiomeGenerationSettings.Builder builder) {
+    public static void desertVegetation(BiomeGenerationSettings.Builder builder) {
         if (TIConfig.Flora.cactusFlowers.get()) {
             WorldGenUtil.addVegetation(builder, ModVegetationPlacements.CACTUS_FLOWERS);
         }
     }
 
-    public static void addForestFlowers(BiomeGenerationSettings.Builder builder) {
+    public static void forestFlowers(BiomeGenerationSettings.Builder builder) {
         if (TIConfig.Flora.forestFlowers.get()) {
             WorldGenUtil.addVegetation(builder, ModVegetationPlacements.FOREST_FLOWERS);
         }
     }
 
-    public static void addHangingMoss(BiomeGenerationSettings.Builder builder) {
+    public static void hangingMoss(BiomeGenerationSettings.Builder builder) {
         if (TIConfig.Flora.hangingMoss.get()) {
             WorldGenUtil.addVegetation(builder, ModVegetationPlacements.HANGING_MOSS_PATCH);
         }
     }
 
-    public static void addJungleVegetation(BiomeGenerationSettings.Builder builder) {
+    public static void jungleVegetation(BiomeGenerationSettings.Builder builder) {
         if (TIConfig.Flora.lotus.get()) {
             WorldGenUtil.addVegetation(builder, ModVegetationPlacements.LOTUS);
         }
     }
 
-    public static void addSavannaFlowers(BiomeGenerationSettings.Builder builder) {
+    public static void savannaFlowers(BiomeGenerationSettings.Builder builder) {
         if (TIConfig.Flora.savannaFlowers.get()) {
             WorldGenUtil.addVegetation(builder, ModVegetationPlacements.SAVANNA_FLOWERS);
         }
     }
 
-    public static void addSwampFlowers(BiomeGenerationSettings.Builder builder) {
+    public static void swampFlowers(BiomeGenerationSettings.Builder builder) {
         if (TIConfig.Flora.swampFlowers.get()) {
             WorldGenUtil.addVegetation(builder, ModVegetationPlacements.SWAMP_FLOWERS);
         }
     }
 
-    public static void addSedge(BiomeGenerationSettings.Builder builder) {
+    public static void sedge(BiomeGenerationSettings.Builder builder) {
         if (TIConfig.Flora.sedge.get()) {
             WorldGenUtil.addVegetation(builder, ModVegetationPlacements.SEDGE);
         }
     }
 
-    public static void addSourBerries(BiomeGenerationSettings.Builder builder) {
+    public static void sourBerries(BiomeGenerationSettings.Builder builder) {
         WorldGenUtil.addVegetation(builder, ModVegetationPlacements.SOUR_BERRIES);
     }
 
-    public static void addSweetPeas(BiomeGenerationSettings.Builder builder) {
+    public static void sweetPeas(BiomeGenerationSettings.Builder builder) {
         if (TIConfig.Flora.sweetPeas.get()) {
             WorldGenUtil.addVegetation(builder, ModVegetationPlacements.SWEET_PEAS);
         }
     }
 
-    public static void addWitherRoses(BiomeGenerationSettings.Builder builder) {
+    public static void witherRoses(BiomeGenerationSettings.Builder builder) {
         if (TIConfig.Misc.witherRoseGeneration.get()) {
             WorldGenUtil.addVegetation(builder, ModVegetationPlacements.WITHER_ROSES);
         }
     }
 
     //Trees
-    public static void addAppleTrees(BiomeGenerationSettings.Builder builder) {
+    public static void appleTrees(BiomeGenerationSettings.Builder builder) {
         if (TIConfig.Trees.apple.get()) {
             WorldGenUtil.addVegetation(builder, ModTreePlacements.PLAINS_APPLE_TREES);
         }
     }
 
-    public static void addHazelTrees(BiomeGenerationSettings.Builder builder) {
+    public static void hazelTrees(BiomeGenerationSettings.Builder builder) {
         if (TIConfig.Trees.hazel.get()) {
             WorldGenUtil.addVegetation(builder, ModTreePlacements.FOREST_HAZEL_TREES);
         }
     }
 
+    public static void tundraVegetation(BiomeGenerationSettings.Builder builder) {
+        WorldGenUtil.addVegetation(builder, ModVegetationPlacements.TUNDRA_VEGETATION_PATCH);
+    }
+
     //Misc
-    public static void addPeatAndMossyGravel(BiomeGenerationSettings.Builder builder) {
+    public static void peatAndMossyGravel(BiomeGenerationSettings.Builder builder) {
         if (TIConfig.Misc.peat.get()) {
             WorldGenUtil.addOre(builder, ModMiscFeaturePlacements.PEAT_DISK);
         }
@@ -117,5 +122,9 @@ public class ModDefaultFeatures {
         if (TIConfig.Misc.mossyGravel.get()) {
             WorldGenUtil.addOre(builder, ModMiscFeaturePlacements.MOSSY_GRAVEL_DISK);
         }
+    }
+
+    public static void tundraBoulders(BiomeGenerationSettings.Builder builder) {
+        builder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, ModMiscFeaturePlacements.TUNDRA_BOULDER);
     }
 }

@@ -4,6 +4,7 @@ import azmalent.terraincognita.common.world.configured.ModConfiguredTreeFeatures
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.placement.*;
 
 import static azmalent.terraincognita.common.registry.ModWoodTypes.*;
@@ -16,6 +17,10 @@ public class ModTreePlacements {
 
     public static final Holder<PlacedFeature> GINKGO_CHECKED = PlacementUtils.register(
         "ginkgo_checked", ModConfiguredTreeFeatures.GINKGO, PlacementUtils.filteredByBlockSurvival(GINKGO.SAPLING.get())
+    );
+
+    public static final Holder<PlacedFeature> TUNDRA_SHRUB_CHECKED = PlacementUtils.register(
+        "tundra_shrub_checked", ModConfiguredTreeFeatures.TUNDRA_SHRUB, PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
     );
 
     //Biome tree configs
