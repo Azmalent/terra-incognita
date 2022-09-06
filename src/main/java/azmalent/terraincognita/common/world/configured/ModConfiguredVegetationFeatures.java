@@ -167,7 +167,7 @@ public class ModConfiguredVegetationFeatures {
             BlockTags.DIRT,
             new WeightedStateProviderBuilder().add(Blocks.GRASS_BLOCK, 3).add(Blocks.COARSE_DIRT, 1).build(),
             inlinePlaced(TUNDRA_VEGETATION), CaveSurface.FLOOR,
-            ConstantInt.of(1), 0.0F, 3, 0.2F, UniformInt.of(8, 16), 0.3F
+            ConstantInt.of(1), 0.0F, 3, 0.8F, UniformInt.of(6, 12), 0.0F
         )
     );
 }

@@ -25,7 +25,7 @@ public class GinkgoTree extends AbstractTreeGrower {
             SimpleStateProvider.simple(GINKGO.LOG.defaultBlockState()),
             new FancyTrunkPlacer(8, 4, 4),
             SimpleStateProvider.simple(GINKGO.LEAVES.defaultBlockState()),
-            new RandomSpreadFoliagePlacer(ConstantInt.of(4), ConstantInt.of(0), ConstantInt.of(3), 100),
+            new RandomSpreadFoliagePlacer(ConstantInt.of(3), ConstantInt.of(0), ConstantInt.of(3), 100),
             new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(6)))
             .ignoreVines()
             .build();

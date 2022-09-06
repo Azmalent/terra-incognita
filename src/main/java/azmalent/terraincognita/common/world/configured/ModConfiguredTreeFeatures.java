@@ -48,7 +48,7 @@ public class ModConfiguredTreeFeatures {
             BlockStateProvider.simple(Blocks.OAK_LOG),
             new StraightTrunkPlacer(1, 0, 0),
             BlockStateProvider.simple(Blocks.OAK_LEAVES),
-            new BushFoliagePlacer(UniformInt.of(1, 2), ConstantInt.of(1), 2),
+            new BushFoliagePlacer(ConstantInt.of(2), ConstantInt.of(1), 2),
             new TwoLayersFeatureSize(0, 0, 0)
         ).dirt(BlockStateProvider.simple(Blocks.ROOTED_DIRT)).forceDirt().build()
     );

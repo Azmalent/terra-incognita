@@ -103,7 +103,6 @@ public class ModVegetationPlacements {
         BlockPredicateFilter.forPredicate(BlockPredicate.matchesTag(BlockTags.SOUL_FIRE_BASE_BLOCKS))
     );
 
-
     //Terra Incognita biome specific
     public static final Holder<PlacedFeature> SOUR_BERRIES = PlacementUtils.register(
         "sour_berries", ModConfiguredVegetationFeatures.SOUR_BERRIES,
@@ -112,6 +111,6 @@ public class ModVegetationPlacements {
 
     public static final Holder<PlacedFeature> TUNDRA_VEGETATION_PATCH = PlacementUtils.register(
         "tundra_vegetation_patch", ModConfiguredVegetationFeatures.TUNDRA_VEGETATION_PATCH,
-        RarityFilter.onAverageOnceEvery(12), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
+        RarityFilter.onAverageOnceEvery(16), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
     );
 }
