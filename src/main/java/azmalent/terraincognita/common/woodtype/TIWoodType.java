@@ -64,6 +64,7 @@ public class TIWoodType extends WoodType {
     public final BlockEntry<TIBeehiveBlock> BEEHIVE;
 
     //Quark
+    public final BlockEntry<Block> VERTICAL_PLANKS;
     public final BlockEntry<TIVerticalSlabBlock> VERTICAL_SLAB;
     public final BlockEntry<TIBookshelfBlock> BOOKSHELF;
     public final BlockEntry<LadderBlock> LADDER;
@@ -112,6 +113,7 @@ public class TIWoodType extends WoodType {
         TRAPPED_CHEST = REGISTRY_HELPER.createBlock(id + "_trapped_chest", () -> new TITrappedChestBlock(this)).blockItem(TIChestItem::new, CreativeModeTab.TAB_REDSTONE).build();
         BEEHIVE       = REGISTRY_HELPER.createBlock(id + "_beehive", TIBeehiveBlock::new, Block.Properties.copy(Blocks.BEEHIVE)).blockItem(CreativeModeTab.TAB_DECORATIONS).build();
 
+        VERTICAL_PLANKS = REGISTRY_HELPER.createBlock("vertical_" + id + "_planks", () -> createPlanks(woodColor)).blockItem(CreativeModeTab.TAB_BUILDING_BLOCKS).build();
         VERTICAL_SLAB   = REGISTRY_HELPER.createBlock(name + "_vertical_slab", TIVerticalSlabBlock::new, Block.Properties.of(Material.WOOD, woodColor).strength(2.0F, 3.0F).sound(SoundType.WOOD)).blockItem(CreativeModeTab.TAB_BUILDING_BLOCKS).build();
         BOOKSHELF       = REGISTRY_HELPER.createBlock(name + "_bookshelf", TIBookshelfBlock::new, Block.Properties.of(Material.WOOD, woodColor).strength(1.5F).sound(SoundType.WOOD)).blockItem(CreativeModeTab.TAB_BUILDING_BLOCKS).build();
         LADDER          = REGISTRY_HELPER.createBlock(name + "_ladder", LadderBlock::new, Block.Properties.copy(Blocks.LADDER)).cutoutRender().build();
@@ -171,6 +173,8 @@ public class TIWoodType extends WoodType {
         DataUtil.registerFlammable(FENCE_GATE, 5, 20);
 
         //Quark
+        DataUtil.registerFlammable(VERTICAL_PLANKS, 5, 20);
+        DataUtil.registerFlammable(VERTICAL_SLAB, 5, 20);
         DataUtil.registerFlammable(BOOKSHELF, 30, 20);
         DataUtil.registerFlammable(POST, 5, 20);
         DataUtil.registerFlammable(STRIPPED_POST, 5, 20);

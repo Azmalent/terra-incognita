@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "#minecraft:moss_replaceable",
-    ""
+    "#minecraft:moss_replaceable"
   ]
 }

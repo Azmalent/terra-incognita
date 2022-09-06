@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "terraincognita:block/vertical_ginkgo_planks"
+      "model": "terraincognita:block/ginkgo/vertical_planks"
     }
   }
 }

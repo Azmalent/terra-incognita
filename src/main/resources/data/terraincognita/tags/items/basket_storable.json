@@ -13,11 +13,11 @@
   ],
   "optional": [
     "abundance:lavender",
+    "abundance:sunflower_seeds",
     "autumnity:foul_berries",
     "bayou_blues:gooseberries",
     "environmental:cattail_seeds",
     "environmental:cherries",
-    "environmental:rice",
     "upgrade_aquatic:blue_pickerelweed",
     "upgrade_aquatic:purple_pickerelweed",
     "upgrade_aquatic:mulberry"
