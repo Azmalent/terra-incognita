@@ -1,6 +1,10 @@
 {
+  "_comment1": "The comments in this file are for the translators, you do not need to translate them as well.",
+
+  "_comment2": "Dandelion Puff refers to a white fluffy dandelion",
   "block.terraincognita.dandelion_puff": "Белый одуванчик",
   "block.terraincognita.potted_dandelion_puff": "Белый одуванчик в горшке",
+  "_comment3": "Chicory as in the field flower, not the vegetable",
   "block.terraincognita.chicory": "Цикорий",
   "block.terraincognita.potted_chicory": "Цикорий в горшке",
   "block.terraincognita.yarrow": "Тысячелистник",
@@ -47,6 +51,7 @@
   "block.terraincognita.potted_heather": "Вереск в горшке",
   "block.terraincognita.white_dryad": "Белая дриада",
   "block.terraincognita.potted_white_dryad": "Белая дриада в горшке",
+  "_comment4": "Water Flag is a colloquial name for Iris Pseudacorus. 'Swamp Iris' is a good way to translate it.",
   "block.terraincognita.water_flag": "Болотный ирис",
   "block.terraincognita.potted_water_flag": "Болотный ирис в горшке",
   "block.terraincognita.fireweed": "Иван-чай",
@@ -108,6 +113,7 @@
   "block.terraincognita.apple_pressure_plate": "Яблоневая нажимная плита",
   "block.terraincognita.apple_chest": "Яблоневый сундук",
   "block.terraincognita.apple_trapped_chest": "Яблоневый сундук-ловушка",
+  "block.terraincognita.vertical_apple_planks": "Яблоневые вертикальные доски",
   "block.terraincognita.apple_vertical_slab": "Яблоневая вертикальная плита",
   "block.terraincognita.apple_bookshelf": "Яблоневая книжная полка",
   "block.terraincognita.apple_ladder": "Яблоневая лестница",
@@ -139,6 +145,7 @@
   "block.terraincognita.ginkgo_pressure_plate": "Гинкговая нажимная плита",
   "block.terraincognita.ginkgo_chest": "Гинкговый сундук",
   "block.terraincognita.ginkgo_trapped_chest": "Гинкговый сундук-ловушка",
+  "block.terraincognita.vertical_ginkgo_planks": "Гинкговые вертикальные доски",
   "block.terraincognita.ginkgo_vertical_slab": "Гинкговая вертикальная плита",
   "block.terraincognita.ginkgo_bookshelf": "Гинкговая книжная полка",
   "block.terraincognita.ginkgo_ladder": "Гинкговая лестница",
@@ -168,6 +175,7 @@
   "block.terraincognita.hazel_pressure_plate": "Орешниковая нажимная плита",
   "block.terraincognita.hazel_chest": "Орешниковый сундук",
   "block.terraincognita.hazel_trapped_chest": "Орешниковый сундук-ловушка",
+  "block.terraincognita.vertical_hazel_planks": "Орешниковые вертикальные доски",
   "block.terraincognita.hazel_vertical_slab": "Орешниковая вертикальная плита",
   "block.terraincognita.hazel_bookshelf": "Орешниковая книжная полка",
   "block.terraincognita.hazel_ladder": "Орешниковая лестница",
@@ -198,6 +206,7 @@
   "block.terraincognita.larch_pressure_plate": "Лиственничная нажимная плита",
   "block.terraincognita.larch_chest": "Лиственничный сундук",
   "block.terraincognita.larch_trapped_chest": "Лиственничный сундук-ловушка",
+  "block.terraincognita.vertical_larch_planks": "Лиственничные вертикальные доски",
   "block.terraincognita.larch_vertical_slab": "Лиственничная вертикальная плита",
   "block.terraincognita.larch_bookshelf": "Лиственничная книжная полка",
   "block.terraincognita.larch_ladder": "Лиственничная лестница",
@@ -258,6 +267,7 @@
   "item.terraincognita.moth_spawn_egg": "Яйцо призыва мотылька",
 
   "effect.terraincognita.sticky_mouth": "Склеенный рот",
+  "description.effect.terraincognita.sticky_mouth": "Halves eating speed with each level.",
 
   "item.terraincognita.fleur_de_lis_banner_pattern": "Узор флага",
   "item.terraincognita.fleur_de_lis_banner_pattern.desc": "Геральдическая лилия",
