@@ -23,8 +23,8 @@ public class MixinConfigPlugin implements IMixinConfigPlugin {
         TIMixinConfig.INSTANCE.sync();
 
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        quarkLoaded = classLoader.getResource("vazkii.quark.base.Quark") != null;
-        botaniaLoaded = classLoader.getResource("vazkii.botania.forge.ForgeCommonInitializer") != null;
+        quarkLoaded = classLoader.getResource("vazkii/quark/base/Quark.class") != null;
+        botaniaLoaded = classLoader.getResource("vazkii/botania/forge/ForgeCommonInitializer.class") != null;
     }
 
     @Override
