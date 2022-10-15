@@ -1,6 +1,5 @@
 package azmalent.terraincognita.mixin;
 
-import azmalent.cuneiform.util.ReflectionUtil;
 import azmalent.terraincognita.TIMixinConfig;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
@@ -23,8 +22,9 @@ public class MixinConfigPlugin implements IMixinConfigPlugin {
         TIMixinConfig.INSTANCE.buildSpec();
         TIMixinConfig.INSTANCE.sync();
 
-        quarkLoaded = ReflectionUtil.getClassOrNull("vazkii.quark.base.Quark") != null;
-        botaniaLoaded = ReflectionUtil.getClassOrNull("vazkii.botania.forge.ForgeCommonInitializer") != null;
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        quarkLoaded = classLoader.getResource("vazkii.quark.base.Quark") != null;
+        botaniaLoaded = classLoader.getResource("vazkii.botania.forge.ForgeCommonInitializer") != null;
     }
 
     @Override
