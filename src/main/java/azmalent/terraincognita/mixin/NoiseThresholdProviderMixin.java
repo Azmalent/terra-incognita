@@ -18,11 +18,12 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 
 /**
- * @reason Modifies the plain flower gradient.
+ * @reason Adds Terra Incognita flowers to plains.
  */
 @Mixin(NoiseThresholdProvider.class)
 public class NoiseThresholdProviderMixin {
@@ -61,9 +62,9 @@ public class NoiseThresholdProviderMixin {
 
     @Inject(method = "<init>", at = @At("RETURN"))
     private void constructorInject(long p_191471_, NormalNoise.NoiseParameters p_191472_, float p_191473_, float p_191474_, float p_191475_, BlockState defaultState, List<BlockState> p_191477_, List<BlockState> p_191478_, CallbackInfo ci) {
-        isPlainsProvider = defaultState.is(Blocks.DANDELION)
-            && lowStates.containsAll(LOW_STATES)
-            && highStates.containsAll(HIGH_STATES);
+        var lowSet = new HashSet<>(lowStates);
+        var highSet = new HashSet<>(highStates);
+        isPlainsProvider = defaultState.is(Blocks.DANDELION) && lowSet.containsAll(LOW_STATES) && highSet.containsAll(HIGH_STATES);
     }
 
     @SuppressWarnings("unchecked")

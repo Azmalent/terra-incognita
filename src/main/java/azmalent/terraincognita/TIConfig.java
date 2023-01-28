@@ -6,8 +6,12 @@ import azmalent.cuneiform.config.Name;
 import azmalent.cuneiform.config.options.BooleanOption;
 import azmalent.cuneiform.config.options.DoubleOption;
 import azmalent.cuneiform.config.options.IntOption;
-import azmalent.terraincognita.mixin.GrassBlockMixin;
+import azmalent.cuneiform.config.options.ParseableListOption;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.registries.ForgeRegistries;
+
+import java.util.List;
 
 @SuppressWarnings("unused")
 public class TIConfig extends ConfigFile {
@@ -46,10 +50,10 @@ public class TIConfig extends ConfigFile {
         @Comment("Chance to replace a vanilla lily pad with small lily pads during generation.")
         public static final DoubleOption smallLilyPadChance = DoubleOption.inUnitRange(0.5);
 
-        @Name("Sedge Enabled")
-        @Comment({"Sedge is a sugarcane-like plant that can be found in swamps. It can be grown in the same way as sugar cane, or, alternatively, in one block deep water.",
-            "Sedge can be crafted into a variety of decorative wicker blocks and baskets."})
-        public static final BooleanOption sedge = BooleanOption.of(true, "sedge");
+        @Name("Swamp Reeds Enabled")
+        @Comment({"Swamp reeds are a sugarcane-like plant that can be found in swamps. They can be grown in the same way as sugar cane, or, alternatively, in one block deep water.",
+            "Reeds can be crafted into a variety of decorative wicker blocks and baskets."})
+        public static final BooleanOption swampReeds = BooleanOption.of(true, "swamp_reeds");
 
         @Name("Savanna Flowers Enabled")
         @Comment("Adds marigolds, snapdragons, irises, oleanders and sage to savannas.")
@@ -83,7 +87,7 @@ public class TIConfig extends ConfigFile {
         public static final BooleanOption caribouMoss = BooleanOption.of(true);
 
         @Name("Sour Berries Enabled")
-        @Comment("Sour berries can be found growing on water in muskeg biomes.")
+        @Comment("Sour berries can be found growing on water in tundra biomes.")
         public static final BooleanOption sourBerries = BooleanOption.of(true, "sour_berries");
 
         @Name("Hanging Moss Enabled")
@@ -120,7 +124,6 @@ public class TIConfig extends ConfigFile {
         public static final BooleanOption borealForest = BooleanOption.of(true);
         public static final BooleanOption ginkgoGrove = BooleanOption.of(true);
         public static final BooleanOption lushPlains = BooleanOption.of(true);
-        public static final BooleanOption muskeg = BooleanOption.of(true);
         public static final BooleanOption tundra = BooleanOption.of(true);
     }
 
@@ -147,7 +150,7 @@ public class TIConfig extends ConfigFile {
 
     public static final class Tools {
         @Name("Basket Enabled")
-        @Comment({"Basket is a portable container crafted from sedge (or sugar cane if sedge is disabled). It can be placed or opened from inventory.",
+        @Comment({"Basket is a portable container crafted from swamp reeds (or sugar cane if swamp reeds are disabled). It can be placed or opened from inventory.",
             "Baskets have 9 slots and can only store forage such as flowers, saplings, mushrooms, seeds and eggs.",
             "When you have a basket in your hand, it will automatically collect compatible items."})
         public static final BooleanOption basket = BooleanOption.of(true, "basket");

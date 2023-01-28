@@ -79,7 +79,7 @@ public class BiomeHandler {
                 break;
 
             case SWAMP:
-                ModDefaultFeatures.sedge(generation);
+                ModDefaultFeatures.swampReeds(generation);
                 ModDefaultFeatures.peatAndMossyGravel(generation);
                 if (!BiomeDictionary.hasType(key, COLD)) {
                     ModDefaultFeatures.swampFlowers(generation);

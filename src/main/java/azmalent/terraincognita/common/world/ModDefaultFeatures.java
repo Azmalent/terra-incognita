@@ -3,7 +3,6 @@ package azmalent.terraincognita.common.world;
 import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.common.registry.ModEntities;
 import azmalent.terraincognita.common.world.placement.ModMiscFeaturePlacements;
-import azmalent.terraincognita.common.world.placement.ModTreePlacements;
 import azmalent.terraincognita.common.world.placement.ModVegetationPlacements;
 import azmalent.terraincognita.util.WorldGenUtil;
 import net.minecraft.world.entity.MobCategory;
@@ -74,9 +73,9 @@ public class ModDefaultFeatures {
         }
     }
 
-    public static void sedge(BiomeGenerationSettings.Builder builder) {
-        if (TIConfig.Flora.sedge.get()) {
-            WorldGenUtil.addVegetation(builder, ModVegetationPlacements.SEDGE);
+    public static void swampReeds(BiomeGenerationSettings.Builder builder) {
+        if (TIConfig.Flora.swampReeds.get()) {
+            WorldGenUtil.addVegetation(builder, ModVegetationPlacements.SWAMP_REEDS);
         }
     }
 
@@ -99,17 +98,40 @@ public class ModDefaultFeatures {
     //Trees
     public static void appleTrees(BiomeGenerationSettings.Builder builder) {
         if (TIConfig.Trees.apple.get()) {
-            WorldGenUtil.addVegetation(builder, ModTreePlacements.PLAINS_APPLE_TREES);
+            WorldGenUtil.addVegetation(builder, ModVegetationPlacements.PLAINS_APPLE_TREES);
         }
     }
 
     public static void hazelTrees(BiomeGenerationSettings.Builder builder) {
         if (TIConfig.Trees.hazel.get()) {
-            WorldGenUtil.addVegetation(builder, ModTreePlacements.FOREST_HAZEL_TREES);
+            WorldGenUtil.addVegetation(builder, ModVegetationPlacements.FOREST_HAZEL_TREES);
+        }
+    }
+
+    public static void borealForestTrees(BiomeGenerationSettings.Builder builder) {
+        WorldGenUtil.addVegetation(builder, ModVegetationPlacements.BOREAL_FOREST_TREES);
+    }
+
+    public static void sparseLarchTrees(BiomeGenerationSettings.Builder builder) {
+        if (TIConfig.Trees.larch.get()) {
+            WorldGenUtil.addVegetation(builder, ModVegetationPlacements.SPARSE_LARCH_TREES);
+        }
+    }
+
+    public static void rareLarchTrees(BiomeGenerationSettings.Builder builder) {
+        if (TIConfig.Trees.larch.get()) {
+            WorldGenUtil.addVegetation(builder, ModVegetationPlacements.RARE_LARCH_TREES);
+        }
+    }
+
+    public static void clearingVegetation(BiomeGenerationSettings.Builder builder) {
+        if (TIConfig.Flora.arcticFlowers.get()) {
+            WorldGenUtil.addVegetation(builder, ModVegetationPlacements.CLEARING_VEGETATION);
         }
     }
 
     public static void tundraVegetation(BiomeGenerationSettings.Builder builder) {
+        WorldGenUtil.addVegetation(builder, ModVegetationPlacements.TUNDRA_VEGETATION_NOISE);
         WorldGenUtil.addVegetation(builder, ModVegetationPlacements.TUNDRA_VEGETATION_PATCH);
     }
 
@@ -124,7 +146,11 @@ public class ModDefaultFeatures {
         }
     }
 
-    public static void tundraBoulders(BiomeGenerationSettings.Builder builder) {
-        builder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, ModMiscFeaturePlacements.TUNDRA_BOULDER);
+    public static void borealForestRocks(BiomeGenerationSettings.Builder builder) {
+        builder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, ModMiscFeaturePlacements.BOREAL_FOREST_ROCK);
+    }
+
+    public static void tundraRocks(BiomeGenerationSettings.Builder builder) {
+        builder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, ModMiscFeaturePlacements.TUNDRA_ROCK);
     }
 }

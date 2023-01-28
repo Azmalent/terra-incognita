@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "terraincognita:boreal_forest_clearing",
+    "terraincognita:lush_plains",
+    "terraincognita:snowy_boreal_forest_clearing",
+    "terraincognita:tundra"
+  ]
+}

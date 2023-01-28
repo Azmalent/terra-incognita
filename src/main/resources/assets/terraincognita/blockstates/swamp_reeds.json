@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "variant=single": {
+      "model": "terraincognita:block/swamp_reeds_single"
+    },
+    "variant=bottom": {
+      "model": "terraincognita:block/swamp_reeds_bottom"
+    },
+    "variant=middle": {
+      "model": "terraincognita:block/swamp_reeds_middle"
+    },
+    "variant=top": {
+      "model": "terraincognita:block/swamp_reeds_top"
+    }
+  }
+}

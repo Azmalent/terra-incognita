@@ -22,6 +22,8 @@ public abstract class TIBiomeEntry {
         ModBiomes.BIOMES_BY_NAME.put(TerraIncognita.prefix(name), this);
     }
 
+    public abstract boolean isEnabled();
+
     protected final Biome initBiome() {
         BiomeSpecialEffects specialEffects = getSpecialEffects();
 
@@ -42,8 +44,8 @@ public abstract class TIBiomeEntry {
     }
 
     protected abstract Biome.BiomeCategory getCategory();
-
     public abstract List<BiomeDictionary.Type> getBiomeDictionaryTypes();
+
     protected Biome.Precipitation getPrecipitation() {
         return Biome.Precipitation.RAIN;
     }
@@ -51,10 +53,10 @@ public abstract class TIBiomeEntry {
     protected Biome.TemperatureModifier getTemperatureModifier() {
         return Biome.TemperatureModifier.NONE;
     }
-
     protected abstract float getTemperature();
     protected abstract float getRainfall();
     protected abstract BiomeSpecialEffects getSpecialEffects();
+
     public abstract void initFeatures(BiomeGenerationSettings.Builder builder);
 
     public abstract void initSpawns(MobSpawnSettings.Builder builder);
@@ -76,6 +78,7 @@ public abstract class TIBiomeEntry {
         return defaultSpecialEffects(waterColor, waterFogColor, 0xC0D8FF);
     }
 
+    @SuppressWarnings("SameParameterValue")
     protected final BiomeSpecialEffects.Builder defaultSpecialEffects(int waterColor, int waterFogColor, int fogColor) {
         return defaultSpecialEffects(waterColor, waterFogColor, fogColor, calculateSkyColor(getTemperature()));
     }

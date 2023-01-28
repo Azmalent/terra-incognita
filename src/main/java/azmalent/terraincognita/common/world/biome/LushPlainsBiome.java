@@ -1,5 +1,6 @@
 package azmalent.terraincognita.common.world.biome;
 
+import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.common.world.ModDefaultFeatures;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.world.level.biome.Biome.BiomeCategory;
@@ -14,6 +15,11 @@ import java.util.List;
 public class LushPlainsBiome extends TIBiomeEntry {
     public LushPlainsBiome(String name) {
         super(name);
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return TIConfig.Biomes.lushPlains.get();
     }
 
     @Override

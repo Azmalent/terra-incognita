@@ -2,6 +2,7 @@ package azmalent.terraincognita.common.registry;
 
 import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.common.world.biome.*;
+import azmalent.terraincognita.common.world.region.TIOverworldRegion;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.minecraft.resources.ResourceLocation;
@@ -21,9 +22,12 @@ public class ModBiomes {
     public static final List<TIBiomeEntry> BIOME_LIST = Lists.newArrayList();
     public static final Map<ResourceLocation, TIBiomeEntry> BIOMES_BY_NAME = Maps.newHashMap();
 
-    public static final BorealForestBiome BOREAL_FOREST = new BorealForestBiome("boreal_forest");
+    public static final BorealForestBiome BOREAL_FOREST = new BorealForestBiome("boreal_forest", false, false);
+    public static final BorealForestBiome BOREAL_FOREST_CLEARING = new BorealForestBiome("boreal_forest_clearing", false, true);
+    public static final BorealForestBiome SNOWY_BOREAL_FOREST = new BorealForestBiome("snowy_boreal_forest", true, false);
+    public static final BorealForestBiome SNOWY_BOREAL_FOREST_CLEARING = new BorealForestBiome("snowy_boreal_forest_clearing", true, true);
+
     public static final GinkgoGroveBiome GINKGO_GROVE = new GinkgoGroveBiome("ginkgo_grove");
-    public static final MuskegBiome MUSKEG = new MuskegBiome("muskeg");
     public static final LushPlainsBiome LUSH_PLAINS = new LushPlainsBiome("lush_plains");
     public static final TundraBiome TUNDRA = new TundraBiome("tundra");
 
@@ -36,7 +40,7 @@ public class ModBiomes {
 
         int weight = TIConfig.Biomes.biomeWeight.get();
         if (weight > 0) {
-            Regions.register(new TIBiomeProvider(weight));
+            Regions.register(new TIOverworldRegion(weight));
         }
     }
 }

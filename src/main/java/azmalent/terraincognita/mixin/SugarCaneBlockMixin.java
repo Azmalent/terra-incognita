@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.Random;
 
 /**
- * @reason Required for height variation. Also affects sedge as it's a subclass of SugarCaneBlock
+ * @reason Required for height variation. Also affects swamp reeds as it's a subclass of SugarCaneBlock
  */
 @Mixin(SugarCaneBlock.class)
 public class SugarCaneBlockMixin {

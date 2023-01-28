@@ -5,7 +5,6 @@ import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.registry.ModBlocks;
 import azmalent.terraincognita.common.registry.ModItems;
 import azmalent.terraincognita.common.registry.ModWoodTypes;
-import com.google.common.collect.Lists;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.client.renderer.BiomeColors;
@@ -16,8 +15,6 @@ import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
-
-import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
 @Mod.EventBusSubscriber(modid = TerraIncognita.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
@@ -31,9 +28,8 @@ public class ColorHandler {
 
         ModWoodTypes.VALUES.forEach(type -> type.registerBlockColors(colors));
 
-        var pottedSedge = ForgeRegistries.BLOCKS.getValue(TerraIncognita.prefix("potted_sedge"));
         colors.register((state, reader, pos, color) -> reader != null && pos != null ? BiomeColors.getAverageGrassColor(reader, pos) : GrassColor.get(0.5D, 1.0D),
-            ModBlocks.FLOWERING_GRASS.get(), ModBlocks.SEDGE.get(), pottedSedge
+            ModBlocks.FLOWERING_GRASS.get()
         );
 
         colors.register((state, reader, pos, color) -> reader != null && pos != null ? LILYPAD_WORLD_COLOR : LILYPAD_INVENTORY_COLOR,

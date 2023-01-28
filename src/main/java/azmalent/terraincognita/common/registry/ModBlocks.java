@@ -25,7 +25,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static azmalent.terraincognita.TerraIncognita.REGISTRY_HELPER;
@@ -108,7 +107,7 @@ public class ModBlocks {
     public static final BlockEntry<HazelnutBlock> HAZELNUT = REGISTRY_HELPER.createBlock("hazelnut", HazelnutBlock::new).noItemForm().cutoutRender().build();
 
     //Other vegetation
-    public static final BlockEntry<SedgeBlock> SEDGE = createPlant("sedge", SedgeBlock::new);
+    public static final BlockEntry<SwampReedsBlock> SWAMP_REEDS = createPlant("swamp_reeds", SwampReedsBlock::new);
 
     public static final BlockEntry<SourBerrySproutBlock> SOUR_BERRY_SPROUTS = REGISTRY_HELPER.createBlock("sour_berry_sprouts", SourBerrySproutBlock::new).blockItem(WaterLilyBlockItem::new, CreativeModeTab.TAB_MISC).cutoutRender().build();
     public static final BlockEntry<SourBerryBushBlock> SOUR_BERRY_BUSH = REGISTRY_HELPER.createBlock("sour_berry_bush", SourBerryBushBlock::new).noItemForm().cutoutRender().build();
@@ -157,11 +156,10 @@ public class ModBlocks {
         return plant;
     }
 
+    @SuppressWarnings("deprecation")
     private static void createFlowerPot(String id, Supplier<? extends Block> plantSupplier) {
-        REGISTRY_HELPER.createBlock("potted_" + id,
-            () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT.delegate.get(),
-                plantSupplier, Block.Properties.copy(Blocks.FLOWER_POT)))
-            .noItemForm().cutoutRender().build();
+        var props = Block.Properties.copy(Blocks.FLOWER_POT);
+        REGISTRY_HELPER.createBlock("potted_" + id, () -> new FlowerPotBlock(plantSupplier.get(), props)).noItemForm().cutoutRender().build();
     }
 
     private static BlockEntry<TILilyPadBlock> createLotus(String color) {

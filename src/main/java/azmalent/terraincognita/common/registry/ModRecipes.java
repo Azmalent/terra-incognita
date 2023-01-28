@@ -67,7 +67,7 @@ public class ModRecipes {
         DataUtil.registerCompostable(ModItems.SOUR_BERRIES, 0.3f);
         DataUtil.registerCompostable(ModBlocks.SOUR_BERRY_SPROUTS, 0.3f);
         DataUtil.registerCompostable(ModItems.CACTUS_NEEDLE, 0.3f);
-        DataUtil.registerCompostable(ModBlocks.SEDGE, 0.5f);
+        DataUtil.registerCompostable(ModBlocks.SWAMP_REEDS, 0.5f);
         DataUtil.registerCompostable(ModBlocks.SMOOTH_CACTUS, 0.5f);
         DataUtil.registerCompostable(ModItems.FIDDLEHEAD, 0.65f);
         DataUtil.registerCompostable(ModItems.WREATH, 1);

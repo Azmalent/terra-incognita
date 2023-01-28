@@ -1,6 +1,6 @@
 {
   "parent": "block/flower_pot_cross",
   "textures": {
-    "plant": "terraincognita:block/ginkgo_sapling"
+    "plant": "terraincognita:block/ginkgo/sapling"
   }
 }

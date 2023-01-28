@@ -1,5 +1,6 @@
 package azmalent.terraincognita.common.world.biome;
 
+import azmalent.terraincognita.TIConfig;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
@@ -15,13 +16,18 @@ public class GinkgoGroveBiome extends TIBiomeEntry {
     }
 
     @Override
+    public boolean isEnabled() {
+        return TIConfig.Biomes.ginkgoGrove.get();
+    }
+
+    @Override
     protected Biome.BiomeCategory getCategory() {
         return Biome.BiomeCategory.MOUNTAIN;
     }
 
     @Override
     public List<BiomeDictionary.Type> getBiomeDictionaryTypes() {
-        return List.of(BiomeDictionary.Type.OVERWORLD, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.SLOPE);
+        return List.of(BiomeDictionary.Type.OVERWORLD, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.PLATEAU, BiomeDictionary.Type.SLOPE);
     }
 
     @Override

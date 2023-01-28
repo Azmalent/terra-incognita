@@ -1,5 +1,5 @@
 {
-  "parent": "quark:block/post",
+  "parent": "terraincognita:block/post",
   "textures": {
     "texture": "terraincognita:block/hazel/log"
   }
