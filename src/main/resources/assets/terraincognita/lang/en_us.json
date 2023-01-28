@@ -240,11 +240,13 @@
   "item.terraincognita.cactus_needle": "Cactus Needle",
   "item.terraincognita.blowpipe": "Blowpipe",
 
-  "biome.terraincognita.tundra": "Tundra",
-  "biome.terraincognita.rocky_tundra": "Rocky Tundra",
-  "biome.terraincognita.muskeg": "Muskeg",
+  "biome.terraincognita.boreal_forest": "Boreal Forest",
+  "biome.terraincognita.boreal_forest_clearing": "Boreal Forest Clearing",
+  "biome.terraincognita.ginkgo_grove": "Ginkgo Grove",
   "biome.terraincognita.lush_plains": "Lush Plains",
-  "biome.terraincognita.lush_hills": "Lush Hills",
+  "biome.terraincognita.snowy_boreal_forest": "Snowy Boreal Forest",
+  "biome.terraincognita.snowy_boreal_forest_clearing": "Snowy Boreal Forest Clearing",
+  "biome.terraincognita.tundra": "Tundra",
 
   "entity.terraincognita.butterfly": "Butterfly",
   "entity.terraincognita.butterfly.peacock": "Peacock",

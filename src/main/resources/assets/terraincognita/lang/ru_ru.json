@@ -240,11 +240,13 @@
   "item.terraincognita.cactus_needle": "Кактусовая иголка",
   "item.terraincognita.blowpipe": "Духовое ружьё",
 
-  "biome.terraincognita.tundra": "Тундра",
-  "biome.terraincognita.rocky_tundra": "Каменистая тундра",
-  "biome.terraincognita.muskeg": "Сфагновое болото",
+  "biome.terraincognita.boreal_forest": "Северный лес",
+  "biome.terraincognita.boreal_forest_clearing": "Поляна северного леса",
+  "biome.terraincognita.ginkgo_grove": "Гинкговая роща",
   "biome.terraincognita.lush_plains": "Цветущие поля",
-  "biome.terraincognita.lush_hills": "Цветущие холмы",
+  "biome.terraincognita.snowy_boreal_forest": "Снежный северный лес",
+  "biome.terraincognita.snowy_boreal_forest_clearing": "Поляна снежного северного леса",
+  "biome.terraincognita.tundra": "Тундра",
 
   "entity.terraincognita.butterfly": "Бабочка",
   "entity.terraincognita.butterfly.peacock": "Павлиний глаз",
