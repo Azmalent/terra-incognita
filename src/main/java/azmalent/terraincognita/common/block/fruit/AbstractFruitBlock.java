@@ -91,9 +91,11 @@ public abstract class AbstractFruitBlock extends Block implements BonemealableBl
 
     @Override
     public void randomTick(@Nonnull BlockState state, @Nonnull ServerLevel level, @Nonnull BlockPos pos, Random random) {
-        if (ForgeHooks.onCropsGrowPre(level, pos, state, random.nextInt(growthChance) == 0)) {
-            level.setBlock(pos, state.setValue(AGE,state.getValue(AGE) + 1), 2);
-            ForgeHooks.onCropsGrowPost(level, pos, state);
+        if (state.getValue(AGE) < 7) {
+            if (ForgeHooks.onCropsGrowPre(level, pos, state, random.nextInt(growthChance) == 0)) {
+                level.setBlock(pos, state.setValue(AGE,state.getValue(AGE) + 1), 2);
+                ForgeHooks.onCropsGrowPost(level, pos, state);
+            }
         }
     }
 
