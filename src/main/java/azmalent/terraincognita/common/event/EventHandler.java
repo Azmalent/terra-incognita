@@ -60,7 +60,9 @@ public class EventHandler {
                 ItemStack output = recipe.getResultItem();
 
                 if (input.is(ItemTags.SMALL_FLOWERS) && output.is(Tags.Items.DYES)) {
-                    WreathRecipe.FLOWER_TO_DYE_MAP.put(input.getItem(), (DyeItem) output.getItem());
+                    if (output.getItem() instanceof DyeItem dyeItem) {
+                        WreathRecipe.FLOWER_TO_DYE_MAP.put(input.getItem(), dyeItem);
+                    }
                 }
             }
         }
