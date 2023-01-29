@@ -11,7 +11,7 @@ import net.minecraft.world.item.ItemStack;
 import static azmalent.cuneiform.common.data.WanderingTraderHandler.*;
 
 public class ModTrades {
-    public static void setupWandererTrades() {
+    public static void initWandererTrades() {
         //Flowers
         if (TIConfig.Flora.dandelionPuff.get()) {
             addCommonTrade(TradeBuilder.sell(ModBlocks.DANDELION_PUFF.makeStack()).maxTrades(12).build());

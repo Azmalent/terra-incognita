@@ -1,9 +1,9 @@
 {
   "replace": false,
   "values": [
-	{"id": "terraincognita:apple_beehive", "required": false},
-	{"id": "terraincognita:ginkgo_beehive", "required": false},
-	{"id": "terraincognita:hazel_beehive", "required": false},
-	{"id": "terraincognita:larch_beehive", "required": false}
+	"terraincognita:apple_beehive",
+	"terraincognita:ginkgo_beehive",
+	"terraincognita:hazel_beehive",
+	"terraincognita:larch_beehive"
   ]
 }

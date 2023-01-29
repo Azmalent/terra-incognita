@@ -2,7 +2,6 @@ package azmalent.terraincognita.common.world.biome;
 
 import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.common.world.ModDefaultFeatures;
-import com.google.common.collect.Lists;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -63,6 +62,8 @@ public class BorealForestBiome extends TIBiomeEntry {
     @Override
     public void initFeatures(BiomeGenerationSettings.Builder builder) {
         defaultFeatures(builder);
+        BiomeDefaultFeatures.addDefaultOres(builder);
+        BiomeDefaultFeatures.addDefaultSoftDisks(builder);
 
         BiomeDefaultFeatures.addTaigaGrass(builder);
         BiomeDefaultFeatures.addFerns(builder);
@@ -72,12 +73,11 @@ public class BorealForestBiome extends TIBiomeEntry {
 
         if (isSnowy) {
             BiomeDefaultFeatures.addRareBerryBushes(builder);
+            ModDefaultFeatures.caribouMoss(builder);
         } else {
             BiomeDefaultFeatures.addCommonBerryBushes(builder);
+            ModDefaultFeatures.sourBerries(builder);
         }
-
-        BiomeDefaultFeatures.addDefaultOres(builder);
-        BiomeDefaultFeatures.addDefaultSoftDisks(builder);
 
         ModDefaultFeatures.arcticFlowers(builder);
         ModDefaultFeatures.borealForestRocks(builder);

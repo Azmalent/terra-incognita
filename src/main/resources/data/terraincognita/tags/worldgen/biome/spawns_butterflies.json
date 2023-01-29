@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "#terraincognita:spawns_forest_butterflies",
+    "#terraincognita:spawns_mountain_butterflies",
+    "#terraincognita:spawns_plains_butterflies"
+  ]
+}

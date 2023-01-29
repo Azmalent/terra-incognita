@@ -9,6 +9,7 @@ import azmalent.terraincognita.util.WeightedStateProviderBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
+import net.minecraft.data.worldgen.placement.TreePlacements;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.InclusiveRange;
 import net.minecraft.util.valueproviders.ConstantInt;
@@ -170,8 +171,24 @@ public class ModVegetationFeatures {
                 new InclusiveRange<>(1, 3),
                 new NormalNoise.NoiseParameters(-10, 1.0D), 1.0F, 2345L,
                 new NormalNoise.NoiseParameters(-3, 1.0D), 1.0F,
-                List.of(ModBlocks.HEATHER.defaultBlockState(), Blocks.GRASS.defaultBlockState(), Blocks.TALL_GRASS.defaultBlockState(), ModBlocks.FIREWEED.defaultBlockState(), Blocks.FERN.defaultBlockState())))))
+                List.of(ModBlocks.HEATHER.defaultBlockState(), Blocks.GRASS.defaultBlockState(), ModBlocks.FIREWEED.defaultBlockState(), Blocks.FERN.defaultBlockState())))))
     );
+
+    public static final Holder<ConfiguredFeature<RandomPatchConfiguration, Feature<RandomPatchConfiguration>>> GINKGO_GROVE_FLOWERS = registerFlowerFeature(
+        "ginkgo_grove_flowers", 32, new WeightedStateProviderBuilder()
+            .add(Blocks.ROSE_BUSH, 3)
+            .add(Blocks.LILAC, 2)
+            .add(Blocks.PEONY, 2)
+            .build()
+    );
+
+    public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, Feature<RandomFeatureConfiguration>>> GINKGO_GROVE_TREES = registerWeightedRandomFeature(
+        "ginkgo_grove_trees",
+        ModTreePlacements.GINKGO_CHECKED,
+        new WeightedPlacedFeature(TreePlacements.OAK_BEES_002, 0.1F),
+        new WeightedPlacedFeature(TreePlacements.JUNGLE_BUSH, 0.33F)
+    );
+
 
     public static final Holder<ConfiguredFeature<RandomPatchConfiguration, Feature<RandomPatchConfiguration>>> TUNDRA_VEGETATION_NOISE = registerFeature(
         "tundra_vegetation_noise", Feature.RANDOM_PATCH,

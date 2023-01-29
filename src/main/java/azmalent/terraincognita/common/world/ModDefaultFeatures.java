@@ -130,6 +130,11 @@ public class ModDefaultFeatures {
         }
     }
 
+    public static void ginkgoGroveVegetation(BiomeGenerationSettings.Builder builder) {
+        WorldGenUtil.addVegetation(builder, ModVegetationPlacements.GINKGO_GROVE_TREES);
+        WorldGenUtil.addVegetation(builder, ModVegetationPlacements.GINKGO_GROVE_FLOWERS);
+    }
+
     public static void tundraVegetation(BiomeGenerationSettings.Builder builder) {
         WorldGenUtil.addVegetation(builder, ModVegetationPlacements.TUNDRA_VEGETATION_NOISE);
         WorldGenUtil.addVegetation(builder, ModVegetationPlacements.TUNDRA_VEGETATION_PATCH);

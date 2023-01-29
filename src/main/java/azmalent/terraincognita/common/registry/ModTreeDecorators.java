@@ -1,9 +1,7 @@
 package azmalent.terraincognita.common.registry;
 
 import azmalent.terraincognita.common.world.tree.decorator.AppleDecorator;
-import azmalent.terraincognita.common.world.tree.decorator.CaribouMossDecorator;
 import azmalent.terraincognita.common.world.tree.decorator.HazelnutDecorator;
-import azmalent.terraincognita.common.world.tree.decorator.MushroomDecorator;
 import azmalent.terraincognita.mixin.accessor.TreeDecoratorTypeAccessor;
 import com.mojang.serialization.Codec;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
@@ -19,9 +17,6 @@ public class ModTreeDecorators {
 
     public static final RegistryObject<TreeDecoratorType<AppleDecorator>> APPLES = register("apples", AppleDecorator.CODEC);
     public static final RegistryObject<TreeDecoratorType<HazelnutDecorator>> HAZELNUTS = register("hazelnuts", HazelnutDecorator.CODEC);
-
-    public static final RegistryObject<TreeDecoratorType<CaribouMossDecorator>> CARIBOU_MOSS = register("caribou_moss", CaribouMossDecorator.CODEC);
-    public static final RegistryObject<TreeDecoratorType<MushroomDecorator>> MUSHROOM = register("mushroom", MushroomDecorator.CODEC);
 
     private static <P extends TreeDecorator> RegistryObject<TreeDecoratorType<P>> register(String id, Codec<P> codec) {
         return TREE_DECORATORS.register(id, () -> TreeDecoratorTypeAccessor.ti_constructor(codec));

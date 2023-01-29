@@ -13,18 +13,9 @@
     "count": 3
   },
   "conditions": [
-	  {
-	    "type": "forge:and",
-	    "values": [
-	      {
-	        "type": "forge:mod_loaded",
-	        "modid": "quark"
-	      },
-	      {
-	        "type": "cuneiform:config",
-	        "config": "terraincognita:apple"
-	      }
-	    ]
-	  }
+    {
+      "type": "cuneiform:config",
+      "config": "terraincognita:apple"
+    }
   ]
 }

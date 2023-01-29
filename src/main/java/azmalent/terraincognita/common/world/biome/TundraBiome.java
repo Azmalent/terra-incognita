@@ -75,7 +75,6 @@ public class TundraBiome extends TIBiomeEntry {
         ModDefaultFeatures.arcticFlowers(builder);
         ModDefaultFeatures.tundraRocks(builder);
         ModDefaultFeatures.tundraVegetation(builder);
-        ModDefaultFeatures.sourBerries(builder);
 
         ModDefaultFeatures.rareLarchTrees(builder);
     }

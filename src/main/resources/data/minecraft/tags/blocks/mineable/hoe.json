@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+	"terraincognita:apple_leaf_carpet",
+	"terraincognita:apple_leaves",
+	"terraincognita:blossoming_apple_leaf_carpet",
+	"terraincognita:blossoming_apple_leaves",
+	"terraincognita:ginkgo_leaf_carpet",
+	"terraincognita:ginkgo_leaves",
+	"terraincognita:hazel_leaf_carpet",
+	"terraincognita:hazel_leaves",
+    "terraincognita:hazelnut_sack",
+	"terraincognita:larch_leaf_carpet",
+	"terraincognita:larch_leaves",
+	"terraincognita:sour_berry_sack"
+  ]
+}

@@ -1,10 +1,10 @@
 {
   "replace": false,
   "values": [
-	{"id": "terraincognita:apple_hedge", "required": false},
-	{"id": "terraincognita:blossoming_apple_hedge", "required": false},
-	{"id": "terraincognita:ginkgo_hedge", "required": false},
-	{"id": "terraincognita:hazel_hedge", "required": false},
-	{"id": "terraincognita:larch_hedge", "required": false}
+	"terraincognita:apple_hedge",
+	"terraincognita:blossoming_apple_hedge",
+	"terraincognita:ginkgo_hedge",
+	"terraincognita:hazel_hedge",
+	"terraincognita:larch_hedge"
   ]
 }

@@ -4,6 +4,7 @@ import azmalent.terraincognita.common.world.configured.ModTreeFeatures;
 import azmalent.terraincognita.common.world.configured.ModVegetationFeatures;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
+import net.minecraft.data.worldgen.features.VegetationFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.tags.BlockTags;
@@ -68,13 +69,12 @@ public class ModVegetationPlacements {
 
     public static final Holder<PlacedFeature> HANGING_MOSS_PATCH = PlacementUtils.register(
         "hanging_moss_patch", ModVegetationFeatures.HANGING_MOSS_PATCH,
-        CountPlacement.of(12), InSquarePlacement.spread(),
+        CountPlacement.of(64), InSquarePlacement.spread(),
         PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
         EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
         RandomOffsetPlacement.vertical(ConstantInt.of(-1)),
-        HeightBiomeFilter.between(30, 96)
+        BiomeFilter.biome()
     );
-
 
     public static final Holder<PlacedFeature> LOTUS = PlacementUtils.register(
         "lotus", ModVegetationFeatures.LOTUS,
@@ -128,6 +128,16 @@ public class ModVegetationPlacements {
     public static final Holder<PlacedFeature> CLEARING_VEGETATION = PlacementUtils.register(
         "clearing_vegetation", ModVegetationFeatures.CLEARING_VEGETATION,
         CountPlacement.of(2), RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
+    );
+
+    public static final Holder<PlacedFeature> GINKGO_GROVE_FLOWERS = PlacementUtils.register(
+        "ginkgo_grove_flowers", ModVegetationFeatures.GINKGO_GROVE_FLOWERS,
+        RarityFilter.onAverageOnceEvery(16), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
+    );
+
+    public static final Holder<PlacedFeature> GINKGO_GROVE_TREES = PlacementUtils.register(
+        "ginkgo_grove_trees", ModVegetationFeatures.GINKGO_GROVE_TREES,
+        VegetationPlacements.treePlacement(PlacementUtils.countExtra(3, 0.1F, 1))
     );
 
     public static final Holder<PlacedFeature> TUNDRA_VEGETATION_NOISE = PlacementUtils.register(

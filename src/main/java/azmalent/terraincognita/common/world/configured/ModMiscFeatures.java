@@ -37,18 +37,6 @@ public class ModMiscFeatures {
         )
     );
 
-    //Fallen logs
-    public static final Holder<ConfiguredFeature<FallenLogFeature.Config, FallenLogFeature>> FALLEN_LOG = registerFeature(
-        "fallen_log", ModFeatures.FALLEN_LOG.get(), new FallenLogFeature.Config(
-            new WeightedStateProvider(
-                SimpleWeightedRandomList.<BlockState>builder()
-                    .add(Blocks.SPRUCE_LOG.defaultBlockState(), 1)
-                    .add(ModWoodTypes.LARCH.LOG.defaultBlockState(), 2)
-                    .build()
-            ), UniformInt.of(4, 7)
-        )
-    );
-
     //Boulders
     public static final Holder<ConfiguredFeature<SimpleRandomFeatureConfiguration, Feature<SimpleRandomFeatureConfiguration>>> TUNDRA_ROCK = registerRandomFeature(
         "tundra_boulder",
