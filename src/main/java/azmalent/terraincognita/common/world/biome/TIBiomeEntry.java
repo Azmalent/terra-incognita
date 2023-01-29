@@ -3,11 +3,9 @@ package azmalent.terraincognita.common.world.biome;
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.registry.ModBiomes;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.biome.*;
 import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.List;

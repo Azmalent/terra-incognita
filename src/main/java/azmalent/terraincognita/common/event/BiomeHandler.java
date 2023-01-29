@@ -90,6 +90,7 @@ public class BiomeHandler {
                 case EXTREME_HILLS:
                     if (!BiomeDictionary.hasType(key, HOT)) {
                         ModDefaultFeatures.alpineFlowers(generation);
+                        ModDefaultFeatures.sparseLarchTrees(generation);
                     }
                     break;
 
@@ -99,7 +100,9 @@ public class BiomeHandler {
 
                 case ICY:
                     ModDefaultFeatures.caribouMoss(generation);
+                    ModDefaultFeatures.rareLarchTrees(generation);
                     //Intentional fall-through!
+
                 case TAIGA:
                     ModDefaultFeatures.arcticFlowers(generation);
                     break;

@@ -4,7 +4,6 @@ import azmalent.terraincognita.common.world.configured.ModTreeFeatures;
 import azmalent.terraincognita.common.world.configured.ModVegetationFeatures;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
-import net.minecraft.data.worldgen.features.VegetationFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.tags.BlockTags;
@@ -26,13 +25,13 @@ public class ModVegetationPlacements {
 
     public static final Holder<PlacedFeature> EDELWEISS = PlacementUtils.register(
         "edelweiss", ModVegetationFeatures.EDELWEISS,
-        RarityFilter.onAverageOnceEvery(6), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP,
-        HeightBiomeFilter.above(128)
+        RarityFilter.onAverageOnceEvery(8), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP,
+        HeightBiomeFilter.above(96)
     );
 
     public static final Holder<PlacedFeature> SAXIFRAGE_PATCH = PlacementUtils.register(
         "saxifrage_patch", ModVegetationFeatures.SAXIFRAGE_PATCH,
-        RarityFilter.onAverageOnceEvery(12), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
+        RarityFilter.onAverageOnceEvery(48), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
     );
 
     public static final Holder<PlacedFeature> ARCTIC_FLOWERS = PlacementUtils.register(

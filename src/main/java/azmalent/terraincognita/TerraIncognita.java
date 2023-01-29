@@ -5,9 +5,9 @@ import azmalent.cuneiform.registry.RegistryHelper;
 import azmalent.terraincognita.common.ModBiomeTags;
 import azmalent.terraincognita.common.ModBlockTags;
 import azmalent.terraincognita.common.ModItemTags;
+import azmalent.terraincognita.common.registry.*;
 import azmalent.terraincognita.common.event.ToolInteractionHandler;
 import azmalent.terraincognita.common.ModTrades;
-import azmalent.terraincognita.common.registry.*;
 import azmalent.terraincognita.common.world.ModSurfaceRules;
 import azmalent.terraincognita.integration.ModIntegration;
 import azmalent.terraincognita.integration.top.ButterflyInfoProvider;
@@ -26,7 +26,6 @@ import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import terrablender.api.SurfaceRuleManager;
 
 @Mod(TerraIncognita.MODID)
 @Mod.EventBusSubscriber(modid = TerraIncognita.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)

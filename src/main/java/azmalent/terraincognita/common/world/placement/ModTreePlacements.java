@@ -1,10 +1,8 @@
 package azmalent.terraincognita.common.world.placement;
 
 import azmalent.terraincognita.common.world.configured.ModTreeFeatures;
-import azmalent.terraincognita.common.world.configured.ModVegetationFeatures;
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
-import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.placement.*;
 

@@ -1,5 +1,6 @@
 package azmalent.terraincognita.common.world.configured;
 
+import azmalent.terraincognita.common.ModBlockTags;
 import azmalent.terraincognita.common.block.plant.SourBerryBushBlock;
 import azmalent.terraincognita.common.registry.ModBlocks;
 import azmalent.terraincognita.common.registry.ModFeatures;
@@ -41,21 +42,12 @@ public class ModVegetationFeatures {
         "edelweiss", Feature.NO_BONEMEAL_FLOWER, randomPatchConfig(32, BlockStateProvider.simple(ModBlocks.EDELWEISS.defaultBlockState()))
     );
 
-    public static final Holder<ConfiguredFeature<RandomPatchConfiguration, Feature<RandomPatchConfiguration>>> SAXIFRAGE = registerFeature(
-        "saxifrage", Feature.NO_BONEMEAL_FLOWER, randomPatchConfig(32, new WeightedStateProviderBuilder()
-                .add(ModBlocks.MAGENTA_SAXIFRAGE.defaultBlockState(), 5)
-                .add(ModBlocks.YELLOW_SAXIFRAGE.defaultBlockState(), 5)
-                .add(Blocks.MOSS_CARPET.defaultBlockState(), 5)
-                .add(Blocks.GRASS.defaultBlockState(), 10)
+    public static final Holder<ConfiguredFeature<RandomPatchConfiguration, Feature<RandomPatchConfiguration>>> SAXIFRAGE_PATCH = registerFeature(
+        "saxifrage_patch", Feature.NO_BONEMEAL_FLOWER, randomPatchConfig(32, new WeightedStateProviderBuilder()
+                .add(ModBlocks.MAGENTA_SAXIFRAGE.defaultBlockState(), 1)
+                .add(ModBlocks.YELLOW_SAXIFRAGE.defaultBlockState(), 1)
+                .add(Blocks.GRASS.defaultBlockState(), 2)
                 .build()
-        )
-    );
-
-    public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, Feature<VegetationPatchConfiguration>>> SAXIFRAGE_PATCH = registerFeature(
-        "saxifrage_patch", Feature.VEGETATION_PATCH, new VegetationPatchConfiguration(
-            BlockTags.LUSH_GROUND_REPLACEABLE, BlockStateProvider.simple(Blocks.MOSS_BLOCK),
-            inlinePlaced(SAXIFRAGE), CaveSurface.FLOOR, ConstantInt.of(1),
-            0.0F, 5, 0.08F, UniformInt.of(4, 9), 0.3F
         )
     );
 
@@ -207,7 +199,7 @@ public class ModVegetationFeatures {
             .add(Blocks.POPPY, 2)
             .add(ModBlocks.HEATHER, 3)
             .add(ModBlocks.WHITE_DRYAD, 3)
-            .add(ModBlocks.CARIBOU_MOSS, 8)
+            .add(ModBlocks.CARIBOU_MOSS, 3)
             .add(Blocks.GRASS, 8)
             .build()
         )),
@@ -218,7 +210,7 @@ public class ModVegetationFeatures {
     public static final Holder<ConfiguredFeature<VegetationPatchConfiguration, Feature<VegetationPatchConfiguration>>> TUNDRA_VEGETATION_PATCH = registerFeature(
         "tundra_vegetation_patch", Feature.VEGETATION_PATCH, new VegetationPatchConfiguration(
             BlockTags.DIRT,
-            new WeightedStateProviderBuilder().add(Blocks.GRASS_BLOCK, 3).add(Blocks.COARSE_DIRT, 1).build(),
+            BlockStateProvider.simple(Blocks.GRASS_BLOCK),
             inlinePlaced(TUNDRA_PLANTS), CaveSurface.FLOOR,
             ConstantInt.of(1), 0.0F, 3, 0.1F, UniformInt.of(8, 16), 0.0F
         )

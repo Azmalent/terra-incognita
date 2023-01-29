@@ -4,8 +4,6 @@ import azmalent.terraincognita.common.woodtype.TIWoodType;
 import azmalent.terraincognita.common.registry.ModBlockEntities;
 import azmalent.terraincognita.common.blockentity.TIChestBlockEntity;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;

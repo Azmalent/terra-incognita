@@ -71,12 +71,12 @@ public class TundraBiome extends TIBiomeEntry {
         BiomeDefaultFeatures.addDefaultOres(builder);
         BiomeDefaultFeatures.addDefaultSoftDisks(builder);
 
-        ModDefaultFeatures.caribouMoss(builder);
-        ModDefaultFeatures.arcticFlowers(builder);
         ModDefaultFeatures.tundraRocks(builder);
         ModDefaultFeatures.tundraVegetation(builder);
 
+        ModDefaultFeatures.caribouMoss(builder);
         ModDefaultFeatures.rareLarchTrees(builder);
+        ModDefaultFeatures.arcticFlowers(builder);
     }
 
     @Override

@@ -2,7 +2,6 @@ package azmalent.terraincognita.common.event;
 
 import azmalent.cuneiform.util.DataUtil;
 import azmalent.terraincognita.TIConfig;
-import azmalent.terraincognita.TIServerConfig;
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.registry.ModItems;
 import com.google.common.collect.ImmutableMap;

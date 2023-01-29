@@ -8,7 +8,6 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.biome.OverworldBiomeBuilder;
 import org.jetbrains.annotations.NotNull;
-import terrablender.api.ParameterUtils;
 
 import java.util.function.Consumer;
 
