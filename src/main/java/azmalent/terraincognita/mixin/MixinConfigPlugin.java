@@ -1,6 +1,5 @@
 package azmalent.terraincognita.mixin;
 
-import azmalent.cuneiform.util.ReflectionUtil;
 import azmalent.terraincognita.TIMixinConfig;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
@@ -22,7 +21,8 @@ public class MixinConfigPlugin implements IMixinConfigPlugin {
         TIMixinConfig.INSTANCE.buildSpec();
         TIMixinConfig.INSTANCE.sync();
 
-        botaniaLoaded = ReflectionUtil.getClassOrNull("vazkii.botania.forge.ForgeCommonInitializer") != null;
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        botaniaLoaded = classLoader.getResource("vazkii/botania/forge/ForgeCommonInitializer.class") != null;
     }
 
     @Override
