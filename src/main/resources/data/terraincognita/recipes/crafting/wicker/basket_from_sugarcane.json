@@ -21,7 +21,7 @@
           "type": "forge:not",
           "value": {
             "type": "cuneiform:config",
-            "config": "terraincognita:sedge"
+            "config": "terraincognita:swamp_reeds"
           }
         },
         {

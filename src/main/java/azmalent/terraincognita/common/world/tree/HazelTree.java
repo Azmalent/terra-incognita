@@ -1,6 +1,6 @@
 package azmalent.terraincognita.common.world.tree;
 
-import azmalent.terraincognita.common.world.configured.ModConfiguredTreeFeatures;
+import azmalent.terraincognita.common.world.configured.ModTreeFeatures;
 import azmalent.terraincognita.common.world.tree.decorator.HazelnutDecorator;
 import net.minecraft.core.Holder;
 import net.minecraft.util.valueproviders.ConstantInt;
@@ -40,6 +40,6 @@ public class HazelTree extends AbstractTreeGrower {
     @Nullable
     @Override
     protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(@Nonnull Random random, boolean largeHive) {
-        return ModConfiguredTreeFeatures.HAZEL_GROWN;
+        return ModTreeFeatures.HAZEL_GROWN;
     }
 }

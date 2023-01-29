@@ -27,16 +27,18 @@ public class CaribouMossFeature extends Feature<NoneFeatureConfiguration> {
         
         boolean success = false;
         if (level.isEmptyBlock(origin) && ModBlocks.CARIBOU_MOSS.defaultBlockState().canSurvive(level, origin)) {
-            int x = 4 + random.nextInt(6);
-            int z = 4 + random.nextInt(6);
-            int count = (int) (x * z * (random.nextDouble() + random.nextDouble() + 2));
+            int r = 4 + random.nextInt(6);
+            int count = (int) (r * r * (1 * random.nextDouble() + random.nextDouble()));
 
             BlockPos.MutableBlockPos cursor = new BlockPos.MutableBlockPos();
             for (int i = 0; i < count; i++) {
+                double angle = random.nextFloat() * 2 * Math.PI;
+                float distance = random.nextFloat() * r;
+
                 cursor.setWithOffset(origin,
-                    random.nextInt(x) - random.nextInt(x),
-                    random.nextInt(2) - random.nextInt(2),
-                    random.nextInt(z) - random.nextInt(z)
+                    (int) (distance * Math.cos(angle)),
+            random.nextInt(2) - random.nextInt(2),
+                    (int) (distance * Math.sin(angle))
                 );
 
                 if (level.isEmptyBlock(cursor)) {
@@ -49,13 +51,15 @@ public class CaribouMossFeature extends Feature<NoneFeatureConfiguration> {
     }
 
     public static boolean tryPlaceMoss(WorldGenLevel level, BlockPos pos, Random random) {
+        boolean snowy = level.getBiome(pos).value().coldEnoughToSnow(pos);
+
         for (Direction direction : Direction.Plane.HORIZONTAL) {
             BlockState state = ModBlocks.CARIBOU_MOSS_WALL.defaultBlockState().setValue(CaribouMossWallBlock.FACING, direction);
             if (random.nextBoolean() && state.canSurvive(level, pos)) {
                 level.setBlock(pos, state, 2);
 
                 BlockPos wall = pos.relative(direction.getOpposite());
-                if (level.getBlockState(wall).is(BlockTags.MOSS_REPLACEABLE) && random.nextBoolean()) {
+                if (!snowy && level.getBlockState(wall).is(BlockTags.MOSS_REPLACEABLE) && random.nextBoolean()) {
                     level.setBlock(wall, Blocks.MOSS_BLOCK.defaultBlockState(), 2);
                 }
 
@@ -65,10 +69,10 @@ public class CaribouMossFeature extends Feature<NoneFeatureConfiguration> {
 
         BlockState state = ModBlocks.CARIBOU_MOSS.defaultBlockState();
         if (state.canSurvive(level, pos)) {
-            level.setBlock(pos, random.nextBoolean() ? state : Blocks.MOSS_CARPET.defaultBlockState(), 2);
+            level.setBlock(pos, !snowy && random.nextBoolean() ? Blocks.MOSS_CARPET.defaultBlockState() : state, 2);
 
             BlockPos under = pos.below();
-            if (level.getBlockState(under).is(BlockTags.MOSS_REPLACEABLE) && random.nextBoolean()) {
+            if (!snowy && level.getBlockState(under).is(BlockTags.MOSS_REPLACEABLE) && random.nextBoolean()) {
                 level.setBlock(under, Blocks.MOSS_BLOCK.defaultBlockState(), 2);
             }
 

@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Set;
 
 public class MixinConfigPlugin implements IMixinConfigPlugin {
-    private boolean quarkLoaded = false;
     private boolean botaniaLoaded = false;
 
     private String getRelativeClassName(String className) {
@@ -23,7 +22,6 @@ public class MixinConfigPlugin implements IMixinConfigPlugin {
         TIMixinConfig.INSTANCE.sync();
 
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        quarkLoaded = classLoader.getResource("vazkii/quark/base/Quark.class") != null;
         botaniaLoaded = classLoader.getResource("vazkii/botania/forge/ForgeCommonInitializer.class") != null;
     }
 
@@ -40,7 +38,7 @@ public class MixinConfigPlugin implements IMixinConfigPlugin {
         }
 
         //Ignore compat mixins if the corresponding mod is not loaded
-        if (!quarkLoaded && key.startsWith("compat/quark") || !botaniaLoaded && key.startsWith("compat/botania")) {
+        if (!botaniaLoaded && key.startsWith("compat/botania")) {
             return false;
         }
 

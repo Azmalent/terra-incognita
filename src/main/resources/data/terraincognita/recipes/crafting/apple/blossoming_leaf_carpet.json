@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "terraincognita:blossoming_apple_leaves"
+    }
+  },
+  "result": {
+    "item": "terraincognita:blossoming_apple_leaf_carpet",
+    "count": 3
+  },
+  "conditions": [
+    {
+      "type": "cuneiform:config",
+      "config": "terraincognita:apple"
+    }
+  ]
+}

@@ -2,7 +2,8 @@
   "replace": false,
   "values": [
     "minecraft:plains",
-    "minecraft:sunflower_plains"
+    "minecraft:sunflower_plains",
+    "terraincognita:lush_plains"
   ],
   "optional": [
     "byg:prairie",

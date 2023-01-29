@@ -103,7 +103,7 @@ public class ModItems {
         }
 
 
-        FuelHandler.registerFuel(0.5f, ModBlocks.SEDGE);
+        FuelHandler.registerFuel(0.5f, ModBlocks.SWAMP_REEDS);
         FuelHandler.registerFuel(12, ModBlocks.PEAT);
     }
 

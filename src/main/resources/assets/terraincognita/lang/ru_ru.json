@@ -74,8 +74,8 @@
   "block.terraincognita.blue_sweet_peas": "Синий душистый горошек",
   "block.terraincognita.light_blue_sweet_peas": "Голубой душистый горошек",
   "block.terraincognita.hanging_moss": "Висячий мох",
-  "block.terraincognita.sedge": "Осока",
-  "block.terraincognita.potted_sedge": "Осока в горшке",
+  "block.terraincognita.swamp_reeds": "Болотный тростник",
+  "block.terraincognita.potted_swamp_reeds": "Болотный тростник в горшке",
   "block.terraincognita.caribou_moss": "Ягель",
   "block.terraincognita.potted_caribou_moss": "Ягель в горшке",
   "block.terraincognita.smooth_cactus": "Гладкий кактус",
@@ -240,11 +240,13 @@
   "item.terraincognita.cactus_needle": "Кактусовая иголка",
   "item.terraincognita.blowpipe": "Духовое ружьё",
 
-  "biome.terraincognita.tundra": "Тундра",
-  "biome.terraincognita.rocky_tundra": "Каменистая тундра",
-  "biome.terraincognita.muskeg": "Сфагновое болото",
+  "biome.terraincognita.boreal_forest": "Лиственничный лес",
+  "biome.terraincognita.boreal_forest_clearing": "Поляна лиственничного леса",
+  "biome.terraincognita.ginkgo_grove": "Гинкговая роща",
   "biome.terraincognita.lush_plains": "Цветущие поля",
-  "biome.terraincognita.lush_hills": "Цветущие холмы",
+  "biome.terraincognita.snowy_boreal_forest": "Снежный лиственничный лес",
+  "biome.terraincognita.snowy_boreal_forest_clearing": "Поляна снежного лиственничного леса",
+  "biome.terraincognita.tundra": "Тундра",
 
   "entity.terraincognita.butterfly": "Бабочка",
   "entity.terraincognita.butterfly.peacock": "Павлиний глаз",
@@ -267,7 +269,7 @@
   "item.terraincognita.moth_spawn_egg": "Яйцо призыва мотылька",
 
   "effect.terraincognita.sticky_mouth": "Склеенный рот",
-  "description.effect.terraincognita.sticky_mouth": "Halves eating speed with each level.",
+  "description.effect.terraincognita.sticky_mouth": "С каждым уровнем уменьшает скорость поедания еды вдвое.",
 
   "item.terraincognita.fleur_de_lis_banner_pattern": "Узор флага",
   "item.terraincognita.fleur_de_lis_banner_pattern.desc": "Геральдическая лилия",

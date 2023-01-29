@@ -10,6 +10,8 @@ public class ModBiomeTags {
         //Called to force static constructor
     }
 
+    //TODO: utilize this tag for spawns
+    public static final TagKey<Biome> SPAWNS_BUTTERFLIES = createTag("spawns_butterflies");
     public static final TagKey<Biome> SPAWNS_PLAINS_BUTTERFLIES = createTag("spawns_plains_butterflies");
     public static final TagKey<Biome> SPAWNS_FOREST_BUTTERFLIES = createTag("spawns_forest_butterflies");
     public static final TagKey<Biome> SPAWNS_MOUNTAIN_BUTTERFLIES = createTag("spawns_mountain_butterflies");

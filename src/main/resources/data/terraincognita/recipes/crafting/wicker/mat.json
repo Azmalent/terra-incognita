@@ -5,7 +5,7 @@
   ],
   "key": {
     "R": {
-      "item": "terraincognita:sedge"
+      "item": "terraincognita:swamp_reeds"
     }
   },
   "result": {
@@ -15,7 +15,7 @@
   "conditions": [
     {
       "type": "cuneiform:config",
-      "config": "terraincognita:sedge"
+      "config": "terraincognita:swamp_reeds"
     }
   ]
 }

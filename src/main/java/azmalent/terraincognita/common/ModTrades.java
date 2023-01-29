@@ -3,7 +3,6 @@ package azmalent.terraincognita.common;
 import azmalent.cuneiform.registry.BlockEntry;
 import azmalent.cuneiform.util.TradeBuilder;
 import azmalent.terraincognita.TIConfig;
-import azmalent.terraincognita.TIServerConfig;
 import azmalent.terraincognita.common.registry.ModBlocks;
 import azmalent.terraincognita.common.registry.ModItems;
 import azmalent.terraincognita.common.registry.ModWoodTypes;
@@ -12,7 +11,7 @@ import net.minecraft.world.item.ItemStack;
 import static azmalent.cuneiform.common.data.WanderingTraderHandler.*;
 
 public class ModTrades {
-    public static void setupWandererTrades() {
+    public static void initWandererTrades() {
         //Flowers
         if (TIConfig.Flora.dandelionPuff.get()) {
             addCommonTrade(TradeBuilder.sell(ModBlocks.DANDELION_PUFF.makeStack()).maxTrades(12).build());
@@ -96,8 +95,8 @@ public class ModTrades {
             addCommonTrade(TradeBuilder.sell(ModBlocks.CARIBOU_MOSS.makeStack()).maxTrades(12).build());
         }
 
-        if (TIConfig.Flora.sedge.get()) {
-            addCommonTrade(TradeBuilder.sell(ModBlocks.SEDGE.makeStack()).maxTrades(8).build());
+        if (TIConfig.Flora.swampReeds.get()) {
+            addCommonTrade(TradeBuilder.sell(ModBlocks.SWAMP_REEDS.makeStack()).maxTrades(8).build());
         }
 
         if (TIConfig.Misc.peat.get()) {

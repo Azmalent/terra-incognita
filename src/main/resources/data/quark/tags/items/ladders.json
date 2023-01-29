@@ -1,9 +1,9 @@
 {
   "replace": false,
   "values": [
-	{"id": "terraincognita:apple_ladder", "required": false},
-	{"id": "terraincognita:ginkgo_ladder", "required": false},
-	{"id": "terraincognita:hazel_ladder", "required": false},
-	{"id": "terraincognita:larch_ladder", "required": false}
+	"terraincognita:apple_ladder",
+	"terraincognita:ginkgo_ladder",
+	"terraincognita:hazel_ladder",
+	"terraincognita:larch_ladder"
   ]
 }

@@ -22,7 +22,7 @@ public class TIServerConfig extends ConfigFile {
         public static final BooleanOption particlesEnabled = BooleanOption.of(true);
     }
 
-    @Comment("Adds height variation to cacti, sugarcane and sedge.")
+    @Comment("Adds height variation to cacti, sugarcane and swamp reeds.")
     public static final BooleanOption plantHeightVariation = BooleanOption.of(true);
 
     @Comment("Allows growing lily pads by using bonemeal in shallow water pools.")

@@ -1,6 +1,6 @@
 package azmalent.terraincognita.common.world.tree;
 
-import azmalent.terraincognita.common.world.configured.ModConfiguredTreeFeatures;
+import azmalent.terraincognita.common.world.configured.ModTreeFeatures;
 import azmalent.terraincognita.common.world.tree.decorator.AppleDecorator;
 import net.minecraft.core.Holder;
 import net.minecraft.util.random.SimpleWeightedRandomList;
@@ -47,6 +47,6 @@ public class AppleTree extends AbstractTreeGrower {
     @Nullable
     @Override
     protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(@Nonnull Random random, boolean largeHive) {
-        return ModConfiguredTreeFeatures.APPLE_GROWN;
+        return ModTreeFeatures.APPLE_GROWN;
     }
 }

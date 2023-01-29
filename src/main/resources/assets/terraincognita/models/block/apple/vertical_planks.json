@@ -1,0 +1,6 @@
+{   
+    "parent": "terraincognita:block/vertical_planks",
+    "textures": {
+        "all": "terraincognita:block/apple/planks"
+    }
+}

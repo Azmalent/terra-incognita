@@ -5,9 +5,10 @@ import azmalent.cuneiform.registry.RegistryHelper;
 import azmalent.terraincognita.common.ModBiomeTags;
 import azmalent.terraincognita.common.ModBlockTags;
 import azmalent.terraincognita.common.ModItemTags;
+import azmalent.terraincognita.common.registry.*;
 import azmalent.terraincognita.common.event.ToolInteractionHandler;
 import azmalent.terraincognita.common.ModTrades;
-import azmalent.terraincognita.common.registry.*;
+import azmalent.terraincognita.common.world.ModSurfaceRules;
 import azmalent.terraincognita.integration.ModIntegration;
 import azmalent.terraincognita.integration.top.ButterflyInfoProvider;
 import azmalent.terraincognita.proxy.ClientProxy;
@@ -76,13 +77,14 @@ public class TerraIncognita {
     @SubscribeEvent
     public static void setup(FMLCommonSetupEvent event) {
         event.enqueueWork(ModBiomes::initBiomes);
+        event.enqueueWork(ModSurfaceRules::initRules);
         event.enqueueWork(ModWoodTypes::registerBeehivesToPOI);
 
         ModBlocks.initFlammability();
         ModItems.initFuelValues();
         ModRecipes.initCompostables();
         ToolInteractionHandler.initToolInteractions();
-        ModTrades.setupWandererTrades();
+        ModTrades.initWandererTrades();
     }
 
     @SubscribeEvent

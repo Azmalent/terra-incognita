@@ -6,7 +6,7 @@ issueTrackerURL="https://github.com/Azmalent/terra-incognita/issues"
 
 [[mods]]
 modId="terraincognita"
-version="1.18.2-2.0"
+version="${mod_version}"
 displayName="${mod_name}"
 logoFile="terraincognita.png"
 authors="Azmalent"

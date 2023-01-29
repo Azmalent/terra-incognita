@@ -1,14 +1,12 @@
 package azmalent.terraincognita.common.world.tree;
 
-import azmalent.terraincognita.common.world.configured.ModConfiguredTreeFeatures;
+import azmalent.terraincognita.common.world.configured.ModTreeFeatures;
 import net.minecraft.core.Holder;
 import net.minecraft.util.valueproviders.ConstantInt;
-import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.grower.AbstractTreeGrower;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
-import net.minecraft.world.level.levelgen.feature.foliageplacers.FancyFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.RandomSpreadFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.FancyTrunkPlacer;
@@ -33,6 +31,6 @@ public class GinkgoTree extends AbstractTreeGrower {
 
     @Override
     protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(@NotNull Random random, boolean largeHive) {
-        return ModConfiguredTreeFeatures.GINKGO;
+        return ModTreeFeatures.GINKGO;
     }
 }

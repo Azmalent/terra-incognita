@@ -4,10 +4,7 @@ import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.registry.ModBlocks;
 import azmalent.terraincognita.common.registry.ModWoodTypes;
 import azmalent.terraincognita.common.woodtype.TIWoodType;
-import azmalent.terraincognita.mixin.accessor.HoeItemAccessor;
 import com.google.common.collect.Maps;
-import com.mojang.datafixers.util.Pair;
-import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -22,40 +19,32 @@ import java.util.Map;
 //Based on Quark ToolInteractionHandler
 @Mod.EventBusSubscriber(modid = TerraIncognita.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ToolInteractionHandler {
-    public static final Map<Block, Block> AXE_STRIPPABLES = Maps.newHashMap();
-    public static final Map<Block, Block> SHOVEL_FLATTENABLES = Maps.newHashMap();
+    private static final Map<Block, Block> AXE_INTERACTIONS = Maps.newHashMap();
+    private static final Map<Block, Block> SHOVEL_INTERACTIONS = Maps.newHashMap();
+    private static final Map<Block, Block> HOE_INTERACTIONS = Maps.newHashMap();
 
     public static void initToolInteractions() {
         for (TIWoodType woodType : ModWoodTypes.VALUES) {
-            AXE_STRIPPABLES.put(woodType.LOG.get(), woodType.STRIPPED_LOG.get());
-            AXE_STRIPPABLES.put(woodType.WOOD.get(), woodType.STRIPPED_WOOD.get());
-            AXE_STRIPPABLES.put(woodType.POST.get(), woodType.STRIPPED_POST.get());
+            AXE_INTERACTIONS.put(woodType.LOG.get(), woodType.STRIPPED_LOG.get());
+            AXE_INTERACTIONS.put(woodType.WOOD.get(), woodType.STRIPPED_WOOD.get());
+            AXE_INTERACTIONS.put(woodType.POST.get(), woodType.STRIPPED_POST.get());
         }
 
-        SHOVEL_FLATTENABLES.put(ModBlocks.FLOWERING_GRASS.get(), Blocks.DIRT_PATH);
+        SHOVEL_INTERACTIONS.put(ModBlocks.FLOWERING_GRASS.get(), Blocks.DIRT_PATH);
 
-        var tillables = Maps.newHashMap(HoeItemAccessor.ti_getTillables());
-        tillables.put(ModBlocks.PEAT.get(), Pair.of(
-            HoeItem::onlyIfAirAbove, HoeItem.changeIntoState(ModBlocks.TILLED_PEAT.defaultBlockState()))
-        );
-
-        tillables.put(ModBlocks.FLOWERING_GRASS.get(), Pair.of(
-            HoeItem::onlyIfAirAbove, HoeItem.changeIntoState(Blocks.FARMLAND.defaultBlockState()))
-        );
-        HoeItemAccessor.ti_setTillables(tillables);
+        HOE_INTERACTIONS.put(ModBlocks.FLOWERING_GRASS.get(), Blocks.FARMLAND);
+        HOE_INTERACTIONS.put(ModBlocks.PEAT.get(), ModBlocks.TILLED_PEAT.get());
     }
 
     @SubscribeEvent
     public static void onToolInteraction(BlockEvent.BlockToolModificationEvent event) {
-        if (event.isSimulated()) {
-            return;
-        }
-
         Map<Block, Block> map = null;
         if (event.getToolAction() == ToolActions.AXE_STRIP) {
-            map = AXE_STRIPPABLES;
+            map = AXE_INTERACTIONS;
         } else if (event.getToolAction() == ToolActions.SHOVEL_FLATTEN) {
-            map = SHOVEL_FLATTENABLES;
+            map = SHOVEL_INTERACTIONS;
+        } else if (event.getToolAction() == ToolActions.HOE_TILL) {
+            map = HOE_INTERACTIONS;
         }
 
         BlockState state = event.getState();
@@ -66,6 +55,7 @@ public class ToolInteractionHandler {
             event.setFinalState(finalState);
         }
     }
+
     @SuppressWarnings({ "unchecked", "rawtypes" })
     private static BlockState copyBlockState(BlockState source, Block target) {
         BlockState outState = target.defaultBlockState();

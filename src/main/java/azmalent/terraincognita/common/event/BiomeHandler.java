@@ -55,61 +55,58 @@ public class BiomeHandler {
             ModDefaultFeatures.butterflies(spawns);
         }
 
-        //Hanging moss
-        if (!WorldGenUtil.hasAnyBiomeType(key, OCEAN, BEACH, SANDY, MESA, WASTELAND, COLD, SAVANNA, DRY)) {
-            ModDefaultFeatures.hangingMoss(generation);
-        }
-
-        //Sweet peas
         if (key == Biomes.FLOWER_FOREST) {
             ModDefaultFeatures.sweetPeas(generation);
-            return;
-        }
+        } else if (key == Biomes.LUSH_CAVES) {
+            ModDefaultFeatures.hangingMoss(generation);
+        } else {
+            var category = WorldGenUtil.getProperBiomeCategory(biome);
+            switch (category) {
+                case PLAINS:
+                    ModDefaultFeatures.appleTrees(generation);
+                    break;
 
-        //Category specific
-        var category = WorldGenUtil.getProperBiomeCategory(biome);
-        switch (category) {
-            case PLAINS:
-                ModDefaultFeatures.appleTrees(generation);
-                break;
+                case FOREST:
+                    ModDefaultFeatures.forestFlowers(generation);
+                    ModDefaultFeatures.hazelTrees(generation);
+                    break;
 
-            case FOREST:
-                ModDefaultFeatures.forestFlowers(generation);
-                ModDefaultFeatures.hazelTrees(generation);
-                break;
+                case SWAMP:
+                    ModDefaultFeatures.swampReeds(generation);
+                    ModDefaultFeatures.peatAndMossyGravel(generation);
+                    if (!BiomeDictionary.hasType(key, COLD)) {
+                        ModDefaultFeatures.swampFlowers(generation);
+                    }
+                    break;
 
-            case SWAMP:
-                ModDefaultFeatures.sedge(generation);
-                ModDefaultFeatures.peatAndMossyGravel(generation);
-                if (!BiomeDictionary.hasType(key, COLD)) {
-                    ModDefaultFeatures.swampFlowers(generation);
-                }
-                break;
+                case DESERT:
+                    ModDefaultFeatures.desertVegetation(generation);
+                    break;
 
-            case DESERT:
-                ModDefaultFeatures.desertVegetation(generation);
-                break;
+                case SAVANNA:
+                    ModDefaultFeatures.savannaFlowers(generation);
+                    break;
 
-            case SAVANNA:
-                ModDefaultFeatures.savannaFlowers(generation);
-                break;
+                case EXTREME_HILLS:
+                    if (!BiomeDictionary.hasType(key, HOT)) {
+                        ModDefaultFeatures.alpineFlowers(generation);
+                        ModDefaultFeatures.sparseLarchTrees(generation);
+                    }
+                    break;
 
-            case EXTREME_HILLS:
-                if (!BiomeDictionary.hasType(key, HOT)) {
-                    ModDefaultFeatures.alpineFlowers(generation);
-                }
-                break;
+                case JUNGLE:
+                    ModDefaultFeatures.jungleVegetation(generation);
+                    break;
 
-            case JUNGLE:
-                ModDefaultFeatures.jungleVegetation(generation);
-                break;
+                case ICY:
+                    ModDefaultFeatures.caribouMoss(generation);
+                    ModDefaultFeatures.rareLarchTrees(generation);
+                    //Intentional fall-through!
 
-            case ICY:
-                ModDefaultFeatures.caribouMoss(generation);
-                //Intentional fall-through!
-            case TAIGA:
-                ModDefaultFeatures.arcticFlowers(generation);
-                break;
+                case TAIGA:
+                    ModDefaultFeatures.arcticFlowers(generation);
+                    break;
+            }
         }
     }
 

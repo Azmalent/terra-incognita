@@ -33,7 +33,7 @@ public class DandelionPuffItem extends BlockItem {
 
     @Override
     public int getUseDuration(@NotNull ItemStack stack) {
-        return 100;
+        return 40;
     }
 
     @Nonnull

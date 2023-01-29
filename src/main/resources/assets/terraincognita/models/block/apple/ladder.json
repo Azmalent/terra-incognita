@@ -1,7 +1,6 @@
 {
-  "parent": "quark:block/ladder_but_not_the_vanilla_one_so_resourcepacks_dont_override_it",
+  "parent": "terraincognita:block/custom_ladder",
   "textures": {
-    "particle": "terraincognita:block/apple/ladder",
     "texture": "terraincognita:block/apple/ladder"
   }
 }

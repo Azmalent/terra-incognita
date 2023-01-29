@@ -8,6 +8,7 @@ import net.minecraft.world.level.block.Block;
 
 @SuppressWarnings("unused")
 public class ModBlockTags {
+
     public static void init() {
         //Called to force static constructor
     }

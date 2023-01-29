@@ -1,5 +1,5 @@
 {
-  "parent": "quark:block/leaf_carpet",
+  "parent": "terraincognita:block/leaf_carpet",
   "textures": {
     "all": "terraincognita:block/larch/leaves"
   }

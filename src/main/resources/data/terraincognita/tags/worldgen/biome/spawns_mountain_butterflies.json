@@ -1,7 +1,8 @@
 {
   "replace": false,
   "values": [
-    "minecraft:meadow"
+    "minecraft:meadow",
+    "terraincognita:ginkgo_grove"
   ],
   "optional": [
     "byg:canadian_shield",
