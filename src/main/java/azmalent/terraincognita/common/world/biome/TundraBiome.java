@@ -65,8 +65,8 @@ public class TundraBiome extends TIBiomeEntry {
         defaultFeatures(builder);
 
         BiomeDefaultFeatures.addDefaultGrass(builder);
-        BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
         BiomeDefaultFeatures.addDefaultMushrooms(builder);
+        BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
 
         BiomeDefaultFeatures.addDefaultOres(builder);
         BiomeDefaultFeatures.addDefaultSoftDisks(builder);

@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+	{"id": "terraincognita:apple_bookshelf", "required": false},
+	{"id": "terraincognita:ginkgo_bookshelf", "required": false},
+	{"id": "terraincognita:hazel_bookshelf", "required": false},
+	{"id": "terraincognita:larch_bookshelf", "required": false}
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+	"terraincognita:apple_vertical_slab",
+	"terraincognita:ginkgo_vertical_slab",
+	"terraincognita:hazel_vertical_slab",
+	"terraincognita:larch_vertical_slab"
+  ]
+}

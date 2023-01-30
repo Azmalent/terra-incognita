@@ -55,8 +55,8 @@ public class LushPlainsBiome extends TIBiomeEntry {
 
         BiomeDefaultFeatures.addPlainGrass(builder);
         BiomeDefaultFeatures.addPlainVegetation(builder);
-        BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
         BiomeDefaultFeatures.addDefaultMushrooms(builder);
+        BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
 
         ModDefaultFeatures.appleTrees(builder);
     }

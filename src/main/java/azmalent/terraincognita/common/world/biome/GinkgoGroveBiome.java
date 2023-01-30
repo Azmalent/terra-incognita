@@ -57,8 +57,8 @@ public class GinkgoGroveBiome extends TIBiomeEntry {
 
         BiomeDefaultFeatures.addWarmFlowers(builder);
         BiomeDefaultFeatures.addJungleGrass(builder);
-        BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
         BiomeDefaultFeatures.addDefaultMushrooms(builder);
+        BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
 
         BiomeDefaultFeatures.addSparseJungleMelons(builder);
 

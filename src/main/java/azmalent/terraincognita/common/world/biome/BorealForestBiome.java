@@ -68,8 +68,8 @@ public class BorealForestBiome extends TIBiomeEntry {
         BiomeDefaultFeatures.addTaigaGrass(builder);
         BiomeDefaultFeatures.addFerns(builder);
         BiomeDefaultFeatures.addDefaultFlowers(builder);
-        BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
         BiomeDefaultFeatures.addDefaultMushrooms(builder);
+        BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
 
         if (isSnowy) {
             BiomeDefaultFeatures.addRareBerryBushes(builder);
