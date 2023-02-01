@@ -22,7 +22,6 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-import org.apache.commons.compress.utils.Lists;
 
 import java.util.List;
 import java.util.Map;
@@ -37,7 +36,7 @@ import static net.minecraft.world.item.CreativeModeTab.TAB_DECORATIONS;
 public class ModBlocks {
     public static final DeferredRegister<Block> BLOCKS = REGISTRY_HELPER.getOrCreateRegistry(ForgeRegistries.BLOCKS);
 
-    public static final Map<String, BlockEntry<FlowerPotBlock>> POTTED_PLANTS = Maps.newHashMap();
+    public static final Map<String, BlockEntry<FlowerPotBlock>> FLOWER_POTS = Maps.newHashMap();
 
     //Small flowers
     public static final BlockEntry<?> DANDELION_PUFF = createPlant("dandelion_puff", () -> new ModFlowerBlock(StewEffect.SATURATION), DandelionPuffItem::new);
@@ -87,21 +86,14 @@ public class ModBlocks {
     public static final BlockEntry<SmoothCactusBlock> SMOOTH_CACTUS = REGISTRY_HELPER.createBlock("smooth_cactus", SmoothCactusBlock::new).cutoutRender().build();
 
     public static final List<BlockEntry<?>> SMALL_FLOWERS = List.of(
-        DANDELION_PUFF, CHICORY, YARROW, DAFFODIL, YELLOW_PRIMROSE, PINK_PRIMROSE, PURPLE_PRIMROSE, FOXGLOVE, WILD_GARLIC,
-        MARIGOLD, SNAPDRAGON, EDELWEISS, ALPINE_PINK, ASTER, YELLOW_SAXIFRAGE, GENTIAN, FORGET_ME_NOT, BLUE_IRIS,
-        PURPLE_IRIS, BLACK_IRIS, HEATHER, WHITE_DRYAD);
+        ALPINE_PINK, ASTER, BLACK_IRIS, BLUE_IRIS, CHICORY, DAFFODIL, DANDELION_PUFF, EDELWEISS, FORGET_ME_NOT, FOXGLOVE,
+        GENTIAN, GLOBEFLOWER, HEATHER, MAGENTA_SAXIFRAGE, MARIGOLD, PINK_PRIMROSE, PURPLE_IRIS, PURPLE_PRIMROSE, SNAPDRAGON,
+        WILD_GARLIC, WHITE_DRYAD, YARROW, YELLOW_PRIMROSE, YELLOW_SAXIFRAGE
+    );
 
     public static final List<BlockEntry<?>> TALL_FLOWERS = List.of(
         WATER_FLAG, FIREWEED, WHITE_RHODODENDRON, OLEANDER, SAGE
     );
-
-    public static final List<BlockEntry<?>> FLOWERS = Lists.newArrayList();
-    static {
-        FLOWERS.addAll(SMALL_FLOWERS);
-        FLOWERS.addAll(TALL_FLOWERS);
-        FLOWERS.add(CACTUS_FLOWER);
-    }
-
 
     //Sweet peas
     public static final List<BlockEntry<SweetPeasBlock>> SWEET_PEAS =
@@ -175,7 +167,7 @@ public class ModBlocks {
     private static void createFlowerPot(String id, Supplier<? extends Block> plantSupplier) {
         var props = Block.Properties.copy(Blocks.FLOWER_POT);
         var pottedPlant = REGISTRY_HELPER.createBlock("potted_" + id, () -> new FlowerPotBlock(plantSupplier.get(), props)).noItemForm().cutoutRender().build();
-        POTTED_PLANTS.put(id, pottedPlant);
+        FLOWER_POTS.put(id, pottedPlant);
     }
 
     private static BlockEntry<TILilyPadBlock> createLotus(String color) {
@@ -187,7 +179,11 @@ public class ModBlocks {
     }
 
     public static void initFlammability() {
-        for (BlockEntry<?> flower : FLOWERS) {
+        for (BlockEntry<?> flower : SMALL_FLOWERS) {
+            DataUtil.registerFlammable(flower, 60, 100);
+        }
+
+        for (BlockEntry<?> flower : TALL_FLOWERS) {
             DataUtil.registerFlammable(flower, 60, 100);
         }
 
@@ -199,6 +195,7 @@ public class ModBlocks {
             woodType.initFlammability();
         }
 
+        DataUtil.registerFlammable(CACTUS_FLOWER, 60, 100);
         DataUtil.registerFlammable(WICKER_MAT, 60, 20);
     }
 }

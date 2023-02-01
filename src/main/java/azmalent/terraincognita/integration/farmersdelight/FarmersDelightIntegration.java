@@ -13,7 +13,7 @@ import vectorwing.farmersdelight.common.block.CabinetBlock;
 public final class FarmersDelightIntegration extends FarmersDelightProxy {
     @Override
     public void register(IEventBus bus) {
-        TerraIncognita.LOGGER.info("Integrating with Farmer's Delight...");
+        TerraIncognita.LOGGER.info("Enabled Farmer's Delight integration!");
     }
 
     @Override

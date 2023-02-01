@@ -9,6 +9,7 @@ import azmalent.terraincognita.common.block.plant.SwampReedsBlock;
 import azmalent.terraincognita.common.registry.ModBlocks;
 import azmalent.terraincognita.common.registry.ModWoodTypes;
 import azmalent.terraincognita.common.woodtype.TIWoodType;
+import com.google.common.collect.Sets;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.DoublePlantBlock;
@@ -29,7 +30,7 @@ public class TIBlockStateProvider extends ExtendedBlockStateProvider {
     protected void registerStatesAndModels() {
         ModWoodTypes.VALUES.forEach(type -> {
             registerWoodType(type);
-            registerSmallPlant(type.SAPLING);
+            registerSmallPlant(type.SAPLING, false);
         });
 
         registerFlowers();
@@ -40,10 +41,6 @@ public class TIBlockStateProvider extends ExtendedBlockStateProvider {
         registerLogAndWood(type.LOG, type.WOOD);
         registerLogAndWood(type.STRIPPED_LOG, type.STRIPPED_WOOD);
         registerLeaves(type.LEAVES, type.LEAF_CARPET);
-
-        registerHedge(type.LOG, type.LEAVES, type.HEDGE);
-        registerPost(type.LOG, type.POST);
-        registerPost(type.STRIPPED_LOG, type.STRIPPED_POST);
 
         registerPlanks(type.PLANKS, type.VERTICAL_PLANKS);
         registerSlabAndStairs(type.PLANKS, type.SLAB, type.VERTICAL_SLAB, type.STAIRS);
@@ -56,40 +53,26 @@ public class TIBlockStateProvider extends ExtendedBlockStateProvider {
         registerLadder(type.LADDER);
         registerBeehive(type.BEEHIVE);
 
+        registerHedge(type.LOG, type.LEAVES, type.HEDGE);
+        registerPost(type.LOG, type.POST);
+        registerPost(type.STRIPPED_LOG, type.STRIPPED_POST);
+
         registerCabinet(type.CABINET);
     }
 
+    @SuppressWarnings("unchecked")
     private void registerFlowers() {
-        registerSmallPlant(ModBlocks.ALPINE_PINK);
-        registerSmallPlant(ModBlocks.ASTER);
-        registerSmallPlant(ModBlocks.BLACK_IRIS);
-        registerSmallPlant(ModBlocks.BLUE_IRIS);
-        registerSmallPlant(ModBlocks.CHICORY);
-        registerSmallPlant(ModBlocks.DAFFODIL);
-        registerSmallPlant(ModBlocks.DANDELION_PUFF);
-        registerSmallPlant(ModBlocks.EDELWEISS);
-        registerSmallPlant(ModBlocks.FORGET_ME_NOT);
-        registerSmallPlant(ModBlocks.FOXGLOVE);
-        registerSmallPlant(ModBlocks.GENTIAN);
-        registerSmallPlant(ModBlocks.GLOBEFLOWER);
-        registerSmallPlant(ModBlocks.HEATHER);
-        registerSmallPlant(ModBlocks.MAGENTA_SAXIFRAGE, true);
-        registerSmallPlant(ModBlocks.MARIGOLD);
-        registerSmallPlant(ModBlocks.PINK_PRIMROSE);
-        registerSmallPlant(ModBlocks.PURPLE_IRIS);
-        registerSmallPlant(ModBlocks.PURPLE_PRIMROSE);
-        registerSmallPlant(ModBlocks.SNAPDRAGON);
-        registerSmallPlant(ModBlocks.WHITE_DRYAD);
-        registerSmallPlant(ModBlocks.WILD_GARLIC);
-        registerSmallPlant(ModBlocks.YARROW);
-        registerSmallPlant(ModBlocks.YELLOW_PRIMROSE);
-        registerSmallPlant(ModBlocks.YELLOW_SAXIFRAGE, true);
+        var flowersWithUniquePottedTextures = Sets.newHashSet(
+            ModBlocks.FIREWEED, ModBlocks.MAGENTA_SAXIFRAGE, ModBlocks.YELLOW_SAXIFRAGE
+        );
 
-        registerTallPlant(ModBlocks.FIREWEED, true);
-        registerTallPlant(ModBlocks.OLEANDER);
-        registerTallPlant(ModBlocks.SAGE);
-        registerTallPlant(ModBlocks.WATER_FLAG);
-        registerTallPlant(ModBlocks.WHITE_RHODODENDRON);
+        ModBlocks.SMALL_FLOWERS.forEach(flower -> {
+            registerSmallPlant(flower, flowersWithUniquePottedTextures.contains(flower));
+        });
+
+        ModBlocks.TALL_FLOWERS.forEach(flower -> {
+            registerTallPlant(flower, flowersWithUniquePottedTextures.contains(flower));
+        });
     }
 
     private void registerMiscBlocks() {
@@ -136,7 +119,7 @@ public class TIBlockStateProvider extends ExtendedBlockStateProvider {
         }, BlockStateProperties.WATERLOGGED);
 
         flatBlockItem(ModBlocks.SWAMP_REEDS, "item");
-        registerPottedPlant(ModBlocks.POTTED_PLANTS.get("swamp_reeds"), "potted/swamp_reeds");
+        registerPottedPlant(ModBlocks.FLOWER_POTS.get("swamp_reeds"), "potted/swamp_reeds");
 
         //Sour berries
         getVariantBuilder(ModBlocks.SOUR_BERRY_BUSH.get()).forAllStates(state -> {
@@ -204,20 +187,12 @@ public class TIBlockStateProvider extends ExtendedBlockStateProvider {
         flatBlockItem(block, "block");
     }
 
-    private void registerSmallPlant(BlockEntry<?> plant) {
-        registerSmallPlant(plant, false);
-    }
-
     private void registerSmallPlant(BlockEntry<?> plant, boolean uniquePottedTexture) {
         registerCrossBlock(plant);
 
         var plantName = plant.get().getRegistryName().getPath();
         var texturePath = (uniquePottedTexture ? "potted/" : "") + plantName;
-        registerPottedPlant(ModBlocks.POTTED_PLANTS.get(plantName), texturePath);
-    }
-
-    private void registerTallPlant(BlockEntry<?> plant) {
-        registerTallPlant(plant, false);
+        registerPottedPlant(ModBlocks.FLOWER_POTS.get(plantName), texturePath);
     }
 
     private void registerTallPlant(BlockEntry<?> plant, boolean uniquePottedTexture) {
@@ -233,13 +208,12 @@ public class TIBlockStateProvider extends ExtendedBlockStateProvider {
 
         var plantName = plant.get().getRegistryName().getPath();
         var texturePath = uniquePottedTexture ? "potted/" + plantName : plantName + "_top";
-        registerPottedPlant(ModBlocks.POTTED_PLANTS.get(plantName), texturePath);
+        registerPottedPlant(ModBlocks.FLOWER_POTS.get(plantName), texturePath);
 
         itemModels().withExistingParent(blockName(plant), "item/generated").texture("layer0", topTexture);
     }
 
     private void registerPottedPlant(BlockEntry<?> pottedPlant, String texturePath) {
-        System.out.println("registerPottedPlant " + pottedPlant.get().getRegistryName());
         var parent = new ResourceLocation("block/flower_pot_cross");
         var texture = TerraIncognita.prefix("block/" + texturePath);
         simpleBlock(pottedPlant.get(), models().singleTexture(blockName(pottedPlant), parent, "plant", texture));

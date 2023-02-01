@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "terraincognita:apple_cabinet",
+    "terraincognita:hazel_cabinet",
+    "terraincognita:larch_cabinet",
+    "terraincognita:ginkgo_cabinet"
+  ]
+}

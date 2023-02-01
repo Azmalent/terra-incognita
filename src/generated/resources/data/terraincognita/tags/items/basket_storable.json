@@ -1,0 +1,62 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:small_flowers",
+    "#minecraft:saplings",
+    "#forge:eggs",
+    "#forge:mushrooms",
+    "#forge:seeds",
+    "#forge:berries",
+    "minecraft:turtle_egg",
+    "minecraft:sweet_berries",
+    "terraincognita:hazelnut",
+    {
+      "id": "abundance:lavender",
+      "required": false
+    },
+    {
+      "id": "abundance:sunflower_seeds",
+      "required": false
+    },
+    {
+      "id": "autumnity:foul_berries",
+      "required": false
+    },
+    {
+      "id": "bayou_blues:gooseberries",
+      "required": false
+    },
+    {
+      "id": "ecologics:walnut",
+      "required": false
+    },
+    {
+      "id": "environmental:cattail_seeds",
+      "required": false
+    },
+    {
+      "id": "environmental:cherries",
+      "required": false
+    },
+    {
+      "id": "upgrade_aquatic:blue_pickerelweed",
+      "required": false
+    },
+    {
+      "id": "upgrade_aquatic:purple_pickerelweed",
+      "required": false
+    },
+    {
+      "id": "upgrade_aquatic:mulberry",
+      "required": false
+    },
+    {
+      "id": "windswept:chestnuts",
+      "required": false
+    },
+    {
+      "id": "windswept:holly_berries",
+      "required": false
+    }
+  ]
+}

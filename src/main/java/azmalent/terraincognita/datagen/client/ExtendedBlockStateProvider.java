@@ -250,7 +250,7 @@ public abstract class ExtendedBlockStateProvider extends BlockStateProvider {
 
     protected void registerCabinet(BlockEntry<? extends Block> cabinet) {
         String name = blockName(cabinet);
-        this.horizontalBlock(cabinet, state -> {
+        this.horizontalBlock(cabinet.get(), state -> {
             String suffix = state.getValue(BlockStateProperties.OPEN) ? "_open" : "";
             return models().orientable(name + suffix,
                TerraIncognita.prefix("block/" + name + "_side"),

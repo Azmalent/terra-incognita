@@ -35,7 +35,7 @@ public class TIBlockTagProvider extends BlockTagsProvider {
         addMineableTags();
         addFlowerTags();
 
-        POTTED_PLANTS.forEach((name, pottedPlant) -> tag(BlockTags.FLOWER_POTS).add(pottedPlant.get()));
+        FLOWER_POTS.forEach((name, pot) -> tag(BlockTags.FLOWER_POTS).add(pot.get()));
 
         addLogTag(ModBlockTags.APPLE_LOGS, ModWoodTypes.APPLE);
         addLogTag(ModBlockTags.GINKGO_LOGS, ModWoodTypes.GINKGO);

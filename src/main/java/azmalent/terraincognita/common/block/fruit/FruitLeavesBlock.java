@@ -44,7 +44,6 @@ public class FruitLeavesBlock extends LeavesBlock implements BonemealableBlock {
     }
 
     //IGrowable implementation
-    //IGrowable implementation
     @Override
     @ParametersAreNonnullByDefault
     public boolean isValidBonemealTarget(BlockGetter level, BlockPos pos, BlockState state, boolean isClient) {

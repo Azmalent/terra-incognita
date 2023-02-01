@@ -12,7 +12,7 @@ import vazkii.quark.content.client.module.ChestSearchingModule;
 public final class QuarkIntegration implements IQuarkProxy {
     @Override
     public void register(IEventBus bus) {
-        TerraIncognita.LOGGER.info("Integrating with Quark...");
+        TerraIncognita.LOGGER.info("Enabled Quark integration!");
     }
 
     @Override

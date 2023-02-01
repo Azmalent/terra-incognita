@@ -125,7 +125,7 @@ public class TIWoodType extends WoodType {
 
         CABINET = ModIntegration.FARMERS_DELIGHT.createCabinet(this);
 
-        BOAT          = REGISTRY_HELPER.createItem(id + "_boat", () -> new TIBoatItem(this));
+        BOAT = REGISTRY_HELPER.createItem(id + "_boat", () -> new TIBoatItem(this));
     }
 
     //For use in the constructor

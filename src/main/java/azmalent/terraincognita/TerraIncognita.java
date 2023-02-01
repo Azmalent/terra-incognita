@@ -13,6 +13,7 @@ import azmalent.terraincognita.datagen.client.TIBlockStateProvider;
 import azmalent.terraincognita.datagen.client.TIItemModelProvider;
 import azmalent.terraincognita.datagen.server.TIBlockTagProvider;
 import azmalent.terraincognita.datagen.server.TIItemTagProvider;
+import azmalent.terraincognita.datagen.server.TILootTableProvider;
 import azmalent.terraincognita.integration.ModIntegration;
 import azmalent.terraincognita.integration.top.ButterflyInfoProvider;
 import azmalent.terraincognita.proxy.ClientProxy;
@@ -45,6 +46,11 @@ public class TerraIncognita {
         initConfigs();
 
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+
+        ModIntegrationManager.initModProxies(ModIntegration.class, MODID);
+        ModIntegration.QUARK.register(bus);
+        ModIntegration.FARMERS_DELIGHT.register(bus);
+
         ModBiomes.BIOMES.register(bus);
         ModBlocks.BLOCKS.register(bus);
         ModBlockEntities.BLOCK_ENTITIES.register(bus);
@@ -60,10 +66,6 @@ public class TerraIncognita {
         ModTreeDecorators.TREE_DECORATORS.register(bus);
 
         ModBanners.register();
-
-        ModIntegrationManager.initModProxies(ModIntegration.class, MODID);
-        ModIntegration.QUARK.register(bus);
-        ModIntegration.FARMERS_DELIGHT.register(bus);
 
         ModItemTags.init();
         ModBlockTags.init();
@@ -113,6 +115,7 @@ public class TerraIncognita {
             var blockTags = new TIBlockTagProvider(generator, exFileHelper);
             generator.addProvider(blockTags);
             generator.addProvider(new TIItemTagProvider(generator, blockTags, exFileHelper));
+            generator.addProvider(new TILootTableProvider(generator));
         }
     }
 

@@ -40,7 +40,11 @@ public class ModRecipes {
             DataUtil.registerCompostable(Items.CHORUS_FLOWER, 1.0f);
         }
 
-        for (var flower : ModBlocks.FLOWERS) {
+        for (var flower : ModBlocks.SMALL_FLOWERS) {
+            DataUtil.registerCompostable(flower, 0.65f);
+        }
+
+        for (var flower : ModBlocks.TALL_FLOWERS) {
             DataUtil.registerCompostable(flower, 0.65f);
         }
 
@@ -68,6 +72,7 @@ public class ModRecipes {
         DataUtil.registerCompostable(ModBlocks.SOUR_BERRY_SPROUTS, 0.3f);
         DataUtil.registerCompostable(ModItems.CACTUS_NEEDLE, 0.3f);
         DataUtil.registerCompostable(ModBlocks.SWAMP_REEDS, 0.5f);
+        DataUtil.registerCompostable(ModBlocks.CACTUS_FLOWER, 0.65f);
         DataUtil.registerCompostable(ModBlocks.SMOOTH_CACTUS, 0.5f);
         DataUtil.registerCompostable(ModItems.FERN_FIDDLEHEAD, 0.65f);
         DataUtil.registerCompostable(ModItems.WREATH, 1);
