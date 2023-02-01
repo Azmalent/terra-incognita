@@ -13,6 +13,7 @@ import azmalent.terraincognita.common.block.woodset.sign.TIWallSignBlock;
 import azmalent.terraincognita.common.item.TIBoatItem;
 import azmalent.terraincognita.common.item.block.TIChestItem;
 import azmalent.terraincognita.common.registry.ModBlocks;
+import azmalent.terraincognita.integration.ModIntegration;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.client.renderer.BiomeColors;
@@ -70,6 +71,9 @@ public class TIWoodType extends WoodType {
     public final BlockEntry<TIHedgeBlock> HEDGE;
     public final BlockEntry<TILeafCarpetBlock> LEAF_CARPET;
 
+    //Farmer's Delight
+    public final BlockEntry<? extends Block> CABINET;
+
     public final ItemEntry<TIBoatItem> BOAT;
     public final ResourceLocation BOAT_TEXTURE;
 
@@ -118,6 +122,8 @@ public class TIWoodType extends WoodType {
         STRIPPED_POST   = REGISTRY_HELPER.createBlock("stripped_" + name + "_post", () -> new TIWoodPostBlock(woodColor)).cutoutRender().build();
         HEDGE           = REGISTRY_HELPER.createBlock(name + "_hedge", () -> new TIHedgeBlock(woodColor)).cutoutMippedRender().build();
         LEAF_CARPET     = REGISTRY_HELPER.createBlock(name + "_leaf_carpet", TILeafCarpetBlock::new).cutoutMippedRender().build();
+
+        CABINET = ModIntegration.FARMERS_DELIGHT.createCabinet(this);
 
         BOAT          = REGISTRY_HELPER.createItem(id + "_boat", () -> new TIBoatItem(this));
     }

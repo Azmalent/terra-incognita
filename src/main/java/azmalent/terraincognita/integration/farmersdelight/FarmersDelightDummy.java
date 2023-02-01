@@ -12,11 +12,11 @@ import net.minecraftforge.eventbus.api.IEventBus;
 public final class FarmersDelightDummy extends FarmersDelightProxy {
     @Override
     public void register(IEventBus bus) {
-        initCabinets();
+        //NO-OP
     }
 
     @Override
-    protected BlockEntry<? extends Block> registerCabinet(TIWoodType woodType) {
+    public BlockEntry<? extends Block> createCabinet(TIWoodType woodType) {
         return TerraIncognita.REGISTRY_HELPER.createBlock(woodType.name + "_cabinet", TIDummyCabinetBlock::new).build();
     }
 }

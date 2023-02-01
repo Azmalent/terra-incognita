@@ -30,7 +30,6 @@ public class TIBlockStateProvider extends ExtendedBlockStateProvider {
         ModWoodTypes.VALUES.forEach(type -> {
             registerWoodType(type);
             registerSmallPlant(type.SAPLING);
-            registerCabinet(type.name);
         });
 
         registerFlowers();
@@ -56,6 +55,8 @@ public class TIBlockStateProvider extends ExtendedBlockStateProvider {
         registerBookshelf(type.PLANKS, type.BOOKSHELF);
         registerLadder(type.LADDER);
         registerBeehive(type.BEEHIVE);
+
+        registerCabinet(type.CABINET);
     }
 
     private void registerFlowers() {

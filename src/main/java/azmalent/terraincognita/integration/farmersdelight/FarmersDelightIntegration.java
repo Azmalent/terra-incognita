@@ -14,11 +14,10 @@ public final class FarmersDelightIntegration extends FarmersDelightProxy {
     @Override
     public void register(IEventBus bus) {
         TerraIncognita.LOGGER.info("Integrating with Farmer's Delight...");
-        initCabinets();
     }
 
     @Override
-    public BlockEntry<? extends Block> registerCabinet(TIWoodType woodType) {
+    public BlockEntry<? extends Block> createCabinet(TIWoodType woodType) {
         return TerraIncognita.REGISTRY_HELPER.createBlock(woodType.name + "_cabinet", CabinetBlock::new, Block.Properties.copy(Blocks.BARREL)).build();
     }
 }

@@ -248,14 +248,14 @@ public abstract class ExtendedBlockStateProvider extends BlockStateProvider {
         blockItem(beehive);
     }
 
-    protected void registerCabinet(String type) {
-        var cabinet = ForgeRegistries.BLOCKS.getValue(TerraIncognita.prefix(type + "_cabinet"));
+    protected void registerCabinet(BlockEntry<? extends Block> cabinet) {
+        String name = blockName(cabinet);
         this.horizontalBlock(cabinet, state -> {
             String suffix = state.getValue(BlockStateProperties.OPEN) ? "_open" : "";
-            return models().orientable(type + "_cabinet" + suffix,
-               TerraIncognita.prefix("block/" + type + "_cabinet_side"),
-               TerraIncognita.prefix("block/" + type + "_cabinet_front" + suffix),
-               TerraIncognita.prefix("block/" + type + "_cabinet_top"));
+            return models().orientable(name + suffix,
+               TerraIncognita.prefix("block/" + name + "_side"),
+               TerraIncognita.prefix("block/" + name + "_front" + suffix),
+               TerraIncognita.prefix("block/" + name + "_top"));
         });
 
         blockItem(cabinet);

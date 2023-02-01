@@ -51,12 +51,9 @@ public class TIItemTagProvider extends ItemTagsProvider {
             tag(BOATABLE_CHESTS).add(type.CHEST.asItem());
             tag(REVERTABLE_CHESTS).add(type.CHEST.asItem());
             tag(REVERTABLE_TRAPPED_CHESTS).add(type.TRAPPED_CHEST.asItem());
-        });
 
-        tag(CABINETS).add(ModIntegration.FARMERS_DELIGHT.APPLE_CABINET.asItem())
-            .add(ModIntegration.FARMERS_DELIGHT.GINKGO_CABINET.asItem())
-            .add(ModIntegration.FARMERS_DELIGHT.HAZEL_CABINET.asItem())
-            .add(ModIntegration.FARMERS_DELIGHT.LARCH_CABINET.asItem());
+            tag(CABINETS).add(type.CABINET.asItem());
+        });
 
         //Not copying because blossoming apple leaves probably don't need an item tag
         tag(ItemTags.FLOWERS).addTag(ModItemTags.LOTUSES).addTag(ModItemTags.SWEET_PEAS).add(ModBlocks.CACTUS_FLOWER.asItem());
