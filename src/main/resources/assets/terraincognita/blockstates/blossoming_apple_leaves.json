@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "terraincognita:block/apple/blossoming_leaves"
+      "model": "terraincognita:block/blossoming_apple_leaves"
     }
   }
 }

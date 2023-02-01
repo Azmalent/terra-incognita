@@ -13,6 +13,7 @@ import azmalent.terraincognita.common.item.block.BasketItem;
 import azmalent.terraincognita.common.item.block.CaltropsItem;
 import azmalent.terraincognita.common.item.block.DandelionPuffItem;
 import azmalent.terraincognita.common.item.block.SmallLilypadItem;
+import com.google.common.collect.Maps;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -23,6 +24,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
@@ -33,6 +35,8 @@ import static net.minecraft.world.item.CreativeModeTab.TAB_DECORATIONS;
 @SuppressWarnings({"unused"})
 public class ModBlocks {
     public static final DeferredRegister<Block> BLOCKS = REGISTRY_HELPER.getOrCreateRegistry(ForgeRegistries.BLOCKS);
+
+    public static final Map<String, BlockEntry<FlowerPotBlock>> POTTED_PLANTS = Maps.newHashMap();
 
     //Small flowers
     public static final BlockEntry<?> DANDELION_PUFF = createPlant("dandelion_puff", () -> new ModFlowerBlock(StewEffect.SATURATION), DandelionPuffItem::new);
@@ -159,7 +163,8 @@ public class ModBlocks {
     @SuppressWarnings("deprecation")
     private static void createFlowerPot(String id, Supplier<? extends Block> plantSupplier) {
         var props = Block.Properties.copy(Blocks.FLOWER_POT);
-        REGISTRY_HELPER.createBlock("potted_" + id, () -> new FlowerPotBlock(plantSupplier.get(), props)).noItemForm().cutoutRender().build();
+        var pottedPlant = REGISTRY_HELPER.createBlock("potted_" + id, () -> new FlowerPotBlock(plantSupplier.get(), props)).noItemForm().cutoutRender().build();
+        POTTED_PLANTS.put(id, pottedPlant);
     }
 
     private static BlockEntry<TILilyPadBlock> createLotus(String color) {

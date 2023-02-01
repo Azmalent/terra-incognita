@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/inner_stairs",
-  "textures": {
-    "bottom": "terraincognita:block/hazel/planks",
-    "top": "terraincognita:block/hazel/planks",
-    "side": "terraincognita:block/hazel/planks"
-  }
-}

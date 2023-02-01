@@ -1,0 +1,85 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "axis": "y"
+      },
+      "apply": {
+        "model": "terraincognita:block/apple_post"
+      }
+    },
+    {
+      "when": {
+        "axis": "z"
+      },
+      "apply": {
+        "model": "terraincognita:block/apple_post",
+        "x": 90
+      }
+    },
+    {
+      "when": {
+        "axis": "x"
+      },
+      "apply": {
+        "model": "terraincognita:block/apple_post",
+        "x": 90,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "chain_down": "true"
+      },
+      "apply": {
+        "model": "terraincognita:block/chain_small"
+      }
+    },
+    {
+      "when": {
+        "chain_up": "true"
+      },
+      "apply": {
+        "model": "terraincognita:block/chain_small_top"
+      }
+    },
+    {
+      "when": {
+        "chain_north": "true"
+      },
+      "apply": {
+        "model": "terraincognita:block/chain_small_top",
+        "x": 90
+      }
+    },
+    {
+      "when": {
+        "chain_south": "true"
+      },
+      "apply": {
+        "model": "terraincognita:block/chain_small",
+        "x": 90
+      }
+    },
+    {
+      "when": {
+        "chain_west": "true"
+      },
+      "apply": {
+        "model": "terraincognita:block/chain_small",
+        "x": 90,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "chain_east": "true"
+      },
+      "apply": {
+        "model": "terraincognita:block/chain_small_top",
+        "x": 90,
+        "y": 90
+      }
+    }
+  ]
+}

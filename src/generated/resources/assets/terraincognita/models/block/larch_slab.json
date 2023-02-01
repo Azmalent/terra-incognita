@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "side": "terraincognita:block/larch_planks",
+    "bottom": "terraincognita:block/larch_planks",
+    "top": "terraincognita:block/larch_planks"
+  }
+}

@@ -1,6 +1,0 @@
-{
-  "parent": "terraincognita:block/custom_ladder",
-  "textures": {
-    "texture": "terraincognita:block/apple/ladder"
-  }
-}

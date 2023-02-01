@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cactus",
+  "textures": {
+    "top": "terraincognita:block/smooth_cactus_top",
+    "side": "terraincognita:block/smooth_cactus_side",
+    "particle": "#side"
+  }
+}

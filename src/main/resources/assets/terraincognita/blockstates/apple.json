@@ -1,28 +1,28 @@
 {
   "variants": {
     "age=0": {
-      "model": "terraincognita:block/apple/apple_stage0"
+      "model": "terraincognita:block/apple_stage0"
     },
     "age=1": {
-      "model": "terraincognita:block/apple/apple_stage0"
+      "model": "terraincognita:block/apple_stage0"
     },
     "age=2": {
-      "model": "terraincognita:block/apple/apple_stage1"
+      "model": "terraincognita:block/apple_stage1"
     },
     "age=3": {
-      "model": "terraincognita:block/apple/apple_stage1"
+      "model": "terraincognita:block/apple_stage1"
     },
     "age=4": {
-      "model": "terraincognita:block/apple/apple_stage2"
+      "model": "terraincognita:block/apple_stage2"
     },
     "age=5": {
-      "model": "terraincognita:block/apple/apple_stage3"
+      "model": "terraincognita:block/apple_stage3"
     },
     "age=6": {
-      "model": "terraincognita:block/apple/apple_stage3"
+      "model": "terraincognita:block/apple_stage3"
     },
     "age=7": {
-      "model": "terraincognita:block/apple/apple_stage4"
+      "model": "terraincognita:block/apple_stage4"
     }
   }
 }

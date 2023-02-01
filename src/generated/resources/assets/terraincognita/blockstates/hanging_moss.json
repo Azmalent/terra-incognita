@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "variant=single": {
+      "model": "terraincognita:block/hanging_moss_single"
+    },
+    "variant=top": {
+      "model": "terraincognita:block/hanging_moss_top"
+    },
+    "variant=bottom": {
+      "model": "terraincognita:block/hanging_moss_bottom"
+    }
+  }
+}

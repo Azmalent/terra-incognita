@@ -75,7 +75,7 @@ minecraft {
             property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
             property 'mixin.env.remapRefMap', 'true'
 
-            args '--mod', 'terraincognita', '--all', '--output', file('src/generated/resources/')
+            args "--mod", "terraincognita", "--all", "--output", file("src/generated/resources"), "--validate", "--existing", file("src/main/resources")
 
             mods {
                 terraincognita {
@@ -84,6 +84,10 @@ minecraft {
             }
         }
     }
+}
+
+sourceSets.main.resources {
+    srcDir "src/generated/resources"
 }
 
 repositories {

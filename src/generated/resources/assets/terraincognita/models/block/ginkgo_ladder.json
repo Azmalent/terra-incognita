@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/ladder",
+  "textures": {
+    "particle": "terraincognita:block/ginkgo_ladder",
+    "texture": "terraincognita:block/ginkgo_ladder"
+  }
+}

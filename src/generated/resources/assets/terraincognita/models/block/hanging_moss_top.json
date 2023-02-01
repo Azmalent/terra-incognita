@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "terraincognita:block/hanging_moss_top"
+  }
+}

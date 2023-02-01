@@ -1,6 +1,0 @@
-{
-  "parent": "quark:block/post",
-  "textures": {
-    "texture": "$MODID:block/$TYPE_log"
-  }
-}

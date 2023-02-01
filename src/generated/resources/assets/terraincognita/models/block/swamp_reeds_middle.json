@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "terraincognita:block/swamp_reeds_middle"
+  }
+}

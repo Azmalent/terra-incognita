@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/orientable",
-  "textures": {
-    "side": "$MODID:block/$TYPE_cabinet_side",
-    "front": "$MODID:block/$TYPE_cabinet_front",
-    "top": "$MODID:block/$TYPE_cabinet_top"
-  }
-}

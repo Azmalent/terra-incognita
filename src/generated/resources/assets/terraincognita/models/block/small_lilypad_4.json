@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/lily_pad",
+  "textures": {
+    "texture": "terraincognita:block/small_lilypad_4",
+    "particle": "#texture"
+  }
+}

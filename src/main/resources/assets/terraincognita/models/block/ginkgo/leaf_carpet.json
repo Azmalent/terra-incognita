@@ -1,6 +1,0 @@
-{
-  "parent": "terraincognita:block/leaf_carpet",
-  "textures": {
-    "all": "terraincognita:block/ginkgo/leaves"
-  }
-}

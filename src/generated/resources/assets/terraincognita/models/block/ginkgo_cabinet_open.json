@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "side": "terraincognita:block/ginkgo_cabinet_side",
+    "front": "terraincognita:block/ginkgo_cabinet_front_open",
+    "top": "terraincognita:block/ginkgo_cabinet_top"
+  }
+}

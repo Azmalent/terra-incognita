@@ -1,0 +1,7 @@
+{
+  "parent": "terraincognita:block/blossoming_leaves",
+  "textures": {
+    "leaves": "terraincognita:block/apple_leaves",
+    "blossoms": "terraincognita:block/apple_flowers"
+  }
+}

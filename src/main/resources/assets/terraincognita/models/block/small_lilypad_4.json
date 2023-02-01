@@ -1,7 +1,0 @@
-{
-  "parent": "block/lily_pad",
-  "textures": {
-    "particle": "terraincognita:block/small_lilypad_4",
-    "texture": "terraincognita:block/small_lilypad_4"
-  }
-}

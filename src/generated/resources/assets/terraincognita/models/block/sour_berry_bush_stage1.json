@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/lily_pad",
+  "textures": {
+    "texture": "terraincognita:block/sour_berry_bush_stage1",
+    "particle": "#texture"
+  }
+}

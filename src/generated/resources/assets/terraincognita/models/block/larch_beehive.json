@@ -1,0 +1,10 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "side": "terraincognita:block/larch_beehive_side",
+    "front": "terraincognita:block/larch_beehive_front",
+    "bottom": "terraincognita:block/larch_beehive_end",
+    "top": "terraincognita:block/larch_beehive_end",
+    "particle": "terraincognita:block/larch_beehive_side"
+  }
+}

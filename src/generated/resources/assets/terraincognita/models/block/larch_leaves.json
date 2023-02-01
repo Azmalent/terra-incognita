@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/leaves",
+  "textures": {
+    "all": "terraincognita:block/larch_leaves"
+  }
+}

@@ -1,0 +1,196 @@
+{
+  "variants": {
+    "age=0,variant=single": {
+      "model": "terraincognita:block/swamp_reeds_single"
+    },
+    "age=1,variant=single": {
+      "model": "terraincognita:block/swamp_reeds_single"
+    },
+    "age=2,variant=single": {
+      "model": "terraincognita:block/swamp_reeds_single"
+    },
+    "age=3,variant=single": {
+      "model": "terraincognita:block/swamp_reeds_single"
+    },
+    "age=4,variant=single": {
+      "model": "terraincognita:block/swamp_reeds_single"
+    },
+    "age=5,variant=single": {
+      "model": "terraincognita:block/swamp_reeds_single"
+    },
+    "age=6,variant=single": {
+      "model": "terraincognita:block/swamp_reeds_single"
+    },
+    "age=7,variant=single": {
+      "model": "terraincognita:block/swamp_reeds_single"
+    },
+    "age=8,variant=single": {
+      "model": "terraincognita:block/swamp_reeds_single"
+    },
+    "age=9,variant=single": {
+      "model": "terraincognita:block/swamp_reeds_single"
+    },
+    "age=10,variant=single": {
+      "model": "terraincognita:block/swamp_reeds_single"
+    },
+    "age=11,variant=single": {
+      "model": "terraincognita:block/swamp_reeds_single"
+    },
+    "age=12,variant=single": {
+      "model": "terraincognita:block/swamp_reeds_single"
+    },
+    "age=13,variant=single": {
+      "model": "terraincognita:block/swamp_reeds_single"
+    },
+    "age=14,variant=single": {
+      "model": "terraincognita:block/swamp_reeds_single"
+    },
+    "age=15,variant=single": {
+      "model": "terraincognita:block/swamp_reeds_single"
+    },
+    "age=0,variant=top": {
+      "model": "terraincognita:block/swamp_reeds_top"
+    },
+    "age=1,variant=top": {
+      "model": "terraincognita:block/swamp_reeds_top"
+    },
+    "age=2,variant=top": {
+      "model": "terraincognita:block/swamp_reeds_top"
+    },
+    "age=3,variant=top": {
+      "model": "terraincognita:block/swamp_reeds_top"
+    },
+    "age=4,variant=top": {
+      "model": "terraincognita:block/swamp_reeds_top"
+    },
+    "age=5,variant=top": {
+      "model": "terraincognita:block/swamp_reeds_top"
+    },
+    "age=6,variant=top": {
+      "model": "terraincognita:block/swamp_reeds_top"
+    },
+    "age=7,variant=top": {
+      "model": "terraincognita:block/swamp_reeds_top"
+    },
+    "age=8,variant=top": {
+      "model": "terraincognita:block/swamp_reeds_top"
+    },
+    "age=9,variant=top": {
+      "model": "terraincognita:block/swamp_reeds_top"
+    },
+    "age=10,variant=top": {
+      "model": "terraincognita:block/swamp_reeds_top"
+    },
+    "age=11,variant=top": {
+      "model": "terraincognita:block/swamp_reeds_top"
+    },
+    "age=12,variant=top": {
+      "model": "terraincognita:block/swamp_reeds_top"
+    },
+    "age=13,variant=top": {
+      "model": "terraincognita:block/swamp_reeds_top"
+    },
+    "age=14,variant=top": {
+      "model": "terraincognita:block/swamp_reeds_top"
+    },
+    "age=15,variant=top": {
+      "model": "terraincognita:block/swamp_reeds_top"
+    },
+    "age=0,variant=middle": {
+      "model": "terraincognita:block/swamp_reeds_middle"
+    },
+    "age=1,variant=middle": {
+      "model": "terraincognita:block/swamp_reeds_middle"
+    },
+    "age=2,variant=middle": {
+      "model": "terraincognita:block/swamp_reeds_middle"
+    },
+    "age=3,variant=middle": {
+      "model": "terraincognita:block/swamp_reeds_middle"
+    },
+    "age=4,variant=middle": {
+      "model": "terraincognita:block/swamp_reeds_middle"
+    },
+    "age=5,variant=middle": {
+      "model": "terraincognita:block/swamp_reeds_middle"
+    },
+    "age=6,variant=middle": {
+      "model": "terraincognita:block/swamp_reeds_middle"
+    },
+    "age=7,variant=middle": {
+      "model": "terraincognita:block/swamp_reeds_middle"
+    },
+    "age=8,variant=middle": {
+      "model": "terraincognita:block/swamp_reeds_middle"
+    },
+    "age=9,variant=middle": {
+      "model": "terraincognita:block/swamp_reeds_middle"
+    },
+    "age=10,variant=middle": {
+      "model": "terraincognita:block/swamp_reeds_middle"
+    },
+    "age=11,variant=middle": {
+      "model": "terraincognita:block/swamp_reeds_middle"
+    },
+    "age=12,variant=middle": {
+      "model": "terraincognita:block/swamp_reeds_middle"
+    },
+    "age=13,variant=middle": {
+      "model": "terraincognita:block/swamp_reeds_middle"
+    },
+    "age=14,variant=middle": {
+      "model": "terraincognita:block/swamp_reeds_middle"
+    },
+    "age=15,variant=middle": {
+      "model": "terraincognita:block/swamp_reeds_middle"
+    },
+    "age=0,variant=bottom": {
+      "model": "terraincognita:block/swamp_reeds_bottom"
+    },
+    "age=1,variant=bottom": {
+      "model": "terraincognita:block/swamp_reeds_bottom"
+    },
+    "age=2,variant=bottom": {
+      "model": "terraincognita:block/swamp_reeds_bottom"
+    },
+    "age=3,variant=bottom": {
+      "model": "terraincognita:block/swamp_reeds_bottom"
+    },
+    "age=4,variant=bottom": {
+      "model": "terraincognita:block/swamp_reeds_bottom"
+    },
+    "age=5,variant=bottom": {
+      "model": "terraincognita:block/swamp_reeds_bottom"
+    },
+    "age=6,variant=bottom": {
+      "model": "terraincognita:block/swamp_reeds_bottom"
+    },
+    "age=7,variant=bottom": {
+      "model": "terraincognita:block/swamp_reeds_bottom"
+    },
+    "age=8,variant=bottom": {
+      "model": "terraincognita:block/swamp_reeds_bottom"
+    },
+    "age=9,variant=bottom": {
+      "model": "terraincognita:block/swamp_reeds_bottom"
+    },
+    "age=10,variant=bottom": {
+      "model": "terraincognita:block/swamp_reeds_bottom"
+    },
+    "age=11,variant=bottom": {
+      "model": "terraincognita:block/swamp_reeds_bottom"
+    },
+    "age=12,variant=bottom": {
+      "model": "terraincognita:block/swamp_reeds_bottom"
+    },
+    "age=13,variant=bottom": {
+      "model": "terraincognita:block/swamp_reeds_bottom"
+    },
+    "age=14,variant=bottom": {
+      "model": "terraincognita:block/swamp_reeds_bottom"
+    },
+    "age=15,variant=bottom": {
+      "model": "terraincognita:block/swamp_reeds_bottom"
+    }
+  }
+}

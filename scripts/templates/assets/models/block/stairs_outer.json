@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/outer_stairs",
-  "textures": {
-    "bottom": "$MODID:block/$BASE_BLOCK",
-    "top": "$MODID:block/$BASE_BLOCK",
-    "side": "$MODID:block/$BASE_BLOCK"
-  }
-}

@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "lily_pads=1": {
+      "model": "terraincognita:block/small_lilypad_1"
+    },
+    "lily_pads=2": {
+      "model": "terraincognita:block/small_lilypad_2"
+    },
+    "lily_pads=3": {
+      "model": "terraincognita:block/small_lilypad_3"
+    },
+    "lily_pads=4": {
+      "model": "terraincognita:block/small_lilypad_4"
+    }
+  }
+}

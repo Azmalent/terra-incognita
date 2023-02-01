@@ -1,0 +1,6 @@
+{
+  "parent": "terraincognita:block/apple_big",
+  "textures": {
+    "apple": "terraincognita:block/apple_stage2"
+  }
+}

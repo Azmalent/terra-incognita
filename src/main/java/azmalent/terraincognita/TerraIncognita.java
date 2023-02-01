@@ -9,6 +9,8 @@ import azmalent.terraincognita.common.registry.*;
 import azmalent.terraincognita.common.event.ToolInteractionHandler;
 import azmalent.terraincognita.common.ModTrades;
 import azmalent.terraincognita.common.world.ModSurfaceRules;
+import azmalent.terraincognita.datagen.TIBlockStateProvider;
+import azmalent.terraincognita.datagen.TIItemModelProvider;
 import azmalent.terraincognita.integration.ModIntegration;
 import azmalent.terraincognita.integration.top.ButterflyInfoProvider;
 import azmalent.terraincognita.proxy.ClientProxy;
@@ -24,6 +26,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -91,6 +94,21 @@ public class TerraIncognita {
     public static void sendIMCMessages(InterModEnqueueEvent event) {
         if (ModList.get().isLoaded("theoneprobe")) {
             InterModComms.sendTo("theoneprobe", "getTheOneProbe", ButterflyInfoProvider::new);
+        }
+    }
+
+    @SubscribeEvent
+    public static void gatherData(GatherDataEvent event) {
+        var generator = event.getGenerator();
+        var exFileHelper = event.getExistingFileHelper();
+
+        if (event.includeClient()) {
+            generator.addProvider(new TIBlockStateProvider(generator, exFileHelper));
+            generator.addProvider(new TIItemModelProvider(generator, exFileHelper));
+        }
+
+        if (event.includeServer()) {
+
         }
     }
 

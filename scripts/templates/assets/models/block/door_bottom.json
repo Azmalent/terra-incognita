@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/door_bottom",
-  "textures": {
-    "top": "$MODID:block/$TYPE_door_top",
-    "bottom": "$MODID:block/$TYPE_door_bottom"
-  }
-}

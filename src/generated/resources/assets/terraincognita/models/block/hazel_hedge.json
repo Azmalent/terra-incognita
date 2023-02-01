@@ -1,0 +1,7 @@
+{
+  "parent": "terraincognita:block/hedge_extend",
+  "textures": {
+    "log": "terraincognita:block/hazel_log",
+    "leaf": "terraincognita:block/hazel_leaves"
+  }
+}

@@ -1,9 +1,0 @@
-{
-  "replace": false,
-  "values": [
-    "$MODID:$TYPE_log",
-    "$MODID:stripped_$TYPE_log",
-    "$MODID:$TYPE_wood",
-    "$MODID:stripped_$TYPE_wood"
-  ]
-}

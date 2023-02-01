@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/vine_$SUFFIX",
-  "textures": {
-    "vine": "terraincognita:block/$BLOCK"
-  }
-}

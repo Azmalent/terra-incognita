@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=upper": {
+      "model": "terraincognita:block/oleander_top"
+    },
+    "half=lower": {
+      "model": "terraincognita:block/oleander_bottom"
+    }
+  }
+}
