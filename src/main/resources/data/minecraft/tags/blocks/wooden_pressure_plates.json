@@ -1,9 +1,0 @@
-{
-  "replace": false,
-  "values": [
-	"terraincognita:apple_pressure_plate",
-	"terraincognita:ginkgo_pressure_plate",
-	"terraincognita:hazel_pressure_plate",
-	"terraincognita:larch_pressure_plate"
-  ]
-}

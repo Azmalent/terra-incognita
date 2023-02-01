@@ -22,6 +22,7 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.apache.commons.compress.utils.Lists;
 
 import java.util.List;
 import java.util.Map;
@@ -85,12 +86,22 @@ public class ModBlocks {
     public static final BlockEntry<CactusFlowerBlock> CACTUS_FLOWER = createPlant("cactus_flower", CactusFlowerBlock::new);
     public static final BlockEntry<SmoothCactusBlock> SMOOTH_CACTUS = REGISTRY_HELPER.createBlock("smooth_cactus", SmoothCactusBlock::new).cutoutRender().build();
 
-    public static final List<BlockEntry<?>> FLOWERS = List.of(
+    public static final List<BlockEntry<?>> SMALL_FLOWERS = List.of(
         DANDELION_PUFF, CHICORY, YARROW, DAFFODIL, YELLOW_PRIMROSE, PINK_PRIMROSE, PURPLE_PRIMROSE, FOXGLOVE, WILD_GARLIC,
-        MARIGOLD, SNAPDRAGON, EDELWEISS, ALPINE_PINK, ASTER, YELLOW_SAXIFRAGE,
-        GENTIAN, FORGET_ME_NOT, BLUE_IRIS, PURPLE_IRIS, BLACK_IRIS, HEATHER, WHITE_DRYAD,
-        WATER_FLAG, FIREWEED, WHITE_RHODODENDRON, OLEANDER, SAGE, CACTUS_FLOWER
+        MARIGOLD, SNAPDRAGON, EDELWEISS, ALPINE_PINK, ASTER, YELLOW_SAXIFRAGE, GENTIAN, FORGET_ME_NOT, BLUE_IRIS,
+        PURPLE_IRIS, BLACK_IRIS, HEATHER, WHITE_DRYAD);
+
+    public static final List<BlockEntry<?>> TALL_FLOWERS = List.of(
+        WATER_FLAG, FIREWEED, WHITE_RHODODENDRON, OLEANDER, SAGE
     );
+
+    public static final List<BlockEntry<?>> FLOWERS = Lists.newArrayList();
+    static {
+        FLOWERS.addAll(SMALL_FLOWERS);
+        FLOWERS.addAll(TALL_FLOWERS);
+        FLOWERS.add(CACTUS_FLOWER);
+    }
+
 
     //Sweet peas
     public static final List<BlockEntry<SweetPeasBlock>> SWEET_PEAS =

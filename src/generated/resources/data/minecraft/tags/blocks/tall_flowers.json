@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "terraincognita:water_flag",
+    "terraincognita:fireweed",
+    "terraincognita:white_rhododendron",
+    "terraincognita:oleander",
+    "terraincognita:sage"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "replace": false,
+  "values": [
+    "terraincognita:dandelion_puff",
+    "terraincognita:chicory",
+    "terraincognita:yarrow",
+    "terraincognita:daffodil",
+    "terraincognita:yellow_primrose",
+    "terraincognita:pink_primrose",
+    "terraincognita:purple_primrose",
+    "terraincognita:foxglove",
+    "terraincognita:wild_garlic",
+    "terraincognita:marigold",
+    "terraincognita:snapdragon",
+    "terraincognita:edelweiss",
+    "terraincognita:alpine_pink",
+    "terraincognita:aster",
+    "terraincognita:yellow_saxifrage",
+    "terraincognita:gentian",
+    "terraincognita:forget_me_not",
+    "terraincognita:blue_iris",
+    "terraincognita:purple_iris",
+    "terraincognita:black_iris",
+    "terraincognita:heather",
+    "terraincognita:white_dryad"
+  ]
+}

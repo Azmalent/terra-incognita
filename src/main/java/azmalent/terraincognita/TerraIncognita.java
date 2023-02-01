@@ -9,8 +9,10 @@ import azmalent.terraincognita.common.registry.*;
 import azmalent.terraincognita.common.event.ToolInteractionHandler;
 import azmalent.terraincognita.common.ModTrades;
 import azmalent.terraincognita.common.world.ModSurfaceRules;
-import azmalent.terraincognita.datagen.TIBlockStateProvider;
-import azmalent.terraincognita.datagen.TIItemModelProvider;
+import azmalent.terraincognita.datagen.client.TIBlockStateProvider;
+import azmalent.terraincognita.datagen.client.TIItemModelProvider;
+import azmalent.terraincognita.datagen.server.TIBlockTagProvider;
+import azmalent.terraincognita.datagen.server.TIItemTagProvider;
 import azmalent.terraincognita.integration.ModIntegration;
 import azmalent.terraincognita.integration.top.ButterflyInfoProvider;
 import azmalent.terraincognita.proxy.ClientProxy;
@@ -108,7 +110,9 @@ public class TerraIncognita {
         }
 
         if (event.includeServer()) {
-
+            var blockTags = new TIBlockTagProvider(generator, exFileHelper);
+            generator.addProvider(blockTags);
+            generator.addProvider(new TIItemTagProvider(generator, blockTags, exFileHelper));
         }
     }
 

@@ -23,7 +23,7 @@ public class FiddleheadStewAdditionRecipe extends SimpleShapelessRecipe {
     
     private static final ShapelessRecipeMatcher MATCHER = CraftingUtil.defineShapelessRecipe()
         .addIngredient(stack -> stack.is(Items.SUSPICIOUS_STEW) && !stack.getOrCreateTag().contains("fiddlehead"))
-        .addIngredient(ModItems.FIDDLEHEAD)
+        .addIngredient(ModItems.FERN_FIDDLEHEAD)
         .build();
 
     static {

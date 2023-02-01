@@ -5,7 +5,7 @@
       "item": "minecraft:paper"
     },
     {
-      "item": "terraincognita:water_flag"
+      "tag": "terraincognita:banner_pattern/banner_item/fleur_de_lis"
     }
   ],
   "result": {

@@ -1,9 +1,0 @@
-{
-  "replace": false,
-  "values": [
-    "terraincognita:ginkgo_log",
-    "terraincognita:stripped_ginkgo_log",
-    "terraincognita:ginkgo_wood",
-    "terraincognita:stripped_ginkgo_wood"
-  ]
-}

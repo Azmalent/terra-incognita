@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "terraincognita:apple_ladder",
+    "terraincognita:hazel_ladder",
+    "terraincognita:larch_ladder",
+    "terraincognita:ginkgo_ladder"
+  ]
+}

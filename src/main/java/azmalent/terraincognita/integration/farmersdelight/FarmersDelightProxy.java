@@ -7,6 +7,7 @@ import azmalent.terraincognita.common.registry.ModWoodTypes;
 import azmalent.terraincognita.common.woodtype.TIWoodType;
 import net.minecraft.world.level.block.Block;
 
+//TODO: move cabinets to woodsets
 public sealed abstract class FarmersDelightProxy implements IModProxy permits FarmersDelightDummy, FarmersDelightIntegration {
     public BlockEntry<? extends Block> APPLE_CABINET;
     public BlockEntry<? extends Block> HAZEL_CABINET;
