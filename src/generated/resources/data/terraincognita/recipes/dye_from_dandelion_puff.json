@@ -1,0 +1,24 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:dandelion_puff",
+          "type": "cuneiform:config"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shapeless",
+        "ingredients": [
+          {
+            "item": "terraincognita:dandelion_puff"
+          }
+        ],
+        "result": {
+          "item": "minecraft:light_gray_dye"
+        }
+      }
+    }
+  ]
+}

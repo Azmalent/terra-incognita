@@ -40,9 +40,9 @@ public class TIBlockStateProvider extends ExtendedBlockStateProvider {
     private void registerWoodType(TIWoodType type) {
         registerLogAndWood(type.LOG, type.WOOD);
         registerLogAndWood(type.STRIPPED_LOG, type.STRIPPED_WOOD);
-        registerLeaves(type.LEAVES, type.LEAF_CARPET);
+        registerLeaves(type.LEAVES, type.LEAF_CARPET, type.LEAF_PILE);
 
-        registerPlanks(type.PLANKS, type.VERTICAL_PLANKS);
+        registerPlanks(type.PLANKS, type.VERTICAL_PLANKS, type.BOARDS);
         registerSlabAndStairs(type.PLANKS, type.SLAB, type.VERTICAL_SLAB, type.STAIRS);
         registerFenceAndFenceGate(type.PLANKS, type.FENCE, type.FENCE_GATE);
         registerButtonAndPressurePlate(type.PLANKS, type.BUTTON, type.PRESSURE_PLATE);
@@ -120,6 +120,9 @@ public class TIBlockStateProvider extends ExtendedBlockStateProvider {
 
         flatBlockItem(ModBlocks.SWAMP_REEDS, "item");
         registerPottedPlant(ModBlocks.FLOWER_POTS.get("swamp_reeds"), "potted/swamp_reeds");
+
+        axisBlock(ModBlocks.SWAMP_REEDS_BUNDLE.get(), TerraIncognita.prefix("block/swamp_reeds_bundle"), TerraIncognita.prefix("block/swamp_reeds_bundle_top"));
+        blockItem(ModBlocks.SWAMP_REEDS_BUNDLE.get());
 
         //Sour berries
         getVariantBuilder(ModBlocks.SOUR_BERRY_BUSH.get()).forAllStates(state -> {

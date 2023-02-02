@@ -1,0 +1,55 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "values": [
+            {
+              "config": "terraincognita:apple",
+              "type": "cuneiform:config"
+            },
+            {
+              "modid": "woodworks",
+              "type": "forge:mod_loaded"
+            }
+          ],
+          "type": "forge:and"
+        }
+      ],
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "terraincognita:apple_leaves"
+          ]
+        },
+        "criteria": {
+          "has_apple_leaf_pile": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "terraincognita:apple_leaf_pile"
+                  ]
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "terraincognita:apple_leaves"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_apple_leaf_pile",
+            "has_the_recipe"
+          ]
+        ]
+      }
+    }
+  ]
+}

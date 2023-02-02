@@ -1,0 +1,26 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:apple",
+          "type": "cuneiform:config"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shapeless",
+        "group": "planks",
+        "ingredients": [
+          {
+            "tag": "terraincognita:apple_logs"
+          }
+        ],
+        "result": {
+          "item": "terraincognita:apple_planks",
+          "count": 4
+        }
+      }
+    }
+  ]
+}

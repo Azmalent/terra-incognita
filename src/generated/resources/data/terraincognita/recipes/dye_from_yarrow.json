@@ -1,0 +1,24 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:plains_flowers",
+          "type": "cuneiform:config"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shapeless",
+        "ingredients": [
+          {
+            "item": "terraincognita:yarrow"
+          }
+        ],
+        "result": {
+          "item": "minecraft:light_gray_dye"
+        }
+      }
+    }
+  ]
+}

@@ -17,6 +17,6 @@ public final class FarmersDelightDummy extends FarmersDelightProxy {
 
     @Override
     public BlockEntry<? extends Block> createCabinet(TIWoodType woodType) {
-        return TerraIncognita.REGISTRY_HELPER.createBlock(woodType.name + "_cabinet", TIDummyCabinetBlock::new).build();
+        return TerraIncognita.REG_HELPER.createBlock(woodType.name + "_cabinet", TIDummyCabinetBlock::new).build();
     }
 }

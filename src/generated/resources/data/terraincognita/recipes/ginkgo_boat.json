@@ -1,0 +1,29 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:ginkgo",
+          "type": "cuneiform:config"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "group": "boat",
+        "pattern": [
+          "# #",
+          "###"
+        ],
+        "key": {
+          "#": {
+            "item": "terraincognita:ginkgo_planks"
+          }
+        },
+        "result": {
+          "item": "terraincognita:ginkgo_boat"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "values": [
+            {
+              "config": "terraincognita:ginkgo",
+              "type": "cuneiform:config"
+            },
+            {
+              "values": [
+                {
+                  "modid": "woodworks",
+                  "type": "forge:mod_loaded"
+                },
+                {
+                  "modid": "quark",
+                  "type": "forge:mod_loaded"
+                }
+              ],
+              "type": "forge:or"
+            }
+          ],
+          "type": "forge:and"
+        }
+      ],
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "terraincognita:ginkgo_trapped_chest"
+          ]
+        },
+        "criteria": {
+          "has_tripwire_hook": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "minecraft:tripwire_hook"
+                  ]
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "terraincognita:ginkgo_trapped_chest"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_tripwire_hook",
+            "has_the_recipe"
+          ]
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "values": [
+            {
+              "config": "terraincognita:hazel",
+              "type": "cuneiform:config"
+            },
+            {
+              "modid": "woodworks",
+              "type": "forge:mod_loaded"
+            }
+          ],
+          "type": "forge:and"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shapeless",
+        "group": "leaf_pile",
+        "ingredients": [
+          {
+            "item": "terraincognita:hazel_leaves"
+          }
+        ],
+        "result": {
+          "item": "terraincognita:hazel_leaf_pile",
+          "count": 4
+        }
+      }
+    }
+  ]
+}

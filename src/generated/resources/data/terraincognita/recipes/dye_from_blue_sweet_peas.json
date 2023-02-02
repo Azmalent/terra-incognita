@@ -1,0 +1,24 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:sweet_peas",
+          "type": "cuneiform:config"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shapeless",
+        "ingredients": [
+          {
+            "item": "terraincognita:blue_sweet_peas"
+          }
+        ],
+        "result": {
+          "item": "minecraft:blue_dye"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:savanna_flowers",
+          "type": "cuneiform:config"
+        }
+      ],
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "minecraft:blue_dye"
+          ]
+        },
+        "criteria": {
+          "has_blue_iris": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "terraincognita:blue_iris"
+                  ]
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "minecraft:blue_dye"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_blue_iris",
+            "has_the_recipe"
+          ]
+        ]
+      }
+    }
+  ]
+}

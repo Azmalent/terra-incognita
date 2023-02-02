@@ -1,0 +1,25 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:swamp_flowers",
+          "type": "cuneiform:config"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shapeless",
+        "ingredients": [
+          {
+            "item": "terraincognita:water_flag"
+          }
+        ],
+        "result": {
+          "item": "minecraft:yellow_dye",
+          "count": 2
+        }
+      }
+    }
+  ]
+}

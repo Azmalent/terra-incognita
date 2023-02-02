@@ -8,9 +8,6 @@ import azmalent.terraincognita.common.block.woodset.chest.TIChestBlock;
 import azmalent.terraincognita.common.block.woodset.chest.TITrappedChestBlock;
 import azmalent.terraincognita.common.block.woodset.sign.TIStandingSignBlock;
 import azmalent.terraincognita.common.block.woodset.sign.TIWallSignBlock;
-import azmalent.terraincognita.common.registry.ModWoodTypes;
-import azmalent.terraincognita.common.woodtype.TIWoodType;
-import azmalent.terraincognita.integration.ModIntegration;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
@@ -18,26 +15,17 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraftforge.client.model.generators.BlockModelBuilder;
-import net.minecraftforge.client.model.generators.BlockStateProvider;
-import net.minecraftforge.client.model.generators.ConfiguredModel;
-import net.minecraftforge.client.model.generators.ModelFile;
+import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.client.model.generators.ModelFile.ExistingModelFile;
 import net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
-import vectorwing.farmersdelight.common.block.CabinetBlock;
 
 import static azmalent.terraincognita.common.block.woodset.TIWoodPostBlock.CHAINED;
 
 public abstract class ExtendedBlockStateProvider extends BlockStateProvider {
     public ExtendedBlockStateProvider(DataGenerator gen, String modid, ExistingFileHelper exFileHelper) {
         super(gen, modid, exFileHelper);
-    }
-
-    protected void simpleBlock(Block block, ResourceLocation modelName) {
-        var model = new UncheckedModelFile(modelName);
-        simpleBlock(block, model);
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -72,7 +60,7 @@ public abstract class ExtendedBlockStateProvider extends BlockStateProvider {
         blockItem(wood);
     }
 
-    protected void registerLeaves(BlockEntry<LeavesBlock> leaves, BlockEntry<TILeafCarpetBlock> leafCarpet) {
+    protected void registerLeaves(BlockEntry<LeavesBlock> leaves, BlockEntry<TILeafCarpetBlock> leafCarpet, BlockEntry<TILeafPileBlock> leafPile) {
         var texture = blockTexture(leaves.get());
         var leavesModel = blockModel(leaves, new ResourceLocation("block/leaves")).texture("all", texture);
         simpleBlock(leaves.get(), leavesModel);
@@ -81,6 +69,28 @@ public abstract class ExtendedBlockStateProvider extends BlockStateProvider {
         var leafCarpetModel = blockModel(leafCarpet, TerraIncognita.prefix("block/leaf_carpet"));
         simpleBlock(leafCarpet.get(), leafCarpetModel.texture("all", blockTexture(leaves)));
         blockItem(leafCarpet);
+
+        registerLeafPile(leaves, leafPile);
+    }
+
+    private void registerLeafPile(BlockEntry<? extends LeavesBlock> leaves, BlockEntry<TILeafPileBlock> leafPile) {
+        var model = blockModel(leafPile, TerraIncognita.prefix("block/leaf_pile")).texture("all", blockTexture(leaves));
+
+        MultiPartBlockStateBuilder builder = getMultipartBuilder(leafPile.get());
+        builder.part().modelFile(model).rotationX(270).uvLock(true).addModel().condition(BlockStateProperties.UP, true);
+        builder.part().modelFile(model).rotationX(270).uvLock(true).addModel().condition(BlockStateProperties.UP, false).condition(BlockStateProperties.NORTH, false).condition(BlockStateProperties.WEST, false).condition(BlockStateProperties.SOUTH, false).condition(BlockStateProperties.EAST, false).condition(BlockStateProperties.DOWN, false);
+        builder.part().modelFile(model).addModel().condition(BlockStateProperties.NORTH, true);
+        builder.part().modelFile(model).addModel().condition(BlockStateProperties.UP, false).condition(BlockStateProperties.NORTH, false).condition(BlockStateProperties.WEST, false).condition(BlockStateProperties.SOUTH, false).condition(BlockStateProperties.EAST, false).condition(BlockStateProperties.DOWN, false);
+        builder.part().modelFile(model).rotationY(270).uvLock(true).addModel().condition(BlockStateProperties.WEST, true);
+        builder.part().modelFile(model).rotationY(270).uvLock(true).addModel().condition(BlockStateProperties.UP, false).condition(BlockStateProperties.NORTH, false).condition(BlockStateProperties.WEST, false).condition(BlockStateProperties.SOUTH, false).condition(BlockStateProperties.EAST, false).condition(BlockStateProperties.DOWN, false);
+        builder.part().modelFile(model).rotationY(180).uvLock(true).addModel().condition(BlockStateProperties.SOUTH, true);
+        builder.part().modelFile(model).rotationY(180).uvLock(true).addModel().condition(BlockStateProperties.UP, false).condition(BlockStateProperties.NORTH, false).condition(BlockStateProperties.WEST, false).condition(BlockStateProperties.SOUTH, false).condition(BlockStateProperties.EAST, false).condition(BlockStateProperties.DOWN, false);
+        builder.part().modelFile(model).rotationY(90).uvLock(true).addModel().condition(BlockStateProperties.EAST, true);
+        builder.part().modelFile(model).rotationY(90).uvLock(true).addModel().condition(BlockStateProperties.UP, false).condition(BlockStateProperties.NORTH, false).condition(BlockStateProperties.WEST, false).condition(BlockStateProperties.SOUTH, false).condition(BlockStateProperties.EAST, false).condition(BlockStateProperties.DOWN, false);
+        builder.part().modelFile(model).rotationX(90).uvLock(true).addModel().condition(BlockStateProperties.DOWN, true);
+        builder.part().modelFile(model).rotationX(90).uvLock(true).addModel().condition(BlockStateProperties.UP, false).condition(BlockStateProperties.NORTH, false).condition(BlockStateProperties.WEST, false).condition(BlockStateProperties.SOUTH, false).condition(BlockStateProperties.EAST, false).condition(BlockStateProperties.DOWN, false);
+
+        flatBlockItem(leafPile, leaves, "block");
     }
 
     protected void registerHedge(BlockEntry<RotatedPillarBlock> log, BlockEntry<LeavesBlock> leaves, BlockEntry<TIHedgeBlock> hedge) {
@@ -129,7 +139,7 @@ public abstract class ExtendedBlockStateProvider extends BlockStateProvider {
         this.blockItem(post);
     }
 
-    protected void registerPlanks(BlockEntry<Block> planks, BlockEntry<Block> verticalPlanks) {
+    protected void registerPlanks(BlockEntry<Block> planks, BlockEntry<Block> verticalPlanks, BlockEntry<RotatedPillarBlock> boards) {
         var texture = blockTexture(planks.get());
 
         simpleBlock(planks.get());
@@ -139,6 +149,16 @@ public abstract class ExtendedBlockStateProvider extends BlockStateProvider {
         var model = new UncheckedModelFile(TerraIncognita.prefix("block/vertical_planks"));
         simpleBlock(verticalPlanks.get(), models().getBuilder(name).parent(model).texture("all", texture));
         blockItem(verticalPlanks);
+
+        ModelFile boardsModel = blockModel(boards, TerraIncognita.prefix( "block/boards")).texture("all", blockTexture(boards));
+        ModelFile boardsHorizontalModel = models().getBuilder(blockName(boards) + "_horizontal").parent(new UncheckedModelFile(TerraIncognita.prefix( "block/boards_horizontal"))).texture("all", blockTexture(boards));
+
+        getVariantBuilder(boards.get())
+            .partialState().with(RotatedPillarBlock.AXIS, Axis.Y).modelForState().modelFile(boardsModel).addModel()
+            .partialState().with(RotatedPillarBlock.AXIS, Axis.Z).modelForState().modelFile(boardsHorizontalModel).addModel()
+            .partialState().with(RotatedPillarBlock.AXIS, Axis.X).modelForState().modelFile(boardsHorizontalModel).rotationY(270).addModel();
+
+        blockItem(boards);
     }
 
     protected void registerFenceAndFenceGate(BlockEntry<Block> baseBlock, BlockEntry<FenceBlock> fence, BlockEntry<FenceGateBlock> fenceGate) {
@@ -228,37 +248,39 @@ public abstract class ExtendedBlockStateProvider extends BlockStateProvider {
     }
 
     protected void registerLadder(BlockEntry<LadderBlock> ladder) {
-        horizontalBlock(ladder.get(), models().withExistingParent(blockName(ladder), "block/ladder")
-            .texture("particle", blockTexture(ladder))
-            .texture("texture", blockTexture(ladder)));
-
+        horizontalBlock(ladder.get(), ladderModel(ladder));
         flatBlockItem(ladder, "block");
+    }
+
+    private BlockModelBuilder ladderModel(BlockEntry<LadderBlock> ladder) {
+        return models().withExistingParent(blockName(ladder), "block/ladder")
+            .texture("particle", blockTexture(ladder))
+            .texture("texture", blockTexture(ladder));
     }
 
     protected void registerBeehive(BlockEntry<TIBeehiveBlock> beehive) {
         var name = blockName(beehive);
         var texture = blockTexture(beehive);
 
-        var beehiveModel = models().orientableWithBottom(name, suffix(texture, "_side"), suffix(texture, "_front"), suffix(texture, "_end"), suffix(texture, "_end"))
-            .texture("particle", suffix(texture, "_side"));
-        var fullBeehiveModel = models().orientableWithBottom(name + "_honey", suffix(texture, "_side"), suffix(texture, "_front_honey"), suffix(texture, "_end"), suffix(texture, "_end"))
-            .texture("particle", suffix(texture, "_side"));
-
+        var beehiveModel = models().orientableWithBottom(name, suffix(texture, "_side"), suffix(texture, "_front"), suffix(texture, "_end"), suffix(texture, "_end")).texture("particle", suffix(texture, "_side"));
+        var fullBeehiveModel = models().orientableWithBottom(name + "_honey", suffix(texture, "_side"), suffix(texture, "_front_honey"), suffix(texture, "_end"), suffix(texture, "_end")).texture("particle", suffix(texture, "_side"));
         horizontalBlock(beehive.get(), state -> state.getValue(BlockStateProperties.LEVEL_HONEY) == 5 ? fullBeehiveModel : beehiveModel);
         blockItem(beehive);
     }
 
     protected void registerCabinet(BlockEntry<? extends Block> cabinet) {
         String name = blockName(cabinet);
-        this.horizontalBlock(cabinet.get(), state -> {
-            String suffix = state.getValue(BlockStateProperties.OPEN) ? "_open" : "";
-            return models().orientable(name + suffix,
-               TerraIncognita.prefix("block/" + name + "_side"),
-               TerraIncognita.prefix("block/" + name + "_front" + suffix),
-               TerraIncognita.prefix("block/" + name + "_top"));
-        });
-
+        horizontalBlock(cabinet.get(), state -> cabinetModel(name, state.getValue(BlockStateProperties.OPEN)));
         blockItem(cabinet);
+    }
+
+    public BlockModelBuilder cabinetModel(String name, boolean open) {
+        String suffix = open ? "_open" : "";
+        return models().orientable(name + suffix,
+            TerraIncognita.prefix("block/" + name + "_side"),
+            TerraIncognita.prefix("block/" + name + "_front" + suffix),
+            TerraIncognita.prefix("block/" + name + "_top")
+        );
     }
 
     protected void blockItem(BlockEntry<?> block) {
@@ -270,10 +292,14 @@ public abstract class ExtendedBlockStateProvider extends BlockStateProvider {
         simpleBlockItem(block, new ExistingModelFile(texture, this.models().existingFileHelper));
     }
 
-    @SuppressWarnings("ConstantConditions")
     protected void flatBlockItem(ItemLike item, String textureDirectory) {
-        var path = ForgeRegistries.ITEMS.getKey(item.asItem()).getPath();
-        itemModels().withExistingParent(path, "item/generated")
-            .texture("layer0", TerraIncognita.prefix(textureDirectory + "/" + path));
+        flatBlockItem(item, item, textureDirectory);
+    }
+
+    @SuppressWarnings("ConstantConditions")
+    protected void flatBlockItem(ItemLike item, ItemLike texture, String textureDirectory) {
+        var itemPath = ForgeRegistries.ITEMS.getKey(item.asItem()).getPath();
+        var texturePath = ForgeRegistries.ITEMS.getKey(texture.asItem()).getPath();
+        itemModels().withExistingParent(itemPath, "item/generated").texture("layer0", TerraIncognita.prefix(textureDirectory + "/" + texturePath));
     }
 }

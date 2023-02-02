@@ -1,0 +1,25 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:arctic_flowers",
+          "type": "cuneiform:config"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shapeless",
+        "ingredients": [
+          {
+            "item": "terraincognita:white_rhododendron"
+          }
+        ],
+        "result": {
+          "item": "minecraft:white_dye",
+          "count": 2
+        }
+      }
+    }
+  ]
+}

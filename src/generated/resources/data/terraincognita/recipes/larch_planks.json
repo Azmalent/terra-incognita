@@ -1,0 +1,26 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:larch",
+          "type": "cuneiform:config"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shapeless",
+        "group": "planks",
+        "ingredients": [
+          {
+            "tag": "terraincognita:larch_logs"
+          }
+        ],
+        "result": {
+          "item": "terraincognita:larch_planks",
+          "count": 4
+        }
+      }
+    }
+  ]
+}

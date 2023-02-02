@@ -1,0 +1,25 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:hazel",
+          "type": "cuneiform:config"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shapeless",
+        "group": "wooden_button",
+        "ingredients": [
+          {
+            "item": "terraincognita:hazel_planks"
+          }
+        ],
+        "result": {
+          "item": "terraincognita:hazel_button"
+        }
+      }
+    }
+  ]
+}

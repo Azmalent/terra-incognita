@@ -1,0 +1,26 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:ginkgo",
+          "type": "cuneiform:config"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shapeless",
+        "group": "planks",
+        "ingredients": [
+          {
+            "tag": "terraincognita:ginkgo_logs"
+          }
+        ],
+        "result": {
+          "item": "terraincognita:ginkgo_planks",
+          "count": 4
+        }
+      }
+    }
+  ]
+}

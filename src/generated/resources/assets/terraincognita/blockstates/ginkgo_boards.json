@@ -1,0 +1,14 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "terraincognita:block/ginkgo_boards_horizontal",
+      "y": 270
+    },
+    "axis=y": {
+      "model": "terraincognita:block/ginkgo_boards"
+    },
+    "axis=z": {
+      "model": "terraincognita:block/ginkgo_boards_horizontal"
+    }
+  }
+}

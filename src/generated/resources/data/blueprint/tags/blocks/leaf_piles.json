@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "terraincognita:apple_leaf_pile",
+    "terraincognita:hazel_leaf_pile",
+    "terraincognita:larch_leaf_pile",
+    "terraincognita:ginkgo_leaf_pile",
+    "terraincognita:blossoming_apple_leaf_pile"
+  ]
+}

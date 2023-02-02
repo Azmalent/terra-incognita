@@ -10,27 +10,26 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import static azmalent.terraincognita.TerraIncognita.REGISTRY_HELPER;
+import static azmalent.terraincognita.TerraIncognita.REG_HELPER;
 
 @Mod.EventBusSubscriber(modid = TerraIncognita.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModEntities {
-    public static final DeferredRegister<EntityType<?>> ENTITIES = REGISTRY_HELPER.getOrCreateRegistry(ForgeRegistries.ENTITIES);
+    public static final DeferredRegister<EntityType<?>> ENTITIES = REG_HELPER.getOrCreateRegistry(ForgeRegistries.ENTITIES);
 
-    public static EntityEntry<TIBoat> BOAT = REGISTRY_HELPER.createEntity("boat",
-        EntityType.Builder.<TIBoat>of(TIBoat::new, MobCategory.MISC)
+    public static EntityEntry<TIBoat> BOAT = REG_HELPER.createEntity("boat",
+                                                                     EntityType.Builder.<TIBoat>of(TIBoat::new, MobCategory.MISC)
             .sized(1.375F, 0.5625F)
             .setCustomClientFactory(TIBoat::new)
             .clientTrackingRange(10));
 
-    public static final MobEntry<Butterfly> BUTTERFLY = REGISTRY_HELPER.createMob("butterfly",
-        EntityType.Builder.<Butterfly>of(Butterfly::new, MobCategory.AMBIENT)
+    public static final MobEntry<Butterfly> BUTTERFLY = REG_HELPER.createMob("butterfly",
+                                                                             EntityType.Builder.<Butterfly>of(Butterfly::new, MobCategory.AMBIENT)
             .sized(0.5f, 0.5f)
             .setCustomClientFactory(Butterfly::new)
             .clientTrackingRange(5))

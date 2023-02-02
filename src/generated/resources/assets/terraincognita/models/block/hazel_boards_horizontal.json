@@ -1,0 +1,6 @@
+{
+  "parent": "terraincognita:block/boards_horizontal",
+  "textures": {
+    "all": "terraincognita:block/hazel_boards"
+  }
+}

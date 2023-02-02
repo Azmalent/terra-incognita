@@ -1,0 +1,30 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:larch",
+          "type": "cuneiform:config"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "group": "bark",
+        "pattern": [
+          "##",
+          "##"
+        ],
+        "key": {
+          "#": {
+            "item": "terraincognita:stripped_larch_log"
+          }
+        },
+        "result": {
+          "item": "terraincognita:stripped_larch_log",
+          "count": 3
+        }
+      }
+    }
+  ]
+}

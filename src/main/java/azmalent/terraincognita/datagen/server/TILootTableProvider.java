@@ -35,6 +35,7 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
@@ -55,6 +56,12 @@ public class TILootTableProvider extends LootTableProvider {
         );
     }
 
+    @Override
+    @ParametersAreNonnullByDefault
+    protected void validate(Map<ResourceLocation, LootTable> map, ValidationContext validationtracker) {
+        //NO-OP
+    }
+
     private static class TIBlockLoot extends BlockLoot {
         private static final float[] SAPLING_CHANCES = new float[]{0.05F, 0.0625F, 0.083333336F, 0.1F};
 
@@ -72,16 +79,20 @@ public class TILootTableProvider extends LootTableProvider {
                 dropSelf(type.STRIPPED_POST.get());
                 dropSelf(type.PLANKS.get());
                 dropSelf(type.VERTICAL_PLANKS.get());
+                dropSelf(type.BOARDS.get());
                 dropSelf(type.STAIRS.get());
                 dropSelf(type.FENCE.get());
                 dropSelf(type.FENCE_GATE.get());
                 dropSelf(type.BUTTON.get());
                 dropSelf(type.PRESSURE_PLATE.get());
                 dropSelf(type.TRAPDOOR.get());
-                dropSelf(type.SIGN.get());
                 dropSelf(type.LADDER.get());
                 dropSelf(type.HEDGE.get());
                 dropSelf(type.LEAF_CARPET.get());
+                add(type.LEAF_PILE.get(), BlockLoot::createGlowLichenDrops);
+
+                dropSelf(type.SIGN.get());
+                dropOther(type.WALL_SIGN.get(), type.SIGN);
 
                 add(type.CHEST.get(), BlockLoot::createNameableBlockEntityTable);
                 add(type.TRAPPED_CHEST.get(), BlockLoot::createNameableBlockEntityTable);
@@ -96,6 +107,7 @@ public class TILootTableProvider extends LootTableProvider {
             });
 
             add(ModWoodTypes.APPLE.BLOSSOMING_LEAVES.get(), block -> createLeavesDrops(block, ModWoodTypes.APPLE.SAPLING.get(), SAPLING_CHANCES));
+            add(ModWoodTypes.APPLE.BLOSSOMING_LEAF_PILE.get(), BlockLoot::createGlowLichenDrops);
             dropSelf(ModWoodTypes.APPLE.BLOSSOMING_LEAF_CARPET.get());
             dropSelf(ModWoodTypes.APPLE.BLOSSOMING_HEDGE.get());
 
@@ -126,6 +138,7 @@ public class TILootTableProvider extends LootTableProvider {
             dropOther(ModBlocks.TILLED_PEAT.get(), ModBlocks.PEAT.get());
             dropSelf(ModBlocks.MOSSY_GRAVEL.get());
 
+            dropSelf(ModBlocks.SWAMP_REEDS_BUNDLE.get());
             dropSelf(ModBlocks.WICKER_LANTERN.get());
             dropSelf(ModBlocks.WICKER_MAT.get());
 
@@ -145,9 +158,8 @@ public class TILootTableProvider extends LootTableProvider {
         @NotNull
         @SuppressWarnings("ConstantConditions")
         protected Iterable<Block> getKnownBlocks() {
+            //TODO: add proper loot tables
             var excludedBlocks = Sets.newHashSet(ModBlocks.APPLE.get(), ModBlocks.HAZELNUT.get(), ModBlocks.BASKET.get());
-            ModWoodTypes.VALUES.forEach(type -> excludedBlocks.add(type.WALL_SIGN.get()));
-
             return ForgeRegistries.BLOCKS.getValues().stream().filter(block -> block.getRegistryName().getNamespace().equals(TerraIncognita.MODID) && !excludedBlocks.contains(block)).collect(Collectors.toSet());
         }
     }

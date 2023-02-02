@@ -1,0 +1,64 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "values": [
+            {
+              "config": "terraincognita:hazel",
+              "type": "cuneiform:config"
+            },
+            {
+              "values": [
+                {
+                  "modid": "woodworks",
+                  "type": "forge:mod_loaded"
+                },
+                {
+                  "modid": "quark",
+                  "type": "forge:mod_loaded"
+                }
+              ],
+              "type": "forge:or"
+            }
+          ],
+          "type": "forge:and"
+        }
+      ],
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "terraincognita:hazel_ladder"
+          ]
+        },
+        "criteria": {
+          "has_stick": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "minecraft:stick"
+                  ]
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "terraincognita:hazel_ladder"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_stick",
+            "has_the_recipe"
+          ]
+        ]
+      }
+    }
+  ]
+}

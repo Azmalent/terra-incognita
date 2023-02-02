@@ -1,0 +1,25 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:ginkgo",
+          "type": "cuneiform:config"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shapeless",
+        "group": "wooden_button",
+        "ingredients": [
+          {
+            "item": "terraincognita:ginkgo_planks"
+          }
+        ],
+        "result": {
+          "item": "terraincognita:ginkgo_button"
+        }
+      }
+    }
+  ]
+}

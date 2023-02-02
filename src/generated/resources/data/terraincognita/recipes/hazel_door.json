@@ -1,0 +1,31 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:hazel",
+          "type": "cuneiform:config"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "group": "wooden_door",
+        "pattern": [
+          "##",
+          "##",
+          "##"
+        ],
+        "key": {
+          "#": {
+            "item": "terraincognita:hazel_planks"
+          }
+        },
+        "result": {
+          "item": "terraincognita:hazel_door",
+          "count": 3
+        }
+      }
+    }
+  ]
+}

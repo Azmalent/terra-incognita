@@ -1,0 +1,46 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:swamp_flowers",
+          "type": "cuneiform:config"
+        }
+      ],
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "minecraft:light_blue_dye"
+          ]
+        },
+        "criteria": {
+          "has_forget_me_not": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "terraincognita:forget_me_not"
+                  ]
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "minecraft:light_blue_dye"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_forget_me_not",
+            "has_the_recipe"
+          ]
+        ]
+      }
+    }
+  ]
+}

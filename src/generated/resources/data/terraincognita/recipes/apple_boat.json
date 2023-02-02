@@ -1,0 +1,29 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:apple",
+          "type": "cuneiform:config"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "group": "boat",
+        "pattern": [
+          "# #",
+          "###"
+        ],
+        "key": {
+          "#": {
+            "item": "terraincognita:apple_planks"
+          }
+        },
+        "result": {
+          "item": "terraincognita:apple_boat"
+        }
+      }
+    }
+  ]
+}

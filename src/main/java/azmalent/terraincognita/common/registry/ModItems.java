@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
-import static azmalent.terraincognita.TerraIncognita.REGISTRY_HELPER;
+import static azmalent.terraincognita.TerraIncognita.REG_HELPER;
 
 @SuppressWarnings({"ConstantConditions", "unused"})
 public class ModItems {
@@ -58,25 +58,25 @@ public class ModItems {
         public static final FoodProperties HAZELNUT_COOKIE = new FoodProperties.Builder().nutrition(2).saturationMod(0.3f).build();
     }
 
-    public static final DeferredRegister<Item> ITEMS = REGISTRY_HELPER.getOrCreateRegistry(ForgeRegistries.ITEMS);
+    public static final DeferredRegister<Item> ITEMS = REG_HELPER.getOrCreateRegistry(ForgeRegistries.ITEMS);
 
-    public static final ItemEntry<TaffyItem> TAFFY = REGISTRY_HELPER.createItem("taffy", TaffyItem::new);
-    public static final ItemEntry<NotchCarrotItem> NOTCH_CARROT  = REGISTRY_HELPER.createItem("notch_carrot", NotchCarrotItem::new);
-    public static final ItemEntry<Item> FERN_FIDDLEHEAD = REGISTRY_HELPER.createFood("fiddlehead", Foods.FIDDLEHEAD);
-    public static final ItemEntry<BowlFoodItem> KELP_SOUP     = REGISTRY_HELPER.createItem("kelp_soup", BowlFoodItem::new, foodProps(Foods.KELP_SOUP).stacksTo(1));
-    public static final ItemEntry<BowlFoodItem> BERRY_SORBET  = REGISTRY_HELPER.createItem("berry_sorbet", BowlFoodItem::new, foodProps(Foods.BERRY_SORBET).stacksTo(1));
+    public static final ItemEntry<TaffyItem> TAFFY = REG_HELPER.createItem("taffy", TaffyItem::new);
+    public static final ItemEntry<NotchCarrotItem> NOTCH_CARROT  = REG_HELPER.createItem("notch_carrot", NotchCarrotItem::new);
+    public static final ItemEntry<Item> FERN_FIDDLEHEAD = REG_HELPER.createFood("fiddlehead", Foods.FIDDLEHEAD);
+    public static final ItemEntry<BowlFoodItem> KELP_SOUP     = REG_HELPER.createItem("kelp_soup", BowlFoodItem::new, foodProps(Foods.KELP_SOUP).stacksTo(1));
+    public static final ItemEntry<BowlFoodItem> BERRY_SORBET  = REG_HELPER.createItem("berry_sorbet", BowlFoodItem::new, foodProps(Foods.BERRY_SORBET).stacksTo(1));
 
-    public static final ItemEntry<Item> SOUR_BERRIES   = REGISTRY_HELPER.createFood("sour_berries", Foods.SOUR_BERRIES);
-    public static final ItemEntry<Item> SOUR_BERRY_PIE = REGISTRY_HELPER.createFood("sour_berry_pie", Foods.SOUR_BERRY_PIE);
-    public static final ItemEntry<JamItem> SOUR_BERRY_JAM = REGISTRY_HELPER.createItem("sour_berry_jam", JamItem::new, foodProps(Foods.SOUR_BERRY_JAM).stacksTo(16));
+    public static final ItemEntry<Item> SOUR_BERRIES   = REG_HELPER.createFood("sour_berries", Foods.SOUR_BERRIES);
+    public static final ItemEntry<Item> SOUR_BERRY_PIE = REG_HELPER.createFood("sour_berry_pie", Foods.SOUR_BERRY_PIE);
+    public static final ItemEntry<JamItem> SOUR_BERRY_JAM = REG_HELPER.createItem("sour_berry_jam", JamItem::new, foodProps(Foods.SOUR_BERRY_JAM).stacksTo(16));
 
-    public static final ItemEntry<Item> HAZELNUT = REGISTRY_HELPER.createFood("hazelnut", Foods.HAZELNUT);
-    public static final ItemEntry<Item> CANDIED_HAZELNUT = REGISTRY_HELPER.createFood("candied_hazelnut", Foods.CANDIED_HAZELNUT);
-    public static final ItemEntry<Item> HAZELNUT_COOKIE = REGISTRY_HELPER.createFood("hazelnut_cookie", Foods.HAZELNUT_COOKIE);
+    public static final ItemEntry<Item> HAZELNUT = REG_HELPER.createFood("hazelnut", Foods.HAZELNUT);
+    public static final ItemEntry<Item> CANDIED_HAZELNUT = REG_HELPER.createFood("candied_hazelnut", Foods.CANDIED_HAZELNUT);
+    public static final ItemEntry<Item> HAZELNUT_COOKIE = REG_HELPER.createFood("hazelnut_cookie", Foods.HAZELNUT_COOKIE);
 
-    public static final ItemEntry<Item> CACTUS_NEEDLE = REGISTRY_HELPER.createItem("cactus_needle", CreativeModeTab.TAB_MISC);
+    public static final ItemEntry<Item> CACTUS_NEEDLE = REG_HELPER.createItem("cactus_needle", CreativeModeTab.TAB_MISC);
 
-    public static final ItemEntry<WreathItem> WREATH = REGISTRY_HELPER.createItem("wreath", WreathItem::new);
+    public static final ItemEntry<WreathItem> WREATH = REG_HELPER.createItem("wreath", WreathItem::new);
 
     public static final ItemEntry<BottledEntityItem<Butterfly>> BOTTLED_BUTTERFLY = bottledEntity("butterfly", ModEntities.BUTTERFLY, Butterfly::addBottleTooltip);
 
@@ -86,24 +86,30 @@ public class ModItems {
 
     @SuppressWarnings("SameParameterValue")
     private static <T extends LivingEntity & IBottleableEntity> ItemEntry<BottledEntityItem<T>> bottledEntity(String entityId, Supplier<EntityType<T>> type, BiConsumer<CompoundTag, List<Component>> tooltipHandler) {
-        return REGISTRY_HELPER.createItem("bottled_" + entityId, () -> new BottledEntityItem<>(type, tooltipHandler));
+        return REG_HELPER.createItem("bottled_" + entityId, () -> new BottledEntityItem<>(type, tooltipHandler));
     }
 
     public static void initFuelValues() {
         for (TIWoodType woodType : ModWoodTypes.VALUES) {
             FuelHandler.registerFuel(1.5f, woodType.LOG, woodType.STRIPPED_LOG, woodType.WOOD, woodType.STRIPPED_WOOD);
+            FuelHandler.registerFuel(1.5f, woodType.POST, woodType.STRIPPED_POST);
             FuelHandler.registerFuel(1.5f, woodType.PLANKS, woodType.STAIRS);
             FuelHandler.registerFuel(0.75f, woodType.SLAB);
             FuelHandler.registerFuel(1.5f, woodType.FENCE, woodType.FENCE_GATE);
-            FuelHandler.registerFuel(1, woodType.SIGN, woodType.DOOR);
+            FuelHandler.registerFuel(1,    woodType.SIGN);
+            FuelHandler.registerFuel(1,    woodType.DOOR);
             FuelHandler.registerFuel(1.5f, woodType.TRAPDOOR);
+            FuelHandler.registerFuel(1.5f, woodType.BOOKSHELF);
+            FuelHandler.registerFuel(1.5f, woodType.LADDER);
+            FuelHandler.registerFuel(1.5f, woodType.CHEST, woodType.TRAPPED_CHEST);
+            //FuelHandler.registerFuel(1.5f, woodType.BEEHIVE);
+            FuelHandler.registerFuel(1.5f, woodType.CABINET);
 
-            //Quark
-            FuelHandler.registerFuel(1.5f, woodType.BOOKSHELF, woodType.LADDER, woodType.POST, woodType.STRIPPED_POST);
+            //FuelHandler.registerFuel(6,    woodType.BOAT);
         }
 
-
         FuelHandler.registerFuel(0.5f, ModBlocks.SWAMP_REEDS);
+        FuelHandler.registerFuel(5f, ModBlocks.SWAMP_REEDS_BUNDLE);
         FuelHandler.registerFuel(12, ModBlocks.PEAT);
     }
 

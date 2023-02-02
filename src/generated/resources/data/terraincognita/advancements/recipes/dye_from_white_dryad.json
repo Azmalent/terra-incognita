@@ -1,0 +1,46 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:arctic_flowers",
+          "type": "cuneiform:config"
+        }
+      ],
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "minecraft:white_dye"
+          ]
+        },
+        "criteria": {
+          "has_white_dryad": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "terraincognita:white_dryad"
+                  ]
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "minecraft:white_dye"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_white_dryad",
+            "has_the_recipe"
+          ]
+        ]
+      }
+    }
+  ]
+}

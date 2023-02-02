@@ -1,0 +1,41 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "values": [
+            {
+              "config": "terraincognita:ginkgo",
+              "type": "cuneiform:config"
+            },
+            {
+              "modid": "farmersdelight",
+              "type": "forge:mod_loaded"
+            }
+          ],
+          "type": "forge:and"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "pattern": [
+          "___",
+          "D D",
+          "___"
+        ],
+        "key": {
+          "_": {
+            "item": "terraincognita:ginkgo_slab"
+          },
+          "D": {
+            "item": "terraincognita:ginkgo_trapdoor"
+          }
+        },
+        "result": {
+          "item": "terraincognita:ginkgo_cabinet"
+        }
+      }
+    }
+  ]
+}

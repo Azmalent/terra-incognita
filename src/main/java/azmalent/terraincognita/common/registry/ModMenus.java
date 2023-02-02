@@ -11,10 +11,10 @@ import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import static azmalent.terraincognita.TerraIncognita.REGISTRY_HELPER;
+import static azmalent.terraincognita.TerraIncognita.REG_HELPER;
 
 public class ModMenus {
-    public static final DeferredRegister<MenuType<?>> MENUS = REGISTRY_HELPER.getOrCreateRegistry(ForgeRegistries.CONTAINERS);
+    public static final DeferredRegister<MenuType<?>> MENUS = REG_HELPER.getOrCreateRegistry(ForgeRegistries.CONTAINERS);
 
     public static final RegistryObject<MenuType<BasketMenu>> BASKET = MENUS.register("basket", () -> IForgeMenuType.create(BasketMenu::fromNetwork));
 

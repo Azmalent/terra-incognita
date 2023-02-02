@@ -2,7 +2,6 @@ package azmalent.terraincognita.common.registry;
 
 import azmalent.cuneiform.registry.BlockEntry;
 import azmalent.cuneiform.util.DataUtil;
-import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.block.*;
 import azmalent.terraincognita.common.block.plant.*;
 import azmalent.terraincognita.common.block.plant.ModFlowerBlock.StewEffect;
@@ -29,12 +28,12 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-import static azmalent.terraincognita.TerraIncognita.REGISTRY_HELPER;
+import static azmalent.terraincognita.TerraIncognita.REG_HELPER;
 import static net.minecraft.world.item.CreativeModeTab.TAB_DECORATIONS;
 
 @SuppressWarnings({"unused"})
 public class ModBlocks {
-    public static final DeferredRegister<Block> BLOCKS = REGISTRY_HELPER.getOrCreateRegistry(ForgeRegistries.BLOCKS);
+    public static final DeferredRegister<Block> BLOCKS = REG_HELPER.getOrCreateRegistry(ForgeRegistries.BLOCKS);
 
     public static final Map<String, BlockEntry<FlowerPotBlock>> FLOWER_POTS = Maps.newHashMap();
 
@@ -83,7 +82,7 @@ public class ModBlocks {
 
     //Cacti
     public static final BlockEntry<CactusFlowerBlock> CACTUS_FLOWER = createPlant("cactus_flower", CactusFlowerBlock::new);
-    public static final BlockEntry<SmoothCactusBlock> SMOOTH_CACTUS = REGISTRY_HELPER.createBlock("smooth_cactus", SmoothCactusBlock::new).cutoutRender().build();
+    public static final BlockEntry<SmoothCactusBlock> SMOOTH_CACTUS = REG_HELPER.createBlock("smooth_cactus", SmoothCactusBlock::new).cutoutRender().build();
 
     public static final List<BlockEntry<?>> SMALL_FLOWERS = List.of(
         ALPINE_PINK, ASTER, BLACK_IRIS, BLUE_IRIS, CHICORY, DAFFODIL, DANDELION_PUFF, EDELWEISS, FORGET_ME_NOT, FOXGLOVE,
@@ -96,13 +95,20 @@ public class ModBlocks {
     );
 
     //Sweet peas
-    public static final List<BlockEntry<SweetPeasBlock>> SWEET_PEAS =
-        Stream.of("white", "pink", "red", "magenta", "purple", "blue", "light_blue")
-            .map(ModBlocks::createSweetPeas)
-            .toList();
+    public static final BlockEntry<SweetPeasBlock> WHITE_SWEET_PEAS      = createSweetPeas("white");
+    public static final BlockEntry<SweetPeasBlock> PINK_SWEET_PEAS       = createSweetPeas("pink");
+    public static final BlockEntry<SweetPeasBlock> RED_SWEET_PEAS        = createSweetPeas("red");
+    public static final BlockEntry<SweetPeasBlock> MAGENTA_SWEET_PEAS    = createSweetPeas("magenta");
+    public static final BlockEntry<SweetPeasBlock> PURPLE_SWEET_PEAS     = createSweetPeas("purple");
+    public static final BlockEntry<SweetPeasBlock> BLUE_SWEET_PEAS       = createSweetPeas("blue");
+    public static final BlockEntry<SweetPeasBlock> LIGHT_BLUE_SWEET_PEAS = createSweetPeas("light_blue");
+
+    public static final List<BlockEntry<SweetPeasBlock>> SWEET_PEAS = List.of(
+        WHITE_SWEET_PEAS, PINK_SWEET_PEAS, RED_SWEET_PEAS, MAGENTA_SWEET_PEAS, PURPLE_SWEET_PEAS, BLUE_SWEET_PEAS, LIGHT_BLUE_SWEET_PEAS
+    );
 
     //Lily pads
-    public static final BlockEntry<SmallLilyPadBlock> SMALL_LILY_PAD = REGISTRY_HELPER.createBlock("small_lilypad", SmallLilyPadBlock::new).blockItem(SmallLilypadItem::new).cutoutRender().build();
+    public static final BlockEntry<SmallLilyPadBlock> SMALL_LILY_PAD = REG_HELPER.createBlock("small_lilypad", SmallLilyPadBlock::new).blockItem(SmallLilypadItem::new).cutoutRender().build();
 
     public static final BlockEntry<TILilyPadBlock> PINK_LOTUS   = createLotus("pink");
     public static final BlockEntry<TILilyPadBlock> WHITE_LOTUS  = createLotus("white");
@@ -110,32 +116,33 @@ public class ModBlocks {
     public static final List<BlockEntry<TILilyPadBlock>> LOTUSES = List.of(PINK_LOTUS, WHITE_LOTUS, YELLOW_LOTUS);
 
     //Fruits
-    public static final BlockEntry<AppleBlock> APPLE = REGISTRY_HELPER.createBlock("apple", AppleBlock::new).noItemForm().cutoutRender().build();
-    public static final BlockEntry<HazelnutBlock> HAZELNUT = REGISTRY_HELPER.createBlock("hazelnut", HazelnutBlock::new).noItemForm().cutoutRender().build();
+    public static final BlockEntry<AppleBlock> APPLE = REG_HELPER.createBlock("apple", AppleBlock::new).noItemForm().cutoutRender().build();
+    public static final BlockEntry<HazelnutBlock> HAZELNUT = REG_HELPER.createBlock("hazelnut", HazelnutBlock::new).noItemForm().cutoutRender().build();
 
     //Other vegetation
     public static final BlockEntry<SwampReedsBlock> SWAMP_REEDS = createPlant("swamp_reeds", SwampReedsBlock::new);
 
-    public static final BlockEntry<SourBerrySproutBlock> SOUR_BERRY_SPROUTS = REGISTRY_HELPER.createBlock("sour_berry_sprouts", SourBerrySproutBlock::new).blockItem(WaterLilyBlockItem::new, CreativeModeTab.TAB_MISC).cutoutRender().build();
-    public static final BlockEntry<SourBerryBushBlock> SOUR_BERRY_BUSH = REGISTRY_HELPER.createBlock("sour_berry_bush", SourBerryBushBlock::new).noItemForm().cutoutRender().build();
+    public static final BlockEntry<SourBerrySproutBlock> SOUR_BERRY_SPROUTS = REG_HELPER.createBlock("sour_berry_sprouts", SourBerrySproutBlock::new).blockItem(WaterLilyBlockItem::new, CreativeModeTab.TAB_MISC).cutoutRender().build();
+    public static final BlockEntry<SourBerryBushBlock> SOUR_BERRY_BUSH = REG_HELPER.createBlock("sour_berry_bush", SourBerryBushBlock::new).noItemForm().cutoutRender().build();
 
-    public static final BlockEntry<CaribouMossWallBlock> CARIBOU_MOSS_WALL = REGISTRY_HELPER.createBlock("caribou_moss_wall", CaribouMossWallBlock::new).noItemForm().cutoutRender().build();
+    public static final BlockEntry<CaribouMossWallBlock> CARIBOU_MOSS_WALL = REG_HELPER.createBlock("caribou_moss_wall", CaribouMossWallBlock::new).noItemForm().cutoutRender().build();
     public static final BlockEntry<CaribouMossBlock> CARIBOU_MOSS = createPlant("caribou_moss", CaribouMossBlock::new, block -> new StandingAndWallBlockItem(block, CARIBOU_MOSS_WALL.get(), new Item.Properties().tab(TAB_DECORATIONS)));
 
-    public static final BlockEntry<HangingMossBlock> HANGING_MOSS = REGISTRY_HELPER.createBlock("hanging_moss", HangingMossBlock::new).cutoutRender().build();
+    public static final BlockEntry<HangingMossBlock> HANGING_MOSS = REG_HELPER.createBlock("hanging_moss", HangingMossBlock::new).cutoutRender().build();
 
     //Other blocks
-    public static final BlockEntry<PeatBlock> PEAT = REGISTRY_HELPER.createBlock("peat", PeatBlock::new).blockItem(CreativeModeTab.TAB_BUILDING_BLOCKS).build();
-    public static final BlockEntry<PeatFarmBlock> TILLED_PEAT = REGISTRY_HELPER.createBlock("tilled_peat", PeatFarmBlock::new).build();
-    public static final BlockEntry<GrassBlock> FLOWERING_GRASS = REGISTRY_HELPER.createBlock("flowering_grass", GrassBlock::new, Properties.copy(Blocks.GRASS_BLOCK)).cutoutMippedRender().build();
-    public static final BlockEntry<GravelBlock> MOSSY_GRAVEL = REGISTRY_HELPER.createBlock("mossy_gravel", GravelBlock::new, Properties.copy(Blocks.GRAVEL)).build();
-    public static final BlockEntry<CaltropsBlock> CALTROPS = REGISTRY_HELPER.createBlock("caltrops", CaltropsBlock::new).blockItem(CaltropsItem::new).cutoutRender().build();
-    public static final BlockEntry<BasketBlock> BASKET = REGISTRY_HELPER.createBlock("basket", BasketBlock::new).blockItem(BasketItem::new).build();
-    public static final BlockEntry<CarpetBlock> WICKER_MAT = REGISTRY_HELPER.createBlock("wicker_mat", CarpetBlock::new, BlockBehaviour.Properties.of(Material.CLOTH_DECORATION, MaterialColor.COLOR_BROWN).strength(0.1F).sound(SoundType.WOOL)).build();
-    public static final BlockEntry<WickerLanternBlock> WICKER_LANTERN = REGISTRY_HELPER.createBlock("wicker_lantern", WickerLanternBlock::new).cutoutRender().build();
+    public static final BlockEntry<PeatBlock> PEAT = REG_HELPER.createBlock("peat", PeatBlock::new).blockItem(CreativeModeTab.TAB_BUILDING_BLOCKS).build();
+    public static final BlockEntry<PeatFarmBlock> TILLED_PEAT = REG_HELPER.createBlock("tilled_peat", PeatFarmBlock::new).build();
+    public static final BlockEntry<GrassBlock> FLOWERING_GRASS = REG_HELPER.createBlock("flowering_grass", GrassBlock::new, Properties.copy(Blocks.GRASS_BLOCK)).cutoutMippedRender().build();
+    public static final BlockEntry<GravelBlock> MOSSY_GRAVEL = REG_HELPER.createBlock("mossy_gravel", GravelBlock::new, Properties.copy(Blocks.GRAVEL)).build();
+    public static final BlockEntry<CaltropsBlock> CALTROPS = REG_HELPER.createBlock("caltrops", CaltropsBlock::new).blockItem(CaltropsItem::new).cutoutRender().build();
+    public static final BlockEntry<BasketBlock> BASKET = REG_HELPER.createBlock("basket", BasketBlock::new).blockItem(BasketItem::new).build();
+    public static final BlockEntry<CarpetBlock> WICKER_MAT = REG_HELPER.createBlock("wicker_mat", CarpetBlock::new, BlockBehaviour.Properties.of(Material.CLOTH_DECORATION, MaterialColor.COLOR_BROWN).strength(0.1F).sound(SoundType.WOOL)).build();
+    public static final BlockEntry<WickerLanternBlock> WICKER_LANTERN = REG_HELPER.createBlock("wicker_lantern", WickerLanternBlock::new).cutoutRender().build();
 
-    public static final BlockEntry<Block> HAZELNUT_SACK = TerraIncognita.REGISTRY_HELPER.createBlock("hazelnut_sack", Block.Properties.of(Material.WOOL, MaterialColor.COLOR_BROWN).strength(0.5F).sound(SoundType.WOOL)).build();
-    public static final BlockEntry<Block> SOUR_BERRY_SACK = TerraIncognita.REGISTRY_HELPER.createBlock("sour_berry_sack", Block.Properties.of(Material.WOOL, MaterialColor.TERRACOTTA_ORANGE).strength(0.5F).sound(SoundType.WOOL)).build();
+    public static final BlockEntry<RotatedPillarBlock> SWAMP_REEDS_BUNDLE = REG_HELPER.createBlock("swamp_reeds_bundle", RotatedPillarBlock::new, BlockBehaviour.Properties.of(Material.GRASS, MaterialColor.COLOR_BROWN).strength(0.5F).sound(SoundType.GRASS)).build();
+    public static final BlockEntry<Block> HAZELNUT_SACK = REG_HELPER.createBlock("hazelnut_sack", Block.Properties.of(Material.WOOL, MaterialColor.COLOR_BROWN).strength(0.5F).sound(SoundType.WOOL)).build();
+    public static final BlockEntry<Block> SOUR_BERRY_SACK = REG_HELPER.createBlock("sour_berry_sack", Block.Properties.of(Material.WOOL, MaterialColor.TERRACOTTA_ORANGE).strength(0.5F).sound(SoundType.WOOL)).build();
 
     static {
         ModWoodTypes.init();
@@ -146,19 +153,19 @@ public class ModBlocks {
     }
 
     public static <T extends Block> BlockEntry<T> createPlant(String id, Supplier<T> constructor, Function<Block, BlockItem> blockItemConstructor) {
-        var plant = REGISTRY_HELPER.createBlock(id, constructor).blockItem(blockItemConstructor).cutoutRender().build();
+        var plant = REG_HELPER.createBlock(id, constructor).blockItem(blockItemConstructor).cutoutRender().build();
         createFlowerPot(id, plant);
         return plant;
     }
 
     public static BlockEntry<TallFlowerBlock> createTallPlant(String id) {
-        var plant  = REGISTRY_HELPER.createBlock(id, TallFlowerBlock::new, Properties.copy(Blocks.ROSE_BUSH)).tallBlockItem(TAB_DECORATIONS).cutoutRender().build();
+        var plant  = REG_HELPER.createBlock(id, TallFlowerBlock::new, Properties.copy(Blocks.ROSE_BUSH)).tallBlockItem(TAB_DECORATIONS).cutoutRender().build();
         createFlowerPot(id, plant);
         return plant;
     }
 
     public static BlockEntry<WaterloggableTallFlowerBlock> createTallWaterloggablePlant(String id) {
-        var plant = REGISTRY_HELPER.createBlock(id, WaterloggableTallFlowerBlock::new).tallBlockItem(TAB_DECORATIONS).cutoutRender().build();
+        var plant = REG_HELPER.createBlock(id, WaterloggableTallFlowerBlock::new).tallBlockItem(TAB_DECORATIONS).cutoutRender().build();
         createFlowerPot(id, plant);
         return plant;
     }
@@ -166,16 +173,16 @@ public class ModBlocks {
     @SuppressWarnings("deprecation")
     private static void createFlowerPot(String id, Supplier<? extends Block> plantSupplier) {
         var props = Block.Properties.copy(Blocks.FLOWER_POT);
-        var pottedPlant = REGISTRY_HELPER.createBlock("potted_" + id, () -> new FlowerPotBlock(plantSupplier.get(), props)).noItemForm().cutoutRender().build();
+        var pottedPlant = REG_HELPER.createBlock("potted_" + id, () -> new FlowerPotBlock(plantSupplier.get(), props)).noItemForm().cutoutRender().build();
         FLOWER_POTS.put(id, pottedPlant);
     }
 
     private static BlockEntry<TILilyPadBlock> createLotus(String color) {
-        return REGISTRY_HELPER.createBlock(color + "_lotus", TILilyPadBlock::new, Properties.copy(Blocks.LILY_PAD)).blockItem(WaterLilyBlockItem::new, TAB_DECORATIONS).cutoutRender().build();
+        return REG_HELPER.createBlock(color + "_lotus", TILilyPadBlock::new, Properties.copy(Blocks.LILY_PAD)).blockItem(WaterLilyBlockItem::new, TAB_DECORATIONS).cutoutRender().build();
     }
 
     private static BlockEntry<SweetPeasBlock> createSweetPeas(String color) {
-        return REGISTRY_HELPER.createBlock(color + "_sweet_peas", SweetPeasBlock::new).cutoutRender().build();
+        return REG_HELPER.createBlock(color + "_sweet_peas", SweetPeasBlock::new).cutoutRender().build();
     }
 
     public static void initFlammability() {
@@ -196,6 +203,7 @@ public class ModBlocks {
         }
 
         DataUtil.registerFlammable(CACTUS_FLOWER, 60, 100);
+        DataUtil.registerFlammable(SWAMP_REEDS_BUNDLE, 60, 20);
         DataUtil.registerFlammable(WICKER_MAT, 60, 20);
     }
 }

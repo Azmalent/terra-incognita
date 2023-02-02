@@ -14,6 +14,7 @@ import azmalent.terraincognita.datagen.client.TIItemModelProvider;
 import azmalent.terraincognita.datagen.server.TIBlockTagProvider;
 import azmalent.terraincognita.datagen.server.TIItemTagProvider;
 import azmalent.terraincognita.datagen.server.TILootTableProvider;
+import azmalent.terraincognita.datagen.server.TIRecipeProvider;
 import azmalent.terraincognita.integration.ModIntegration;
 import azmalent.terraincognita.integration.top.ButterflyInfoProvider;
 import azmalent.terraincognita.proxy.ClientProxy;
@@ -40,7 +41,7 @@ public class TerraIncognita {
     public static final Logger LOGGER = LogManager.getLogger(MODID);
 
     public static final IProxy PROXY = DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> ServerProxy::new);
-    public static final RegistryHelper REGISTRY_HELPER = new RegistryHelper(MODID);
+    public static final RegistryHelper REG_HELPER = new RegistryHelper(MODID);
 
     public TerraIncognita() {
         initConfigs();
@@ -116,6 +117,7 @@ public class TerraIncognita {
             generator.addProvider(blockTags);
             generator.addProvider(new TIItemTagProvider(generator, blockTags, exFileHelper));
             generator.addProvider(new TILootTableProvider(generator));
+            generator.addProvider(new TIRecipeProvider(generator));
         }
     }
 

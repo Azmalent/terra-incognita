@@ -1,0 +1,6 @@
+{
+  "parent": "terraincognita:block/boards",
+  "textures": {
+    "all": "terraincognita:block/apple_boards"
+  }
+}

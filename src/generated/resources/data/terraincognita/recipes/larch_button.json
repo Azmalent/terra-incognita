@@ -1,0 +1,25 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:larch",
+          "type": "cuneiform:config"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shapeless",
+        "group": "wooden_button",
+        "ingredients": [
+          {
+            "item": "terraincognita:larch_planks"
+          }
+        ],
+        "result": {
+          "item": "terraincognita:larch_button"
+        }
+      }
+    }
+  ]
+}

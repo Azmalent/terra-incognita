@@ -1,0 +1,46 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:sweet_peas",
+          "type": "cuneiform:config"
+        }
+      ],
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "minecraft:light_blue_dye"
+          ]
+        },
+        "criteria": {
+          "has_light_blue_sweet_peas": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "terraincognita:light_blue_sweet_peas"
+                  ]
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "minecraft:light_blue_dye"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_light_blue_sweet_peas",
+            "has_the_recipe"
+          ]
+        ]
+      }
+    }
+  ]
+}

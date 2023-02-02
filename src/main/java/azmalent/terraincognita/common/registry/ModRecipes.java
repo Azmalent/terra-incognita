@@ -16,11 +16,11 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.function.Function;
 
-import static azmalent.terraincognita.TerraIncognita.REGISTRY_HELPER;
+import static azmalent.terraincognita.TerraIncognita.REG_HELPER;
 
 @SuppressWarnings("unused")
 public class ModRecipes {
-    public static final DeferredRegister<RecipeSerializer<?>> RECIPES = REGISTRY_HELPER.getOrCreateRegistry(ForgeRegistries.RECIPE_SERIALIZERS);
+    public static final DeferredRegister<RecipeSerializer<?>> RECIPES = REG_HELPER.getOrCreateRegistry(ForgeRegistries.RECIPE_SERIALIZERS);
 
     public static final RegistryObject<SimpleRecipeSerializer<?>> FIDDLEHEAD_SUSPICIOUS_STEW = registerRecipe("fiddlehead_suspicious_stew", FiddleheadStewRecipe::new);
     public static RegistryObject<SimpleRecipeSerializer<?>> FIDDLEHEAD_SUSPICIOUS_STEW_ADDITION = registerRecipe("fiddlehead_suspicious_stew_addition", FiddleheadStewAdditionRecipe::new);

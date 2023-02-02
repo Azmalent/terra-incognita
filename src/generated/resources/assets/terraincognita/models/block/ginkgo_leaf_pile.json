@@ -1,0 +1,6 @@
+{
+  "parent": "terraincognita:block/leaf_pile",
+  "textures": {
+    "all": "terraincognita:block/ginkgo_leaves"
+  }
+}

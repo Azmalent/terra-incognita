@@ -20,9 +20,12 @@ import static azmalent.terraincognita.common.registry.ModBlocks.*;
 public class TIBlockTagProvider extends BlockTagsProvider {
     private final TagKey<Block> BOOKSHELVES = blockTag("forge", "bookshelves");
 
+    private final TagKey<Block> HEDGES = blockTag("quark", "hedges");
     private final TagKey<Block> LADDERS = blockTag("quark", "ladders");
     private final TagKey<Block> VERTICAL_SLABS = blockTag("quark", "vertical_slab");
     private final TagKey<Block> WOODEN_VERTICAL_SLABS = blockTag("quark", "wooden_vertical_slabs");
+
+    private final TagKey<Block> LEAF_PILES = blockTag("blueprint", "leaf_piles");
 
     private final TagKey<Block> SNOW_CONTAINABLE = blockTag("snowrealmagic", "containables");
 
@@ -66,15 +69,19 @@ public class TIBlockTagProvider extends BlockTagsProvider {
             tag(Tags.Blocks.FENCES_WOODEN).add(type.FENCE.get());
             tag(BOOKSHELVES).add(type.BOOKSHELF.get());
 
+            //Blueprint
+            tag(LEAF_PILES).add(type.LEAF_PILE.get());
+
             //Quark
-            tag(blockTag("quark", "hedges")).add(type.HEDGE.get());
+            tag(HEDGES).add(type.HEDGE.get());
             tag(LADDERS).add(type.LADDER.get());
             tag(VERTICAL_SLABS).add(type.VERTICAL_SLAB.get());
             tag(WOODEN_VERTICAL_SLABS).add(type.VERTICAL_SLAB.get());
         });
 
         tag(BlockTags.LEAVES).add(ModWoodTypes.APPLE.BLOSSOMING_LEAVES.get());
-        tag(blockTag("quark", "hedges")).add(ModWoodTypes.APPLE.BLOSSOMING_HEDGE.get());
+        tag(HEDGES).add(ModWoodTypes.APPLE.BLOSSOMING_HEDGE.get());
+        tag(LEAF_PILES).add(ModWoodTypes.APPLE.BLOSSOMING_LEAF_PILE.get());
 
         tag(BlockTags.ANIMALS_SPAWNABLE_ON).add(FLOWERING_GRASS.get());
         tag(BlockTags.BEE_GROWABLES).add(SOUR_BERRY_SPROUTS.get()).add(SOUR_BERRY_BUSH.get());
@@ -140,6 +147,7 @@ public class TIBlockTagProvider extends BlockTagsProvider {
         tag(BlockTags.MINEABLE_WITH_HOE)
             .add(ModWoodTypes.APPLE.BLOSSOMING_LEAF_CARPET.get())
             .add(ModWoodTypes.APPLE.BLOSSOMING_LEAVES.get())
+            .add(SWAMP_REEDS_BUNDLE.get())
             .add(HAZELNUT_SACK.get())
             .add(SOUR_BERRY_SACK.get());
 

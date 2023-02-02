@@ -15,10 +15,10 @@ import terrablender.api.Regions;
 import java.util.List;
 import java.util.Map;
 
-import static azmalent.terraincognita.TerraIncognita.REGISTRY_HELPER;
+import static azmalent.terraincognita.TerraIncognita.REG_HELPER;
 
 public class ModBiomes {
-    public static final DeferredRegister<Biome> BIOMES = REGISTRY_HELPER.getOrCreateRegistry(ForgeRegistries.BIOMES);
+    public static final DeferredRegister<Biome> BIOMES = REG_HELPER.getOrCreateRegistry(ForgeRegistries.BIOMES);
     public static final List<TIBiomeEntry> BIOME_LIST = Lists.newArrayList();
     public static final Map<ResourceLocation, TIBiomeEntry> BIOMES_BY_NAME = Maps.newHashMap();
 

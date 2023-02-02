@@ -76,6 +76,7 @@
   "block.terraincognita.hanging_moss": "Hanging Moss",
   "block.terraincognita.swamp_reeds": "Swamp Reeds",
   "block.terraincognita.potted_swamp_reeds": "Potted Swamp Reeds",
+  "block.terraincognita.swamp_reeds_bundle": "Swamp Reeds Bundle",
   "block.terraincognita.caribou_moss": "Caribou Moss",
   "block.terraincognita.potted_caribou_moss": "Potted Caribou Moss",
   "block.terraincognita.smooth_cactus": "Smooth Cactus",
@@ -124,6 +125,9 @@
   "block.terraincognita.apple_leaf_carpet": "Apple Leaf Carpet",
   "block.terraincognita.blossoming_apple_leaf_carpet": "Blossoming Apple Leaf Carpet",
   "block.terraincognita.apple_beehive": "Apple Beehive",
+  "block.terraincognita.apple_boards": "Apple Boards",
+  "block.terraincognita.apple_leaf_pile": "Apple Leaf Pile",
+  "block.terraincognita.blossoming_apple_leaf_pile": "Blossoming Apple Leaf Pile",
   "block.terraincognita.apple_cabinet": "Apple Cabinet",
 
   "block.terraincognita.ginkgo_sapling": "Ginkgo Sapling",
@@ -154,6 +158,8 @@
   "block.terraincognita.ginkgo_hedge": "Ginkgo Hedge",
   "block.terraincognita.ginkgo_leaf_carpet": "Ginkgo Leaf Carpet",
   "block.terraincognita.ginkgo_beehive": "Ginkgo Beehive",
+  "block.terraincognita.ginkgo_boards": "Ginkgo Boards",
+  "block.terraincognita.ginkgo_leaf_pile": "Ginkgo Leaf Pile",
   "block.terraincognita.ginkgo_cabinet": "Ginkgo Cabinet",
 
   "block.terraincognita.hazel_sapling": "Hazel Sapling",
@@ -184,6 +190,8 @@
   "block.terraincognita.hazel_hedge": "Hazel Hedge",
   "block.terraincognita.hazel_leaf_carpet": "Hazel Leaf Carpet",
   "block.terraincognita.hazel_beehive": "Hazel Beehive",
+  "block.terraincognita.hazel_boards": "Hazel Boards",
+  "block.terraincognita.hazel_leaf_pile": "Hazel Leaf Pile",
   "block.terraincognita.hazel_cabinet": "Hazel Cabinet",
   "block.terraincognita.hazelnut_sack": "Hazelnut Sack",
 
@@ -215,6 +223,8 @@
   "block.terraincognita.larch_hedge": "Larch Hedge",
   "block.terraincognita.larch_leaf_carpet": "Larch Leaf Carpet",
   "block.terraincognita.larch_beehive": "Larch Beehive",
+  "block.terraincognita.larch_boards": "Larch Boards",
+  "block.terraincognita.larch_leaf_pile": "Larch Leaf Pile",
   "block.terraincognita.larch_cabinet": "Larch Cabinet",
 
   "item.terraincognita.taffy": "Taffy",

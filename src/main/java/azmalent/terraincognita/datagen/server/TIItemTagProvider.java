@@ -131,6 +131,8 @@ public class TIItemTagProvider extends ItemTagsProvider {
         copyModTag("quark", "ladders");
         copyModTag("quark", "vertical_slab");
         copyModTag("quark", "wooden_vertical_slab");
+
+        copyModTag("blueprint", "leaf_piles");
     }
 
     private void copyModTag(String modid, String id) {

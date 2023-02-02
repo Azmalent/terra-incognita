@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "terraincognita:block/swamp_reeds_bundle_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "terraincognita:block/swamp_reeds_bundle"
+    },
+    "axis=z": {
+      "model": "terraincognita:block/swamp_reeds_bundle_horizontal",
+      "x": 90
+    }
+  }
+}

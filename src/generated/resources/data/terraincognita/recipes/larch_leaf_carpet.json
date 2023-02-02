@@ -1,0 +1,38 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "values": [
+            {
+              "config": "terraincognita:larch",
+              "type": "cuneiform:config"
+            },
+            {
+              "modid": "quark",
+              "type": "forge:mod_loaded"
+            }
+          ],
+          "type": "forge:and"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "group": "leaf_carpet",
+        "pattern": [
+          "##"
+        ],
+        "key": {
+          "#": {
+            "item": "terraincognita:larch_leaves"
+          }
+        },
+        "result": {
+          "item": "terraincognita:larch_leaf_carpet",
+          "count": 3
+        }
+      }
+    }
+  ]
+}

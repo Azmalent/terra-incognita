@@ -6,10 +6,10 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-import static azmalent.terraincognita.TerraIncognita.REGISTRY_HELPER;
+import static azmalent.terraincognita.TerraIncognita.REG_HELPER;
 
 public class ModFeatures {
-    public static final DeferredRegister<Feature<?>> FEATURES = REGISTRY_HELPER.getOrCreateRegistry(ForgeRegistries.FEATURES);
+    public static final DeferredRegister<Feature<?>> FEATURES = REG_HELPER.getOrCreateRegistry(ForgeRegistries.FEATURES);
 
     public static final RegistryObject<CactusFlowerFeature> CACTUS_FLOWERS  = FEATURES.register("cactus_flowers", CactusFlowerFeature::new);
     public static final RegistryObject<CaribouMossFeature>  CARIBOU_MOSS    = FEATURES.register("caribou_moss", CaribouMossFeature::new);

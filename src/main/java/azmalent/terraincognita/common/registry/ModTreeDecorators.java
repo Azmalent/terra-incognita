@@ -10,10 +10,10 @@ import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import static azmalent.terraincognita.TerraIncognita.REGISTRY_HELPER;
+import static azmalent.terraincognita.TerraIncognita.REG_HELPER;
 
 public class ModTreeDecorators {
-    public static final DeferredRegister<TreeDecoratorType<?>> TREE_DECORATORS = REGISTRY_HELPER.getOrCreateRegistry(ForgeRegistries.TREE_DECORATOR_TYPES);
+    public static final DeferredRegister<TreeDecoratorType<?>> TREE_DECORATORS = REG_HELPER.getOrCreateRegistry(ForgeRegistries.TREE_DECORATOR_TYPES);
 
     public static final RegistryObject<TreeDecoratorType<AppleDecorator>> APPLES = register("apples", AppleDecorator.CODEC);
     public static final RegistryObject<TreeDecoratorType<HazelnutDecorator>> HAZELNUTS = register("hazelnuts", HazelnutDecorator.CODEC);
