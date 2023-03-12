@@ -177,3 +177,5 @@ run/
 .mypy_cache
 
 .idea/runConfigurations/
+
+**/.cache/
