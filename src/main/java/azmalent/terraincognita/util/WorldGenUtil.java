@@ -13,10 +13,11 @@ import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.registries.RegistryObject;
 
 import static net.minecraftforge.common.BiomeDictionary.Type.*;
 
-@SuppressWarnings("deprecation")
+@SuppressWarnings({"deprecation", "OptionalGetWithoutIsPresent"})
 public class WorldGenUtil {
     public static ResourceKey<Biome> getBiomeKey(ResourceLocation location) {
         return ResourceKey.create(Registry.BIOME_REGISTRY, location);
@@ -64,23 +65,23 @@ public class WorldGenUtil {
     }
 
     @SafeVarargs
-    public static void addVegetation(BiomeGenerationSettings.Builder builder, Holder<PlacedFeature>... features) {
-        for (Holder<PlacedFeature> feature : features) {
-            builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, feature);
+    public static void addVegetation(BiomeGenerationSettings.Builder builder, RegistryObject<PlacedFeature>... features) {
+        for (RegistryObject<PlacedFeature> feature : features) {
+            builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, feature.getHolder().get());
         }
     }
 
     @SafeVarargs
-    public static void addOre(BiomeGenerationSettings.Builder builder, Holder<PlacedFeature>... features) {
-        for (Holder<PlacedFeature> feature : features) {
-            builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, feature);
+    public static void addOre(BiomeGenerationSettings.Builder builder, RegistryObject<PlacedFeature>... features) {
+        for (RegistryObject<PlacedFeature> feature : features) {
+            builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, feature.getHolder().get());
         }
     }
 
     @SafeVarargs
-    public static void addModification(BiomeGenerationSettings.Builder builder, Holder<PlacedFeature>... features) {
-        for (Holder<PlacedFeature> feature : features) {
-            builder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, feature);
+    public static void addModification(BiomeGenerationSettings.Builder builder, RegistryObject<PlacedFeature>... features) {
+        for (RegistryObject<PlacedFeature> feature : features) {
+            builder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, feature.getHolder().get());
         }
     }
 }

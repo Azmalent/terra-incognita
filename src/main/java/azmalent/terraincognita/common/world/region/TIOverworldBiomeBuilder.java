@@ -54,7 +54,7 @@ public class TIOverworldBiomeBuilder extends OverworldBiomeBuilder {
     }
 
     private static final TIBiomeEntry[][] MIDDLE_BIOMES = {
-        { null, ModBiomes.TUNDRA, ModBiomes.SNOWY_BOREAL_FOREST, ModBiomes.SNOWY_BOREAL_FOREST, ModBiomes.BOREAL_FOREST },
+        { null, null, ModBiomes.SNOWY_BOREAL_FOREST, ModBiomes.SNOWY_BOREAL_FOREST, ModBiomes.BOREAL_FOREST },
         { null, null, null, ModBiomes.BOREAL_FOREST, ModBiomes.BOREAL_FOREST },
         { null, null, ModBiomes.LUSH_PLAINS, ModBiomes.LUSH_PLAINS, null },
         { null, null, null, null, null },
@@ -71,7 +71,7 @@ public class TIOverworldBiomeBuilder extends OverworldBiomeBuilder {
 
     //TODO: variant plateau biomes
     private static final TIBiomeEntry[][] PLATEAU_BIOMES = {
-        {null, ModBiomes.TUNDRA, ModBiomes.SNOWY_BOREAL_FOREST, null, null},
+        {null, null, ModBiomes.SNOWY_BOREAL_FOREST, null, null},
         {null, null, ModBiomes.BOREAL_FOREST, null, null},
         {null, null, null, ModBiomes.GINKGO_GROVE, null},
         {null, null, null, ModBiomes.GINKGO_GROVE, null},

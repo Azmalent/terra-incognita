@@ -62,50 +62,50 @@ public class BiomeHandler {
         } else {
             var category = WorldGenUtil.getProperBiomeCategory(biome);
             switch (category) {
-                case PLAINS:
+                case PLAINS -> {
                     ModDefaultFeatures.appleTrees(generation);
-                    break;
+                }
 
-                case FOREST:
+                case FOREST -> {
                     ModDefaultFeatures.forestFlowers(generation);
                     ModDefaultFeatures.hazelTrees(generation);
-                    break;
+                }
 
-                case SWAMP:
+                case SWAMP -> {
                     ModDefaultFeatures.swampReeds(generation);
                     ModDefaultFeatures.peatAndMossyGravel(generation);
                     if (!BiomeDictionary.hasType(key, COLD)) {
                         ModDefaultFeatures.swampFlowers(generation);
                     }
-                    break;
+                }
 
-                case DESERT:
+                case DESERT -> {
                     ModDefaultFeatures.desertVegetation(generation);
-                    break;
+                }
 
-                case SAVANNA:
+                case SAVANNA -> {
                     ModDefaultFeatures.savannaFlowers(generation);
-                    break;
+                }
 
-                case EXTREME_HILLS:
+                case EXTREME_HILLS -> {
                     if (!BiomeDictionary.hasType(key, HOT)) {
                         ModDefaultFeatures.alpineFlowers(generation);
                         ModDefaultFeatures.sparseLarchTrees(generation);
                     }
-                    break;
+                }
 
-                case JUNGLE:
+                case JUNGLE -> {
                     ModDefaultFeatures.jungleVegetation(generation);
-                    break;
+                }
 
-                case ICY:
+                case ICY, TAIGA -> {
                     ModDefaultFeatures.caribouMoss(generation);
                     ModDefaultFeatures.rareLarchTrees(generation);
-                    //Intentional fall-through!
 
-                case TAIGA:
-                    ModDefaultFeatures.arcticFlowers(generation);
-                    break;
+                    if (category == Biome.BiomeCategory.TAIGA) {
+                        ModDefaultFeatures.arcticFlowers(generation);
+                    }
+                }
             }
         }
     }

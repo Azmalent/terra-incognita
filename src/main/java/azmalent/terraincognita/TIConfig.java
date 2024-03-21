@@ -70,7 +70,7 @@ public class TIConfig extends ConfigFile {
         public static final BooleanOption alpineFlowers = BooleanOption.of(true, "alpine_flowers");
 
         @Name("Arctic Flowers Enabled")
-        @Comment("Adds heather, white dryads, fireweed and white rhododendrons to taiga and tundra biomes.")
+        @Comment("Adds heather, white dryads, fireweed and white rhododendrons to cold biomes.")
         public static final BooleanOption arcticFlowers = BooleanOption.of(true, "arctic_flowers");
 
         @Name("Sweet Peas Enabled")
@@ -83,11 +83,11 @@ public class TIConfig extends ConfigFile {
         public static final BooleanOption wreath = BooleanOption.of(true, "wreath");
 
         @Name("Caribou Moss Enabled")
-        @Comment("Caribou moss is a grass-like plant found in tundras.")
+        @Comment("Caribou moss is a grass-like plant found in cold biomes.")
         public static final BooleanOption caribouMoss = BooleanOption.of(true);
 
         @Name("Sour Berries Enabled")
-        @Comment("Sour berries can be found growing on water in tundra biomes.")
+        @Comment("Sour berries can be found growing on water in taiga biomes.")
         public static final BooleanOption sourBerries = BooleanOption.of(true, "sour_berries");
 
         @Name("Hanging Moss Enabled")
@@ -124,7 +124,6 @@ public class TIConfig extends ConfigFile {
         public static final BooleanOption borealForest = BooleanOption.of(true);
         public static final BooleanOption ginkgoGrove = BooleanOption.of(true);
         public static final BooleanOption lushPlains = BooleanOption.of(true);
-        public static final BooleanOption tundra = BooleanOption.of(true);
     }
 
     public static final class Food {

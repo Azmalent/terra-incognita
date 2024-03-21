@@ -30,7 +30,8 @@ public class GinkgoTree extends AbstractTreeGrower {
     }
 
     @Override
+    @SuppressWarnings("OptionalGetWithoutIsPresent")
     protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(@NotNull Random random, boolean largeHive) {
-        return ModTreeFeatures.GINKGO;
+        return ModTreeFeatures.GINKGO.getHolder().get();
     }
 }

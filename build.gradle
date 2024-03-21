@@ -1,52 +1,34 @@
-buildscript {
-    repositories {
-        maven { url = 'https://maven.minecraftforge.net/' }
-        maven { url = 'https://maven.parchmentmc.org' }
-        maven { url = 'https://repo.spongepowered.org/maven' }
-        mavenCentral()
-    }
-    dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
-        classpath group: 'org.parchmentmc', name: 'librarian', version: '1.+'
-        classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-SNAPSHOT'
-    }
+//file:noinspection SpellCheckingInspection
+plugins {
+    id 'idea'
+    id 'net.minecraftforge.gradle' version '[6.0.16, 6.2)'
+    id 'org.parchmentmc.librarian.forgegradle' version '1.+'
+    id 'org.spongepowered.mixin' version '0.7-SNAPSHOT'
 }
 
-apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'org.parchmentmc.librarian.forgegradle'
-apply plugin: 'org.spongepowered.mixin'
+group = "azmalent"
+version = "${minecraft_version}-${mod_version}"
 
-ext.configFile = file('build.properties')
-ext.config = parseConfig(configFile)
+base {
+    archivesName = modid
+}
 
-version = "${config.minecraft_version}-${config.mod_version}"
-group = "azmalent.${config.modid}"
-archivesBaseName = config.modid
-
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
-compileJava.options.compilerArgs << "-Xlint:all,-deprecation,-processing"
-
-println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
-
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
+java{
+    toolchain.languageVersion = JavaLanguageVersion.of(17)
 }
 
 minecraft {
-    mappings channel: config.mappings_channel, version: config.mappings_version
+    mappings channel: 'parchment', version: "${mappings_version}-${minecraft_version}"
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
     runs {
         client {
             workingDirectory project.file('run')
-
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-            property 'forge.logging.console.level', 'debug'
-            property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
+            taskName 'Client'
             property 'mixin.env.remapRefMap', 'true'
-
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
             mods {
-                terraincognita {
+                modClientRun {
                     source sourceSets.main
                 }
             }
@@ -54,14 +36,11 @@ minecraft {
 
         server {
             workingDirectory project.file('run')
-
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-            property 'forge.logging.console.level', 'debug'
-            property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
+            taskName 'Server'
             property 'mixin.env.remapRefMap', 'true'
-
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
             mods {
-                terraincognita {
+                modServerRun {
                     source sourceSets.main
                 }
             }
@@ -69,22 +48,20 @@ minecraft {
 
         data {
             workingDirectory project.file('run')
-
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-            property 'forge.logging.console.level', 'debug'
-            property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
+            args '--mod', modid, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            taskName 'Data'
             property 'mixin.env.remapRefMap', 'true'
-
-            args '--mod', 'terraincognita', '--all', '--output', file('src/generated/resources/')
-
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
             mods {
-                terraincognita {
+                modDataRun {
                     source sourceSets.main
                 }
             }
         }
     }
 }
+
+sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
     maven {
@@ -106,81 +83,94 @@ repositories {
 }
 
 dependencies {
-    minecraft "net.minecraftforge:forge:${config.minecraft_version}-${config.forge_version}"
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
-    implementation fg.deobf("curse.maven:cuneiform-419176:${config.cuneiform_file_id}")
-    implementation fg.deobf("com.github.glitchfiend:TerraBlender-forge:${config.minecraft_version}-${config.terrablender_version}")
+    implementation fg.deobf("curse.maven:cuneiform-419176:${cuneiform_file_id}")
+    implementation fg.deobf("com.github.glitchfiend:TerraBlender-forge:${minecraft_version}-${terrablender_version}")
 
-    runtimeOnly fg.deobf("curse.maven:rubidium-574856:${config.rubidium_file_id}")
-    runtimeOnly fg.deobf("curse.maven:cyanide-forge-541676:${config.cyanide_file_id}")
+    runtimeOnly fg.deobf("curse.maven:rubidium-574856:${rubidium_file_id}")
+    runtimeOnly fg.deobf("curse.maven:cyanide-forge-541676:${cyanide_file_id}")
 
-    compileOnly fg.deobf("mezz.jei:jei-${config.minecraft_version}:${config.jei_version}:api")
-    runtimeOnly fg.deobf("mezz.jei:jei-${config.minecraft_version}:${config.jei_version}")
+    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}:api")
+    runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}")
 
-    compileOnly fg.deobf("curse.maven:jade-api-324717:${config.jade_api_file_id}")
-    runtimeOnly fg.deobf("curse.maven:jade-324717:${config.jade_file_id}")
+    compileOnly fg.deobf("curse.maven:jade-api-324717:${jade_api_file_id}")
+    runtimeOnly fg.deobf("curse.maven:jade-324717:${jade_file_id}")
 
     implementation fg.deobf("curse.maven:the-one-probe-245211:3671753") //not yet on maven
 
     runtimeOnly fg.deobf("vazkii.autoreglib:AutoRegLib:1.7-54.112")
-    implementation fg.deobf("vazkii.quark:Quark:${config.quark_version}.${config.quark_build_number}")
+    implementation fg.deobf("vazkii.quark:Quark:${quark_version}.${quark_build_number}")
 
-    implementation fg.deobf("curse.maven:farmers-delight-398521:${config.farmers_delight_file_id}")
+    implementation fg.deobf("curse.maven:farmers-delight-398521:${farmers_delight_file_id}")
 
-    compileOnly fg.deobf("vazkii.botania:Botania:${config.botania_version}:api")
+    compileOnly fg.deobf("vazkii.botania:Botania:${minecraft_version}-${botania_version}:api")
 }
 
 mixin {
-    add sourceSets.main, "${config.modid}.mixins.refmap.json"
-    config "${config.modid}.mixins.json"
+    add sourceSets.main, "${modid}.mixins.refmap.json"
+    config "${modid}.mixins.json"
 }
 
 processResources {
-    from(sourceSets.main.resources.srcDirs) {
+    var replaceProperties = [
+            'mod_name': mod_name, 'mod_version': project.version,
+            'minecraft_version': minecraft_version, 'minecraft_version_range': minecraft_version_range,
+            'fml_min': fml_min, 'forge_version': forge_version,
+            'cuneiform_version': cuneiform_version,
+            'terrablender_version': terrablender_version,
+            'jei_version': jei_version,
+            'quark_version': quark_version
+    ]
+
+    inputs.properties replaceProperties
+
+    filesMatching('META-INF/mods.toml') {
+        expand replaceProperties + [project: project]
+    }
+
+/*    from(sourceSets.main.resources.srcDirs) {
         include 'META-INF/mods.toml'
 
-        expand 'mod_name': config.mod_name, 'mod_version': project.version,
-                'minecraft_version': config.minecraft_version, 'minecraft_version_range': config.minecraft_version_range,
-                'fml_min': config.fml_min, 'forge_version': config.forge_version,
-                'cuneiform_version': config.cuneiform_version,
-                'terrablender_version': config.terrablender_version,
-                'jei_version': config.jei_version,
-                'quark_version': config.quark_version
+        expand 'mod_name': mod_name, 'mod_version': project.version,
+                'minecraft_version': minecraft_version, 'minecraft_version_range': minecraft_version_range,
+                'fml_min': fml_min, 'forge_version': forge_version,
+                'cuneiform_version': cuneiform_version,
+                'terrablender_version': terrablender_version,
+                'jei_version': jei_version,
+                'quark_version': quark_version
     }
 
     from(sourceSets.main.resources.srcDirs) {
         exclude 'META-INF/mods.toml'
     }
 
-    duplicatesStrategy 'include'
+    duplicatesStrategy 'include'*/
 }
 
 jar {
     manifest {
         attributes([
-                "Specification-Title": "${config.modid}",
+                "Specification-Title": modid,
                 "Specification-Vendor": "azmalent",
                 "Specification-Version": "1", // We are version 1 of ourselves
-                "Implementation-Title": "${config.modid}",
-                "Implementation-Version": "${config.mod_version}",
+                "Implementation-Title": project.name,
+                "Implementation-Version": project.jar.archiveVersion,
                 "Implementation-Vendor": "azmalent",
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
 
                 'TweakClass': 'org.spongepowered.asm.launch.MixinTweaker',
-                "MixinConfigs": "${config.modid}.mixins.json",
+                "MixinConfigs": "${modid}.mixins.json",
                 'FMLCorePluginContainsFMLMod': 'true',
                 'ForceLoadAsMod': 'true'
         ])
     }
+
+    finalizedBy 'reobfJar'
 }
 
-static def parseConfig(File config) {
-    config.withReader {
-        def prop = new Properties()
-        prop.load(it)
-        return (new ConfigSlurper().parse(prop))
-    }
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << "-Xlint:all,-deprecation,-processing"
 }
-
-jar.finalizedBy('reobfJar')

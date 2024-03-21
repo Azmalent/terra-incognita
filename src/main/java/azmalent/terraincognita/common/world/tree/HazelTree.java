@@ -13,7 +13,6 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProv
 import net.minecraft.world.level.levelgen.feature.trunkplacers.FancyTrunkPlacer;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.OptionalInt;
 import java.util.Random;
@@ -37,9 +36,9 @@ public class HazelTree extends AbstractTreeGrower {
         return builder.build();
     }
 
-    @Nullable
     @Override
+    @SuppressWarnings("OptionalGetWithoutIsPresent")
     protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(@Nonnull Random random, boolean largeHive) {
-        return ModTreeFeatures.HAZEL_GROWN;
+        return ModTreeFeatures.HAZEL_GROWN.getHolder().get();
     }
 }

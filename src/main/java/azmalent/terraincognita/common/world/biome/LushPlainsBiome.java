@@ -50,7 +50,7 @@ public class LushPlainsBiome extends TIBiomeEntry {
     @Override
     public void initFeatures(BiomeGenerationSettings.Builder builder) {
         defaultFeatures(builder);
-        BiomeDefaultFeatures.addDefaultOres(builder);
+        /*BiomeDefaultFeatures.addDefaultOres(builder);
         BiomeDefaultFeatures.addDefaultSoftDisks(builder);
 
         BiomeDefaultFeatures.addPlainGrass(builder);
@@ -58,7 +58,7 @@ public class LushPlainsBiome extends TIBiomeEntry {
         BiomeDefaultFeatures.addDefaultMushrooms(builder);
         BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
 
-        ModDefaultFeatures.appleTrees(builder);
+        ModDefaultFeatures.appleTrees(builder);*/
     }
 
     @Override

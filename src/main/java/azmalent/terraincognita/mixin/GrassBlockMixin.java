@@ -6,6 +6,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.GrassBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -19,15 +20,16 @@ import java.util.Random;
  */
 @Mixin(GrassBlock.class)
 public class GrassBlockMixin {
-    private Random argRandom;
+    @Unique
+    private Random terraincognita$random;
 
     @Inject(method = "performBonemeal", at = @At("HEAD"))
     public void storeRandom(ServerLevel level, Random random, BlockPos pos, BlockState state, CallbackInfo ci) {
-        argRandom = random;
+        this.terraincognita$random = random;
     }
 
     @Redirect(method = "performBonemeal", at = @At(value = "INVOKE", target = "Ljava/util/List;get(I)Ljava/lang/Object;"))
     public <T> T get(List<T> self, int index) {
-        return Util.getRandom(self, argRandom);
+        return Util.getRandom(self, terraincognita$random);
     }
 }

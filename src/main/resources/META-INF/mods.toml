@@ -1,7 +1,7 @@
 modLoader="javafml"
 loaderVersion="[${fml_min},)"
 license="GPL v3.0"
-displayURL="https://www.curseforge.com/minecraft/mc-mods/terraincognita"
+displayURL="https://modrinth.com/mod/terra-incognita"
 issueTrackerURL="https://github.com/Azmalent/terra-incognita/issues"
 
 [[mods]]

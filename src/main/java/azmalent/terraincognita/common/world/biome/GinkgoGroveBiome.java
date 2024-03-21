@@ -50,7 +50,8 @@ public class GinkgoGroveBiome extends TIBiomeEntry {
     @Override
     public void initFeatures(BiomeGenerationSettings.Builder builder) {
         defaultFeatures(builder);
-        BiomeDefaultFeatures.addDefaultOres(builder);
+
+        /*BiomeDefaultFeatures.addDefaultOres(builder);
         BiomeDefaultFeatures.addDefaultSoftDisks(builder);
 
         BiomeDefaultFeatures.addLightBambooVegetation(builder);
@@ -63,7 +64,7 @@ public class GinkgoGroveBiome extends TIBiomeEntry {
         BiomeDefaultFeatures.addSparseJungleMelons(builder);
 
         ModDefaultFeatures.jungleVegetation(builder);
-        ModDefaultFeatures.ginkgoGroveVegetation(builder);
+        ModDefaultFeatures.ginkgoGroveVegetation(builder);*/
     }
 
     @Override

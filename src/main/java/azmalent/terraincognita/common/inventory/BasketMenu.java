@@ -58,7 +58,7 @@ public class BasketMenu extends AbstractContainerMenu {
         try {
             return new BasketMenu(windowId, playerInventory, new BasketStackHandler(), ItemStack.EMPTY);
         } catch (IllegalArgumentException e) {
-            TerraIncognita.LOGGER.warn(e);
+            TerraIncognita.LOGGER.warn("Failed to decode BasketMenu", e);
         }
 
         return null;

@@ -1,27 +1,38 @@
 package azmalent.terraincognita.common.world.placement;
 
+import azmalent.terraincognita.common.registry.ModPlacedFeatures;
 import azmalent.terraincognita.common.world.configured.ModMiscFeatures;
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.features.MiscOverworldFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraftforge.registries.RegistryObject;
+
+import java.util.List;
 
 public class ModMiscFeaturePlacements {
-    public static final Holder<PlacedFeature> PEAT_DISK = PlacementUtils.register(
-        "peat_disk", ModMiscFeatures.PEAT_DISK, InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_TOP_SOLID, BiomeFilter.biome()
+    public static void init() {
+        //Called to force static constructor
+    }
+
+    public static final RegistryObject<PlacedFeature> PEAT_DISK = ModPlacedFeatures.register(
+        "peat_disk", ModMiscFeatures.PEAT_DISK, () -> List.of(
+            InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_TOP_SOLID, BiomeFilter.biome()
+        )
     );
 
-    public static final Holder<PlacedFeature> MOSSY_GRAVEL_DISK = PlacementUtils.register(
-        "mossy_gravel_disk", ModMiscFeatures.MOSSY_GRAVEL_DISK, InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_TOP_SOLID, BiomeFilter.biome()
+    public static final RegistryObject<PlacedFeature> MOSSY_GRAVEL_DISK = ModPlacedFeatures.register(
+        "mossy_gravel_disk", ModMiscFeatures.MOSSY_GRAVEL_DISK, () -> List.of(
+            InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_TOP_SOLID, BiomeFilter.biome()
+        )
     );
 
-    public static final Holder<PlacedFeature> BOREAL_FOREST_ROCK = PlacementUtils.register(
-        "boreal_forest_rock", MiscOverworldFeatures.FOREST_ROCK, PlacementUtils.countExtra(0, 0.25f, 2), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
-    );
-
-    public static final Holder<PlacedFeature> TUNDRA_ROCK = PlacementUtils.register(
-        "tundra_rock", ModMiscFeatures.TUNDRA_ROCK, PlacementUtils.countExtra(0, 0.1f, 4), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
+    public static final RegistryObject<PlacedFeature> BOREAL_FOREST_ROCK = ModPlacedFeatures.register(
+        "boreal_forest_rock", Holder.hackyErase(MiscOverworldFeatures.FOREST_ROCK), () -> List.of(
+            PlacementUtils.countExtra(0, 0.25f, 2), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome()
+        )
     );
 }

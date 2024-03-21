@@ -15,7 +15,6 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvi
 import net.minecraft.world.level.levelgen.feature.trunkplacers.GiantTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
 
@@ -49,13 +48,14 @@ public class LarchTree extends AbstractMegaTreeGrower {
     }
 
     @Override
+    @SuppressWarnings("OptionalGetWithoutIsPresent")
     protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(@NotNull Random random, boolean largeHive) {
-        return random.nextInt(10) == 0 ? ModTreeFeatures.LARCH_TALL : ModTreeFeatures.LARCH;
+        return (random.nextInt(10) == 0 ? ModTreeFeatures.LARCH_TALL : ModTreeFeatures.LARCH).getHolder().get();
     }
 
-    @Nullable
     @Override
+    @SuppressWarnings("OptionalGetWithoutIsPresent")
     protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredMegaFeature(Random random) {
-        return ModTreeFeatures.MEGA_LARCH;
+        return ModTreeFeatures.MEGA_LARCH.getHolder().get();
     }
 }

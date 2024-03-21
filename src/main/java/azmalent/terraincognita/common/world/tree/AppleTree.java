@@ -16,7 +16,6 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStatePr
 import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 
@@ -44,9 +43,9 @@ public class AppleTree extends AbstractTreeGrower {
         return builder.build();
     }
 
-    @Nullable
     @Override
+    @SuppressWarnings("OptionalGetWithoutIsPresent")
     protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(@Nonnull Random random, boolean largeHive) {
-        return ModTreeFeatures.APPLE_GROWN;
+        return ModTreeFeatures.APPLE_GROWN.getHolder().get();
     }
 }

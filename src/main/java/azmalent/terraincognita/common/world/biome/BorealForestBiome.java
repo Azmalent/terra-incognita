@@ -62,13 +62,13 @@ public class BorealForestBiome extends TIBiomeEntry {
     @Override
     public void initFeatures(BiomeGenerationSettings.Builder builder) {
         defaultFeatures(builder);
+
+        ModDefaultFeatures.borealForestRocks(builder);
+        BiomeDefaultFeatures.addFerns(builder);
         BiomeDefaultFeatures.addDefaultOres(builder);
         BiomeDefaultFeatures.addDefaultSoftDisks(builder);
-
-        BiomeDefaultFeatures.addTaigaGrass(builder);
-        BiomeDefaultFeatures.addFerns(builder);
         BiomeDefaultFeatures.addDefaultFlowers(builder);
-        BiomeDefaultFeatures.addDefaultMushrooms(builder);
+        BiomeDefaultFeatures.addTaigaGrass(builder);
         BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
 
         if (isSnowy) {
@@ -79,15 +79,14 @@ public class BorealForestBiome extends TIBiomeEntry {
             ModDefaultFeatures.sourBerries(builder);
         }
 
-        ModDefaultFeatures.arcticFlowers(builder);
-        ModDefaultFeatures.borealForestRocks(builder);
-
         if (isClearing) {
             ModDefaultFeatures.sparseLarchTrees(builder);
             ModDefaultFeatures.clearingVegetation(builder);
         } else {
             ModDefaultFeatures.borealForestTrees(builder);
         }
+
+        ModDefaultFeatures.arcticFlowers(builder);
     }
 
     @Override

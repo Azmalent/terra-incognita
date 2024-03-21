@@ -29,7 +29,6 @@ public class ModBiomes {
 
     public static final GinkgoGroveBiome GINKGO_GROVE = new GinkgoGroveBiome("ginkgo_grove");
     public static final LushPlainsBiome LUSH_PLAINS = new LushPlainsBiome("lush_plains");
-    public static final TundraBiome TUNDRA = new TundraBiome("tundra");
 
     @SuppressWarnings("deprecation")
     public static void initBiomes() {

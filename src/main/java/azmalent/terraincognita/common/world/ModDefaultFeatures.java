@@ -131,13 +131,7 @@ public class ModDefaultFeatures {
     }
 
     public static void ginkgoGroveVegetation(BiomeGenerationSettings.Builder builder) {
-        WorldGenUtil.addVegetation(builder, ModVegetationPlacements.GINKGO_GROVE_TREES);
-        WorldGenUtil.addVegetation(builder, ModVegetationPlacements.GINKGO_GROVE_FLOWERS);
-    }
-
-    public static void tundraVegetation(BiomeGenerationSettings.Builder builder) {
-        WorldGenUtil.addVegetation(builder, ModVegetationPlacements.TUNDRA_VEGETATION_NOISE);
-        WorldGenUtil.addVegetation(builder, ModVegetationPlacements.TUNDRA_VEGETATION_PATCH);
+        WorldGenUtil.addVegetation(builder, ModVegetationPlacements.GINKGO_GROVE_TREES, ModVegetationPlacements.GINKGO_GROVE_FLOWERS);
     }
 
     //Misc
@@ -152,10 +146,6 @@ public class ModDefaultFeatures {
     }
 
     public static void borealForestRocks(BiomeGenerationSettings.Builder builder) {
-        builder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, ModMiscFeaturePlacements.BOREAL_FOREST_ROCK);
-    }
-
-    public static void tundraRocks(BiomeGenerationSettings.Builder builder) {
-        builder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, ModMiscFeaturePlacements.TUNDRA_ROCK);
+        WorldGenUtil.addModification(builder, ModMiscFeaturePlacements.BOREAL_FOREST_ROCK);
     }
 }
