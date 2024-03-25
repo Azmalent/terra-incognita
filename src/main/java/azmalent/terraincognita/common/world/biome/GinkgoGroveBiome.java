@@ -1,8 +1,11 @@
 package azmalent.terraincognita.common.world.biome;
 
 import azmalent.terraincognita.TIConfig;
-import azmalent.terraincognita.common.world.ModDefaultFeatures;
+import azmalent.terraincognita.common.world.placement.ModVegetationPlacements;
+import azmalent.terraincognita.common.world.placement.VanillaVegetationPlacements;
+import azmalent.terraincognita.util.WorldGenUtil;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
+import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
@@ -48,29 +51,29 @@ public class GinkgoGroveBiome extends TIBiomeEntry {
     }
 
     @Override
-    public void initFeatures(BiomeGenerationSettings.Builder builder) {
-        defaultFeatures(builder);
+    public void initFeatures(BiomeGenerationSettings.Builder generation) {
+        OverworldBiomes.globalOverworldGeneration(generation);
 
-        /*BiomeDefaultFeatures.addDefaultOres(builder);
-        BiomeDefaultFeatures.addDefaultSoftDisks(builder);
+        BiomeDefaultFeatures.addDefaultOres(generation);
+        BiomeDefaultFeatures.addDefaultSoftDisks(generation);
 
-        BiomeDefaultFeatures.addLightBambooVegetation(builder);
-
-        BiomeDefaultFeatures.addWarmFlowers(builder);
-        BiomeDefaultFeatures.addJungleGrass(builder);
-        BiomeDefaultFeatures.addDefaultMushrooms(builder);
-        BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
-
-        BiomeDefaultFeatures.addSparseJungleMelons(builder);
-
-        ModDefaultFeatures.jungleVegetation(builder);
-        ModDefaultFeatures.ginkgoGroveVegetation(builder);*/
+        WorldGenUtil.addVegetation(generation,
+            ModVegetationPlacements.GINKGO_GROVE_TREES,
+            ModVegetationPlacements.GINKGO_GROVE_FLOWERS,
+            VanillaVegetationPlacements.LIGHT_BAMBOO,
+            VanillaVegetationPlacements.WARM_FLOWERS,
+            VanillaVegetationPlacements.JUNGLE_GRASS,
+            VanillaVegetationPlacements.SPARSE_MELONS,
+            VanillaVegetationPlacements.DEFAULT_BROWN_MUSHROOMS,
+            VanillaVegetationPlacements.DEFAULT_RED_MUSHROOMS,
+            VanillaVegetationPlacements.SUGAR_CANE,
+            VanillaVegetationPlacements.PUMPKINS
+        );
     }
 
     @Override
-    public void initSpawns(MobSpawnSettings.Builder builder) {
-        BiomeDefaultFeatures.farmAnimals(builder);
-        BiomeDefaultFeatures.commonSpawns(builder);
-        ModDefaultFeatures.butterflies(builder);
+    public void initSpawns(MobSpawnSettings.Builder spawns) {
+        BiomeDefaultFeatures.farmAnimals(spawns);
+        BiomeDefaultFeatures.commonSpawns(spawns);
     }
 }

@@ -8,7 +8,7 @@ import net.minecraft.world.effect.MobEffects;
 
 public class ModFlowerBlock extends FlowerBlock {
     public ModFlowerBlock(StewEffect stewEffect) {
-        super(stewEffect.effect, stewEffect.duration, Block.Properties.copy(Blocks.POPPY));
+        super(() -> stewEffect.effect, stewEffect.duration, Block.Properties.copy(Blocks.POPPY));
     }
 
     public enum StewEffect {

@@ -1,8 +1,12 @@
 package azmalent.terraincognita.common.world.biome;
 
 import azmalent.terraincognita.TIConfig;
-import azmalent.terraincognita.common.world.ModDefaultFeatures;
+import azmalent.terraincognita.common.world.placement.ModMiscFeaturePlacements;
+import azmalent.terraincognita.common.world.placement.ModVegetationPlacements;
+import azmalent.terraincognita.common.world.placement.VanillaVegetationPlacements;
+import azmalent.terraincognita.util.WorldGenUtil;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
+import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
@@ -60,41 +64,39 @@ public class BorealForestBiome extends TIBiomeEntry {
     }
 
     @Override
-    public void initFeatures(BiomeGenerationSettings.Builder builder) {
-        defaultFeatures(builder);
+    public void initFeatures(BiomeGenerationSettings.Builder generation) {
+        OverworldBiomes.globalOverworldGeneration(generation);
+        BiomeDefaultFeatures.addDefaultOres(generation);
+        BiomeDefaultFeatures.addDefaultSoftDisks(generation);
 
-        ModDefaultFeatures.borealForestRocks(builder);
-        BiomeDefaultFeatures.addFerns(builder);
-        BiomeDefaultFeatures.addDefaultOres(builder);
-        BiomeDefaultFeatures.addDefaultSoftDisks(builder);
-        BiomeDefaultFeatures.addDefaultFlowers(builder);
-        BiomeDefaultFeatures.addTaigaGrass(builder);
-        BiomeDefaultFeatures.addDefaultExtraVegetation(builder);
+        WorldGenUtil.addModification(generation, ModMiscFeaturePlacements.BOREAL_FOREST_ROCK);
 
-        if (isSnowy) {
-            BiomeDefaultFeatures.addRareBerryBushes(builder);
-            ModDefaultFeatures.caribouMoss(builder);
-        } else {
-            BiomeDefaultFeatures.addCommonBerryBushes(builder);
-            ModDefaultFeatures.sourBerries(builder);
-        }
+        WorldGenUtil.addVegetation(generation,
+            VanillaVegetationPlacements.DEFAULT_FLOWERS,
+            VanillaVegetationPlacements.TAIGA_GRASS,
+            VanillaVegetationPlacements.FERNS,
+            isSnowy ? VanillaVegetationPlacements.RARE_BERRY_BUSHES : VanillaVegetationPlacements.COMMON_BERRY_BUSHES,
+            isClearing ? ModVegetationPlacements.SPARSE_LARCH_TREES : ModVegetationPlacements.BOREAL_FOREST_TREES
+        );
 
         if (isClearing) {
-            ModDefaultFeatures.sparseLarchTrees(builder);
-            ModDefaultFeatures.clearingVegetation(builder);
-        } else {
-            ModDefaultFeatures.borealForestTrees(builder);
+            WorldGenUtil.addVegetation(generation, ModVegetationPlacements.CLEARING_VEGETATION);
         }
 
-        ModDefaultFeatures.arcticFlowers(builder);
+        WorldGenUtil.addVegetation(generation,
+            VanillaVegetationPlacements.DEFAULT_BROWN_MUSHROOMS,
+            VanillaVegetationPlacements.DEFAULT_RED_MUSHROOMS,
+            VanillaVegetationPlacements.SUGAR_CANE,
+            VanillaVegetationPlacements.PUMPKINS
+        );
     }
 
     @Override
-    public void initSpawns(MobSpawnSettings.Builder builder) {
-        BiomeDefaultFeatures.farmAnimals(builder);
-        BiomeDefaultFeatures.commonSpawns(builder);
-        builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 8, 4, 4));
-        builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.RABBIT, 4, 2, 3));
-        builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.FOX, 8, 2, 4));
+    public void initSpawns(MobSpawnSettings.Builder spawns) {
+        BiomeDefaultFeatures.farmAnimals(spawns);
+        BiomeDefaultFeatures.commonSpawns(spawns);
+        spawns.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 8, 4, 4));
+        spawns.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.RABBIT, 4, 2, 3));
+        spawns.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.FOX, 8, 2, 4));
     }
 }

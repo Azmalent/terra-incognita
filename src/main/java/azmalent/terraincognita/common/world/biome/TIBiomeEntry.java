@@ -25,11 +25,8 @@ public abstract class TIBiomeEntry {
     protected final Biome initBiome() {
         BiomeSpecialEffects specialEffects = getSpecialEffects();
 
-        var generation = new BiomeGenerationSettings.Builder();
-        //initFeatures(generation);
-
-        var spawns = new MobSpawnSettings.Builder();
-        //initSpawns(spawns);
+		var generation = new BiomeGenerationSettings.Builder();
+		var spawns = new MobSpawnSettings.Builder();
 
         return new Biome.BiomeBuilder()
             .biomeCategory(getCategory())
@@ -55,18 +52,9 @@ public abstract class TIBiomeEntry {
     protected abstract float getRainfall();
     protected abstract BiomeSpecialEffects getSpecialEffects();
 
-    public abstract void initFeatures(BiomeGenerationSettings.Builder builder);
+    public abstract void initFeatures(BiomeGenerationSettings.Builder generation);
 
-    public abstract void initSpawns(MobSpawnSettings.Builder builder);
-
-    protected static void defaultFeatures(BiomeGenerationSettings.Builder builder) {
-        BiomeDefaultFeatures.addDefaultCarversAndLakes(builder);
-        BiomeDefaultFeatures.addDefaultCrystalFormations(builder);
-        BiomeDefaultFeatures.addDefaultMonsterRoom(builder);
-        BiomeDefaultFeatures.addDefaultUndergroundVariety(builder);
-        BiomeDefaultFeatures.addDefaultSprings(builder);
-        BiomeDefaultFeatures.addSurfaceFreezing(builder);
-    }
+    public abstract void initSpawns(MobSpawnSettings.Builder spawns);
 
     protected final BiomeSpecialEffects.Builder defaultSpecialEffects() {
         return defaultSpecialEffects(0x3F76E4, 0x50533);

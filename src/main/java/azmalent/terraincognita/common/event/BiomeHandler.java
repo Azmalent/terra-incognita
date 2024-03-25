@@ -1,110 +1,131 @@
 package azmalent.terraincognita.common.event;
 
+import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.registry.ModBiomes;
-import azmalent.terraincognita.common.world.ModDefaultFeatures;
+import azmalent.terraincognita.common.registry.ModEntities;
 import azmalent.terraincognita.common.world.biome.TIBiomeEntry;
+import azmalent.terraincognita.common.world.placement.ModMiscFeaturePlacements;
+import azmalent.terraincognita.common.world.placement.ModVegetationPlacements;
 import azmalent.terraincognita.util.WorldGenUtil;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import net.minecraftforge.common.world.MobSpawnSettingsBuilder;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import static azmalent.terraincognita.util.WorldGenUtil.*;
 import static net.minecraftforge.common.BiomeDictionary.Type.*;
 
-@SuppressWarnings("deprecation")
+@SuppressWarnings({"deprecation", "DataFlowIssue"})
 @Mod.EventBusSubscriber(modid = TerraIncognita.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class BiomeHandler {
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.NORMAL)
+    public static void onEarlyLoadBiome(BiomeLoadingEvent event) {
+        ResourceLocation id = event.getName();
+        if (id != null && id.getNamespace().equals(TerraIncognita.MODID)) {
+            TIBiomeEntry biome = ModBiomes.BIOMES_BY_NAME.get(id);
+
+            BiomeGenerationSettingsBuilder generation = event.getGeneration();
+            biome.initFeatures(generation);
+
+            MobSpawnSettingsBuilder spawns = event.getSpawns();
+            biome.initSpawns(spawns);
+        }
+    }
+
+    @SubscribeEvent(priority = EventPriority.LOW)
     @SuppressWarnings("ConstantConditions")
     public static void onLoadBiome(BiomeLoadingEvent event) {
-        Biome biome = ForgeRegistries.BIOMES.getValue(event.getName());
+        ResourceLocation id = event.getName();
+        Biome biome = ForgeRegistries.BIOMES.getValue(id);
+
         if (biome == null) {
             return;
         }
 
-        ResourceLocation id = event.getName();
-        ResourceKey<Biome> key = WorldGenUtil.getBiomeKey(event.getName());
+        ResourceKey<Biome> key = WorldGenUtil.getBiomeKey(id);
 
-        if (id.getNamespace().equals(TerraIncognita.MODID)) {
-            handleTIBiome(ModBiomes.BIOMES_BY_NAME.get(id), event.getGeneration(), event.getSpawns());
-        } else if (BiomeDictionary.hasType(key, OVERWORLD)) {
+        if (BiomeDictionary.hasType(key, OVERWORLD)) {
             handleOverworldBiome(biome, event.getGeneration(), event.getSpawns());
         } else if (BiomeDictionary.hasType(key, NETHER)) {
             handleNetherBiome(biome, event.getGeneration());
         }
     }
 
-    private static void handleTIBiome(TIBiomeEntry biome, BiomeGenerationSettingsBuilder generation, MobSpawnSettingsBuilder spawns) {
-        biome.initFeatures(generation);
-        biome.initSpawns(spawns);
-    }
-
     private static void handleOverworldBiome(Biome biome, BiomeGenerationSettingsBuilder generation, MobSpawnSettingsBuilder spawns) {
         ResourceKey<Biome> key = WorldGenUtil.getBiomeKey(biome);
 
+        boolean isTIBiome = biome.getRegistryName().getNamespace().equals(TerraIncognita.MODID);
+
         //Spawns
         if (WorldGenUtil.hasAnyBiomeType(key, PLAINS, FOREST) && !WorldGenUtil.hasAnyBiomeType(key, COLD, DENSE)) {
-            ModDefaultFeatures.butterflies(spawns);
+            addSpawn(spawns, ModEntities.BUTTERFLY, MobCategory.AMBIENT, TIConfig.Fauna.butterflySpawnWeight.get(), 4, 8);
         }
 
         if (key == Biomes.FLOWER_FOREST) {
-            ModDefaultFeatures.sweetPeas(generation);
+            addVegetation(generation, TIConfig.Flora.sweetPeas, ModVegetationPlacements.SWEET_PEAS);
         } else if (key == Biomes.LUSH_CAVES) {
-            ModDefaultFeatures.hangingMoss(generation);
+            addVegetation(generation, TIConfig.Flora.hangingMoss, ModVegetationPlacements.HANGING_MOSS_PATCH);
         } else {
             var category = WorldGenUtil.getProperBiomeCategory(biome);
             switch (category) {
                 case PLAINS -> {
-                    ModDefaultFeatures.appleTrees(generation);
+                    addVegetation(generation, TIConfig.Trees.apple, ModVegetationPlacements.PLAINS_APPLE_TREES);
                 }
 
                 case FOREST -> {
-                    ModDefaultFeatures.forestFlowers(generation);
-                    ModDefaultFeatures.hazelTrees(generation);
+                    addVegetation(generation, TIConfig.Trees.hazel, ModVegetationPlacements.FOREST_HAZEL_TREES);
+                    addVegetation(generation, TIConfig.Flora.forestFlowers, ModVegetationPlacements.FOREST_FLOWERS);
                 }
 
                 case SWAMP -> {
-                    ModDefaultFeatures.swampReeds(generation);
-                    ModDefaultFeatures.peatAndMossyGravel(generation);
-                    if (!BiomeDictionary.hasType(key, COLD)) {
-                        ModDefaultFeatures.swampFlowers(generation);
-                    }
+                    addOre(generation, TIConfig.Misc.peat, ModMiscFeaturePlacements.PEAT_DISK);
+                    addOre(generation, TIConfig.Misc.mossyGravel, ModMiscFeaturePlacements.MOSSY_GRAVEL_DISK);
+                    addVegetation(generation, TIConfig.Flora.swampFlowers, ModVegetationPlacements.SWAMP_FLOWERS);
+                    addVegetation(generation, TIConfig.Flora.swampReeds, ModVegetationPlacements.SWAMP_REEDS);
                 }
 
                 case DESERT -> {
-                    ModDefaultFeatures.desertVegetation(generation);
+                    addVegetation(generation, TIConfig.Flora.cactusFlowers, ModVegetationPlacements.CACTUS_FLOWERS);
                 }
 
                 case SAVANNA -> {
-                    ModDefaultFeatures.savannaFlowers(generation);
+                    addVegetation(generation, TIConfig.Flora.savannaFlowers, ModVegetationPlacements.SAVANNA_FLOWERS);
                 }
 
                 case EXTREME_HILLS -> {
                     if (!BiomeDictionary.hasType(key, HOT)) {
-                        ModDefaultFeatures.alpineFlowers(generation);
-                        ModDefaultFeatures.sparseLarchTrees(generation);
+                        addVegetation(generation, TIConfig.Flora.alpineFlowers, ModVegetationPlacements.ALPINE_FLOWERS);
+                        addVegetation(generation, TIConfig.Trees.larch, ModVegetationPlacements.SPARSE_LARCH_TREES);
                     }
                 }
 
                 case JUNGLE -> {
-                    ModDefaultFeatures.jungleVegetation(generation);
+                    addVegetation(generation, TIConfig.Flora.lotus, ModVegetationPlacements.LOTUS);
                 }
 
-                case ICY, TAIGA -> {
-                    ModDefaultFeatures.caribouMoss(generation);
-                    ModDefaultFeatures.rareLarchTrees(generation);
-
-                    if (category == Biome.BiomeCategory.TAIGA) {
-                        ModDefaultFeatures.arcticFlowers(generation);
+                case TAIGA -> {
+                    if (!isTIBiome) {
+                        addVegetation(generation, TIConfig.Trees.larch, ModVegetationPlacements.RARE_LARCH_TREES);
                     }
+
+                    addVegetation(generation, TIConfig.Flora.arcticFlowers, ModVegetationPlacements.ARCTIC_FLOWERS);
+                    addVegetation(generation, TIConfig.Flora.caribouMoss, ModVegetationPlacements.CARIBOU_MOSS);
+                    addVegetation(generation, TIConfig.Flora.sourBerries, ModVegetationPlacements.SOUR_BERRIES);
+                }
+
+                case ICY -> {
+                    addVegetation(generation, TIConfig.Trees.larch, ModVegetationPlacements.RARE_LARCH_TREES);
+                    addVegetation(generation, TIConfig.Flora.caribouMoss, ModVegetationPlacements.CARIBOU_MOSS);
                 }
             }
         }
@@ -114,7 +135,7 @@ public class BiomeHandler {
         ResourceKey<Biome> key = WorldGenUtil.getBiomeKey(biome);
 
         if (key == Biomes.SOUL_SAND_VALLEY) {
-            ModDefaultFeatures.witherRoses(generation);
+            addVegetation(generation, TIConfig.Misc.witherRoseGeneration, ModVegetationPlacements.WITHER_ROSES);
         }
     }
 }

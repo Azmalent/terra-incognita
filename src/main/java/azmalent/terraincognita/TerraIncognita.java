@@ -51,7 +51,7 @@ public class TerraIncognita {
         ModFeatures.FEATURES.register(bus);
         ModLootModifiers.LOOT_MODIFIERS.register(bus);
         ModParticles.PARTICLES.register(bus);
-        ModPlacedFeatures.PLACED_FEATURES.register(bus);
+        ModPlacements.PLACED_FEATURES.register(bus);
         ModRecipes.RECIPES.register(bus);
         ModSounds.SOUNDS.register(bus);
         ModTreeDecorators.TREE_DECORATORS.register(bus);

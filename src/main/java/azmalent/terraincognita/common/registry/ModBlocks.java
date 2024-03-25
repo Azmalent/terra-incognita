@@ -150,8 +150,8 @@ public class ModBlocks {
         return plant;
     }
 
-    public static BlockEntry<WaterloggableTallFlowerBlock> createTallWaterloggablePlant(String id) {
-        var plant = REGISTRY_HELPER.createBlock(id, WaterloggableTallFlowerBlock::new).tallBlockItem(TAB_DECORATIONS).cutoutRender().build();
+    public static BlockEntry<WaterFlagBlock> createTallWaterloggablePlant(String id) {
+        var plant = REGISTRY_HELPER.createBlock(id, WaterFlagBlock::new).tallBlockItem(TAB_DECORATIONS).cutoutRender().build();
         createFlowerPot(id, plant);
         return plant;
     }

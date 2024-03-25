@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 /**
- * @readon Required for sheep to eat flowering grass.
+ * @reason Required for sheep to eat flowering grass.
  */
 @Mixin(EatBlockGoal.class)
 public class EatGrassGoalMixin {

@@ -1,5 +1,6 @@
 package azmalent.terraincognita.common.block.plant;
 
+import azmalent.terraincognita.common.ModBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.FluidTags;
@@ -19,15 +20,16 @@ import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraftforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class WaterloggableTallFlowerBlock extends TallFlowerBlock implements SimpleWaterloggedBlock {
+public class WaterFlagBlock extends TallFlowerBlock implements SimpleWaterloggedBlock {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-    public WaterloggableTallFlowerBlock() {
+    public WaterFlagBlock() {
         super(Properties.copy(Blocks.ROSE_BUSH));
         registerDefaultState(this.stateDefinition.any().setValue(HALF, DoubleBlockHalf.LOWER).setValue(WATERLOGGED, false));
     }
@@ -72,7 +74,7 @@ public class WaterloggableTallFlowerBlock extends TallFlowerBlock implements Sim
 
     @Override
     protected boolean mayPlaceOn(BlockState state, @NotNull BlockGetter world, @NotNull BlockPos pos) {
-        return state.is(Blocks.CLAY) || super.mayPlaceOn(state, world, pos);
+        return state.is(ModBlockTags.WATER_FLAG_PLANTABLE_ON);
     }
 
     @Override

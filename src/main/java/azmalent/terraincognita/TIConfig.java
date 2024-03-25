@@ -6,12 +6,9 @@ import azmalent.cuneiform.config.Name;
 import azmalent.cuneiform.config.options.BooleanOption;
 import azmalent.cuneiform.config.options.DoubleOption;
 import azmalent.cuneiform.config.options.IntOption;
-import azmalent.cuneiform.config.options.ParseableListOption;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.registries.ForgeRegistries;
-
-import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @SuppressWarnings("unused")
 public class TIConfig extends ConfigFile {

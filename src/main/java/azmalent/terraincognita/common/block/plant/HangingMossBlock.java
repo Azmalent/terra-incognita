@@ -74,7 +74,7 @@ public class HangingMossBlock extends HangingPlantBlock implements BonemealableB
             return ground.getValue(VARIANT) != Variant.BOTTOM;
         }
 
-        return ground.isFaceSturdy(level, groundPos, Direction.DOWN) && ground.is(ModBlockTags.HANGING_MOSS_PLANTABLE_ON);
+        return ground.isFaceSturdy(level, groundPos, Direction.DOWN);
     }
 
     @Nullable

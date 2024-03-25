@@ -1,5 +1,6 @@
 package azmalent.terraincognita.common.block.plant;
 
+import azmalent.terraincognita.common.ModBlockTags;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
@@ -16,6 +17,6 @@ public class AlpineFlowerBlock extends ModFlowerBlock {
     @Override
     @ParametersAreNonnullByDefault
     protected boolean mayPlaceOn(BlockState state, @NotNull BlockGetter world, @NotNull BlockPos pos) {
-        return state.is(Tags.Blocks.GRAVEL) || super.mayPlaceOn(state, world, pos);
+        return state.is(ModBlockTags.ALPINE_FLOWERS_PLANTABLE_ON) || super.mayPlaceOn(state, world, pos);
     }
 }

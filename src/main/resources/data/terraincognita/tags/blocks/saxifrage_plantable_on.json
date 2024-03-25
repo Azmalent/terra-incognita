@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "#terraincognita:alpine_flowers_plantable_on",
+    "#forge:cobblestone",
+    "#forge:stone"
+  ]
+}

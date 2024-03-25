@@ -5,16 +5,12 @@
   },
   "ingredients": [
     {"item": "minecraft:gravel"},
-    {"item": "terraincognita:hanging_moss"}
+    {"item": "minecraft:moss_block"}
   ],
   "conditions": [
     {
       "type": "cuneiform:config",
       "config": "terraincognita:mossy_gravel"
-    },
-    {
-      "type": "cuneiform:config",
-      "config": "terraincognita:hanging_moss"
     }
   ]
 }

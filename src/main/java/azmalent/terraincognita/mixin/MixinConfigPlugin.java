@@ -62,11 +62,6 @@ public class MixinConfigPlugin implements IMixinConfigPlugin {
 
     @Override
     public void postApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) {
-        String relativeMixinClassName = getRelativeClassName(mixinClassName);
-        String key = relativeMixinClassName.replace('.', '/');
 
-        if (!key.startsWith("accessor") && !TIMixinConfig.INSTANCE.mixins.contains(key)) {
-            TIMixinConfig.INSTANCE.mixins.put(key, true);
-        }
     }
 }

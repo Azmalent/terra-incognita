@@ -2,7 +2,6 @@
   "replace": false,
   "values": [
     "terraincognita:boreal_forest",
-    "terraincognita:boreal_forest_clearing",
-    "terraincognita:tundra"
+    "terraincognita:boreal_forest_clearing"
   ]
 }

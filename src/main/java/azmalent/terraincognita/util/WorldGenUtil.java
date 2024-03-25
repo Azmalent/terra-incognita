@@ -1,5 +1,6 @@
 package azmalent.terraincognita.util;
 
+import azmalent.cuneiform.config.options.BooleanOption;
 import azmalent.cuneiform.registry.EntityEntry;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -65,9 +66,23 @@ public class WorldGenUtil {
     }
 
     @SafeVarargs
+    public static void addVegetation(BiomeGenerationSettings.Builder builder, BooleanOption condition, RegistryObject<PlacedFeature>... features) {
+        if (condition.get()) {
+            addVegetation(builder, features);
+        }
+    }
+
+    @SafeVarargs
     public static void addVegetation(BiomeGenerationSettings.Builder builder, RegistryObject<PlacedFeature>... features) {
         for (RegistryObject<PlacedFeature> feature : features) {
             builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, feature.getHolder().get());
+        }
+    }
+
+    @SafeVarargs
+    public static void addOre(BiomeGenerationSettings.Builder builder, BooleanOption condition, RegistryObject<PlacedFeature>... features) {
+        if (condition.get()) {
+            addOre(builder, features);
         }
     }
 
@@ -76,6 +91,13 @@ public class WorldGenUtil {
         for (RegistryObject<PlacedFeature> feature : features) {
             builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, feature.getHolder().get());
         }
+    }
+
+    @SafeVarargs
+    public static void addModification(BiomeGenerationSettings.Builder builder, BooleanOption condition, RegistryObject<PlacedFeature>... features) {
+        if (!condition.get()) {
+            addModification(builder, features);
+        };
     }
 
     @SafeVarargs

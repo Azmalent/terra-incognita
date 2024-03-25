@@ -7,6 +7,11 @@ import azmalent.cuneiform.config.options.MapOption;
 import com.google.common.collect.Maps;
 import net.minecraftforge.fml.config.ModConfig;
 
+import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 public class TIMixinConfig extends ConfigFile {
     public static TIMixinConfig INSTANCE = new TIMixinConfig();
 
@@ -26,5 +31,15 @@ public class TIMixinConfig extends ConfigFile {
         "Example: azmalent.terraincognita.mixin.LanternBlockMixin -> compat/quark/LanternBlockMixin",
         "DON'T CHANGE ANYTHING IF YOU DON'T KNOW WHAT YOU ARE DOING!"
     })
-    public MapOption<Boolean> mixins = MapOption.empty();
+    public MapOption<Boolean> mixins = MapOption.of(Maps.newLinkedHashMap(), map -> {
+        map.put("compat/botania/HornHarvestablesMixin", true);
+        map.put("CactusBlockMixin", true);
+        map.put("EatGrassBlockMixin", true);
+        map.put("LanternBlockMixin", true);
+        map.put("NoiseProviderMixin", true);
+        map.put("NoiseThresholdProviderMixin", true);
+        map.put("SimpleBlockFeatureMixin", true);
+        map.put("SugarCaneBlockMixin", true);
+        map.put("VineBlockMixin", true);
+    });
 }

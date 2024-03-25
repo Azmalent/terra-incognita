@@ -4,6 +4,7 @@ import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.world.placement.ModMiscFeaturePlacements;
 import azmalent.terraincognita.common.world.placement.ModTreePlacements;
 import azmalent.terraincognita.common.world.placement.ModVegetationPlacements;
+import azmalent.terraincognita.common.world.placement.VanillaVegetationPlacements;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -16,7 +17,7 @@ import java.util.List;
 import java.util.function.Supplier;
 
 @SuppressWarnings("OptionalGetWithoutIsPresent")
-public class ModPlacedFeatures {
+public class ModPlacements {
     public static final DeferredRegister<PlacedFeature> PLACED_FEATURES =
         DeferredRegister.create(Registry.PLACED_FEATURE_REGISTRY, TerraIncognita.MODID);
 
@@ -24,6 +25,7 @@ public class ModPlacedFeatures {
         ModTreePlacements.init();
         ModVegetationPlacements.init();
         ModMiscFeaturePlacements.init();
+        VanillaVegetationPlacements.init();
     }
 
     public static RegistryObject<PlacedFeature> register(String id, RegistryObject<ConfiguredFeature<?, ?>> feature, Supplier<List<PlacementModifier>> modifiers) {

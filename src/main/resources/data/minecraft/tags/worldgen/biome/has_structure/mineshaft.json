@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "terraincognita:lush_plains",
-    "terraincognita:tundra"
+    "terraincognita:lush_plains"
   ]
 }

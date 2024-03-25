@@ -31,8 +31,8 @@ public class PeatBlock extends Block {
 
         BlockPos plantPos = pos.above();
         BlockState plant = world.getBlockState(plantPos);
-        if (plant.is(ModBlockTags.PEAT_MULTIBLOCK_PLANTS)) {
-            while (world.getBlockState(plantPos.above()).is(ModBlockTags.PEAT_MULTIBLOCK_PLANTS)) {
+        if (plant.is(ModBlockTags.MULTIBLOCK_PLANTS)) {
+            while (world.getBlockState(plantPos.above()).is(ModBlockTags.MULTIBLOCK_PLANTS)) {
                 plantPos = plantPos.above();
             }
 
@@ -45,7 +45,7 @@ public class PeatBlock extends Block {
         	    BlockState above = world.getBlockState(up);
 
             	plant.randomTick(world, plantPos, random);
-            	if (plant.is(ModBlockTags.PEAT_MULTIBLOCK_PLANTS)) {
+            	if (plant.is(ModBlockTags.MULTIBLOCK_PLANTS)) {
             	    if (world.getBlockState(up) != above) {
             	        makeParticles(up, random);
                     }

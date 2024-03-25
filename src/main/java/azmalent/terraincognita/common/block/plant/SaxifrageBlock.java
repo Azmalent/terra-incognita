@@ -1,5 +1,6 @@
 package azmalent.terraincognita.common.block.plant;
 
+import azmalent.terraincognita.common.ModBlockTags;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.core.BlockPos;
@@ -13,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
-public class SaxifrageBlock extends AlpineFlowerBlock {
+public class SaxifrageBlock extends ModFlowerBlock {
     private static final VoxelShape SHAPE = Block.box(3.0D, 0.0D, 3.0D, 13.0D, 6.0D, 13.0D);
 
     public SaxifrageBlock() {
@@ -31,6 +32,6 @@ public class SaxifrageBlock extends AlpineFlowerBlock {
     @Override
     @ParametersAreNonnullByDefault
     protected boolean mayPlaceOn(@NotNull BlockState state, BlockGetter world, BlockPos pos) {
-        return state.is(Tags.Blocks.STONE) || state.is(Tags.Blocks.COBBLESTONE) || super.mayPlaceOn(state, world, pos);
+        return state.is(ModBlockTags.SAXIFRAGE_PLANTABLE_ON) || super.mayPlaceOn(state, world, pos);
     }
 }
