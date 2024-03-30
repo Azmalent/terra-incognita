@@ -1,6 +1,0 @@
-{
-  "parent": "terraincognita:block/lotus",
-  "textures": {
-    "flower": "terraincognita:block/pink_lotus_flower"
-  }
-}

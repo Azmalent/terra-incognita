@@ -8,17 +8,16 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraftforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
-public class SaxifrageBlock extends ModFlowerBlock {
+public class SaxifrageBlock extends TIFlowerBlock {
     private static final VoxelShape SHAPE = Block.box(3.0D, 0.0D, 3.0D, 13.0D, 6.0D, 13.0D);
 
     public SaxifrageBlock() {
-        super(ModFlowerBlock.StewEffect.JUMP_BOOST);
+        super(TIFlowerBlock.StewEffect.JUMP_BOOST);
     }
 
     @Nonnull

@@ -1,0 +1,7 @@
+{
+  "parent": "terraincognita:block/hedge_post",
+  "textures": {
+    "log": "terraincognita:block/apple_log",
+    "leaf": "terraincognita:block/apple_leaves"
+  }
+}

@@ -18,7 +18,7 @@ import java.util.function.Supplier;
 
 @SuppressWarnings("OptionalGetWithoutIsPresent")
 public class ModPlacements {
-    public static final DeferredRegister<PlacedFeature> PLACED_FEATURES =
+    public static final DeferredRegister<PlacedFeature> PLACEMENTS =
         DeferredRegister.create(Registry.PLACED_FEATURE_REGISTRY, TerraIncognita.MODID);
 
     static {
@@ -29,10 +29,10 @@ public class ModPlacements {
     }
 
     public static RegistryObject<PlacedFeature> register(String id, RegistryObject<ConfiguredFeature<?, ?>> feature, Supplier<List<PlacementModifier>> modifiers) {
-        return PLACED_FEATURES.register(id, () -> new PlacedFeature(feature.getHolder().get(), modifiers.get()));
+        return PLACEMENTS.register(id, () -> new PlacedFeature(feature.getHolder().get(), modifiers.get()));
     }
 
     public static RegistryObject<PlacedFeature> register(String id, Holder<ConfiguredFeature<?, ?>> feature, Supplier<List<PlacementModifier>> modifiers) {
-        return PLACED_FEATURES.register(id, () -> new PlacedFeature(feature, modifiers.get()));
+        return PLACEMENTS.register(id, () -> new PlacedFeature(feature, modifiers.get()));
     }
 }

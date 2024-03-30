@@ -9,14 +9,14 @@ import net.minecraft.world.level.block.Block;
 import net.minecraftforge.eventbus.api.IEventBus;
 
 @IntegrationDummy("farmersdelight")
-public final class FarmersDelightDummy extends FarmersDelightProxy {
+public final class FarmersDelightDummy implements IFarmersDelightProxy {
     @Override
     public void register(IEventBus bus) {
-        initCabinets();
+        TerraIncognita.LOGGER.info("Farmer's Delight is not installed. Terra Incognita will register dummy cabinet blocks.");
     }
 
     @Override
-    protected BlockEntry<? extends Block> registerCabinet(TIWoodType woodType) {
+    public BlockEntry<? extends Block> registerCabinet(TIWoodType woodType) {
         return TerraIncognita.REGISTRY_HELPER.createBlock(woodType.name + "_cabinet", TIDummyCabinetBlock::new).build();
     }
 }

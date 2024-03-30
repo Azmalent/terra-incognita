@@ -14,10 +14,10 @@ import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConf
 import java.util.Random;
 
 public class SwampReedsFeature extends Feature<NoneFeatureConfiguration> {
-    private final static int X_SPREAD = 4;
+    private final static int X_SPREAD = 8;
     private final static int Y_SPREAD = 2;
-    private final static int Z_SPREAD = 4;
-    private final static int TRIES = 5;
+    private final static int Z_SPREAD = 8;
+    private final static int TRIES = 25;
 
     public SwampReedsFeature() {
         super(NoneFeatureConfiguration.CODEC);
@@ -40,8 +40,9 @@ public class SwampReedsFeature extends Feature<NoneFeatureConfiguration> {
             }
 
             int height = 2 + random.nextInt(random.nextInt(3) + 1);
+
             for (int j = 0; j < height; j++) {
-                nextPos.setY(nextPos.getY() + j);
+                nextPos.setY(nextPos.getY() + 1);
 
                 //todo: rewrite without block updates
                 boolean isWater = level.getFluidState(nextPos).getType() == Fluids.WATER;

@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_column",
-  "textures": {
-    "end": "terraincognita:block/larch/stripped_log_top",
-    "side": "terraincognita:block/larch/stripped_log"
-  }
-}

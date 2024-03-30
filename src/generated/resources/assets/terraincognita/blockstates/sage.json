@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=upper": {
+      "model": "terraincognita:block/sage_top"
+    },
+    "half=lower": {
+      "model": "terraincognita:block/sage_bottom"
+    }
+  }
+}

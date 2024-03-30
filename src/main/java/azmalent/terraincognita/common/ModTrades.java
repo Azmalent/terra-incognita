@@ -80,6 +80,14 @@ public class ModTrades {
             addCommonTrade(TradeBuilder.sell(ModWoodTypes.HAZEL.SAPLING.makeStack()).maxTrades(8).build());
         }
 
+        if (TIConfig.Trees.larch.get()) {
+            addCommonTrade(TradeBuilder.sell(ModWoodTypes.LARCH.SAPLING.makeStack()).maxTrades(8).build());
+        }
+
+        if (TIConfig.Trees.ginkgo.get()) {
+            addCommonTrade(TradeBuilder.sell(ModWoodTypes.GINKGO.SAPLING.makeStack()).maxTrades(8).build());
+        }
+
         //Other stuff
         if (TIConfig.Flora.smallLilyPads.get()) {
             addCommonTrade(TradeBuilder.sell(ModBlocks.SMALL_LILY_PAD.makeStack(3)).maxTrades(5).build());

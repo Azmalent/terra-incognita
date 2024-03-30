@@ -1,0 +1,6 @@
+{
+  "parent": "terraincognita:block/hedge_side",
+  "textures": {
+    "leaf": "terraincognita:block/ginkgo_leaves"
+  }
+}

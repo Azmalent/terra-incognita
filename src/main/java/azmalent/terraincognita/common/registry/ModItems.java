@@ -62,7 +62,7 @@ public class ModItems {
 
     public static final ItemEntry<TaffyItem> TAFFY = REGISTRY_HELPER.createItem("taffy", TaffyItem::new);
     public static final ItemEntry<NotchCarrotItem> NOTCH_CARROT  = REGISTRY_HELPER.createItem("notch_carrot", NotchCarrotItem::new);
-    public static final ItemEntry<Item> FIDDLEHEAD    = REGISTRY_HELPER.createFood("fiddlehead", Foods.FIDDLEHEAD);
+    public static final ItemEntry<Item> FERN_FIDDLEHEAD = REGISTRY_HELPER.createFood("fiddlehead", Foods.FIDDLEHEAD);
     public static final ItemEntry<BowlFoodItem> KELP_SOUP     = REGISTRY_HELPER.createItem("kelp_soup", BowlFoodItem::new, foodProps(Foods.KELP_SOUP).stacksTo(1));
     public static final ItemEntry<BowlFoodItem> BERRY_SORBET  = REGISTRY_HELPER.createItem("berry_sorbet", BowlFoodItem::new, foodProps(Foods.BERRY_SORBET).stacksTo(1));
 

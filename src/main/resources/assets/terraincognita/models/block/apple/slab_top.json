@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab_top",
-  "textures": {
-    "bottom": "terraincognita:block/apple/planks",
-    "top": "terraincognita:block/apple/planks",
-    "side": "terraincognita:block/apple/planks"
-  }
-}

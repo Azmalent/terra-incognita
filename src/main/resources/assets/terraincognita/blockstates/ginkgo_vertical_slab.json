@@ -1,9 +1,0 @@
-{
-    "variants": {
-        "type=north": { "model": "terraincognita:block/ginkgo/vertical_slab", "y": 0, "uvlock": true },
-        "type=south": { "model": "terraincognita:block/ginkgo/vertical_slab", "y": 180, "uvlock": true },
-        "type=east": { "model": "terraincognita:block/ginkgo/vertical_slab", "y": 90, "uvlock": true },
-        "type=west": { "model": "terraincognita:block/ginkgo/vertical_slab", "y": 270, "uvlock": true },
-        "type=double": { "model": "terraincognita:block/ginkgo/planks" }
-    }
-}

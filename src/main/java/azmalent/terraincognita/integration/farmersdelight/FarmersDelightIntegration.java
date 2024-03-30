@@ -10,11 +10,10 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import vectorwing.farmersdelight.common.block.CabinetBlock;
 
 @IntegrationImpl("farmersdelight")
-public final class FarmersDelightIntegration extends FarmersDelightProxy {
+public final class FarmersDelightIntegration implements IFarmersDelightProxy {
     @Override
     public void register(IEventBus bus) {
-        TerraIncognita.LOGGER.info("Integrating with Farmer's Delight...");
-        initCabinets();
+        TerraIncognita.LOGGER.info("Enabled Farmer's Delight integration!");
     }
 
     @Override

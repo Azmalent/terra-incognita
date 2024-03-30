@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "#terraincognita:apple_logs",
+    "#terraincognita:hazel_logs",
+    "#terraincognita:larch_logs",
+    "#terraincognita:ginkgo_logs"
+  ]
+}

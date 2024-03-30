@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "terraincognita:apple_planks",
+    "terraincognita:vertical_apple_planks",
+    "terraincognita:hazel_planks",
+    "terraincognita:vertical_hazel_planks",
+    "terraincognita:larch_planks",
+    "terraincognita:vertical_larch_planks",
+    "terraincognita:ginkgo_planks",
+    "terraincognita:vertical_ginkgo_planks"
+  ]
+}

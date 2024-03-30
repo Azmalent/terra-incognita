@@ -1,0 +1,8 @@
+{
+  "parent": "terraincognita:block/vertical_slab",
+  "textures": {
+    "side": "terraincognita:block/hazel_planks",
+    "bottom": "terraincognita:block/hazel_planks",
+    "top": "terraincognita:block/hazel_planks"
+  }
+}

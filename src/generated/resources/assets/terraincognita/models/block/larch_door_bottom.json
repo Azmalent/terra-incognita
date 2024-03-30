@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_bottom",
+  "textures": {
+    "bottom": "terraincognita:block/larch_door_bottom",
+    "top": "terraincognita:block/larch_door_top"
+  }
+}

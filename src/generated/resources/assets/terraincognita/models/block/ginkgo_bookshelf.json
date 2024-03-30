@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "side": "terraincognita:block/ginkgo_bookshelf",
+    "end": "terraincognita:block/ginkgo_planks"
+  }
+}

@@ -28,7 +28,7 @@ public class FiddleheadStewRecipe extends SimpleShapelessRecipe {
             .addIngredient(Blocks.RED_MUSHROOM)
             .addIngredient(ItemTags.SMALL_FLOWERS)
             .addIngredient(Items.BOWL)
-            .addIngredient(ModItems.FIDDLEHEAD)
+            .addIngredient(ModItems.FERN_FIDDLEHEAD)
             .build();
 
     public FiddleheadStewRecipe(ResourceLocation id) {

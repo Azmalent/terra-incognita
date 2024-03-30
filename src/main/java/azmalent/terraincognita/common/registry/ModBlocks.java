@@ -5,7 +5,7 @@ import azmalent.cuneiform.util.DataUtil;
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.block.*;
 import azmalent.terraincognita.common.block.plant.*;
-import azmalent.terraincognita.common.block.plant.ModFlowerBlock.StewEffect;
+import azmalent.terraincognita.common.block.plant.TIFlowerBlock.StewEffect;
 import azmalent.terraincognita.common.block.fruit.AppleBlock;
 import azmalent.terraincognita.common.block.fruit.HazelnutBlock;
 import azmalent.terraincognita.common.woodtype.TIWoodType;
@@ -35,26 +35,26 @@ public class ModBlocks {
     public static final DeferredRegister<Block> BLOCKS = REGISTRY_HELPER.getOrCreateRegistry(ForgeRegistries.BLOCKS);
 
     //Small flowers
-    public static final BlockEntry<?> DANDELION_PUFF = createPlant("dandelion_puff", () -> new ModFlowerBlock(StewEffect.SATURATION), DandelionPuffItem::new);
+    public static final BlockEntry<?> DANDELION_PUFF = createPlant("dandelion_puff", () -> new TIFlowerBlock(StewEffect.SATURATION), DandelionPuffItem::new);
 
     //Plain flowers
-    public static final BlockEntry<?> CHICORY  = createPlant("chicory", () -> new ModFlowerBlock(StewEffect.SPEED));
-    public static final BlockEntry<?> YARROW   = createPlant("yarrow", () -> new ModFlowerBlock(StewEffect.NIGHT_VISION));
-    public static final BlockEntry<?> DAFFODIL = createPlant("daffodil", () -> new ModFlowerBlock(StewEffect.BLINDNESS));
+    public static final BlockEntry<?> CHICORY  = createPlant("chicory", () -> new TIFlowerBlock(StewEffect.SPEED));
+    public static final BlockEntry<?> YARROW   = createPlant("yarrow", () -> new TIFlowerBlock(StewEffect.NIGHT_VISION));
+    public static final BlockEntry<?> DAFFODIL = createPlant("daffodil", () -> new TIFlowerBlock(StewEffect.BLINDNESS));
 
     //Forest flowers
-    public static final BlockEntry<?> YELLOW_PRIMROSE = createPlant("yellow_primrose", () -> new ModFlowerBlock(StewEffect.STRENGTH));
-    public static final BlockEntry<?> PINK_PRIMROSE   = createPlant("pink_primrose", () -> new ModFlowerBlock(StewEffect.STRENGTH));
-    public static final BlockEntry<?> PURPLE_PRIMROSE = createPlant("purple_primrose", () -> new ModFlowerBlock(StewEffect.STRENGTH));
-    public static final BlockEntry<?> FOXGLOVE        = createPlant("foxglove", () -> new ModFlowerBlock(StewEffect.POISON));
-    public static final BlockEntry<?> WILD_GARLIC     = createPlant("wild_garlic", () -> new ModFlowerBlock(StewEffect.SATURATION));
+    public static final BlockEntry<?> YELLOW_PRIMROSE = createPlant("yellow_primrose", () -> new TIFlowerBlock(StewEffect.STRENGTH));
+    public static final BlockEntry<?> PINK_PRIMROSE   = createPlant("pink_primrose", () -> new TIFlowerBlock(StewEffect.STRENGTH));
+    public static final BlockEntry<?> PURPLE_PRIMROSE = createPlant("purple_primrose", () -> new TIFlowerBlock(StewEffect.STRENGTH));
+    public static final BlockEntry<?> FOXGLOVE        = createPlant("foxglove", () -> new TIFlowerBlock(StewEffect.POISON));
+    public static final BlockEntry<?> WILD_GARLIC     = createPlant("wild_garlic", () -> new TIFlowerBlock(StewEffect.SATURATION));
 
     //Savanna flowers
-    public static final BlockEntry<?> MARIGOLD    = createPlant("marigold", () -> new ModFlowerBlock(StewEffect.REGENERATION));
-    public static final BlockEntry<?> SNAPDRAGON  = createPlant("snapdragon", () -> new ModFlowerBlock(StewEffect.HASTE));
-    public static final BlockEntry<?> BLUE_IRIS   = createPlant("blue_iris", () -> new ModFlowerBlock(StewEffect.INVISIBILITY));
-    public static final BlockEntry<?> PURPLE_IRIS = createPlant("purple_iris", () -> new ModFlowerBlock(StewEffect.INVISIBILITY));
-    public static final BlockEntry<?> BLACK_IRIS  = createPlant("black_iris", () -> new ModFlowerBlock(StewEffect.INVISIBILITY));
+    public static final BlockEntry<?> MARIGOLD    = createPlant("marigold", () -> new TIFlowerBlock(StewEffect.REGENERATION));
+    public static final BlockEntry<?> SNAPDRAGON  = createPlant("snapdragon", () -> new TIFlowerBlock(StewEffect.HASTE));
+    public static final BlockEntry<?> BLUE_IRIS   = createPlant("blue_iris", () -> new TIFlowerBlock(StewEffect.INVISIBILITY));
+    public static final BlockEntry<?> PURPLE_IRIS = createPlant("purple_iris", () -> new TIFlowerBlock(StewEffect.INVISIBILITY));
+    public static final BlockEntry<?> BLACK_IRIS  = createPlant("black_iris", () -> new TIFlowerBlock(StewEffect.INVISIBILITY));
     public static final BlockEntry<?> OLEANDER    = createTallPlant("oleander");
     public static final BlockEntry<?> SAGE        = createTallPlant("sage");
 
@@ -67,13 +67,13 @@ public class ModBlocks {
     public static final BlockEntry<?> MAGENTA_SAXIFRAGE = createPlant("magenta_saxifrage", SaxifrageBlock::new);
 
     //Swamp flowers
-    public static final BlockEntry<?> FORGET_ME_NOT = createPlant("forget_me_not", () -> new ModFlowerBlock(StewEffect.SLOWNESS));
-    public static final BlockEntry<?> GLOBEFLOWER   = createPlant("globeflower", () -> new ModFlowerBlock(StewEffect.RESISTANCE));
+    public static final BlockEntry<?> FORGET_ME_NOT = createPlant("forget_me_not", () -> new TIFlowerBlock(StewEffect.SLOWNESS));
+    public static final BlockEntry<?> GLOBEFLOWER   = createPlant("globeflower", () -> new TIFlowerBlock(StewEffect.RESISTANCE));
     public static final BlockEntry<?> WATER_FLAG    = createTallWaterloggablePlant("water_flag");
 
     //Arctic flowers
-    public static final BlockEntry<?> HEATHER     = createPlant("heather", () -> new ModFlowerBlock(StewEffect.SPEED));
-    public static final BlockEntry<?> WHITE_DRYAD = createPlant("white_dryad", () -> new ModFlowerBlock(StewEffect.SLOWNESS));
+    public static final BlockEntry<?> HEATHER     = createPlant("heather", () -> new TIFlowerBlock(StewEffect.SPEED));
+    public static final BlockEntry<?> WHITE_DRYAD = createPlant("white_dryad", () -> new TIFlowerBlock(StewEffect.SLOWNESS));
     public static final BlockEntry<?> FIREWEED    = createTallPlant("fireweed");
     public static final BlockEntry<?> WHITE_RHODODENDRON = createTallPlant("white_rhododendron");
 
@@ -83,9 +83,9 @@ public class ModBlocks {
 
     public static final List<BlockEntry<?>> FLOWERS = List.of(
         DANDELION_PUFF, CHICORY, YARROW, DAFFODIL, YELLOW_PRIMROSE, PINK_PRIMROSE, PURPLE_PRIMROSE, FOXGLOVE, WILD_GARLIC,
-        MARIGOLD, SNAPDRAGON, EDELWEISS, ALPINE_PINK, ASTER, YELLOW_SAXIFRAGE,
-        GENTIAN, FORGET_ME_NOT, BLUE_IRIS, PURPLE_IRIS, BLACK_IRIS, HEATHER, WHITE_DRYAD,
-        WATER_FLAG, FIREWEED, WHITE_RHODODENDRON, OLEANDER, SAGE, CACTUS_FLOWER
+        MARIGOLD, SNAPDRAGON, BLUE_IRIS, PURPLE_IRIS, BLACK_IRIS, OLEANDER, SAGE, ALPINE_PINK, ASTER, GENTIAN, EDELWEISS,
+        YELLOW_SAXIFRAGE, MAGENTA_SAXIFRAGE, FORGET_ME_NOT, GLOBEFLOWER, WATER_FLAG, HEATHER, WHITE_DRYAD, FIREWEED,
+        WHITE_RHODODENDRON, CACTUS_FLOWER
     );
 
     //Sweet peas

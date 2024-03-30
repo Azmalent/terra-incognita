@@ -13,7 +13,7 @@ public class VanillaVegetationPlacements {
     }
 
     private static RegistryObject<PlacedFeature> copyFromVanilla(String id, Holder<PlacedFeature> original) {
-        return ModPlacements.PLACED_FEATURES.register(id, () -> new PlacedFeature(original.value().feature(), original.value().placement()));
+        return ModPlacements.PLACEMENTS.register(id, () -> new PlacedFeature(original.value().feature(), original.value().placement()));
     }
 
     public static final RegistryObject<PlacedFeature> PLAIN_GRASS = copyFromVanilla(

@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "terraincognita:apple_beehive",
+    "terraincognita:hazel_beehive",
+    "terraincognita:larch_beehive",
+    "terraincognita:ginkgo_beehive"
+  ]
+}

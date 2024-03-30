@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "terraincognita:apple_hedge",
+    "terraincognita:hazel_hedge",
+    "terraincognita:larch_hedge",
+    "terraincognita:ginkgo_hedge",
+    "terraincognita:blossoming_apple_hedge"
+  ]
+}

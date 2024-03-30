@@ -12,11 +12,6 @@ public class ModBlockTags {
         //Called to force static constructor
     }
 
-    public static final TagKey<Block> APPLE_LOGS = createTag("apple_logs");
-    public static final TagKey<Block> GINKGO_LOGS = createTag("ginkgo_logs");
-    public static final TagKey<Block> HAZEL_LOGS = createTag("hazel_logs");
-    public static final TagKey<Block> LARCH_LOGS = createTag("larch_logs");
-
     public static final TagKey<Block> LOTUSES = createTag("lotuses");
     public static final TagKey<Block> SWEET_PEAS = createTag("sweet_peas");
 
@@ -29,11 +24,11 @@ public class ModBlockTags {
     //Compat tags
     public static final TagKey<Block> HEDGES = createTag("quark", "hedges");
 
-    private static TagKey<Block> createTag(String name) {
+    public static TagKey<Block> createTag(String name) {
         return createTag(TerraIncognita.MODID, name);
     }
 
-    private static TagKey<Block> createTag(String modid, String name) {
+    public static TagKey<Block> createTag(String modid, String name) {
         return BlockTags.create(new ResourceLocation(modid, name));
     }
 }

@@ -25,10 +25,10 @@ import net.minecraftforge.registries.ForgeRegistries;
 import static azmalent.terraincognita.util.WorldGenUtil.*;
 import static net.minecraftforge.common.BiomeDictionary.Type.*;
 
-@SuppressWarnings({"deprecation", "DataFlowIssue"})
-@Mod.EventBusSubscriber(modid = TerraIncognita.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+@SuppressWarnings({"ConstantConditions", "deprecation", "DataFlowIssue"})
+//@Mod.EventBusSubscriber(modid = TerraIncognita.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class BiomeHandler {
-    @SubscribeEvent(priority = EventPriority.NORMAL)
+    //@SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onEarlyLoadBiome(BiomeLoadingEvent event) {
         ResourceLocation id = event.getName();
         if (id != null && id.getNamespace().equals(TerraIncognita.MODID)) {
@@ -42,8 +42,7 @@ public class BiomeHandler {
         }
     }
 
-    @SubscribeEvent(priority = EventPriority.LOW)
-    @SuppressWarnings("ConstantConditions")
+    //@SubscribeEvent(priority = EventPriority.NORMAL)
     public static void onLoadBiome(BiomeLoadingEvent event) {
         ResourceLocation id = event.getName();
         Biome biome = ForgeRegistries.BIOMES.getValue(id);

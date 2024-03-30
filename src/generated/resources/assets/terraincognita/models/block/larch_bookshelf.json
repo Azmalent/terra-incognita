@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "side": "terraincognita:block/larch_bookshelf",
+    "end": "terraincognita:block/larch_planks"
+  }
+}

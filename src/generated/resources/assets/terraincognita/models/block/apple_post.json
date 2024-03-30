@@ -1,0 +1,6 @@
+{
+  "parent": "terraincognita:block/post",
+  "textures": {
+    "texture": "terraincognita:block/apple_log"
+  }
+}

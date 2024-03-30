@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=upper": {
+      "model": "terraincognita:block/water_flag_top"
+    },
+    "half=lower": {
+      "model": "terraincognita:block/water_flag_bottom"
+    }
+  }
+}

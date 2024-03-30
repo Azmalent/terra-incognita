@@ -1,0 +1,6 @@
+{
+  "parent": "terraincognita:block/leaf_carpet",
+  "textures": {
+    "all": "terraincognita:block/apple_leaves"
+  }
+}
