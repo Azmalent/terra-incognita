@@ -1,6 +1,6 @@
 package azmalent.terraincognita.common.entity.butterfly;
 
-import azmalent.terraincognita.common.ModDamageSources;
+import azmalent.terraincognita.core.ModDamageSources;
 import azmalent.terraincognita.common.entity.IBottleableEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;

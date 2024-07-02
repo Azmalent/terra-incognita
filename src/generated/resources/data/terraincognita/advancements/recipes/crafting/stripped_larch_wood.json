@@ -1,0 +1,46 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:larch",
+          "type": "cuneiform:config"
+        }
+      ],
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "terraincognita:crafting/stripped_larch_wood"
+          ]
+        },
+        "criteria": {
+          "has_stripped_larch_log": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "terraincognita:stripped_larch_log"
+                  ]
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "terraincognita:crafting/stripped_larch_wood"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_stripped_larch_log",
+            "has_the_recipe"
+          ]
+        ]
+      }
+    }
+  ]
+}

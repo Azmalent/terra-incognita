@@ -1,8 +1,8 @@
 package azmalent.terraincognita.common.entity;
 
 import azmalent.terraincognita.common.woodtype.TIWoodType;
-import azmalent.terraincognita.common.registry.ModEntities;
-import azmalent.terraincognita.common.registry.ModWoodTypes;
+import azmalent.terraincognita.core.registry.ModEntities;
+import azmalent.terraincognita.core.registry.ModWoodTypes;
 import azmalent.terraincognita.mixin.accessor.BoatEntityAccessor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;

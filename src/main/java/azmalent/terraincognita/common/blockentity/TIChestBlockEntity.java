@@ -1,6 +1,6 @@
 package azmalent.terraincognita.common.blockentity;
 
-import azmalent.terraincognita.common.registry.ModBlockEntities;
+import azmalent.terraincognita.core.registry.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;

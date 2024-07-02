@@ -1,7 +1,7 @@
 package azmalent.terraincognita.common.block.fruit;
 
-import azmalent.terraincognita.common.registry.ModItems;
-import azmalent.terraincognita.common.registry.ModWoodTypes;
+import azmalent.terraincognita.core.registry.ModItems;
+import azmalent.terraincognita.core.registry.ModWoodTypes;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.SoundType;

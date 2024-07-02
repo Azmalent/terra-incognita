@@ -2,9 +2,9 @@ package azmalent.terraincognita.client;
 
 import azmalent.cuneiform.util.ItemUtil;
 import azmalent.terraincognita.TerraIncognita;
-import azmalent.terraincognita.common.registry.ModBlocks;
-import azmalent.terraincognita.common.registry.ModItems;
-import azmalent.terraincognita.common.registry.ModWoodTypes;
+import azmalent.terraincognita.core.registry.ModBlocks;
+import azmalent.terraincognita.core.registry.ModItems;
+import azmalent.terraincognita.core.registry.ModWoodTypes;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.client.renderer.BiomeColors;

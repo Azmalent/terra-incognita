@@ -1,6 +1,6 @@
 package azmalent.terraincognita.common.world.placement;
 
-import azmalent.terraincognita.common.registry.ModPlacements;
+import azmalent.terraincognita.core.registry.ModPlacements;
 import azmalent.terraincognita.common.world.configured.ModTreeFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.world.level.levelgen.placement.*;
@@ -8,7 +8,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.List;
 
-import static azmalent.terraincognita.common.registry.ModWoodTypes.*;
+import static azmalent.terraincognita.core.registry.ModWoodTypes.*;
 
 public class ModTreePlacements {
     public static void init() {

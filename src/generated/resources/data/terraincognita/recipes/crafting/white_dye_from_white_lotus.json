@@ -1,0 +1,25 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:lotus",
+          "type": "cuneiform:config"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shapeless",
+        "group": "white_dye",
+        "ingredients": [
+          {
+            "item": "terraincognita:white_lotus"
+          }
+        ],
+        "result": {
+          "item": "minecraft:white_dye"
+        }
+      }
+    }
+  ]
+}

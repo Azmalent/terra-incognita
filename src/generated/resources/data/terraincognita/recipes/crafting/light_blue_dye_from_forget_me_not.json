@@ -1,0 +1,25 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:swamp_flowers",
+          "type": "cuneiform:config"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shapeless",
+        "group": "light_blue_dye",
+        "ingredients": [
+          {
+            "item": "terraincognita:forget_me_not"
+          }
+        ],
+        "result": {
+          "item": "minecraft:light_blue_dye"
+        }
+      }
+    }
+  ]
+}

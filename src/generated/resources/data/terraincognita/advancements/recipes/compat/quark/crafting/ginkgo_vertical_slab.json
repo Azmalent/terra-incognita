@@ -1,0 +1,55 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "values": [
+            {
+              "config": "terraincognita:ginkgo",
+              "type": "cuneiform:config"
+            },
+            {
+              "modid": "quark",
+              "type": "forge:mod_loaded"
+            }
+          ],
+          "type": "forge:and"
+        }
+      ],
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "terraincognita:compat/quark/crafting/ginkgo_vertical_slab"
+          ]
+        },
+        "criteria": {
+          "has_ginkgo_slab": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "terraincognita:ginkgo_slab"
+                  ]
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "terraincognita:compat/quark/crafting/ginkgo_vertical_slab"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_ginkgo_slab",
+            "has_the_recipe"
+          ]
+        ]
+      }
+    }
+  ]
+}

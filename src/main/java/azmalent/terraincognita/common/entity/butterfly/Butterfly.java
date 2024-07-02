@@ -1,12 +1,12 @@
 package azmalent.terraincognita.common.entity.butterfly;
 
 import azmalent.terraincognita.TerraIncognita;
-import azmalent.terraincognita.common.ModBiomeTags;
+import azmalent.terraincognita.core.ModBiomeTags;
 import azmalent.terraincognita.common.entity.butterfly.ai.ButterflyLandOnFlowerGoal;
 import azmalent.terraincognita.common.entity.butterfly.ai.ButterflyRestGoal;
 import azmalent.terraincognita.common.entity.butterfly.ai.ButterflyWanderGoal;
-import azmalent.terraincognita.common.registry.ModEntities;
-import azmalent.terraincognita.common.registry.ModItems;
+import azmalent.terraincognita.core.registry.ModEntities;
+import azmalent.terraincognita.core.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;

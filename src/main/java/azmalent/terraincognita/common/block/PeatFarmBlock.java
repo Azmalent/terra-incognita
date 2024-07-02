@@ -1,7 +1,7 @@
 package azmalent.terraincognita.common.block;
 
 import azmalent.terraincognita.TIServerConfig;
-import azmalent.terraincognita.common.registry.ModBlocks;
+import azmalent.terraincognita.core.registry.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;

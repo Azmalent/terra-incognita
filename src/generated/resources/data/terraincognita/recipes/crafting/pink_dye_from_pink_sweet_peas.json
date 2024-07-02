@@ -1,0 +1,25 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:sweet_peas",
+          "type": "cuneiform:config"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shapeless",
+        "group": "pink_dye",
+        "ingredients": [
+          {
+            "item": "terraincognita:pink_sweet_peas"
+          }
+        ],
+        "result": {
+          "item": "minecraft:pink_dye"
+        }
+      }
+    }
+  ]
+}

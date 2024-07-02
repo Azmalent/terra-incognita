@@ -1,6 +1,6 @@
 package azmalent.terraincognita.common.world.feature;
 
-import azmalent.terraincognita.common.registry.ModBlocks;
+import azmalent.terraincognita.core.registry.ModBlocks;
 import net.minecraft.Util;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.VineBlock;

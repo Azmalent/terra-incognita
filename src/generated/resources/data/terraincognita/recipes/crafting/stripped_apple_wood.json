@@ -1,0 +1,29 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:apple",
+          "type": "cuneiform:config"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "pattern": [
+          "LL",
+          "LL"
+        ],
+        "key": {
+          "L": {
+            "item": "terraincognita:stripped_apple_log"
+          }
+        },
+        "result": {
+          "item": "terraincognita:stripped_apple_wood",
+          "count": 3
+        }
+      }
+    }
+  ]
+}

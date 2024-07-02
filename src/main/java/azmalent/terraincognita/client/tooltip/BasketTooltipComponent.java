@@ -1,7 +1,7 @@
 package azmalent.terraincognita.client.tooltip;
 
-import azmalent.terraincognita.common.inventory.BasketMenu;
-import azmalent.terraincognita.common.inventory.BasketStackHandler;
+import azmalent.terraincognita.common.menu.BasketMenu;
+import azmalent.terraincognita.common.menu.BasketStackHandler;
 import azmalent.terraincognita.common.item.block.BasketItem;
 import azmalent.terraincognita.integration.ModIntegration;
 import com.mojang.blaze3d.platform.Window;

@@ -1,0 +1,64 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "values": [
+            {
+              "config": "terraincognita:apple",
+              "type": "cuneiform:config"
+            },
+            {
+              "values": [
+                {
+                  "modid": "quark",
+                  "type": "forge:mod_loaded"
+                },
+                {
+                  "modid": "woodworks",
+                  "type": "forge:mod_loaded"
+                }
+              ],
+              "type": "forge:or"
+            }
+          ],
+          "type": "forge:and"
+        }
+      ],
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "terraincognita:crafting/apple_chest"
+          ]
+        },
+        "criteria": {
+          "has_apple_planks": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "terraincognita:apple_planks"
+                  ]
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "terraincognita:crafting/apple_chest"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_apple_planks",
+            "has_the_recipe"
+          ]
+        ]
+      }
+    }
+  ]
+}

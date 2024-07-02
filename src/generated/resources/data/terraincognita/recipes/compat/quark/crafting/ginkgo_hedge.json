@@ -1,0 +1,41 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "values": [
+            {
+              "config": "terraincognita:ginkgo",
+              "type": "cuneiform:config"
+            },
+            {
+              "modid": "quark",
+              "type": "forge:mod_loaded"
+            }
+          ],
+          "type": "forge:and"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "pattern": [
+          "L",
+          "W"
+        ],
+        "key": {
+          "L": {
+            "item": "terraincognita:ginkgo_leaves"
+          },
+          "W": {
+            "tag": "terraincognita:ginkgo_logs"
+          }
+        },
+        "result": {
+          "item": "terraincognita:ginkgo_hedge",
+          "count": 2
+        }
+      }
+    }
+  ]
+}

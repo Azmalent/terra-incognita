@@ -1,7 +1,7 @@
 package azmalent.terraincognita.common.world;
 
-import azmalent.terraincognita.common.registry.ModBiomes;
-import azmalent.terraincognita.common.registry.ModBlocks;
+import azmalent.terraincognita.core.registry.ModBiomes;
+import azmalent.terraincognita.core.registry.ModBlocks;
 import azmalent.terraincognita.common.world.biome.TIBiomeEntry;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.SurfaceRules;

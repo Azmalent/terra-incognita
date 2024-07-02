@@ -1,0 +1,27 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:hanging_moss",
+          "type": "cuneiform:config"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shapeless",
+        "ingredients": [
+          {
+            "item": "minecraft:stone_bricks"
+          },
+          {
+            "item": "terraincognita:hanging_moss"
+          }
+        ],
+        "result": {
+          "item": "minecraft:mossy_stone_bricks"
+        }
+      }
+    }
+  ]
+}

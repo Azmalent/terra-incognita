@@ -1,6 +1,5 @@
 package azmalent.terraincognita.common.block.plant;
 
-import azmalent.terraincognita.common.ModBlockTags;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.BonemealableBlock;

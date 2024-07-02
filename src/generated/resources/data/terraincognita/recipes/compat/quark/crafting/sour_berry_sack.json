@@ -1,0 +1,38 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "values": [
+            {
+              "modid": "quark",
+              "type": "forge:mod_loaded"
+            },
+            {
+              "config": "terraincognita:sour_berries",
+              "type": "cuneiform:config"
+            }
+          ],
+          "type": "forge:and"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "pattern": [
+          "XXX",
+          "XXX",
+          "XXX"
+        ],
+        "key": {
+          "X": {
+            "item": "terraincognita:sour_berries"
+          }
+        },
+        "result": {
+          "item": "terraincognita:sour_berry_sack"
+        }
+      }
+    }
+  ]
+}

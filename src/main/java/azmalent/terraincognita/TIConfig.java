@@ -7,8 +7,6 @@ import azmalent.cuneiform.config.options.BooleanOption;
 import azmalent.cuneiform.config.options.DoubleOption;
 import azmalent.cuneiform.config.options.IntOption;
 import net.minecraftforge.fml.config.ModConfig;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @SuppressWarnings("unused")
 public class TIConfig extends ConfigFile {
@@ -95,6 +93,8 @@ public class TIConfig extends ConfigFile {
     }
 
     public static final class Fauna {
+        @Name("Butterflies Enabled")
+        public static final BooleanOption butterflies = BooleanOption.of(true, "butterflies");
         public static final IntOption butterflySpawnWeight = IntOption.inRange(10, 0, 100);
     }
 
@@ -128,7 +128,7 @@ public class TIConfig extends ConfigFile {
         @Comment({"Fern fiddleheads can be found when breaking ferns. You can eat them raw or add them to suspicious stews.",
             "Duration of suspicious stew's effect is doubled when a fiddlehead is added during or after cooking.",
             "If the effect is negative, duration is halved instead."})
-        public static final BooleanOption fiddlehead = BooleanOption.of(true, "fiddlehead");
+        public static final BooleanOption fernFiddlehead = BooleanOption.of(true, "fern_fiddleheads");
 
         @Name("Taffy Enabled")
         @Comment("Taffy is a food item that can only be found in dungeons. " +
@@ -177,7 +177,5 @@ public class TIConfig extends ConfigFile {
 
         @Comment("If enabled, wither roses will generate naturally in Soul Sand Valleys.")
         public static final BooleanOption witherRoseGeneration = BooleanOption.of(true);
-
-        public static final BooleanOption bannerPatterns = BooleanOption.of(true, "banners");
     }
 }

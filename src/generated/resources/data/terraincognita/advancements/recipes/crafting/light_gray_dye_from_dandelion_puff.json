@@ -1,0 +1,46 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:dandelion_puff",
+          "type": "cuneiform:config"
+        }
+      ],
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "terraincognita:crafting/light_gray_dye_from_dandelion_puff"
+          ]
+        },
+        "criteria": {
+          "has_dandelion_puff": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "terraincognita:dandelion_puff"
+                  ]
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "terraincognita:crafting/light_gray_dye_from_dandelion_puff"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_dandelion_puff",
+            "has_the_recipe"
+          ]
+        ]
+      }
+    }
+  ]
+}

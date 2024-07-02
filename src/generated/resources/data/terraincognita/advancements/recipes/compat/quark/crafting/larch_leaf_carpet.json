@@ -1,0 +1,55 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "values": [
+            {
+              "config": "terraincognita:larch",
+              "type": "cuneiform:config"
+            },
+            {
+              "modid": "quark",
+              "type": "forge:mod_loaded"
+            }
+          ],
+          "type": "forge:and"
+        }
+      ],
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "terraincognita:compat/quark/crafting/larch_leaf_carpet"
+          ]
+        },
+        "criteria": {
+          "has_larch_leaves": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "terraincognita:larch_leaves"
+                  ]
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "terraincognita:compat/quark/crafting/larch_leaf_carpet"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_larch_leaves",
+            "has_the_recipe"
+          ]
+        ]
+      }
+    }
+  ]
+}

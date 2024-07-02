@@ -1,6 +1,6 @@
 package azmalent.terraincognita.common.block.plant;
 
-import azmalent.terraincognita.common.registry.ModBlocks;
+import azmalent.terraincognita.core.registry.ModBlocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BushBlock;

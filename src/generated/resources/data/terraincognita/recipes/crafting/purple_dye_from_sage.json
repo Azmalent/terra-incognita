@@ -1,0 +1,26 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:savanna_flowers",
+          "type": "cuneiform:config"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shapeless",
+        "group": "purple_dye",
+        "ingredients": [
+          {
+            "item": "terraincognita:sage"
+          }
+        ],
+        "result": {
+          "item": "minecraft:purple_dye",
+          "count": 2
+        }
+      }
+    }
+  ]
+}

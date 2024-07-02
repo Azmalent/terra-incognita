@@ -1,0 +1,46 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:field_flowers",
+          "type": "cuneiform:config"
+        }
+      ],
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "terraincognita:crafting/yellow_dye_from_daffodil"
+          ]
+        },
+        "criteria": {
+          "has_daffodil": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "terraincognita:daffodil"
+                  ]
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "terraincognita:crafting/yellow_dye_from_daffodil"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_daffodil",
+            "has_the_recipe"
+          ]
+        ]
+      }
+    }
+  ]
+}

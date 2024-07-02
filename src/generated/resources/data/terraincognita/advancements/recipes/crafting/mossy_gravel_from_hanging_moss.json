@@ -1,0 +1,55 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "values": [
+            {
+              "config": "terraincognita:mossy_gravel",
+              "type": "cuneiform:config"
+            },
+            {
+              "config": "terraincognita:hanging_moss",
+              "type": "cuneiform:config"
+            }
+          ],
+          "type": "forge:and"
+        }
+      ],
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "terraincognita:crafting/mossy_gravel_from_hanging_moss"
+          ]
+        },
+        "criteria": {
+          "has_hanging_moss": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "terraincognita:hanging_moss"
+                  ]
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "terraincognita:crafting/mossy_gravel_from_hanging_moss"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_hanging_moss",
+            "has_the_recipe"
+          ]
+        ]
+      }
+    }
+  ]
+}

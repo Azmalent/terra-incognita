@@ -1,6 +1,6 @@
 package azmalent.terraincognita.common.world.placement;
 
-import azmalent.terraincognita.common.registry.ModPlacements;
+import azmalent.terraincognita.core.registry.ModPlacements;
 import azmalent.terraincognita.common.world.configured.ModMiscFeatures;
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.features.MiscOverworldFeatures;

@@ -48,6 +48,12 @@ public abstract class AbstractFruitBlock extends Block implements BonemealableBl
         this.registerDefaultState(getStateDefinition().any().setValue(AGE, 0));
     }
 
+    @Nonnull
+    @Override
+    public Item asItem() {
+        return item.get();
+    }
+
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(AGE);
@@ -97,17 +103,6 @@ public abstract class AbstractFruitBlock extends Block implements BonemealableBl
                 ForgeHooks.onCropsGrowPost(level, pos, state);
             }
         }
-    }
-
-    @Nonnull
-    @Override
-    public List<ItemStack> getDrops(BlockState state, @Nonnull LootContext.Builder builder) {
-        List<ItemStack> drops = Lists.newArrayList();
-        if (state.getValue(AGE) == 7) {
-            drops.add(new ItemStack(item.get()));
-        }
-
-        return drops;
     }
 
     @Nonnull

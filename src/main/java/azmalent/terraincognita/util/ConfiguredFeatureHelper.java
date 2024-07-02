@@ -1,6 +1,6 @@
 package azmalent.terraincognita.util;
 
-import azmalent.terraincognita.common.registry.ModConfiguredFeatures;
+import azmalent.terraincognita.core.registry.ModConfiguredFeatures;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.data.worldgen.features.FeatureUtils;

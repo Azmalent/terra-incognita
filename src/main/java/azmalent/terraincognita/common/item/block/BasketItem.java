@@ -1,10 +1,10 @@
 package azmalent.terraincognita.common.item.block;
 
 import azmalent.terraincognita.TerraIncognita;
-import azmalent.terraincognita.common.ModItemTags;
-import azmalent.terraincognita.common.inventory.BasketMenu;
-import azmalent.terraincognita.common.inventory.BasketStackHandler;
-import azmalent.terraincognita.common.registry.ModBlocks;
+import azmalent.terraincognita.core.ModItemTags;
+import azmalent.terraincognita.common.menu.BasketMenu;
+import azmalent.terraincognita.common.menu.BasketStackHandler;
+import azmalent.terraincognita.core.registry.ModBlocks;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;

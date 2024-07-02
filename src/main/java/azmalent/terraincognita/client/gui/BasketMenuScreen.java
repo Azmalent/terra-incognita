@@ -1,7 +1,7 @@
 package azmalent.terraincognita.client.gui;
 
 import azmalent.terraincognita.TerraIncognita;
-import azmalent.terraincognita.common.inventory.BasketMenu;
+import azmalent.terraincognita.common.menu.BasketMenu;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;

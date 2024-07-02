@@ -1,0 +1,30 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:ginkgo",
+          "type": "cuneiform:config"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "pattern": [
+          "P  ",
+          "PP ",
+          "PPP"
+        ],
+        "key": {
+          "P": {
+            "item": "terraincognita:ginkgo_planks"
+          }
+        },
+        "result": {
+          "item": "terraincognita:ginkgo_stairs",
+          "count": 4
+        }
+      }
+    }
+  ]
+}

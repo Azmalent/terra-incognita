@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:crafting_shapeless",
-  "result": {
-    "item": "terraincognita:sour_berry_sprouts"
-  },
-  "ingredients": [
-    {"item": "terraincognita:sour_berries"}
-  ]
-}

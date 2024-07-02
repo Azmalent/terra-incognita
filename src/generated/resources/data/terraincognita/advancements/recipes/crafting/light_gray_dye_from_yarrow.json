@@ -1,0 +1,46 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:field_flowers",
+          "type": "cuneiform:config"
+        }
+      ],
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "terraincognita:crafting/light_gray_dye_from_yarrow"
+          ]
+        },
+        "criteria": {
+          "has_yarrow": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "terraincognita:yarrow"
+                  ]
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "terraincognita:crafting/light_gray_dye_from_yarrow"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_yarrow",
+            "has_the_recipe"
+          ]
+        ]
+      }
+    }
+  ]
+}

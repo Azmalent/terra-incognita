@@ -1,0 +1,29 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:hazel",
+          "type": "cuneiform:config"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "pattern": [
+          "LL",
+          "LL"
+        ],
+        "key": {
+          "L": {
+            "item": "terraincognita:hazel_log"
+          }
+        },
+        "result": {
+          "item": "terraincognita:hazel_wood",
+          "count": 3
+        }
+      }
+    }
+  ]
+}

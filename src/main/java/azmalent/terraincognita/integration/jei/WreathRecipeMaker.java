@@ -1,7 +1,7 @@
 package azmalent.terraincognita.integration.jei;
 
 import azmalent.terraincognita.TerraIncognita;
-import azmalent.terraincognita.common.registry.ModItems;
+import azmalent.terraincognita.core.registry.ModItems;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;

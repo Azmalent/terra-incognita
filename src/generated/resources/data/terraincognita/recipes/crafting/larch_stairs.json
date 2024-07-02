@@ -1,0 +1,30 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:larch",
+          "type": "cuneiform:config"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "pattern": [
+          "P  ",
+          "PP ",
+          "PPP"
+        ],
+        "key": {
+          "P": {
+            "item": "terraincognita:larch_planks"
+          }
+        },
+        "result": {
+          "item": "terraincognita:larch_stairs",
+          "count": 4
+        }
+      }
+    }
+  ]
+}

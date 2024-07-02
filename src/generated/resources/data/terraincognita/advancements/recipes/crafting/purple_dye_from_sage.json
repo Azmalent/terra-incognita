@@ -1,0 +1,46 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:savanna_flowers",
+          "type": "cuneiform:config"
+        }
+      ],
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "terraincognita:crafting/purple_dye_from_sage"
+          ]
+        },
+        "criteria": {
+          "has_sage": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "terraincognita:sage"
+                  ]
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "terraincognita:crafting/purple_dye_from_sage"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_sage",
+            "has_the_recipe"
+          ]
+        ]
+      }
+    }
+  ]
+}

@@ -21,6 +21,7 @@ java {
 
 idea {
     module {
+        excludeDirs << file('models')
         excludeDirs << file('run')
     }
 }
@@ -71,21 +72,30 @@ minecraft {
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
-//TODO: switch to modrinth maven
-//https://support.modrinth.com/en/articles/8801191-modrinth-maven
 repositories {
-    maven {
-        name = "CurseMaven"
-        url = "https://www.cursemaven.com"
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = "Modrinth"
+                url = "https://api.modrinth.com/maven"
+            }
+        }
+        forRepositories(fg.repository)
+        filter {
+            includeGroup "maven.modrinth"
+        }
     }
+
     maven { // JEI
         name = "Progwml6 maven"
         url = "https://dvs1.progwml6.com/files/maven/"
     }
+
     maven { // TOP
         name 'tterrag'
         url 'https://maven.tterrag.com/'
     }
+
     maven { // Quark
         name "blamejared"
         url "https://maven.blamejared.com/"
@@ -96,30 +106,32 @@ dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
-    implementation fg.deobf("curse.maven:cuneiform-419176:${cuneiform_file_id}")
+    //Required dependencies
+    implementation fg.deobf("maven.modrinth:cuneiform:${cuneiform_version}")
     implementation fg.deobf("com.github.glitchfiend:TerraBlender-forge:${minecraft_version}-${terrablender_version}")
 
-    runtimeOnly fg.deobf("curse.maven:rubidium-574856:${rubidium_file_id}")
-    //runtimeOnly fg.deobf("curse.maven:modernfix-790626:${modernfix_file_id}")
-    runtimeOnly fg.deobf("curse.maven:cyanide-forge-541676:${cyanide_file_id}")
-
-    runtimeOnly fg.deobf("curse.maven:blueprint-382216:3991478")
-    runtimeOnly fg.deobf("curse.maven:atmospheric-362393:4367068")
-
+    //Optional dependencies
     compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}:api")
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}")
 
-    compileOnly fg.deobf("curse.maven:jade-api-324717:${jade_api_file_id}")
-    runtimeOnly fg.deobf("curse.maven:jade-324717:${jade_file_id}")
-
-    implementation fg.deobf("curse.maven:the-one-probe-245211:3671753") //not yet on maven
+    implementation fg.deobf("maven.modrinth:jade:${jade_version}")
+    implementation fg.deobf("maven.modrinth:the-one-probe:${top_version}")
 
     runtimeOnly fg.deobf("vazkii.autoreglib:AutoRegLib:1.7-54.112")
     implementation fg.deobf("vazkii.quark:Quark:${quark_version}.${quark_build_number}")
 
-    implementation fg.deobf("curse.maven:farmers-delight-398521:${farmers_delight_file_id}")
+    runtimeOnly fg.deobf("maven.modrinth:blueprint:${blueprint_version}")
+    implementation fg.deobf("maven.modrinth:woodworks:${woodworks_version}")
+    implementation fg.deobf("maven.modrinth:clayworks:${clayworks_version}")
+
+    implementation fg.deobf("maven.modrinth:farmers-delight:${farmers_delight_version}")
 
     compileOnly fg.deobf("vazkii.botania:Botania:${minecraft_version}-${botania_version}:api")
+
+    //Runtime extras
+    runtimeOnly fg.deobf("maven.modrinth:rubidium:${rubidium_version}")
+    runtimeOnly fg.deobf("maven.modrinth:cyanide:${cyanide_version}")
+    runtimeOnly fg.deobf("maven.modrinth:atmospheric:${atmospheric_version}")
 }
 
 mixin {

@@ -1,9 +1,9 @@
 {
   "parent": "minecraft:block/block",
   "textures": {
-    "leaf": "terraincognita:block/apple/leaves",
-    "blossoms": "terraincognita:block/apple/flowers",
-    "log": "terraincognita:block/apple/log",
+    "leaf": "terraincognita:block/apple_leaves",
+    "blossoms": "terraincognita:block/apple_flowers",
+    "log": "terraincognita:block/apple_log",
     "particle": "#leaf"
   },
   "elements": [

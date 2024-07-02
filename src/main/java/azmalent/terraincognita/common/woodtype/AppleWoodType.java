@@ -7,7 +7,7 @@ import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.block.fruit.FruitLeavesBlock;
 import azmalent.terraincognita.common.block.woodset.TIHedgeBlock;
 import azmalent.terraincognita.common.block.woodset.TILeafCarpetBlock;
-import azmalent.terraincognita.common.registry.ModBlocks;
+import azmalent.terraincognita.core.registry.ModBlocks;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.client.renderer.BiomeColors;

@@ -1,0 +1,55 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "values": [
+            {
+              "config": "terraincognita:hazel",
+              "type": "cuneiform:config"
+            },
+            {
+              "modid": "quark",
+              "type": "forge:mod_loaded"
+            }
+          ],
+          "type": "forge:and"
+        }
+      ],
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "terraincognita:compat/quark/crafting/vertical_hazel_planks"
+          ]
+        },
+        "criteria": {
+          "has_hazel_planks": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "terraincognita:hazel_planks"
+                  ]
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "terraincognita:compat/quark/crafting/vertical_hazel_planks"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_hazel_planks",
+            "has_the_recipe"
+          ]
+        ]
+      }
+    }
+  ]
+}

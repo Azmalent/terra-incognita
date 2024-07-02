@@ -1,0 +1,33 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:larch",
+          "type": "cuneiform:config"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "pattern": [
+          "PPP",
+          "PPP",
+          " # "
+        ],
+        "key": {
+          "P": {
+            "item": "terraincognita:larch_planks"
+          },
+          "#": {
+            "item": "minecraft:stick"
+          }
+        },
+        "result": {
+          "item": "terraincognita:larch_sign",
+          "count": 3
+        }
+      }
+    }
+  ]
+}

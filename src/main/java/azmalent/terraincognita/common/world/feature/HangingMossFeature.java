@@ -1,7 +1,7 @@
 package azmalent.terraincognita.common.world.feature;
 
 import azmalent.terraincognita.common.block.plant.HangingMossBlock;
-import azmalent.terraincognita.common.registry.ModBlocks;
+import azmalent.terraincognita.core.registry.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.WorldGenLevel;

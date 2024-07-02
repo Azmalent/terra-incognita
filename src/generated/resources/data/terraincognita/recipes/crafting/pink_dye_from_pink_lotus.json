@@ -1,0 +1,25 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:lotus",
+          "type": "cuneiform:config"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shapeless",
+        "group": "pink_dye",
+        "ingredients": [
+          {
+            "item": "terraincognita:pink_lotus"
+          }
+        ],
+        "result": {
+          "item": "minecraft:pink_dye"
+        }
+      }
+    }
+  ]
+}

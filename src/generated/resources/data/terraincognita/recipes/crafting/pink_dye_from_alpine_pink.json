@@ -1,0 +1,25 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:alpine_flowers",
+          "type": "cuneiform:config"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shapeless",
+        "group": "pink_dye",
+        "ingredients": [
+          {
+            "item": "terraincognita:alpine_pink"
+          }
+        ],
+        "result": {
+          "item": "minecraft:pink_dye"
+        }
+      }
+    }
+  ]
+}

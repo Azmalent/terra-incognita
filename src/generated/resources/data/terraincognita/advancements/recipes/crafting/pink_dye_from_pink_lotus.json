@@ -1,0 +1,46 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:lotus",
+          "type": "cuneiform:config"
+        }
+      ],
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "terraincognita:crafting/pink_dye_from_pink_lotus"
+          ]
+        },
+        "criteria": {
+          "has_pink_lotus": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "terraincognita:pink_lotus"
+                  ]
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "terraincognita:crafting/pink_dye_from_pink_lotus"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_pink_lotus",
+            "has_the_recipe"
+          ]
+        ]
+      }
+    }
+  ]
+}

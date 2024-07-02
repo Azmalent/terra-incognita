@@ -6,7 +6,7 @@
         "up": "true"
       },
       "apply": {
-        "model": "terraincognita:block/sweet_peas/purple",
+        "model": "terraincognita:block/purple_sweet_peas",
         "x": 270,
         "uvlock": true
       }
@@ -21,7 +21,7 @@
         "east": "false"
       },
       "apply": {
-        "model": "terraincognita:block/sweet_peas/purple",
+        "model": "terraincognita:block/purple_sweet_peas",
         "x": 270,
         "uvlock": true
       }
@@ -32,7 +32,7 @@
         "north": "true"
       },
       "apply": {
-        "model": "terraincognita:block/sweet_peas/purple"
+        "model": "terraincognita:block/purple_sweet_peas"
       }
     },
     {
@@ -45,7 +45,7 @@
         "east": "false"
       },
       "apply": {
-        "model": "terraincognita:block/sweet_peas/purple"
+        "model": "terraincognita:block/purple_sweet_peas"
       }
     },
     {
@@ -54,7 +54,7 @@
         "west": "true"
       },
       "apply": {
-        "model": "terraincognita:block/sweet_peas/purple",
+        "model": "terraincognita:block/purple_sweet_peas",
         "y": 270,
         "uvlock": true
       }
@@ -69,7 +69,7 @@
         "east": "false"
       },
       "apply": {
-        "model": "terraincognita:block/sweet_peas/purple",
+        "model": "terraincognita:block/purple_sweet_peas",
         "y": 270,
         "uvlock": true
       }
@@ -80,7 +80,7 @@
         "south": "true"
       },
       "apply": {
-        "model": "terraincognita:block/sweet_peas/purple",
+        "model": "terraincognita:block/purple_sweet_peas",
         "y": 180,
         "uvlock": true
       }
@@ -95,7 +95,7 @@
         "east": "false"
       },
       "apply": {
-        "model": "terraincognita:block/sweet_peas/purple",
+        "model": "terraincognita:block/purple_sweet_peas",
         "y": 180,
         "uvlock": true
       }
@@ -106,7 +106,7 @@
         "east": "true"
       },
       "apply": {
-        "model": "terraincognita:block/sweet_peas/purple",
+        "model": "terraincognita:block/purple_sweet_peas",
         "y": 90,
         "uvlock": true
       }
@@ -121,7 +121,7 @@
         "east": "false"
       },
       "apply": {
-        "model": "terraincognita:block/sweet_peas/purple",
+        "model": "terraincognita:block/purple_sweet_peas",
         "y": 90,
         "uvlock": true
       }
@@ -132,7 +132,7 @@
         "up": "true"
       },
       "apply": {
-        "model": "terraincognita:block/sweet_peas/purple",
+        "model": "terraincognita:block/purple_sweet_peas",
         "x": 270,
         "uvlock": true
       }
@@ -147,7 +147,7 @@
         "east": "false"
       },
       "apply": {
-        "model": "terraincognita:block/sweet_peas/purple",
+        "model": "terraincognita:block/purple_sweet_peas",
         "x": 270,
         "uvlock": true
       }
@@ -158,7 +158,7 @@
         "north": "true"
       },
       "apply": {
-        "model": "terraincognita:block/sweet_peas/purple_cut"
+        "model": "terraincognita:block/purple_sweet_peas_cut"
       }
     },
     {
@@ -171,7 +171,7 @@
         "east": "false"
       },
       "apply": {
-        "model": "terraincognita:block/sweet_peas/purple_cut"
+        "model": "terraincognita:block/purple_sweet_peas_cut"
       }
     },
     {
@@ -180,7 +180,7 @@
         "west": "true"
       },
       "apply": {
-        "model": "terraincognita:block/sweet_peas/purple_cut",
+        "model": "terraincognita:block/purple_sweet_peas_cut",
         "y": 270,
         "uvlock": true
       }
@@ -195,7 +195,7 @@
         "east": "false"
       },
       "apply": {
-        "model": "terraincognita:block/sweet_peas/purple_cut",
+        "model": "terraincognita:block/purple_sweet_peas_cut",
         "y": 270,
         "uvlock": true
       }
@@ -206,7 +206,7 @@
         "south": "true"
       },
       "apply": {
-        "model": "terraincognita:block/sweet_peas/purple_cut",
+        "model": "terraincognita:block/purple_sweet_peas_cut",
         "y": 180,
         "uvlock": true
       }
@@ -221,7 +221,7 @@
         "east": "false"
       },
       "apply": {
-        "model": "terraincognita:block/sweet_peas/purple",
+        "model": "terraincognita:block/purple_sweet_peas",
         "y": 180,
         "uvlock": true
       }
@@ -232,7 +232,7 @@
         "east": "true"
       },
       "apply": {
-        "model": "terraincognita:block/sweet_peas/purple_cut",
+        "model": "terraincognita:block/purple_sweet_peas_cut",
         "y": 90,
         "uvlock": true
       }
@@ -247,7 +247,7 @@
         "east": "false"
       },
       "apply": {
-        "model": "terraincognita:block/sweet_peas/purple_cut",
+        "model": "terraincognita:block/purple_sweet_peas_cut",
         "y": 90,
         "uvlock": true
       }

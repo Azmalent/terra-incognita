@@ -1,7 +1,7 @@
 package azmalent.terraincognita.common.world.feature;
 
 import azmalent.terraincognita.common.block.plant.CaribouMossWallBlock;
-import azmalent.terraincognita.common.registry.ModBlocks;
+import azmalent.terraincognita.core.registry.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;

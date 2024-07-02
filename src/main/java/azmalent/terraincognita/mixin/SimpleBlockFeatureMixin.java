@@ -2,7 +2,7 @@ package azmalent.terraincognita.mixin;
 
 import azmalent.terraincognita.TIConfig;
 import azmalent.terraincognita.common.block.plant.SmallLilyPadBlock;
-import azmalent.terraincognita.common.registry.ModBlocks;
+import azmalent.terraincognita.core.registry.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;

@@ -1,11 +1,11 @@
 package azmalent.terraincognita.common.blockentity;
 
-import azmalent.terraincognita.common.ModItemTags;
-import azmalent.terraincognita.common.inventory.BasketMenu;
-import azmalent.terraincognita.common.inventory.BasketStackHandler;
+import azmalent.terraincognita.core.ModItemTags;
+import azmalent.terraincognita.common.menu.BasketMenu;
+import azmalent.terraincognita.common.menu.BasketStackHandler;
 import azmalent.terraincognita.common.item.block.BasketItem;
-import azmalent.terraincognita.common.registry.ModBlockEntities;
-import azmalent.terraincognita.common.registry.ModBlocks;
+import azmalent.terraincognita.core.registry.ModBlockEntities;
+import azmalent.terraincognita.core.registry.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;

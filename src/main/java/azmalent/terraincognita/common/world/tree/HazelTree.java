@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.OptionalInt;
 import java.util.Random;
 
-import static azmalent.terraincognita.common.registry.ModWoodTypes.HAZEL;
+import static azmalent.terraincognita.core.registry.ModWoodTypes.HAZEL;
 
 public class HazelTree extends AbstractTreeGrower {
     public static TreeConfiguration getTreeConfig(boolean grown) {

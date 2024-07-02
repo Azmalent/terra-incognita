@@ -1,0 +1,53 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "values": [
+            {
+              "config": "terraincognita:hazel",
+              "type": "cuneiform:config"
+            },
+            {
+              "modid": "quark",
+              "type": "forge:mod_loaded"
+            }
+          ],
+          "type": "forge:and"
+        }
+      ],
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "terraincognita:compat/quark/crafting/hazel_hedge"
+          ]
+        },
+        "criteria": {
+          "has_any_hazel_logs": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "tag": "terraincognita:hazel_logs"
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "terraincognita:compat/quark/crafting/hazel_hedge"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_any_hazel_logs",
+            "has_the_recipe"
+          ]
+        ]
+      }
+    }
+  ]
+}

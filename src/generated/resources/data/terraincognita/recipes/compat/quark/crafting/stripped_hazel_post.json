@@ -1,0 +1,39 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "values": [
+            {
+              "config": "terraincognita:hazel",
+              "type": "cuneiform:config"
+            },
+            {
+              "modid": "quark",
+              "type": "forge:mod_loaded"
+            }
+          ],
+          "type": "forge:and"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "pattern": [
+          "W",
+          "W",
+          "W"
+        ],
+        "key": {
+          "W": {
+            "item": "terraincognita:stripped_hazel_wood"
+          }
+        },
+        "result": {
+          "item": "terraincognita:stripped_hazel_post",
+          "count": 8
+        }
+      }
+    }
+  ]
+}

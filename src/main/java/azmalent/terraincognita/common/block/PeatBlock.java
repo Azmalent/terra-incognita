@@ -2,7 +2,7 @@ package azmalent.terraincognita.common.block;
 
 import azmalent.cuneiform.network.CuneiformNetwork;
 import azmalent.terraincognita.TIServerConfig;
-import azmalent.terraincognita.common.ModBlockTags;
+import azmalent.terraincognita.core.ModBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;

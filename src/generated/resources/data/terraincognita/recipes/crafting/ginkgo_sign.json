@@ -1,0 +1,33 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:ginkgo",
+          "type": "cuneiform:config"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "pattern": [
+          "PPP",
+          "PPP",
+          " # "
+        ],
+        "key": {
+          "P": {
+            "item": "terraincognita:ginkgo_planks"
+          },
+          "#": {
+            "item": "minecraft:stick"
+          }
+        },
+        "result": {
+          "item": "terraincognita:ginkgo_sign",
+          "count": 3
+        }
+      }
+    }
+  ]
+}

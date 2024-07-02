@@ -1,7 +1,7 @@
 package azmalent.terraincognita.common.block.plant;
 
-import azmalent.terraincognita.common.registry.ModBlocks;
-import azmalent.terraincognita.common.registry.ModItems;
+import azmalent.terraincognita.core.registry.ModBlocks;
+import azmalent.terraincognita.core.registry.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;

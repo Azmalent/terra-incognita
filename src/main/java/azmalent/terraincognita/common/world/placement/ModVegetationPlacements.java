@@ -1,6 +1,6 @@
 package azmalent.terraincognita.common.world.placement;
 
-import azmalent.terraincognita.common.registry.ModPlacements;
+import azmalent.terraincognita.core.registry.ModPlacements;
 import azmalent.terraincognita.common.world.configured.ModTreeFeatures;
 import azmalent.terraincognita.common.world.configured.ModVegetationFeatures;
 import net.minecraft.core.Direction;
@@ -16,7 +16,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.List;
 
-import static azmalent.terraincognita.common.registry.ModWoodTypes.*;
+import static azmalent.terraincognita.core.registry.ModWoodTypes.*;
 
 public class ModVegetationPlacements {
     public static void init() {

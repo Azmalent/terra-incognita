@@ -1,7 +1,7 @@
 package azmalent.terraincognita.common.lootmodifier;
 
 import azmalent.terraincognita.TIServerConfig;
-import azmalent.terraincognita.common.registry.ModItems;
+import azmalent.terraincognita.core.registry.ModItems;
 import com.google.gson.JsonObject;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;

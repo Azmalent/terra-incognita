@@ -1,6 +1,6 @@
 package azmalent.terraincognita.common.world.configured;
 
-import azmalent.terraincognita.common.registry.ModConfiguredFeatures;
+import azmalent.terraincognita.core.registry.ModConfiguredFeatures;
 import azmalent.terraincognita.common.world.tree.AppleTree;
 import azmalent.terraincognita.common.world.tree.GinkgoTree;
 import azmalent.terraincognita.common.world.tree.HazelTree;

@@ -1,0 +1,45 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "values": [
+            {
+              "config": "terraincognita:ginkgo",
+              "type": "cuneiform:config"
+            },
+            {
+              "values": [
+                {
+                  "modid": "quark",
+                  "type": "forge:mod_loaded"
+                },
+                {
+                  "modid": "woodworks",
+                  "type": "forge:mod_loaded"
+                }
+              ],
+              "type": "forge:or"
+            }
+          ],
+          "type": "forge:and"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shapeless",
+        "ingredients": [
+          {
+            "item": "terraincognita:ginkgo_chest"
+          },
+          {
+            "item": "minecraft:tripwire_hook"
+          }
+        ],
+        "result": {
+          "item": "terraincognita:ginkgo_trapped_chest"
+        }
+      }
+    }
+  ]
+}

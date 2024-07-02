@@ -1,0 +1,46 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:savanna_flowers",
+          "type": "cuneiform:config"
+        }
+      ],
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "terraincognita:crafting/orange_dye_from_marigold"
+          ]
+        },
+        "criteria": {
+          "has_marigold": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "terraincognita:marigold"
+                  ]
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "terraincognita:crafting/orange_dye_from_marigold"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_marigold",
+            "has_the_recipe"
+          ]
+        ]
+      }
+    }
+  ]
+}

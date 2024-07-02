@@ -1,0 +1,46 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:alpine_flowers",
+          "type": "cuneiform:config"
+        }
+      ],
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "terraincognita:crafting/blue_dye_from_gentian"
+          ]
+        },
+        "criteria": {
+          "has_gentian": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "terraincognita:gentian"
+                  ]
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "terraincognita:crafting/blue_dye_from_gentian"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_gentian",
+            "has_the_recipe"
+          ]
+        ]
+      }
+    }
+  ]
+}

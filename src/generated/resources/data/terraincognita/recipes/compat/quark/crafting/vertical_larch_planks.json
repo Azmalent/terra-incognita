@@ -1,0 +1,39 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "values": [
+            {
+              "config": "terraincognita:larch",
+              "type": "cuneiform:config"
+            },
+            {
+              "modid": "quark",
+              "type": "forge:mod_loaded"
+            }
+          ],
+          "type": "forge:and"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "pattern": [
+          "P",
+          "P",
+          "P"
+        ],
+        "key": {
+          "P": {
+            "item": "terraincognita:larch_planks"
+          }
+        },
+        "result": {
+          "item": "terraincognita:vertical_larch_planks",
+          "count": 3
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "values": [
+            {
+              "config": "terraincognita:hazel",
+              "type": "cuneiform:config"
+            },
+            {
+              "modid": "quark",
+              "type": "forge:mod_loaded"
+            }
+          ],
+          "type": "forge:and"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "pattern": [
+          "S",
+          "S",
+          "S"
+        ],
+        "key": {
+          "S": {
+            "item": "terraincognita:hazel_slab"
+          }
+        },
+        "result": {
+          "item": "terraincognita:hazel_vertical_slab",
+          "count": 3
+        }
+      }
+    }
+  ]
+}

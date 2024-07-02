@@ -1,0 +1,29 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:hazel",
+          "type": "cuneiform:config"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "pattern": [
+          "PPP",
+          "PPP"
+        ],
+        "key": {
+          "P": {
+            "item": "terraincognita:hazel_planks"
+          }
+        },
+        "result": {
+          "item": "terraincognita:hazel_trapdoor",
+          "count": 3
+        }
+      }
+    }
+  ]
+}

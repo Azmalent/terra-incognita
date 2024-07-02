@@ -1,0 +1,46 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:fern_fiddleheads",
+          "type": "cuneiform:config"
+        }
+      ],
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "terraincognita:crafting/fern_banner_pattern"
+          ]
+        },
+        "criteria": {
+          "has_fiddlehead": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "terraincognita:fiddlehead"
+                  ]
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "terraincognita:crafting/fern_banner_pattern"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_fiddlehead",
+            "has_the_recipe"
+          ]
+        ]
+      }
+    }
+  ]
+}

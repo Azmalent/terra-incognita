@@ -1,0 +1,46 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:field_flowers",
+          "type": "cuneiform:config"
+        }
+      ],
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "terraincognita:crafting/light_blue_dye_from_chicory"
+          ]
+        },
+        "criteria": {
+          "has_chicory": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "terraincognita:chicory"
+                  ]
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "terraincognita:crafting/light_blue_dye_from_chicory"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_chicory",
+            "has_the_recipe"
+          ]
+        ]
+      }
+    }
+  ]
+}

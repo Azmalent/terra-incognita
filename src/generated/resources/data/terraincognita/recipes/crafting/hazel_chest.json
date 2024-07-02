@@ -1,0 +1,47 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "values": [
+            {
+              "config": "terraincognita:hazel",
+              "type": "cuneiform:config"
+            },
+            {
+              "values": [
+                {
+                  "modid": "quark",
+                  "type": "forge:mod_loaded"
+                },
+                {
+                  "modid": "woodworks",
+                  "type": "forge:mod_loaded"
+                }
+              ],
+              "type": "forge:or"
+            }
+          ],
+          "type": "forge:and"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "pattern": [
+          "PPP",
+          "P P",
+          "PPP"
+        ],
+        "key": {
+          "P": {
+            "item": "terraincognita:hazel_planks"
+          }
+        },
+        "result": {
+          "item": "terraincognita:hazel_chest"
+        }
+      }
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 package azmalent.terraincognita.common.recipe;
 
-import azmalent.terraincognita.common.registry.ModItems;
-import azmalent.terraincognita.common.registry.ModRecipes;
+import azmalent.terraincognita.core.registry.ModItems;
+import azmalent.terraincognita.core.registry.ModRecipes;
 import com.google.common.collect.Maps;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;

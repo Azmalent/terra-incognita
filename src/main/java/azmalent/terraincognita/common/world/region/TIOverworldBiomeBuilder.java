@@ -1,6 +1,6 @@
 package azmalent.terraincognita.common.world.region;
 
-import azmalent.terraincognita.common.registry.ModBiomes;
+import azmalent.terraincognita.core.registry.ModBiomes;
 import azmalent.terraincognita.common.world.biome.TIBiomeEntry;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.resources.ResourceKey;

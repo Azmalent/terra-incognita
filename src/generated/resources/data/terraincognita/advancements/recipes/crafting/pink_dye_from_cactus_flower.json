@@ -1,0 +1,46 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:cactus_flowers",
+          "type": "cuneiform:config"
+        }
+      ],
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "terraincognita:crafting/pink_dye_from_cactus_flower"
+          ]
+        },
+        "criteria": {
+          "has_cactus_flower": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "terraincognita:cactus_flower"
+                  ]
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "terraincognita:crafting/pink_dye_from_cactus_flower"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_cactus_flower",
+            "has_the_recipe"
+          ]
+        ]
+      }
+    }
+  ]
+}

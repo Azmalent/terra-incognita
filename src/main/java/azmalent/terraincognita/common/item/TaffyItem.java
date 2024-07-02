@@ -1,8 +1,8 @@
 package azmalent.terraincognita.common.item;
 
 import azmalent.terraincognita.TIServerConfig;
-import azmalent.terraincognita.common.registry.ModEffects;
-import azmalent.terraincognita.common.registry.ModItems;
+import azmalent.terraincognita.core.registry.ModEffects;
+import azmalent.terraincognita.core.registry.ModItems;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.server.level.ServerPlayer;

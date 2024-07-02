@@ -1,0 +1,41 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "values": [
+            {
+              "config": "terraincognita:apple",
+              "type": "cuneiform:config"
+            },
+            {
+              "modid": "quark",
+              "type": "forge:mod_loaded"
+            }
+          ],
+          "type": "forge:and"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "pattern": [
+          "L",
+          "W"
+        ],
+        "key": {
+          "L": {
+            "item": "terraincognita:blossoming_apple_leaves"
+          },
+          "W": {
+            "tag": "terraincognita:apple_logs"
+          }
+        },
+        "result": {
+          "item": "terraincognita:blossoming_apple_hedge",
+          "count": 2
+        }
+      }
+    }
+  ]
+}

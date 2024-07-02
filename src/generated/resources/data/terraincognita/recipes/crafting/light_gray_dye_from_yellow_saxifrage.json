@@ -1,0 +1,25 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:alpine_flowers",
+          "type": "cuneiform:config"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shapeless",
+        "group": "light_gray_dye",
+        "ingredients": [
+          {
+            "item": "terraincognita:yellow_saxifrage"
+          }
+        ],
+        "result": {
+          "item": "minecraft:light_gray_dye"
+        }
+      }
+    }
+  ]
+}

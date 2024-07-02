@@ -1,0 +1,46 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:ginkgo",
+          "type": "cuneiform:config"
+        }
+      ],
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "terraincognita:crafting/ginkgo_wood"
+          ]
+        },
+        "criteria": {
+          "has_ginkgo_log": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "terraincognita:ginkgo_log"
+                  ]
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "terraincognita:crafting/ginkgo_wood"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_ginkgo_log",
+            "has_the_recipe"
+          ]
+        ]
+      }
+    }
+  ]
+}

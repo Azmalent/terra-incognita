@@ -1,0 +1,46 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:alpine_flowers",
+          "type": "cuneiform:config"
+        }
+      ],
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "terraincognita:crafting/magenta_dye_from_aster"
+          ]
+        },
+        "criteria": {
+          "has_aster": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "terraincognita:aster"
+                  ]
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "terraincognita:crafting/magenta_dye_from_aster"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_aster",
+            "has_the_recipe"
+          ]
+        ]
+      }
+    }
+  ]
+}

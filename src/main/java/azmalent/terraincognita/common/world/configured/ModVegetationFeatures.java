@@ -1,8 +1,8 @@
 package azmalent.terraincognita.common.world.configured;
 
 import azmalent.terraincognita.common.block.plant.SourBerryBushBlock;
-import azmalent.terraincognita.common.registry.ModBlocks;
-import azmalent.terraincognita.common.registry.ModFeatures;
+import azmalent.terraincognita.core.registry.ModBlocks;
+import azmalent.terraincognita.core.registry.ModFeatures;
 import azmalent.terraincognita.common.world.placement.ModTreePlacements;
 import azmalent.terraincognita.util.WeightedStateProviderBuilder;
 import net.minecraft.data.worldgen.features.FeatureUtils;
@@ -25,7 +25,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.List;
 
-import static azmalent.terraincognita.common.registry.ModConfiguredFeatures.register;
+import static azmalent.terraincognita.core.registry.ModConfiguredFeatures.register;
 import static azmalent.terraincognita.util.ConfiguredFeatureHelper.*;
 import static net.minecraft.data.worldgen.placement.PlacementUtils.inlinePlaced;
 

@@ -1,0 +1,46 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:alpine_flowers",
+          "type": "cuneiform:config"
+        }
+      ],
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "terraincognita:crafting/light_gray_dye_from_yellow_saxifrage"
+          ]
+        },
+        "criteria": {
+          "has_yellow_saxifrage": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "terraincognita:yellow_saxifrage"
+                  ]
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "terraincognita:crafting/light_gray_dye_from_yellow_saxifrage"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_yellow_saxifrage",
+            "has_the_recipe"
+          ]
+        ]
+      }
+    }
+  ]
+}

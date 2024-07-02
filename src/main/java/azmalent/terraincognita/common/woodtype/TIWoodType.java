@@ -12,7 +12,7 @@ import azmalent.terraincognita.common.block.woodset.sign.TIStandingSignBlock;
 import azmalent.terraincognita.common.block.woodset.sign.TIWallSignBlock;
 import azmalent.terraincognita.common.item.TIBoatItem;
 import azmalent.terraincognita.common.item.block.TIChestItem;
-import azmalent.terraincognita.common.registry.ModBlocks;
+import azmalent.terraincognita.core.registry.ModBlocks;
 import azmalent.terraincognita.integration.ModIntegration;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.color.item.ItemColors;
@@ -70,6 +70,11 @@ public class TIWoodType extends WoodType {
     public final BlockEntry<TIWoodPostBlock> STRIPPED_POST;
     public final BlockEntry<TIHedgeBlock> HEDGE;
     public final BlockEntry<TILeafCarpetBlock> LEAF_CARPET;
+    //TODO: hollow log (1.19)
+
+    //Woodworks
+    public final BlockEntry<RotatedPillarBlock> BOARDS;
+    public final BlockEntry<TILeafPileBlock> LEAF_PILE;
 
     //Farmer's Delight
     public final BlockEntry<? extends Block> CABINET;
@@ -77,44 +82,48 @@ public class TIWoodType extends WoodType {
     public final ItemEntry<TIBoatItem> BOAT;
     public final ResourceLocation BOAT_TEXTURE;
 
+    //Boatload
+
+
     @SuppressWarnings({"deprecation"})
-    public TIWoodType(String id, AbstractTreeGrower tree, MaterialColor woodColor, MaterialColor barkColor) {
-        super(TerraIncognita.prefix(id).toString());
+    public TIWoodType(String name, AbstractTreeGrower tree, MaterialColor woodColor, MaterialColor barkColor) {
+        super(TerraIncognita.prefix(name).toString());
         register(this);
 
-        this.name = id;
+        this.name = name;
         this.woodColor = woodColor;
         this.barkColor = barkColor;
 
         BOAT_TEXTURE = TerraIncognita.prefix("textures/entity/boat/" + name + ".png");
 
-        SAPLING = ModBlocks.createPlant(id + "_sapling", () -> new SaplingBlock(tree, Block.Properties.copy(Blocks.OAK_SAPLING)));
-        LEAVES  = REGISTRY_HELPER.createBlock(id + "_leaves", this::createLeaves).cutoutMippedRender().build();
+        SAPLING = ModBlocks.createPlant(name + "_sapling", () -> new SaplingBlock(tree, Block.Properties.copy(Blocks.OAK_SAPLING)));
+        LEAVES  = REGISTRY_HELPER.createBlock(name + "_leaves", this::createLeaves).cutoutMippedRender().build();
 
-        LOG           = REGISTRY_HELPER.createBlock(id + "_log", () -> createLogBlock(woodColor, barkColor)).blockItem(CreativeModeTab.TAB_BUILDING_BLOCKS).build();
-        STRIPPED_LOG  = REGISTRY_HELPER.createBlock("stripped_" + id + "_log", () -> createLogBlock(woodColor, woodColor)).blockItem(CreativeModeTab.TAB_BUILDING_BLOCKS).build();
-        WOOD          = REGISTRY_HELPER.createBlock(id + "_wood", () -> createWoodBlock(barkColor)).blockItem(CreativeModeTab.TAB_BUILDING_BLOCKS).build();
-        STRIPPED_WOOD = REGISTRY_HELPER.createBlock("stripped_" + id + "_wood", () -> createWoodBlock(barkColor)).blockItem(CreativeModeTab.TAB_BUILDING_BLOCKS).build();
+        LOG           = REGISTRY_HELPER.createBlock(name + "_log", () -> createLogBlock(woodColor, barkColor)).blockItem(CreativeModeTab.TAB_BUILDING_BLOCKS).build();
+        STRIPPED_LOG  = REGISTRY_HELPER.createBlock("stripped_" + name + "_log", () -> createLogBlock(woodColor, woodColor)).blockItem(CreativeModeTab.TAB_BUILDING_BLOCKS).build();
+        WOOD          = REGISTRY_HELPER.createBlock(name + "_wood", () -> createWoodBlock(barkColor)).blockItem(CreativeModeTab.TAB_BUILDING_BLOCKS).build();
+        STRIPPED_WOOD = REGISTRY_HELPER.createBlock("stripped_" + name + "_wood", () -> createWoodBlock(barkColor)).blockItem(CreativeModeTab.TAB_BUILDING_BLOCKS).build();
 
-        PLANKS     = REGISTRY_HELPER.createBlock(id + "_planks", () -> createPlanks(woodColor)).blockItem(CreativeModeTab.TAB_BUILDING_BLOCKS).build();
-        STAIRS     = REGISTRY_HELPER.createBlock(id + "_stairs", () -> new StairBlock(PLANKS.defaultBlockState(), Block.Properties.copy(PLANKS.get()))).blockItem(CreativeModeTab.TAB_BUILDING_BLOCKS).build();
-        SLAB       = REGISTRY_HELPER.createBlock(id + "_slab", () -> new SlabBlock(Block.Properties.copy(PLANKS.get()))).blockItem(CreativeModeTab.TAB_BUILDING_BLOCKS).build();
-        FENCE      = REGISTRY_HELPER.createBlock(id + "_fence", FenceBlock::new, Block.Properties.of(Material.WOOD, woodColor).strength(2.0F, 3.0F).sound(SoundType.WOOD)).build();
-        FENCE_GATE = REGISTRY_HELPER.createBlock(id + "_fence_gate", FenceGateBlock::new, Block.Properties.of(Material.WOOD, woodColor).strength(2.0F, 3.0F).sound(SoundType.WOOD)).build();
+        PLANKS     = REGISTRY_HELPER.createBlock(name + "_planks", () -> createPlanks(woodColor)).blockItem(CreativeModeTab.TAB_BUILDING_BLOCKS).build();
+        STAIRS     = REGISTRY_HELPER.createBlock(name + "_stairs", () -> new StairBlock(PLANKS.defaultBlockState(), Block.Properties.copy(PLANKS.get()))).blockItem(CreativeModeTab.TAB_BUILDING_BLOCKS).build();
+        SLAB       = REGISTRY_HELPER.createBlock(name + "_slab", () -> new SlabBlock(Block.Properties.copy(PLANKS.get()))).blockItem(CreativeModeTab.TAB_BUILDING_BLOCKS).build();
+        FENCE      = REGISTRY_HELPER.createBlock(name + "_fence", FenceBlock::new, Block.Properties.of(Material.WOOD, woodColor).strength(2.0F, 3.0F).sound(SoundType.WOOD)).build();
+        FENCE_GATE = REGISTRY_HELPER.createBlock(name + "_fence_gate", FenceGateBlock::new, Block.Properties.of(Material.WOOD, woodColor).strength(2.0F, 3.0F).sound(SoundType.WOOD)).build();
 
-        BUTTON         = REGISTRY_HELPER.createBlock(id + "_button", WoodButtonBlock::new, Block.Properties.copy(Blocks.OAK_BUTTON)).blockItem(CreativeModeTab.TAB_REDSTONE).build();
-        PRESSURE_PLATE = REGISTRY_HELPER.createBlock(id + "_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, Block.Properties.of(Material.WOOD, woodColor).noCollission().strength(0.5F).sound(SoundType.WOOD))).blockItem(CreativeModeTab.TAB_REDSTONE).build();
+        BUTTON         = REGISTRY_HELPER.createBlock(name + "_button", WoodButtonBlock::new, Block.Properties.copy(Blocks.OAK_BUTTON)).blockItem(CreativeModeTab.TAB_REDSTONE).build();
+        PRESSURE_PLATE = REGISTRY_HELPER.createBlock(name + "_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, Block.Properties.of(Material.WOOD, woodColor).noCollission().strength(0.5F).sound(SoundType.WOOD))).blockItem(CreativeModeTab.TAB_REDSTONE).build();
 
-        DOOR     = REGISTRY_HELPER.createBlock(id + "_door", DoorBlock::new, Block.Properties.of(Material.WOOD, woodColor).strength(3.0F).sound(SoundType.WOOD).noOcclusion()).tallBlockItem(CreativeModeTab.TAB_REDSTONE).cutoutRender().build();
-        TRAPDOOR = REGISTRY_HELPER.createBlock(id + "_trapdoor", TrapDoorBlock::new, Block.Properties.of(Material.WOOD, woodColor).strength(3.0F).sound(SoundType.WOOD).noOcclusion().isValidSpawn((state, reader, pos, entity) -> false)).blockItem(CreativeModeTab.TAB_REDSTONE).cutoutRender().build();
+        DOOR     = REGISTRY_HELPER.createBlock(name + "_door", DoorBlock::new, Block.Properties.of(Material.WOOD, woodColor).strength(3.0F).sound(SoundType.WOOD).noOcclusion()).tallBlockItem(CreativeModeTab.TAB_REDSTONE).cutoutRender().build();
+        TRAPDOOR = REGISTRY_HELPER.createBlock(name + "_trapdoor", TrapDoorBlock::new, Block.Properties.of(Material.WOOD, woodColor).strength(3.0F).sound(SoundType.WOOD).noOcclusion().isValidSpawn((state, reader, pos, entity) -> false)).blockItem(CreativeModeTab.TAB_REDSTONE).cutoutRender().build();
 
-        WALL_SIGN     = REGISTRY_HELPER.createBlock(id + "_wall_sign", () -> new TIWallSignBlock(this)).noItemForm().build();
-        SIGN          = REGISTRY_HELPER.createBlock(id + "_sign", () -> new TIStandingSignBlock(this)).blockItem(block -> new SignItem(new Item.Properties().stacksTo(16).tab(CreativeModeTab.TAB_DECORATIONS), getSign(), WALL_SIGN.get())).build();
-        CHEST         = REGISTRY_HELPER.createBlock(id + "_chest", () -> new TIChestBlock(this)).blockItem(TIChestItem::new, CreativeModeTab.TAB_DECORATIONS).build();
-        TRAPPED_CHEST = REGISTRY_HELPER.createBlock(id + "_trapped_chest", () -> new TITrappedChestBlock(this)).blockItem(TIChestItem::new, CreativeModeTab.TAB_REDSTONE).build();
-        BEEHIVE       = REGISTRY_HELPER.createBlock(id + "_beehive", TIBeehiveBlock::new, Block.Properties.copy(Blocks.BEEHIVE)).blockItem(CreativeModeTab.TAB_DECORATIONS).build();
+        WALL_SIGN     = REGISTRY_HELPER.createBlock(name + "_wall_sign", () -> new TIWallSignBlock(this)).noItemForm().build();
+        SIGN          = REGISTRY_HELPER.createBlock(name + "_sign", () -> new TIStandingSignBlock(this)).blockItem(block -> new SignItem(new Item.Properties().stacksTo(16).tab(CreativeModeTab.TAB_DECORATIONS), getSign(), WALL_SIGN.get())).build();
+        CHEST         = REGISTRY_HELPER.createBlock(name + "_chest", () -> new TIChestBlock(this)).blockItem(TIChestItem::new, CreativeModeTab.TAB_DECORATIONS).build();
+        TRAPPED_CHEST = REGISTRY_HELPER.createBlock(name + "_trapped_chest", () -> new TITrappedChestBlock(this)).blockItem(TIChestItem::new, CreativeModeTab.TAB_REDSTONE).build();
+        BEEHIVE       = REGISTRY_HELPER.createBlock(name + "_beehive", TIBeehiveBlock::new, Block.Properties.copy(Blocks.BEEHIVE)).blockItem(CreativeModeTab.TAB_DECORATIONS).build();
 
-        VERTICAL_PLANKS = REGISTRY_HELPER.createBlock("vertical_" + id + "_planks", () -> createPlanks(woodColor)).blockItem(CreativeModeTab.TAB_BUILDING_BLOCKS).build();
+        //TODO: fix missing block items here
+        VERTICAL_PLANKS = REGISTRY_HELPER.createBlock("vertical_" + name + "_planks", () -> createPlanks(woodColor)).blockItem(CreativeModeTab.TAB_BUILDING_BLOCKS).build();
         VERTICAL_SLAB   = REGISTRY_HELPER.createBlock(name + "_vertical_slab", TIVerticalSlabBlock::new, Block.Properties.of(Material.WOOD, woodColor).strength(2.0F, 3.0F).sound(SoundType.WOOD)).blockItem(CreativeModeTab.TAB_BUILDING_BLOCKS).build();
         BOOKSHELF       = REGISTRY_HELPER.createBlock(name + "_bookshelf", TIBookshelfBlock::new, Block.Properties.of(Material.WOOD, woodColor).strength(1.5F).sound(SoundType.WOOD)).blockItem(CreativeModeTab.TAB_BUILDING_BLOCKS).build();
         LADDER          = REGISTRY_HELPER.createBlock(name + "_ladder", LadderBlock::new, Block.Properties.copy(Blocks.LADDER)).cutoutRender().build();
@@ -123,9 +132,12 @@ public class TIWoodType extends WoodType {
         HEDGE           = REGISTRY_HELPER.createBlock(name + "_hedge", () -> new TIHedgeBlock(woodColor)).cutoutMippedRender().build();
         LEAF_CARPET     = REGISTRY_HELPER.createBlock(name + "_leaf_carpet", TILeafCarpetBlock::new).cutoutMippedRender().build();
 
+        BOARDS = REGISTRY_HELPER.createBlock(name + "_boards", () -> new RotatedPillarBlock(Block.Properties.copy(Blocks.OAK_PLANKS).color(woodColor))).blockItem(CreativeModeTab.TAB_BUILDING_BLOCKS).build();
+        LEAF_PILE = REGISTRY_HELPER.createBlock(name + "_leaf_pile", TILeafPileBlock::new).blockItem(CreativeModeTab.TAB_DECORATIONS).build();
+
         CABINET = ModIntegration.FARMERS_DELIGHT.registerCabinet(this);
 
-        BOAT = REGISTRY_HELPER.createItem(id + "_boat", () -> new TIBoatItem(this));
+        BOAT = REGISTRY_HELPER.createItem(name + "_boat", () -> new TIBoatItem(this));
     }
 
     //For use in the constructor
@@ -183,6 +195,8 @@ public class TIWoodType extends WoodType {
         DataUtil.registerFlammable(STRIPPED_POST, 5, 20);
         DataUtil.registerFlammable(LEAF_CARPET, 30, 60);
         DataUtil.registerFlammable(HEDGE, 5, 20);
+
+        //TODO: flammability
     }
 
     @OnlyIn(Dist.CLIENT)

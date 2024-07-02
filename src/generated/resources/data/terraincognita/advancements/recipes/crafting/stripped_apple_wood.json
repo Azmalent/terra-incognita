@@ -1,0 +1,46 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:apple",
+          "type": "cuneiform:config"
+        }
+      ],
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "terraincognita:crafting/stripped_apple_wood"
+          ]
+        },
+        "criteria": {
+          "has_stripped_apple_log": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "terraincognita:stripped_apple_log"
+                  ]
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "terraincognita:crafting/stripped_apple_wood"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_stripped_apple_log",
+            "has_the_recipe"
+          ]
+        ]
+      }
+    }
+  ]
+}

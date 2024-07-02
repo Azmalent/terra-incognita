@@ -1,8 +1,8 @@
 package azmalent.terraincognita.common.item.block;
 
 import azmalent.terraincognita.common.item.dispenser.CaltropsDispenserBehavior;
-import azmalent.terraincognita.common.registry.ModBlocks;
-import azmalent.terraincognita.common.registry.ModSounds;
+import azmalent.terraincognita.core.registry.ModBlocks;
+import azmalent.terraincognita.core.registry.ModSounds;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.Blocks;

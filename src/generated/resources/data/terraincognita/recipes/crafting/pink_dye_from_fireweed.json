@@ -1,0 +1,26 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:arctic_flowers",
+          "type": "cuneiform:config"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shapeless",
+        "group": "pink_dye",
+        "ingredients": [
+          {
+            "item": "terraincognita:fireweed"
+          }
+        ],
+        "result": {
+          "item": "minecraft:pink_dye",
+          "count": 2
+        }
+      }
+    }
+  ]
+}

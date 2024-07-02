@@ -1,0 +1,41 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "values": [
+            {
+              "config": "terraincognita:larch",
+              "type": "cuneiform:config"
+            },
+            {
+              "modid": "quark",
+              "type": "forge:mod_loaded"
+            }
+          ],
+          "type": "forge:and"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "pattern": [
+          "L",
+          "W"
+        ],
+        "key": {
+          "L": {
+            "item": "terraincognita:larch_leaves"
+          },
+          "W": {
+            "tag": "terraincognita:larch_logs"
+          }
+        },
+        "result": {
+          "item": "terraincognita:larch_hedge",
+          "count": 2
+        }
+      }
+    }
+  ]
+}

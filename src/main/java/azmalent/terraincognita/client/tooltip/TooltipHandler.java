@@ -2,8 +2,8 @@ package azmalent.terraincognita.client.tooltip;
 
 import azmalent.terraincognita.TerraIncognita;
 import azmalent.terraincognita.common.item.block.BasketItem;
-import azmalent.terraincognita.common.registry.ModBlocks;
-import azmalent.terraincognita.common.registry.ModItems;
+import azmalent.terraincognita.core.registry.ModBlocks;
+import azmalent.terraincognita.core.registry.ModItems;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.datafixers.util.Either;

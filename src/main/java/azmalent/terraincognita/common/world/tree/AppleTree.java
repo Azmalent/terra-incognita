@@ -19,7 +19,7 @@ import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Random;
 
-import static azmalent.terraincognita.common.registry.ModWoodTypes.APPLE;
+import static azmalent.terraincognita.core.registry.ModWoodTypes.APPLE;
 
 public class AppleTree extends AbstractTreeGrower {
     public static TreeConfiguration getTreeConfig(boolean grown) {

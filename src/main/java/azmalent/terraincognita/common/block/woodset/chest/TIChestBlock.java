@@ -1,7 +1,7 @@
 package azmalent.terraincognita.common.block.woodset.chest;
 
 import azmalent.terraincognita.common.woodtype.TIWoodType;
-import azmalent.terraincognita.common.registry.ModBlockEntities;
+import azmalent.terraincognita.core.registry.ModBlockEntities;
 import azmalent.terraincognita.common.blockentity.TIChestBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.ChestBlock;

@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.OptionalInt;
 import java.util.Random;
 
-import static azmalent.terraincognita.common.registry.ModWoodTypes.GINKGO;
+import static azmalent.terraincognita.core.registry.ModWoodTypes.GINKGO;
 
 public class GinkgoTree extends AbstractTreeGrower {
     public static TreeConfiguration getTreeConfig() {

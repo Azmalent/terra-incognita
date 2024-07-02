@@ -1,7 +1,7 @@
 package azmalent.terraincognita.common.woodtype;
 
 import azmalent.terraincognita.common.block.fruit.FruitLeavesBlock;
-import azmalent.terraincognita.common.registry.ModBlocks;
+import azmalent.terraincognita.core.registry.ModBlocks;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.level.block.grower.AbstractTreeGrower;

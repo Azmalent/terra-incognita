@@ -2,23 +2,19 @@ package azmalent.terraincognita;
 
 import azmalent.cuneiform.integration.ModIntegrationManager;
 import azmalent.cuneiform.registry.RegistryHelper;
-import azmalent.terraincognita.common.ModBiomeTags;
-import azmalent.terraincognita.common.ModBlockTags;
-import azmalent.terraincognita.common.ModItemTags;
-import azmalent.terraincognita.common.ModTrades;
-import azmalent.terraincognita.common.datagen.client.TIBlockStateProvider;
-import azmalent.terraincognita.common.datagen.client.TIItemModelProvider;
-import azmalent.terraincognita.common.datagen.server.TIBlockTagsProvider;
-import azmalent.terraincognita.common.datagen.server.TIItemTagsProvider;
-import azmalent.terraincognita.common.event.BiomeHandler;
-import azmalent.terraincognita.common.event.ToolInteractionHandler;
-import azmalent.terraincognita.common.registry.*;
+import azmalent.terraincognita.core.*;
 import azmalent.terraincognita.common.world.ModSurfaceRules;
+import azmalent.terraincognita.core.datagen.client.TIBlockStateProvider;
+import azmalent.terraincognita.core.datagen.client.TIItemModelProvider;
+import azmalent.terraincognita.core.datagen.server.*;
+import azmalent.terraincognita.core.event.BiomeHandler;
+import azmalent.terraincognita.core.event.ToolInteractionHandler;
+import azmalent.terraincognita.core.proxy.ClientProxy;
+import azmalent.terraincognita.core.proxy.IProxy;
+import azmalent.terraincognita.core.proxy.ServerProxy;
+import azmalent.terraincognita.core.registry.*;
 import azmalent.terraincognita.integration.ModIntegration;
 import azmalent.terraincognita.integration.top.ButterflyInfoProvider;
-import azmalent.terraincognita.proxy.ClientProxy;
-import azmalent.terraincognita.proxy.IProxy;
-import azmalent.terraincognita.proxy.ServerProxy;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
@@ -105,7 +101,7 @@ public class TerraIncognita {
 
         ModBlocks.initFlammability();
         ModItems.initFuelValues();
-        ModRecipes.initCompostables();
+        ModCompostables.init();
         ToolInteractionHandler.initToolInteractions();
         ModTrades.initWandererTrades();
     }
@@ -125,6 +121,9 @@ public class TerraIncognita {
 
             generator.addProvider(blockTags);
             generator.addProvider(new TIItemTagsProvider(generator, blockTags, existingFileHelper));
+            generator.addProvider(new TIBiomeTagsProvider(generator, existingFileHelper));
+            generator.addProvider(new TILootTableProvider(generator));
+            generator.addProvider(new TIRecipeProvider(generator));
         }
     }
 

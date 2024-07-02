@@ -1,0 +1,41 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "values": [
+            {
+              "config": "terraincognita:ginkgo",
+              "type": "cuneiform:config"
+            },
+            {
+              "modid": "woodworks",
+              "type": "forge:mod_loaded"
+            }
+          ],
+          "type": "forge:and"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "pattern": [
+          "PPP",
+          "HHH",
+          "PPP"
+        ],
+        "key": {
+          "P": {
+            "item": "terraincognita:ginkgo_planks"
+          },
+          "H": {
+            "item": "minecraft:honeycomb"
+          }
+        },
+        "result": {
+          "item": "terraincognita:ginkgo_beehive"
+        }
+      }
+    }
+  ]
+}

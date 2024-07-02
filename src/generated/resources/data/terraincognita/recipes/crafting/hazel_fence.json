@@ -1,0 +1,32 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:hazel",
+          "type": "cuneiform:config"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "pattern": [
+          "P#P",
+          "P#P"
+        ],
+        "key": {
+          "P": {
+            "item": "terraincognita:hazel_planks"
+          },
+          "#": {
+            "item": "minecraft:stick"
+          }
+        },
+        "result": {
+          "item": "terraincognita:hazel_fence",
+          "count": 3
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:forest_flowers",
+          "type": "cuneiform:config"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shapeless",
+        "group": "purple_dye",
+        "ingredients": [
+          {
+            "item": "terraincognita:purple_primrose"
+          }
+        ],
+        "result": {
+          "item": "minecraft:purple_dye"
+        }
+      }
+    }
+  ]
+}

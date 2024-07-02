@@ -1,0 +1,27 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:swamp_flowers",
+          "type": "cuneiform:config"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shapeless",
+        "ingredients": [
+          {
+            "item": "minecraft:paper"
+          },
+          {
+            "item": "terraincognita:water_flag"
+          }
+        ],
+        "result": {
+          "item": "terraincognita:fleur_de_lis_banner_pattern"
+        }
+      }
+    }
+  ]
+}

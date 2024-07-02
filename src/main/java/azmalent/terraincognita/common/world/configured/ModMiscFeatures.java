@@ -1,7 +1,7 @@
 package azmalent.terraincognita.common.world.configured;
 
-import azmalent.terraincognita.common.registry.ModBlocks;
-import azmalent.terraincognita.common.registry.ModConfiguredFeatures;
+import azmalent.terraincognita.core.registry.ModBlocks;
+import azmalent.terraincognita.core.registry.ModConfiguredFeatures;
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.util.valueproviders.UniformInt;

@@ -1,0 +1,64 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "values": [
+            {
+              "config": "terraincognita:larch",
+              "type": "cuneiform:config"
+            },
+            {
+              "values": [
+                {
+                  "modid": "quark",
+                  "type": "forge:mod_loaded"
+                },
+                {
+                  "modid": "woodworks",
+                  "type": "forge:mod_loaded"
+                }
+              ],
+              "type": "forge:or"
+            }
+          ],
+          "type": "forge:and"
+        }
+      ],
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "terraincognita:crafting/larch_trapped_chest"
+          ]
+        },
+        "criteria": {
+          "has_larch_planks": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "terraincognita:larch_planks"
+                  ]
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "terraincognita:crafting/larch_trapped_chest"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_larch_planks",
+            "has_the_recipe"
+          ]
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:larch",
+          "type": "cuneiform:config"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "pattern": [
+          "#P#",
+          "#P#"
+        ],
+        "key": {
+          "P": {
+            "item": "terraincognita:larch_planks"
+          },
+          "#": {
+            "item": "minecraft:stick"
+          }
+        },
+        "result": {
+          "item": "terraincognita:larch_fence_gate"
+        }
+      }
+    }
+  ]
+}

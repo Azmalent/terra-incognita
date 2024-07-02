@@ -1,7 +1,7 @@
 package azmalent.terraincognita.common.world.feature;
 
 import azmalent.terraincognita.common.block.plant.SwampReedsBlock;
-import azmalent.terraincognita.common.registry.ModBlocks;
+import azmalent.terraincognita.core.registry.ModBlocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.material.Fluids;

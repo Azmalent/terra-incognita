@@ -1,0 +1,25 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:cactus_flowers",
+          "type": "cuneiform:config"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shapeless",
+        "group": "pink_dye",
+        "ingredients": [
+          {
+            "item": "terraincognita:cactus_flower"
+          }
+        ],
+        "result": {
+          "item": "minecraft:pink_dye"
+        }
+      }
+    }
+  ]
+}

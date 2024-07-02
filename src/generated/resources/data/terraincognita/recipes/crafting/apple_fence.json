@@ -1,0 +1,32 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:apple",
+          "type": "cuneiform:config"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "pattern": [
+          "P#P",
+          "P#P"
+        ],
+        "key": {
+          "P": {
+            "item": "terraincognita:apple_planks"
+          },
+          "#": {
+            "item": "minecraft:stick"
+          }
+        },
+        "result": {
+          "item": "terraincognita:apple_fence",
+          "count": 3
+        }
+      }
+    }
+  ]
+}

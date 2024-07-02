@@ -1,0 +1,55 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "values": [
+            {
+              "modid": "quark",
+              "type": "forge:mod_loaded"
+            },
+            {
+              "config": "terraincognita:hazel",
+              "type": "cuneiform:config"
+            }
+          ],
+          "type": "forge:and"
+        }
+      ],
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "terraincognita:compat/quark/crafting/hazelnut_sack_uncompress"
+          ]
+        },
+        "criteria": {
+          "has_hazelnut_sack": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "terraincognita:hazelnut_sack"
+                  ]
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "terraincognita:compat/quark/crafting/hazelnut_sack_uncompress"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_hazelnut_sack",
+            "has_the_recipe"
+          ]
+        ]
+      }
+    }
+  ]
+}

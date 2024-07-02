@@ -1,0 +1,46 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:alpine_flowers",
+          "type": "cuneiform:config"
+        }
+      ],
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "terraincognita:crafting/white_dye_from_edelweiss"
+          ]
+        },
+        "criteria": {
+          "has_edelweiss": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "terraincognita:edelweiss"
+                  ]
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "terraincognita:crafting/white_dye_from_edelweiss"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_edelweiss",
+            "has_the_recipe"
+          ]
+        ]
+      }
+    }
+  ]
+}

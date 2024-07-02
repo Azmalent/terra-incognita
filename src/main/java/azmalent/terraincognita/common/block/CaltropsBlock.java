@@ -1,8 +1,8 @@
 package azmalent.terraincognita.common.block;
 
 import azmalent.terraincognita.TIServerConfig;
-import azmalent.terraincognita.common.ModDamageSources;
-import azmalent.terraincognita.common.registry.ModBlocks;
+import azmalent.terraincognita.core.ModDamageSources;
+import azmalent.terraincognita.core.registry.ModBlocks;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.Blocks;

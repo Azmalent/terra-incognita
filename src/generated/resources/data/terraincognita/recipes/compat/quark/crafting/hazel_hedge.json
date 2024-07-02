@@ -1,0 +1,41 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "values": [
+            {
+              "config": "terraincognita:hazel",
+              "type": "cuneiform:config"
+            },
+            {
+              "modid": "quark",
+              "type": "forge:mod_loaded"
+            }
+          ],
+          "type": "forge:and"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "pattern": [
+          "L",
+          "W"
+        ],
+        "key": {
+          "L": {
+            "item": "terraincognita:hazel_leaves"
+          },
+          "W": {
+            "tag": "terraincognita:hazel_logs"
+          }
+        },
+        "result": {
+          "item": "terraincognita:hazel_hedge",
+          "count": 2
+        }
+      }
+    }
+  ]
+}

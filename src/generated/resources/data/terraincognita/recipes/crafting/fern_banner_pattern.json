@@ -1,0 +1,27 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:fern_fiddleheads",
+          "type": "cuneiform:config"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shapeless",
+        "ingredients": [
+          {
+            "item": "minecraft:paper"
+          },
+          {
+            "item": "terraincognita:fiddlehead"
+          }
+        ],
+        "result": {
+          "item": "terraincognita:fern_banner_pattern"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:hanging_moss",
+          "type": "cuneiform:config"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:smelting",
+        "ingredient": {
+          "item": "terraincognita:hanging_moss"
+        },
+        "result": "minecraft:green_dye",
+        "experience": 1.0,
+        "cookingtime": 200
+      }
+    }
+  ]
+}

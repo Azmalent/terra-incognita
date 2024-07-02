@@ -1,0 +1,38 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "values": [
+            {
+              "modid": "quark",
+              "type": "forge:mod_loaded"
+            },
+            {
+              "config": "terraincognita:hazel",
+              "type": "cuneiform:config"
+            }
+          ],
+          "type": "forge:and"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "pattern": [
+          "XXX",
+          "XXX",
+          "XXX"
+        ],
+        "key": {
+          "X": {
+            "item": "terraincognita:hazelnut"
+          }
+        },
+        "result": {
+          "item": "terraincognita:hazelnut_sack"
+        }
+      }
+    }
+  ]
+}

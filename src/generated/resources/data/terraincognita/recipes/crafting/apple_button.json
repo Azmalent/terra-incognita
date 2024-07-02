@@ -1,0 +1,24 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:apple",
+          "type": "cuneiform:config"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shapeless",
+        "ingredients": [
+          {
+            "item": "terraincognita:apple_planks"
+          }
+        ],
+        "result": {
+          "item": "terraincognita:apple_button"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:savanna_flowers",
+          "type": "cuneiform:config"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shapeless",
+        "group": "yellow_dye",
+        "ingredients": [
+          {
+            "item": "terraincognita:snapdragon"
+          }
+        ],
+        "result": {
+          "item": "minecraft:yellow_dye"
+        }
+      }
+    }
+  ]
+}

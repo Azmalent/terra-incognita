@@ -1,6 +1,6 @@
 package azmalent.terraincognita.common.world.tree;
 
-import azmalent.terraincognita.common.registry.ModWoodTypes;
+import azmalent.terraincognita.core.registry.ModWoodTypes;
 import azmalent.terraincognita.common.world.configured.ModTreeFeatures;
 import net.minecraft.core.Holder;
 import net.minecraft.util.valueproviders.ConstantInt;

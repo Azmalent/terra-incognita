@@ -1,0 +1,25 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:savanna_flowers",
+          "type": "cuneiform:config"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shapeless",
+        "group": "orange_dye",
+        "ingredients": [
+          {
+            "item": "terraincognita:marigold"
+          }
+        ],
+        "result": {
+          "item": "minecraft:orange_dye"
+        }
+      }
+    }
+  ]
+}

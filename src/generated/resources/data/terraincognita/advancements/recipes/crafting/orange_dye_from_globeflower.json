@@ -1,0 +1,46 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:swamp_flowers",
+          "type": "cuneiform:config"
+        }
+      ],
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "terraincognita:crafting/orange_dye_from_globeflower"
+          ]
+        },
+        "criteria": {
+          "has_globeflower": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "terraincognita:globeflower"
+                  ]
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "terraincognita:crafting/orange_dye_from_globeflower"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_globeflower",
+            "has_the_recipe"
+          ]
+        ]
+      }
+    }
+  ]
+}

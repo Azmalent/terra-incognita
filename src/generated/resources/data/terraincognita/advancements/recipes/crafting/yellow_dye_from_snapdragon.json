@@ -1,0 +1,46 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:savanna_flowers",
+          "type": "cuneiform:config"
+        }
+      ],
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "terraincognita:crafting/yellow_dye_from_snapdragon"
+          ]
+        },
+        "criteria": {
+          "has_snapdragon": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "terraincognita:snapdragon"
+                  ]
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "terraincognita:crafting/yellow_dye_from_snapdragon"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_snapdragon",
+            "has_the_recipe"
+          ]
+        ]
+      }
+    }
+  ]
+}

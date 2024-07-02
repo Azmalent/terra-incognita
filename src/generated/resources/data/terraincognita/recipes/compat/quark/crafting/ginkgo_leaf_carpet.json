@@ -1,0 +1,37 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "values": [
+            {
+              "config": "terraincognita:ginkgo",
+              "type": "cuneiform:config"
+            },
+            {
+              "modid": "quark",
+              "type": "forge:mod_loaded"
+            }
+          ],
+          "type": "forge:and"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "pattern": [
+          "LL"
+        ],
+        "key": {
+          "L": {
+            "item": "terraincognita:ginkgo_leaves"
+          }
+        },
+        "result": {
+          "item": "terraincognita:ginkgo_leaf_carpet",
+          "count": 3
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:alpine_flowers",
+          "type": "cuneiform:config"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shapeless",
+        "group": "blue_dye",
+        "ingredients": [
+          {
+            "item": "terraincognita:gentian"
+          }
+        ],
+        "result": {
+          "item": "minecraft:blue_dye"
+        }
+      }
+    }
+  ]
+}

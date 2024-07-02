@@ -1,8 +1,8 @@
 package azmalent.terraincognita.common.item.block;
 
 import azmalent.terraincognita.TerraIncognita;
-import azmalent.terraincognita.common.registry.ModParticles;
-import azmalent.terraincognita.common.registry.ModSounds;
+import azmalent.terraincognita.core.registry.ModParticles;
+import azmalent.terraincognita.core.registry.ModSounds;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;

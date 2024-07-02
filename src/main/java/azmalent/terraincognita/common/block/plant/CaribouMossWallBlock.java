@@ -1,13 +1,12 @@
 package azmalent.terraincognita.common.block.plant;
 
-import azmalent.terraincognita.common.registry.ModBlocks;
 import azmalent.terraincognita.common.world.feature.CaribouMossFeature;
+import azmalent.terraincognita.core.registry.ModBlocks;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -17,14 +16,12 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -95,12 +92,6 @@ public class CaribouMossWallBlock extends Block implements BonemealableBlock {
         }
 
         return super.updateShape(stateIn, facing, facingState, level, currentPos, facingPos);
-    }
-
-    @Nonnull
-    @Override
-    public List<ItemStack> getDrops(@Nonnull BlockState state, @Nonnull LootContext.Builder builder) {
-        return ModBlocks.CARIBOU_MOSS.defaultBlockState().getDrops(builder);
     }
 
     @Nonnull

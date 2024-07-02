@@ -1,0 +1,55 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "values": [
+            {
+              "modid": "quark",
+              "type": "forge:mod_loaded"
+            },
+            {
+              "config": "terraincognita:sour_berries",
+              "type": "cuneiform:config"
+            }
+          ],
+          "type": "forge:and"
+        }
+      ],
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "terraincognita:compat/quark/crafting/sour_berry_sack_uncompress"
+          ]
+        },
+        "criteria": {
+          "has_sour_berry_sack": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "terraincognita:sour_berry_sack"
+                  ]
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "terraincognita:compat/quark/crafting/sour_berry_sack_uncompress"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_sour_berry_sack",
+            "has_the_recipe"
+          ]
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:arctic_flowers",
+          "type": "cuneiform:config"
+        }
+      ],
+      "advancement": {
+        "parent": "minecraft:recipes/root",
+        "rewards": {
+          "recipes": [
+            "terraincognita:crafting/pink_dye_from_fireweed"
+          ]
+        },
+        "criteria": {
+          "has_fireweed": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+              "items": [
+                {
+                  "items": [
+                    "terraincognita:fireweed"
+                  ]
+                }
+              ]
+            }
+          },
+          "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+              "recipe": "terraincognita:crafting/pink_dye_from_fireweed"
+            }
+          }
+        },
+        "requirements": [
+          [
+            "has_fireweed",
+            "has_the_recipe"
+          ]
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:savanna_flowers",
+          "type": "cuneiform:config"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shapeless",
+        "group": "blue_dye",
+        "ingredients": [
+          {
+            "item": "terraincognita:blue_iris"
+          }
+        ],
+        "result": {
+          "item": "minecraft:blue_dye"
+        }
+      }
+    }
+  ]
+}

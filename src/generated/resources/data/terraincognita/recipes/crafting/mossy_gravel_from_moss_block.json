@@ -1,0 +1,27 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "config": "terraincognita:mossy_gravel",
+          "type": "cuneiform:config"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shapeless",
+        "ingredients": [
+          {
+            "item": "minecraft:gravel"
+          },
+          {
+            "item": "minecraft:moss_block"
+          }
+        ],
+        "result": {
+          "item": "terraincognita:mossy_gravel"
+        }
+      }
+    }
+  ]
+}
